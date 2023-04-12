@@ -101,35 +101,20 @@ function fnInit() {
     <a href="#contents" class="skip_navi">본문 바로가기</a>
 
     <div class="wrap">
-        <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
-        <!--// Header -->
-
         <div class="container" style="padding-bottom: 60px;">
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-
-                        <!-- Location -->
-                        <div class="location">
-                            <ul>
-                                <li><a class="home" href="">Home</a></li>
-                                <li>사용자로그인</li>
-                            </ul>
-                        </div>
-                        <!--// Location -->
-
                         <div class="P_LOGIN">
                             <h1>로그인</h1>
-                            <p class="txt">표준프레임워크 경량환경 내부업무 시스템에 오신것을 환영합니다.</p>
+                            <p class="txt">ITeyes 자산관리 시스템에 오신것을 환영합니다.</p>
                             <div class="loginbox">
                                 <form:form id="loginForm" name="loginForm" method="post">
                                     <fieldset>
                                         <legend>로그인</legend>
-            
                                         <dl>
                                             <dt><label for="memid">아이디</label></dt>
-                                            <dd><input type="text" title="아이디를 입력하세요." id="id" name="id" maxlength="10"/></dd>
+                                            <dd><input type="text" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
                                         </dl>
             
                                         <dl>
@@ -146,13 +131,16 @@ function fnInit() {
 		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 		                                        <span>ID 저장</span>
 		                                    </label>
+		                                    <label for="chkA" class="f_chk">
+		                                        <input type="checkbox" name="checkAuto" id="chkA" title="자동로그인" onClick="javascript:saveid(document.loginForm);" />
+		                                        <span>자동로그인</span>
+		                                    </label>
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
 		                            <input type="hidden" name="userSe" value="USR"/>
 		                            <input name="j_username" type="hidden"/>
-		                            </form:form>
-                                </form>
+		                    	</form:form>
                             </div>
                         </div>
                     </div>
