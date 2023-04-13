@@ -1,6 +1,6 @@
 <%--
-  Class Name : ReturnRequest.jsp 
-  Description : 반납신청조회 화면
+  Class Name : AssetManagement.jsp 
+  Description : 자산조회 화면
   Modification Information
  
       수정일         수정자                   수정내용
@@ -25,7 +25,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
-<title>자산관리 > 반납신청조회</title>
+<title>자산관리 > 자산조회</title>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -53,14 +53,14 @@
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
                                         <li><a href="">자산관리</a></li>
-                                        <li>반납신청조회</li>
+                                        <li>자산조회</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
 
                                 <h1 class="tit_1">자산관리</h1>
 
-                                <h2 class="tit_2">반납신청조회</h2>
+                                <h2 class="tit_2">자산조회</h2>
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition2">
@@ -101,7 +101,7 @@
                                         </select>
                                     </label>
                                     
-                                    <span class="lb ml20">신청일자</span>
+                                    <span class="lb ml20">취득일자</span>
 
                                     <input class="f_date" type="text" value="2021-07-11">
                                     <a href="" class="btn btn_calendar mr10">달력</a>
@@ -127,13 +127,15 @@
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <th scope="col"> </th>
+                                            	<th scope="col"> </th>
                                                 <th scope="col">대분류</th>
                                                 <th scope="col">중분류</th>
                                                 <th scope="col">품명</th>
                                                 <th scope="col">수량</th>
-                                                <th scope="col">신청일자</th>
-                                                <th scope="col">신청상태</th>
+                                                <th scope="col">취득일자</th>
+                                                <th scope="col">취득가액</th>
+                                                <th scope="col">제조사</th>
+                                                <th scope="col">비고</th>
                                             </tr>
                                         </thead>
                                         <tbody>
