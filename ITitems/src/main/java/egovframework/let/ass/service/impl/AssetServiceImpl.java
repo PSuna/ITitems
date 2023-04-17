@@ -1,13 +1,19 @@
 package egovframework.let.ass.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
+import egovframework.let.ass.service.AssetHistVO;
 import egovframework.let.ass.service.AssetInfo;
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.prj.service.impl.ProjectDAO;
 
 /**
  * 자산관리를 위한 서비스 구현 클래스
@@ -28,7 +34,28 @@ import egovframework.let.ass.service.AssetService;
 
 @Service("AssetService")
 public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetService {
+	
+	@Resource(name = "AssetInfoDAO")
+	private AssetInfoDAO assetInfoDAO;
+	
+	@Resource(name = "AssetHistDAO")
+	private AssetHistDAO assetHistDAO;
+	
+	@Resource(name = "ProjectDAO")
+	private ProjectDAO projectDAO;
 
+	/**
+     * 조건에 맞는 자산 내역을 전부 조회한다.
+     */
+	@Override
+	public Map<String, Object> SelectAssetHistVOList(AssetHistVO assetHistVO) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("resultList", assetHistDAO.SelectAssetHistVOList(assetHistVO));
+		map.put("resultCnt", assetHistDAO.CountAssetHistVOList(assetHistVO));
+		return map;
+	}
+	
 	@Override
 	public List<AssetInfoVO> SelectAssetInfoVOList(AssetInfoVO assetInfoVO) throws Exception {
 		
@@ -52,5 +79,6 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		
 		return 0;
 	}
+
 
 }
