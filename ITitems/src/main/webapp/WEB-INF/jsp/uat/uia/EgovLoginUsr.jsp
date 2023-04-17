@@ -49,6 +49,7 @@ function actionLogin() {
     }
 }
 
+
 function setCookie (name, value, expires) {
     document.cookie = name + "=" + escape (value) + "; path=/; expires=" + expires.toGMTString();
 }
@@ -94,7 +95,7 @@ function fnInit() {
 //-->
 </script>
 </head>
-<body  onload="fnInit();">
+<body onload="fnInit();">
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
     <!-- Skip navigation -->
@@ -113,7 +114,7 @@ function fnInit() {
                                     <fieldset>
                                         <legend>로그인</legend>
                                         <dl>
-                                            <dt><label for="memid">아이디</label></dt>
+                                            <dt><label for="memid">이메일주소</label></dt>
                                             <dd><input type="text" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
                                         </dl>
             
@@ -127,6 +128,8 @@ function fnInit() {
                                         <a href="#LINK" class="btn_login" onclick="javascript:actionLogin()">로그인</a>
 
                                         <div class="bot">
+                                        	<a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호찾기</a>
+                                        	<br><br>
                                             <label for="chk" class="f_chk">
 		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 		                                        <span>ID 저장</span>
