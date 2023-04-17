@@ -1,6 +1,7 @@
 package egovframework.let.ass.service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 자산 관리를 위한 서비스 인터페이스  클래스
@@ -19,6 +20,8 @@ import java.util.List;
  *  </pre>
  */
 public interface AssetService {
+	
+	public Map<String, Object> SelectAssetHistVOList(AssetHistVO assetHistVO) throws Exception;
 	
 	public List<AssetInfoVO> SelectAssetInfoVOList(AssetInfoVO assetInfoVO) throws Exception;
 	

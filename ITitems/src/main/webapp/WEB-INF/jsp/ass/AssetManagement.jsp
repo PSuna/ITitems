@@ -135,7 +135,7 @@
                                                 <th scope="col">취득일자</th>
                                                 <th scope="col">취득가액</th>
                                                 <th scope="col">제조사</th>
-                                                <th scope="col">비고</th>
+                                                <th scope="col">상태</th>
                                             </tr>
                                         </thead>
                                         <tbody>

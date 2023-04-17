@@ -41,6 +41,9 @@ public class AssetInfo implements Serializable {
 	/** 취득일자 */
 	private Date acquiredDate;
 	
+	/** 취득가액 */
+	private int acquiredPrice;
+	
 	/** 제조사 */
 	private String maker;
 	
@@ -142,6 +145,14 @@ public class AssetInfo implements Serializable {
 
 	public void setUsageStatus(String usageStatus) {
 		this.usageStatus = usageStatus;
+	}
+
+	public int getAcquiredPrice() {
+		return acquiredPrice;
+	}
+
+	public void setAcquiredPrice(int acquiredPrice) {
+		this.acquiredPrice = acquiredPrice;
 	}
 	
 	
