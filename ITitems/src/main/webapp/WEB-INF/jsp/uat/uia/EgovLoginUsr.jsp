@@ -134,7 +134,6 @@ function fnInit() {
 		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 		                                        <span>ID 저장</span>
 		                                    </label>
-		                                    
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
