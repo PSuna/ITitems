@@ -67,14 +67,14 @@ public class AssetController {
 		assetHistVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetHistVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 		
-//		Map<String, Object> map = assetService.SelectAssetHistVOList(assetHistVO);
-//		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-//
-//		paginationInfo.setTotalRecordCount(totCnt);
-//		
-//		model.addAttribute("resultList", map.get("resultList"));
-//		model.addAttribute("resultCnt", map.get("resultCnt"));
-//		model.addAttribute("paginationInfo", paginationInfo);
+		Map<String, Object> map = assetService.SelectAssetHistVOList(assetHistVO);
+		
+		int totCnt = Integer.parseInt((String) map.get("resultCnt")) ;
+
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
 		
 		return "/ass/AssetManagement";
 	}
@@ -85,6 +85,8 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetRegist.do")
 	public String AssetInsert(HttpServletRequest request, ModelMap model) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
+		
+		model.addAttribute("projects",null);
 		
 		return "/ass/AssetRegist";
 	}
