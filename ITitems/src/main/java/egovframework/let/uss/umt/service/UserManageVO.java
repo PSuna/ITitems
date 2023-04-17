@@ -120,6 +120,10 @@ public class UserManageVO extends UserDefaultVO{
 	 */
 	private String orgnztId;
 	/**
+	 * 직급 ID
+	 */
+	private String grade;
+	/**
 	 * 비밀번호
 	 */
 	private String password;
@@ -598,6 +602,21 @@ public class UserManageVO extends UserDefaultVO{
 	 */
 	public void setSubDn(String subDn) {
 		this.subDn = subDn;
+	}
+	/**
+	 * grade attribute 값을  리턴한다.
+	 * @return String
+	 */
+	public String getGrade() {
+		return grade;
+	}
+	
+	/**
+	 * grade attribute 값을 설정한다.
+	 * @param grade String
+	 */
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	
 }

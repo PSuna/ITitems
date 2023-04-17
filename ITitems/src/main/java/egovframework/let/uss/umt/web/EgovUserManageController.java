@@ -152,6 +152,10 @@ public class EgovUserManageController {
 		//소속기관코드를 코드정보로부터 조회 - COM025
 		vo.setCodeId("COM025");
 		model.addAttribute("insttCode_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		//직급코드를 코드정보로부터 조회 - COM002 
+		vo.setCodeId("COM002");
+		model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
 
 		//조직정보를 조회 - ORGNZT_ID정보
 		vo.setTableNm("LETTNORGNZTINFO");
