@@ -95,7 +95,7 @@ public class AssetHistVO extends AssetHist implements Serializable {
 	private int histQty;
 	
 	/** 취득일자 */
-	private Date acquiredDate;
+	private String acquiredDate;
 	
 	/** 취득가액 */
 	private int acquiredPrice;
@@ -257,10 +257,10 @@ public class AssetHistVO extends AssetHist implements Serializable {
 	public void setHistQty(int histQty) {
 		this.histQty = histQty;
 	}
-	public Date getAcquiredDate() {
+	public String getAcquiredDate() {
 		return acquiredDate;
 	}
-	public void setAcquiredDate(Date acquiredDate) {
+	public void setAcquiredDate(String acquiredDate) {
 		this.acquiredDate = acquiredDate;
 	}
 	public int getAcquiredPrice() {

@@ -1,5 +1,8 @@
 package egovframework.let.prj.service;
 
+import java.util.Map;
+
+
 /**
  * 프로젝트를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 주소현
@@ -17,6 +20,7 @@ package egovframework.let.prj.service;
  *  </pre>
  */
 public interface ProjectService {
-
+	
+	public Map<String, Object> SelectProjectVOList(ProjectVO projectVO) throws Exception;
 	
 }

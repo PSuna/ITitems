@@ -332,16 +332,14 @@
                                                 <label for="">프로젝트</label>
                                             </td>
                                              <td>
-                                                <label class="f_select" for="prjId">
-                                                <select name="">
-                                                <option>선택하세요</option>
-                                                </select>
-                                                    <%-- <form:select path="prjId" id="prjId" name="prjId" title="프로젝트">
-                                                        <form:option value='' label="선택하세요" selected="selected" />
-                                                        <form:options items="${typeList}" itemValue="code" itemLabel="codeNm"/>
-                                                    </form:select> --%>
-                                                </label>
-                                                <br/><form:errors path="prjId" />
+                                                <span class="f_search2 w_150">
+                                                    <input id="prjId" title="주소" maxlength="100" readonly="false" />
+                                                    <form:errors path="prjId" />
+                                                    <button type="button" class="btn" onclick="">조회</button>
+                                                </span>
+                                                <span class="f_txt_inner ml15">(프로젝트 검색)</span>
+                                                <form:errors path="prjId" />
+                                                <input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
                                             </td>
                                         </tr>
                                     </table>
