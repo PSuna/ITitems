@@ -131,10 +131,6 @@ function fnInit() {
 		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 		                                        <span>ID 저장</span>
 		                                    </label>
-		                                    <label for="chkA" class="f_chk">
-		                                        <input type="checkbox" name="checkAuto" id="chkA" title="자동로그인" onClick="javascript:saveid(document.loginForm);" />
-		                                        <span>자동로그인</span>
-		                                    </label>
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
