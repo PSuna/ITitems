@@ -68,7 +68,6 @@ FROM(
     </select>
     
     <insert id="insertUser_S">
-        
             INSERT INTO LETTNEMPLYRINFO 
                 (   ESNTL_ID             ,
                     EMPLYR_ID           ,
@@ -96,9 +95,10 @@ FROM(
                     PSTINST_CODE          ,
                     EMPLYR_STTUS_CODE   ,
                     SBSCRB_DE           ,
-                    CRTFC_DN_VALUE              )
+                    CRTFC_DN_VALUE		,
+                    GRADE              )
             VALUES (
-                    #{uniqId}            ,
+                    'USRCNFRM_00000000002'            ,
                     #{emplyrId}          ,
                     #{emplyrNm}          ,
                     #{password}          ,
@@ -122,10 +122,10 @@ FROM(
                     #{groupId}           ,
                     #{orgnztId}          ,
                     #{insttCode}         ,
-                    #{emplyrSttusCode}   ,
+                    'P'   ,
                     sysdate()           ,
-                    #{subDn}             )
-        
+                    #{subDn}			,
+                    #{grade}             )
     </insert>
     
     <delete id="deleteUser_S">
@@ -138,36 +138,39 @@ FROM(
     <select id="selectUser_S" resultType="egovframework.let.uss.umt.service.UserManageVO">
         
             SELECT
-                ESNTL_ID           uniqId            ,
+                A.ESNTL_ID           uniqId            ,
                 'USR03'           userTy,
-            EMPLYR_ID         emplyrId          ,
-            USER_NM         emplyrNm          ,
-            PASSWORD          password          ,
-            PASSWORD_HINT     passwordHint      ,
-            PASSWORD_CNSR     passwordCnsr      ,
-            EMPL_NO           emplNo            ,
-            IHIDNUM           ihidnum           ,
-            SEXDSTN_CODE      sexdstnCode       ,
-            BRTHDY              brth              ,
-            AREA_NO           areaNo            ,
-            HOUSE_MIDDLE_TELNO  homemiddleTelno   ,
-            HOUSE_END_TELNO     homeendTelno      ,
-            FXNUM             fxnum             ,
-            HOUSE_ADRES         homeadres         ,
-            DETAIL_ADRES      detailAdres       ,
-            ZIP               zip               ,
-            OFFM_TELNO        offmTelno         ,
-            MBTLNUM       moblphonNo        ,
-            EMAIL_ADRES       emailAdres        ,
-            OFCPS_NM          ofcpsNm           ,
-            GROUP_ID          groupId           ,
-            ORGNZT_ID         orgnztId          ,
-            PSTINST_CODE        insttCode         ,
-            EMPLYR_STTUS_CODE emplyrSttusCode   , 
-            DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe,
-            CRTFC_DN_VALUE            subDn
-        FROM LETTNEMPLYRINFO
+            A.EMPLYR_ID         emplyrId          ,
+            A.USER_NM         emplyrNm          ,
+            A.PASSWORD          password          ,
+            A.PASSWORD_HINT     passwordHint      ,
+            A.PASSWORD_CNSR     passwordCnsr      ,
+            A.EMPL_NO           emplNo            ,
+            A.IHIDNUM           ihidnum           ,
+            A.SEXDSTN_CODE      sexdstnCode       ,
+            A.BRTHDY              brth              ,
+            A.AREA_NO           areaNo            ,
+            A.HOUSE_MIDDLE_TELNO  homemiddleTelno   ,
+            A.HOUSE_END_TELNO     homeendTelno      ,
+            A.FXNUM             fxnum             ,
+            A.HOUSE_ADRES         homeadres         ,
+            A.DETAIL_ADRES      detailAdres       ,
+            A.ZIP               zip               ,
+            A.OFFM_TELNO        offmTelno         ,
+            A.MBTLNUM       moblphonNo        ,
+            A.EMAIL_ADRES       emailAdres        ,
+            A.OFCPS_NM          ofcpsNm           ,
+            A.GROUP_ID          groupId           ,
+            A.ORGNZT_ID         orgnztId          ,
+            A.PSTINST_CODE        insttCode         ,
+            A.EMPLYR_STTUS_CODE emplyrSttusCode   , 
+            A.DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+            A.CRTFC_DN_VALUE            subDn,
+            A.GRADE			grade,
+            B.AUTHOR_CODE 
+        FROM LETTNEMPLYRINFO A, LETTNEMPLYRSCRTYESTBS B
             WHERE ESNTL_ID=#{uniqId}
+            AND A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
         
     </select>
     

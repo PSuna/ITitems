@@ -245,7 +245,7 @@ function fn_egov_modal_remove() {
                                                 <form:errors path="emplyrNm" />
                                             </td>
                                             <td class="lb">
-                                                <label for="insttCode">부서</label>
+                                                <label for="orgnztId">부서</label>
                                             </td>
                                             <td>
                                                 <label class="f_select w_full" for="orgnztId">
@@ -259,7 +259,7 @@ function fn_egov_modal_remove() {
                                         </tr>
                                         <tr>
                                             <td class="lb">
-                                                <label for="orgnztId">직위</label>
+                                                <label for="grade">직위</label>
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>

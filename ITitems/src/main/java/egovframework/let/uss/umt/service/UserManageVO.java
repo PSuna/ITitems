@@ -154,6 +154,8 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * DN 값
 	 */	
+	private String role;
+	
 	private String subDn;
 	/**
 	 * oldPassword attribute 값을  리턴한다.
@@ -617,6 +619,12 @@ public class UserManageVO extends UserDefaultVO{
 	 */
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }
