@@ -6,6 +6,7 @@ import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetInfoVO;
+import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectVO;
 
 /**
@@ -31,8 +32,15 @@ public class ProjectDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 프로젝트 전체 조회
 	 */
-	public List<ProjectVO> SelectProjectVOList(ProjectVO projectVO) throws Exception {
-		return selectList("AssetInfoDAO.SelectProjectVOList", projectVO);
+	public List<ProjectVO> SelectProjectVOList(ProjectManageVO projectManageVO) throws Exception {
+		return selectList("ProjectDAO.SelectProjectVOList", projectManageVO);
+	}
+	
+	/**
+	 * 조건에 맞는 프로젝트 전체 갯수
+	 */
+	public int CountProjectVOList(ProjectManageVO projectManageVO) throws Exception {
+		return selectOne("ProjectDAO.CountProjectVOList", projectManageVO);
 	}
 	
 }

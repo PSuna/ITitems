@@ -51,7 +51,7 @@
 	</sql>
 	
 	<select id="SelectAssetHistVOList"
-		parameterType="egovframework.let.ass.service.AssetHistVO"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="AssetHistList">
 		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.HIST_DATE DESC)
 		AS RUM,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.LARGE_CATEGORY)AS LARGE_CATEGORY,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.MIDDLE_CATEGORY)AS MIDDLE_CATEGORY,b.ASSET_NAME,a.HIST_QTY,DATE_FORMAT(b.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,b.ACQUIRED_PRICE,b.MAKER,a.HIST_STATUS
@@ -63,7 +63,7 @@
 		) P WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 
-	<select id="CountAssetHistVOList" parameterType="egovframework.let.ass.service.AssetHistVO" resultType="int">
+	<select id="CountAssetHistVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
 		SELECT COUNT(a.HIST_ID)
 		FROM ASSETSHIST a
 		LEFT OUTER JOIN ASSETSINFO b

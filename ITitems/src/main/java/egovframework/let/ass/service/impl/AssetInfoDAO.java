@@ -5,8 +5,8 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
-import egovframework.let.ass.service.AssetInfo;
 import egovframework.let.ass.service.AssetInfoVO;
+import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.cop.bbs.service.BoardMaster;
 
 /**
@@ -32,28 +32,28 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 자산 전체 조회
 	 */
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetInfoVO assetInfoVO) throws Exception {
-		return selectList("AssetInfoDAO.SelectAssetInfoVOList", assetInfoVO);
+	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+		return selectList("AssetInfoDAO.SelectAssetInfoVOList", assetManageVO);
 	}
 
 	/**
 	 * 자산 한건 상세 조회
 	 */
-	public AssetInfoVO SelectAssetInfoVO(AssetInfoVO assetInfoVO) throws Exception {
-		return selectOne("AssetInfoDAO.SelectAssetInfoVO", assetInfoVO);
+	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {
+		return selectOne("AssetInfoDAO.SelectAssetInfoVO", assetManageVO);
 	}
 	
 	/**
 	 * 자산정보 한건 등록
 	 */
-	public int InsertAssetInfo(AssetInfo assetInfo) throws Exception {
-		return insert("AssetInfoDAO.InsertAssetInfo", assetInfo);
+	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+		return insert("AssetInfoDAO.InsertAssetInfo", assetInfoVO);
 	}
 	
 	/**
 	 * 자산정보 한건 수정
 	 */
-	public int UpdateAssetInfo(AssetInfo assetInfo) throws Exception {
-		return update("AssetInfoDAO.UpdateAssetInfo", assetInfo);
+	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+		return update("AssetInfoDAO.UpdateAssetInfo", assetInfoVO);
 	}
 }

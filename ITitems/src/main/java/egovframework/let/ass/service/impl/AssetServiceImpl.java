@@ -9,8 +9,7 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.ass.service.AssetHistVO;
-import egovframework.let.ass.service.AssetInfo;
+import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.prj.service.impl.ProjectDAO;
@@ -45,7 +44,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 조건에 맞는 자산 내역을 전부 조회한다.
      */
 	@Override
-	public Map<String, Object> SelectAssetHistVOList(AssetHistVO assetHistVO) throws Exception {
+	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetHistVO) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("resultList", assetHistDAO.SelectAssetHistVOList(assetHistVO));
@@ -54,25 +53,25 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	}
 	
 	@Override
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetInfoVO assetInfoVO) throws Exception {
+	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
 		
 		return null;
 	}
 
 	@Override
-	public AssetInfoVO SelectAssetInfoVO(AssetInfoVO assetInfoVO) throws Exception {
+	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {
 		
 		return null;
 	}
 
 	@Override
-	public int InsertAssetInfo(AssetInfo assetInfo) throws Exception {
+	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
 		
 		return 0;
 	}
 
 	@Override
-	public int UpdateAssetInfo(AssetInfo assetInfo) throws Exception {
+	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
 		
 		return 0;
 	}

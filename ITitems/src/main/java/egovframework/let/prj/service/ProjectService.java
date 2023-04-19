@@ -21,6 +21,6 @@ import java.util.Map;
  */
 public interface ProjectService {
 	
-	public Map<String, Object> SelectProjectVOList(ProjectVO projectVO) throws Exception;
+	public Map<String, Object> SelectProjectVOList(ProjectManageVO projectManageVO) throws Exception;
 	
 }
