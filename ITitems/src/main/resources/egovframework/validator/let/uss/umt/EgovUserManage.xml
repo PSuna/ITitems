@@ -130,9 +130,9 @@
                 <arg0 key="부서" resource="false"/>
             </field>
             
-            <field property="groupId" depends="required">
+            <!-- <field property="groupId" depends="required">
                 <arg0 key="그룹아이디" resource="false"/>
-            </field>
+            </field> -->
             
             <field property="grade" depends="required">
                 <arg0 key="직위" resource="false"/>

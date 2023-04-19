@@ -167,16 +167,16 @@ function fnViewCheck(){
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition">
-                                    <label class="item f_select" for="sbscrbSttus">
+                                    <%-- <label class="item f_select" for="sbscrbSttus">
                                         <select name="sbscrbSttus" id="sbscrbSttus" title="검색조건1-사용자상태">
                                             <option value="0" <c:if test="${empty userSearchVO.sbscrbSttus || userSearchVO.sbscrbSttus == '0'}">selected="selected"</c:if> >상태(전체)</option>
                                             <option value="A" <c:if test="${userSearchVO.sbscrbSttus == 'A'}">selected="selected"</c:if> >가입신청</option>
                                             <option value="D" <c:if test="${userSearchVO.sbscrbSttus == 'D'}">selected="selected"</c:if> >삭제</option>
                                             <option value="P" <c:if test="${userSearchVO.sbscrbSttus == 'P'}">selected="selected"</c:if> >승인</option>
                                         </select>
-                                    </label>
+                                    </label> --%>
                                     <label class="item f_select" for="searchCondition">
-                                        <select name="searchCondition" id="searchCondition" title="검색조건2-검색어구분">
+                                        <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
                                             <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >ID</option>
                                             <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >Name</option>
                                         </select>
@@ -208,10 +208,9 @@ function fnViewCheck(){
                                         <colgroup>
                                             <col style="width: 80px;">
                                             <col style="width: 80px;">
-                                            <col style="width: 150px;">
-                                            <col style="width: 150px;">
+                                            <col style="width: 100px;">
                                             <col style="width: auto;">
-                                            <col style="width: 120px;">
+                                            <col style="width: 200px;">
                                             <col style="width: 100px;">
                                             <col style="width: 100px;">
                                         </colgroup>
@@ -223,12 +222,11 @@ function fnViewCheck(){
                                                         <input name="checkAll" type="checkbox" title="Check All" onclick="javascript:fnCheckAll();"/>
                                                     </span>
                                                 </th>
-                                                <th scope="col">아이디</th>
                                                 <th scope="col">이름</th>
-                                                <th scope="col">이메일</th>
+                                                <th scope="col">아이디</th>
                                                 <th scope="col">전화번호</th>
-                                                <th scope="col">등록일</th>
-                                                <th scope="col">가입상태</th>
+                                                <th scope="col">직급</th>
+                                                <th scope="col">권한</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -248,20 +246,20 @@ function fnViewCheck(){
                                                         <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
                                                     </span>
                                                 </td>
+                                                <td><c:out value="${result.userNm}"/></td>
                                                 <td>
 	                                                <a href="<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>?selectedId=<c:out value="${result.uniqId}"/>" class="lnk" onclick="javascript:fnSelectUser('<c:out value="${result.userTy}"/>:<c:out value="${result.uniqId}"/>'); return false;">
 	                                                	<c:out value="${result.userId}"/>
 	                                                </a>
                                                 </td>
-                                                <td><c:out value="${result.userNm}"/></td>
-                                                <td><c:out value="${result.emailAdres}"/></td>
-                                                <td><c:out value="${result.areaNo}"/>)<c:out value="${result.middleTelno}"/>-<c:out value="${result.endTelno}"/></td>
-                                                <td><c:out value="${result.sbscrbDe}"/></td>
-                                                <td>
+                                                <td><c:out value="${result.moblphonNo}"/></td>
+                                                <td><c:out value="${result.grade}"/></td>
+                                                <td><c:out value="${result.authorCode}"/></td>
+                                                <%-- <td>
                                                 	<c:forEach var="emplyrSttusCode_result" items="${emplyrSttusCode_result}" varStatus="status">
                                                 		<c:if test="${result.sttus == emplyrSttusCode_result.code}"><c:out value="${emplyrSttusCode_result.codeNm}"/></c:if>
                                                 	</c:forEach>
-                                                </td>
+                                                </td> --%>
                                             </tr>
                                             </c:forEach>
                                             
@@ -270,7 +268,7 @@ function fnViewCheck(){
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->
-								<c:if test="${!empty userAbsnceVO.pageIndex }">
+								<c:if test="${!empty userSearchVO.pageIndex }">
                                 <div class="board_list_bot">
                                     <div class="paging" id="paging_div">
                                         <ul>

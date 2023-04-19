@@ -81,6 +81,7 @@ function fnInsert(){
             return;
         }
         document.userManageVO.submit();
+        document.authorManageVO.submit();
     }
 }
 function fn_egov_inqire_cert() {
@@ -271,7 +272,7 @@ function fn_egov_modal_remove() {
                                                 </label>
                                                 <form:errors path="grade" /> 
                                             </td>
-                                            <td class="lb">
+                                            <%-- <td class="lb">
                                                 <label for="groupId">그룹아이디</label>
                                                 <span class="req">필수</span>
                                             </td>
@@ -283,6 +284,18 @@ function fn_egov_modal_remove() {
                                                     </form:select>
                                                 </label>
                                                 <form:errors path="groupId" />
+                                            </td> --%>
+                                            <td class="lb">
+                                                <label for="authorCode">권한</label>
+                                            </td>
+                                            <td>
+                                            	<label class="f_select w_full" for="authorCode">
+                                                	<select name="authorManageCombo" title="권한">
+                                                    	<c:forEach var="authorManage" items="${authorManageList}" varStatus="status">
+                                                        	<option value="<c:out value="${authorManage.authorCode}"/>">${authorManage.authorNm}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </label>
                                             </td>
                                         </tr>
                                     </table>

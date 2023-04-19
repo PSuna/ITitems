@@ -2,6 +2,9 @@ package egovframework.let.uss.umt.service.impl;
 
 import java.util.List;
 
+import egovframework.let.sec.ram.service.AuthorManageVO;
+import egovframework.let.sec.rgm.service.AuthorGroup;
+import egovframework.let.sec.rgm.service.impl.AuthorGroupDAO;
 import egovframework.let.uss.umt.service.EgovUserManageService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageVO;
@@ -12,6 +15,7 @@ import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,9 +38,16 @@ import org.springframework.stereotype.Service;
 @Service("userManageService")
 public class EgovUserManageServiceImpl extends EgovAbstractServiceImpl implements EgovUserManageService {
 
+	@Resource(name="authorGroup")
+    private AuthorGroup authorGroup;
+	
 	/** userManageDAO */
 	@Resource(name="userManageDAO")
 	private UserManageDAO userManageDAO;
+	
+	/** authorGroupDAO */
+	@Resource(name="authorGroupDAO")
+    private AuthorGroupDAO authorGroupDAO;
 
 	/** mberManageDAO */
 	//EBT-CUSTOMIZING//@Resource(name="mberManageDAO")
@@ -97,7 +108,12 @@ public class EgovUserManageServiceImpl extends EgovAbstractServiceImpl implement
 		//패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(userManageVO.getPassword(), userManageVO.getEmplyrId());
 		userManageVO.setPassword(pass);
+		
+		authorGroup.setUniqId(uniqId);
+		authorGroup.setAuthorCode(userManageVO.getAuthorCode());
+		
 		userManageDAO.insertUser(userManageVO);
+		authorGroupDAO.insertAuthorGroup(authorGroup);
 	}
 
 	/**

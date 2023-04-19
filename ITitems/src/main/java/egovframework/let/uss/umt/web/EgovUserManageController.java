@@ -6,6 +6,9 @@ import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.sec.ram.service.AuthorManageVO;
+import egovframework.let.sec.ram.service.EgovAuthorManageService;
+import egovframework.let.sec.rgm.service.AuthorGroupVO;
+import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
 import egovframework.let.uss.umt.service.EgovUserManageService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageVO;
@@ -56,7 +59,7 @@ public class EgovUserManageController {
 	/** cmmUseService */
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
-
+	
 	/** EgovMessageSource */
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
@@ -68,6 +71,9 @@ public class EgovUserManageController {
 	/** DefaultBeanValidator beanValidator */
 	@Autowired
 	private DefaultBeanValidator beanValidator;
+	
+	@Resource(name = "egovAuthorManageService")
+    private EgovAuthorManageService egovAuthorManageService;
 
 	/**
 	 * 사용자목록을 조회한다. (pageing)
@@ -93,7 +99,7 @@ public class EgovUserManageController {
 		userSearchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
 
-		/** pageing */
+		/** paging */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(userSearchVO.getPageUnit());
@@ -126,7 +132,10 @@ public class EgovUserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserInsertView.do")
-	public String insertUserView(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, @ModelAttribute("userManageVO") UserManageVO userManageVO, @ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, Model model)
+	public String insertUserView(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, 
+								 @ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
+								 @ModelAttribute("userManageVO") UserManageVO userManageVO, 
+								 Model model)
 			throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
@@ -167,8 +176,9 @@ public class EgovUserManageController {
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("groupId_result", cmmUseService.selectGroupIdDetail(vo));
 		
-		//권한 목록을 조회
-		model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+		//권한정보를 조회
+		authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
+        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
 		
 		return "cmm/uss/umt/EgovUserInsert";
 	}
@@ -182,8 +192,11 @@ public class EgovUserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserInsert.do")
-	public String insertUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, BindingResult bindingResult, Model model) throws Exception {
-
+	public String insertUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, 
+							@ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
+							BindingResult bindingResult, Model model) throws Exception {
+		userManageVO.setAuthorCode("ROLE_USER_MEMBER");
+		System.out.println("=================================================================="+userManageVO);
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -218,6 +231,9 @@ public class EgovUserManageController {
 			//그룹정보를 조회 - GROUP_ID정보
 			vo.setTableNm("LETTNORGNZTINFO");
 			model.addAttribute("groupId_result", cmmUseService.selectGroupIdDetail(vo));
+			
+
+			
 			//return "forward:/uss/umt/user/EgovUserInsertView.do";
 			return "cmm/uss/umt/EgovUserInsert";
 		} else {

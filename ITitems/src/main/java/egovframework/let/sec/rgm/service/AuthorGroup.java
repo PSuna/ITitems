@@ -1,5 +1,7 @@
 package egovframework.let.sec.rgm.service;
 
+import org.springframework.stereotype.Service;
+
 import egovframework.com.cmm.ComDefaultVO;
 
 
@@ -21,6 +23,7 @@ import egovframework.com.cmm.ComDefaultVO;
  * </pre>
  */
 
+@Service
 public class AuthorGroup extends ComDefaultVO {
 	/**
 	 * serialVersionUID

@@ -160,6 +160,8 @@ public class UserManageVO extends UserDefaultVO{
 	
 	private String mberTyCode;
 	
+	private String authorCode;
+	
 	/**
 	 * oldPassword attribute 값을  리턴한다.
 	 * @return String
@@ -634,6 +636,12 @@ public class UserManageVO extends UserDefaultVO{
 	}
 	public void setMberTyCode(String mberTyCode) {
 		this.mberTyCode = mberTyCode;
+	}
+	public String getAuthorCode() {
+		return authorCode;
+	}
+	public void setAuthorCode(String authorCode) {
+		this.authorCode = authorCode;
 	}
 	
 }
