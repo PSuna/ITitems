@@ -130,7 +130,7 @@ FROM(
 			INSERT INTO LETTNEMPLYRSCRTYESTBS (SCRTY_DTRMN_TRGET_ID, 
 											   AUTHOR_CODE)
 		   	VALUES (#{uniqId}, 
-		   			'ROLE_USER_MEMBER');
+		   			'ROLE_USER_MEMBER'); 
     </insert>
     
     <delete id="deleteUser_S">
