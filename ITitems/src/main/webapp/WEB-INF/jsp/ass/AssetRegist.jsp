@@ -49,6 +49,33 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <script type="text/javascript">
+	
+	function getMCatList() {
+		let val = document.getElementById('largeCategory').value;
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				document.getElementById('middleCategory').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '선택하세요';
+				document.getElementById('middleCategory').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
+					document.getElementById('middleCategory').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+	}
+
 	function fn_egov_validateForm(obj) {
 		return true;
 	}
@@ -142,6 +169,17 @@
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
 	}
+	
+	function fn_egov_returnValue(val){
+		
+		if (val) {
+			document.getElementById("prjId").value  = val.prjId;
+			document.getElementById("prjNm").value  = val.prjNm;
+		}
+		
+		fn_egov_modal_remove();
+	}
+
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -187,8 +225,9 @@
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="AssetInfoVO" action="${pageContext.request.contextPath}/ass/AssetInsert.do" name="AssetInfoVO" method="post"
-									enctype="multipart/form-data">
+								<form:form modelAttribute="AssetInfoVO"
+									action="${pageContext.request.contextPath}/ass/AssetInsert.do"
+									name="AssetInfoVO" method="post" enctype="multipart/form-data">
 
 									<input name="pageIndex" type="hidden"
 										value="<c:out value='${searchVO.pageIndex}'/>" />
@@ -244,28 +283,25 @@
 													<!-- 대분류 --> <label for="">대분류</label> <span class="req">필수</span>
 												</td>
 												<td><label class="f_select" for="largeCategory">
-														<select name="">
-															<option>선택하세요</option>
-													</select> <%-- <form:select path="largeCategory" id="largeCategory" name="largeCategory" title="대분류">
-                                                        <form:option value='' label="선택하세요" selected="selected" />
-                                                        <form:options items="${typeList}" itemValue="code" itemLabel="codeNm"/>
-                                                    </form:select> --%>
-												</label> <br />
-												<form:errors path="largeCategory" /></td>
+														<form:select path="largeCategory" id="largeCategory"
+															name="largeCategory" title="대분류"
+															onchange="getMCatList();">
+															<form:option value='' label="선택하세요" selected="selected" />
+															<form:options items="${LCat_result}" itemValue="catId"
+																itemLabel="catName" />
+														</form:select>
+												</label> <br /> <form:errors path="largeCategory" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 중분류 --> <label for="">중분류</label> <span class="req">필수</span>
 												</td>
 												<td><label class="f_select" for="middleCategory">
-														<select name="">
-															<option>선택하세요</option>
-													</select> <%-- <form:select path="middleCategory" id="middleCategory" name="middleCategory" title="중분류">
-                                                        <form:option value='' label="선택하세요" selected="selected" />
-                                                        <form:options items="${typeList}" itemValue="code" itemLabel="codeNm"/>
-                                                    </form:select> --%>
-												</label> <br />
-												<form:errors path="middleCategory" /></td>
+														<select id="middleCategory" name="middleCategory"
+														title="중분류">
+															<option value='' label="선택하세요" selected="selected" />
+													</select>
+												</label> <br /> <form:errors path="middleCategory" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -273,8 +309,7 @@
 												</td>
 												<td><input id="assetName" class="f_txt w_full"
 													name="assetName" type="text" value="" maxlength="60">
-													<br />
-												<form:errors path="assetName" /></td>
+													<br /> <form:errors path="assetName" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -282,8 +317,7 @@
 												</td>
 												<td><input id="assetQty" class="f_txt w_full"
 													name="assetQty" type="number" value="" maxlength="60">
-													<br />
-												<form:errors path="assetQty" /></td>
+													<br /> <form:errors path="assetQty" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -291,8 +325,7 @@
 												</td>
 												<td><input id="acquiredDate" class="f_txt w_full"
 													name="acquiredDate" type="date" value="" maxlength="60">
-													<br />
-												<form:errors path="acquiredDate" /></td>
+													<br /> <form:errors path="acquiredDate" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -300,16 +333,15 @@
 												</td>
 												<td><input id="acquiredPrice" class="f_txt w_full"
 													name="acquiredPrice" type="text" value="" maxlength="60">
-													<br />
-												<form:errors path="acquiredPrice" /></td>
+													<br /> <form:errors path="acquiredPrice" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> <label for="">제조사</label> <span class="req">필수</span>
 												</td>
 												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="number" value="" maxlength="60"> <br />
-												<form:errors path="maker" /></td>
+													type="number" value="" maxlength="60"> <br /> <form:errors
+														path="maker" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -338,10 +370,10 @@
 											<!-- /파일첨부 끝 -->
 											<tr>
 												<td class="lb">
-													<!-- 부서 -->  <label for="orgnztId">부서</label>
+													<!-- 부서 --> <label for="orgnztId">부서</label>
 												</td>
 												<td><label class="f_select w_30%" for="orgnztId">
-														 <form:select path="orgnztId" id="orgnztId" name="orgnztId"
+														<form:select path="orgnztId" id="orgnztId" name="orgnztId"
 															title="부서">
 															<form:option value="" label="선택하세요" />
 															<form:options items="${orgnztId_result}" itemValue="code"
@@ -354,9 +386,10 @@
 													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="prjId" type="text" title="주소" maxlength="100" readonly="false" />
-														<form:errors path="prjId" />
-														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+														id="prjNm" type="text" title="주소" maxlength="100"
+														readonly="false" /> <form:errors path="prjId" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
 												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
 														path="prjId" /> <input name="prjId" id="prjId"
 													type="hidden" title="프로젝트" value="" maxlength="8"

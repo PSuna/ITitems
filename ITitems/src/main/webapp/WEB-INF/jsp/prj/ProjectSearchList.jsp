@@ -33,6 +33,19 @@
 function fn_egov_cancel_popup() {
 	parent.fn_egov_modal_remove();
 }
+
+function fn_egov_return_Prj(prjid, prjNm){
+	var val   = new Object();
+	val.prjid  = prjid;
+	val.prjNm  = prjNm;
+	
+	parent.parent.fn_egov_returnValue(val);
+}
+
+function fn_egov_search_Prj(){
+	document.listForm.pageIndex.value = 1;
+   	document.listForm.submit();
+}
 </script>
 </head>
 
@@ -58,7 +71,7 @@ function fn_egov_cancel_popup() {
                     <label for="" class="lb mr10">프로젝트명 : </label>
                     <span class="item f_search">
                         <input class="f_input w_500" name="searchKeyword" type="text"  maxlength="20" title="동명"/>
-                        <button class="btn" type="submit" onclick="javascript:fn_egov_search_Zip();"><spring:message code='button.inquire' /></button><!-- 조회 -->
+                        <button class="btn" type="submit" onclick="javascript:fn_egov_search_Prj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
                     </span>
                 </div>
                 <!--// 검색조건 -->
@@ -90,7 +103,7 @@ function fn_egov_cancel_popup() {
                                 <td>${resultInfo.client}</td>
                                 <td>${resultInfo.prjState}</td>
                                 <td>
-                                	<a href="#LINK" class="btn btn_blue_30 w_80" onclick="">
+                                	<a href="#LINK" class="btn btn_blue_30 w_80" onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}');">
                                 		선택
                                 	</a>
                                 </td>

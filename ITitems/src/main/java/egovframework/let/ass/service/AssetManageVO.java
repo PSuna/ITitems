@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 @SuppressWarnings("serial")
-public class AssetManageVO extends AssetHistVO implements Serializable {
+public class AssetManageVO implements Serializable {
 
 	/** 검색위치 */
     private String searchDept = "";

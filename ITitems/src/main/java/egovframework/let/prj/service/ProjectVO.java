@@ -1,4 +1,4 @@
-package egovframework.let.prj.service;
+ package egovframework.let.prj.service;
 
 import java.io.Serializable;
 import java.util.Date;

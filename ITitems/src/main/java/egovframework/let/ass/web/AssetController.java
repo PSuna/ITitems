@@ -18,6 +18,8 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.cat.service.CategoryManageVO;
+import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
 
 /**
@@ -45,6 +47,9 @@ public class AssetController {
 
 	@Resource(name = "ProjectService")
 	protected ProjectService projectService;
+	
+	@Resource(name = "CategoryService")
+	protected CategoryService categoryService;
 
 	@Resource(name = "propertiesService")
 	protected EgovPropertyService propertyService;
@@ -57,23 +62,20 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetManagement.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
-			@ModelAttribute("searchVO") AssetManageVO assetHistVO) throws Exception {
+			@ModelAttribute("searchVO") AssetManageVO assetManageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
-
-		assetHistVO.setPageUnit(propertyService.getInt("pageUnit"));
-		assetHistVO.setPageSize(propertyService.getInt("pageSize"));
 
 		PaginationInfo paginationInfo = new PaginationInfo();
 
-		paginationInfo.setCurrentPageNo(assetHistVO.getPage());
-		paginationInfo.setRecordCountPerPage(assetHistVO.getPageUnit());
-		paginationInfo.setPageSize(assetHistVO.getPageSize());
+		paginationInfo.setCurrentPageNo(assetManageVO.getPage());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
 
-		assetHistVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetHistVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetHistVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetHistVO);
+		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 
@@ -97,9 +99,10 @@ public class AssetController {
 		// 조직정보를 조회 - ORGNZT_ID정보
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-
-		model.addAttribute("projects", null);
-
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+	
 		return "/ass/AssetRegist";
 	}
 	
