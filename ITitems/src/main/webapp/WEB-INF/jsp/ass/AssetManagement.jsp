@@ -95,7 +95,7 @@
 										<button class="btn" type="submit">조회</button>
 									</span>
 								</div>
-								<!--// 검색조건 -->
+								<!--// 검색 조건 -->
 
 								<!-- 게시판 -->
 								<div class="board_list">
