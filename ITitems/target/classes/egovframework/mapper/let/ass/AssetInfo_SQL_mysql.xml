@@ -26,7 +26,7 @@
 	</select>
 
 	<insert id="InsertAssetInfo"
-		parameterType="egovframework.let.ass.service.AssetInfo">
+		parameterType="egovframework.let.ass.service.AssetInfoVO">
 
 	</insert>
 
