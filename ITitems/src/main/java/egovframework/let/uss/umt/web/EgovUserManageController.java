@@ -43,7 +43,8 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  *   2009.04.10  조재영          최초 생성
  *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
  *
- * </pre>
+ *
+ * </pre> 
  */
 @Controller
 public class EgovUserManageController {
