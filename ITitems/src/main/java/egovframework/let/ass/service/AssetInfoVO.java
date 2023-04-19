@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 자산정보 관리를 위한 VO 클래스
+ * 자산정보에 대한 데이터 처리 모델 클래스
  * @author 영남사업부 주소현
  * @since 2023.04.13
  * @version 1.0
@@ -21,185 +21,162 @@ import java.util.Date;
  */
 
 @SuppressWarnings("serial")
-public class AssetInfoVO extends AssetInfo implements Serializable {
+public class AssetInfoVO implements Serializable {
 	
-	/** 검색위치 */
-    private String searchDept = "";
-    
-    /** 검색프로젝트 */
-    private String searchPrj = "";
-    
-    /** 검색대분류 */
-    private String searchLCat = "";
-    
-    /** 검색중분류 */
-    private String searchdMCat = "";
-    
-    /** 검색상태 */
-    private String searchStatus = "";
+	/** 자산코드 */
+	private String assetId;
 	
-	/** 검색시작일 */
-    private Date startDate;
-    
-    /** 검색종료일 */
-    private Date endDate;
-    
-    /** 검색단어 */
-    private String searchWord = "";
-    
-    /** 페이징 */
-    
-    /** 정렬순서(DESC,ASC) */
-    private long sortOrdr = 0L;
-
-    /** 현재페이지 */
-    private int page = 1;
-
-    /** 페이지갯수 */
-    private int pageUnit = 10;
-
-    /** 페이지사이즈 */
-    private int pageSize = 10;
-
-    /** 첫페이지 인덱스 */
-    private int startPage = 1;
-
-    /** 마지막페이지 인덱스 */
-    private int lastPage = 1;
-
-    /** 전체 레코드 개수 */
-    private int totalRecord = 100;
-    
-    /** 시작 레코드 번호 */
-    private int first;
-    
-    /** 마지막 레코드 번호 */
-    private int last;
-    
-    /** 전체 마지막페이지 인덱스*/
-    private int endPage;
-    
-    public int getFirst() {
-		first = (getPage() - 1) * getPageUnit() + 1;
-		return first;
-	}
-	public int getLast() {
-		last = getPage() * getPageUnit();
-		return last;
-	}
-
+	/** 대분류 */
+	private String largeCategory;
 	
-	public int getPageUnit() {
-		return pageUnit;
+	/** 중분류 */
+	private String middleCategory;
+	
+	/** 품명 */
+	private String assetName;
+	
+	/** 수량 */
+	private int assetQty;
+	
+	/** 취득일자 */
+	private Date acquiredDate;
+	
+	/** 취득가액 */
+	private int acquiredPrice;
+	
+	/** 제조사 */
+	private String maker;
+	
+	/** 비고 */
+	private String note;
+	
+	/** 등록자 */
+	private String regId;
+	
+	/** 등록일자 */
+	private String regDate;
+	
+	/** 사용상태 */
+	private String usageStatus;
+	
+	/** 부서 */
+	private String orgnztId;
+	
+	/** 부서 */
+	private String prjId;
+
+	public String getAssetId() {
+		return assetId;
 	}
-	public void setPageUnit(int pageUnit) {
-		this.pageUnit = pageUnit;
+
+	public void setAssetId(String assetId) {
+		this.assetId = assetId;
 	}
-	public int getPageSize() {
-		return pageSize;
+
+	public String getLargeCategory() {
+		return largeCategory;
 	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+
+	public void setLargeCategory(String largeCategory) {
+		this.largeCategory = largeCategory;
 	}
-	public int getLastPage() {
-		lastPage = totalRecord / pageUnit + 
-				   ( totalRecord % pageUnit>0 ? 1 : 0 );
-		return lastPage;
+
+	public String getMiddleCategory() {
+		return middleCategory;
 	}
-	public void setLastPage(int lastPage) {
-		this.lastPage = lastPage;
+
+	public void setMiddleCategory(String middleCategory) {
+		this.middleCategory = middleCategory;
 	}
-	public int getTotalRecord() {
-		return totalRecord;
+
+	public String getAssetName() {
+		return assetName;
 	}
-	public void setTotalRecord(int totalRecord) {
-		this.totalRecord = totalRecord;
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
 	}
-	public Integer getPage() {
-		return page;
+
+	public int getAssetQty() {
+		return assetQty;
 	}
-	public void setPage(Integer page) {
-		this.page = page;
+
+	public void setAssetQty(int assetQty) {
+		this.assetQty = assetQty;
 	}
-	public int getStartPage() {
-		startPage = (page-1)/pageSize * pageSize + 1;
-		return startPage;
+
+	public Date getAcquiredDate() {
+		return acquiredDate;
 	}
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
+
+	public void setAcquiredDate(Date acquiredDate) {
+		this.acquiredDate = acquiredDate;
 	}
-	public int getEndPage() {
-		endPage = (page-1)/pageSize  * pageSize  + pageSize ;
-		if ( endPage > getLastPage() )
-			endPage = getLastPage() ;
-		return endPage;
+
+	public String getMaker() {
+		return maker;
 	}
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
+
+	public void setMaker(String maker) {
+		this.maker = maker;
 	}
-	public String getSearchDept() {
-		return searchDept;
+
+	public String getNote() {
+		return note;
 	}
-	public void setSearchDept(String searchDept) {
-		this.searchDept = searchDept;
+
+	public void setNote(String note) {
+		this.note = note;
 	}
-	public String getSearchPrj() {
-		return searchPrj;
+
+	public String getRegId() {
+		return regId;
 	}
-	public void setSearchPrj(String searchPrj) {
-		this.searchPrj = searchPrj;
+
+	public void setRegId(String regId) {
+		this.regId = regId;
 	}
-	public String getSearchLCat() {
-		return searchLCat;
+
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setSearchLCat(String searchLCat) {
-		this.searchLCat = searchLCat;
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-	public String getSearchdMCat() {
-		return searchdMCat;
+
+	public String getUsageStatus() {
+		return usageStatus;
 	}
-	public void setSearchdMCat(String searchdMCat) {
-		this.searchdMCat = searchdMCat;
+
+	public void setUsageStatus(String usageStatus) {
+		this.usageStatus = usageStatus;
 	}
-	public String getSearchStatus() {
-		return searchStatus;
+
+	public int getAcquiredPrice() {
+		return acquiredPrice;
 	}
-	public void setSearchStatus(String searchStatus) {
-		this.searchStatus = searchStatus;
+
+	public void setAcquiredPrice(int acquiredPrice) {
+		this.acquiredPrice = acquiredPrice;
 	}
-	public Date getStartDate() {
-		return startDate;
+
+	public String getOrgnztId() {
+		return orgnztId;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+
+	public void setOrgnztId(String orgnztId) {
+		this.orgnztId = orgnztId;
 	}
-	public Date getEndDate() {
-		return endDate;
+
+	public String getPrjId() {
+		return prjId;
 	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+
+	public void setPrjId(String prjId) {
+		this.prjId = prjId;
 	}
-	public String getSearchWord() {
-		return searchWord;
-	}
-	public void setSearchWord(String searchWord) {
-		this.searchWord = searchWord;
-	}
-	public long getSortOrdr() {
-		return sortOrdr;
-	}
-	public void setSortOrdr(long sortOrdr) {
-		this.sortOrdr = sortOrdr;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
-	public void setFirst(int first) {
-		this.first = first;
-	}
-	public void setLast(int last) {
-		this.last = last;
-	}
+	
 	
 	
 }

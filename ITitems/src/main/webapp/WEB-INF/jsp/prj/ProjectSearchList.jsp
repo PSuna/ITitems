@@ -28,9 +28,11 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>우편번호 찾기</title>
+<title>프로젝트 찾기</title>
 <script type="text/javaScript" language="JavaScript">
-
+function fn_egov_cancel_popup() {
+	parent.fn_egov_modal_remove();
+}
 </script>
 </head>
 
@@ -38,7 +40,7 @@
 <!-- 자바스크립트 경고 태그  -->
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
-	<form name="listForm" action="<c:url value='/sym/cmm/EgovCcmZipSearchList.do'/>" method="post">
+	<form name="listForm" action="<c:url value='/prj/ProjectSearchList.do'/>" method="post">
     
     <input name="searchCondition" type="hidden" size="35" value="4" />
 
@@ -53,9 +55,9 @@
             <div class="pop_container">
                 <!-- 검색조건 -->
                 <div class="condition2">
-                    <label for="" class="lb mr10">동 명 : </label>
+                    <label for="" class="lb mr10">프로젝트명 : </label>
                     <span class="item f_search">
-                        <input class="f_input w_500" name="searchKeyword" type="text" value="${searchVO.searchKeyword}" maxlength="20" title="동명"/>
+                        <input class="f_input w_500" name="searchKeyword" type="text"  maxlength="20" title="동명"/>
                         <button class="btn" type="submit" onclick="javascript:fn_egov_search_Zip();"><spring:message code='button.inquire' /></button><!-- 조회 -->
                     </span>
                 </div>
@@ -63,7 +65,7 @@
 
                 <!-- 게시판 -->
                 <div class="board_list">
-                    <table summary="우편번호 건색 결과를 알려주는 테이블입니다.우편번호 및 주소 내용을 담고 있습니다">
+                    <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
                         <colgroup>
                             <col style="width: 30%;">
                             <col style="width: auto;">
@@ -71,18 +73,24 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th scope="col">우편번호</th>
-                                <th scope="col">주소</th>
-                                <th scope="col">선택</th>
+                                <th scope="col">프로젝트명</th>
+                                <th scope="col">기간</th>
+                                <th scope="col">PM(대표)</th>
+                                <th scope="col">고객사</th>
+                                <th scope="col">상태</th>
+                                <th scope="col"> </th>
                             </tr>
                         </thead>
                         <tbody>
                         	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
                             <tr>
-                                <td><c:out value='${fn:substring(resultInfo.zip, 0,3)}'/>-<c:out value='${fn:substring(resultInfo.zip, 3,6)}'/></td>
-                                <td class="al_l">${resultInfo.ctprvnNm} ${resultInfo.signguNm} ${resultInfo.emdNm} ${resultInfo.liBuldNm} ${resultInfo.lnbrDongHo}</td>
+                                <td>${resultInfo.prjName}</td>
+                                <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
+                                <td>${resultInfo.name} ${resultInfo.position}</td>
+                                <td>${resultInfo.client}</td>
+                                <td>${resultInfo.prjState}</td>
                                 <td>
-                                	<a href="#LINK" class="btn btn_blue_30 w_80" onclick="javascript:fn_egov_return_Zip( '${resultInfo.zip}', '${resultInfo.ctprvnNm} ${resultInfo.signguNm} ${resultInfo.emdNm} ${resultInfo.liBuldNm}');">
+                                	<a href="#LINK" class="btn btn_blue_30 w_80" onclick="">
                                 		선택
                                 	</a>
                                 </td>
@@ -106,9 +114,7 @@
         </div>
     </div>
     <!--// 우편번호 찾기 팝업 -->
-    
-    <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-    
+   
 	</form>
     
 </body>
