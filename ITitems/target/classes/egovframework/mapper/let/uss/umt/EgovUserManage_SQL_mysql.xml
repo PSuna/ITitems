@@ -125,15 +125,12 @@ FROM(
                     'P'   ,
                     sysdate()           ,
                     #{subDn}			,
-                    #{grade}             )
+                    #{grade}             );
                     
-			INSERT INTO LETTNEMPLYRSCRTYESTBS 
-				  ( SCRTY_DTRMN_TRGET_ID
-                  , MBER_TY_CODE
-				  , AUTHOR_CODE)
-		   	VALUES ( #{uniqId}
-                  , #{mberTyCode}
-                  , 'ROLE_USER_MEMBER')
+			INSERT INTO LETTNEMPLYRSCRTYESTBS (SCRTY_DTRMN_TRGET_ID, 
+											   AUTHOR_CODE)
+		   	VALUES (#{uniqId}, 
+		   			'ROLE_USER_MEMBER'); 
     </insert>
     
     <delete id="deleteUser_S">
