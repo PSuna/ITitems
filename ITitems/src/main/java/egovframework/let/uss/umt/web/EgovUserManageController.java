@@ -5,6 +5,7 @@ import java.util.Map;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.let.sec.ram.service.AuthorManageVO;
 import egovframework.let.uss.umt.service.EgovUserManageService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageVO;
@@ -124,7 +125,7 @@ public class EgovUserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserInsertView.do")
-	public String insertUserView(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, @ModelAttribute("userManageVO") UserManageVO userManageVO, Model model)
+	public String insertUserView(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, @ModelAttribute("userManageVO") UserManageVO userManageVO, @ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, Model model)
 			throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
@@ -164,7 +165,10 @@ public class EgovUserManageController {
 		//그룹정보를 조회 - GROUP_ID정보
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("groupId_result", cmmUseService.selectGroupIdDetail(vo));
-
+		
+		//권한 목록을 조회
+		model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+		
 		return "cmm/uss/umt/EgovUserInsert";
 	}
 
