@@ -37,6 +37,8 @@ FROM(
         LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
     
+    
+    
     <select id="selectUserListTotCnt_S" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="int">
             SELECT COUNT(1) totcnt
             FROM(
