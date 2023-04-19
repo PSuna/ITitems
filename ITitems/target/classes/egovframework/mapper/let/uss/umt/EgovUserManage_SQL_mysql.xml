@@ -98,7 +98,7 @@ FROM(
                     CRTFC_DN_VALUE		,
                     GRADE              )
             VALUES (
-                    'USRCNFRM_00000000002'            ,
+                    #{uniqId}            ,
                     #{emplyrId}          ,
                     #{emplyrNm}          ,
                     #{password}          ,
@@ -125,7 +125,12 @@ FROM(
                     'P'   ,
                     sysdate()           ,
                     #{subDn}			,
-                    #{grade}             )
+                    #{grade}             );
+                    
+			INSERT INTO LETTNEMPLYRSCRTYESTBS (SCRTY_DTRMN_TRGET_ID, 
+											   AUTHOR_CODE)
+		   	VALUES (#{uniqId}, 
+		   			'ROLE_USER_MEMBER'); 
     </insert>
     
     <delete id="deleteUser_S">
