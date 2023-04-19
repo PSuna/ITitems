@@ -2,6 +2,8 @@ package egovframework.let.sec.ram.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 권한관리에 관한 서비스 인터페이스 클래스를 정의한다.
  * @author 공통서비스 개발팀 이문준
@@ -19,7 +21,7 @@ import java.util.List;
  *
  * </pre>
  */
-
+@Service
 public interface EgovAuthorManageService {
     /**
 	 * 모든 권한목록을 조회한다.

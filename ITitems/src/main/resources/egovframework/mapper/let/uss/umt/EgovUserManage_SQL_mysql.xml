@@ -6,7 +6,7 @@
 
     <select id="selectUserList_S" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
 SELECT 
-    uniqId, userTy, userId , userNm, emailAdres, areaNo, middleTelno, endTelno, moblphonNo, groupId, sttus, sbscrbDe
+    uniqId, userTy, userId , userNm, emailAdres, areaNo, middleTelno, endTelno, moblphonNo, groupId, sttus, sbscrbDe, grade, authorCode
 FROM(
     SELECT
         ESNTL_ID               uniqId,
@@ -20,15 +20,15 @@ FROM(
         MBTLNUM           moblphonNo,
         GROUP_ID              groupId,
         EMPLYR_STTUS_CODE     sttus,
-        DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe
+        DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+        (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = GRADE) as grade,
+        (SELECT AUTHOR_NM FROM LETTNAUTHORINFO WHERE AUTHOR_CODE =
+        		(SELECT AUTHOR_CODE FROM LETTNEMPLYRSCRTYESTBS WHERE SCRTY_DTRMN_TRGET_ID = ESNTL_ID)) as authorCode
     FROM    LETTNEMPLYRINFO
     ) A
         WHERE 1=1
-        <if test='sbscrbSttus != "0"'>
-            AND sttus LIKE  #{sbscrbSttus}
-        </if>
         <if test='searchCondition == "0"'>
-            AND userId LIKE #{searchKeyword}
+            AND userId LIKE '%' #{searchKeyword} '%'
         </if>
         <if test='searchCondition == "1"'>
             AND userNm LIKE '%' #{searchKeyword} '%'
@@ -58,11 +58,8 @@ FROM(
             FROM    LETTNEMPLYRINFO
             ) A
         WHERE 1=1
-            <if test='sbscrbSttus != "0"'>
-                AND sttus LIKE  #{sbscrbSttus}
-            </if>
             <if test='searchCondition == "0"'>
-                AND userId LIKE #{searchKeyword}
+                AND userId LIKE '%' #{searchKeyword} '%'
             </if>
             <if test='searchCondition == "1"'>
                 AND userNm LIKE '%' #{searchKeyword} '%'
@@ -128,11 +125,7 @@ FROM(
                     sysdate()           ,
                     #{subDn}			,
                     #{grade}             );
-                    
-			INSERT INTO LETTNEMPLYRSCRTYESTBS (SCRTY_DTRMN_TRGET_ID, 
-											   AUTHOR_CODE)
-		   	VALUES (#{uniqId}, 
-		   			'ROLE_USER_MEMBER'); 
+
     </insert>
     
     <delete id="deleteUser_S">
