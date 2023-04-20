@@ -188,9 +188,9 @@ function press() {
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
-                                        <li><a href="">사용자권한관리</a></li>
-                                        <li>권한관리</li>
+                                        <li><a href="">사이트관리</a></li>
+                                        <li><a href="">이용권한관리</a></li>
+                                        <li>사이트이용권한관리</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->

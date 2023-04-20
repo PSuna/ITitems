@@ -240,8 +240,8 @@ function press() {
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
-                                        <li><a href="">사용자권한관리</a></li>
+                                        <li><a href="">사이트관리</a></li>
+                                        <li><a href="">사용자관리</a></li>
                                         <li>사용자별권한관리</li>
                                     </ul>
                                 </div>
@@ -249,7 +249,7 @@ function press() {
 
 								<form:form id="listForm" name="listForm" action="<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>" method="post">
 
-                                <h1 class="tit_1">내부시스템관리</h1>
+                                <h1 class="tit_1">사이트관리</h1>
 
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
@@ -259,8 +259,8 @@ function press() {
                                     <label class="f_select item" for="searchCondition">
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
     					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자 ID</option>
-    					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자 명</option>
-    					                    <option value="3" <c:if test="${authorGroupVO.searchCondition == '3'}">selected</c:if> >그룹</option>
+    					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자 이름</option>
+    					                    <%-- <option value="3" <c:if test="${authorGroupVO.searchCondition == '3'}">selected</c:if> >그룹</option> --%>
     					                </select>
                                     </label>
                                     <span class="item f_search">
@@ -271,13 +271,13 @@ function press() {
                                 <!--// 검색조건 -->
 
                                 <div class="board_list_top">
-                                    <div class="left_col">
-                                    	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fncSelectAuthorGroupPop()">팝업조회</a><!-- 팝업조회 -->
-                                    </div>
+                                    <!-- <div class="left_col">
+                                    	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fncSelectAuthorGroupPop()">팝업조회</a>팝업조회
+                                    </div> -->
 
                                     <div class="right_col">
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAddAuthorGroupInsert()">권한등록</a><!-- 권한등록 -->
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAuthorGroupDeleteList()">등록취소</a><!-- 등록취소 -->
+                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
+                                        <!-- <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAuthorGroupDeleteList()">등록취소</a> --><!-- 등록취소 -->
                                     </div>
                                 </div>
 
@@ -288,9 +288,11 @@ function press() {
                                         <colgroup>
                                             <col style="width: 80px;">
                                             <col style="width: auto;">
-                                            <col style="width: auto;">
-                                            <col style="width: auto;">
-                                            <col style="width: auto;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 80px;">
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -301,7 +303,8 @@ function press() {
                                                 </th>
                                                 <th scope="col">사용자ID</th>
                                                 <th scope="col">사용자명</th>
-                                                <th scope="col">사용자유형</th>
+                                                <th scope="col">부서</th>
+                                                <th scope="col">직급</th>
                                                 <th scope="col">권한</th>
                                                 <th scope="col">등록 여부</th>
                                             </tr>
@@ -324,10 +327,12 @@ function press() {
                                                 </td>
                                                 <td><c:out value="${authorGroup.userId}"/></td>
                                                 <td><c:out value="${authorGroup.userNm}"/></td>
-                                                <td>
+                                                <td><c:out value="${authorGroup.orgnztId}"/></td>
+                                                <td><c:out value="${authorGroup.grade}"/></td>
+                                                <%-- <td>
                                                 	<c:out value="${authorGroup.mberTyNm}"/>
                                                 	<input type="hidden" name="mberTyCode" value="${authorGroup.mberTyCode}"/>
-                                                </td>
+                                                </td> --%>
                                                 <td>
                                                     <label class="f_select" for="">
                                                         <select name="authorManageCombo" title="권한">

@@ -29,14 +29,10 @@
                    (CASE WHEN B.SCRTY_DTRMN_TRGET_ID IS NULL THEN 'N'
                          ELSE 'Y' 
                      END) AS REG_YN,
-                    ESNTL_ID
-              FROM (SELECT MBER_ID USER_ID, MBER_NM USER_NM, GROUP_ID, 'USR01' MBER_TY_CODE, ESNTL_ID
-                      FROM LETTNGNRLMBER
-                     UNION ALL
-                    SELECT ENTRPRS_MBER_ID USER_ID, CMPNY_NM USER_NM, GROUP_ID, 'USR02' MBER_TY_CODE, ESNTL_ID 
-                      FROM LETTNENTRPRSMBER
-                     UNION ALL
-                    SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID 
+                    ESNTL_ID,
+                    (SELECT ORGNZT_NM FROM LETTNORGNZTINFO WHERE ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
+                    (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade
+              FROM (SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID, ORGNZT_ID, GRADE
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
              WHERE 1 = 1    
@@ -47,9 +43,9 @@
 	            <if test='searchCondition == "2"'>AND
 	                   A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
 	            </if>
-	            <if test='searchCondition == "3"'>AND
+	            <!-- <if test='searchCondition == "3"'>AND
 	                   A.GROUP_ID = #{searchKeyword}
-	            </if>
+	            </if> -->
             </if>
              LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
@@ -61,7 +57,7 @@
                   , MBER_TY_CODE
 				  , AUTHOR_CODE)
 		   VALUES ( #{uniqId}
-                  , #{mberTyCode}
+                  , ''
                   , #{authorCode})
 		
 	</insert>

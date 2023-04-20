@@ -147,7 +147,7 @@ function fnUpdate(){
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                        <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.passwordChgVO.reset();"><spring:message code="button.reset" /></a><!-- 초기화 -->
+                                        <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.passwordChgVO.reset();">초기화</a><!-- 초기화 -->
                                     </div>
 
                                     <div class="right_col btn1">

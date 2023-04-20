@@ -138,7 +138,7 @@ function fn_egov_modal_remove() {
 								<div class="location">
 									<ul>
 										<li><a class="home" href="">Home</a></li>
-										<li><a href="">내부시스템관리</a></li>
+										<li><a href="">사이트관리</a></li>
 										<li><a href="">사용자관리</a></li>
 										<li>사용자등록관리</li>
 									</ul>
@@ -167,9 +167,9 @@ function fn_egov_modal_remove() {
 									<input type="hidden" name="userTyForPassword"
 										value="<c:out value='${userManageVO.userTy}'/>" />
 
-									<h1 class="tit_1">내부시스템관리</h1>
+									<h1 class="tit_1">사이트관리</h1>
 
-									<h2 class="tit_2">업무사용자 상세조회(수정)</h2>
+									<h2 class="tit_2">사용자정보 상세조회 및 수정</h2>
 
 									<div class="board_view2">
 										<table>
@@ -230,7 +230,7 @@ function fn_egov_modal_remove() {
 	                                                <form:errors path="grade" /> 
 	                                            </td>
 												<td class="lb">
-													<label for="groupId">권한그룹</label>
+													<label for="groupId">그룹</label>
 													<span class="req">필수</span>
 												</td>
 												<td>
@@ -261,8 +261,7 @@ function fn_egov_modal_remove() {
 													code="button.passwordUpdate" /></a>
 											<!-- 비밀번호변경 -->
 											<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-												onclick="javascript:document.userManageVO.reset();"><spring:message
-													code="button.reset" /></a>
+												onclick="javascript:document.userManageVO.reset();">초기화</a>
 											<!-- 초기화 -->
 										</div>
 

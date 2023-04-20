@@ -6,25 +6,26 @@
 
     <select id="selectUserList_S" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
 SELECT 
-    uniqId, userTy, userId , userNm, emailAdres, areaNo, middleTelno, endTelno, moblphonNo, groupId, sttus, sbscrbDe, grade, authorCode
+    uniqId, userTy, userId , userNm, emailAdres, areaNo, middleTelno, endTelno, moblphonNo, groupId, orgnztId, sttus, sbscrbDe, grade,  authorCode
 FROM(
     SELECT
-        ESNTL_ID               uniqId,
+        A.ESNTL_ID               uniqId,
         'USR03'               userTy,
-        EMPLYR_ID             userId,
-        USER_NM             userNm,
-        EMAIL_ADRES           emailAdres,
-        AREA_NO               areaNo,
-        HOUSE_MIDDLE_TELNO      middleTelno,
-        HOUSE_END_TELNO         endTelno,
-        MBTLNUM           moblphonNo,
-        GROUP_ID              groupId,
-        EMPLYR_STTUS_CODE     sttus,
-        DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe,
-        (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = GRADE) as grade,
+        A.EMPLYR_ID             userId,
+        A.USER_NM             userNm,
+        A.EMAIL_ADRES           emailAdres,
+        A.AREA_NO               areaNo,
+        A.HOUSE_MIDDLE_TELNO      middleTelno,
+        A.HOUSE_END_TELNO         endTelno,
+        A.MBTLNUM           moblphonNo,
+        A.GROUP_ID              groupId,
+        (SELECT B.ORGNZT_NM FROM LETTNORGNZTINFO B WHERE B.ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
+        A.EMPLYR_STTUS_CODE     sttus,
+        DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+        (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade,
         (SELECT AUTHOR_NM FROM LETTNAUTHORINFO WHERE AUTHOR_CODE =
-        		(SELECT AUTHOR_CODE FROM LETTNEMPLYRSCRTYESTBS WHERE SCRTY_DTRMN_TRGET_ID = ESNTL_ID)) as authorCode
-    FROM    LETTNEMPLYRINFO
+        		(SELECT AUTHOR_CODE FROM LETTNEMPLYRSCRTYESTBS WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode
+    FROM    LETTNEMPLYRINFO A
     ) A
         WHERE 1=1
         <if test='searchCondition == "0"'>
@@ -164,10 +165,10 @@ FROM(
             A.ORGNZT_ID         orgnztId          ,
             A.PSTINST_CODE        insttCode         ,
             A.EMPLYR_STTUS_CODE emplyrSttusCode   , 
-            A.DATE_FORMAT(SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+            DATE_FORMAT(A.SBSCRB_DE,'%Y %m %d') as sbscrbDe,
             A.CRTFC_DN_VALUE            subDn,
             A.GRADE			grade,
-            B.AUTHOR_CODE 
+            B.AUTHOR_CODE	authorCode
         FROM LETTNEMPLYRINFO A, LETTNEMPLYRSCRTYESTBS B
             WHERE ESNTL_ID=#{uniqId}
             AND A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID

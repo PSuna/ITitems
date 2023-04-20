@@ -206,8 +206,6 @@
 		    <artifactId>springloaded</artifactId>
 		    <version>1.2.8.RELEASE</version>
 		</dependency>
-
-
 	</dependencies>
 
     <build>

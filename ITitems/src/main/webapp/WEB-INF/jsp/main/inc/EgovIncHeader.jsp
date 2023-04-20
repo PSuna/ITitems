@@ -109,6 +109,16 @@ function fn_egov_modal_remove() {
 <div class="all_menu" id="">
     <div>
         <div class="inner">
+        	<div>
+                <h2>자산관리</h2>
+                <ul>
+                    <li><a href="/ebt_webapp/ass/AssetManagement.do">자산조회</a></li>
+                    <li><a href="/ebt_webapp/ass/AssetRegist.do">자산등록</a></li>
+                    <li><a href="/ebt_webapp/ass/ReturnRequest.do">반납신청조회</a></li>
+                    <li><a href="/ebt_webapp/ass/DisposeRequest.do">처분신청조회</a></li>
+                    <li><a href="/ebt_webapp/ass/RepairRequest.do">파손내역조회</a></li>
+                </ul>
+            </div>
             <div>
                 <h2>알림정보</h2>
                 <ul>
@@ -117,7 +127,7 @@ function fn_egov_modal_remove() {
                 </ul>
             </div>
 
-            <div>
+            <!-- <div>
                 <h2>직급체계관리</h2>
                 <ul>
                     <li><a href="/ebt_webapp/EgovPageLink.do?link=main/sample_menu/Sample">입퇴사정보 관리</a></li>
@@ -140,9 +150,9 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/EgovPageLink.do?link=main/sample_menu/Sample">출퇴근정보 관리</a></li>
                     <li><a href="/ebt_webapp/EgovPageLink.do?link=main/sample_menu/Sample">휴무정보 관리</a></li>
                 </ul>
-            </div>
+            </div> -->
 
-            <div class="admin">
+            <!-- <div class="admin">
                 <h2>내무서비스관리</h2>
                 <h3>내부업무게시판관리</h3>
                 <ul>
@@ -158,22 +168,19 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/sts/cst/selectConectStats.do">접속통계관리</a></li>
                     <li><a href="/ebt_webapp/uat/uap/selectLoginPolicyList.do">로그인정책관리</a></li>
                 </ul>
-            </div>
+            </div> -->
 
             <div class="admin">
-                <h2>내부시스템관리</h2>
+                <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
                 <ul>
-                    <li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자등록관리</a></li>
-                    <li><a href="/ebt_webapp/uss/ion/uas/selectUserAbsnceListView.do">사용자부재관리</a></li>
+                    <li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자관리</a></li>
+                    <li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
                 </ul>
 
-                <h3>사용자권한관리</h3>
+                <h3>이용권한관리</h3>
                 <ul>
-                    <li><a href="/ebt_webapp/sec/ram/EgovAuthorList.do">권한관리</a></li>
-                    <li><a href="/ebt_webapp/sec/gmt/EgovGroupList.do">사용자그룹관리</a></li>
-                    <li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
-                    <li><a href="/ebt_webapp/sec/rmt/EgovRoleList.do">롤관리</a></li>
+                    <li><a href="/ebt_webapp/sec/ram/EgovAuthorList.do">사이트이용권한관리</a></li>
                 </ul>
 
                 <h3>메뉴관리</h3>
@@ -183,13 +190,6 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/sym/mnu/mpm/EgovMenuManageSelect.do">메뉴목록관리</a></li>
                 </ul>
 
-                <h3>코드관리</h3>
-                <ul>
-                    <li><a href="/ebt_webapp/sym/ccm/ccc/EgovCcmCmmnClCodeList.do">분류코드관리</a></li>
-                    <li><a href="/ebt_webapp/sym/ccm/cca/EgovCcmCmmnCodeList.do">공통코드관리</a></li>
-                    <li><a href="/ebt_webapp/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do">상세코드관리</a></li>
-                    <li><a href="/ebt_webapp/sym/ccm/zip/EgovCcmZipList.do">우편번호관리</a></li>
-                </ul>
             </div>
         </div>
     </div>
