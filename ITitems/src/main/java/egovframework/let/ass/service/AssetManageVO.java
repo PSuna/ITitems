@@ -24,7 +24,7 @@ import java.util.Date;
 public class AssetManageVO implements Serializable {
 
 	/** 검색위치 */
-    private String searchDept = "";
+    private String searchOrgnzt = "";
     
     /** 검색프로젝트 */
     private String searchPrj = "";
@@ -39,10 +39,10 @@ public class AssetManageVO implements Serializable {
     private String searchStatus = "";
 	
 	/** 검색시작일 */
-    private Date startDate;
+    private String startDate  = "";
     
     /** 검색종료일 */
-    private Date endDate;
+    private String endDate  = "";
     
     /** 검색단어 */
     private String searchWord = "";
@@ -53,7 +53,7 @@ public class AssetManageVO implements Serializable {
     private long sortOrdr = 0L;
 
     /** 현재페이지 */
-    private int page = 1;
+    private int pageIndex = 1;
 
     /** 페이지갯수 */
     private int pageUnit = 10;
@@ -109,11 +109,11 @@ public class AssetManageVO implements Serializable {
 	
 	
     public int getFirst() {
-		first = (getPage() - 1) * getPageUnit() + 1;
+		first = (getPageIndex() - 1) * getPageUnit() + 1;
 		return first;
 	}
 	public int getLast() {
-		last = getPage() * getPageUnit();
+		last = getPageIndex() * getPageUnit();
 		return last;
 	}
 
@@ -144,21 +144,21 @@ public class AssetManageVO implements Serializable {
 	public void setTotalRecord(int totalRecord) {
 		this.totalRecord = totalRecord;
 	}
-	public Integer getPage() {
-		return page;
+	public Integer getPageIndex() {
+		return pageIndex;
 	}
-	public void setPage(Integer page) {
-		this.page = page;
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 	public int getStartPage() {
-		startPage = (page-1)/pageSize * pageSize + 1;
+		startPage = (pageIndex-1)/pageSize * pageSize + 1;
 		return startPage;
 	}
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
 	public int getEndPage() {
-		endPage = (page-1)/pageSize  * pageSize  + pageSize ;
+		endPage = (pageIndex-1)/pageSize  * pageSize  + pageSize ;
 		if ( endPage > getLastPage() )
 			endPage = getLastPage() ;
 		return endPage;
@@ -166,11 +166,11 @@ public class AssetManageVO implements Serializable {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public String getSearchDept() {
-		return searchDept;
+	public String getSearchOrgnzt() {
+		return searchOrgnzt;
 	}
-	public void setSearchDept(String searchDept) {
-		this.searchDept = searchDept;
+	public void setSearchOrgnzt(String searchOrgnzt) {
+		this.searchOrgnzt = searchOrgnzt;
 	}
 	public String getSearchPrj() {
 		return searchPrj;
@@ -196,16 +196,16 @@ public class AssetManageVO implements Serializable {
 	public void setSearchStatus(String searchStatus) {
 		this.searchStatus = searchStatus;
 	}
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public String getSearchWord() {
@@ -220,8 +220,8 @@ public class AssetManageVO implements Serializable {
 	public void setSortOrdr(long sortOrdr) {
 		this.sortOrdr = sortOrdr;
 	}
-	public void setPage(int page) {
-		this.page = page;
+	public void setPage(int pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 	public void setFirst(int first) {
 		this.first = first;
