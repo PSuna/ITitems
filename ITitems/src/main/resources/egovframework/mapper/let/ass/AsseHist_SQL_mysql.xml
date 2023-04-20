@@ -22,8 +22,8 @@
 	</resultMap>
 
 	<sql id="search">
-		<if test="searchDept != null and searchDept != ''">
-			and a.DEPT_ID = #{searchDept}
+		<if test="searchOrgnzt != null and searchOrgnzt != ''">
+			and a.DEPT_ID = #{searchOrgnzt}
 		</if>
 		<if test="searchPrj != null and searchPrj != ''">
 			and a.PRJ_ID = #{searchPrj}
@@ -37,12 +37,12 @@
 		<if test="searchStatus != null and searchStatus != ''">
 			and a.HIST_STATUS = #{searchStatus}
 		</if>
-		<if test="startDate != null">
-			and b.REG_DATE >= #{startDate}
+		<if test="startDate != null and startDate != ''">
+			and b.REG_DATE >= STR_TO_DATE('#{startDate}', '%Y%m%d%H%i%s')
 		</if>
-		<if test="endDate != null">
+		<if test="endDate != null and endDate != ''">
 			<![CDATA[
-			and b.REG_DATE <= #{startDate}
+			and b.REG_DATE <= STR_TO_DATE('#{endDate}', '%Y%m%d%H%i%s')
 			]]>
 		</if>
 		<if test="searchWord != null and searchWord != ''">

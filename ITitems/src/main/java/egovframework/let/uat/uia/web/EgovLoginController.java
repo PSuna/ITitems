@@ -152,6 +152,10 @@ public class EgovLoginController {
 	@RequestMapping(value = "/uat/uia/actionMain.do")
 	public String actionMain(HttpServletResponse response, HttpServletRequest request, ModelMap model) throws Exception {
 				
+		System.out.println("test123>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println("test312>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println("test432>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		// 1. Spring Security 사용자권한 처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
