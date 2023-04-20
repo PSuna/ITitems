@@ -292,6 +292,7 @@ function fn_egov_modal_remove() {
                                             	<label class="f_select w_full" for="authorCode">
                                                 	<select name="authorManageCombo" title="권한">
                                                     	<c:forEach var="authorManage" items="${authorManageList}" varStatus="status">
+                                                    		<option value="" label="선택하세요"/>
                                                         	<option value="<c:out value="${authorManage.authorCode}"/>">${authorManage.authorNm}</option>
                                                         </c:forEach>
                                                     </select>
@@ -304,7 +305,7 @@ function fn_egov_modal_remove() {
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                        <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.userManageVO.reset();"><spring:message code="button.reset" /></a><!-- 초기화 -->
+                                        <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.userManageVO.reset();">초기화</a><!-- 초기화 -->
                                     </div>
 
                                     <div class="right_col btn1">

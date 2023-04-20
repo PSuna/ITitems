@@ -148,9 +148,9 @@ function fnViewCheck(){
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
+                                        <li><a href="">사이트관리</a></li>
                                         <li><a href="">사용자관리</a></li>
-                                        <li>사용자등록관리</li>
+                                        <li>사용자목록</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
@@ -161,9 +161,9 @@ function fnViewCheck(){
 								<input name="checkedIdForDel" type="hidden" />
 								<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
 
-                                <h1 class="tit_1">내부시스템관리</h1>
+                                <h1 class="tit_1">사이트관리</h1>
 
-                                <h2 class="tit_2">사용자등록관리</h2>
+                                <h2 class="tit_2">사용자목록</h2>
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition">
@@ -206,17 +206,18 @@ function fnViewCheck(){
                                     <table summary="사용자 목록을 제공한다.">
                                     	<caption>사용자목록</caption>
                                         <colgroup>
-                                            <col style="width: 80px;">
+                                            <%-- <col style="width: 80px;"> --%>
                                             <col style="width: 80px;">
                                             <col style="width: 100px;">
                                             <col style="width: auto;">
+                                            <col style="width: 150px;">
                                             <col style="width: 200px;">
                                             <col style="width: 100px;">
                                             <col style="width: 100px;">
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <th scope="col">번호</th>
+                                                <!-- <th scope="col">번호</th> -->
                                                 <th scope="col">
                                                     <span class="f_chk_only chkAll">
                                                         <input name="checkAll" type="checkbox" title="Check All" onclick="javascript:fnCheckAll();"/>
@@ -225,6 +226,7 @@ function fnViewCheck(){
                                                 <th scope="col">이름</th>
                                                 <th scope="col">아이디</th>
                                                 <th scope="col">전화번호</th>
+                                                <th scope="col">부서</th>
                                                 <th scope="col">직급</th>
                                                 <th scope="col">권한</th>
                                             </tr>
@@ -239,7 +241,7 @@ function fnViewCheck(){
                                         	
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
                                             <tr>
-                                                <td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td>
+                                                <%-- <td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td> --%>
                                                 <td>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
@@ -253,6 +255,7 @@ function fnViewCheck(){
 	                                                </a>
                                                 </td>
                                                 <td><c:out value="${result.moblphonNo}"/></td>
+                                                <td><c:out value="${result.orgnztId}"/></td>
                                                 <td><c:out value="${result.grade}"/></td>
                                                 <td><c:out value="${result.authorCode}"/></td>
                                                 <%-- <td>

@@ -66,6 +66,10 @@ public class AuthorGroup extends ComDefaultVO {
 	 */
 	private String uniqId;
 	
+	private String grade;
+	
+	private String orgnztId;
+	
 	/**
 	 * authorGroup attribute 를 리턴한다.
 	 * @return AuthorGroup
@@ -192,8 +196,17 @@ public class AuthorGroup extends ComDefaultVO {
 	public void setUniqId(String uniqId) {
 		this.uniqId = uniqId;
 	}
-	
-
-	
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	public String getOrgnztId() {
+		return orgnztId;
+	}
+	public void setOrgnztId(String orgnztId) {
+		this.orgnztId = orgnztId;
+	}
 	
 }

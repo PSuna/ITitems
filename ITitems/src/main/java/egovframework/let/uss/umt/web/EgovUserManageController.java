@@ -74,6 +74,9 @@ public class EgovUserManageController {
 	
 	@Resource(name = "egovAuthorManageService")
     private EgovAuthorManageService egovAuthorManageService;
+	
+	@Resource(name = "egovAuthorGroupService")
+    private EgovAuthorGroupService egovAuthorGroupService;
 
 	/**
 	 * 사용자목록을 조회한다. (pageing)
@@ -253,7 +256,11 @@ public class EgovUserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserSelectUpdtView.do")
-	public String updateUserView(@RequestParam("selectedId") String uniqId, @ModelAttribute("searchVO") UserDefaultVO userSearchVO, Model model) throws Exception {
+	public String updateUserView(@RequestParam("selectedId") String uniqId, 
+								@ModelAttribute("searchVO") UserDefaultVO userSearchVO, 
+								@ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
+								@ModelAttribute("authorGroupVO") AuthorGroupVO authorGroupVO,
+								Model model) throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -291,7 +298,7 @@ public class EgovUserManageController {
 		//그룹정보를 조회 - GROUP_ID정보
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("groupId_result", cmmUseService.selectGroupIdDetail(vo));
-
+		
 		UserManageVO userManageVO = new UserManageVO();
 		userManageVO = userManageService.selectUser(uniqId);
 		model.addAttribute("userSearchVO", userSearchVO);
