@@ -16,16 +16,20 @@
 	</resultMap>
 
 	<sql id="search">
-		<if test="searchWord != null and searchWord != ''">
-			a.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%')
-		</if>
+		<where>
+			<if test="searchWord != null and searchWord != ''">
+				a.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			</if>
+		</where>
 	</sql>
-
+	
 	<select id="SelectProjectVOList"
 		parameterType="egovframework.let.prj.service.ProjectManageVO"
 		resultMap="ProjectList">
 		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.PRJ_ID)
-		AS RUM, a.PRJ_ID, a.PRJ_NAME, DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+		AS RUM,
+		a.PRJ_ID, a.PRJ_NAME, DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS
+		PRJ_START,DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
 		a.CLIENT,
 		a.PRJ_STATE, b.USER_NM, c.CODE_NM
 		FROM PROJECTS a
@@ -40,7 +44,9 @@
 		) P WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 
-	<select id="CountProjectVOList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultType="int">
+	<select id="CountProjectVOList"
+		parameterType="egovframework.let.prj.service.ProjectManageVO"
+		resultType="int">
 		SELECT COUNT(a.PRJ_ID)
 		FROM projects a
 		<include refid="search"></include>

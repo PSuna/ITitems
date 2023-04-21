@@ -23,30 +23,30 @@
 
 	<sql id="search">
 		<if test="searchOrgnzt != null and searchOrgnzt != ''">
-			and a.DEPT_ID = #{searchOrgnzt}
+			AND a.DEPT_ID = #{searchOrgnzt}
 		</if>
 		<if test="searchPrj != null and searchPrj != ''">
-			and a.PRJ_ID = #{searchPrj}
+			AND a.PRJ_ID = #{searchPrj}
 		</if>
 		<if test="searchLCat != null and searchLCat != ''">
-			and b.LARGE_CATEGORY = #{searchLCat}
+			AND b.LARGE_CATEGORY = #{searchLCat}
 		</if>
 		<if test="searchdMCat != null and searchdMCat != ''">
-			and b.MIDDLE_CATEGORY = #{searchdMCat}
+			AND b.MIDDLE_CATEGORY = #{searchdMCat}
 		</if>
 		<if test="searchStatus != null and searchStatus != ''">
-			and a.HIST_STATUS = #{searchStatus}
+			AND a.HIST_STATUS = #{searchStatus}
 		</if>
 		<if test="startDate != null and startDate != ''">
-			and b.REG_DATE >= STR_TO_DATE('#{startDate}', '%Y%m%d%H%i%s')
+			AND b.REG_DATE >= STR_TO_DATE(#{startDate}, '%Y%m%d%H%i%s')
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
-			and b.REG_DATE <= STR_TO_DATE('#{endDate}', '%Y%m%d%H%i%s')
+			AND b.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
 			]]>
 		</if>
 		<if test="searchWord != null and searchWord != ''">
-			b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			AND b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 		</if>
 	</sql>
 	

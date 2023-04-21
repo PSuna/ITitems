@@ -59,11 +59,11 @@ public class ProjectManageVO extends ProjectVO implements Serializable {
     
 
     public int getFirst() {
-		first = (getPage() - 1) * getPageUnit() + 1;
+		first = (getPageIndex() - 1) * getPageUnit() + 1;
 		return first;
 	}
 	public int getLast() {
-		last = getPage() * getPageUnit();
+		last = getPageIndex() * getPageUnit();
 		return last;
 	}
 
@@ -94,10 +94,10 @@ public class ProjectManageVO extends ProjectVO implements Serializable {
 	public void setTotalRecord(int totalRecord) {
 		this.totalRecord = totalRecord;
 	}
-	public Integer getPage() {
+	public Integer getPageIndex() {
 		return pageIndex;
 	}
-	public void setPage(Integer page) {
+	public void setPageIndex(Integer page) {
 		this.pageIndex = page;
 	}
 	public int getStartPage() {

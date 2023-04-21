@@ -40,14 +40,10 @@ public class ProjectController {
 	protected EgovPropertyService propertiesService;
 	
 	@RequestMapping(value = "/prj/ProjectSearchList.do")
-	public String selectZipSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model) throws Exception {
-		/** EgovPropertyService.sample */
-		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
-		searchVO.setPageSize(propertiesService.getInt("pageSize"));
-
+	public String selectZipSearchList(ProjectManageVO searchVO , ModelMap model) throws Exception {
 		/** pageing */
 		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(searchVO.getPage());
+		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
 		paginationInfo.setPageSize(searchVO.getPageSize());
 
