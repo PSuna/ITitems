@@ -29,6 +29,9 @@ public class AssetManageVO implements Serializable {
     /** 검색프로젝트 */
     private String searchPrj = "";
     
+    /** 프로젝트명 */
+    private String prjNm = "";
+    
     /** 검색대분류 */
     private String searchLCat = "";
     
@@ -282,6 +285,15 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setHistStatus(String histStatus) {
 		this.histStatus = histStatus;
+	}
+	public String getPrjNm() {
+		return prjNm;
+	}
+	public void setPrjNm(String prjNm) {
+		this.prjNm = prjNm;
+	}
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 	
 }

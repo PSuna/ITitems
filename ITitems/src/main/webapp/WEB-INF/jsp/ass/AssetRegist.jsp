@@ -191,6 +191,12 @@
 	margin-left: 10px;
 	vertical-align: middle;
 }
+.board_view_bot {
+overflow: hidden;
+}
+.right_btn {
+	float: right;
+}
 </style>
 
 <body onload="fn_egov_init_date();">
@@ -224,6 +230,7 @@
 									</ul>
 								</div>
 								<!--// Location -->
+
 
 								<form:form modelAttribute="AssetInfoVO"
 									action="${pageContext.request.contextPath}/ass/AssetInsert.do"
@@ -272,6 +279,20 @@
 										자산등록
 									</h2>
 
+									<br>
+									<!-- 추가/초기화 버튼  -->
+									<div class="board_view_bot">
+										<div class="right_btn btn1">
+											<a href="#LINK" class="btn btn_blue_46 w_130"
+												onclick="add_asset(); return fasle;">기존 자산 등록</a>
+											<!-- 기존 자산 추가 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="add_asset(); return fasle;">초기화</a>
+											<!-- 초기화 -->
+										</div>
+									</div>
+									<!-- // 추가/초기화 버튼 끝  -->
+									<br>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -305,7 +326,7 @@
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label> <span class="req">필수</span>
+													<!-- 품명 --> <label for="">품명</label>
 												</td>
 												<td><input id="assetName" class="f_txt w_full"
 													name="assetName" type="text" value="" maxlength="60">
@@ -329,7 +350,7 @@
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label> <span class="req">필수</span>
+													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
 												<td><input id="acquiredPrice" class="f_txt w_full"
 													name="acquiredPrice" type="text" value="" maxlength="60">
@@ -337,10 +358,18 @@
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label> <span class="req">필수</span>
+													<!-- 제조사 --> <label for="">제조사</label> 
 												</td>
 												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="number" value="" maxlength="60"> <br /> <form:errors
+													type="text" value="" maxlength="60"> <br /> <form:errors
+														path="maker" /></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 추가물품 --> <label for="">추가물품</label>
+												</td>
+												<td><input id="maker" class="f_txt w_full" name="maker"
+													type="text" value="" maxlength="60"> <br /> <form:errors
 														path="maker" /></td>
 											</tr>
 											<tr>
@@ -362,6 +391,49 @@
 													</div>
 													<div class="board_attach2" id="file_upload_imposbl">
 													</div> <c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt"
+															value="0" />
+													</c:if>
+												</td>
+											</tr>
+										</table>
+
+
+
+										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
+											<script type="text/javascript">
+												var maxFileNum = document.board.posblAtchFileNumber.value;
+												if (maxFileNum == null
+														|| maxFileNum == "") {
+													maxFileNum = 3;
+												}
+												var multi_selector = new MultiSelector(
+														document
+																.getElementById('egovComFileList'),
+														maxFileNum);
+												multi_selector
+														.addElement(document
+																.getElementById('egovComFileUploader'));
+											</script>
+										</c:if>
+									</div>
+									<br>
+									<div class="board_view2">
+										<table>
+											<colgroup>
+												<col style="width: 190px;">
+												<col style="width: auto;">
+											</colgroup>
+											<tr>
+												<td class="lb"><label for="egovComFileUploader">지급확인서</label>
+													<span class="req">필수</span></td>
+												<td>
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="file_1" id="egovComFileUploader" type="file" />
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl"></div>
+													<c:if test="${empty result.atchFileId}">
 														<input type="hidden" id="fileListCnt" name="fileListCnt"
 															value="0" />
 													</c:if>
@@ -395,49 +467,71 @@
 													type="hidden" title="프로젝트" value="" maxlength="8"
 													readonly="readonly" /></td>
 											</tr>
+											<tr>
+												<td class="lb">
+													<!-- CODE명 --> <label for="">CODE명</label>
+												</td>
+												<td><input id="assetName" class="f_txt w_full"
+													name="assetName" type="text" value="" maxlength="60">
+													<br /> <form:errors path="assetName" /></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령자 --> <label for="">수령자</label> <span class="req">필수</span>
+												</td>
+												<td><span class="f_search2 w_30%"> <input
+														id="prjNm" type="text" title="주소" maxlength="100"
+														readonly="false" /> <form:errors path="prjId" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
+												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
+														path="prjId" /> <input name="prjId" id="prjId"
+													type="hidden" title="프로젝트" value="" maxlength="8"
+													readonly="readonly" /></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 실사용자 --> <label for="">실사용자</label> <span class="req">필수</span>
+												</td>
+												<td><span class="f_search2 w_30%"> <input
+														id="prjNm" type="text" title="주소" maxlength="100"
+														readonly="false" /> <form:errors path="prjId" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
+												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
+														path="prjId" /> <input name="prjId" id="prjId"
+													type="hidden" title="프로젝트" value="" maxlength="8"
+													readonly="readonly" /></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> <label for="">수령일자</label> <span class="req">필수</span>
+												</td>
+												<td><input id="acquiredDate" class="f_txt w_full"
+													name="acquiredDate" type="date" value="" maxlength="60">
+													<br /> <form:errors path="acquiredDate" /></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 반출사유 --> <label for="note">반출사유</label>
+												</td>
+												<td><textarea id="note" name="note"
+														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+													<form:errors path="note" /></td>
+											</tr>
 										</table>
-
-
-										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-											<script type="text/javascript">
-												var maxFileNum = document.board.posblAtchFileNumber.value;
-												if (maxFileNum == null
-														|| maxFileNum == "") {
-													maxFileNum = 3;
-												}
-												var multi_selector = new MultiSelector(
-														document
-																.getElementById('egovComFileList'),
-														maxFileNum);
-												multi_selector
-														.addElement(document
-																.getElementById('egovComFileUploader'));
-											</script>
-										</c:if>
-
 									</div>
-
-									<!-- 목록/저장버튼  -->
+									<!-- 등록버튼  -->
 									<div class="board_view_bot">
-										<div class="left_col btn3"></div>
-
-										<div class="right_col btn1">
-											<c:if test="${bdMstr.authFlag == 'Y'}">
-												<a href="#LINK" class="btn btn_blue_46 w_100"
-													onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message
-														code="button.save" /></a>
-												<!-- 저장 -->
-											</c:if>
+										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message
-													code="button.list" /></a>
-											<!-- 목록 -->
+												onclick="insert_asset(); return false;"><spring:message
+													code="button.create" /></a>
+											<!-- 등록 -->
 										</div>
 									</div>
-									<!-- // 목록/저장버튼 끝  -->
-
+									<!-- // 등록버튼 끝  -->
 								</form:form>
-
 							</div>
 						</div>
 					</div>

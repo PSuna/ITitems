@@ -42,7 +42,13 @@ function fn_egov_return_Prj(prjid, prjNm){
 	parent.parent.fn_egov_returnValue(val);
 }
 
-function fn_egov_search_Prj(){
+function fn_egov_pageview(){
+	document.listForm.searchWord.value = '${searchVO.searchWord}';
+	document.listForm.pageIndex.value = 1;
+   	document.listForm.submit();
+}
+
+function fn_egov_search_Prj() {
 	document.listForm.pageIndex.value = 1;
    	document.listForm.submit();
 }
@@ -70,8 +76,8 @@ function fn_egov_search_Prj(){
                 <div class="condition2">
                     <label for="" class="lb mr10">프로젝트명 : </label>
                     <span class="item f_search">
-                        <input class="f_input w_500" name="searchKeyword" type="text"  maxlength="20" title="동명"/>
-                        <button class="btn" type="submit" onclick="javascript:fn_egov_search_Prj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
+                        <input class="f_input w_500" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
+                        <button class="btn" type="submit" onclick="fn_egov_search_Prj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
                     </span>
                 </div>
                 <!--// 검색조건 -->
