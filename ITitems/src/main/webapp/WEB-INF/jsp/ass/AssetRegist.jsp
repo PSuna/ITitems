@@ -49,6 +49,7 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <script type="text/javascript">
+	let userCheck = 0;
 	
 	function getMCatList() {
 		let val = document.getElementById('largeCategory').value;
@@ -170,7 +171,36 @@
 		$dialog.dialog('open');
 	}
 	
-	function fn_egov_returnValue(val){
+	function AssetSearch(){
+	    
+	    var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 1100,
+	        height: 700
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+	}
+	
+	function UserSearch(ch){
+		userCheck = ch;
+	    
+	    var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 1100,
+	        height: 700
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+	}
+	
+	function returnProject(val){
 		
 		if (val) {
 			document.getElementById("prjId").value  = val.prjId;
@@ -180,6 +210,31 @@
 		fn_egov_modal_remove();
 	}
 
+function returnAsset(val){
+		
+		if (val) {
+			document.getElementById("useId").value  = val.userId;
+			document.getElementById("useNm").value  = val.userNm;
+		}
+		
+		fn_egov_modal_remove();
+	}
+	
+function returnUser(val){
+	
+	if (val) {
+		if(userCheck == 0){
+			document.getElementById("rcptId").value  = val.userId;
+			document.getElementById("rcptNm").value  = val.userNm;
+		}else if(userCheck == 1){
+			document.getElementById("useId").value  = val.userId;
+			document.getElementById("useNm").value  = val.userNm;
+		}
+		
+	}
+	
+	fn_egov_modal_remove();
+}
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -191,9 +246,11 @@
 	margin-left: 10px;
 	vertical-align: middle;
 }
+
 .board_view_bot {
-overflow: hidden;
+	overflow: hidden;
 }
+
 .right_btn {
 	float: right;
 }
@@ -358,7 +415,7 @@ overflow: hidden;
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label> 
+													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
 												<td><input id="maker" class="f_txt w_full" name="maker"
 													type="text" value="" maxlength="60"> <br /> <form:errors
@@ -480,12 +537,11 @@ overflow: hidden;
 													<!-- 수령자 --> <label for="">수령자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="prjNm" type="text" title="주소" maxlength="100"
-														readonly="false" /> <form:errors path="prjId" />
-														<button type="button" class="btn"
-															onclick="ProjectSearch();">조회</button>
+														id="rcptNm" type="text" title="주소" maxlength="100"
+														readonly="false" /> <form:errors path="regId" />
+														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
+														path="prjId" /> <input name="rcptId" id="rcptId"
 													type="hidden" title="프로젝트" value="" maxlength="8"
 													readonly="readonly" /></td>
 											</tr>
@@ -494,12 +550,11 @@ overflow: hidden;
 													<!-- 실사용자 --> <label for="">실사용자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="prjNm" type="text" title="주소" maxlength="100"
+														id="useNm" type="text" title="주소" maxlength="100"
 														readonly="false" /> <form:errors path="prjId" />
-														<button type="button" class="btn"
-															onclick="ProjectSearch();">조회</button>
+														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
+														path="prjId" /> <input name="useId" id="useId"
 													type="hidden" title="프로젝트" value="" maxlength="8"
 													readonly="readonly" /></td>
 											</tr>

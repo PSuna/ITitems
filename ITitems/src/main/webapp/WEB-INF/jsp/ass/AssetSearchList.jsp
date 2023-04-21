@@ -39,7 +39,7 @@ function fn_egov_return_Prj(prjid, prjNm){
 	val.prjid  = prjid;
 	val.prjNm  = prjNm;
 	
-	parent.parent.returnProject(val);
+	parent.parent.fn_egov_returnValue(val);
 }
 
 function fn_egov_pageview(page){
