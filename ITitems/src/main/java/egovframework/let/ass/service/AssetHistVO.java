@@ -70,6 +70,24 @@ public class AssetHistVO implements Serializable {
 	
 	/** 제조사 */
 	private String maker;
+	
+	/** 실사용자 */
+	private String useId;
+	
+	/** 수령일자 */
+	private String rcptDate;
+	
+	/** 수령자 */
+	private String rcptId;
+	
+	/** 반출사유 */
+	private String carryReason;
+	
+	/** 결재 */
+	private String approval;
+	
+	/** CODE */
+	private String code;
 
 	public String getHistId() {
 		return histId;
@@ -197,6 +215,54 @@ public class AssetHistVO implements Serializable {
 
 	public void setMaker(String maker) {
 		this.maker = maker;
+	}
+
+	public String getUseId() {
+		return useId;
+	}
+
+	public void setUseId(String useId) {
+		this.useId = useId;
+	}
+
+	public String getRcptDate() {
+		return rcptDate;
+	}
+
+	public void setRcptDate(String rcptDate) {
+		this.rcptDate = rcptDate;
+	}
+
+	public String getRcptId() {
+		return rcptId;
+	}
+
+	public void setRcptId(String rcptId) {
+		this.rcptId = rcptId;
+	}
+
+	public String getCarryReason() {
+		return carryReason;
+	}
+
+	public void setCarryReason(String carryReason) {
+		this.carryReason = carryReason;
+	}
+
+	public String getApproval() {
+		return approval;
+	}
+
+	public void setApproval(String approval) {
+		this.approval = approval;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

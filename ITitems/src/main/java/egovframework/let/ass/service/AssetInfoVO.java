@@ -64,6 +64,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 부서 */
 	private String prjId;
+	
+	/** 추가물품 */
+	private String addAsset;
 
 	public String getAssetId() {
 		return assetId;
@@ -175,6 +178,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setPrjId(String prjId) {
 		this.prjId = prjId;
+	}
+
+	public String getAddAsset() {
+		return addAsset;
+	}
+
+	public void setAddAsset(String addAsset) {
+		this.addAsset = addAsset;
 	}
 	
 	
