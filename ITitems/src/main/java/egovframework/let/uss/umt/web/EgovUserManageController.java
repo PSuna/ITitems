@@ -99,7 +99,7 @@ public class EgovUserManageController {
     	}
     	
 		/** EgovPropertyService */
-		userSearchVO.setPageUnit(propertiesService.getInt("pageUnit"));
+		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
 
 		/** paging */
@@ -122,6 +122,13 @@ public class EgovUserManageController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		vo.setCodeId("COM013");
 		model.addAttribute("emplyrSttusCode_result", cmmUseService.selectCmmCodeDetail(vo));//사용자상태코드목록
+		//직급코드를 코드정보로부터 조회 - COM002 
+		vo.setCodeId("COM002");
+		model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+
+		//조직정보를 조회 - ORGNZT_ID정보
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
 
 		return "cmm/uss/umt/EgovUserManage";
 	}

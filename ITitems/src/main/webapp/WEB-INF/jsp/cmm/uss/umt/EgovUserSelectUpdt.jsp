@@ -229,7 +229,7 @@ function fn_egov_modal_remove() {
 	                                                </label>
 	                                                <form:errors path="grade" /> 
 	                                            </td>
-												<td class="lb">
+												<%-- <td class="lb">
 													<label for="groupId">그룹</label>
 													<span class="req">필수</span>
 												</td>
@@ -241,7 +241,7 @@ function fn_egov_modal_remove() {
 														</form:select>
 													</label>
 													<form:errors path="groupId" />
-												</td>
+												</td> --%>
 											</tr>
 										</table>
 									</div>

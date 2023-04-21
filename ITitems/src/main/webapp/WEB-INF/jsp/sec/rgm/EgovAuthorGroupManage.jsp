@@ -249,8 +249,6 @@ function press() {
 
 								<form:form id="listForm" name="listForm" action="<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>" method="post">
 
-                                <h1 class="tit_1">사이트관리</h1>
-
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
                                 <!-- 검색조건 -->
@@ -313,7 +311,7 @@ function press() {
                                         	
                                         	<c:if test="${empty authorGroupList}">
                                         		<tr>
-                                        			<td colspan="6">검색결과가 없습니다.</td>
+                                        			<td colspan="7">검색결과가 없습니다.</td>
                                         		</tr>
                                         	</c:if>
                                         	

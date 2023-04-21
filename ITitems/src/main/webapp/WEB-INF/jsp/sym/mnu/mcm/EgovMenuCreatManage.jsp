@@ -37,7 +37,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>내부업무 사이트 > 내부시스템관리 > 메뉴생성관리</title>
+<title>사이트관리 > 메뉴관리 > 메뉴생성관리</title>
 
 <script type="text/javaScript">
 <!--
@@ -135,8 +135,6 @@ function fn_egov_modal_remove() {
 								<input name="checkedMenuNoForDel" type="hidden" />
 								<input name="authorCode" type="hidden" />
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-
-                                <h1 class="tit_1">내부시스템관리</h1>
 
                                 <h2 class="tit_2">메뉴생성관리</h2>
                                 

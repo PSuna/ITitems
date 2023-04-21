@@ -34,7 +34,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>내부업무 사이트 > 내부시스템관리 > 프로그램목록관리</title>
+<title>사이트관리 > 메뉴관리 > 프로그램목록관리</title>
 
 <script language="javascript1.2" type="text/javaScript">
 <!--
@@ -176,8 +176,6 @@ function selectUpdtProgramListDetail(progrmFileNm) {
 								
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<input name="checkedProgrmFileNmForDel" type="hidden" />
-
-                                <h1 class="tit_1">내부시스템관리</h1>
 
                                 <h2 class="tit_2">프로그램목록관리</h2>
                                 

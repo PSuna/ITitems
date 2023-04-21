@@ -34,7 +34,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>내부업무 사이트 > 내부시스템관리 > 메뉴목록관리</title>
+<title>사이트관리 > 메뉴관리 > 메뉴목록관리</title>
 
 <script language="javascript1.2" type="text/javaScript">
 <!--
@@ -179,7 +179,7 @@ function fMenuManageSelect(){
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
+                                        <li><a href="">사이트관리</a></li>
                                         <li><a href="">메뉴관리</a></li>
                                         <li>메뉴목록관리</li>
                                     </ul>
@@ -191,8 +191,6 @@ function fMenuManageSelect(){
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<input name="checkedMenuNoForDel" type="hidden" />
 								<input name="req_menuNo" type="hidden" />
-
-                                <h1 class="tit_1">내부시스템관리</h1>
 
                                 <h2 class="tit_2">메뉴목록관리</h2>
                                 

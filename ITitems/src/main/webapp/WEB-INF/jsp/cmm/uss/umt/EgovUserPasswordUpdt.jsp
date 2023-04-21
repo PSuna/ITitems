@@ -78,9 +78,9 @@ function fnUpdate(){
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
+                                        <li><a href="">사이트관리</a></li>
                                         <li><a href="">사용자관리</a></li>
-                                        <li>사용자등록관리</li>
+                                        <li>비밀번호변경</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
@@ -97,9 +97,7 @@ function fnUpdate(){
 								<!-- 우편번호검색 -->
 								<input type="hidden" name="url" value="<c:url value='/sym/ccm/zip/EgovCcmZipSearchPopup.do'/>" />
 
-                                <h1 class="tit_1">내부시스템관리</h1>
-
-                                <h2 class="tit_2">사용자등록관리</h2>
+                                <h2 class="tit_2">비밀번호변경</h2>
 
                                 <div class="board_view2">
                                     <table>

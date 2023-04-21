@@ -291,8 +291,8 @@ function fn_egov_modal_remove() {
                                             <td>
                                             	<label class="f_select w_full" for="authorCode">
                                                 	<select name="authorManageCombo" title="권한">
+                                                		<option value="" label="선택하세요"/>
                                                     	<c:forEach var="authorManage" items="${authorManageList}" varStatus="status">
-                                                    		<option value="" label="선택하세요"/>
                                                         	<option value="<c:out value="${authorManage.authorCode}"/>">${authorManage.authorNm}</option>
                                                         </c:forEach>
                                                     </select>
