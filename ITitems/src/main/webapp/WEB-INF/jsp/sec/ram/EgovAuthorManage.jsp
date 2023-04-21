@@ -197,9 +197,7 @@ function press() {
 
 								<form:form id="listForm" name="listForm" action="<c:url value='/sec/ram/EgovAuthorList.do'/>" method="post">
 
-                                <h1 class="tit_1">내부시스템관리</h1>
-
-                                <h2 class="tit_2">권한관리</h2>
+                                <h2 class="tit_2">사이트이용권한관리</h2>
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition2">

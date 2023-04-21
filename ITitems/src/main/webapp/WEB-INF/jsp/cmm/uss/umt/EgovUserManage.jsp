@@ -16,6 +16,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -118,6 +119,11 @@ function fnViewCheck(){
         insert_msg.style.visibility = 'hidden';
     }
 }
+function setPageUnit(){
+	document.listForm.pageIndex.value = 1;
+    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.listForm.submit();
+}
 <c:if test="${!empty resultMsg}">alert("<spring:message code="${resultMsg}" />");</c:if>
 //-->
 </script>
@@ -161,8 +167,6 @@ function fnViewCheck(){
 								<input name="checkedIdForDel" type="hidden" />
 								<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
 
-                                <h1 class="tit_1">사이트관리</h1>
-
                                 <h2 class="tit_2">사용자목록</h2>
                                 
                                 <!-- 검색조건 -->
@@ -175,6 +179,25 @@ function fnViewCheck(){
                                             <option value="P" <c:if test="${userSearchVO.sbscrbSttus == 'P'}">selected="selected"</c:if> >승인</option>
                                         </select>
                                     </label> --%>
+                                    
+                                    <label class="item f_select" for="searchOrgnzt">
+                                    	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
+	                                        <option value="" label="부서"/>
+	                                        <c:forEach var="orgnztId" items="${orgnztId_result}">
+	                                        	<option value="<c:out value="${orgnztId.code}"/>" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>${orgnztId.codeNm}</option>
+	                                        </c:forEach>
+                                    	</select>
+                                    </label>
+                                    
+                                    <label class="item f_select" for="searchGrade">
+                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
+	                                        <option value="" label="직급"/>
+	                                        <c:forEach var="grade" items="${grd_result}">
+	                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
+	                                        </c:forEach>
+                                    	</select>
+                                    </label>
+                                    
                                     <label class="item f_select" for="searchCondition">
                                         <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
                                             <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >ID</option>
@@ -186,17 +209,29 @@ function fnViewCheck(){
                                         <input class="f_input w_350" name="searchKeyword" title="검색어" type="text" value="<c:out value="${userSearchVO.searchKeyword}"/>" />
                                         <button class="btn" type="submit" onclick="javascript:fnSearch(); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
-
-                                    <a href="#LINK" class="item btn btn_blue_46 w_100" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
                                 </div>
                                 <!--// 검색조건 -->
 								
 								<div class="board_list_top">
 									<div class="left_col">
 	                                	<div class="list_count">
-	                                 		<span>사용자수</span>
-	                                 		<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
+			                                 	<span>사용자수</span>
+			                                 	<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
+		                                 		<div style="float: right;display: flex;align-items: center;">
+			                                 		<span>페이지당 항목 수</span>
+			                                 		<label class="item f_select" for="pageUnit">
+				                                 		<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">
+				                                 			<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+				                                 			<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+				                                 			<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+				                                 			<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+				                                 			<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+				                                 			<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+				                                 		</select>
+			                                 		</label>
+			                                 		<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+                                    				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+		                                 		</div>
 	                                 	</div>
 	                            	</div>
                                 </div>
@@ -206,14 +241,13 @@ function fnViewCheck(){
                                     <table summary="사용자 목록을 제공한다.">
                                     	<caption>사용자목록</caption>
                                         <colgroup>
-                                            <%-- <col style="width: 80px;"> --%>
+                                            <col style="width: 50px;">
+                                            <col style="width: 70px;">
+                                            <col style="width: 240px;">
+                                            <col style="width: 120px;">
+                                            <col style="width: 240px;">
+                                            <col style="width: 170px;">
                                             <col style="width: 80px;">
-                                            <col style="width: 100px;">
-                                            <col style="width: auto;">
-                                            <col style="width: 150px;">
-                                            <col style="width: 200px;">
-                                            <col style="width: 100px;">
-                                            <col style="width: 100px;">
                                         </colgroup>
                                         <thead>
                                             <tr>

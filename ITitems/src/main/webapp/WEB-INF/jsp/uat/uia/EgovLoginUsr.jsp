@@ -107,8 +107,8 @@ function fnInit() {
                 <div class="sub_in">
                     <div class="layout">
                         <div class="P_LOGIN">
-                            <h1>로그인</h1>
-                            <p class="txt">ITeyes 자산관리 시스템에 오신것을 환영합니다.</p>
+                            <h1><img src="<c:url value='/'/>images/iteyes_logo.png" height="70px">자산관리 솔루션</h1>
+                            <p class="txt">로그인</p>
                             <div class="loginbox">
                                 <form:form id="loginForm" name="loginForm" method="post">
                                     <fieldset>

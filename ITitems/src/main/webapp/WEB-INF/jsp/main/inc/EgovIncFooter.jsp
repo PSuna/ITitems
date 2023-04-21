@@ -14,19 +14,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="footer">
     <div class="inner">
-        <h1><a href="#LINK"><img src="<c:url value='/'/>images/logo_footer.png" alt="표준프레임워크 포털 eGovFrame"></a></h1>
+        <h1><a href="#LINK"><img src="<c:url value='/'/>images/iteyes_logo.png"></a></h1>
 
         <div class="mid">
             <address>
-                대표문의메일 : egovframesupport@gmail.com  |  대표전화 : 0000-0000 (000-0000-0000)<br>
-                호환성확인 : 000-0000-0000  |  교육문의 : 000-0000-0000
+                (주)아이티아이즈 서울특별시 영등포구 은행로 37, 5층(여의도동, 기계진흥회관본관) | 대표번호: 02-783-2970 , 팩스: 02-783-5088<br>
+				[대구지사] 대구광역시 중구 동덕로 115, 진석타워 1206호, 053-429-6589<br>
+				[부산지사] 부산광역시 동구 조방로 39 썬오피스텔 906호, 051-635-2972<br>
+				[호남지사] 전남 나주시 빛가람로 685, 비전타워 201호, 061-336-8801<br>
             </address>
-            <p class="copy">Copyright © 2021 Ministry Of The Interior And Safety. All Rights Reserved.</p>
         </div>
 
-        <div class="right_col">
-            <a href="#LINK"><img src="<c:url value='/'/>images/banner01.png" alt="행정안전부"></a>
-            <a href="#LINK"><img src="<c:url value='/'/>images/banner02.png" alt="NIA 한국지능정보사회진흥원"></a>
-        </div>
     </div>
 </div>

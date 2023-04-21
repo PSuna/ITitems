@@ -34,6 +34,11 @@ public class UserDefaultVO implements Serializable {
 	/** 검색조건 */
     private String searchCondition = "";
     
+    /** 부서검색조건 */
+    private String searchOrgnzt = "";
+    /** 직급검색조건 */
+    private String searchGrade = "";
+    
     /** 검색Keyword */
     private String searchKeyword = "";
     
@@ -224,5 +229,22 @@ public class UserDefaultVO implements Serializable {
     public String toString() {
     	return ToStringBuilder.reflectionToString(this);
     }
+
+	public String getSearchOrgnzt() {
+		return searchOrgnzt;
+	}
+
+	public void setSearchOrgnzt(String searchOrgnzt) {
+		this.searchOrgnzt = searchOrgnzt;
+	}
+
+	public String getSearchGrade() {
+		return searchGrade;
+	}
+
+	public void setSearchGrade(String searchGrade) {
+		this.searchGrade = searchGrade;
+	}
+
 
 }

@@ -47,9 +47,10 @@ function fn_egov_modal_remove() {
 <!-- Header -->
 <div class="header">
     <div class="inner">
-        <div class="left_col">
-            <h1 class="logo"><a href="<c:url value='/'/>cmm/main/mainPage.do"><img src="<c:url value='/'/>images/logo.png" alt="표준프레임워크 포털 eGovFrame 샘플 포탈"></a></h1>
-            <a class="go" href="#LINK" onclick="fn_egov_modal_create(); return false;"><img src="<c:url value='/'/>images/ico_question.png" alt="메뉴구성 설명"></a>
+        <div class="left_col" style="display: flex; align-items: flex-end; font-size:20px;">
+            <h1 class="logo"><a href="<c:url value='/'/>cmm/main/mainPage.do"><img src="<c:url value='/'/>images/iteyes_logo.png" alt="표준프레임워크 포털 eGovFrame 샘플 포탈" height="40px"></a></h1>
+            <h4>자산관리 솔루션</h4>
+            <%-- <a class="go" href="#LINK" onclick="fn_egov_modal_create(); return false;"><img src="<c:url value='/'/>images/ico_question.png" alt="메뉴구성 설명"></a> --%>
         </div>
 
 		<%
@@ -64,8 +65,7 @@ function fn_egov_modal_remove() {
 		<% } else { %>
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span onclick="alert('개인정보 확인 등의 링크 제공'); return false;" style="cursor: pointer;">${loginName} 님</span>의 최종접속정보는 </span>
-	            <span class="d">2021-06-30 12:45 입니다.</span>
+	            <span class="t"><span onclick="alert('개인정보 확인 등의 링크 제공'); return false;" style="cursor: pointer;">${loginName} 님</span> 안녕하세요</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
