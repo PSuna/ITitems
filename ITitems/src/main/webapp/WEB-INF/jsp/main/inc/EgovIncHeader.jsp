@@ -189,6 +189,9 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
                     <li><a href="/ebt_webapp/sym/mnu/mpm/EgovMenuManageSelect.do">메뉴목록관리</a></li>
                 </ul>
+                
+                <h3><a href="/ebt_webapp/cat/CategoryManage.do">카테고리관리</a></h3>
+
 
             </div>
         </div>

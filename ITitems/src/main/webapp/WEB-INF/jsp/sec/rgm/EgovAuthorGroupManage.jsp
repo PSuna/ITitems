@@ -90,7 +90,7 @@ function fncManageChecked() {
                         returnId = checkField[i].value;
                         returnAuthor = selectAuthor[i].value;
                         returnRegYn = booleanRegYn[i].value;
-                        returnmberTyCode = listMberTyCode[i].value;
+                        /* returnmberTyCode = listMberTyCode[i].value; */
                     }
                     else {
                         returnId = returnId + ";" + checkField[i].value;
@@ -142,7 +142,7 @@ function fncSelectAuthorGroupList(pageNo){
 }
 
 function fncAddAuthorGroupInsert() {
-
+	
     if(!fncManageChecked()) return;
     
     if(confirm('<spring:message code="common.regist.msg" />')) {

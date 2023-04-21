@@ -26,6 +26,7 @@ import egovframework.let.cat.service.CategoryVO;
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *  2023.04.19  주소현          최초 생성
+ *  2023.04.21  천세훈		관리자페이지 - 카테고리 관리페이지 컨트롤러 추가
  *
  *  </pre>
  */
@@ -34,6 +35,18 @@ public class CategoryController {
 	
 	@Resource(name = "CategoryService")
 	private CategoryService categoryService;
+	
+	/**
+	 * 카테고리 관리화면 이동
+	 * @return String
+	 * @exception Exception
+	 */
+	@RequestMapping("/cat/CategoryManage.do")
+    public String selectAuthorGroupListView() throws Exception {
+
+        return "/cat/CategoryManage";
+    }    
+
 	
 	@RequestMapping(value = "/cat/GetMCategoryList.do")
 	@ResponseBody

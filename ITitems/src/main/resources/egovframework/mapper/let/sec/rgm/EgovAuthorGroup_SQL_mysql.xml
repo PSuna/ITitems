@@ -65,7 +65,7 @@
 	<update id="updateAuthorGroup" parameterType="egovframework.let.sec.rgm.service.AuthorGroup">
 		
 			UPDATE LETTNEMPLYRSCRTYESTBS 
-			   SET MBER_TY_CODE=#{mberTyCode}
+			   SET MBER_TY_CODE= ''
                  , AUTHOR_CODE=#{authorCode}
 		  	 WHERE SCRTY_DTRMN_TRGET_ID=#{uniqId}
 		
