@@ -7,10 +7,10 @@
 
 /* Button */
 .btn {display: inline-block; vertical-align: top;}
-    .btn_blue_15 {height: 30px; border-radius: 15px; color: #fff; font-size: 14px; font-weight: 300; text-align: center; line-height: 30px; background: #169bd5;}
-    .btn_blue_30 {height: 30px; border-radius: 5px; color: #fff; font-size: 14px; font-weight: 300; text-align: center; line-height: 30px; background: #169bd5;}
-    .btn_blue_46 {height: 46px; border-radius: 5px; color: #fff; font-size: 16px; text-align: center; line-height: 46px; background: #169bd5;}
-    .btn_skyblue_h46 {height: 46px; border-radius: 5px; color: #005b82; font-size: 16px; text-align: center; line-height: 46px; background: #daedf5;}
+    .btn_blue_15 {height: 30px; border-radius: 15px; color: #fff; font-size: 14px; font-weight: 300; text-align: center; line-height: 30px; background: #ff6600;}
+    .btn_blue_30 {height: 30px; border-radius: 5px; color: #fff; font-size: 14px; font-weight: 300; text-align: center; line-height: 30px; background: #ff6600;}
+    .btn_blue_46 {height: 46px; border-radius: 5px; color: #fff; font-size: 16px; text-align: center; line-height: 46px; background: #ff6600;}
+    .btn_skyblue_h46 {height: 46px; border-radius: 5px; color: #000000; font-size: 16px; text-align: center; line-height: 46px; background: #f3d4b3;}
     .btn_search_w {width: 46px; height: 46px; border-radius: 5px; font-size: 0; background: #169bd5 url(../images/ico_search_w.png) no-repeat center;}
     .btn_calendar {width: 46px; height: 46px; border: 1px solid #dde2e5; border-radius: 5px; font-size: 0; background: #fff url(../images/ico_calendar.png) no-repeat center;}
 
@@ -155,7 +155,7 @@
     .board_top .right_col {position: absolute; right: 0; top: 0;}
 
     .list_cnt {display: inline-block; padding-top: 12px; color: #222; font-size: 16xpx; font-weight: 300; vertical-align: top;}
-    .list_cnt strong {color: #169bd5; font-weight: 500;}
+    .list_cnt strong {color: #ff6600; font-weight: 500;}
 
 
 /* Message */

@@ -12,7 +12,7 @@ body {min-width: 1400px;}
 .header .top_menu {position: absolute; right: 50px; top: 17px; font-size: 14px;}
 .header .top_menu > span {display: inline-block; height: 30px; font-weight: 300; line-height: 30px; vertical-align: top;}
 .header .top_menu .t {color: #666;}
-.header .top_menu .t span {color: #0465be; font-weight: 700;}
+.header .top_menu .t span {color: #ff6600; font-weight: 700;}
 .header .top_menu .t span::before {content: ""; display: inline-block; width: 21px; height: 24px; margin-right: 8px; background: url(../images/ico_person.png) no-repeat center; vertical-align: -5px;}
 .header .top_menu .d {color: #888;}
 .header .top_menu .btn {margin-left: 6px;}
