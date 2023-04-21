@@ -173,7 +173,7 @@ function fn_egov_modal_remove() {
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="EgovUserManage.do">내부시스템관리</a></li>
+                                        <li><a href="EgovUserManage.do">사이트관리</a></li>
                                         <li><a href="EgovUserManage.do">사용자관리</a></li>
                                         <li>사용자등록관리</li>
                                     </ul>
