@@ -178,19 +178,22 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
                 </ul>
 
-                <h3>이용권한관리</h3>
+                <!-- <h3>이용권한관리</h3>
                 <ul>
                     <li><a href="/ebt_webapp/sec/ram/EgovAuthorList.do">사이트이용권한관리</a></li>
-                </ul>
+                </ul> -->
 
                 <h3>메뉴관리</h3>
                 <ul>
-                    <li><a href="/ebt_webapp/sym/prm/EgovProgramListManageSelect.do">프로그램목록관리</a></li>
+                    <!-- <li><a href="/ebt_webapp/sym/prm/EgovProgramListManageSelect.do">프로그램목록관리</a></li> -->
                     <li><a href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
-                    <li><a href="/ebt_webapp/sym/mnu/mpm/EgovMenuManageSelect.do">메뉴목록관리</a></li>
+                    <!-- <li><a href="/ebt_webapp/sym/mnu/mpm/EgovMenuManageSelect.do">메뉴목록관리</a></li> -->
                 </ul>
                 
-                <h3><a href="/ebt_webapp/cat/CategoryManage.do">카테고리관리</a></h3>
+                <h3>카테고리관리</h3>
+                <ul>
+                	<li><a href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
+                </ul>
 
 
             </div>

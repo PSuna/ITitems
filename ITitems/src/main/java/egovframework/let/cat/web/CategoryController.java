@@ -5,9 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
@@ -26,7 +26,7 @@ import egovframework.let.cat.service.CategoryVO;
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *  2023.04.19  주소현          최초 생성
- *  2023.04.21  천세훈		관리자페이지 - 카테고리 관리페이지 컨트롤러 추가
+ *  2023.04.21  천세훈		관리자페이지 - 사이트관리>카테고리관리 컨트롤러 추가
  *
  *  </pre>
  */
@@ -42,8 +42,9 @@ public class CategoryController {
 	 * @exception Exception
 	 */
 	@RequestMapping("/cat/CategoryManage.do")
-    public String selectAuthorGroupListView() throws Exception {
-
+    public String selectAuthorGroupListView(CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
+		//페이지 로드 시 상위 카테고리리스트 조회
+		model.addAttribute("cat_result", categoryService.SelectCategoryVOList(categoryManageVO));
         return "/cat/CategoryManage";
     }    
 
