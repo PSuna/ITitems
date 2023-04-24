@@ -174,7 +174,7 @@
 	function AssetSearch(){
 	    
 	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -235,6 +235,36 @@ function returnUser(val){
 	
 	fn_egov_modal_remove();
 }
+
+function insert_asset() {
+	event.preventDefault();
+	
+	let formData = new FormData(document.getElementById('frm'));
+	
+ 	$.ajax({
+		url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			document.getElementById("largeCategory").value  = "";
+			document.getElementById("middleCategory").value  = "";
+			document.getElementById("assetQty").value  = 0;
+			document.getElementById("assetName").value  = "";
+			document.getElementById("acquiredDate").value  = "";
+			document.getElementById("acquiredPrice").value  = 0;
+			document.getElementById("maker").value  = "";
+			document.getElementById("addAsset").value  = "";
+			document.getElementById("note").value  = "";
+			document.getElementById("photo").value  = "";
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	}) 
+}
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -283,38 +313,35 @@ function returnUser(val){
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>자산등록</li>
+										<li>신규자산등록</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 
-								<form:form modelAttribute="AssetInfoVO"
-									action="${pageContext.request.contextPath}/ass/AssetInsert.do"
-									name="AssetInfoVO" method="post" enctype="multipart/form-data">
+								<form id="frm" name="frm">
 
 									<input name="pageIndex" type="hidden"
-										value="<c:out value='${searchVO.pageIndex}'/>" />
-									<input type="hidden" name="bbsId"
-										value="<c:out value='${bdMstr.bbsId}'/>" />
-									<input type="hidden" name="bbsAttrbCode"
-										value="<c:out value='${bdMstr.bbsAttrbCode}'/>" />
-									<input type="hidden" name="bbsTyCode"
-										value="<c:out value='${bdMstr.bbsTyCode}'/>" />
-									<input type="hidden" name="replyPosblAt"
-										value="<c:out value='${bdMstr.replyPosblAt}'/>" />
-									<input type="hidden" name="fileAtchPosblAt"
-										value="<c:out value='${bdMstr.fileAtchPosblAt}'/>" />
-									<input type="hidden" name="posblAtchFileNumber"
-										value="<c:out value='${bdMstr.posblAtchFileNumber}'/>" />
-									<input type="hidden" name="posblAtchFileSize"
-										value="<c:out value='${bdMstr.posblAtchFileSize}'/>" />
-									<input type="hidden" name="tmplatId"
-										value="<c:out value='${bdMstr.tmplatId}'/>" />
-
-									<input type="hidden" name="cal_url"
-										value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" />
-									<input type="hidden" name="authFlag"
+										value="<c:out value='${searchVO.pageIndex}'/>" /> <input
+										type="hidden" name="bbsId"
+										value="<c:out value='${bdMstr.bbsId}'/>" /> <input
+										type="hidden" name="bbsAttrbCode"
+										value="<c:out value='${bdMstr.bbsAttrbCode}'/>" /> <input
+										type="hidden" name="bbsTyCode"
+										value="<c:out value='${bdMstr.bbsTyCode}'/>" /> <input
+										type="hidden" name="replyPosblAt"
+										value="<c:out value='${bdMstr.replyPosblAt}'/>" /> <input
+										type="hidden" name="fileAtchPosblAt"
+										value="<c:out value='${bdMstr.fileAtchPosblAt}'/>" /> <input
+										type="hidden" name="posblAtchFileNumber"
+										value="<c:out value='${bdMstr.posblAtchFileNumber}'/>" /> <input
+										type="hidden" name="posblAtchFileSize"
+										value="<c:out value='${bdMstr.posblAtchFileSize}'/>" /> <input
+										type="hidden" name="tmplatId"
+										value="<c:out value='${bdMstr.tmplatId}'/>" /> <input
+										type="hidden" name="cal_url"
+										value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" /> <input
+										type="hidden" name="authFlag"
 										value="<c:out value='${bdMstr.authFlag}'/>" />
 
 									<c:if test="${anonymous != 'true'}">
@@ -331,23 +358,20 @@ function returnUser(val){
 
 									<h1 class="tit_1">자산관리</h1>
 
-									<h2 class="tit_2">
-										<c:out value='${bdMstr.bbsNm}' />
-										자산등록
-									</h2>
+									<h2 class="tit_2">신규자산등록</h2>
 
 									<br>
 									<!-- 추가/초기화 버튼  -->
-									<div class="board_view_bot">
+									<!-- <div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="add_asset(); return fasle;">기존 자산 등록</a>
-											<!-- 기존 자산 추가 -->
+												onclick="AssetSearch(); return fasle;">기존 자산 등록</a>
+											기존 자산 추가
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="add_asset(); return fasle;">초기화</a>
-											<!-- 초기화 -->
+												onclick="frm_reset(); return fasle;">초기화</a>
+											초기화
 										</div>
-									</div>
+									</div> -->
 									<!-- // 추가/초기화 버튼 끝  -->
 									<br>
 									<div class="board_view2">
@@ -361,14 +385,16 @@ function returnUser(val){
 													<!-- 대분류 --> <label for="">대분류</label> <span class="req">필수</span>
 												</td>
 												<td><label class="f_select" for="largeCategory">
-														<form:select path="largeCategory" id="largeCategory"
-															name="largeCategory" title="대분류"
-															onchange="getMCatList();">
-															<form:option value='' label="선택하세요" selected="selected" />
-															<form:options items="${LCat_result}" itemValue="catId"
-																itemLabel="catName" />
-														</form:select>
-												</label> <br /> <form:errors path="largeCategory" /></td>
+														<select id="largeCategory" name="largeCategory"
+														title="대분류" onchange="getMCatList();">
+															<option value="" label="선택하세요" />
+															<c:forEach var="LCat" items="${LCat_result}"
+																varStatus="status">
+																<option value="${LCat.catId}"><c:out
+																		value="${LCat.catName}" /></option>
+															</c:forEach>
+													</select>
+												</label> <br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -379,7 +405,7 @@ function returnUser(val){
 														title="중분류">
 															<option value='' label="선택하세요" selected="selected" />
 													</select>
-												</label> <br /> <form:errors path="middleCategory" /></td>
+												</label> <br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -387,7 +413,7 @@ function returnUser(val){
 												</td>
 												<td><input id="assetName" class="f_txt w_full"
 													name="assetName" type="text" value="" maxlength="60">
-													<br /> <form:errors path="assetName" /></td>
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -395,7 +421,7 @@ function returnUser(val){
 												</td>
 												<td><input id="assetQty" class="f_txt w_full"
 													name="assetQty" type="number" value="" maxlength="60">
-													<br /> <form:errors path="assetQty" /></td>
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -403,31 +429,30 @@ function returnUser(val){
 												</td>
 												<td><input id="acquiredDate" class="f_txt w_full"
 													name="acquiredDate" type="date" value="" maxlength="60">
-													<br /> <form:errors path="acquiredDate" /></td>
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
 												<td><input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="text" value="" maxlength="60">
-													<br /> <form:errors path="acquiredPrice" /></td>
+													name="acquiredPrice" type="number" value="0" maxlength="60">
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
 												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="text" value="" maxlength="60"> <br /> <form:errors
-														path="maker" /></td>
+													type="text" value="" maxlength="60"> <br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 추가물품 --> <label for="">추가물품</label>
 												</td>
-												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="text" value="" maxlength="60"> <br /> <form:errors
-														path="maker" /></td>
+												<td><input id="addAsset" class="f_txt w_full"
+													name="addAsset" type="text" value="" maxlength="60">
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -435,7 +460,7 @@ function returnUser(val){
 												</td>
 												<td><textarea id="note" name="note"
 														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-													<form:errors path="note" /></td>
+												</td>
 											</tr>
 											<!-- 파일첨부 시작 -->
 											<tr>
@@ -443,7 +468,7 @@ function returnUser(val){
 													<span class="req">필수</span></td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file_1" id="egovComFileUploader" type="file" />
+														<input name="photo" id="photo" type="file" />
 														<div id="egovComFileList"></div>
 													</div>
 													<div class="board_attach2" id="file_upload_imposbl">
@@ -486,7 +511,7 @@ function returnUser(val){
 													<span class="req">필수</span></td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file_1" id="egovComFileUploader" type="file" />
+														<input name="file" id="egovComFileUploader" type="file" />
 														<div id="egovComFileList"></div>
 													</div>
 													<div class="board_attach2" id="file_upload_imposbl"></div>
@@ -502,21 +527,23 @@ function returnUser(val){
 													<!-- 부서 --> <label for="orgnztId">부서</label>
 												</td>
 												<td><label class="f_select w_30%" for="orgnztId">
-														<form:select path="orgnztId" id="orgnztId" name="orgnztId"
-															title="부서">
-															<form:option value="" label="선택하세요" />
-															<form:options items="${orgnztId_result}" itemValue="code"
-																itemLabel="codeNm" />
-														</form:select>
-												</label> <form:errors path="orgnztId" /></td>
+														<select id="orgnztId" name="orgnztId" title="부서">
+															<option value="" label="선택하세요" />
+															<c:forEach var="orgnztId" items="${orgnztId_result}"
+																varStatus="status">
+																<option value="${orgnztId.code}"><c:out
+																		value="${orgnztId.codeNm}" /></option>
+															</c:forEach>
+													</select>
+												</label></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="prjNm" type="text" title="주소" maxlength="100"
-														readonly="false" /> <form:errors path="prjId" />
+														id="prjNm" type="text" title="프로젝트" maxlength="100"
+														readonly="false" />
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
 												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
@@ -528,51 +555,48 @@ function returnUser(val){
 												<td class="lb">
 													<!-- CODE명 --> <label for="">CODE명</label>
 												</td>
-												<td><input id="assetName" class="f_txt w_full"
-													name="assetName" type="text" value="" maxlength="60">
-													<br /> <form:errors path="assetName" /></td>
+												<td><input id="code" class="f_txt w_full" name="code"
+													type="text" value="" maxlength="60"> <br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> <label for="">수령자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="rcptNm" type="text" title="주소" maxlength="100"
-														readonly="false" /> <form:errors path="regId" />
+														id="rcptNm" type="text" title="회원" maxlength="100"
+														readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
-														path="prjId" /> <input name="rcptId" id="rcptId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
+												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
+													name="rcptId" id="rcptId" type="hidden" title="프로젝트"
+													value="" maxlength="8" readonly="readonly" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 실사용자 --> <label for="">실사용자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_30%"> <input
-														id="useNm" type="text" title="주소" maxlength="100"
-														readonly="false" /> <form:errors path="prjId" />
+														id="useNm" type="text" title="회원" maxlength="100"
+														readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <form:errors
-														path="prjId" /> <input name="useId" id="useId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
+												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
+													name="useId" id="useId" type="hidden" title="프로젝트" value=""
+													maxlength="8" readonly="readonly" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> <label for="">수령일자</label> <span class="req">필수</span>
 												</td>
-												<td><input id="acquiredDate" class="f_txt w_full"
-													name="acquiredDate" type="date" value="" maxlength="60">
-													<br /> <form:errors path="acquiredDate" /></td>
+												<td><input id="rcptDate" class="f_txt w_full"
+													name="rcptDate" type="date" value="" maxlength="60">
+													<br /></td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 반출사유 --> <label for="note">반출사유</label>
+													<!-- 반출사유 --> <label for="carryReason">반출사유</label>
 												</td>
-												<td><textarea id="note" name="note"
+												<td><textarea id="carryReason" name="carryReason"
 														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-													<form:errors path="note" /></td>
+												</td>
 											</tr>
 										</table>
 									</div>
@@ -586,7 +610,7 @@ function returnUser(val){
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
-								</form:form>
+								</form>
 							</div>
 						</div>
 					</div>

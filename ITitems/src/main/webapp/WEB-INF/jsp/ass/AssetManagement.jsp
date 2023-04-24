@@ -87,7 +87,7 @@ function getMCatList() {
 }
 
 function SearchAssetList() {
-	event.preventDefault()
+	event.preventDefault();
 	/* document.frm.pageIndex.value = '1';
 	let formData = new FormData(document.getElementById('frm'));
 	
@@ -178,16 +178,9 @@ window.onload = function(){
 												<option value="" label="선택하세요" />
 												<c:forEach var="orgnztId" items="${orgnztId_result}"
 													varStatus="status">
-													<c:choose>
-														<c:when test="${searchVO.searchOrgnzt == orgnztId.code}">
-															<option value="${orgnztId.code}" selected="selected"><c:out
-																	value="${orgnztId.codeNm}" /></option>
-														</c:when>
-														<c:otherwise>
-															<option value="${orgnztId.code}"><c:out
-																	value="${orgnztId.codeNm}" /></option>
-														</c:otherwise>
-													</c:choose>
+													<option value="${orgnztId.code}"
+														<c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out
+															value="${orgnztId.codeNm}" /></option>
 												</c:forEach>
 										</select> </label> <span class="lb">프로젝트</span> <span class="f_search2 w_200">
 											<input id="prjNm" name="prjNm" type="text" title="주소"
@@ -203,16 +196,9 @@ window.onload = function(){
 												<option value='' label="선택하세요" />
 												<c:forEach var="LCat" items="${LCat_result}"
 													varStatus="status">
-													<c:choose>
-														<c:when test="${searchVO.searchLCat == LCat.catId}">
-															<option value="${LCat.catId}" selected="selected"><c:out
-																	value="${LCat.catName}" /></option>
-														</c:when>
-														<c:otherwise>
-															<option value="${LCat.catId}"><c:out
-																	value="${LCat.catName}" /></option>
-														</c:otherwise>
-													</c:choose>
+													<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out
+															value="${LCat.catName}"
+															 /></option>
 												</c:forEach>
 										</select> </label> <span class="lb">중분류</span> <label class="item f_select"
 											for="sel1"> <select id="middleCategory"
@@ -225,23 +211,19 @@ window.onload = function(){
 												<option value='' label="선택하세요" />
 												<c:forEach var="stat" items="${status_result}"
 													varStatus="status">
-													<c:choose>
-														<c:when test="${searchVO.searchStatus == stat.code}">
-															<option value="${stat.code}" selected="selected"><c:out
-																	value="${stat.codeNm}" /></option>
-														</c:when>
-														<c:otherwise>
-															<option value="${stat.code}"><c:out
-																	value="${stat.codeNm}" /></option>
-														</c:otherwise>
-													</c:choose>
+													<option value="${stat.code}"
+														<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out
+															value="${stat.codeNm}" /></option>
 												</c:forEach>
 										</select>
 										</label> <span class="lb ml20">취득일자</span> <input class="f_date"
-											type="date" name="startDate" value="<c:out value="${searchVO.startDate}"/>"> ― <input class="f_date"
-											type="date" name="endDate" value="<c:out value="${searchVO.endDate}"/>"> <span
+											type="date" name="startDate"
+											value="<c:out value="${searchVO.startDate}"/>"> ― <input
+											class="f_date" type="date" name="endDate"
+											value="<c:out value="${searchVO.endDate}"/>"> <span
 											class="item f_search">검색 <input class="f_input w_130"
-											type="text" name="searchWord" id="usernm" title="검색어"  value="<c:out value="${searchVO.searchWord}"/>">
+											type="text" name="searchWord" id="usernm" title="검색어"
+											value="<c:out value="${searchVO.searchWord}"/>">
 										</span>
 										<button class="btn" onclick="SearchAssetList();">검색</button>
 									</div>

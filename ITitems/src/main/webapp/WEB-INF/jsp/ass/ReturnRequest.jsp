@@ -79,6 +79,14 @@ function getMCatList() {
 	})
 }
 </script>
+<style type="text/css">
+.board_view_bot{
+overflow: hidden;
+}
+.right_btn{
+float: right;
+}
+</style>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -106,15 +114,21 @@ function getMCatList() {
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
                                         <li><a href="">자산관리</a></li>
-                                        <li>반납신청조회</li>
+                                        <li>반입/반출신청조회</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
 
                                 <h1 class="tit_1">자산관리</h1>
 
-                                <h2 class="tit_2">반납신청조회</h2>
-                                
+                                <h2 class="tit_2">반입/반출신청조회</h2>
+                                <div class="board_view_bot">
+										<div class="right_btn btn1">
+											<a href="#LINK" class="btn btn_blue_46 w_130"
+												onclick="return fasle;">신청</a>
+										</div>
+									</div>
+                                <br />
                                <!-- 검색조건 -->
 								<form id="searchVO">
 								<div class="condition2">

@@ -30,13 +30,13 @@ public class AssetHistVO implements Serializable {
 	private String assetId;
 	
 	/** 부서코드 */
-	private String deptId;
+	private String orgnztId;
 	
 	/** 프로젝트코드 */
 	private String prjId;
 	
-	/** 사용자아이디 */
-	private String id;
+	/** 실사용자 */
+	private String useId;
 	
 	/** 자산내역수량 */
 	private int histQty;
@@ -48,7 +48,7 @@ public class AssetHistVO implements Serializable {
 	private String histNote;
 	
 	/** 자산내역일자 */
-	private Date histDate;
+	private String histDate;
 	
 	 /** row_number */
    	private int rum;
@@ -71,9 +71,6 @@ public class AssetHistVO implements Serializable {
 	/** 제조사 */
 	private String maker;
 	
-	/** 실사용자 */
-	private String useId;
-	
 	/** 수령일자 */
 	private String rcptDate;
 	
@@ -88,6 +85,9 @@ public class AssetHistVO implements Serializable {
 	
 	/** CODE */
 	private String code;
+	
+	/** 파일코드 */
+	private String fileId;
 
 	public String getHistId() {
 		return histId;
@@ -105,12 +105,13 @@ public class AssetHistVO implements Serializable {
 		this.assetId = assetId;
 	}
 
-	public String getDeptId() {
-		return deptId;
+
+	public String getOrgnztId() {
+		return orgnztId;
 	}
 
-	public void setDeptId(String deptId) {
-		this.deptId = deptId;
+	public void setOrgnztId(String orgnztId) {
+		this.orgnztId = orgnztId;
 	}
 
 	public String getPrjId() {
@@ -120,15 +121,7 @@ public class AssetHistVO implements Serializable {
 	public void setPrjId(String prjId) {
 		this.prjId = prjId;
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	public int getHistQty() {
 		return histQty;
 	}
@@ -153,11 +146,11 @@ public class AssetHistVO implements Serializable {
 		this.histNote = histNote;
 	}
 
-	public Date getHistDate() {
+	public String getHistDate() {
 		return histDate;
 	}
 
-	public void setHistDate(Date histDate) {
+	public void setHistDate(String histDate) {
 		this.histDate = histDate;
 	}
 
@@ -263,6 +256,14 @@ public class AssetHistVO implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
 	}
 	
 	
