@@ -36,7 +36,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>내부업무 사이트 > 내부시스템관리 > 메뉴목록관리</title>
+<title>사이트 관리 > 메뉴관리 > 메뉴목록관리</title>
 
 <script type="text/javascript" src="<c:url value="/validator.do" />"></script>
 <validator:javascript formName="menuManageVO" staticJavascript="false" xhtml="true" cdata="false"/>
@@ -135,7 +135,7 @@ function press() {
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">내부시스템관리</a></li>
+                                        <li><a href="">사이트관리</a></li>
                                         <li><a href="">메뉴관리</a></li>
                                         <li>메뉴목록관리</li>
                                     </ul>
@@ -143,8 +143,6 @@ function press() {
                                 <!--// Location -->
 
 								<form:form modelAttribute="menuManageVO" name="menuManageVO" method="post" action="${pageContext.request.contextPath}/sym/mnu/mpm/EgovMenuRegistInsert.do">
-
-                                <h1 class="tit_1">내부시스템관리</h1>
 
                                 <h2 class="tit_2">메뉴목록관리</h2>
 
