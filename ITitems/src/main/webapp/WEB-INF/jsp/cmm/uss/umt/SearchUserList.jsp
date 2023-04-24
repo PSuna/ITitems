@@ -200,7 +200,7 @@
 										<td><c:out value="${result.grade}" /></td>
 										<td><c:out value="${result.authorCode}" /></td>
 										<td><a href="#LINK" class="btn btn_blue_30 w_80"
-											onclick="fn_egov_return('${result.userId}', '${result.userNm}');">
+											onclick="fn_egov_return('${result.uniqId}', '${result.userNm}');">
 												선택 </a></td>
 									</tr>
 								</c:forEach>

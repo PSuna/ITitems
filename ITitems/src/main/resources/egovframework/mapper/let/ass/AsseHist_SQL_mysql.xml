@@ -6,6 +6,7 @@
 	<resultMap type="egovframework.let.ass.service.AssetHistVO"
 		id="AssetHistList">
 		<result property="rum" column="RUM" />
+		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetName" column="ASSET_NAME" />
@@ -38,7 +39,8 @@
 			AND a.HIST_STATUS = #{searchStatus}
 		</if>
 		<if test="startDate != null and startDate != ''">
-			AND b.REG_DATE >= STR_TO_DATE(#{startDate}, '%Y%m%d%H%i%s')
+			AND b.REG_DATE >= STR_TO_DATE(#{startDate},
+			'%Y%m%d%H%i%s')
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
@@ -49,27 +51,45 @@
 			AND b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 		</if>
 	</sql>
-	
+
 	<select id="SelectAssetHistVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="AssetHistList">
 		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.HIST_DATE DESC)
-		AS RUM,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.LARGE_CATEGORY)AS LARGE_CATEGORY,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.MIDDLE_CATEGORY)AS MIDDLE_CATEGORY,b.ASSET_NAME,a.HIST_QTY,DATE_FORMAT(b.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,b.ACQUIRED_PRICE,b.MAKER,a.HIST_STATUS
-		FROM ASSETSHIST a 
-		LEFT OUTER JOIN ASSETSINFO b 
+		AS RUM, b.ASSET_ID,(SELECT CAT_NAME FROM category WHERE CAT_ID =
+		b.LARGE_CATEGORY)AS LARGE_CATEGORY,(SELECT CAT_NAME FROM category
+		WHERE CAT_ID = b.MIDDLE_CATEGORY)AS
+		MIDDLE_CATEGORY,b.ASSET_NAME,a.HIST_QTY,DATE_FORMAT(b.ACQUIRED_DATE,'%Y-%m-%d')
+		AS ACQUIRED_DATE,b.ACQUIRED_PRICE,b.MAKER,a.HIST_STATUS
+		FROM ASSETSHIST
+		a
+		LEFT OUTER JOIN ASSETSINFO b
 		ON a.ASSET_ID = b.ASSET_ID
-		WHERE b.USAGE_STAUTS = '사용중'
+		WHERE b.USAGE_STAUTS = 'U1'
 		<include refid="search" />
 		) P WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 
-	<select id="CountAssetHistVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
+	<select id="CountAssetHistVOList"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultType="int">
 		SELECT COUNT(a.HIST_ID)
 		FROM ASSETSHIST a
 		LEFT OUTER JOIN ASSETSINFO b
 		ON a.ASSET_ID = b.ASSET_ID
-		WHERE b.USAGE_STAUTS = '사용중'
+		WHERE b.USAGE_STAUTS = 'U1'
 		<include refid="search" />
 	</select>
-	
+
+	<insert id="InsertAssetHist"
+		parameterType="egovframework.let.ass.service.AssetHistVO">
+		<selectKey resultType="String" keyProperty="histId" order="BEFORE">
+		SELECT CONCAT('ash',IFNULL(MAX(SUBSTR(HIST_ID,4))+1,0)) FROM ASSETSHIST
+		</selectKey>
+		INSERT INTO ASSETSHIST
+		VALUES (#{histId}, #{assetId}, #{orgnztId}, #{prjId}, #{useId}, #{histQty}, #{histStatus},
+		#{histNote},DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'), DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), #{rcptId}, #{carryReason}, #{approval},
+		#{code}, #{fileId})
+	</insert>
+
 </mapper>

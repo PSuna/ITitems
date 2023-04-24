@@ -13,9 +13,12 @@
 		<result property="" column="" />
 	</resultMap>
 
-	<select id="SelectAssetInfoVOList" parameterType="egovframework.let.ass.service.AssetInfoVO" resultMap="assetInfoList">
+	<select id="SelectAssetInfoVOList"
+		parameterType="egovframework.let.ass.service.AssetInfoVO"
+		resultMap="assetInfoList">
 		SELECT A.*
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ASSET_QTY DESC) AS
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ASSET_QTY
+		DESC) AS
 		RUM,LARGE_CATEGORY,MIDDLE_CATEGORY,ASSET_NAME,ASSET_QTY,ACQUIRED_DATE,ACQUIRED_PRICE,MAKER,NOTE
 		FROM ASSETSINFO) A
 		WHERE A.RUM BETWEEN 1 AND 3
@@ -27,7 +30,17 @@
 
 	<insert id="InsertAssetInfo"
 		parameterType="egovframework.let.ass.service.AssetInfoVO">
-
+		<selectKey resultType="String" keyProperty="assetId"
+			order="BEFORE">
+			SELECT CONCAT('asi',IFNULL(MAX(SUBSTR(ASSET_ID,4))+1,0)) FROM ASSETSINFO
+		</selectKey>
+		INSERT INTO ASSETSINFO
+		VALUES (#{assetId},
+		#{largeCategory},#{middleCategory}, #{assetName}, #{assetQty},
+		DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'), #{acquiredPrice},
+		#{maker}, #{note}, #{regId},
+		DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'),
+		#{usageStatus}, #{addAsset}, #{photoId})
 	</insert>
 
 	<update id="UpdateAssetInfo">

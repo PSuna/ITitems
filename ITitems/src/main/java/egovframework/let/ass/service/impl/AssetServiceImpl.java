@@ -10,6 +10,7 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetHistVO;
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.prj.service.impl.ProjectDAO;
@@ -67,13 +68,19 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Override
 	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
 		
-		return 0;
+		return assetInfoDAO.InsertAssetInfo(assetInfoVO);
 	}
 
 	@Override
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
 		
 		return 0;
+	}
+
+	@Override
+	public int InsertAssetHist(AssetHistVO assetHistVO) throws Exception {
+	
+		return assetHistDAO.InsertAssetHist(assetHistVO);
 	}
 
 

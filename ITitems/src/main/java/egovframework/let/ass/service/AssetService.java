@@ -30,4 +30,6 @@ public interface AssetService {
 	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception;
 	
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception;
+	
+	public int InsertAssetHist(AssetHistVO assetHistVO) throws Exception;
 }

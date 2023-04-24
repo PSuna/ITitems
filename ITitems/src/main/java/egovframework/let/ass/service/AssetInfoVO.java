@@ -36,13 +36,13 @@ public class AssetInfoVO implements Serializable {
 	private String assetName;
 	
 	/** 수량 */
-	private int assetQty;
+	private Integer assetQty;
 	
 	/** 취득일자 */
-	private Date acquiredDate;
+	private String acquiredDate;
 	
 	/** 취득가액 */
-	private int acquiredPrice;
+	private Integer acquiredPrice;
 	
 	/** 제조사 */
 	private String maker;
@@ -67,6 +67,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 추가물품 */
 	private String addAsset;
+	
+	/** 사진코드 */
+	private String photoId;
 
 	public String getAssetId() {
 		return assetId;
@@ -100,19 +103,19 @@ public class AssetInfoVO implements Serializable {
 		this.assetName = assetName;
 	}
 
-	public int getAssetQty() {
+	public Integer getAssetQty() {
 		return assetQty;
 	}
 
-	public void setAssetQty(int assetQty) {
+	public void setAssetQty(Integer assetQty) {
 		this.assetQty = assetQty;
 	}
 
-	public Date getAcquiredDate() {
+	public String getAcquiredDate() {
 		return acquiredDate;
 	}
 
-	public void setAcquiredDate(Date acquiredDate) {
+	public void setAcquiredDate(String acquiredDate) {
 		this.acquiredDate = acquiredDate;
 	}
 
@@ -156,11 +159,11 @@ public class AssetInfoVO implements Serializable {
 		this.usageStatus = usageStatus;
 	}
 
-	public int getAcquiredPrice() {
+	public Integer getAcquiredPrice() {
 		return acquiredPrice;
 	}
 
-	public void setAcquiredPrice(int acquiredPrice) {
+	public void setAcquiredPrice(Integer acquiredPrice) {
 		this.acquiredPrice = acquiredPrice;
 	}
 
@@ -186,6 +189,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setAddAsset(String addAsset) {
 		this.addAsset = addAsset;
+	}
+
+	public String getPhotoId() {
+		return photoId;
+	}
+
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
 	}
 	
 	
