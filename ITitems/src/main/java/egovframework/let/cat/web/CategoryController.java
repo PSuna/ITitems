@@ -43,7 +43,6 @@ public class CategoryController {
 	 */
 	@RequestMapping("/cat/CategoryManage.do")
     public String selectAuthorGroupListView() throws Exception {
-
         return "/cat/CategoryManage";
     }    
 
