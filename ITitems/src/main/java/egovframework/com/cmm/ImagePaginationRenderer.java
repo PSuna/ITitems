@@ -30,12 +30,12 @@ public class ImagePaginationRenderer extends AbstractPaginationRenderer implemen
 	}
 
 	public void initVariables(){
-		firstPageLabel    = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/ico_paging_button_db.png\" alt=\"처음\"   border=\"0\"/></a></li>";
-        previousPageLabel = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/ico_paging_button.png\"    alt=\"이전\"   border=\"0\"/></a></li>";
+		firstPageLabel    = "<li class=\"btn\"><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \" class=\"first\">처음</a></li>";
+        previousPageLabel = "<li class=\"btn\"><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \" class=\"btn prev\" >이전</a></li>";
         currentPageLabel  = "<li><strong>{0}</strong></li>";
         otherPageLabel    = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \">{2}</a></li>";
-        nextPageLabel     = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/ico_paging_button.png\"    alt=\"다음\"   border=\"0\" style=\"transform: scaleX(-1)\" /></a></li>";
-        lastPageLabel     = "<li><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/images/ico_paging_button_db.png\" alt=\"마지막\" border=\"0\" style=\"transform: scaleX(-1)\"/></a></li>";
+        nextPageLabel     = "<li class=\"btn\"><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \" class=\"btn next\" >다음</a></li>";
+        lastPageLabel     = "<li class=\"btn\"><a href=\"?pageIndex={1}\" onclick=\"{0}({1});return false; \" class=\"btn last\" >마지막</a></li>";
 	}
 
 	@Override

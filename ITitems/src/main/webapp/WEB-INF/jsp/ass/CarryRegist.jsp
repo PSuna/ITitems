@@ -265,6 +265,7 @@ function insert_asset() {
 		}
 	}) 
 }
+
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -283,6 +284,10 @@ function insert_asset() {
 
 .right_btn {
 	float: right;
+}
+
+.board_view2 thead .lb {
+	text-align: center;
 }
 </style>
 
@@ -313,7 +318,7 @@ function insert_asset() {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>신규자산등록</li>
+										<li>반입/반출 신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -358,7 +363,7 @@ function insert_asset() {
 
 									<h1 class="tit_1">자산관리</h1>
 
-									<h2 class="tit_2">신규자산등록</h2>
+									<h2 class="tit_2">반입/반출 신청</h2>
 
 									<br>
 									<!-- 추가/초기화 버튼  -->
@@ -373,114 +378,75 @@ function insert_asset() {
 										</div>
 									</div> -->
 									<!-- // 추가/초기화 버튼 끝  -->
+									<br>
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 16%;">
+												<col style="width: 34%;">
+												<col style="width: 16%;">
+												<col style="width: 34%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 대분류 --> <label for="">대분류</label> <span class="req">필수</span>
+													<!-- 신청분류 --> <label for="">신청분류</label> <span class="req">필수</span>
 												</td>
-												<td><label class="f_select" for="largeCategory">
-														<select id="largeCategory" name="largeCategory"
-														title="대분류" onchange="getMCatList();">
-															<option value="" label="선택하세요" />
-															<c:forEach var="LCat" items="${LCat_result}"
-																varStatus="status">
-																<option value="${LCat.catId}"><c:out
-																		value="${LCat.catName}" /></option>
-															</c:forEach>
-													</select>
-												</label> <br /></td>
+												<td colspan="3"><input type="radio" name="checkType">
+													반입
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<input type="radio" name="checkType"> 반출</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 중분류 --> <label for="">중분류</label> <span class="req">필수</span>
+													<!-- 성명 --> <label for="">성명</label> <span class="req">필수</span>
 												</td>
-												<td><label class="f_select" for="middleCategory">
-														<select id="middleCategory" name="middleCategory"
-														title="중분류">
-															<option value='' label="선택하세요" selected="selected" />
-													</select>
-												</label> <br /></td>
+												<td><span class="f_search2 w_full"><input
+														type="text" readonly="readonly"></span></td>
+												<td class="lb">
+													<!-- 직위 --> <label for="">직위</label> <span class="req">필수</span>
+												</td>
+												<td><span class="f_search2 w_full"><input
+														type="text" readonly="readonly"></span></td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label>
+													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
-												<td><input id="assetName" class="f_txt w_full"
-													name="assetName" type="text" value="" maxlength="60">
-													<br /></td>
+												<td colspan="3"><span class="f_search2 w_60%"> <input
+														id="prjNm" type="text" title="프로젝트" maxlength="100"
+														readonly="false" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
+												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
+														path="prjId" /> <input name="prjId" id="prjId"
+													type="hidden" title="프로젝트" value="" maxlength="8"
+													readonly="readonly" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label> <span class="req">필수</span>
+													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
 												</td>
-												<td><input id="assetQty" class="f_txt w_full"
-													name="assetQty" type="number" value="" maxlength="60">
-													<br /></td>
+												<td><input type="text" class="f_txt w_full"></td>
+												<td class="lb">
+													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
+													class="req">필수</span>
+												</td>
+												<td><input type="text" class="f_txt w_full"></td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label> <span class="req">필수</span>
+													<!-- 사용기간 --> <label for="">사용기간</label> <span class="req">필수</span>
 												</td>
-												<td><input id="acquiredDate" class="f_txt w_full"
+												<td colspan="3"><input id="acquiredDate"
+													class="f_txt w_40%" name="acquiredDate" type="date"
+													value="" maxlength="60">
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<input id="acquiredDate" class="f_txt w_40%"
 													name="acquiredDate" type="date" value="" maxlength="60">
 													<br /></td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
-												</td>
-												<td><input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="number" value="0" maxlength="60">
-													<br /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label>
-												</td>
-												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="text" value="" maxlength="60"> <br /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 추가물품 --> <label for="">추가물품</label>
-												</td>
-												<td><input id="addAsset" class="f_txt w_full"
-													name="addAsset" type="text" value="" maxlength="60">
-													<br /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 비고 --> <label for="note">비고</label>
-												</td>
-												<td><textarea id="note" name="note"
-														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-												</td>
-											</tr>
-											<!-- 파일첨부 시작 -->
-											<tr>
-												<td class="lb"><label for="egovComFileUploader">사진첨부</label>
-													<span class="req">필수</span></td>
-												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> <c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
-												</td>
-											</tr>
+
 										</table>
-
-
-
 										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 											<script type="text/javascript">
 												var maxFileNum = document.board.posblAtchFileNumber.value;
@@ -502,108 +468,63 @@ function insert_asset() {
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 22%;">
+												<col style="width: 15%;">
+												<col style="width: 29%;">
+												<col style="width: 34%;">
 											</colgroup>
+											<thead>
+												<tr>
+													<td class="lb"><label for="">구분</label></td>
+													<td class="lb"><label for="">수량</label></td>
+													<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
+													<td class="lb"><label for="">사용자</label></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><label class="f_select" for="largeCategory">
+															<select id="largeCategory" name="largeCategory"
+															title="대분류" onchange="getMCatList();">
+																<option value="" label="선택하세요" />
+																<c:forEach var="LCat" items="${LCat_result}"
+																	varStatus="status">
+																	<option value="${LCat.catId}"><c:out
+																			value="${LCat.catName}" /></option>
+																</c:forEach>
+														</select>
+													</label> <br>
+													<br> <label class="f_select" for="middleCategory">
+															<select id="middleCategory" name="middleCategory"
+															title="중분류">
+																<option value='' label="선택하세요" selected="selected" />
+														</select>
+													</label></td>
+													<td><input type="number" value="0"
+														class="f_txt w_full"></td>
+													<td><input type="text" class="f_txt w_full"></td>
+													<td><input type="text" class="f_txt w_full"></td>
+												</tr>
+											</tbody>
 											<tr>
-												<td class="lb"><label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span></td>
-												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
-												</td>
-											</tr>
-											<!-- /파일첨부 끝 -->
-											<tr>
-												<td class="lb">
-													<!-- 부서 --> <label for="orgnztId">부서</label>
-												</td>
-												<td><label class="f_select w_30%" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" title="부서">
-															<option value="" label="선택하세요" />
-															<c:forEach var="orgnztId" items="${orgnztId_result}"
-																varStatus="status">
-																<option value="${orgnztId.code}"><c:out
-																		value="${orgnztId.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 프로젝트 --> <label for="">프로젝트</label>
-												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
-														<button type="button" class="btn"
-															onclick="ProjectSearch();">조회</button>
-												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- CODE명 --> <label for="">CODE명</label>
-												</td>
-												<td><input id="code" class="f_txt w_full" name="code"
-													type="text" value="" maxlength="60"> <br /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령자 --> <label for="">수령자</label> <span class="req">필수</span>
-												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
-														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
-													name="rcptId" id="rcptId" type="hidden" title="프로젝트"
-													value="" maxlength="8" readonly="readonly" /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 실사용자 --> <label for="">실사용자</label> <span class="req">필수</span>
-												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="useNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
-													name="useId" id="useId" type="hidden" title="프로젝트" value=""
-													maxlength="8" readonly="readonly" /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> <label for="">수령일자</label> <span class="req">필수</span>
-												</td>
-												<td><input id="rcptDate" class="f_txt w_full"
-													name="rcptDate" type="date" value="" maxlength="60">
-													<br /></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 반출사유 --> <label for="carryReason">반출사유</label>
-												</td>
-												<td><textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-												</td>
+												<td colspan="4"><div class="right_btn btn1">
+														<a href="#LINK" class="btn btn_blue_46 w_100"
+															onclick=" return false;">+</a>
+														<!-- 추가 -->
+													</div></td>
 											</tr>
 										</table>
 									</div>
+									<br>
+									<div>
+										<input type="checkbox"> 상기와 같이 장비 반입/반출을 신청합니다.
+									</div>
+									<br>
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="insert_asset(); return false;"><spring:message
+												onclick="return false;">신청 <spring:message
 													code="button.create" /></a>
 											<!-- 등록 -->
 										</div>
