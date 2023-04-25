@@ -62,7 +62,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Override
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {
 		
-		return null;
+		return assetInfoDAO.SelectAssetInfoVO(assetManageVO);
 	}
 
 	@Override

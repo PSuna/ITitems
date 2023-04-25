@@ -1,6 +1,6 @@
 <%--
-  Class Name : AssetManagement.jsp 
-  Description : 자산조회 화면
+  Class Name : ReturnRequest.jsp 
+  Description : 반납신청조회 화면
   Modification Information
  
       수정일         수정자                   수정내용
@@ -13,7 +13,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,7 +27,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>자산관리 > 자산조회</title>
+<title>자산관리 > 반납신청조회</title>
 
 <script type="text/javascript">
 function ProjectSearch(){
@@ -48,7 +47,7 @@ function ProjectSearch(){
 function fn_egov_returnValue(val){
 	
 	if (val) {
-		document.getElementById("searchPrj").value  = val.prjId;
+		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
 	}
 	
@@ -56,7 +55,7 @@ function fn_egov_returnValue(val){
 }
 
 function getMCatList() {
-	 let val = document.getElementById('largeCategory').value;
+	let val = document.getElementById('largeCategory').value;
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
@@ -66,15 +65,11 @@ function getMCatList() {
 		success: function (result) {
 			document.getElementById('middleCategory').replaceChildren();
 			let op = document.createElement('option');
-			op.setAttribute('value', '');
 			op.textContent = '선택하세요';
 			document.getElementById('middleCategory').appendChild(op);
 			for(res of result){
 				op = document.createElement('option');
 				op.setAttribute('value', res.catId);
-				if(res.catId == '${searchVO.searchdMCat}'){
-					op.setAttribute('selected', "selected");
-				}
 				op.textContent = res.catName;
 				document.getElementById('middleCategory').appendChild(op);
 			}
@@ -82,66 +77,20 @@ function getMCatList() {
 		error: function (error) {
 			console.log(error);
 		}
-	}) 
-	
+	})
 }
 
-function SearchAssetList() {
-	event.preventDefault();
-	/* document.frm.pageIndex.value = '1';
-	let formData = new FormData(document.getElementById('frm'));
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/ass/SearchAsserList.do',
-		method: 'POST',
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function (result) {
-			console.log(result);
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	}) */
-	
-	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
-    document.frm.submit(); 
+function CarryRegist() {
+	 document.frm.submit();
 }
-
-function fn_egov_select_noticeList(pageNo) {
-	event.preventDefault()
-	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
-	document.frm.prjNm.value = '${searchVO.prjNm}';
-	document.frm.searchPrj.value = '${searchVO.searchPrj}';
-	document.frm.searchLCat.value = '${searchVO.searchLCat}';
-	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
-	document.frm.searchStatus.value = '${searchVO.searchStatus}';
-	document.frm.startDate.value = '${searchVO.startDate}';
-	document.frm.endDate.value = '${searchVO.endDate}';
-	document.frm.searchWord.value = '${searchVO.searchWord}';
-	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
-    document.frm.submit(); 
-}
-
-window.onload = function(){
-	getMCatList();
-	  }
-	  
-function selectAsset(id) {
-	console.log('subForm'+id);
-	document.getElementById('subForm'+id).submit;
-}
-
-
 </script>
 <style type="text/css">
-.board_list tbody tr:hover {
-	background: #ccc;
-	cursor: pointer;
+.board_view_bot {
+	overflow: hidden;
+}
+
+.right_btn {
+	float: right;
 }
 </style>
 </head>
@@ -171,75 +120,77 @@ function selectAsset(id) {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>자산조회</li>
+										<li>반입/반출신청조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 								<h1 class="tit_1">자산관리</h1>
 
-								<h2 class="tit_2">자산조회</h2>
+								<h2 class="tit_2">반입/반출신청조회</h2>
+
+								<br />
+								<form name="frm" method="post"
+									action="<c:url value='/ass/CarryRegist.do'/>">
+									<div class="board_view_bot">
+										<div class="right_btn btn1">
+											<a href="#LINK" class="btn btn_blue_46 w_130"
+												onclick="CarryRegist();">신청</a>
+										</div>
+									</div>
+								</form>
 								<br>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm">
+								<form id="searchVO">
 									<div class="condition2">
-										<span class="lb">부서</span><label class="item f_select"
-											for="sel1"><select id="searchOrgnzt"
+										<span class="lb">부서</span> <label class="item f_select"
+											for="sel1"> <select id="searchOrgnzt"
 											name="searchOrgnzt" title="부서">
 												<option value="" label="선택하세요" />
 												<c:forEach var="orgnztId" items="${orgnztId_result}"
 													varStatus="status">
-													<option value="${orgnztId.code}"
-														<c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out
+													<option value="${orgnztId.code}"><c:out
 															value="${orgnztId.codeNm}" /></option>
 												</c:forEach>
-										</select> </label> <span class="lb">프로젝트</span> <span class="f_search2 w_200">
-											<input id="prjNm" name="prjNm" type="text" title="주소"
-											maxlength="100" readonly="false"
-											value="<c:out value="${searchVO.prjNm}"/>" />
+										</select>
+										</label> <span class="lb">프로젝트</span> <span class="f_search2 w_200">
+											<input id="prjNm" type="text" title="주소" maxlength="100"
+											readonly="false" />
 											<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 										</span><input name="searchPrj" id="searchPrj" type="hidden"
-											title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>"
-											maxlength="8" readonly="readonly" /><br> <span
-											class="lb">대분류</span> <label class="item f_select" for="sel1"><select
-											id="largeCategory" name="searchLCat" title="대분류"
-											onchange="getMCatList();">
-												<option value='' label="선택하세요" />
+											title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
+										<span class="lb">대분류</span> <label class="item f_select"
+											for="sel1"><select id="largeCategory"
+											name="largeCategory" title="대분류" onchange="getMCatList();">
+												<option value='' label="선택하세요" selected="selected" />
 												<c:forEach var="LCat" items="${LCat_result}"
 													varStatus="status">
-													<option value="${LCat.catId}"
-														<c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out
+													<option value="${LCat.catId}"><c:out
 															value="${LCat.catName}" /></option>
 												</c:forEach>
 										</select> </label> <span class="lb">중분류</span> <label class="item f_select"
 											for="sel1"> <select id="middleCategory"
-											name="searchdMCat" title="중분류">
-												<option value='' label="선택하세요" />
+											name="middleCategory" title="중분류">
+												<option value='' label="선택하세요" selected="selected" />
 										</select>
 										</label> <br> <span class="lb">상태</span> <label
 											class="item f_select" for="sel1"> <select
 											id="searchStatus" name="searchStatus" title="상태">
-												<option value='' label="선택하세요" />
+												<option value='' label="선택하세요" selected="selected" />
 												<c:forEach var="stat" items="${status_result}"
 													varStatus="status">
-													<option value="${stat.code}"
-														<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out
+													<option value="${stat.code}"><c:out
 															value="${stat.codeNm}" /></option>
 												</c:forEach>
 										</select>
-										</label> <span class="lb ml20">취득일자</span> <input class="f_date"
-											type="date" name="startDate"
-											value="<c:out value="${searchVO.startDate}"/>"> ― <input
-											class="f_date" type="date" name="endDate"
-											value="<c:out value="${searchVO.endDate}"/>"> <span
+										</label> <span class="lb ml20">신청일자</span> <input class="f_date"
+											name="startDate" type="date"> ― <input class="f_date"
+											type="date" name="endDate"> <span
 											class="item f_search">검색 <input class="f_input w_130"
-											type="text" name="searchWord" id="usernm" title="검색어"
-											value="<c:out value="${searchVO.searchWord}"/>">
+											type="text" name="searchWord" id="usernm" title="검색어">
 										</span>
-										<button class="btn" onclick="SearchAssetList();">검색</button>
+										<button class="btn" type="submit">검색</button>
 									</div>
-									<input id="pageIndex" name="pageIndex" type="hidden"
-										value="${searchVO.pageIndex}" />
 								</form>
 								<!--// 검색 조건 -->
 								<br>
@@ -261,46 +212,37 @@ function selectAsset(id) {
 												<th scope="col">중분류</th>
 												<th scope="col">품명</th>
 												<th scope="col">수량</th>
-												<th scope="col">취득일자</th>
-												<th scope="col">취득가액</th>
-												<th scope="col">제조사</th>
-												<th scope="col">상태</th>
+												<th scope="col">신청일자</th>
+												<th scope="col">신청상태</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="result" items="${resultList}"
-												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
-													<td><c:out value="${result.rum}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
-															<input type="hidden" name="assetId"
-																value="<c:out value='${result.assetId}'/>" />
-														</form></td>
-													<td><c:out value="${result.largeCategory}" /></td>
-													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetName}" /></td>
-													<td><c:out value="${result.histQty}" /></td>
-													<td><c:out value="${result.acquiredDate}" /></td>
-													<td><c:out value="${result.acquiredPrice}" /></td>
-													<td><c:out value="${result.maker}" /></td>
-													<td><c:out value="${result.histStatus}" /></td>
-												</tr>
-											</c:forEach>
+											<tr>
+											</tr>
 										</tbody>
 									</table>
 								</div>
 
-								<!-- 페이지 네비게이션 시작 -->
 								<div class="board_list_bot">
 									<div class="paging" id="paging_div">
 										<ul>
-											<ui:pagination paginationInfo="${paginationInfo}"
-												type="image" jsFunction="fn_egov_select_noticeList" />
+											<li class="btn"><a href="" class="first">처음</a></li>
+											<li class="btn"><a href="" class="btn prev">이전</a></li>
+											<li><strong>1</strong></li>
+											<li><a href="">2</a></li>
+											<li><a href="">3</a></li>
+											<li><a href="">4</a></li>
+											<li><a href="">5</a></li>
+											<li><a href="">6</a></li>
+											<li><a href="">7</a></li>
+											<li><a href="">8</a></li>
+											<li><a href="">9</a></li>
+											<li><a href="">10</a></li>
+											<li class="btn"><a href="" class="btn next">다음</a></li>
+											<li class="btn"><a href="" class="btn last">마지막</a></li>
 										</ul>
 									</div>
 								</div>
-								<!-- //페이지 네비게이션 끝 -->
 								<!--// 게시판 -->
 							</div>
 						</div>

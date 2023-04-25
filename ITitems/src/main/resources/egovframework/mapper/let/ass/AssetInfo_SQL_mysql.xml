@@ -10,11 +10,22 @@
 
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
 		id="assetInfoDetail">
-		<result property="" column="" />
+		<result property="assetId" column="ASSET_ID" />
+		<result property="largeCategory" column="LARGE_CATEGORY" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
+		<result property="maker" column="MAKER" />
+		<result property="addAsset" column="ADD_ASSET" />
+		<result property="note" column="NOTE" />
+		<result property="photoId" column="PHOTO_ID" />
+		<result property="regId" column="REG_ID" />
+		<result property="acquiredDate" column="ACQUIRED_DATE" />
 	</resultMap>
 
 	<select id="SelectAssetInfoVOList"
-		parameterType="egovframework.let.ass.service.AssetInfoVO"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetInfoList">
 		SELECT A.*
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ASSET_QTY
@@ -24,21 +35,29 @@
 		WHERE A.RUM BETWEEN 1 AND 3
 	</select>
 
-	<select id="SelectAssetInfoVO">
-
+	<select id="SelectAssetInfoVO" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetInfoDetail">
+		SELECT ASSET_ID, (SELECT CAT_NAME FROM category WHERE CAT_ID = LARGE_CATEGORY) AS
+		LARGE_CATEGORY,(SELECT CAT_NAME FROM category WHERE CAT_ID =
+		MIDDLE_CATEGORY) AS MIDDLE_CATEGORY, ASSET_NAME, ASSET_QTY,
+		ACQUIRED_PRICE, MAKER, ADD_ASSET, NOTE, PHOTO_ID, REG_ID, DATE_FORMAT(ACQUIRED_DATE,'%Y-%m-%d')
+		AS ACQUIRED_DATE
+		FROM ASSETSINFO
+		WHERE ASSET_ID = #{assetId}
 	</select>
 
 	<insert id="InsertAssetInfo"
 		parameterType="egovframework.let.ass.service.AssetInfoVO">
 		<selectKey resultType="String" keyProperty="assetId"
 			order="BEFORE">
-			SELECT CONCAT('asi',IFNULL(MAX(SUBSTR(ASSET_ID,4))+1,0)) FROM ASSETSINFO
+			SELECT CONCAT('asi',IFNULL(MAX(SUBSTR(ASSET_ID,4))+1,0)) FROM
+			ASSETSINFO
 		</selectKey>
 		INSERT INTO ASSETSINFO
 		VALUES (#{assetId},
 		#{largeCategory},#{middleCategory}, #{assetName}, #{assetQty},
 		DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'), #{acquiredPrice},
-		#{maker}, #{note}, #{regId},
+		#{maker},
+		#{note}, #{regId},
 		DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'),
 		#{usageStatus}, #{addAsset}, #{photoId})
 	</insert>

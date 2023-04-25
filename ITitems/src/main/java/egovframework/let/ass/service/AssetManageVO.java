@@ -23,6 +23,9 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class AssetManageVO implements Serializable {
 
+	/** 자산코드 */
+	private String assetId;
+	
 	/** 검색위치 */
     private String searchOrgnzt = "";
     
@@ -295,5 +298,12 @@ public class AssetManageVO implements Serializable {
 	public void setPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
 	}
+	public String getAssetId() {
+		return assetId;
+	}
+	public void setAssetId(String assetId) {
+		this.assetId = assetId;
+	}
+	
 	
 }

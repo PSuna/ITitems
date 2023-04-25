@@ -172,6 +172,19 @@ public class AssetController {
 		
 		return map.get("resultList");
 	}
+	
+	/**
+	 * 자산상세정보 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/SelectAsset.do")
+	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "100");
+
+		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+		 
+		return "/ass/SelectAsset";
+	}
+	
 
 	/**
 	 * 자산등록 페이지로 이동
@@ -230,9 +243,9 @@ public class AssetController {
 	}
 
 	/**
-	 * 반납신청조회 페이지로 이동
+	 * 반입/반출신청조회 페이지로 이동
 	 */
-	@RequestMapping(value = "/ass/ReturnRequest.do")
+	@RequestMapping(value = "/ass/CarryRequset.do")
 	public String ReturnRequest(HttpServletRequest request, ModelMap model) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
 
@@ -247,7 +260,25 @@ public class AssetController {
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
-		return "/ass/ReturnRequest";
+		return "/ass/CarryRequset";
+	}
+	
+	/**
+	 * 반입/반출신청 등록 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/CarryRegist.do")
+	public String CarryRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "100");
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+	
+		return "/ass/CarryRegist";
 	}
 
 	/**
