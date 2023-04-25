@@ -26,8 +26,13 @@
 	<select id="SelectCategoryVOList"
 		parameterType="egovframework.let.cat.service.CategoryManageVO"
 		resultMap="CategoryList">
-		SELECT CAT_ID, CAT_NAME
+		SELECT CAT_ID, CAT_NAME, UPPER_CAT
 		FROM CATEGORY
 		<include refid="search"></include>
 	</select>
+	
+	<delete id="DeleteCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
+		DELETE FROM CATEGORY
+		WHERE CAT_ID = #{catId}
+	</delete>
 </mapper>
