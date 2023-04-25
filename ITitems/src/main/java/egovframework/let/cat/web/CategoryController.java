@@ -36,6 +36,13 @@ public class CategoryController {
 	@Resource(name = "CategoryService")
 	private CategoryService categoryService;
 	
+
+	@RequestMapping(value = "/cat/GetMCategoryList.do")
+	@ResponseBody
+	public List<CategoryVO> GetMCategoryList (CategoryManageVO categoryManageVO) throws Exception {
+		return categoryService.SelectCategoryVOList(categoryManageVO);
+	}
+	
 	/**
 	 * 카테고리 관리화면 이동
 	 * @return String
@@ -43,17 +50,18 @@ public class CategoryController {
 	 */
 	@RequestMapping("/cat/CategoryManage.do")
     public String selectAuthorGroupListView(CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
-		//페이지 로드 시 상위 카테고리리스트 조회
-		model.addAttribute("cat_result", categoryService.SelectCategoryVOList(categoryManageVO));
         return "/cat/CategoryManage";
     }    
-
 	
-	@RequestMapping(value = "/cat/GetMCategoryList.do")
-	@ResponseBody
-	public List<CategoryVO> GetMCategoryList (CategoryManageVO categoryManageVO) throws Exception {
+	/**
+	 * 카테고리 삭제
+	 * @return String
+	 * @exception Exception
+	 */
+	@RequestMapping(value= "/cat/DeleteCategory.do")
+	public String DeleteCategory(CategoryManageVO categoryManageVO) throws Exception {
+		categoryService.DeleteCategory(categoryManageVO);
 		
-		return categoryService.SelectCategoryVOList(categoryManageVO);
+		return "/cat/CategoryManage";
 	}
-	
 }

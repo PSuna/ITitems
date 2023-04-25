@@ -45,19 +45,29 @@ var imgpath = "<c:url value='/'/>images/";
  * 대분류 조회 함수
  ******************************************************** */
 function fnSetUpperCat(){
+	document.getElementById('upperUl').replaceChildren();
 	$.ajax({
 		url:"${pageContext.request.contextPath}/cat/GetMCategoryList.do",
 		method : "post",
 		success:function(result){
-			console.log(result);
 			if(result.length==0){
 				document.getElementById('upperUl').appendChild(document.createTextNode('==상위카테고리가 없습니다=='))
 			}else{
 				for(res of result){
 					var upperLi = document.createElement('li');
 					upperLi.setAttribute('id', res.catId);
+					upperLi.setAttribute('class', 'upperLi');
 					upperLi.textContent = res.catName;
-					upperLi.setAttribute('class', 'upperLi')
+					upperLi.onclick = function(){
+						fnSetLowerCat(this);
+					};
+					var delBtn = document.createElement('button');
+					delBtn.innerHTML = 'X';
+					delBtn.setAttribute('id', res.catId);
+					delBtn.onclick = function(){
+						fnDeleteCat(this);
+					};
+					upperLi.appendChild(delBtn);
 					document.getElementById('upperUl').appendChild(upperLi);
 				}
 			}
@@ -67,13 +77,10 @@ function fnSetUpperCat(){
 	})
 }
 
-
-
 /* ********************************************************
  * 중분류 조회 함수
  ******************************************************** */
 function fnSetLowerCat(e){
-	console.log('hi');
 	document.getElementById('lowerUl').replaceChildren();
 	var searchUpper = e.id;
 	$.ajax({
@@ -83,14 +90,21 @@ function fnSetLowerCat(e){
 			searchUpper
 		},
 		success:function(result){
-			console.log(result);
 			if(result.length==0){
 				document.getElementById('lowerUl').appendChild(document.createTextNode('==하위카테고리가 없습니다=='))
 			}else{
 				for(res of result){
 					var lowerLi = document.createElement('li');
 					lowerLi.setAttribute('id', res.catId);
+					lowerLi.setAttribute('class', 'lowerLi');
 					lowerLi.textContent = res.catName;
+					var delBtn = document.createElement('button');
+					delBtn.innerHTML = 'X';
+					delBtn.setAttribute('id', res.catId);
+					delBtn.onclick = function(){
+						fnDeleteCat(this);
+					}
+					lowerLi.appendChild(delBtn);
 					document.getElementById('lowerUl').appendChild(lowerLi)
 				}
 			}
@@ -98,6 +112,28 @@ function fnSetLowerCat(e){
 			console.log(error);
 		}
 	})
+}
+
+/* ********************************************************
+ * 분류 삭제 함수
+ ******************************************************** */
+function fnDeleteCat(e){
+	var catId = e.id;
+	$.ajax({
+		url : "${pageContext.request.contextPath}/cat/DeleteCategory.do",
+		method : "post",
+		data: {
+			catId
+		},
+		success:function(result){
+			/* if(result){
+				alert("삭제 성공");
+			}else{
+				alert("하위 항목이 존재합니다.");
+			} */
+		}
+	})
+	
 }
 -->
 </script>
@@ -131,31 +167,25 @@ function fnSetLowerCat(e){
 								<!--// Location -->
 								
 								<h2 class="tit_2">카테고리목록관리</h2>
-								<div class="big_category">
+								<div class="upperCat">
 									<h3>대분류</h3>
 									<div class="box">
 										<ul id="upperUl">
-										<%-- <c:forEach var="catList" items="${cat_result}" varStatus="status">
-											<li class="catItem" id="<c:out value="${catList.catId }"/>" onclick="fnSetLowerCat(this)">
-											<c:out value="${catList.catName}"/></li>
-										</c:forEach> --%>
 										</ul>
 									</div>
 									<label for="catName" class="lb mr10">대분류명 : </label>
-									<input id="catName" class="f_txt item" name="catName" type="text" maxlength="30" title="카테고리명">
-									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="fnInsertUpperCat()">추가</a>
-									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="fnDeleteUpperCat()">삭제</a>
+									<input id="catName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
+									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="fnInsertCat()">추가</a>
 								</div>
-								<div class="small_category">
+								<div class="lowerCat">
 									<h3>중분류</h3>
 									<div class="box">
 										<ul id="lowerUl">
 										</ul>
 									</div>
 									<label for="catName" class="lb mr10">중분류명 : </label>
-									<input id="catName" class="f_txt item" name="catName" type="text" maxlength="30" title="카테고리명">
-									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="">추가</a>
-									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="">삭제</a>
+									<input id="catName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
+									<a href="#LINK" class="item btn btn_blue_46 w_100" onclick="fnInsertCat()">추가</a>
 								</div>
 							</div>
 						</div>
@@ -169,7 +199,6 @@ function fnSetLowerCat(e){
 	<!--// Footer -->
 <script>
 fnSetUpperCat();
-document.getElementsByClassName('upperLi').onClick = fnSetLowerCat(this);
 </script>
 </body>
 </html>

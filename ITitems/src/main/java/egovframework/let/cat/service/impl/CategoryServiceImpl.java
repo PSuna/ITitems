@@ -43,6 +43,18 @@ public class CategoryServiceImpl extends EgovAbstractServiceImpl implements Cate
 
 		return categoryDAO.SelectCategoryVOList(categoryManageVO);
 	}
+	/**
+     * 카테고리 삭제
+     */
+	@Override
+	public int DeleteCategory(CategoryManageVO categoryManageVO){
+		try {
+			categoryDAO.DeleteCategory(categoryManageVO);
+		} catch (Exception e) {
+			return 0;
+		}
+		return 1;
+	}
 
 
 }
