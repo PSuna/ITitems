@@ -37,8 +37,13 @@ public class CategoryDAO extends EgovAbstractMapper {
 		return selectList("CategoryDAO.SelectCategoryVOList", categoryManageVO);
 	}
 
-	public int DeleteCategory(CategoryManageVO categoryManageVO){
-		return delete("CategoryDAO.DeleteCategory", categoryManageVO);
+	public int DeleteCategory(CategoryManageVO categoryManageVO) throws Exception{
+		int r = delete("CategoryDAO.DeleteCategory", categoryManageVO);
+		return r;
+	}
+
+	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception{
+		return insert("CategoryDAO.InsertCategory", categoryManageVO);
 	}
 	
 }

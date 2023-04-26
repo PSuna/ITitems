@@ -24,5 +24,7 @@ public interface CategoryService {
 
 	public int DeleteCategory(CategoryManageVO categoryManageVO);
 
+	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception;
+
 
 }

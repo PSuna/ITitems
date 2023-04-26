@@ -54,14 +54,26 @@ public class CategoryController {
     }    
 	
 	/**
+	 * 카테고리 추가
+	 * @return int
+	 * @exception Exception
+	 */
+	@RequestMapping(value= "/cat/InsertCategory.do")
+	@ResponseBody
+	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception {
+		int r = categoryService.InsertCategory(categoryManageVO);
+		return r;
+	}
+	
+	/**
 	 * 카테고리 삭제
-	 * @return String
+	 * @return int
 	 * @exception Exception
 	 */
 	@RequestMapping(value= "/cat/DeleteCategory.do")
-	public String DeleteCategory(CategoryManageVO categoryManageVO) throws Exception {
-		categoryService.DeleteCategory(categoryManageVO);
-		
-		return "/cat/CategoryManage";
+	@ResponseBody
+	public int DeleteCategory(CategoryManageVO categoryManageVO){
+		int r = categoryService.DeleteCategory(categoryManageVO);
+		return r;
 	}
 }

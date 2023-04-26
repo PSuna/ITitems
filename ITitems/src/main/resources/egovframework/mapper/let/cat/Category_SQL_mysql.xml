@@ -29,10 +29,19 @@
 		SELECT CAT_ID, CAT_NAME, UPPER_CAT
 		FROM CATEGORY
 		<include refid="search"></include>
+		ORDER BY CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
 	</select>
 	
 	<delete id="DeleteCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
 		DELETE FROM CATEGORY
 		WHERE CAT_ID = #{catId}
 	</delete>
+	
+	<insert id="InsertCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
+	<selectKey resultType="String" keyProperty="catId" order="BEFORE">
+		SELECT CONCAT('cat', IFNULL(MAX(CAST(SUBSTR(CAT_ID,4) AS UNSIGNED))+1,0)) FROM CATEGORY
+	</selectKey>
+		INSERT INTO CATEGORY(CAT_ID, CAT_NAME, UPPER_CAT)
+		VALUES (#{catId}, #{catName}, #{upperCat})
+	</insert>
 </mapper>

@@ -43,6 +43,7 @@ public class CategoryServiceImpl extends EgovAbstractServiceImpl implements Cate
 
 		return categoryDAO.SelectCategoryVOList(categoryManageVO);
 	}
+	
 	/**
      * 카테고리 삭제
      */
@@ -54,6 +55,15 @@ public class CategoryServiceImpl extends EgovAbstractServiceImpl implements Cate
 			return 0;
 		}
 		return 1;
+	}
+	
+	/**
+     * 카테고리 추가
+	 * @throws Exception 
+     */
+	@Override
+	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception {
+		return categoryDAO.InsertCategory(categoryManageVO);
 	}
 
 
