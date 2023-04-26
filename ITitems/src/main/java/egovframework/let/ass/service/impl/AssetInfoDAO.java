@@ -37,6 +37,13 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	}
 
 	/**
+	 * 조건에 맞는 자산 전체 갯수 조회
+	 */
+	public int CountAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+		return selectOne("AssetInfoDAO.CountAssetInfoVOList", assetManageVO);
+	}
+	
+	/**
 	 * 자산 한건 상세 조회
 	 */
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {

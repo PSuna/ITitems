@@ -120,22 +120,22 @@ function CarryRegist() {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>반입/반출신청조회</li>
+										<li>반출/반입신청조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 								<h1 class="tit_1">자산관리</h1>
 
-								<h2 class="tit_2">반입/반출신청조회</h2>
+								<h2 class="tit_2">반출/반입신청조회</h2>
 
 								<br />
 								<form name="frm" method="post"
-									action="<c:url value='/ass/CarryRegist.do'/>">
+									action="<c:url value='/req/CarryRegist.do'/>">
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="CarryRegist();">신청</a>
+												onclick="CarryRegist();">반출신청</a>
 										</div>
 									</div>
 								</form>
@@ -198,20 +198,19 @@ function CarryRegist() {
 								<div class="board_list">
 									<table>
 										<colgroup>
-											<col style="width: 80px;">
-											<col style="width: auto;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
+											<col style="width: 5%;">
+											<col style="width: 10%;">
+											<col style="width: 25%;">
+											<col style="width: 25%;">
+											<col style="width: 25%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<th scope="col"></th>
-												<th scope="col">대분류</th>
-												<th scope="col">중분류</th>
-												<th scope="col">품명</th>
-												<th scope="col">수량</th>
+												<th scope="col"> </th>
+												<th scope="col">분류</th>
+												<th scope="col">신청자</th>
+												<th scope="col">프로젝트</th>
 												<th scope="col">신청일자</th>
 												<th scope="col">신청상태</th>
 											</tr>

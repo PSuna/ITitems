@@ -32,6 +32,8 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
+import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
  * 자산관리를 위한 컨트롤러 클래스
@@ -73,6 +75,9 @@ public class AssetController {
 
 	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
+	
+	@Resource(name = "userManageService")
+	private EgovUserManageService userManageService;
 
 	/**
 	 * 자산조회 페이지로 이동
@@ -92,7 +97,7 @@ public class AssetController {
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 
@@ -135,7 +140,7 @@ public class AssetController {
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 
@@ -168,7 +173,7 @@ public class AssetController {
 	@ResponseBody
 	public Object SearchAsserList(AssetManageVO assetManageVO) throws Exception {
 
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 		
 		return map.get("resultList");
 	}
@@ -179,9 +184,14 @@ public class AssetController {
 	@RequestMapping(value = "/ass/SelectAsset.do")
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
-
+		
 		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
-		 
+		
+		/*
+		 * model.addAttribute("resultList",
+		 * assetService.SelectAssetHistVOList(assetManageVO));
+		 */
+		
 		return "/ass/SelectAsset";
 	}
 	
@@ -240,88 +250,6 @@ public class AssetController {
 		assetService.InsertAssetHist(assetHistVO);
 		
 		return "forward:/ass/AssetManagement.do";
-	}
-
-	/**
-	 * 반입/반출신청조회 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/CarryRequset.do")
-	public String ReturnRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-		
-		vo.setCodeId("COM008");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		return "/ass/CarryRequset";
-	}
-	
-	/**
-	 * 반입/반출신청 등록 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/CarryRegist.do")
-	public String CarryRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-	
-		return "/ass/CarryRegist";
-	}
-
-	/**
-	 * 파손신청조회 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/DisposeRequest.do")
-	public String DisposeRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-		
-		vo.setCodeId("COM008");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		return "/ass/DisposeRequest";
-	}
-
-	/**
-	 * 파손내역조회 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/RepairRequest.do")
-	public String RepairRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-		
-		vo.setCodeId("COM008");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		
-		return "/ass/RepairRequest";
 	}
 
 }
