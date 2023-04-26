@@ -67,6 +67,7 @@ function fnSetUpperCat(){
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
+					delBtn.setAttribute('class', 'catDelBtn');
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					};
@@ -106,6 +107,7 @@ function fnSetLowerCat(e){
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
+					delBtn.setAttribute('class', 'catDelBtn');
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					}
@@ -167,27 +169,80 @@ function fnLowerInsertCat(){
  * 분류 삭제 함수
  ******************************************************** */
 function fnDeleteCat(e){
-	var catId = e.id;
-	$.ajax({
-		url : "${pageContext.request.contextPath}/cat/DeleteCategory.do",
-		method : "post",
-		data: {
-			catId
-		},
-		success:function(result){
-			console.log(result);
-			if(result<1){
-				alert("하위 항목이 존재합니다.");
-			}else{
-				alert("삭제 성공");
-				fnSetUpperCat();
-				document.getElementById('lowerUl').replaceChildren();
+	if(confirm("삭제하시겠습니까?") == true){
+		var catId = e.id;
+		$.ajax({
+			url : "${pageContext.request.contextPath}/cat/DeleteCategory.do",
+			method : "post",
+			data: {
+				catId
+			},
+			success:function(result){
+				console.log(result);
+				if(result<1){
+					alert("하위 항목이 존재합니다.");
+				}else{
+					alert("삭제 성공");
+					fnSetUpperCat();
+					document.getElementById('lowerUl').replaceChildren();
+				}
 			}
-		}
-	})
+		})
+	}else{
+		return false;
+	}
 }
 -->
 </script>
+<style>
+.catBox{
+	display:flex;
+	margin-top: 20px;
+}
+.upperCat, .lowerCat{
+	margin : 10px;
+	padding : 10px;
+	border:1px solid #ddd;
+	border-radius: 10px;
+	min-height : 520px;
+	width:470px;
+}
+.catInnerBox{
+	height : 400px;
+	width : 100%;
+	padding : 10px;
+	overflow : auto;
+}
+.upperLi, .lowerLi{
+	display: flex;
+    justify-content: space-between;
+    font-size:20px;
+    border-bottom : 1px solid #eee;
+    padding: 5px;
+}
+
+.upperLi:hover, .lowerLi:hover{
+	background : #ddd;
+}
+.catDelBtn{
+	background : none;
+}
+
+.catInLabel{
+	font-size:18px;
+}
+
+.catInputBox{
+	display:flex;
+	justify-content: space-around;
+    align-items: center;
+}
+.catTitle{
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 8px;
+	text-align : center;
+}
+</style>
 </head>
 <body>
 	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -218,25 +273,31 @@ function fnDeleteCat(e){
 								<!--// Location -->
 								<input id="settedUpper" name="upperId" type="hidden" />
 								<h2 class="tit_2">카테고리목록관리</h2>
-								<div class="upperCat">
-									<h3>대분류</h3>
-									<div class="box">
-										<ul id="upperUl">
-										</ul>
+								<div class="catBox">
+									<div class="upperCat">
+										<h2 class="catTitle">대분류</h2>
+										<div class="catInnerBox">
+											<ul id="upperUl">
+											</ul>
+										</div>
+										<div class="catInputBox">
+											<label for="upperCatName" class="catInLabel">대분류명 : </label>
+											<input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
+											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
+										</div>
 									</div>
-									<label for="upperCatName" class="lb mr10">대분류명 : </label>
-									<input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
-									<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
-								</div>
-								<div class="lowerCat">
-									<h3>중분류</h3>
-									<div class="box">
-										<ul id="lowerUl">
-										</ul>
+									<div class="lowerCat">
+										<h2 class="catTitle">중분류</h2>
+										<div class="catInnerBox">
+											<ul id="lowerUl">
+											</ul>
+										</div>
+										<div class="catInputBox">
+											<label for="lowerCatName" class="catInLabel">중분류명 : </label>
+											<input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
+											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
+										</div>
 									</div>
-									<label for="lowerCatName" class="lb mr10">중분류명 : </label>
-									<input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
-									<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
 								</div>
 							</div>
 						</div>

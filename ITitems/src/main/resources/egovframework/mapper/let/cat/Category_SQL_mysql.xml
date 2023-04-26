@@ -29,7 +29,7 @@
 		SELECT CAT_ID, CAT_NAME, UPPER_CAT
 		FROM CATEGORY
 		<include refid="search"></include>
-		ORDER BY CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
+		ORDER BY CAT_ORDER ASC, CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
 	</select>
 	
 	<delete id="DeleteCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
