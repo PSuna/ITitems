@@ -23,7 +23,7 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetManageVO) throws Exception;
 	
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
 	
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception;
 	

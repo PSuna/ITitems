@@ -54,9 +54,11 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	}
 	
 	@Override
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
-		
-		return null;
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetInfoDAO.SelectAssetInfoVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
+		return map;
 	}
 
 	@Override

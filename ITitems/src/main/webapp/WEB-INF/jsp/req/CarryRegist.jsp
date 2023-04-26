@@ -50,31 +50,72 @@
 </c:if>
 <script type="text/javascript">
 	let userCheck = 0;
+	let tdClone;
 	
-	function getMCatList() {
-		let val = document.getElementById('largeCategory').value;
+	function addTd() {
+		 let td = tdClone.cloneNode(true);
+		 document.querySelector('.assetlist tbody').appendChild(td); 
+	}
+	
+	window.onload = function(){
+		tdClone = document.querySelector('.assetlist tbody tr').cloneNode(true);
+		  }
+	
+	function getMCatList(Lcat) {
 		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
-			success: function (result) {
-				document.getElementById('middleCategory').replaceChildren();
-				let op = document.createElement('option');
-				op.textContent = '선택하세요';
-				document.getElementById('middleCategory').appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					document.getElementById('middleCategory').appendChild(op);
+		let val = Lcat.value;
+		let mCat = Lcat.closest("td").querySelector("div");
+		if (val == "ETC"){
+			mCat.replaceChildren();
+			let input = document.createElement('input');
+			input.setAttribute('id', 'middleCategory');
+			input.setAttribute('name', 'middleCategory');
+			input.setAttribute('type', 'text');
+			input.setAttribute('class', 'f_txt w_full');
+			mCat.appendChild(input);
+		}else if (val == ""){
+			mCat.replaceChildren();
+			let label = document.createElement('label');
+			label.setAttribute('class', 'f_select');
+			let select = document.createElement('select');
+			select.setAttribute('id', 'middleCategory');
+			select.setAttribute('name', 'middleCategory');
+			let op = document.createElement('option');
+			op.textContent = '선택하세요';
+			select.appendChild(op);
+			label.appendChild(select);
+			mCat.appendChild(label);
+		}else{
+			$.ajax({
+				url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+				method: 'POST',
+				contentType: 'application/x-www-form-urlencoded',
+				data: {'searchUpper' : val},
+				success: function (result) {
+					mCat.replaceChildren();
+					let label = document.createElement('label');
+					label.setAttribute('class', 'f_select');
+					let select = document.createElement('select');
+					select.setAttribute('id', 'middleCategory');
+					select.setAttribute('name', 'middleCategory');
+					let op = document.createElement('option');
+					op.textContent = '선택하세요';
+					select.appendChild(op);
+					for(res of result){
+						op = document.createElement('option');
+						op.setAttribute('value', res.catId);
+						op.textContent = res.catName;
+						select.appendChild(op);
+					}
+					label.appendChild(select);
+					mCat.appendChild(label);
+				},
+				error: function (error) {
+					console.log(error);
 				}
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})
+			})	
+		} 
+		
 	}
 
 	function fn_egov_validateForm(obj) {
@@ -266,6 +307,7 @@ function insert_asset() {
 	}) 
 }
 
+
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -291,7 +333,7 @@ function insert_asset() {
 }
 </style>
 
-<body onload="fn_egov_init_date();">
+<body >
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
@@ -318,7 +360,7 @@ function insert_asset() {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>반입/반출 신청</li>
+										<li>반출 신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -363,7 +405,7 @@ function insert_asset() {
 
 									<h1 class="tit_1">자산관리</h1>
 
-									<h2 class="tit_2">반입/반출 신청</h2>
+									<h2 class="tit_2">반출 신청</h2>
 
 									<br>
 									<!-- 추가/초기화 버튼  -->
@@ -389,24 +431,19 @@ function insert_asset() {
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 신청분류 --> <label for="">신청분류</label> <span class="req">필수</span>
-												</td>
-												<td colspan="3"><input type="radio" name="checkType">
-													반입
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input type="radio" name="checkType"> 반출</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 성명 --> <label for="">성명</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"><input
-														type="text" readonly="readonly"></span></td>
+														value="${userManageVO.emplyrNm}" type="text"
+														readonly="readonly"></span>
+														<input
+														value="${userManageVO.uniqId}" type="hidden"
+														readonly="readonly"></td>
 												<td class="lb">
 													<!-- 직위 --> <label for="">직위</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"><input
-														type="text" readonly="readonly"></span></td>
+														type="text" readonly="readonly" ${userManageVO.grade}></span></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -465,7 +502,7 @@ function insert_asset() {
 										</c:if>
 									</div>
 									<br>
-									<div class="board_view2">
+									<div class="board_view2 assetlist">
 										<table>
 											<colgroup>
 												<col style="width: 22%;">
@@ -485,21 +522,23 @@ function insert_asset() {
 												<tr>
 													<td><label class="f_select" for="largeCategory">
 															<select id="largeCategory" name="largeCategory"
-															title="대분류" onchange="getMCatList();">
+															title="대분류" onchange="getMCatList(this);">
 																<option value="" label="선택하세요" />
 																<c:forEach var="LCat" items="${LCat_result}"
 																	varStatus="status">
 																	<option value="${LCat.catId}"><c:out
 																			value="${LCat.catName}" /></option>
 																</c:forEach>
+																<option value="ETC" label="직접입력" />
 														</select>
-													</label> <br>
-													<br> <label class="f_select" for="middleCategory">
-															<select id="middleCategory" name="middleCategory"
-															title="중분류">
-																<option value='' label="선택하세요" selected="selected" />
-														</select>
-													</label></td>
+													</label> <br> <br>
+														<div id="mCat">
+															<label class="f_select" for="middleCategory"> <select
+																id="middleCategory" name="middleCategory" title="중분류">
+																	<option value='' label="선택하세요" selected="selected" />
+															</select>
+															</label>
+														</div></td>
 													<td><input type="number" value="0"
 														class="f_txt w_full"></td>
 													<td><input type="text" class="f_txt w_full"></td>
@@ -509,7 +548,7 @@ function insert_asset() {
 											<tr>
 												<td colspan="4"><div class="right_btn btn1">
 														<a href="#LINK" class="btn btn_blue_46 w_100"
-															onclick=" return false;">+</a>
+															onclick="addTd();">+</a>
 														<!-- 추가 -->
 													</div></td>
 											</tr>

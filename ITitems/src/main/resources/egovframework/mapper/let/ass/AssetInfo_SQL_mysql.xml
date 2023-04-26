@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AssetInfoDAO">
-
+	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
 		id="assetInfoList">
-		<result property="" column="" />
+		<result property="rum" column="RUM" />
+		<result property="assetId" column="ASSET_ID" />
+		<result property="largeCategory" column="LARGE_CATEGORY" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="histQty" column="HIST_QTY" />
+		<result property="acquiredDate" column="ACQUIRED_DATE" />
+		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
+		<result property="maker" column="MAKER" />
+		<result property="histStatus" column="HIST_STATUS" />
 	</resultMap>
 
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -24,22 +33,77 @@
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 	</resultMap>
 
+	<sql id="search">
+		<if test="searchOrgnzt != null and searchOrgnzt != ''">
+			AND a.DEPT_ID = #{searchOrgnzt}
+		</if>
+		<if test="searchPrj != null and searchPrj != ''">
+			AND a.PRJ_ID = #{searchPrj}
+		</if>
+		<if test="searchLCat != null and searchLCat != ''">
+			AND b.LARGE_CATEGORY = #{searchLCat}
+		</if>
+		<if test="searchdMCat != null and searchdMCat != ''">
+			AND b.MIDDLE_CATEGORY = #{searchdMCat}
+		</if>
+		<if test="searchStatus != null and searchStatus != ''">
+			AND a.HIST_STATUS = #{searchStatus}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND b.REG_DATE >= STR_TO_DATE(#{startDate},
+			'%Y%m%d%H%i%s')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+			AND b.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
+			]]>
+		</if>
+		<if test="searchWord != null and searchWord != ''">
+			AND b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+		</if>
+	</sql>
+
 	<select id="SelectAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetInfoList">
-		SELECT A.*
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ASSET_QTY
-		DESC) AS
-		RUM,LARGE_CATEGORY,MIDDLE_CATEGORY,ASSET_NAME,ASSET_QTY,ACQUIRED_DATE,ACQUIRED_PRICE,MAKER,NOTE
-		FROM ASSETSINFO) A
-		WHERE A.RUM BETWEEN 1 AND 3
+		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.HIST_DATE DESC)
+		AS RUM, b.ASSET_ID,(SELECT CAT_NAME FROM category WHERE CAT_ID =
+		b.LARGE_CATEGORY)AS LARGE_CATEGORY,(SELECT CAT_NAME FROM category
+		WHERE CAT_ID = b.MIDDLE_CATEGORY)AS
+		MIDDLE_CATEGORY,b.ASSET_NAME,a.HIST_QTY,DATE_FORMAT(b.ACQUIRED_DATE,'%Y-%m-%d')
+		AS ACQUIRED_DATE,b.ACQUIRED_PRICE,b.MAKER,a.HIST_STATUS
+		FROM ASSETSHIST
+		a
+		LEFT OUTER JOIN ASSETSINFO b
+		ON a.ASSET_ID = b.ASSET_ID
+		WHERE
+		b.USAGE_STAUTS = 'U1'
+		<include refid="search" />
+		) P WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountAssetInfoVOList"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultType="int">
+		SELECT COUNT(a.HIST_ID)
+		FROM ASSETSHIST a
+		LEFT OUTER JOIN ASSETSINFO b
+		ON a.ASSET_ID = b.ASSET_ID
+		WHERE b.USAGE_STAUTS = 'U1'
+		<include refid="search" />
 	</select>
 
-	<select id="SelectAssetInfoVO" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetInfoDetail">
-		SELECT ASSET_ID, (SELECT CAT_NAME FROM category WHERE CAT_ID = LARGE_CATEGORY) AS
-		LARGE_CATEGORY,(SELECT CAT_NAME FROM category WHERE CAT_ID =
-		MIDDLE_CATEGORY) AS MIDDLE_CATEGORY, ASSET_NAME, ASSET_QTY,
-		ACQUIRED_PRICE, MAKER, ADD_ASSET, NOTE, PHOTO_ID, REG_ID, DATE_FORMAT(ACQUIRED_DATE,'%Y-%m-%d')
+	<select id="SelectAssetInfoVO"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="assetInfoDetail">
+		SELECT ASSET_ID, (SELECT CAT_NAME FROM category WHERE CAT_ID
+		= LARGE_CATEGORY) AS
+		LARGE_CATEGORY,(SELECT CAT_NAME FROM category
+		WHERE CAT_ID =
+		MIDDLE_CATEGORY) AS MIDDLE_CATEGORY, ASSET_NAME,
+		ASSET_QTY,
+		ACQUIRED_PRICE, MAKER, ADD_ASSET, NOTE, PHOTO_ID, REG_ID,
+		DATE_FORMAT(ACQUIRED_DATE,'%Y-%m-%d')
 		AS ACQUIRED_DATE
 		FROM ASSETSINFO
 		WHERE ASSET_ID = #{assetId}

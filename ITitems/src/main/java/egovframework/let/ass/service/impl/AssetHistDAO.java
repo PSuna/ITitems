@@ -36,7 +36,7 @@ public class AssetHistDAO extends EgovAbstractMapper {
 	}
 	
 	/**
-	 * 조건에 맞는 자산내역 전체 조회
+	 * 조건에 맞는 자산내역 전체 갯수 조회
 	 */
 	public int CountAssetHistVOList(AssetManageVO assetManageVO) throws Exception {
 		return selectOne("AssetHistDAO.CountAssetHistVOList", assetManageVO);
