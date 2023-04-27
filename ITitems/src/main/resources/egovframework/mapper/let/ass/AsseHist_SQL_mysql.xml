@@ -37,13 +37,45 @@
 
 	<insert id="InsertAssetHist"
 		parameterType="egovframework.let.ass.service.AssetHistVO">
+		
 		<selectKey resultType="String" keyProperty="histId" order="BEFORE">
-		SELECT CONCAT('ash',IFNULL(MAX(SUBSTR(HIST_ID,4))+1,0)) FROM ASSETSHIST
+			SELECT 
+			    CONCAT('ASH',IFNULL(MAX(SUBSTR(HIST_ID,4))+1,0)) 
+			FROM ASSETSHIST
 		</selectKey>
+		
 		INSERT INTO ASSETSHIST
-		VALUES (#{histId}, #{assetId}, #{orgnztId}, #{prjId}, #{useId}, #{histQty}, #{histStatus},
-		#{histNote},DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'), DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), #{rcptId}, #{carryReason}, #{approval},
-		#{code}, #{fileId})
+		      (   HIST_ID, 
+		          ASSET_ID, 
+		          ORGNZT_ID, 
+		          PRJ_ID, 
+		          USE_ID, 
+		          HIST_QTY, 
+		          HIST_STATUS, 
+		          HIST_NOTE, 
+		          HIST_DATE, 
+		          RCPT_DATE, 
+		          RCPT_ID, 
+		          CARRY_REASON, 
+		          APPROVAL, 
+		          CODE, 
+		          FILE_ID )
+		VALUES (
+		          #{histId}, 
+		          #{assetId}, 
+		          #{orgnztId}, 
+		          #{prjId}, 
+		          #{useId}, 
+		          #{histQty}, 
+		          #{histStatus},
+		          #{histNote},
+		          DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'), 
+		          DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), 
+		          #{rcptId}, 
+		          #{carryReason}, 
+		          #{approval},
+		          #{code}, 
+		          #{fileId})
 	</insert>
 
 </mapper>

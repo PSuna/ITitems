@@ -100,69 +100,81 @@
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 대분류 --> <label for="">대분류</label>
+													<!-- 대분류 --> 
+													<label for="">대분류</label>
 												</td>
 												<td>${resultVO.largeCategory}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 중분류 --> <label for="">중분류</label>
+													<!-- 중분류 --> 
+													<label for="">중분류</label>
 												</td>
 												<td>${resultVO.middleCategory}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label>
+													<!-- 품명 --> 
+													<label for="">품명</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label>
+													<!-- 수량 --> 
+													<label for="">수량</label>
 												</td>
 												<td>${resultVO.assetQty}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label>
+													<!-- 취득일자 --> 
+													<label for="">취득일자</label>
 												</td>
 												<td>${resultVO.acquiredDate}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
+													<!-- 취득가액 --> 
+													<label for="">취득가액</label>
 												</td>
 												<td>${resultVO.acquiredPrice}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label>
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
 												</td>
 												<td>${resultVO.maker}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 추가물품 --> <label for="">추가물품</label>
+													<!-- 추가물품 --> 
+													<label for="">추가물품</label>
 												</td>
 												<td>${resultVO.addAsset}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 비고 --> <label for="note">비고</label>
+													<!-- 비고 --> 
+													<label for="note">비고</label>
 												</td>
 												<td>${resultVO.note}</td>
 											</tr>
 											<!-- 파일첨부 시작 -->
 											<tr>
-												<td class="lb"><label for="egovComFileUploader">사진첨부</label>
-													<span class="req">필수</span></td>
+												<td class="lb">
+													<label for="egovComFileUploader">사진첨부</label>
+													<span class="req">필수</span>
+												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="photo" id="photo" type="file" />
 														<div id="egovComFileList"></div>
 													</div>
 													<div class="board_attach2" id="file_upload_imposbl">
-													</div> <c:if test="${empty result.atchFileId}">
+													</div> 
+													<c:if test="${empty result.atchFileId}">
 														<input type="hidden" id="fileListCnt" name="fileListCnt"
 															value="0" />
 													</c:if>
@@ -224,8 +236,9 @@
 									<div class="board_view_bot">
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="return false;"><spring:message
-													code="button.create" /></a>
+												onclick="return false;">
+												<spring:message code="button.create" />
+											</a>
 											<!-- 등록 -->
 										</div>
 									</div>

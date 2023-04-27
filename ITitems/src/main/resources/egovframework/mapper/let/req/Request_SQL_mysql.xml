@@ -11,5 +11,67 @@
 		id="RequestDetail">
 		<result property="" column="" />
 	</resultMap>
-
+	
+	<insert id="InsertRequestVO">
+		<selectKey resultType="String" keyProperty="reqId"
+			order="BEFORE">
+			SELECT 
+			    CONCAT('REQ',IFNULL(MAX(SUBSTR(REQ_ID,4))+1,0)) 
+			FROM REQUESTS
+		</selectKey>
+		
+		INSERT INTO requests(
+			REQ_ID, 
+			ID, 
+			REQ_DATE, 
+			REQ_STATUS, 
+			REQ_NOTE, 
+			PRJ_ID, 
+			PM, 
+			START_DATE, 
+			END_DATE, 
+			PLACE, 
+			REQ_GROUP )
+		VALUES (
+			#{reqId},
+			#{id},
+			DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'),
+			#{reqStatus},
+			#{reqNote},
+			#{prjId},
+			#{pm},
+			DATE_FORMAT(#{startDate}, '%Y-%m-%d'),
+			DATE_FORMAT(#{endDate}, '%Y-%m-%d'),
+			#{place},
+			#{reqGroup})
+		
+	</insert>
+	
+	<insert id="InsertRequestDetailVO">
+		<selectKey resultType="String" keyProperty="reqdId"
+			order="BEFORE">
+			SELECT 
+			    CONCAT('RED',IFNULL(MAX(SUBSTR(REQD_ID,4))+1,0)) 
+			FROM REQUESTDETAIL
+		</selectKey>
+		
+		INSERT INTO REQUESTDETAIL(
+			REQD_ID, 
+			REQ_ID,
+			LARGE_CATEGORY,
+			MIDDLE_CATEGORY,
+			ASSET_ID,
+			REQ_QTY, 
+			MAKER, 
+			USER )
+		VALUES (
+			#{reqdId},
+			#{reqId},
+			#{largeCategory},
+			#{middleCategory},
+			#{assetId},
+			#{reqQty},
+			#{maker},
+			#{user}  )
+	</insert>
 </mapper>
