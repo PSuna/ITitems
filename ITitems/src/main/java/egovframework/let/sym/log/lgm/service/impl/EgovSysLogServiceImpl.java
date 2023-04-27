@@ -51,7 +51,6 @@ public class EgovSysLogServiceImpl extends EgovAbstractServiceImpl implements
 		// TODO Auto-generated method stub
 		String requstId = egovSysLogIdGnrService.getNextStringId();
 		sysLog.setRequstId(requstId);
-		
 		sysLogDAO.logInsertSysLog(sysLog);    	
 	}
 

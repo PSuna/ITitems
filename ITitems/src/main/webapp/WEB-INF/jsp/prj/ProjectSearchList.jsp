@@ -36,7 +36,7 @@ function fn_egov_cancel_popup() {
 
 function fn_egov_return_Prj(prjid, prjNm){
 	var val   = new Object();
-	val.prjid  = prjid;
+	val.prjId  = prjid;
 	val.prjNm  = prjNm;
 	
 	parent.parent.returnProject(val);

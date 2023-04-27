@@ -8,14 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
-import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
+import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestService;
+import egovframework.let.req.service.RequestVO;
 import egovframework.let.uss.umt.service.EgovUserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
 
@@ -75,10 +77,10 @@ public class RequestController {
 	}
 	
 	/**
-	 * 반입/반출신청 등록 페이지로 이동
+	 * 반출신청 등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRegist.do")
-	public String CarryRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
+	public String CarryRegist(HttpServletRequest request, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		request.getSession().setAttribute("baseMenuNo", "100");
 
@@ -92,11 +94,38 @@ public class RequestController {
 		
 		UserManageVO userManageVO = new UserManageVO();
 		userManageVO = userManageService.selectUser(user.getUniqId());
+		vo.setCode(userManageVO.getGrade());
+		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
-	
+		
 		return "/req/CarryRegist";
 	}
-
+	
+	/**
+	 * 신청 등록
+	 */
+	@RequestMapping(value = "/req/insertRequest.do")
+	@ResponseBody
+	public String insertRequest(RequestVO requestVO) throws Exception {
+		
+		requestService.InsertRequestVO(requestVO);
+		
+		return requestVO.getReqId();
+	}
+	
+	/**
+	 * 신청상세 등록
+	 */
+	@RequestMapping(value = "/req/insertRequestDetail.do")
+	@ResponseBody
+	public String insertRequestDetail(RequestDetailVO requestDetailVO) throws Exception {
+		
+		requestService.InsertRequestDetailVO(requestDetailVO);
+		
+		return "/req/CarryRegist";
+	}
+	
+	
 	/**
 	 * 처분신청조회 페이지로 이동
 	 */

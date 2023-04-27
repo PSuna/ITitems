@@ -3,6 +3,9 @@ package egovframework.let.req.service.impl;
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
+import egovframework.let.req.service.RequestDetailVO;
+import egovframework.let.req.service.RequestVO;
+
 /**
  * 신청내역 관리를 위한 데이터 접근 클래스
  * 
@@ -23,5 +26,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository("RequestDAO")
 public class RequestDAO extends EgovAbstractMapper {
+	
+	/**
+	 * 신청 등록
+	 */
+	public int InsertRequestVO(RequestVO requestVO) {
 
+		return insert("RequestDAO.InsertRequestVO",requestVO);
+	}
+
+	/**
+	 * 신청 상세 등록
+	 */
+	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO) {
+
+		return insert("RequestDAO.InsertRequestDetailVO",requestDetailVO);
+	}
 }

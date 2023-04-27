@@ -5,7 +5,9 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
+import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestService;
+import egovframework.let.req.service.RequestVO;
 
 /**
  * 신청관리를 위한 서비스 구현 클래스
@@ -29,5 +31,17 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 
 	@Resource(name = "RequestDAO")
 	private RequestDAO requestDAO;
+
+	@Override
+	public int InsertRequestVO(RequestVO requestVO) {
+		
+		return requestDAO.InsertRequestVO(requestVO);
+	}
+
+	@Override
+	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO) {
+		
+		return requestDAO.InsertRequestDetailVO(requestDetailVO);
+	}
 	
 }

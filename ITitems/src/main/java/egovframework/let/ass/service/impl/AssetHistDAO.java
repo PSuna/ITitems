@@ -31,7 +31,7 @@ public class AssetHistDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 자산내역 전체 조회
 	 */
-	public List<AssetHistVO> SelectAssetHistVOList(AssetManageVO assetManageVO) throws Exception {
+	public List<AssetHistVO> SelectAssetHistVOList(AssetManageVO assetManageVO)  {
 		return selectList("AssetHistDAO.SelectAssetHistVOList", assetManageVO);
 	}
 	
