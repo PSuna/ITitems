@@ -93,4 +93,14 @@ public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements Eg
 	public List<CmmnDetailCode> selectGroupIdDetail(ComDefaultCodeVO vo) throws Exception {
 		return cmmUseDAO.selectGroupIdDetail(vo);
 	}
+
+	
+	/**
+     * 공통코드를 단일 조회한다.
+     */
+	@Override
+	public CmmnDetailCode selectCodeDetail(ComDefaultCodeVO vo) throws Exception {
+
+		return cmmUseDAO.selectCodeDetail(vo);
+	}
 }

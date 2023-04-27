@@ -18,5 +18,7 @@ package egovframework.let.req.service;
  */
 
 public interface RequestService {
-
+	public int InsertRequestVO(RequestVO requestVO);
+	
+	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO);
 }

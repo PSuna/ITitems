@@ -143,51 +143,64 @@ function CarryRegist() {
 								<!-- 검색조건 -->
 								<form id="searchVO">
 									<div class="condition2">
-										<span class="lb">부서</span> <label class="item f_select"
-											for="sel1"> <select id="searchOrgnzt"
-											name="searchOrgnzt" title="부서">
+										<span class="lb">부서</span> 
+										<label class="item f_select" for="sel1"> 
+											<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
 												<option value="" label="선택하세요" />
-												<c:forEach var="orgnztId" items="${orgnztId_result}"
-													varStatus="status">
-													<option value="${orgnztId.code}"><c:out
-															value="${orgnztId.codeNm}" /></option>
+												<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+													<option value="${orgnztId.code}">
+														<c:out value="${orgnztId.codeNm}" />
+													</option>
 												</c:forEach>
-										</select>
-										</label> <span class="lb">프로젝트</span> <span class="f_search2 w_200">
+											</select>
+										</label> 
+										<span class="lb">프로젝트</span> 
+										<span class="f_search2 w_200">
 											<input id="prjNm" type="text" title="주소" maxlength="100"
-											readonly="false" />
+												readonly="false" />
 											<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-										</span><input name="searchPrj" id="searchPrj" type="hidden"
-											title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
-										<span class="lb">대분류</span> <label class="item f_select"
-											for="sel1"><select id="largeCategory"
-											name="largeCategory" title="대분류" onchange="getMCatList();">
+										</span>
+										<input name="searchPrj" id="searchPrj" type="hidden"
+											title="프로젝트" value="" maxlength="8" readonly="readonly" />
+										<br>
+										<span class="lb">대분류</span> 
+										<label class="item f_select" for="sel1">
+											<select id="largeCategory" name="largeCategory" title="대분류" onchange="getMCatList();">
 												<option value='' label="선택하세요" selected="selected" />
-												<c:forEach var="LCat" items="${LCat_result}"
-													varStatus="status">
-													<option value="${LCat.catId}"><c:out
-															value="${LCat.catName}" /></option>
+												<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+													<option value="${LCat.catId}">
+														<c:out value="${LCat.catName}" />
+													</option>
 												</c:forEach>
-										</select> </label> <span class="lb">중분류</span> <label class="item f_select"
-											for="sel1"> <select id="middleCategory"
-											name="middleCategory" title="중분류">
+											</select> 
+										</label> 
+										<span class="lb">중분류</span> 
+										<label class="item f_select" for="sel1"> 
+											<select id="middleCategory" name="middleCategory" title="중분류">
 												<option value='' label="선택하세요" selected="selected" />
-										</select>
-										</label> <br> <span class="lb">상태</span> <label
-											class="item f_select" for="sel1"> <select
-											id="searchStatus" name="searchStatus" title="상태">
+											</select>
+										</label> 
+										<br> 
+										<span class="lb">상태</span> 
+										<label class="item f_select" for="sel1"> 
+											<select id="searchStatus" name="searchStatus" title="상태">
 												<option value='' label="선택하세요" selected="selected" />
 												<c:forEach var="stat" items="${status_result}"
 													varStatus="status">
-													<option value="${stat.code}"><c:out
-															value="${stat.codeNm}" /></option>
+													<option value="${stat.code}">
+														<c:out value="${stat.codeNm}" />
+													</option>
 												</c:forEach>
-										</select>
-										</label> <span class="lb ml20">신청일자</span> <input class="f_date"
-											name="startDate" type="date"> ― <input class="f_date"
-											type="date" name="endDate"> <span
-											class="item f_search">검색 <input class="f_input w_130"
-											type="text" name="searchWord" id="usernm" title="검색어">
+											</select>
+										</label> 
+										<span class="lb ml20">신청일자</span> 
+										<input class="f_date" name="startDate" type="date">
+										 ― 
+										<input class="f_date" type="date" name="endDate"> 
+										<span class="item f_search">
+											검색 
+											<input class="f_input w_130"
+												type="text" name="searchWord" id="usernm" title="검색어">
 										</span>
 										<button class="btn" type="submit">검색</button>
 									</div>

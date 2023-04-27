@@ -49,8 +49,56 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <script type="text/javascript">
-	let userCheck = 0;
 	let tdClone;
+	
+	function insertCarryDetail(reqId) {
+		let dataList;
+		let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr")
+		trList.forEach(function(items) {
+			let formdata = new FormData();
+			formdata.append('reqId', reqId);
+			formdata.append('largeCategory', items.querySelector('#middleCategory').value);
+			formdata.append('middleCategory', items.querySelector('#middleCategory').value);
+			formdata.append('reqQty', items.querySelector('#reqQty').value);
+			formdata.append('maker', items.querySelector('#maker').value);
+			formdata.append('user', items.querySelector('#user').value);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
+				method: 'POST',
+				enctype: "multipart/form-data",
+				processData: false,
+				contentType: false,
+				data: formdata,
+				success: function (result) {
+					console.log("성공")
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			}) 
+		});
+	}
+
+	function insertCarry() {
+		event.preventDefault();
+		
+		let formData = new FormData(document.getElementById('frm'));
+		
+	 	$.ajax({
+			url: '${pageContext.request.contextPath}/req/insertRequest.do',
+			method: 'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formData,
+			success: function (result) {
+				insertCarryDetail(result);
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		}) 
+	}
 	
 	function addTd() {
 		 let td = tdClone.cloneNode(true);
@@ -250,61 +298,13 @@
 		
 		fn_egov_modal_remove();
 	}
-
-function returnAsset(val){
-		
-		if (val) {
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
-		}
-		
-		fn_egov_modal_remove();
-	}
 	
 function returnUser(val){
 	
-	if (val) {
-		if(userCheck == 0){
-			document.getElementById("rcptId").value  = val.userId;
-			document.getElementById("rcptNm").value  = val.userNm;
-		}else if(userCheck == 1){
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
-		}
-		
-	}
+	document.getElementById("pm").value  = val.userId;
+	document.getElementById("pmNm").value  = val.userNm;
 	
 	fn_egov_modal_remove();
-}
-
-function insert_asset() {
-	event.preventDefault();
-	
-	let formData = new FormData(document.getElementById('frm'));
-	
- 	$.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
-		method: 'POST',
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function (result) {
-			document.getElementById("largeCategory").value  = "";
-			document.getElementById("middleCategory").value  = "";
-			document.getElementById("assetQty").value  = 0;
-			document.getElementById("assetName").value  = "";
-			document.getElementById("acquiredDate").value  = "";
-			document.getElementById("acquiredPrice").value  = 0;
-			document.getElementById("maker").value  = "";
-			document.getElementById("addAsset").value  = "";
-			document.getElementById("note").value  = "";
-			document.getElementById("photo").value  = "";
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	}) 
 }
 
 
@@ -368,59 +368,12 @@ function insert_asset() {
 
 								<form id="frm" name="frm">
 
-									<input name="pageIndex" type="hidden"
-										value="<c:out value='${searchVO.pageIndex}'/>" /> <input
-										type="hidden" name="bbsId"
-										value="<c:out value='${bdMstr.bbsId}'/>" /> <input
-										type="hidden" name="bbsAttrbCode"
-										value="<c:out value='${bdMstr.bbsAttrbCode}'/>" /> <input
-										type="hidden" name="bbsTyCode"
-										value="<c:out value='${bdMstr.bbsTyCode}'/>" /> <input
-										type="hidden" name="replyPosblAt"
-										value="<c:out value='${bdMstr.replyPosblAt}'/>" /> <input
-										type="hidden" name="fileAtchPosblAt"
-										value="<c:out value='${bdMstr.fileAtchPosblAt}'/>" /> <input
-										type="hidden" name="posblAtchFileNumber"
-										value="<c:out value='${bdMstr.posblAtchFileNumber}'/>" /> <input
-										type="hidden" name="posblAtchFileSize"
-										value="<c:out value='${bdMstr.posblAtchFileSize}'/>" /> <input
-										type="hidden" name="tmplatId"
-										value="<c:out value='${bdMstr.tmplatId}'/>" /> <input
-										type="hidden" name="cal_url"
-										value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" /> <input
-										type="hidden" name="authFlag"
-										value="<c:out value='${bdMstr.authFlag}'/>" />
-
-									<c:if test="${anonymous != 'true'}">
-										<input type="hidden" name="ntcrNm" value="dummy">
-										<!-- validator 처리를 위해 지정 -->
-										<input type="hidden" name="password" value="dummy">
-										<!-- validator 처리를 위해 지정 -->
-									</c:if>
-
-									<c:if test="${bdMstr.bbsAttrbCode != 'BBSA01'}">
-										<input name="ntceBgnde" type="hidden" value="10000101">
-										<input name="ntceEndde" type="hidden" value="99991231">
-									</c:if>
-
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">반출 신청</h2>
-
+									
 									<br>
-									<!-- 추가/초기화 버튼  -->
-									<!-- <div class="board_view_bot">
-										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="AssetSearch(); return fasle;">기존 자산 등록</a>
-											기존 자산 추가
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="frm_reset(); return fasle;">초기화</a>
-											초기화
-										</div>
-									</div> -->
-									<!-- // 추가/초기화 버튼 끝  -->
-									<br>
+									
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -431,145 +384,183 @@ function insert_asset() {
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">성명</label> <span class="req">필수</span>
+													<!-- 성명 --> 
+													<label for="">성명</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><span class="f_search2 w_full"><input
-														value="${userManageVO.emplyrNm}" type="text"
-														readonly="readonly"></span>
-														<input
-														value="${userManageVO.uniqId}" type="hidden"
-														readonly="readonly"></td>
+												<td>
+													<span class="f_search2 w_full">
+														<input value="${userManageVO.emplyrNm}" type="text"
+															readonly="readonly">
+													</span>
+													<input value="${userManageVO.uniqId}" name="id" type="hidden"
+														readonly="readonly">
+												</td>
 												<td class="lb">
-													<!-- 직위 --> <label for="">직위</label> <span class="req">필수</span>
+													<!-- 직위 --> 
+													<label for="">직위</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><span class="f_search2 w_full"><input
-														type="text" readonly="readonly" ${userManageVO.grade}></span></td>
+												<td>
+													<span class="f_search2 w_full">
+														<input type="text" readonly="readonly" 
+															value="${userManageVO.grade}">
+														
+													</span>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 프로젝트 --> <label for="">프로젝트</label>
+													<!-- 프로젝트 --> 
+													<label for="">프로젝트</label>
 												</td>
-												<td colspan="3"><span class="f_search2 w_60%"> <input
-														id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
+												<td colspan="3">
+													<span class="f_search2 w_60%"> 
+														<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+															readonly="false" />
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
-												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
+													</span> 
+													<span class="f_txt_inner ml15">(프로젝트 검색)</span> 
+													<form:errors path="prjId" /> 
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+														readonly="readonly" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
+													<!-- 사용장소 --> 
+													<label for="">사용장소</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><input type="text" class="f_txt w_full"></td>
+												<td>
+													<input type="text" class="f_txt w_full" id="place" name="place">
+												</td>
 												<td class="lb">
-													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
-													class="req">필수</span>
+													<!-- PM(관리자) --> 
+													<label for="">PM(관리자)</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><input type="text" class="f_txt w_full"></td>
+												<td>
+													<span class="f_search2 w_30%"> 
+														<input id="pmNm" type="text" title="회원" maxlength="100"
+															readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+													</span> 
+													<input name="pm" id="pm" type="hidden" title="프로젝트" value=""
+														maxlength="8" readonly="readonly" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 사용기간 --> <label for="">사용기간</label> <span class="req">필수</span>
+													<!-- 사용기간 --> 
+													<label for="">사용기간</label> 
+													<span class="req">필수</span>
 												</td>
-												<td colspan="3"><input id="acquiredDate"
-													class="f_txt w_40%" name="acquiredDate" type="date"
-													value="" maxlength="60">
+												<td colspan="3">
+													<input id="startDate" class="f_txt w_40%" name="startDate" type="date"
+														 maxlength="60">
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input id="acquiredDate" class="f_txt w_40%"
-													name="acquiredDate" type="date" value="" maxlength="60">
-													<br /></td>
+													<input id="endDate" class="f_txt w_40%"
+														name="endDate" type="date" maxlength="60">
+													<br />
+												</td>
 											</tr>
-
 										</table>
-										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-											<script type="text/javascript">
-												var maxFileNum = document.board.posblAtchFileNumber.value;
-												if (maxFileNum == null
-														|| maxFileNum == "") {
-													maxFileNum = 3;
-												}
-												var multi_selector = new MultiSelector(
-														document
-																.getElementById('egovComFileList'),
-														maxFileNum);
-												multi_selector
-														.addElement(document
-																.getElementById('egovComFileUploader'));
-											</script>
-										</c:if>
-									</div>
-									<br>
-									<div class="board_view2 assetlist">
-										<table>
-											<colgroup>
-												<col style="width: 22%;">
-												<col style="width: 15%;">
-												<col style="width: 29%;">
-												<col style="width: 34%;">
-											</colgroup>
-											<thead>
-												<tr>
-													<td class="lb"><label for="">구분</label></td>
-													<td class="lb"><label for="">수량</label></td>
-													<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-													<td class="lb"><label for="">사용자</label></td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><label class="f_select" for="largeCategory">
-															<select id="largeCategory" name="largeCategory"
-															title="대분류" onchange="getMCatList(this);">
-																<option value="" label="선택하세요" />
-																<c:forEach var="LCat" items="${LCat_result}"
-																	varStatus="status">
-																	<option value="${LCat.catId}"><c:out
-																			value="${LCat.catName}" /></option>
-																</c:forEach>
-																<option value="ETC" label="직접입력" />
-														</select>
-													</label> <br> <br>
-														<div id="mCat">
-															<label class="f_select" for="middleCategory"> <select
-																id="middleCategory" name="middleCategory" title="중분류">
-																	<option value='' label="선택하세요" selected="selected" />
-															</select>
-															</label>
-														</div></td>
-													<td><input type="number" value="0"
-														class="f_txt w_full"></td>
-													<td><input type="text" class="f_txt w_full"></td>
-													<td><input type="text" class="f_txt w_full"></td>
-												</tr>
-											</tbody>
+									</form>
+									<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
+										<script type="text/javascript">
+											var maxFileNum = document.board.posblAtchFileNumber.value;
+											if (maxFileNum == null
+													|| maxFileNum == "") {
+												maxFileNum = 3;
+											}
+											var multi_selector = new MultiSelector(
+													document
+															.getElementById('egovComFileList'),
+													maxFileNum);
+											multi_selector
+													.addElement(document
+															.getElementById('egovComFileUploader'));
+										</script>
+									</c:if>
+									
+								</div>
+								
+								<br>
+								
+								<div class="board_view2 assetlist">
+									<table>
+										<colgroup>
+											<col style="width: 22%;">
+											<col style="width: 15%;">
+											<col style="width: 29%;">
+											<col style="width: 34%;">
+										</colgroup>
+										<thead>
 											<tr>
-												<td colspan="4"><div class="right_btn btn1">
-														<a href="#LINK" class="btn btn_blue_46 w_100"
-															onclick="addTd();">+</a>
-														<!-- 추가 -->
-													</div></td>
+												<td class="lb"><label for="">구분</label><span class="req">필수</span></td>
+												<td class="lb"><label for="">수량</label><span class="req">필수</span></td>
+												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
+												<td class="lb"><label for="">사용자</label></td>
 											</tr>
-										</table>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<label class="f_select" for="largeCategory">
+														<select id="largeCategory" name="largeCategory"
+															title="대분류" onchange="getMCatList(this);">
+															<option value="" label="선택하세요" />
+															<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+																<option value="${LCat.catId}">
+																	<c:out value="${LCat.catName}" />
+																</option>
+															</c:forEach>
+															<option value="ETC" label="직접입력" />
+														</select>
+													</label> 
+												<br><br>
+													<div id="mCat">
+														<label class="f_select" for="middleCategory"> 
+															<select id="middleCategory" name="middleCategory" title="중분류">
+																<option value='' label="선택하세요" selected="selected" />
+															</select>
+														</label>
+													</div>
+												</td>
+												<td><input id="reqQty" name="reqQty" type="number" value="0" class="f_txt w_full"></td>
+												<td><input id="maker" name="maker" type="text" class="f_txt w_full"></td>
+												<td><input id="user" name="user" type="text" class="f_txt w_full"></td>
+											</tr>
+										</tbody>
+										<tr>
+											<td colspan="4">
+												<div class="right_btn btn1">
+													<!-- 입력칸 추가 -->
+													<a href="#LINK" class="btn btn_blue_46 w_100"
+														onclick="addTd();">+</a>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<br>
+								<div>
+									<input type="checkbox"> 상기와 같이 장비 반입/반출을 신청합니다.
+								</div>
+								<br>
+								<!-- 등록버튼  -->
+								<div class="board_view_bot">
+									<div class="right_btn btn1">
+										<a href="#LINK" class="btn btn_blue_46 w_100"
+											onclick="insertCarry();return false;">신청 <spring:message
+												code="button.create" /></a>
+										<!-- 등록 -->
 									</div>
-									<br>
-									<div>
-										<input type="checkbox"> 상기와 같이 장비 반입/반출을 신청합니다.
-									</div>
-									<br>
-									<!-- 등록버튼  -->
-									<div class="board_view_bot">
-										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="return false;">신청 <spring:message
-													code="button.create" /></a>
-											<!-- 등록 -->
-										</div>
-									</div>
-									<!-- // 등록버튼 끝  -->
-								</form>
+								</div>
+								<!-- // 등록버튼 끝  -->
+								
 							</div>
 						</div>
 					</div>

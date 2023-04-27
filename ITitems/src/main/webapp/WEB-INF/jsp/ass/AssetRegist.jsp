@@ -247,7 +247,9 @@ function insert_asset() {
 		enctype: "multipart/form-data",
 		processData: false,
 		contentType: false,
-		data: formData,
+		data: 
+			
+			JSON.stformData,
 		success: function (result) {
 			document.getElementById("largeCategory").value  = "";
 			document.getElementById("middleCategory").value  = "";
@@ -381,89 +383,116 @@ function insert_asset() {
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 대분류 --> <label for="">대분류</label> <span class="req">필수</span>
+													<!-- 대분류 --> 
+													<label for="">대분류</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><label class="f_select" for="largeCategory">
-														<select id="largeCategory" name="largeCategory"
-														title="대분류" onchange="getMCatList();">
-															<option value="" label="선택하세요" />
-															<c:forEach var="LCat" items="${LCat_result}"
-																varStatus="status">
-																<option value="${LCat.catId}"><c:out
-																		value="${LCat.catName}" /></option>
-															</c:forEach>
-													</select>
-												</label> <br /></td>
+												<td>
+													<label class="f_select" for="largeCategory">
+															<select id="largeCategory" name="largeCategory"
+																title="대분류" onchange="getMCatList();">
+																<option value="" label="선택하세요" />
+																<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+																	<option value="${LCat.catId}">
+																		<c:out value="${LCat.catName}" />
+																	</option>
+																</c:forEach>
+															</select>
+													</label> 
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 중분류 --> <label for="">중분류</label> <span class="req">필수</span>
+													<!-- 중분류 --> 
+													<label for="">중분류</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><label class="f_select" for="middleCategory">
-														<select id="middleCategory" name="middleCategory"
-														title="중분류">
+												<td>
+													<label class="f_select" for="middleCategory">
+														<select id="middleCategory" name="middleCategory">
 															<option value='' label="선택하세요" selected="selected" />
-													</select>
-												</label> <br /></td>
+														</select>
+													</label> 
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label>
+													<!-- 품명 --> 
+													<label for="">품명</label>
 												</td>
-												<td><input id="assetName" class="f_txt w_full"
-													name="assetName" type="text" value="" maxlength="60">
-													<br /></td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value=""  maxlength="60">
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label> <span class="req">필수</span>
+													<!-- 수량 -->
+													<label for="">수량</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><input id="assetQty" class="f_txt w_full"
-													name="assetQty" type="number" value="" maxlength="60">
-													<br /></td>
+												<td>
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value=""  maxlength="20">
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label> <span class="req">필수</span>
+													<!-- 취득일자 --> 
+													<label for="">취득일자</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><input id="acquiredDate" class="f_txt w_full"
-													name="acquiredDate" type="date" value="" maxlength="60">
-													<br /></td>
+												<td>
+													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="">
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
+													<!-- 취득가액 --> 
+													<label for="">취득가액</label>
 												</td>
-												<td><input id="acquiredPrice" class="f_txt w_full"
+												<td>
+													<input id="acquiredPrice" class="f_txt w_full"
 													name="acquiredPrice" type="number" value="0" maxlength="60">
-													<br /></td>
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label>
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
 												</td>
-												<td><input id="maker" class="f_txt w_full" name="maker"
-													type="text" value="" maxlength="60"> <br /></td>
+												<td>
+													<input id="maker" class="f_txt w_full" name="maker" type="text" value="" maxlength="60"> 
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 추가물품 --> <label for="">추가물품</label>
+													<!-- 추가물품 --> 
+													<label for="">추가물품</label>
 												</td>
-												<td><input id="addAsset" class="f_txt w_full"
-													name="addAsset" type="text" value="" maxlength="60">
-													<br /></td>
+												<td>
+													<input id="addAsset" class="f_txt w_full" name="addAsset" type="text" value="" maxlength="60">
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 비고 --> <label for="note">비고</label>
+													<!-- 비고 --> 
+													<label for="note">비고</label>
 												</td>
-												<td><textarea id="note" name="note"
-														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+												<td>
+													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
 												</td>
 											</tr>
 											<!-- 파일첨부 시작 -->
 											<tr>
-												<td class="lb"><label for="egovComFileUploader">사진첨부</label>
+												<td class="lb">
+													<label for="egovComFileUploader">사진첨부</label>
 													<span class="req">필수</span></td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
@@ -471,15 +500,13 @@ function insert_asset() {
 														<div id="egovComFileList"></div>
 													</div>
 													<div class="board_attach2" id="file_upload_imposbl">
-													</div> <c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
+													</div> 
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
 													</c:if>
 												</td>
 											</tr>
 										</table>
-
-
 
 										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 											<script type="text/javascript">
@@ -498,7 +525,9 @@ function insert_asset() {
 											</script>
 										</c:if>
 									</div>
+									
 									<br>
+									
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -506,8 +535,10 @@ function insert_asset() {
 												<col style="width: auto;">
 											</colgroup>
 											<tr>
-												<td class="lb"><label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span></td>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+													<span class="req">필수</span>
+												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="file" id="egovComFileUploader" type="file" />
@@ -523,78 +554,106 @@ function insert_asset() {
 											<!-- /파일첨부 끝 -->
 											<tr>
 												<td class="lb">
-													<!-- 부서 --> <label for="orgnztId">부서</label>
+													<!-- 부서 --> 
+													<label for="orgnztId">부서</label>
 												</td>
-												<td><label class="f_select w_30%" for="orgnztId">
+												<td>
+													<label class="f_select w_30%" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" title="부서">
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}"><c:out
-																		value="${orgnztId.codeNm}" /></option>
+																<option value="${orgnztId.code}">
+																	<c:out value="${orgnztId.codeNm}" />
+																</option>
 															</c:forEach>
 													</select>
-												</label></td>
+													</label>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 프로젝트 --> <label for="">프로젝트</label>
+													<!-- 프로젝트 --> 
+													<label for="">프로젝트</label>
 												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="prjNm" type="text" title="프로젝트" maxlength="100"
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="false" />
-														<button type="button" class="btn"
-															onclick="ProjectSearch();">조회</button>
-												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
+													<button type="button" class="btn"
+														onclick="ProjectSearch();">조회</button>
+													</span> 
+													<span class="f_txt_inner ml15">(프로젝트 검색)</span> 
+													<form:errors path="prjId" /> 
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+														readonly="readonly" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- CODE명 --> <label for="">CODE명</label>
+													<!-- CODE명 --> 
+													<label for="">CODE명</label>
 												</td>
-												<td><input id="code" class="f_txt w_full" name="code"
-													type="text" value="" maxlength="60"> <br /></td>
+												<td>
+													<input id="code" class="f_txt w_full" name="code"
+														type="text" value="" maxlength="60"> 
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령자 --> <label for="">수령자</label> <span class="req">필수</span>
+													<!-- 수령자 --> 
+													<label for="">수령자</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="rcptNm" type="text" title="회원" maxlength="100"
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="rcptNm" type="text" title="회원" maxlength="100"
 														readonly="false" />
-														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
-													name="rcptId" id="rcptId" type="hidden" title="프로젝트"
-													value="" maxlength="8" readonly="readonly" /></td>
+													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+													</span> 
+													<span class="f_txt_inner ml15">(회원 검색)</span> 
+													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
+														value="" maxlength="8" readonly="readonly" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 실사용자 --> <label for="">실사용자</label> <span class="req">필수</span>
+													<!-- 실사용자 --> 
+													<label for="">실사용자</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="useNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
+												<td>
+													<span class="f_search2 w_30%"> 
+														<input id="useNm" type="text" title="회원" maxlength="100"
+															readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-												</span> <span class="f_txt_inner ml15">(회원 검색)</span> <input
-													name="useId" id="useId" type="hidden" title="프로젝트" value=""
-													maxlength="8" readonly="readonly" /></td>
+													</span> 
+													<span class="f_txt_inner ml15">(회원 검색)</span> 
+													<input name="useId" id="useId" type="hidden" title="프로젝트" value=""
+														maxlength="8" readonly="readonly" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> <label for="">수령일자</label> <span class="req">필수</span>
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+													<span class="req">필수</span>
 												</td>
-												<td><input id="rcptDate" class="f_txt w_full"
-													name="rcptDate" type="date" value="" maxlength="60">
-													<br /></td>
+												<td>
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date" value="" maxlength="60">
+													<br />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 반출사유 --> <label for="carryReason">반출사유</label>
+													<!-- 반출사유 --> 
+													<label for="carryReason">반출사유</label>
 												</td>
-												<td><textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+												<td>
+													<textarea id="carryReason" name="carryReason"
+														class="f_txtar w_full h_200" cols="30" rows="10">
+													</textarea>
 												</td>
 											</tr>
 										</table>

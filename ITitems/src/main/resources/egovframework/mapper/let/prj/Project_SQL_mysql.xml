@@ -26,29 +26,43 @@
 	<select id="SelectProjectVOList"
 		parameterType="egovframework.let.prj.service.ProjectManageVO"
 		resultMap="ProjectList">
-		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.PRJ_ID)
-		AS RUM,
-		a.PRJ_ID, a.PRJ_NAME, DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS
-		PRJ_START,DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
-		a.CLIENT,
-		a.PRJ_STATE, b.USER_NM, c.CODE_NM
-		FROM PROJECTS a
-		LEFT OUTER
-		JOIN
-		LETTNEMPLYRINFO b
-		ON a.ID = b.EMPLYR_ID
-		LEFT OUTER JOIN
-		LETTCCMMNDETAILCODE c
-		ON b.GRADE = c.CODE
-		<include refid="search"></include>
-		) P WHERE P.RUM BETWEEN #{first} AND #{last}
+		SELECT 
+			RUM,
+			PRJ_ID,
+			PRJ_NAME,
+			PRJ_START,
+			PRJ_END,
+			CLIENT,
+			PRJ_STATE,
+			USER_NM,
+			CODE_NM
+		  FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
+				a.PRJ_ID, 
+				a.PRJ_NAME, 
+				DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
+				DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+				a.CLIENT,
+				a.PRJ_STATE, 
+				b.USER_NM, 
+				c.CODE_NM
+			  FROM PROJECTS a
+			  LEFT OUTER JOIN LETTNEMPLYRINFO b
+			    ON a.ID = b.EMPLYR_ID
+			  LEFT OUTER JOIN LETTCCMMNDETAILCODE c
+			    ON b.GRADE = c.CODE
+			<include refid="search"></include>
+			 ) P 
+	     WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 
 	<select id="CountProjectVOList"
 		parameterType="egovframework.let.prj.service.ProjectManageVO"
 		resultType="int">
-		SELECT COUNT(a.PRJ_ID)
-		FROM projects a
+		SELECT 
+			COUNT(a.PRJ_ID)
+		  FROM projects a
 		<include refid="search"></include>
 	</select>
 </mapper>

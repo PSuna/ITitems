@@ -36,6 +36,11 @@ public interface EgovCmmUseService {
     public List<CmmnDetailCode> selectCmmCodeDetail(ComDefaultCodeVO vo) throws Exception;
 
     /**
+     * 공통코드를 단일 조회한다.
+     */
+    public CmmnDetailCode selectCodeDetail(ComDefaultCodeVO vo) throws Exception;
+    
+    /**
      * ComDefaultCodeVO의 리스트를 받아서 여러개의 코드 리스트를 맵에 담아서 리턴한다.
      *
      * @param voList

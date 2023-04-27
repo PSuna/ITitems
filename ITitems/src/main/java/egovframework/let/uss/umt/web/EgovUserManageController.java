@@ -133,19 +133,12 @@ public class EgovUserManageController {
 		return "cmm/uss/umt/EgovUserManage";
 	}
 	
+	/**
+	 * 사용자목록 조회 팝업창으로 이동
+	 */
 	@RequestMapping(value = "/uss/umt/user/SearchUserList.do")
 	public String SearchUserList( UserDefaultVO userSearchVO, ModelMap model, HttpServletRequest request) throws Exception {
 
-		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
-		request.getSession().setAttribute("baseMenuNo", "6000000");
-		
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-    	if(!isAuthenticated) {
-    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
-    	}
-    	
 		/** EgovPropertyService */
 		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
