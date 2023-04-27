@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.03   JJY              최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.10   천세훈			최초 생성
  
-    author   : 공통서비스 개발팀 JJY
-    since    : 2009.03.03
+    author   : 영남사업부 천세훈
+    since    : 2023.04.10
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -114,7 +113,6 @@ function fn_egov_modal_remove() {
 </head>
 <body>
 	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-<body>
 
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
@@ -166,8 +164,6 @@ function fn_egov_modal_remove() {
 									<!-- 사용자유형정보 : password 수정화면으로 이동시 타겟 유형정보 확인용, 만약검색조건으로 유형이 포함될경우 혼란을 피하기위해 userTy명칭을 쓰지 않음-->
 									<input type="hidden" name="userTyForPassword"
 										value="<c:out value='${userManageVO.userTy}'/>" />
-
-									<h1 class="tit_1">사이트관리</h1>
 
 									<h2 class="tit_2">사용자정보 상세조회 및 수정</h2>
 

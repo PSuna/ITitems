@@ -9,12 +9,13 @@
 		<result property="prjName" column="PRJ_NAME" />
 		<result property="prjStart" column="PRJ_START" />
 		<result property="prjEnd" column="PRJ_END" />
+		<result property="id" column="ID" />
 		<result property="client" column="CLIENT" />
 		<result property="prjState" column="PRJ_STATE" />
 		<result property="name" column="USER_NM" />
 		<result property="position" column="CODE_NM" />
 	</resultMap>
-
+	
 	<sql id="search">
 		<where>
 			<if test="searchWord != null and searchWord != ''">
@@ -24,6 +25,7 @@
 	</sql>
 	
 	<select id="SelectProjectVOList"
+
 		parameterType="egovframework.let.prj.service.ProjectManageVO"
 		resultMap="ProjectList">
 		SELECT 
@@ -55,14 +57,32 @@
 			<include refid="search"></include>
 			 ) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}
+
 	</select>
 
 	<select id="CountProjectVOList"
 		parameterType="egovframework.let.prj.service.ProjectManageVO"
 		resultType="int">
+
 		SELECT 
 			COUNT(a.PRJ_ID)
 		  FROM projects a
+
 		<include refid="search"></include>
+	</select>
+	
+	<select id="selectPrj" parameterType="egovframework.let.prj.service.ProjectManageVO" resultMap="ProjectList">
+		SELECT 		A.PRJ_ID,
+					A.PRJ_NAME,
+					DATE_FORMAT(A.PRJ_START,'%Y-%m-%d') AS PRJ_START,
+			  		DATE_FORMAT(A.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+					A.ID,
+					A.CLIENT,
+					A.PRJ_STATE,
+					B.USER_NM
+		FROM 		PROJECTS A
+		LEFT JOIN 	LETTNEMPLYRINFO B
+		ON 			A.ID = B.EMPLYR_ID
+		WHERE		A.PRJ_ID = #{prjId}
 	</select>
 </mapper>

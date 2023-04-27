@@ -5,9 +5,9 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * 사용자정보 VO클래스로서일반회원, 기업회원, 업무사용자의  비지니스로직 처리시 기타조건성 항을 구성한다.
- * @author 공통서비스 개발팀 조재영
- * @since 2009.04.10
+ * 사용자정보 VO클래스로서 일반회원 비즈니스로직 처리시 기타조건사항을 구성한다.
+ * @author 영남사업부 천세훈 선임
+ * @since 2023.04.10
  * @version 1.0
  * @see
  *
@@ -16,8 +16,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *   
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *   2009.04.10  조재영          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성 
+ *   2023.04.10  천세훈          최초 생성
  *
  * </pre>
  */

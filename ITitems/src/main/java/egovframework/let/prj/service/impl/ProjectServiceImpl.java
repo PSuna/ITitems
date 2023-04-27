@@ -9,6 +9,7 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.prj.service.ProjectService;
+import egovframework.let.prj.service.ProjectVO;
 import egovframework.let.prj.service.ProjectManageVO;
 
 /**
@@ -42,6 +43,18 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 		map.put("resultList", projectDAO.SelectProjectVOList(ProjectManageVO));
 		map.put("resultCnt", Integer.toString(projectDAO.CountProjectVOList(ProjectManageVO)));
 		return map;
+	}
+
+	/**
+	 * 등록된 프로젝트 중 검색조건에 맞는 프로젝트의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param prjId 프로젝트 고유 아이디
+	 * @return ProjectVO 프로젝트 상세정보
+	 * @throws Exception
+	 */
+	@Override
+	public ProjectVO selectPrj(String prjId) throws Exception{
+		ProjectVO projectVO = projectDAO.selectPrj(prjId);
+		return projectVO;
 	}
 
 }

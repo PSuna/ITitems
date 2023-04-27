@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.03   JJY              최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.17   천세훈              최초 생성
  
-    author   : 공통서비스 개발팀 JJY
-    since    : 2009.03.03
+    author   : 영남사업부 천세훈 선임
+    since    : 2023.04.17
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -171,15 +170,6 @@ function setPageUnit(){
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition">
-                                    <%-- <label class="item f_select" for="sbscrbSttus">
-                                        <select name="sbscrbSttus" id="sbscrbSttus" title="검색조건1-사용자상태">
-                                            <option value="0" <c:if test="${empty userSearchVO.sbscrbSttus || userSearchVO.sbscrbSttus == '0'}">selected="selected"</c:if> >상태(전체)</option>
-                                            <option value="A" <c:if test="${userSearchVO.sbscrbSttus == 'A'}">selected="selected"</c:if> >가입신청</option>
-                                            <option value="D" <c:if test="${userSearchVO.sbscrbSttus == 'D'}">selected="selected"</c:if> >삭제</option>
-                                            <option value="P" <c:if test="${userSearchVO.sbscrbSttus == 'P'}">selected="selected"</c:if> >승인</option>
-                                        </select>
-                                    </label> --%>
-                                    
                                     <label class="item f_select" for="searchOrgnzt">
                                     	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="부서"/>
@@ -275,7 +265,6 @@ function setPageUnit(){
                                         	
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
                                             <tr>
-                                                <%-- <td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td> --%>
                                                 <td>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
@@ -292,11 +281,6 @@ function setPageUnit(){
                                                 <td><c:out value="${result.orgnztId}"/></td>
                                                 <td><c:out value="${result.grade}"/></td>
                                                 <td><c:out value="${result.authorCode}"/></td>
-                                                <%-- <td>
-                                                	<c:forEach var="emplyrSttusCode_result" items="${emplyrSttusCode_result}" varStatus="status">
-                                                		<c:if test="${result.sttus == emplyrSttusCode_result.code}"><c:out value="${emplyrSttusCode_result.codeNm}"/></c:if>
-                                                	</c:forEach>
-                                                </td> --%>
                                             </tr>
                                             </c:forEach>
                                             
