@@ -49,7 +49,7 @@ public class CategoryController {
 	 * @exception Exception
 	 */
 	@RequestMapping("/cat/CategoryManage.do")
-    public String selectAuthorGroupListView(CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
+    public String CategoryManageView(CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
         return "/cat/CategoryManage";
     }    
 	

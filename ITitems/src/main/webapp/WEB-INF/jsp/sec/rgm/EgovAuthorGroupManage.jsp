@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.23    lee.m.j              최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.17    천세훈	선임		최초 생성
  
-    author   : 공통서비스 개발팀 lee.m.j
-    since    : 2009.03.23
+    author   : 영남사업부 천세훈 선임
+    since    : 2023.04.17
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -118,7 +117,6 @@ function fncManageChecked() {
                 returnId = checkId.value;
                 returnAuthor = selectAuthor.value;
                 returnRegYn = booleanRegYn.value;
-                returnmberTyCode = listMberTyCode.value;
 
                 resultCheck = true;
             }
@@ -258,7 +256,6 @@ function press() {
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
     					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자 ID</option>
     					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자 이름</option>
-    					                    <%-- <option value="3" <c:if test="${authorGroupVO.searchCondition == '3'}">selected</c:if> >그룹</option> --%>
     					                </select>
                                     </label>
                                     <span class="item f_search">
@@ -269,13 +266,8 @@ function press() {
                                 <!--// 검색조건 -->
 
                                 <div class="board_list_top">
-                                    <!-- <div class="left_col">
-                                    	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fncSelectAuthorGroupPop()">팝업조회</a>팝업조회
-                                    </div> -->
-
                                     <div class="right_col">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
-                                        <!-- <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAuthorGroupDeleteList()">등록취소</a> --><!-- 등록취소 -->
                                     </div>
                                 </div>
 

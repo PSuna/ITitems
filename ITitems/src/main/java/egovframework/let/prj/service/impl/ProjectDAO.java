@@ -22,7 +22,7 @@ import egovframework.let.prj.service.ProjectVO;
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *  2023.04.13  주소현          최초 생성
- *
+ *  2023.04.27  천세훈		사이트관리>프로젝트관리 구현
  *  </pre>
  */
 
@@ -41,6 +41,15 @@ public class ProjectDAO extends EgovAbstractMapper {
 	 */
 	public int CountProjectVOList(ProjectManageVO projectManageVO) throws Exception {
 		return selectOne("ProjectDAO.CountProjectVOList", projectManageVO);
+	}
+
+	/**
+      * 등록된 프로젝트 중 검색조건에 맞는 프로젝트의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param prjId 프로젝트 고유 아이디
+	 * @return ProjectVO 프로젝트 상세정보
+     */
+	public ProjectVO selectPrj(String prjId) {
+		return (ProjectVO) selectOne("ProjectDAO.selectPrj", prjId);
 	}
 	
 }
