@@ -54,6 +54,9 @@ public class RequestVO implements Serializable {
 	
 	/** 신청분류 */
 	private String reqGroup;
+	
+	/** 넘버 */
+	private Integer rum;
 
 	public String getReqId() {
 		return reqId;
@@ -141,6 +144,14 @@ public class RequestVO implements Serializable {
 
 	public void setReqGroup(String reqGroup) {
 		this.reqGroup = reqGroup;
+	}
+
+	public Integer getRum() {
+		return rum;
+	}
+
+	public void setRum(Integer rum) {
+		this.rum = rum;
 	}
 	
 	

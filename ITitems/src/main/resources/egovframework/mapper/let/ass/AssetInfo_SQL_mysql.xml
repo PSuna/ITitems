@@ -35,7 +35,7 @@
 
 	<sql id="search">
 		<if test="searchOrgnzt != null and searchOrgnzt != ''">
-			AND a.DEPT_ID = #{searchOrgnzt}
+			AND a.ORGNZT_ID = #{searchOrgnzt}
 		</if>
 		<if test="searchPrj != null and searchPrj != ''">
 			AND a.PRJ_ID = #{searchPrj}

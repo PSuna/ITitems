@@ -470,6 +470,7 @@ function returnUser(val){
 												</td>
 											</tr>
 										</table>
+										</div>
 									</form>
 									<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 										<script type="text/javascript">
@@ -488,7 +489,7 @@ function returnUser(val){
 										</script>
 									</c:if>
 									
-								</div>
+								
 								
 								<br>
 								
@@ -563,7 +564,7 @@ function returnUser(val){
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  -->
-								
+								</div>
 							</div>
 						</div>
 					</div>

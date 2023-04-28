@@ -150,6 +150,19 @@ public class RequestController {
 		return "/req/CarryRegist";
 	}
 	
+	/**
+	 * 반출/반입상세정보 페이지로 이동
+	 */
+	@RequestMapping(value = "/req/SelectCarry.do")
+	public String SelectCarry(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "100");
+		/*
+		 * model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
+		 * model.addAttribute("resultList",
+		 * requestService.SelectRequestDetailVOList(manageVO));
+		 */
+		return "/req/SelectCarry";
+	}
 	
 	/**
 	 * 처분신청조회 페이지로 이동

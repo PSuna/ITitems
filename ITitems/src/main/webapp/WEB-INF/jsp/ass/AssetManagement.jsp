@@ -56,55 +56,41 @@ function fn_egov_returnValue(val){
 }
 
 function getMCatList() {
-	 let val = document.getElementById('largeCategory').value;
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-		method: 'POST',
-		contentType: 'application/x-www-form-urlencoded',
-		data: {'searchUpper' : val},
-		success: function (result) {
-			document.getElementById('middleCategory').replaceChildren();
-			let op = document.createElement('option');
-			op.setAttribute('value', '');
-			op.textContent = '선택하세요';
-			document.getElementById('middleCategory').appendChild(op);
-			for(res of result){
-				op = document.createElement('option');
-				op.setAttribute('value', res.catId);
-				if(res.catId == '${searchVO.searchdMCat}'){
-					op.setAttribute('selected', "selected");
-				}
-				op.textContent = res.catName;
+	let val = document.getElementById('largeCategory').value;
+	if(val == ""){
+		document.getElementById('middleCategory').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '선택하세요';
+		op.value = "";
+		document.getElementById('middleCategory').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				document.getElementById('middleCategory').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '선택하세요';
 				document.getElementById('middleCategory').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
+					document.getElementById('middleCategory').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
 			}
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	}) 
+		})
+	}
 	
 }
 
 function SearchAssetList() {
 	event.preventDefault();
-	/* document.frm.pageIndex.value = '1';
-	let formData = new FormData(document.getElementById('frm'));
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/ass/SearchAsserList.do',
-		method: 'POST',
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function (result) {
-			console.log(result);
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	}) */
 	
 	document.frm.pageIndex.value = '1';
     document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
@@ -183,15 +169,13 @@ function selectAsset(id) {
 								<!-- 검색조건 -->
 								<form id="frm" name="frm">
 									<div class="condition2">
-
-									
-									
+										<input type="hidden" name="pageIndex">
 										<div class="pty_box01">
 											<div>
 												<span class="lb">부서</span>
 												<label class="item f_select" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
-															<option value="" label="선택하세요" />
+															<option value="" >선택하세요</option>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
 															</c:forEach>
