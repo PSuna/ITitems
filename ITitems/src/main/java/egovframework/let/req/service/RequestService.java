@@ -1,5 +1,6 @@
 package egovframework.let.req.service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,4 +27,8 @@ public interface RequestService {
 	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO);
 	
 	public Map<String, Object> SelectRequestVOList(RequestManageVO manageVO);
+	
+	public RequestVO SelectRequestVO(RequestManageVO manageVO);
+	
+	public List<RequestDetailVO> SelectRequestDetailVOList (RequestManageVO manageVO);
 }

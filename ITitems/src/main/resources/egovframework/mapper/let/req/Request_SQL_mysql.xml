@@ -5,26 +5,57 @@
 
 	<resultMap type="egovframework.let.req.service.RequestVO"
 		id="RequestList">
+		<result property="rum" column="RUM" />
+		<result property="reqId" column="REQ_ID" />
+		<result property="reqGroup" column="REQ_GROUP" />
+		<result property="id" column="ID" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="reqDate" column="REQ_DATE" />
+		<result property="reqStatus" column="REQ_STATUS" />
 	</resultMap>
-
+	
 	<resultMap type="egovframework.let.ass.service.AssetHistVO"
 		id="RequestDetail">
 		<result property="" column="" />
 	</resultMap>
 	
+	<sql id="search">
+		<if test="searchPrj != null and searchPrj != ''">
+			AND A.PRJ_ID = #{searchPrj}
+		</if>
+		<if test="searchLCat != null and searchLCat != ''">
+			AND B.LARGE_CATEGORY = #{searchLCat}
+		</if>
+		<if test="searchdMCat != null and searchdMCat != ''">
+			AND B.MIDDLE_CATEGORY = #{searchdMCat}
+		</if>
+		<if test="searchStatus != null and searchStatus != ''">
+			AND A.REQ_STATUS = #{searchStatus}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND A.REQ_DATE >= STR_TO_DATE(#{startDate},
+			'%Y%m%d%H%i%s')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+			AND A.REQ_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
+			]]>
+		</if>
+	</sql>
+
 	<insert id="InsertRequestVO">
-		
+
 		INSERT INTO requests(
-			REQ_ID, 
-			ID, 
-			REQ_DATE, 
-			REQ_STATUS, 
-			REQ_NOTE, 
-			PRJ_ID, 
-			PM, 
-			START_DATE, 
-			END_DATE, 
-			PLACE, 
+			REQ_ID,
+			ID,
+			REQ_DATE,
+			REQ_STATUS,
+			REQ_NOTE,
+			PRJ_ID,
+			PM,
+			START_DATE,
+			END_DATE,
+			PLACE,
 			REQ_GROUP )
 		VALUES (
 			#{reqId},
@@ -37,20 +68,20 @@
 			DATE_FORMAT(#{startDate}, '%Y-%m-%d'),
 			DATE_FORMAT(#{endDate}, '%Y-%m-%d'),
 			#{place},
-			#{reqGroup})
-		
+			#{reqGroup} )
+
 	</insert>
-	
+
 	<insert id="InsertRequestDetailVO">
-		
+
 		INSERT INTO REQUESTDETAIL(
-			RED_ID, 
+			RED_ID,
 			REQ_ID,
 			LARGE_CATEGORY,
 			MIDDLE_CATEGORY,
 			ASSET_ID,
-			REQ_QTY, 
-			MAKER, 
+			REQ_QTY,
+			MAKER,
 			USER,
 			REQ_ORDER )
 		VALUES (
@@ -62,14 +93,72 @@
 			#{reqQty},
 			#{maker},
 			#{user},
-			#{reqOrder}  )
+			#{reqOrder} )
 	</insert>
+
+	<select id="SelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
+		SELECT
+			RUM,
+			REQ_ID,
+			REQ_GROUP,
+			ID,
+			PRJ_ID,
+			REQ_DATE,
+			REQ_STATUS
+		  FROM (
+				SELECT
+					ROW_NUMBER() OVER(ORDER BY A.REQ_DATE DESC) AS RUM,
+					A.REQ_ID,
+					E.CODE_NM AS REQ_GROUP,
+					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
+					D.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					C.CODE_NM AS REQ_STATUS
+				  FROM REQUESTS A
+				  LEFT OUTER JOIN REQUESTDETAIL B
+				    ON A.REQ_ID = B.REQ_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON A.REQ_STATUS = C.CODE
+				  LEFT OUTER JOIN PROJECTS D
+				    ON A.PRJ_ID = D.PRJ_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+				  LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE A.REQ_GROUP = 'H2' 
+				 <include refid="search" />
+				 GROUP BY 
+				 	A.REQ_ID, 
+				 	E.CODE_NM, 
+				 	F.USER_NM, 
+				 	G.CODE_NM,
+				 	C.CODE_NM
+			 ) P
+		 WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+
+	<select id="CountRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="int">
+		SELECT 
+			COUNT(P.REQ_ID)
+		  FROM (
+				SELECT
+					A.REQ_ID
+				  FROM REQUESTS A
+				  LEFT OUTER JOIN REQUESTDETAIL B
+					ON A.REQ_ID = B.REQ_ID
+				 WHERE A.REQ_GROUP = 'H2'
+				 <include refid="search" />
+				 GROUP BY A.REQ_ID
+			 ) P
+	</select>
 	
-	<select id="SelectRequestVOList">
+	<select id="SelectRequestVO" parameterType="egovframework.let.req.service.RequestManageVO">
 	
 	</select>
 	
-	<select id="CountRequestVOList">
+	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO">
 	
 	</select>
 </mapper>

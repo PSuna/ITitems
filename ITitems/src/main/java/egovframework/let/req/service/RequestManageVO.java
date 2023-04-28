@@ -82,156 +82,132 @@ public class RequestManageVO implements Serializable {
 	/** 전체 마지막페이지 인덱스 */
 	private int endPage;
 
-	public long getSortOrdr() {
-		return sortOrdr;
-	}
-
-	public void setSortOrdr(long sortOrdr) {
-		this.sortOrdr = sortOrdr;
-	}
-
-	public int getPageIndex() {
-		return pageIndex;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-
-	public int getPageUnit() {
-		return pageUnit;
-	}
-
-	public void setPageUnit(int pageUnit) {
-		this.pageUnit = pageUnit;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-	public int getLastPage() {
-		return lastPage;
-	}
-
-	public void setLastPage(int lastPage) {
-		this.lastPage = lastPage;
-	}
-
-	public int getTotalRecord() {
-		return totalRecord;
-	}
-
-	public void setTotalRecord(int totalRecord) {
-		this.totalRecord = totalRecord;
-	}
-
-	public int getFirst() {
+    public int getFirst() {
+		first = (getPageIndex() - 1) * getPageUnit() + 1;
 		return first;
 	}
-
-	public void setFirst(int first) {
-		this.first = first;
-	}
-
 	public int getLast() {
+		last = getPageIndex() * getPageUnit();
 		return last;
 	}
 
-	public void setLast(int last) {
-		this.last = last;
+	
+	public int getPageUnit() {
+		return pageUnit;
 	}
-
+	public void setPageUnit(int pageUnit) {
+		this.pageUnit = pageUnit;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getLastPage() {
+		lastPage = totalRecord / pageUnit + 
+				   ( totalRecord % pageUnit>0 ? 1 : 0 );
+		return lastPage;
+	}
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
+	}
+	public int getTotalRecord() {
+		return totalRecord;
+	}
+	public void setTotalRecord(int totalRecord) {
+		this.totalRecord = totalRecord;
+	}
+	public Integer getPageIndex() {
+		return pageIndex;
+	}
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+	public int getStartPage() {
+		startPage = (pageIndex-1)/pageSize * pageSize + 1;
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
 	public int getEndPage() {
+		endPage = (pageIndex-1)/pageSize  * pageSize  + pageSize ;
+		if ( endPage > getLastPage() )
+			endPage = getLastPage() ;
 		return endPage;
 	}
-
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-
 	public String getSearchOrgnzt() {
 		return searchOrgnzt;
 	}
-
 	public void setSearchOrgnzt(String searchOrgnzt) {
 		this.searchOrgnzt = searchOrgnzt;
 	}
-
 	public String getSearchPrj() {
 		return searchPrj;
 	}
-
 	public void setSearchPrj(String searchPrj) {
 		this.searchPrj = searchPrj;
 	}
-
 	public String getPrjNm() {
 		return prjNm;
 	}
-
 	public void setPrjNm(String prjNm) {
 		this.prjNm = prjNm;
 	}
-
 	public String getSearchLCat() {
 		return searchLCat;
 	}
-
 	public void setSearchLCat(String searchLCat) {
 		this.searchLCat = searchLCat;
 	}
-
 	public String getSearchdMCat() {
 		return searchdMCat;
 	}
-
 	public void setSearchdMCat(String searchdMCat) {
 		this.searchdMCat = searchdMCat;
 	}
-
 	public String getSearchStatus() {
 		return searchStatus;
 	}
-
 	public void setSearchStatus(String searchStatus) {
 		this.searchStatus = searchStatus;
 	}
-
 	public String getStartDate() {
 		return startDate;
 	}
-
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-
 	public String getEndDate() {
 		return endDate;
 	}
-
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
 	public String getSearchWord() {
 		return searchWord;
 	}
-
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-
+	public long getSortOrdr() {
+		return sortOrdr;
+	}
+	public void setSortOrdr(long sortOrdr) {
+		this.sortOrdr = sortOrdr;
+	}
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+	public void setFirst(int first) {
+		this.first = first;
+	}
+	public void setLast(int last) {
+		this.last = last;
+	}
+	
 }

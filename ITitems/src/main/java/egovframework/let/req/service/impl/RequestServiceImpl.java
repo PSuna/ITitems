@@ -1,6 +1,7 @@
 package egovframework.let.req.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -74,6 +75,18 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		map.put("resultList", requestDAO.SelectRequestVOList(manageVO));
 		map.put("resultCnt", Integer.toString(requestDAO.CountRequestVOList(manageVO)));
 		return map;
+	}
+
+	@Override
+	public RequestVO SelectRequestVO(RequestManageVO manageVO) {
+		
+		return requestDAO.SelectRequestVO(manageVO);
+	}
+
+	@Override
+	public List<RequestDetailVO> SelectRequestDetailVOList(RequestManageVO manageVO) {
+		
+		return requestDAO.SelectRequestDetailVOList(manageVO);
 	}
 
 }

@@ -62,4 +62,20 @@ public class RequestDAO extends EgovAbstractMapper {
 		
 		return selectOne("RequestDAO.CountRequestVOList", manageVO);
 	}
+	
+	/**
+	 * 신청 상세 조회
+	 */
+	public RequestVO SelectRequestVO(RequestManageVO manageVO) {
+		
+		return selectOne("RequestDAO.SelectRequestVO", manageVO);
+	}
+
+	/**
+	 * 신청 상세정보 전체 조회
+	 */
+	public List<RequestDetailVO> SelectRequestDetailVOList(RequestManageVO manageVO) {
+		
+		return selectList("RequestDAO.SelectRequestDetailVOList", manageVO);
+	}
 }

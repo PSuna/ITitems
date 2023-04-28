@@ -13,6 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -56,28 +57,36 @@ function fn_egov_returnValue(val){
 
 function getMCatList() {
 	let val = document.getElementById('largeCategory').value;
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-		method: 'POST',
-		contentType: 'application/x-www-form-urlencoded',
-		data: {'searchUpper' : val},
-		success: function (result) {
-			document.getElementById('middleCategory').replaceChildren();
-			let op = document.createElement('option');
-			op.textContent = '선택하세요';
-			document.getElementById('middleCategory').appendChild(op);
-			for(res of result){
-				op = document.createElement('option');
-				op.setAttribute('value', res.catId);
-				op.textContent = res.catName;
+	if(val == ""){
+		document.getElementById('middleCategory').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '선택하세요';
+		op.value = "";
+		document.getElementById('middleCategory').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				document.getElementById('middleCategory').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '선택하세요';
 				document.getElementById('middleCategory').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
+					document.getElementById('middleCategory').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
 			}
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	})
+		})
+	}
+	
 }
 
 function SearchCarryList() {
@@ -99,9 +108,8 @@ function fn_egov_select_noticeList(pageNo) {
 	document.frm.searchStatus.value = '${searchVO.searchStatus}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';
-	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit(); 
 }
 
@@ -110,7 +118,7 @@ window.onload = function(){
 	  }
 
 function CarryRegist() {
-	 document.frm.submit();
+	 document.regist.submit();
 }
 </script>
 <style type="text/css">
@@ -120,6 +128,11 @@ function CarryRegist() {
 
 .right_btn {
 	float: right;
+}
+
+.board_list tbody tr:hover {
+	background: #ccc;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -159,7 +172,7 @@ function CarryRegist() {
 								<h2 class="tit_2">반출/반입신청조회</h2>
 
 								<br />
-								<form name="frm" method="post"
+								<form name="regist" method="post"
 									action="<c:url value='/req/CarryRegist.do'/>">
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
@@ -170,76 +183,90 @@ function CarryRegist() {
 								</form>
 								<br>
 								<!-- 검색조건 -->
-								<form id="searchVO">
-									<div class="condition2">				
+								<form id="searchVO" name="frm">
+									<input type="hidden" name="pageIndex">
+									<div class="condition2">
 										<div class="pty_box01">
 											<div>
-												<span class="lb">부서</span> 
-												<label class="item f_select" for="sel1"> <select id="searchOrgnzt" name="searchOrgnzt" title="부서">
+												<span class="lb">부서</span> <label class="item f_select"
+													for="sel1"> <select id="searchOrgnzt"
+													name="searchOrgnzt" title="부서">
 														<option value="" label="선택하세요" />
-														<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-															<option value="${orgnztId.code}"><c:out value="${orgnztId.codeNm}" /></option>
+														<c:forEach var="orgnztId" items="${orgnztId_result}"
+															varStatus="status">
+															<option value="${orgnztId.code}"><c:out
+																	value="${orgnztId.codeNm}" /></option>
 														</c:forEach>
-												</select>		
-												</label> 
-											</div>	
-										
-											
-											<div>	
-												<span class="lb">프로젝트</span> <span class="f_search2 w_200"> <input id="prjNm" type="text" title="주소" maxlength="100" readonly="false" />
-													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
-											</div>	
-											
-									</div>		
-												
-												
-									<div class="pty_box01">				
+												</select>
+												</label>
+											</div>
+
+
 											<div>
-												 <span class="lb">대분류</span> <label class="item f_select" for="sel1"><select id="largeCategory" name="largeCategory" title="대분류" onchange="getMCatList();">
+												<span class="lb">프로젝트</span> <span class="f_search2 w_200">
+													<input id="prjNm" type="text" title="주소" maxlength="100"
+													readonly="false" />
+													<button type="button" class="btn"
+														onclick="ProjectSearch();">조회</button>
+												</span><input name="searchPrj" id="searchPrj" type="hidden"
+													title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
+											</div>
+
+										</div>
+
+
+										<div class="pty_box01">
+											<div>
+												<span class="lb">대분류</span> <label class="item f_select"
+													for="sel1"><select id="largeCategory"
+													name="largeCategory" title="대분류" onchange="getMCatList();">
 														<option value='' label="선택하세요" selected="selected" />
-														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-															<option value="${LCat.catId}"><c:out value="${LCat.catName}" /></option>
-														</c:forEach>												
-												</select> 
-												</label> 
-											</div>	
-												
-												
+														<c:forEach var="LCat" items="${LCat_result}"
+															varStatus="status">
+															<option value="${LCat.catId}"><c:out
+																	value="${LCat.catName}" /></option>
+														</c:forEach>
+												</select> </label>
+											</div>
+
+
 											<div>
-												<span class="lb">중분류</span> <label class="item f_select" for="sel1"> <select id="middleCategory" name="middleCategory" title="중분류">
+												<span class="lb">중분류</span> <label class="item f_select"
+													for="sel1"> <select id="middleCategory"
+													name="middleCategory" title="중분류">
 														<option value='' label="선택하세요" selected="selected" />
 												</select>
-												</label> 
-											</div>	
-										</div>		
-												
-												
-											<div class="pty_box01">	
-											
-												<div>
-													<span class="lb">상태</span> <label class="item f_select" for="sel1"> <select id="searchStatus" name="searchStatus" title="상태">
-															<option value='' label="선택하세요" selected="selected" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</div>	
-													
-													 <span class="lb ml20">신청일자</span> 
-													 <input class="f_date pty_f_date" name="startDate" type="date"> ― <input class="f_date pty_f_date" type="date" name="endDate"> 
-													 <span class="item f_search">
-													 	
-													 	<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어">
-													</span>
-													<button class="btn pty_btn" type="submit" style="margin-left:6px">검색</button>
+												</label>
 											</div>
-										</div>	
-											
-									</form>
-							
+										</div>
+
+
+										<div class="pty_box01">
+
+											<div>
+												<span class="lb">상태</span> <label class="item f_select"
+													for="sel1"> <select id="searchStatus"
+													name="searchStatus" title="상태">
+														<option value='' label="선택하세요" selected="selected" />
+														<c:forEach var="stat" items="${status_result}"
+															varStatus="status">
+															<option value="${stat.code}"><c:out
+																	value="${stat.codeNm}" /></option>
+														</c:forEach>
+												</select>
+											</div>
+
+											<span class="lb ml20">신청일자</span> <input
+												class="f_date pty_f_date" name="startDate" type="date">
+											― <input class="f_date pty_f_date" type="date" name="endDate">
+											<button class="btn pty_btn" type="submit"
+												style="margin-left: 6px" onclick="SearchCarryList();">검색</button>
+										</div>
+									</div>
+								</form>
+
 								<!--// 검색 조건 -->
-							
+
 								<!-- 게시판 -->
 								<div class="board_list">
 									<table>
@@ -253,7 +280,7 @@ function CarryRegist() {
 										</colgroup>
 										<thead>
 											<tr>
-												<th scope="col"> </th>
+												<th scope="col"></th>
 												<th scope="col">분류</th>
 												<th scope="col">신청자</th>
 												<th scope="col">프로젝트</th>
@@ -262,32 +289,36 @@ function CarryRegist() {
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-											</tr>
+											<c:forEach var="result" items="${resultList}"
+												varStatus="status">
+												<tr onclick="childNodes[1].childNodes[1].submit();">
+													<td><c:out value="${result.rum}" />
+														<form name="subForm" method="post"
+															action="<c:url value='/req/SelectCarry.do'/>">
+															<input type="hidden" name="assetId"
+																value="<c:out value='${result.reqId}'/>" />
+														</form></td>
+													<td><c:out value="${result.reqGroup}" /></td>
+													<td><c:out value="${result.id}" /></td>
+													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.reqDate}" /></td>
+													<td><c:out value="${result.reqStatus}" /></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
 
+								<!-- 페이지 네비게이션 시작 -->
 								<div class="board_list_bot">
 									<div class="paging" id="paging_div">
 										<ul>
-											<li class="btn"><a href="" class="first">처음</a></li>
-											<li class="btn"><a href="" class="btn prev">이전</a></li>
-											<li><strong>1</strong></li>
-											<li><a href="">2</a></li>
-											<li><a href="">3</a></li>
-											<li><a href="">4</a></li>
-											<li><a href="">5</a></li>
-											<li><a href="">6</a></li>
-											<li><a href="">7</a></li>
-											<li><a href="">8</a></li>
-											<li><a href="">9</a></li>
-											<li><a href="">10</a></li>
-											<li class="btn"><a href="" class="btn next">다음</a></li>
-											<li class="btn"><a href="" class="btn last">마지막</a></li>
+											<ui:pagination paginationInfo="${paginationInfo}"
+												type="image" jsFunction="fn_egov_select_noticeList" />
 										</ul>
 									</div>
 								</div>
+								<!-- //페이지 네비게이션 끝 -->
 								<!--// 게시판 -->
 							</div>
 						</div>
