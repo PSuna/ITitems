@@ -183,7 +183,7 @@ function CarryRegist() {
 												<span class="lb">중분류</span> <label class="item f_select" for="sel1"> <select id="middleCategory" name="middleCategory" title="중분류">
 														<option value='' label="선택하세요" selected="selected" />
 												</select>
-												</label> <br> 
+												</label> 
 											</div>	
 										</div>		
 												
@@ -199,16 +199,20 @@ function CarryRegist() {
 													</select>
 												</div>	
 													
-													</label> <span class="lb ml20">신청일자</span> <input class="f_date" name="startDate" type="date"> ― <input class="f_date" type="date" name="endDate"> <span class="item f_search">검색 <input class="f_input w_130" type="text" name="searchWord" id="usernm" title="검색어">
+													 <span class="lb ml20">신청일자</span> 
+													 <input class="f_date pty_f_date" name="startDate" type="date"> ― <input class="f_date pty_f_date" type="date" name="endDate"> 
+													 <span class="item f_search">
+													 	
+													 	<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어">
 													</span>
-													<button class="btn" type="submit">검색</button>
-												</div>
-											</div>	
+													<button class="btn pty_btn" type="submit" style="margin-left:6px">검색</button>
+											</div>
+										</div>	
 											
-										</form>
+									</form>
 							
 								<!--// 검색 조건 -->
-								<br>
+							
 								<!-- 게시판 -->
 								<div class="board_list">
 									<table>

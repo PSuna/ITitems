@@ -41,6 +41,8 @@
     --main-hover: #0C91E9;
     
     --box-color:#fbfbfb;
+    
+    --line-color:#dde2e5;
 }
 
 .left_col h4{
@@ -91,6 +93,30 @@ thead{
 
 .pty_f_input{
 	border:1px solid #dde2e5 !important;
+}
+
+.pty_container{
+	height: 800px;
+}
+
+.pty_P_LOGIN_bottom{
+	text-align: center;
+	display:flex;
+	justify-content:center;
+}
+
+.pty_f_chk{
+	margin-right:10px;
+	margin-top:10px;
+	
+}
+
+.left_col span{
+	margin-right:16px;
+}
+
+.tit_1{
+	display:none;
 }
 
 /* PTY;; */
