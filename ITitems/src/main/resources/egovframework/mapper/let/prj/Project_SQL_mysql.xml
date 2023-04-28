@@ -85,4 +85,15 @@
 		ON 			A.ID = B.EMPLYR_ID
 		WHERE		A.PRJ_ID = #{prjId}
 	</select>
+	
+	<update id="updatePrj" parameterType="egovframework.let.prj.service.ProjectVO">
+		UPDATE  PROJECTS
+		SET		PRJ_NAME	= #{prjName},
+				PRJ_START	= #{prjStart},
+				PRJ_END		= #{prjEnd},
+				ID			= #{id},
+				CLIENT		= #{client},
+				PRJ_STATE	= #{prjState}
+		WHERE	PRJ_ID 	= #{prjId}
+	</update>
 </mapper>

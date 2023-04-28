@@ -31,5 +31,7 @@ public interface ProjectService {
 	 * @throws Exception
 	 */
 	public ProjectVO selectPrj(String prjId) throws Exception;
+
+	public void updatePrj(ProjectVO projectVO) throws Exception;
 	
 }

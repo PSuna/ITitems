@@ -5,7 +5,6 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
-import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectVO;
 
@@ -50,6 +49,10 @@ public class ProjectDAO extends EgovAbstractMapper {
      */
 	public ProjectVO selectPrj(String prjId) {
 		return (ProjectVO) selectOne("ProjectDAO.selectPrj", prjId);
+	}
+
+	public void updatePrj(ProjectVO projectVO) {
+		update("ProjectDAO.updatePrj", projectVO);
 	}
 	
 }

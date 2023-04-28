@@ -8,24 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springmodules.validation.commons.DefaultBeanValidator;
 
-import egovframework.let.prj.service.ProjectService;
-import egovframework.let.prj.service.ProjectVO;
-import egovframework.let.sec.ram.service.AuthorManageVO;
-import egovframework.let.sec.rgm.service.AuthorGroupVO;
-import egovframework.let.uss.umt.service.UserDefaultVO;
-import egovframework.let.uss.umt.service.UserManageVO;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.service.EgovCmmUseService;
-import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.prj.service.ProjectManageVO;
+import egovframework.let.prj.service.ProjectService;
+import egovframework.let.prj.service.ProjectVO;
 
 /**
  * 프로젝트를 위한 컨트롤러 클래스
@@ -60,6 +58,10 @@ public class ProjectController {
 	/** EgovMessageSource */
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
+	
+	/** DefaultBeanValidator beanValidator */
+	@Autowired
+	private DefaultBeanValidator beanValidator;
 	
 	@RequestMapping(value = "/prj/ProjectSearchList.do")
 	public String selectZipSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model, HttpServletRequest request) throws Exception {
@@ -158,4 +160,30 @@ public class ProjectController {
 
 		return "prj/ProjectSelectUpdt";
 	}
+	
+	/**
+	 * 프로젝트 정보 수정후 목록조회 화면으로 이동한다.
+	 * @param projectVO 사용자수정정보
+	 * @param bindingResult 입력값검증용 bindingResult
+	 * @param model 화면모델
+	 * @return forward:/prj/ProjectManage.do
+	 * @throws Exception
+	 */
+	@RequestMapping("/prj/ProjectSelectUpdt.do")
+	public String updateProject(@ModelAttribute("projectVO") ProjectVO projectVO, BindingResult bindingResult, Model model) throws Exception {
+
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+
+		projectService.updatePrj(projectVO);
+		model.addAttribute("resultMsg", "success.common.update");
+		return "forward:/prj/ProjectManage.do";
+		
+	}
+
+	
 }
