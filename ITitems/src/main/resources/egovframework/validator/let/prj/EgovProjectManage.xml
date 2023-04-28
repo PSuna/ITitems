@@ -27,11 +27,11 @@
                 </var>
             </field>
             
-            <field property="prjStart" depends="required, date">
+            <field property="prjStart" depends="required">
                 <arg0 key="시작일" resource="false"/>
             </field>
             
-            <field property="prjEnd" depends="required, date">
+            <field property="prjEnd" depends="required">
                 <arg0 key="종료일" resource="false"/>
             </field>
             

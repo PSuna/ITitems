@@ -38,9 +38,18 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnUpdate(){
-    if(validateProjectManageVO(document.projectVO)){
-        document.projectVO.submit();
-    }
+	var prjName = document.getElementById('prjName').value;
+	var id = document.getElementById('id').value;
+	var prjStart = document.getElementById('prjStart').value;
+	var prjEnd = document.getElementById('prjEnd').value;
+	var client = document.getElementById('client').value;
+	var prjState = document.getElementById('prjState').value;
+	if(prjName || id || prjStart || prjEnd || client || prjState){
+	document.projectVO.submit();
+	}else{
+		alert("프로젝트정보를 모두 입력해 주세요");
+		return false;
+	}
 }
 //-->
 </script>
@@ -106,11 +115,11 @@ function fnUpdate(){
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
 												</td>
 												<td class="lb">
-													<label for="name">PM</label>
+													<label for="id">PM</label>
 												</td>
 												<td>
-													<form:input path="name" id="name" class="f_txt w_full" maxlength="20" />
-													<form:errors path="name" />
+													<form:input path="id" id="id" class="f_txt w_full" maxlength="20" />
+													<form:errors path="id" />
 												</td>
 											</tr>
 											<tr>
