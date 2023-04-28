@@ -137,7 +137,7 @@ public class EgovUserManageController {
 	 * 사용자목록 조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/uss/umt/user/SearchUserList.do")
-	public String SearchUserList( UserDefaultVO userSearchVO, ModelMap model, HttpServletRequest request) throws Exception {
+	public String SearchUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, ModelMap model, HttpServletRequest request) throws Exception {
 
 		/** EgovPropertyService */
 		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
