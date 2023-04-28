@@ -14,6 +14,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -30,15 +31,16 @@
 
 <title>회원 찾기</title>
 <script type="text/javaScript" language="JavaScript">
-
+<!--
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
 	}
 
-	function fn_egov_return(userId, userNm) {
+	function fn_egov_return(userId, userNm, address) {
 		var val = new Object();
 		val.userId = userId;
 		val.userNm = userNm;
+		val.address = address
 
 		parent.parent.returnUser(val);
 	}
@@ -56,6 +58,12 @@
 		document.listForm.pageIndex.value = 1;
 		document.listForm.submit();
 	}
+	
+	function fnSearch(){
+	    document.listForm.pageIndex.value = 1;
+	    document.listForm.action = "<c:url value='/uss/umt/user/SearchUserList.do'/>";
+	    document.listForm.submit();
+	}//-->
 </script>
 </head>
 
@@ -67,8 +75,8 @@
 	<form name="listForm"
 		action="<c:url value='/uss/umt/user/SearchUserList.do'/>"
 		method="post">
-
-		<input name="searchCondition" type="hidden" size="35" value="4" />
+		<input name="selectedId" type="hidden" />
+		<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
 
 		<!-- 프로젝트 찾기 팝업 -->
 		<div class="popup POP_POST_SEARCH">
@@ -82,15 +90,6 @@
 				<div class="pop_container">
 					<!-- 검색조건 -->
 					<div class="condition">
-						<%-- <label class="item f_select" for="sbscrbSttus">
-                                        <select name="sbscrbSttus" id="sbscrbSttus" title="검색조건1-사용자상태">
-                                            <option value="0" <c:if test="${empty userSearchVO.sbscrbSttus || userSearchVO.sbscrbSttus == '0'}">selected="selected"</c:if> >상태(전체)</option>
-                                            <option value="A" <c:if test="${userSearchVO.sbscrbSttus == 'A'}">selected="selected"</c:if> >가입신청</option>
-                                            <option value="D" <c:if test="${userSearchVO.sbscrbSttus == 'D'}">selected="selected"</c:if> >삭제</option>
-                                            <option value="P" <c:if test="${userSearchVO.sbscrbSttus == 'P'}">selected="selected"</c:if> >승인</option>
-                                        </select>
-                                    </label> --%>
-
 						<label class="item f_select" for="searchOrgnzt"> <select
 							id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서"
 							onchange="javascript:fnSearch(); return false;">
@@ -126,7 +125,7 @@
 						</span>
 					</div>
 					<!--// 검색조건 -->
-					<div class="board_list_top">
+					<%-- <div class="board_list_top">
 						<div class="left_col">
 							<div class="list_count">
 								<span>사용자수</span> <strong><c:out
@@ -152,7 +151,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 
 					<!-- 게시판 -->
 					<div class="board_list">
@@ -200,7 +199,7 @@
 										<td><c:out value="${result.grade}" /></td>
 										<td><c:out value="${result.authorCode}" /></td>
 										<td><a href="#LINK" class="btn btn_blue_30 w_80"
-											onclick="fn_egov_return('${result.uniqId}', '${result.userNm}');">
+											onclick="fn_egov_return('${result.uniqId}', '${result.userNm}', '${result.userId}');">
 												선택 </a></td>
 									</tr>
 								</c:forEach>

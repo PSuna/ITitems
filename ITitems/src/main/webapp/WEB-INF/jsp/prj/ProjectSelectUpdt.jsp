@@ -33,23 +33,48 @@
 
 <title>사용자 상세 및 수정</title>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="userManageVO" staticJavascript="false"
+<validator:javascript formName="projectVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
-function fnUpdate(){
-	var prjName = document.getElementById('prjName').value;
-	var id = document.getElementById('id').value;
-	var prjStart = document.getElementById('prjStart').value;
-	var prjEnd = document.getElementById('prjEnd').value;
-	var client = document.getElementById('client').value;
-	var prjState = document.getElementById('prjState').value;
-	if(prjName || id || prjStart || prjEnd || client || prjState){
-	document.projectVO.submit();
-	}else{
-		alert("프로젝트정보를 모두 입력해 주세요");
-		return false;
+var userCheck = 0;
+
+function UserSearch(ch){
+	userCheck = ch;
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+function returnUser(val){
+	
+	if (val) {
+		if(userCheck == 0){
+			document.getElementById("id").value  = val.address;
+			document.getElementById("name").value  = val.userNm;
+		}else if(userCheck == 1){
+			document.getElementById("id").value  = val.address;
+			document.getElementById("name").value  = val.userNm;
+		}
+		
 	}
+	
+	fn_egov_modal_remove();
+}
+
+function fnUpdate(){
+	confirm("저장하시겠습니까?")
+    if(validateProjectVO(document.projectVO)){
+		document.projectVO.submit();
+    }
 }
 //-->
 </script>
@@ -109,17 +134,24 @@ function fnUpdate(){
 											<tr>
 												<td class="lb">
 													<label for="prjName">프로젝트명</label>
+													<span class="req">필수</span>
 												</td>
 												<td>
 													<form:input path="prjName" id="prjName" class="f_txt w_full" maxlength="50"/>
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
 												</td>
 												<td class="lb">
-													<label for="id">PM</label>
+													<!-- 수령자 --> 
+													<label for="name">PM</label> 
+													<span class="req">필수</span>
 												</td>
 												<td>
-													<form:input path="id" id="id" class="f_txt w_full" maxlength="20" />
-													<form:errors path="id" />
+													<span class="f_search2 w_30%"> 
+													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
+													<form:errors path="name" />
+													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+													</span> 
+													<form:input path="id" id="id" type="hidden" title="id" />
 												</td>
 											</tr>
 											<tr>

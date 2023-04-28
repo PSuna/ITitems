@@ -123,7 +123,6 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
-<c:if test="${!empty resultMsg}">alert("<spring:message code="${resultMsg}" />");</c:if>
 //-->
 </script>
 
