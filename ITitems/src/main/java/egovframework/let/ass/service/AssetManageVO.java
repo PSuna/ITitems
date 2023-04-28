@@ -26,7 +26,7 @@ public class AssetManageVO implements Serializable {
 	/** 자산코드 */
 	private String assetId;
 	
-	/** 검색위치 */
+	/** 검색부서 */
     private String searchOrgnzt = "";
     
     /** 검색프로젝트 */

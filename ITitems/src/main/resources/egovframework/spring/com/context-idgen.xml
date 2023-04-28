@@ -2,6 +2,42 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- 신청 ID Generation  Config-->        
+    <bean name="ReqIdGnrService"
+        class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
+        destroy-method="destroy">
+        <property name="dataSource" ref="dataSource" />
+        <property name="strategy"   ref="ReqIdStrategy" />
+        <property name="blockSize"  value="10"/>
+        <property name="table"      value="IDS"/>
+        <property name="tableName"  value="REQ_ID"/>
+    </bean>
+    <!-- 신청 ID Generation  Strategy Config -->
+    <bean name="ReqIdStrategy"
+        class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix" value="REQ" />
+        <property name="cipers" value="13" />
+        <property name="fillChar" value="0" />
+    </bean>
+    
+    	<!-- 신청상세 ID Generation  Config-->        
+    <bean name="RedIdGnrService"
+        class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
+        destroy-method="destroy">
+        <property name="dataSource" ref="dataSource" />
+        <property name="strategy"   ref="ReqIdStrategy" />
+        <property name="blockSize"  value="10"/>
+        <property name="table"      value="IDS"/>
+        <property name="tableName"  value="RED_ID"/>
+    </bean>
+    <!-- 신청 ID Generation  Strategy Config -->
+    <bean name="RedIdStrategy"
+        class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix" value="RED" />
+        <property name="cipers" value="13" />
+        <property name="fillChar" value="0" />
+    </bean>
+
     <!-- 첨부파일 ID Generation  Config-->
     <bean name="egovFileIdGnrService"
         class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"

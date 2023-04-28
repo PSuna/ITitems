@@ -4,55 +4,83 @@ import java.io.Serializable;
 
 /**
  * 신청내역 관리를 위한 VO 클래스
+ * 
  * @author 영남사업부 주소현
  * @since 2023.04.26
  * @version 1.0
  * @see
- *  
- * <pre>
+ * 
+ *      <pre>
  * << 개정이력(Modification Information) >>
  * 
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *  2023.04.26  주소현          최초 생성
- *  
- *  </pre>
+ * 
+ *      </pre>
  */
 
 @SuppressWarnings("serial")
 public class RequestManageVO implements Serializable {
 
-    /** 페이징 */
-    
-    /** 정렬순서(DESC,ASC) */
-    private long sortOrdr = 0L;
+	/** 검색부서 */
+	private String searchOrgnzt = "";
 
-    /** 현재페이지 */
-    private int pageIndex = 1;
+	/** 검색프로젝트 */
+	private String searchPrj = "";
 
-    /** 페이지갯수 */
-    private int pageUnit = 10;
+	/** 프로젝트명 */
+	private String prjNm = "";
 
-    /** 페이지사이즈 */
-    private int pageSize = 10;
+	/** 검색대분류 */
+	private String searchLCat = "";
 
-    /** 첫페이지 인덱스 */
-    private int startPage = 1;
+	/** 검색중분류 */
+	private String searchdMCat = "";
 
-    /** 마지막페이지 인덱스 */
-    private int lastPage = 1;
+	/** 검색상태 */
+	private String searchStatus = "";
 
-    /** 전체 레코드 개수 */
-    private int totalRecord = 100;
-    
-    /** 시작 레코드 번호 */
-    private int first;
-    
-    /** 마지막 레코드 번호 */
-    private int last;
-    
-    /** 전체 마지막페이지 인덱스*/
-    private int endPage;
+	/** 검색시작일 */
+	private String startDate = "";
+
+	/** 검색종료일 */
+	private String endDate = "";
+
+	/** 검색단어 */
+	private String searchWord = "";
+
+	/** 페이징 */
+
+	/** 정렬순서(DESC,ASC) */
+	private long sortOrdr = 0L;
+
+	/** 현재페이지 */
+	private int pageIndex = 1;
+
+	/** 페이지갯수 */
+	private int pageUnit = 10;
+
+	/** 페이지사이즈 */
+	private int pageSize = 10;
+
+	/** 첫페이지 인덱스 */
+	private int startPage = 1;
+
+	/** 마지막페이지 인덱스 */
+	private int lastPage = 1;
+
+	/** 전체 레코드 개수 */
+	private int totalRecord = 100;
+
+	/** 시작 레코드 번호 */
+	private int first;
+
+	/** 마지막 레코드 번호 */
+	private int last;
+
+	/** 전체 마지막페이지 인덱스 */
+	private int endPage;
 
 	public long getSortOrdr() {
 		return sortOrdr;
@@ -133,6 +161,77 @@ public class RequestManageVO implements Serializable {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-    
-    
+
+	public String getSearchOrgnzt() {
+		return searchOrgnzt;
+	}
+
+	public void setSearchOrgnzt(String searchOrgnzt) {
+		this.searchOrgnzt = searchOrgnzt;
+	}
+
+	public String getSearchPrj() {
+		return searchPrj;
+	}
+
+	public void setSearchPrj(String searchPrj) {
+		this.searchPrj = searchPrj;
+	}
+
+	public String getPrjNm() {
+		return prjNm;
+	}
+
+	public void setPrjNm(String prjNm) {
+		this.prjNm = prjNm;
+	}
+
+	public String getSearchLCat() {
+		return searchLCat;
+	}
+
+	public void setSearchLCat(String searchLCat) {
+		this.searchLCat = searchLCat;
+	}
+
+	public String getSearchdMCat() {
+		return searchdMCat;
+	}
+
+	public void setSearchdMCat(String searchdMCat) {
+		this.searchdMCat = searchdMCat;
+	}
+
+	public String getSearchStatus() {
+		return searchStatus;
+	}
+
+	public void setSearchStatus(String searchStatus) {
+		this.searchStatus = searchStatus;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getSearchWord() {
+		return searchWord;
+	}
+
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+
 }
