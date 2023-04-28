@@ -23,7 +23,7 @@ import java.io.Serializable;
 public class RequestDetailVO implements Serializable {
 
 	/** 신청상세코드 */
-	private String reqdId;
+	private String redId;
 
 	/** 신청코드 */
 	private String reqId;
@@ -45,13 +45,16 @@ public class RequestDetailVO implements Serializable {
 
 	/** 사용자 */
 	private String user;
+	
+	/** 신청상세 순서 */
+	private Integer reqOrder;
 
-	public String getReqdId() {
-		return reqdId;
+	public String getRedId() {
+		return redId;
 	}
 
-	public void setReqdId(String reqdId) {
-		this.reqdId = reqdId;
+	public void setRedId(String redId) {
+		this.redId = redId;
 	}
 
 	public String getReqId() {
@@ -109,5 +112,14 @@ public class RequestDetailVO implements Serializable {
 	public void setLargeCategory(String largeCategory) {
 		this.largeCategory = largeCategory;
 	}
+
+	public Integer getReqOrder() {
+		return reqOrder;
+	}
+
+	public void setReqOrder(Integer reqOrder) {
+		this.reqOrder = reqOrder;
+	}
+	
 	
 }
