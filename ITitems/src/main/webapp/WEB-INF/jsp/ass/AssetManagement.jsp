@@ -210,12 +210,15 @@ function selectAsset(id) {
 										<div class="pty_box01">	
 											<div>
 												<span class="lb">대분류</span> 
-												<label class="item f_select" for="sel1"><select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
+												<label class="item f_select" for="sel1">
+												<select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
 														<option value='' label="선택하세요" />
 														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
 														</c:forEach>
-												</select> </label> 
+												</select> 
+												
+												</label> 
 											</div>
 																							
 											<div>
@@ -256,10 +259,11 @@ function selectAsset(id) {
 											</div>
 												
 										</div>
+									</div>	
 								</form>
 								<!--// 검색 조건 -->
 								
-								<br>
+							
 								
 								<!-- 게시판 -->
 								<div class="board_list">
