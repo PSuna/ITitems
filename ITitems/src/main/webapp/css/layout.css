@@ -1,6 +1,7 @@
 @charset "utf-8";
 body {
 	min-width:1400px;
+	width:100%;
 }
 .header .inner {
 	position:relative;
@@ -395,7 +396,7 @@ body {
 	background:#fff;
 }
 .all_menu .inner {
-	width:1300px;
+	/* width:1300px; */
 	margin:0 auto;
 }
 .all_menu .inner::after {
@@ -405,7 +406,7 @@ body {
 }
 .all_menu .inner>div {
 	float:left;
-	width:205px;
+	
 	height:700px;
 	padding:34px 10px 0 40px;
 }
@@ -478,7 +479,7 @@ body {
 	margin-top:42px;
 }
 .tit_1+.tit_2 {
-	margin-top:49px;
+	/* margin-top:49px; */
 }
 .txt_1+.tit_2 {
 	margin-top:45px;
