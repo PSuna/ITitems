@@ -49,11 +49,13 @@
 .btn_skyblue_h46 {
 	height:46px;
 	border-radius:5px;
-	color:#000000;
+	color:var(--point-color);
 	font-size:16px;
 	text-align:center;
 	line-height:46px;
-	background:#f3d4b3;
+	/* background:#f3d4b3; */
+	border:1px solid var(--point-color);
+	
 }
 .btn_search_w {
 	width:46px;
@@ -89,7 +91,8 @@
 /* Condition */
 .condition {
 	padding:25px;
-	border:1px solid #dde2e5;
+	/* border:1px solid #dde2e5; */
+	box-shadow:0 0 6px #e3e3e3;
 	border-radius:10px;
 	font-size:0;
 	text-align:center;
@@ -674,11 +677,13 @@ input:-mos-input-placeholder {
 	width:100%;
 	height:46px;
 	padding:0 50px 0 20px;
-	border:0;
+	border:1px solid #dde2e5 !important;
 	border-radius:5px;
 	color:#222;
 	font-size:16px;
 	background:var(--box-color);
+	
+	
 }
 .f_search .btn {
 	display:block;
@@ -808,7 +813,7 @@ label:focus{
 	vertical-align:top;
 }
 .f_chk.on:before {
-	background:#e7eef2 url(../images/bg_chkbox_on.png) no-repeat center;
+	background:var(--point-color) url(../images/bg_chkbox_on.png) no-repeat center;
 }
 .f_chk input[type=checkbox] {
 	width:0;
@@ -924,14 +929,14 @@ label:focus{
 	letter-spacing:-1px;
 }
 .tit_2::before {
-	content:"";
+	/* content:"";
 	display:block;
 	position:absolute;
 	left:0;
 	top:0;
 	width:30px;
 	height:2px;
-	background:#0465be;
+	background:#0465be; */
 }
 .tit_3 {
 	color:#222;

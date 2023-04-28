@@ -102,13 +102,18 @@ function fnInit() {
     <a href="#contents" class="skip_navi">본문 바로가기</a>
 
     <div class="wrap">
-        <div class="container" style="padding-bottom: 60px;">
+        <div class="container pty_container" style="padding-bottom: 60px;">
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
                         <div class="P_LOGIN">
-                            <h1><img src="<c:url value='/'/>images/iteyes_logo.png" height="70px">자산관리 솔루션</h1>
-                            <p class="txt">로그인</p>
+                        	
+                        	<div class="pty_P_LOGIN_bottom">	
+	                        	<img src="<c:url value='/'/>images/iteyes_logo.png" height="70px">
+	                            <h1>자산관리 솔루션</h1>
+	                           <!--  <p class="txt">로그인</p> -->
+	                         </div>   
+                            
                             <div class="loginbox">
                                 <form:form id="loginForm" name="loginForm" method="post">
                                     <fieldset>
@@ -128,12 +133,16 @@ function fnInit() {
                                         <a href="#LINK" class="btn_login" onclick="javascript:actionLogin()">로그인</a>
 
                                         <div class="bot">
-                                        	<a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호찾기</a>
-                                        	<br><br>
-                                            <label for="chk" class="f_chk">
+                                        	
+                                        	
+                                            <label for="chk" class="f_chk pty_f_chk">
 		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 		                                        <span>ID 저장</span>
 		                                    </label>
+		                                    
+		                                    <a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a>
+		                                    
+		                                    
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />

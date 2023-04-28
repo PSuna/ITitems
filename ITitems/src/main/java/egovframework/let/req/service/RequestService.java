@@ -1,5 +1,7 @@
 package egovframework.let.req.service;
 
+import java.util.Map;
+
 /**
  * 신청 관리를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 주소현
@@ -18,7 +20,10 @@ package egovframework.let.req.service;
  */
 
 public interface RequestService {
+	
 	public int InsertRequestVO(RequestVO requestVO);
 	
 	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO);
+	
+	public Map<String, Object> SelectRequestVOList(RequestManageVO manageVO);
 }

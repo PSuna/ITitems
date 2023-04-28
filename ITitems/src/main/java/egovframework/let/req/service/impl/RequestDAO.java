@@ -1,9 +1,13 @@
 package egovframework.let.req.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.req.service.RequestDetailVO;
+import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestVO;
 
 /**
@@ -26,13 +30,13 @@ import egovframework.let.req.service.RequestVO;
 
 @Repository("RequestDAO")
 public class RequestDAO extends EgovAbstractMapper {
-	
+
 	/**
 	 * 신청 등록
 	 */
 	public int InsertRequestVO(RequestVO requestVO) {
 
-		return insert("RequestDAO.InsertRequestVO",requestVO);
+		return insert("RequestDAO.InsertRequestVO", requestVO);
 	}
 
 	/**
@@ -40,6 +44,22 @@ public class RequestDAO extends EgovAbstractMapper {
 	 */
 	public int InsertRequestDetailVO(RequestDetailVO requestDetailVO) {
 
-		return insert("RequestDAO.InsertRequestDetailVO",requestDetailVO);
+		return insert("RequestDAO.InsertRequestDetailVO", requestDetailVO);
+	}
+
+	/**
+	 * 조건에 맞는 신청 전체 조회
+	 */
+	public List<RequestVO> SelectRequestVOList(RequestManageVO manageVO){
+		
+		return selectList("RequestDAO.SelectRequestVOList", manageVO);
+	}
+
+	/**
+	 * 조건에 맞는 신청 갯수 조회
+	 */
+	public int CountRequestVOList(RequestManageVO manageVO){
+		
+		return selectOne("RequestDAO.CountRequestVOList", manageVO);
 	}
 }

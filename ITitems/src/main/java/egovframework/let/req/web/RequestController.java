@@ -1,9 +1,12 @@
 package egovframework.let.req.web;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +19,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.req.service.RequestDetailVO;
+import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.req.service.RequestVO;
 import egovframework.let.uss.umt.service.EgovUserManageService;
@@ -59,9 +63,28 @@ public class RequestController {
 	 * 반입/반출신청조회 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRequset.do")
-	public String ReturnRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
+	public String CarryRequset(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "100");  
 
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(manageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(manageVO.getPageUnit());
+		paginationInfo.setPageSize(manageVO.getPageSize());
+
+		manageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		manageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		manageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
+		
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
@@ -72,6 +95,8 @@ public class RequestController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", manageVO);
 		
 		return "/req/CarryRequset";
 	}
