@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -59,10 +56,6 @@ public class ProjectController {
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
 	
-	/** DefaultBeanValidator beanValidator */
-	@Autowired
-	private DefaultBeanValidator beanValidator;
-	
 	@RequestMapping(value = "/prj/ProjectSearchList.do")
 	public String selectZipSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model, HttpServletRequest request) throws Exception {
 		
@@ -103,7 +96,9 @@ public class ProjectController {
 	 * @exception Exception
 	 */
 	@RequestMapping("/prj/ProjectManage.do")
-    public String ProjectManageView(ProjectManageVO searchVO, ModelMap model) throws Exception {
+    public String ProjectManageView(ProjectManageVO searchVO, ModelMap model, HttpServletRequest request) throws Exception {
+		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
+		request.getSession().setAttribute("baseMenuNo", "6000000");
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
     	
@@ -131,6 +126,48 @@ public class ProjectController {
 		 
         return "/prj/ProjectManage";
     }  
+	
+	/**
+	 * 프로젝트 등록화면 이동
+	 * @return String
+	 * @exception Exception
+	 */
+	@RequestMapping("/prj/ProjectInsertView.do")
+	public String ProjectInsertView(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+    	ComDefaultCodeVO vo = new ComDefaultCodeVO();
+    	
+		//프로젝트 진행여부를 코드정보로부터 조회
+		vo.setCodeId("COM007");
+		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
+
+		return "prj/ProjectInsert";
+	}
+	
+	/**
+	 * 프로젝트 등록화면 이동
+	 * @return String
+	 * @exception Exception
+	 */
+	@RequestMapping("/prj/ProjectInsert.do")
+	public String ProjectInsert(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
+		
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+
+		projectService.insertPrj(projectVO);
+		model.addAttribute("resultMsg", "success.common.update");
+		return "forward:/prj/ProjectManage.do";
+	}
 	
 	/**
 	 * 프로젝트 상세보기 및 수정 이동
@@ -164,13 +201,12 @@ public class ProjectController {
 	/**
 	 * 프로젝트 정보 수정후 목록조회 화면으로 이동한다.
 	 * @param projectVO 사용자수정정보
-	 * @param bindingResult 입력값검증용 bindingResult
 	 * @param model 화면모델
 	 * @return forward:/prj/ProjectManage.do
 	 * @throws Exception
 	 */
 	@RequestMapping("/prj/ProjectSelectUpdt.do")
-	public String updateProject(@ModelAttribute("projectVO") ProjectVO projectVO, BindingResult bindingResult, Model model) throws Exception {
+	public String updateProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -180,6 +216,23 @@ public class ProjectController {
     	}
 
 		projectService.updatePrj(projectVO);
+		model.addAttribute("resultMsg", "success.common.update");
+		return "forward:/prj/ProjectManage.do";
+		
+	}
+	
+	/**
+	 * 프로젝트 정보 삭제 후 목록조회 화면으로 이동한다.
+	 * @param projectVO 프로젝트 정보
+	 * @param model 화면모델
+	 * @return forward:/prj/ProjectManage.do
+	 * @throws Exception
+	 */
+	@RequestMapping("/prj/ProjectSelectDelete.do")
+	public String deleteProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
+
+
+		projectService.deletePrj(projectVO);
 		model.addAttribute("resultMsg", "success.common.update");
 		return "forward:/prj/ProjectManage.do";
 		

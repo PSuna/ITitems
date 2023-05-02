@@ -55,4 +55,18 @@ public class ProjectDAO extends EgovAbstractMapper {
 		update("ProjectDAO.updatePrj", projectVO);
 	}
 	
+	/**
+	 * 프로젝트 삭제
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public void deletePrj(ProjectVO projectVO) {
+		delete("ProjectDAO.deletePrj", projectVO);
+		
+	}
+
+	public void insertPrj(ProjectVO projectVO) {
+		insert("ProjectDAO.insertPrj", projectVO);
+	}
+	
 }
