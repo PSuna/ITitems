@@ -295,7 +295,7 @@ function CarryRegist() {
 													<td><c:out value="${result.rum}" />
 														<form name="subForm" method="post"
 															action="<c:url value='/req/SelectCarry.do'/>">
-															<input type="hidden" name="assetId"
+															<input type="hidden" name="reqId"
 																value="<c:out value='${result.reqId}'/>" />
 														</form></td>
 													<td><c:out value="${result.reqGroup}" /></td>

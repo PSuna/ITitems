@@ -21,15 +21,15 @@ import java.util.Map;
  */
 public interface AssetService {
 	
-	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetManageVO) throws Exception;
+	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetManageVO);
 	
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO);
 	
-	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception;
+	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO);
 	
-	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception;
+	public int InsertAssetInfo(AssetInfoVO assetInfoVO);
 	
-	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception;
+	public int UpdateAssetInfo(AssetInfoVO assetInfoVO);
 	
-	public int InsertAssetHist(AssetHistVO assetHistVO) throws Exception;
+	public int InsertAssetHist(AssetHistVO assetHistVO);
 }

@@ -57,12 +57,12 @@
 		trList.forEach(function(items,index) {
 			let formdata = new FormData();
 			formdata.append('reqId', reqId);
-			formdata.append('largeCategory', items.querySelector('#middleCategory').value);
+			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
 			formdata.append('middleCategory', items.querySelector('#middleCategory').value);
 			formdata.append('reqQty', items.querySelector('#reqQty').value);
 			formdata.append('maker', items.querySelector('#maker').value);
-			formdata.append('user', trList.length - items.querySelector('#user').value);
-			formdata.append('reqOrder', index);
+			formdata.append('user', items.querySelector('#user').value);
+			formdata.append('reqOrder', trList.length - index);
 			$.ajax({
 				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
 				method: 'POST',
