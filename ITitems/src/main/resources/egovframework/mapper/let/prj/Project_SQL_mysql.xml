@@ -86,6 +86,32 @@
 		WHERE		A.PRJ_ID = #{prjId}
 	</select>
 	
+	<insert id="insertPrj" parameterType="egovframework.let.prj.service.ProjectVO">
+		<selectKey resultType="String" keyProperty="prjId" order="BEFORE">
+			SELECT CONCAT('prj', IFNULL(MAX(CAST(SUBSTR(PRJ_ID,4) AS UNSIGNED))+1,0)) 
+			  FROM PROJECTS
+		</selectKey>
+		INSERT INTO PROJECTS (
+							 PRJ_ID,
+							 PRJ_NAME,
+							 PRJ_START,
+							 PRJ_END,
+							 ID,
+							 CLIENT,
+							 PRJ_STATE
+							 )
+		VALUES (
+				#{prjId},
+				#{prjName},
+				#{prjStart},
+				#{prjEnd},
+				#{id},
+				#{client},
+				#{prjState}
+		)
+		
+	</insert>
+	
 	<update id="updatePrj" parameterType="egovframework.let.prj.service.ProjectVO">
 		UPDATE  PROJECTS
 		SET		PRJ_NAME	= #{prjName},
@@ -96,4 +122,9 @@
 				PRJ_STATE	= #{prjState}
 		WHERE	PRJ_ID 	= #{prjId}
 	</update>
+	
+	<delete id="deletePrj" parameterType="egovframework.let.prj.service.ProjectVO">
+		DELETE FROM PROJECTS
+		WHERE PRJ_ID = #{prjId}
+	</delete>
 </mapper>

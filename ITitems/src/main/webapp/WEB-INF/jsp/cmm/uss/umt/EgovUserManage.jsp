@@ -76,7 +76,6 @@ function fnDeleteUser() {
         }
     }
     if(checkedIds.length > 0) {
-        //alert(checkedIds);
         if(confirm("<spring:message code="common.delete.msg" />")){
             document.listForm.checkedIdForDel.value=checkedIds;
             document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";

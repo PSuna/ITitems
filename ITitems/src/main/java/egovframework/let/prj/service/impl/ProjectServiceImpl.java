@@ -61,5 +61,24 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	public void updatePrj(ProjectVO projectVO) throws Exception {
 		projectDAO.updatePrj(projectVO);
 	}
-
+	
+	/**
+	 * 프로젝트 등록
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	@Override
+	public void insertPrj(ProjectVO projectVO) throws Exception {
+		projectDAO.insertPrj(projectVO);
+	}
+	
+	/**
+	 * 프로젝트 삭제
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	@Override
+	public void deletePrj(ProjectVO projectVO) throws Exception {
+		projectDAO.deletePrj(projectVO);
+	}
 }
