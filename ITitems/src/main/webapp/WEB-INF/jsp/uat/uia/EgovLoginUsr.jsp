@@ -103,7 +103,7 @@ function fnInit() {
 
     <div class="wrap">
         <div class="container pty_container" style="padding-bottom: 60px;">
-            <div class="sub_layout">
+            <div class="sub_layout pty_sub_layout">
                 <div class="sub_in">
                     <div class="layout">
                         <div class="P_LOGIN">
@@ -118,32 +118,35 @@ function fnInit() {
                                 <form:form id="loginForm" name="loginForm" method="post">
                                     <fieldset>
                                         <legend>로그인</legend>
-                                        <dl>
-                                            <dt><label for="memid">이메일주소</label></dt>
-                                            <dd><input type="text" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
-                                        </dl>
-            
-                                        <dl>
-                                            <dt><label for="pwd">비밀번호</label></dt>
-                                            <dd>
-                                            	<input type="password" maxlength="25" title="비밀번호를 입력하세요." id="password" name="password" onkeydown="javascript:if (event.keyCode == 13) { actionLogin(); }"/>
-                                            </dd>
-                                        </dl>
-
-                                        <a href="#LINK" class="btn_login" onclick="javascript:actionLogin()">로그인</a>
-
-                                        <div class="bot">
-                                        	
-                                        	
-                                            <label for="chk" class="f_chk pty_f_chk">
-		                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
-		                                        <span>ID 저장</span>
-		                                    </label>
-		                                    
-		                                    <a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a>
-		                                    
-		                                    
-                                        </div>
+                                        <div class="pty_flex">
+	                                        <div>
+		                                        <dl>
+		                                            <dt><label for="memid">이메일주소</label></dt>
+		                                            <dd><input type="text" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
+		                                        </dl>
+		            
+		                                        <dl>
+		                                            <dt><label for="pwd">비밀번호  </label></dt>
+		                                            
+		                                            <dd>
+		                                            	<input type="password" maxlength="25" title="비밀번호를 입력하세요." id="password" name="password" onkeydown="javascript:if (event.keyCode == 13) { actionLogin(); }"/>
+		                                            	  
+		                                            	  <div class="bot">
+				                                            <label for="chk" class="f_chk pty_f_chk">
+						                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
+						                                        <span>ID 저장</span>
+						                                    </label>
+		                                    				<a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a>
+                                   						 </div>		                                            	
+		                                            </dd>
+		                                            
+		                                        </dl>
+		                                    </div>    
+										
+	                                        <a href="#LINK" class="btn_login" onclick="javascript:actionLogin()">로그인</a>
+										</div>
+											 <a href="#LINK" class="pty_m_btn_login" onclick="javascript:actionLogin()">로그인</a>
+                                      
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
 		                            <input type="hidden" name="userSe" value="USR"/>

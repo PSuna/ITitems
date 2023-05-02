@@ -141,7 +141,7 @@
                                     </label>
 
                                     <span class="item f_search">
-                                        <input class="f_input w_500" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
+                                        <input class="f_input w_350" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
                                         <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
 
@@ -152,7 +152,7 @@
                                 <!--// 검색조건 -->
 
                                 <!-- 게시판 -->
-                                <div class="board_list">
+                                <div class="board_list pty_board_list">
                                     <table summary="번호, 제목, 게시시작일, 게시종료일, 작성자, 작성일, 조회수  입니다">
                                     	<caption>게시물 목록</caption>
                                         <colgroup>

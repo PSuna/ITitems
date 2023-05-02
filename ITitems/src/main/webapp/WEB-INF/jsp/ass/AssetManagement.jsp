@@ -230,20 +230,25 @@ function selectAsset(id) {
 												<span class="lb ml20">취득일자</span> 
 												<input class="f_date pty_f_date" type="date" name="startDate" value="<c:out value="${searchVO.startDate}"/>"> ― <input class="f_date pty_f_date" type="date" name="endDate" value="<c:out value="${searchVO.endDate}"/>"> 
 											</div>	
-												
-											
-										
-											<div>
-												<span class="item f_search">
-														<!-- <span>검색</span>  -->
-													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
-												</span>
-												
-												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
-											</div>
-												
+						
 										</div>
+										
+										<div class="pty_search">
+											<span class="lb">조회</span>
+											<span class="item f_search">
+													<!-- <span>검색</span>  -->
+												<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+											</span>
+											
+											<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
+										</div>
+										
+										
 									</div>	
+									
+									
+									
+									
 								</form>
 								<!--// 검색 조건 -->
 								

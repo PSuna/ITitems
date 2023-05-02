@@ -114,7 +114,7 @@ function setPageUnit(){
 				                <div class="condition2">
 				                    <label for="" class="lb mr10">프로젝트명 : </label>
 				                    <span class="item f_search">
-				                        <input class="f_input w_500" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
+				                        <input class="f_input" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
 				                        <button class="btn" type="submit" onclick="fnSearchPrj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
 				                    </span>
 				                </div>
@@ -138,13 +138,13 @@ function setPageUnit(){
 	                                 		</div>
 		                            	</div>
 	                                </div>
-				                <div class="board_list">
+				                <div class="board_list pty_board_list">
 				                    <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
 				                        <colgroup>
-				                            <col style="width: 38%;">
-				                            <col style="width: 12%;">
+				                            <col style="width: 20%;">
+				                            <col style="width: 30%;">
 				                            <col style="width: 15%;">
-				                            <col style="width: 25%;">
+				                            <col style="width: 12%;">
 				                            <col style="width: 10%;">
 				                        </colgroup>
 				                        <thead>

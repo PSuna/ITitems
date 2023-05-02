@@ -188,6 +188,10 @@ function getMCatList() {
 															</c:forEach>
 													</select>
 												</label> 
+												
+												
+												
+												
 											</div>	
 												
 												
@@ -195,16 +199,27 @@ function getMCatList() {
 												<span class="lb ml20">신청일자</span> 
 												
 												<input class="f_date pty_f_date" name="startDate" type="date"> ― <input class="f_date pty_f_date" type="date" name="endDate"> 
-												<span class="item f_search">
-													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어">
-												</span>
 												
-												<button class="btn pty_btn" type="submit">검색</button>
+												
+											
 											</div>	
+											
+											
 											
 									
 										</div>
 										
+										
+										<div class="pty_search">
+											<span class="lb">조회</span>
+										
+											<span class="item f_search">
+												<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어">
+											</span>
+											
+											<button class="btn pty_btn" type="submit">검색</button>
+										</div>
+												
 									</div>
 								</form>
 								<!--// 검색 조건 -->

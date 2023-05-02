@@ -167,7 +167,7 @@ function setPageUnit(){
                                 <h2 class="tit_2">사용자목록</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition">
+                                <div class="condition pty_condition">
                                     <label class="item f_select" for="searchOrgnzt">
                                     	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="부서"/>
@@ -193,8 +193,8 @@ function setPageUnit(){
                                         </select>
                                     </label> 
 
-                                    <span class="item f_search">
-                                        <input class="f_input w_350" name="searchKeyword" title="검색어" type="text" value="<c:out value="${userSearchVO.searchKeyword}"/>" />
+                                    <span class="item f_search pty_f_search">
+                                        <input class="f_input" name="searchKeyword" title="검색어" type="text" value="<c:out value="${userSearchVO.searchKeyword}"/>" />
                                         <button class="btn" type="submit" onclick="javascript:fnSearch(); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
                                 </div>
@@ -229,12 +229,12 @@ function setPageUnit(){
                                     <table summary="사용자 목록을 제공한다.">
                                     	<caption>사용자목록</caption>
                                         <colgroup>
-                                            <col style="width: 50px;">
+                                            <col style="width: 30px;">
                                             <col style="width: 70px;">
-                                            <col style="width: 240px;">
+                                            <col style="width: 180px;">
                                             <col style="width: 120px;">
-                                            <col style="width: 240px;">
-                                            <col style="width: 170px;">
+                                            <col style="width: 100px;">
+                                            <col style="width: 80px;">
                                             <col style="width: 80px;">
                                         </colgroup>
                                         <thead>
