@@ -251,15 +251,15 @@ function press() {
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition2">
-                                    <span class="lb mr10">조회 조건 : </span>
+                                    <span class="lb mr10">조회 조건 :  </span>
                                     <label class="f_select item" for="searchCondition">
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
     					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자 ID</option>
     					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자 이름</option>
     					                </select>
                                     </label>
-                                    <span class="item f_search">
-                                        <input class="f_input w_350" name="searchKeyword" type="text" value="<c:out value='${authorGroupVO.searchKeyword}'/>" title="검색" onkeypress="press();"/>
+                                    <span class="item f_search" style="margin:0">
+                                        <input class="f_input" name="searchKeyword" type="text" value="<c:out value='${authorGroupVO.searchKeyword}'/>" title="검색" onkeypress="press();"/>
                                         <button class="btn" type="submit" onclick="javascript:fncSelectAuthorGroupList('1')"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
                                 </div>

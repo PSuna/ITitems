@@ -149,7 +149,7 @@ function fn_egov_modal_remove() {
                                 <!--// 검색조건 -->
 
                                 <!-- 게시판 -->
-                                <div class="board_list">
+                                <div class="board_list pty_board_list">
                                     <table summary="메뉴생성관리  목록화면으로 권한코드, 권한명, 권한설명, 메뉴생성여부, 메뉴생성으로 구성됨">
                                     	<caption>메뉴생성관리 목록</caption>
                                         <colgroup>

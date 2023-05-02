@@ -98,7 +98,7 @@
 	text-align:center;
 }
 .condition .item+.item {
-	margin-left:20px;
+	margin-left:10px;
 }
 .condition2 {
 	padding:25px;
@@ -670,7 +670,7 @@ input:-mos-input-placeholder {
 	display:inline-block;
 	position:relative;
 	vertical-align:top;
-	margin-left:10px;
+	/* margin-left:10px; */
 	
 }
 .f_search input[type=text] {

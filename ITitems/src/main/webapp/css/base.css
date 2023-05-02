@@ -397,10 +397,140 @@ button {
 		font-size: 18px!important;
 	}
 	
+	.all_menu{
+		width:700px !important;
+	}
+	
 	.all_menu .inner{
+		display:flex !important;
+		width:700px !important;
+	}
+	
+	
+	.all_menu .inner>div:first-child{
+		padding-left:34px!important;
+	}
+	
+	.sub_layout{
+		border-top: 0!important;
+	}
+	
+	.layout .nav{
+		display:contents!important;
+		padding-top:unset!important;
+	
+	}
+	
+	.layout .content_wrap{
+		display:contents !important;
+		padding-left:unset!important;
+	}
+	
+	.sub_in{
+		padding:0 24px !important;
+		width:auto!important;
 		
 	}
 	
+	.layout .nav .inner{
+		display:flex!important;
+	}
+	
+	.layout .nav .inner>ul{
+		display:inherit!important;
+	}
+	
+	.layout .nav .inner>ul>li+li{
+		border-top:0!important;
+	}
+	.layout .nav .inner>ul{
+		
+	}
+	
+	.layout .nav .inner>ul>li{
+		margin:0 10px !important;
+	}
+	
+	.tit_1+.tit_2{
+		font-size:24px !important;
+		text-align: center!important;
+		/* border-top:2px solid var(--point-color)!important; */
+	}
+	
+	.condition2 .pty_box01:nth-last-child(1) div:nth-child(odd) {
+		width:400px !important;
+	}
+	
+
+	.pty_board_list table{
+		width:100% !important;
+	}
+	
+	
+	table{
+		width:auto !important;
+	}
+	
+	.board_list th{
+		padding:23px 10px !important;
+	}
+	
+	.pty_search{
+		text-align:right!important;
+	}
+	
+	
+	.pty_condition{
+		display:flex !important;
+		flex-wrap: wrap !important;
+		
+	}
+	
+	.condition{
+		display:flex!important;
+	}
+	
+	.condition form{
+		display:flex!important;
+	}
+	
+	.location{
+		display: none !important;
+		/* text-align:left !important; */
+	} 
+	
+	.layout .nav h2{
+		padding:0 0 8px 0!important;
+		border-bottom:0!important;
+	}
+	
+	.tit_2{
+		text-align:center!important;
+		padding-top:56px !important;
+		font-size:24px !important;
+	}
+	
+	.pty_f_search{
+		margin-left:0!important;
+		margin-top:10px!important;
+	}
+	
+	.catInnerBox{
+		height:auto!important;
+	}
+	
+	.upperCat, .lowerCat{
+		min-height:auto!important;
+		width:auto!important;
+	}
+	.catBox{
+		display:block!important;
+	}
+	
+	.catInputBox{
+		justify-content:center!important;
+		gap:10px !important;
+	}
 }
 
 
