@@ -334,6 +334,10 @@ body {
 }
 .footer {
 	border-top:1px solid #d7d7d7;
+	position:static;
+	bottom:0;
+	width:100%;
+	margin:0 auto;
 }
 .footer .inner {
 	position:relative;
