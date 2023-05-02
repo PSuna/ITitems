@@ -38,28 +38,28 @@ public class AssetHistDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 자산내역 전체 갯수 조회
 	 */
-	public int CountAssetHistVOList(AssetManageVO assetManageVO) throws Exception {
+	public int CountAssetHistVOList(AssetManageVO assetManageVO)  {
 		return selectOne("AssetHistDAO.CountAssetHistVOList", assetManageVO);
 	}
 
 	/**
 	 * 자산내역 한건 상세 조회
 	 */
-	public AssetHistVO SelectAssetHistVO(AssetManageVO assetManageVO) throws Exception {
+	public AssetHistVO SelectAssetHistVO(AssetManageVO assetManageVO)  {
 		return selectOne("AssetHistDAO.SelectAssetHistVO", assetManageVO);
 	}
 	
 	/**
 	 * 자산내역 한건 등록
 	 */
-	public int InsertAssetHist(AssetHistVO assetHistVO) throws Exception {
+	public int InsertAssetHist(AssetHistVO assetHistVO) {
 		return insert("AssetHistDAO.InsertAssetHist", assetHistVO);
 	}
 	
 	/**
 	 * 자산내역 한건 수정
 	 */
-	public int UpdateAssetHist(AssetHistVO assetHistVO) throws Exception {
+	public int UpdateAssetHist(AssetHistVO assetHistVO) {
 		return update("AssetHistDAO.UpdateAssetHist", assetHistVO);
 	}
 }

@@ -128,17 +128,10 @@
 											<tr>
 												<td class="lb">
 													<!-- 성명 --> 
-													<label for="">성명</label> 
-													
+													<label for="">신청자</label> 
 												</td>
-												<td>
-													
-												</td>
-												<td class="lb">
-													<!-- 직위 --> 
-													<label for="">직위</label> 
-												</td>
-												<td>
+												<td colspan="3">
+													<c:out value="${resultVO.id}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -147,6 +140,7 @@
 													<label for="">프로젝트</label>
 												</td>
 												<td colspan="3">
+													<c:out value="${resultVO.prjId}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -155,12 +149,14 @@
 													<label for="">사용장소</label> 
 												</td>
 												<td>
+													<c:out value="${resultVO.place}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
 													<label for="">PM(관리자)</label>
 												</td>
 												<td>
+													<c:out value="${resultVO.pm}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -169,6 +165,7 @@
 													<label for="">사용기간</label> 
 												</td>
 												<td colspan="3">
+													<c:out value="${resultVO.startDate}"></c:out> — <c:out value="${resultVO.endDate}"></c:out>
 												</td>
 											</tr>
 										</table>
@@ -195,7 +192,7 @@
 								
 								<br>
 								
-								<div class="board_view2 assetlist">
+								<div class="board_list assetlist">
 									<table>
 										<colgroup>
 											<col style="width: 22%;">
@@ -205,36 +202,37 @@
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label><span class="req">필수</span></td>
-												<td class="lb"><label for="">수량</label><span class="req">필수</span></td>
+												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">수량</label></td>
 												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
 												<td class="lb"><label for="">사용자</label></td>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>
-												
-												</td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
+											<c:forEach var="result" items="${resultList}"
+												varStatus="status" >
+												<tr>
+													<td><c:out value="${result.middleCategory}"></c:out></td>
+													<td><c:out value="${result.reqQty}"></c:out></td>
+													<td><c:out value="${result.maker}"></c:out></td>
+													<td><c:out value="${result.user}"></c:out></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
 								<br>
 								<br>
-								<%-- <!-- 등록버튼  -->
+								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100"
-											onclick="insertCarry();return false;">신청 <spring:message
+											onclick="return false;">지급확인<spring:message
 												code="button.create" /></a>
-										<!-- 등록 -->
+										<!-- 지급확인 -->
 									</div>
 								</div>
-								<!-- // 등록버튼 끝  --> --%>
+								<!-- // 등록버튼 끝  --> 
 								</div>
 							</div>
 						</div>

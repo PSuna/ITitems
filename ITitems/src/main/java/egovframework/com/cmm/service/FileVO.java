@@ -45,7 +45,7 @@ public class FileVO implements Serializable {
     /**
      * 파일연번
      */
-    public String fileSn = "";
+    public String fileSn = "0";
     /**
      * 파일저장경로
      */

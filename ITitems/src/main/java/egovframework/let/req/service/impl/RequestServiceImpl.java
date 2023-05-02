@@ -70,6 +70,7 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 
 	@Override
 	public Map<String, Object> SelectRequestVOList(RequestManageVO manageVO) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("resultList", requestDAO.SelectRequestVOList(manageVO));
@@ -80,13 +81,17 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 	@Override
 	public RequestVO SelectRequestVO(RequestManageVO manageVO) {
 		
-		return requestDAO.SelectRequestVO(manageVO);
+		RequestVO result = requestDAO.SelectRequestVO(manageVO);
+		
+		return result;
 	}
 
 	@Override
 	public List<RequestDetailVO> SelectRequestDetailVOList(RequestManageVO manageVO) {
 		
-		return requestDAO.SelectRequestDetailVOList(manageVO);
+		List<RequestDetailVO> resultList = requestDAO.SelectRequestDetailVOList(manageVO);
+		
+		return resultList;
 	}
 
 }

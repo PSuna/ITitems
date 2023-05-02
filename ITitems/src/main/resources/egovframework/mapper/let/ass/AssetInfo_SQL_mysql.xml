@@ -129,12 +129,7 @@
 
 	<insert id="InsertAssetInfo"
 		parameterType="egovframework.let.ass.service.AssetInfoVO">
-		<selectKey resultType="String" keyProperty="assetId"
-			order="BEFORE">
-			SELECT 
-			    CONCAT('asi',IFNULL(MAX(SUBSTR(ASSET_ID,4))+1,0)) 
-			FROM ASSETSINFO
-		</selectKey>
+	
 		INSERT INTO ASSETSINFO (
 		    ASSET_ID, 
 		    LARGE_CATEGORY, 

@@ -1,5 +1,6 @@
 package egovframework.let.ass.web;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -188,12 +189,17 @@ public class AssetController {
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
 		
-		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		model.addAttribute("resultVO", result);
 		
-		/*
-		 * model.addAttribute("resultList",
-		 * assetService.SelectAssetHistVOList(assetManageVO));
-		 */
+		FileVO fvo = new FileVO();
+		fvo.setAtchFileId(result.getPhotoId());
+		
+		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
+		
+		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		 
 		
 		return "/ass/SelectAsset";
 	}

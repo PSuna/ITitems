@@ -156,11 +156,11 @@ public class RequestController {
 	@RequestMapping(value = "/req/SelectCarry.do")
 	public String SelectCarry(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
-		/*
-		 * model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
-		 * model.addAttribute("resultList",
-		 * requestService.SelectRequestDetailVOList(manageVO));
-		 */
+		
+		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
+		  model.addAttribute("resultList",
+		  requestService.SelectRequestDetailVOList(manageVO));
+		 
 		return "/req/SelectCarry";
 	}
 	
