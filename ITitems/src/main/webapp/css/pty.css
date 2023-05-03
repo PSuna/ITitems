@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+/* PTY */
+
+:root {
+   
+    --point-color:#ff6600;
+    --main-hover: #0C91E9;
+    
+    --box-color:#fbfbfb;
+    
+    --line-color:#dde2e5;
+}
+
+body{
+	width:100%;
+	height:100%;
+	
+}
+
+.wrap{
+	height:auto;
+	
+} 
+.pty_bot{
+	text-align:right;
+	font-size:18px;	
+}
+
+	.pty_footer{
+	
+		
+		position:relative;
+		transform:translateY(100%);
+		/* width:100%;
+		margin:0 auto; */
+	} 
+	
+
+
+.pty_flex{
+	display:flex;
+	justify-content:center;
+}
+
+.loginbox .pty_m_btn_login {
+	display:none;
+}
+
+.pty_flex dl{
+	display:flex;
+	line-height:46px;
+}
+
+.pty_flex dl:nth-child(even) dd {
+	/* margin-left:15px; */
+}
+
+.pty_flex dt{
+	margin-right:20px;
+	width:100px;
+	text-align: right;
+}
+
+.pty_sub_layout{
+	position:relative;
+	top:180px;	 
+	
+}
+
+.pty_sub_layout{
+	border-top:0px!important;
+	
+}
+
+
+.left_col h4{
+	color:#ff6600;
+}
+.footer .inner h1{
+	display:flex;
+}
+
+.footer .inner h1 .mid{
+	font-weight:normal;
+}
+
+.footer .inner img{
+	width:100%;
+}
+
+
+.pty_box01{
+	display:flex;
+	margin-bottom: 10px;
+}
+
+
+label:focus {
+	border-color:var(--point-color);
+	
+	
+}
+
+
+thead{
+	background:#f5f6f7;
+}
+
+.pty_btn{
+	height:46px;
+	width:70px;
+	background:var(--box-color);
+	border-radius:6px;
+	border:1px solid #dde2e5;
+	font-size:16px;
+}
+
+.pty_f_date{
+	border:1px solid #dde2e5 !important;
+}
+
+.pty_f_input{
+	border:1px solid #dde2e5 !important;
+}
+
+.pty_container{
+	height: 720px;
+	 
+}
+
+.pty_P_LOGIN_bottom{
+	text-align: center;
+	display:flex;
+	justify-content:center;
+}
+
+.pty_f_chk{
+	margin-right:10px;
+	margin-top:10px;
+	font-size:18px;
+	
+}
+
+.left_col span{
+	margin-right:16px;
+}
+
+.tit_1{
+	display:none;
+}
+
+	
+
+/* PTY;; */

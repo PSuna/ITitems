@@ -128,7 +128,7 @@ body {
 	background:url(../images/ico_allmenu_on.png) no-repeat;
 }
 .container {
-	min-height:calc(100vh - 360px);
+	/* min-height:calc(100vh - 360px); */
 }
 .content {
 	min-height:700px;
@@ -143,9 +143,9 @@ body {
 	padding:0 50px;
 }
 .layout {
-	display:table;
+	/* display:table;
 	width:100%;
-	table-layout: fixed;
+	table-layout: fixed; */
 }
 /* sub navigation */
 .layout .nav {
@@ -349,15 +349,15 @@ body {
 	clear:both;
 }
 .footer h1 {
-	float:left;
+	/* float:left; */
 	/* padding-top:49px; */
 	margin:20px;
 }
 .footer h1 a {
-	display:block;
+/* 	display:block; */
 }
 .footer .mid {
-	float:left;
+	/* float:left; */
 	margin-left:50px;
 	/* padding-top:22px; */
 }

@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <script type="text/javascript">
@@ -121,22 +123,22 @@ function fnInit() {
                                         <div class="pty_flex">
 	                                        <div>
 		                                        <dl>
-		                                            <dt><label for="memid">이메일주소</label></dt>
-		                                            <dd><input type="text" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
+		                                         <dt><label for="memid">이메일주소</label></dt> 
+		                                            <dd><input type="text" placeholder="회사 메일 아이디" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
 		                                        </dl>
 		            
 		                                        <dl>
-		                                            <dt><label for="pwd">비밀번호  </label></dt>
+		                                          <dt><label for="pwd">비밀번호  </label></dt> 
 		                                            
 		                                            <dd>
-		                                            	<input type="password" maxlength="25" title="비밀번호를 입력하세요." id="password" name="password" onkeydown="javascript:if (event.keyCode == 13) { actionLogin(); }"/>
+		                                            	<input type="password" maxlength="25" placeholder="비밀번호" title="비밀번호를 입력하세요." id="password" name="password" onkeydown="javascript:if (event.keyCode == 13) { actionLogin(); }"/>
 		                                            	  
-		                                            	  <div class="bot">
+		                                            	  <div class="bot pty_bot">
 				                                            <label for="chk" class="f_chk pty_f_chk">
 						                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 						                                        <span>ID 저장</span>
 						                                    </label>
-		                                    				<a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a>
+		                                    				<a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer;">비밀번호 찾기</a>
                                    						 </div>		                                            	
 		                                            </dd>
 		                                            
@@ -159,9 +161,12 @@ function fnInit() {
             </div>
         </div>
 
-        <!-- Footer -->
+       
+    </div>
+    
+     <!-- Footer -->
         <c:import url="/sym/mms/EgovFooter.do" />
         <!--// Footer -->
-    </div>
+    
 </body>
 </html>
