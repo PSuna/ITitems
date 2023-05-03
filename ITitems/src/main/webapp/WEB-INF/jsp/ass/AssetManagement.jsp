@@ -15,6 +15,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,6 +79,9 @@ function getMCatList() {
 					op = document.createElement('option');
 					op.setAttribute('value', res.catId);
 					op.textContent = res.catName;
+					if('${searchVO.searchdMCat}' == res.catId){
+						op.setAttribute('selected', 'selected');
+					}
 					document.getElementById('middleCategory').appendChild(op);
 				}
 			},
@@ -295,9 +299,13 @@ function selectAsset(id) {
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.histQty}" /></td>
 													<td><c:out value="${result.acquiredDate}" /></td>
-													<td><c:out value="${result.acquiredPrice}" /></td>
+													<td>
+														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
+														<fmt:formatNumber value="${result.acquiredPrice}" pattern="#,###"/>원
+														</c:if>
+													</td>
 													<td><c:out value="${result.maker}" /></td>
-													<td><c:out value="${result.histStatus}" /></td>
+													<td><c:out value="${result.usageStatus}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>
