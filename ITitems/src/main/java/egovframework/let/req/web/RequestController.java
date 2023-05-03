@@ -22,7 +22,7 @@ import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.req.service.RequestVO;
-import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
@@ -56,7 +56,7 @@ public class RequestController {
 	private EgovCmmUseService cmmUseService;
 	
 	@Resource(name = "userManageService")
-	private EgovUserManageService userManageService;
+	private UserManageService userManageService;
 
 
 	/**
@@ -156,11 +156,11 @@ public class RequestController {
 	@RequestMapping(value = "/req/SelectCarry.do")
 	public String SelectCarry(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
-		/*
-		 * model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
-		 * model.addAttribute("resultList",
-		 * requestService.SelectRequestDetailVOList(manageVO));
-		 */
+		
+		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
+		  model.addAttribute("resultList",
+		  requestService.SelectRequestDetailVOList(manageVO));
+		 
 		return "/req/SelectCarry";
 	}
 	

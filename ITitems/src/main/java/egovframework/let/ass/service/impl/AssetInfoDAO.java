@@ -32,35 +32,35 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 자산 전체 조회
 	 */
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) {
 		return selectList("AssetInfoDAO.SelectAssetInfoVOList", assetManageVO);
 	}
 
 	/**
 	 * 조건에 맞는 자산 전체 갯수 조회
 	 */
-	public int CountAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+	public int CountAssetInfoVOList(AssetManageVO assetManageVO) {
 		return selectOne("AssetInfoDAO.CountAssetInfoVOList", assetManageVO);
 	}
 	
 	/**
 	 * 자산 한건 상세 조회
 	 */
-	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {
+	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) {
 		return selectOne("AssetInfoDAO.SelectAssetInfoVO", assetManageVO);
 	}
 	
 	/**
 	 * 자산정보 한건 등록
 	 */
-	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+	public int InsertAssetInfo(AssetInfoVO assetInfoVO){
 		return insert("AssetInfoDAO.InsertAssetInfo", assetInfoVO);
 	}
 	
 	/**
 	 * 자산정보 한건 수정
 	 */
-	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+	public int UpdateAssetInfo(AssetInfoVO assetInfoVO){
 		return update("AssetInfoDAO.UpdateAssetInfo", assetInfoVO);
 	}
 }

@@ -19,6 +19,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,10 +52,15 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <title>자산관리 > 자산등록</title>
-
+<script type="text/javascript">
+function AssetUpdt() {
+	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
+    document.frm.submit();
+}
+</script>
 </head>
 
-<body onload="fn_egov_init_date();">
+<body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
@@ -88,7 +94,7 @@
 
 
 								<form id="frm" name="frm">
-
+									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">자산정보</h2>
@@ -102,89 +108,67 @@
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 대분류 --> 
-													<label for="">대분류</label>
+													<!-- 대분류 --> <label for="">대분류</label>
 												</td>
 												<td>${resultVO.largeCategory}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 중분류 --> 
-													<label for="">중분류</label>
+													<!-- 중분류 --> <label for="">중분류</label>
 												</td>
 												<td>${resultVO.middleCategory}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">품명</label>
+													<!-- 품명 --> <label for="">품명</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 --> 
-													<label for="">수량</label>
+													<!-- 수량 --> <label for="">수량</label>
 												</td>
-												<td>${resultVO.assetQty}</td>
+												<td> <fmt:formatNumber value="${resultVO.assetQty}" pattern="#,###"/></td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label>
+													<!-- 취득일자 --> <label for="">취득일자</label>
 												</td>
 												<td>${resultVO.acquiredDate}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
+													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
-												<td>${resultVO.acquiredPrice}</td>
+												<td><fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 제조사 --> 
-													<label for="">제조사</label>
+													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
 												<td>${resultVO.maker}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 추가물품 --> 
-													<label for="">추가물품</label>
+													<!-- 추가물품 --> <label for="">추가물품</label>
 												</td>
 												<td>${resultVO.addAsset}</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 비고 --> 
-													<label for="note">비고</label>
+													<!-- 비고 --> <label for="note">비고</label>
 												</td>
 												<td>${resultVO.note}</td>
 											</tr>
 											<!-- 파일첨부 시작 -->
 											<tr>
-												<td class="lb">
-													<label for="egovComFileUploader">사진첨부</label>
-													<span class="req">필수</span>
+												<td class="lb"><label for="egovComFileUploader">사진</label>
 												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
+													
 												</td>
 											</tr>
 										</table>
-
-
 
 										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 											<script type="text/javascript">
@@ -217,9 +201,18 @@
 												<th scope="col">일자</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
-												<th scope="col">신청자</th>
+												<th scope="col">사용자</th>
 												<th scope="col">상태</th>
 											</tr>
+											<c:forEach var="result" items="${resultList}" varStatus="status">
+												<tr>
+													<td><c:out value="${result.histDate}"></c:out></td>
+													<td><c:out value="${result.histGroup}"></c:out></td>
+													<td><c:out value="${result.histQty}"></c:out></td>
+													<td><c:out value="${result.useId}"></c:out></td>
+													<td><c:out value="${result.histStatus}"></c:out></td>
+												</tr>
+											</c:forEach>
 										</table>
 									</div>
 
@@ -237,11 +230,21 @@
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_col btn1">
+											<!-- 수정 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="return false;">
-												<spring:message code="button.create" />
+												onclick="AssetUpdt();return false;"> <spring:message
+													code="button.update" />
 											</a>
-											<!-- 등록 -->
+											<!-- 반입 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="return false;"> <spring:message
+													code="button.carryin" />
+											</a>
+											<!-- 반출 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="return false;"> <spring:message
+													code="button.carryout" />
+											</a>
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->

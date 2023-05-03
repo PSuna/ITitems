@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.03   JJY              최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.15   천세훈              최초 생성
  
-    author   : 공통서비스 개발팀 JJY
-    since    : 2009.03.03
+    author   : 영남사업부 천세훈
+    since    : 2023.04.15
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -40,16 +39,16 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnIdCheck(){
-//     var retVal;
-//     var url = "<c:url value='/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>";
-//     var varParam = new Object();
-//     varParam.checkId = document.userManageVO.emplyrId.value;
-//     var openParam = "dialogWidth:303px;dialogHeight:250px;scroll:no;status:no;center:yes;resizable:yes;";
-//     retVal = window.showModalDialog(url, varParam, openParam);
-//     if(retVal) {
-//         document.userManageVO.emplyrId.value = retVal;
-//         document.userManageVO.id_view.value = retVal;
-//     }
+/* //     var retval;
+//     var url = "<c:url value='/uss/umt/cmm/egoviddplctcnfirmview.do'/>";
+//     var varparam = new object();
+//     varparam.checkid = document.usermanagevo.emplyrid.value;
+//     var openparam = "dialogwidth:303px;dialogheight:250px;scroll:no;status:no;center:yes;resizable:yes;";
+//     retval = window.showmodaldialog(url, varparam, openparam);
+//     if(retval) {
+//         document.usermanagevo.emplyrid.value = retval;
+//         document.usermanagevo.id_view.value = retval;
+//     } */
     
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>?" + '" width="100%" height="100%"></iframe>')
@@ -81,7 +80,7 @@ function fnInsert(){
             return;
         }
         document.userManageVO.submit();
-        document.authorManageVO.submit();
+        /* document.authorManageVO.submit(); */
     }
 }
 function fn_egov_inqire_cert() {
@@ -181,8 +180,6 @@ function fn_egov_modal_remove() {
                                 <!--// Location -->
 
 								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserInsert.do" name="userManageVO" method="post" >
-								<!-- 우편번호검색 -->
-								<input type="hidden" name="zip_url" value="<c:url value='/sym/cmm/EgovCcmZipSearchPopup.do'/>" />
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -204,7 +201,7 @@ function fn_egov_modal_remove() {
                                             <td>
                                                 <span class="f_search2 w_150">
                                                     <input type="text" maxlength="20" disabled="disabled" id="id_view" name="id_view" readonly="readonly">
-                                                    <form:input path="emplyrId" id="emplyrId" title="사용자아이디" maxlength="20" type="hidden" />
+                                                    <form:input path="emplyrId" id="emplyrId" title="사용자아이디" maxlength="40" type="hidden" />
                                                     <button type="button" class="btn" onclick="fnIdCheck();">조회</button>
                                                 </span>
                                                 <span class="f_txt_inner ml10">(중복체크)</span>
@@ -272,19 +269,6 @@ function fn_egov_modal_remove() {
                                                 </label>
                                                 <form:errors path="grade" /> 
                                             </td>
-                                            <%-- <td class="lb">
-                                                <label for="groupId">그룹아이디</label>
-                                                <span class="req">필수</span>
-                                            </td>
-                                            <td>
-                                                <label class="f_select w_full" for="groupId">
-                                                    <form:select path="groupId" id="groupId" name="groupId" title="그룹아이디">
-	                                                    <form:option value="" label="선택하세요"/>
-	                                                    <form:options items="${groupId_result}" itemValue="code" itemLabel="codeNm"/>
-                                                    </form:select>
-                                                </label>
-                                                <form:errors path="groupId" />
-                                            </td> --%>
                                             <td class="lb">
                                                 <label for="authorCode">권한</label>
                                             </td>
@@ -297,6 +281,7 @@ function fn_egov_modal_remove() {
                                                         </c:forEach>
                                                     </select>
                                                 </label>
+                                                <form:errors path="authorCode" /> 
                                             </td>
                                         </tr>
                                     </table>
@@ -318,7 +303,7 @@ function fn_egov_modal_remove() {
                                 <!-- 검색조건 유지 -->
 						        <input type="hidden" name="searchCondition" value="<c:out value='${userSearchVO.searchCondition}'/>"/>
 						        <input type="hidden" name="searchKeyword" value="<c:out value='${userSearchVO.searchKeyword}'/>"/>
-						        <input type="hidden" name="sbscrbSttus" value="<c:out value='${userSearchVO.sbscrbSttus}'/>"/>
+						        <%-- <input type="hidden" name="sbscrbSttus" value="<c:out value='${userSearchVO.sbscrbSttus}'/>"/> --%>
 						        <input type="hidden" name="pageIndex" value="<c:out value='${userSearchVO.pageIndex}'/><c:if test="${userSearchVO.pageIndex eq null}">1</c:if>"/>
 						        
 			                	</form:form>

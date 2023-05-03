@@ -1,5 +1,6 @@
 package egovframework.let.ass.web;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
-import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
@@ -80,7 +81,7 @@ public class AssetController {
 	private EgovFileMngUtil fileUtil;
 	
 	@Resource(name = "userManageService")
-	private EgovUserManageService userManageService;
+	private UserManageService userManageService;
 
 	/**
 	 * 자산조회 페이지로 이동
@@ -188,12 +189,17 @@ public class AssetController {
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
 		
-		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		model.addAttribute("resultVO", result);
 		
-		/*
-		 * model.addAttribute("resultList",
-		 * assetService.SelectAssetHistVOList(assetManageVO));
-		 */
+		FileVO fvo = new FileVO();
+		fvo.setAtchFileId(result.getPhotoId());
+		
+		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
+		
+		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		 
 		
 		return "/ass/SelectAsset";
 	}
@@ -222,7 +228,7 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetInsert.do")
 	@ResponseBody
-	public String AssetInsert(final MultipartHttpServletRequest multiRequest, @RequestParam()AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, BindingResult bindingResult) throws Exception {
+	public String AssetInsert(final MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, BindingResult bindingResult) throws Exception {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -253,6 +259,27 @@ public class AssetController {
 		assetService.InsertAssetHist(assetHistVO);
 		
 		return "forward:/ass/AssetManagement.do";
+	}
+	
+	/**
+	 * 자산수정 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/AssetUpdt.do")
+	public String AssetUpdt(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "100");
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		model.addAttribute("resultVO", result);
+	
+		return "/ass/AssetUpdt";
 	}
 
 }

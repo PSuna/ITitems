@@ -60,6 +60,14 @@ function fnSearch(){
 }
 
 /* ********************************************************
+ * 프로젝트 등록화면 이동
+ ******************************************************** */
+function fnAddProjectView() {
+    document.listForm.action = "<c:url value='/prj/ProjectInsertView.do'/>";
+    document.listForm.submit();
+}
+
+/* ********************************************************
  * 페이지당 리스트 갯수 설정
  ******************************************************** */
 function setPageUnit(){
@@ -126,7 +134,7 @@ function setPageUnit(){
 			                                 			<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 			                                 		</select>
 		                                 		</label>
-                                   				<a href="<c:url value='/prj/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+                                   				<a href="<c:url value='/prj/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddProjectView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 	                                 		</div>
 		                            	</div>
 	                                </div>

@@ -11,6 +11,7 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -58,8 +59,11 @@ public class EgovAuthorGroupController {
 	 * @exception Exception
 	 */
     @RequestMapping("/sec/rgm/EgovAuthorGroupListView.do")
-    public String selectAuthorGroupListView() throws Exception {
-
+    public String selectAuthorGroupListView(HttpServletRequest request) throws Exception {
+    	
+    	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
+    	request.getSession().setAttribute("baseMenuNo", "6000000");
+    	
         return "/sec/rgm/EgovAuthorGroupManage";
     }    
 
@@ -73,7 +77,10 @@ public class EgovAuthorGroupController {
     @RequestMapping(value="/sec/rgm/EgovAuthorGroupList.do")
 	public String selectAuthorGroupList(@ModelAttribute("authorGroupVO") AuthorGroupVO authorGroupVO,
 			                            @ModelAttribute("authorManageVO") AuthorManageVO authorManageVO,
+			                            HttpServletRequest request,
 			                             ModelMap model) throws Exception {
+    	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
+    	request.getSession().setAttribute("baseMenuNo", "6000000");
 
     	/** paging */
     	PaginationInfo paginationInfo = new PaginationInfo();

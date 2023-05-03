@@ -89,6 +89,9 @@ public class AssetHistVO implements Serializable {
 	/** 파일코드 */
 	private String fileId;
 
+	/** 내역분류 */
+	private String histGroup;
+	
 	public String getHistId() {
 		return histId;
 	}
@@ -264,6 +267,14 @@ public class AssetHistVO implements Serializable {
 
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+
+	public String getHistGroup() {
+		return histGroup;
+	}
+
+	public void setHistGroup(String histGroup) {
+		this.histGroup = histGroup;
 	}
 	
 	

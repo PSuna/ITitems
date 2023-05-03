@@ -23,6 +23,9 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class RequestManageVO implements Serializable {
 
+	/** 신청코드 */
+	private String reqId;
+	
 	/** 검색부서 */
 	private String searchOrgnzt = "";
 
@@ -208,6 +211,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setLast(int last) {
 		this.last = last;
+	}
+	public String getReqId() {
+		return reqId;
+	}
+	public void setReqId(String reqId) {
+		this.reqId = reqId;
 	}
 	
 }

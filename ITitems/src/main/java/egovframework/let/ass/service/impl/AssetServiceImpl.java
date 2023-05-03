@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.ass.service.AssetManageVO;
@@ -40,12 +42,18 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	
 	@Resource(name = "AssetHistDAO")
 	private AssetHistDAO assetHistDAO;
+	
+	@Resource(name = "AssetIdGnrService")
+	private EgovIdGnrService assetIdGnrService;
+
+	@Resource(name = "HistIdGnrService")
+	private EgovIdGnrService histIdGnrService;
 
 	/**
      * 조건에 맞는 자산 내역을 전부 조회한다.
      */
 	@Override
-	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetHistVO) throws Exception {
+	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetHistVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("resultList", assetHistDAO.SelectAssetHistVOList(assetHistVO));
@@ -53,35 +61,64 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return map;
 	}
 	
+	/**
+     * 조건에 맞는 자산을 전부 조회한다.
+     */
 	@Override
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception {
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resultList", assetInfoDAO.SelectAssetInfoVOList(assetManageVO));
 		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
 		return map;
 	}
-
+	
+	/**
+     * 조건에 맞는 자산 단일 조회한다.
+     */
 	@Override
-	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) throws Exception {
+	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) {
 		
 		return assetInfoDAO.SelectAssetInfoVO(assetManageVO);
 	}
 
+	/**
+     * 자산 등록.
+     */
 	@Override
-	public int InsertAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+	public int InsertAssetInfo(AssetInfoVO assetInfoVO){
+		
+		try {
+			assetInfoVO.setAssetId(assetIdGnrService.getNextStringId());
+		} catch (FdlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return assetInfoDAO.InsertAssetInfo(assetInfoVO);
 	}
 
+	/**
+     * 자산 수정.
+     */
 	@Override
-	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) throws Exception {
+	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) {
 		
 		return 0;
 	}
 
+	/**
+     * 자산내역 등록.
+     */
 	@Override
-	public int InsertAssetHist(AssetHistVO assetHistVO) throws Exception {
+	public int InsertAssetHist(AssetHistVO assetHistVO){
 	
+		try {
+			assetHistVO.setHistId(histIdGnrService.getNextStringId());
+		} catch (FdlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return assetHistDAO.InsertAssetHist(assetHistVO);
 	}
 

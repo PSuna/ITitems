@@ -200,8 +200,6 @@ function CarryRegist() {
 												</select>
 												</label>
 											</div>
-
-
 											<div>
 												<span class="lb">프로젝트</span> <span class="f_search2 w_200">
 													<input id="prjNm" type="text" title="주소" maxlength="100"
@@ -239,10 +237,7 @@ function CarryRegist() {
 												</label>
 											</div>
 										</div>
-
-
 										<div class="pty_box01">
-
 											<div>
 												<span class="lb">상태</span> <label class="item f_select"
 													for="sel1"> <select id="searchStatus"
@@ -295,7 +290,7 @@ function CarryRegist() {
 													<td><c:out value="${result.rum}" />
 														<form name="subForm" method="post"
 															action="<c:url value='/req/SelectCarry.do'/>">
-															<input type="hidden" name="assetId"
+															<input type="hidden" name="reqId"
 																value="<c:out value='${result.reqId}'/>" />
 														</form></td>
 													<td><c:out value="${result.reqGroup}" /></td>

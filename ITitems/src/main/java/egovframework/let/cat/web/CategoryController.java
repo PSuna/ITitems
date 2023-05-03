@@ -3,6 +3,7 @@ package egovframework.let.cat.web;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,7 +50,8 @@ public class CategoryController {
 	 * @exception Exception
 	 */
 	@RequestMapping("/cat/CategoryManage.do")
-    public String CategoryManageView(CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
+    public String CategoryManageView(HttpServletRequest request, CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
+		request.getSession().setAttribute("baseMenuNo", "6000000");
         return "/cat/CategoryManage";
     }    
 	

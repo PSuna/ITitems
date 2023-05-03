@@ -33,5 +33,20 @@ public interface ProjectService {
 	public ProjectVO selectPrj(String prjId) throws Exception;
 
 	public void updatePrj(ProjectVO projectVO) throws Exception;
+
+	/**
+	 * 프로젝트 등록
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public void insertPrj(ProjectVO projectVO) throws Exception;
+	
+	/**
+	 * 프로젝트 삭제
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public void deletePrj(ProjectVO projectVO) throws Exception;
+
 	
 }

@@ -1,14 +1,14 @@
 <%--
-  Class Name : ProjectSelectUpdt.jsp
-  Description : 프로젝트 상세조회, 수정 JSP
+  Class Name : ProjectInsert.jsp
+  Description : 프로젝트 등록 JSP
   Modification Information
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2023.04.27   천세훈			최초 생성
+     2023.05.02   천세훈			최초 생성
  
     author   : 영남사업부 천세훈
-    since    : 2023.04.27
+    since    : 2023.05.02
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,14 +31,26 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 상세정보 및 수정</title>
+<title>프로젝트 등록</title>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 var userCheck = 0;
+/* ********************************************************
+ * 프로젝트 등록 처리
+ ******************************************************** */
+function fnPrjInsert(){
+	confirm("저장하시겠습니까?")
+    if(validateProjectVO(document.projectVO)){
+		document.projectVO.submit();
+    }
+}
 
+/* ********************************************************
+ * PM 등록 시 회원 검색
+ ******************************************************** */
 function UserSearch(ch){
 	userCheck = ch;
     
@@ -54,8 +66,10 @@ function UserSearch(ch){
 	$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 회원검색값 반환
+ ******************************************************** */
 function returnUser(val){
-	
 	if (val) {
 		if(userCheck == 0){
 			document.getElementById("id").value  = val.address;
@@ -64,25 +78,9 @@ function returnUser(val){
 			document.getElementById("id").value  = val.address;
 			document.getElementById("name").value  = val.userNm;
 		}
-		
 	}
 	fn_egov_modal_remove();
 }
-
-function fnUpdate(){
-	confirm("저장하시겠습니까?")
-    if(validateProjectVO(document.projectVO)){
-		document.projectVO.submit();
-    }
-}
-
-function fnDeletePrj(prjId){
-	if(confirm("<spring:message code="common.delete.msg" />")){
-        document.projectVO.action = "<c:url value='/prj/ProjectSelectDelete.do'/>";
-        document.projectVO.submit();
-    }
-}
-
 //-->
 </script>
 </head>
@@ -113,22 +111,13 @@ function fnDeletePrj(prjId){
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">사이트관리</a></li>
 										<li><a href="">프로젝트관리</a></li>
-										<li>프로젝트상세조회</li>
+										<li>프로젝트등록</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<form:form modelAttribute="projectVO" action="${pageContext.request.contextPath}/prj/ProjectSelectUpdt.do"
-									name="projectVO" method="post">
+								<form:form modelAttribute="projectVO" action="${pageContext.request.contextPath}/prj/ProjectInsert.do" name="projectVO" method="post">
 
-									<!-- 상세정보 프로젝트 삭제시 prameter 전달용 input -->
-									<input name="checkedIdForDel" type="hidden" />
-									<!-- 검색조건 유지 -->
-									<input type="hidden" name="searchWord"
-										value="<c:out value='${searchVO.searchWord}'/>" />
-									<input type="hidden" name="pageIndex"
-										value="<c:out value='${searchVO.pageIndex}'/>" />
-
-									<h2 class="tit_2">프로젝트 상세조회 및 수정</h2>
+									<h2 class="tit_2">프로젝트 등록</h2>
 
 									<div class="board_view2">
 										<table>
@@ -204,12 +193,6 @@ function fnDeletePrj(prjId){
 									<!-- 목록/저장버튼  -->
 									<div class="board_view_bot">
 										<div class="left_col btn3">
-											<a href="#LINK"
-												class="btn btn_skyblue_h46 w_100"
-												onclick="JavaScript:fnDeletePrj(); return false;">
-												<spring:message	code="button.delete" />
-											</a>
-											<!-- 삭제 -->
 											<a href="#LINK" class="btn btn_skyblue_h46 w_100"
 												onclick="javascript:document.projectVO.reset();">초기화</a>
 											<!-- 초기화 -->
@@ -217,9 +200,9 @@ function fnDeletePrj(prjId){
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;"><spring:message
+												onclick="JavaScript:fnPrjInsert(); return false;"><spring:message
 													code="button.save" /></a>
-											<!-- 저장 -->
+											<!-- 등록 -->
 											<a href="<c:url value='/prj/ProjectManage.do'/>"
 												class="btn btn_blue_46 w_100"
 												onclick="fnListPage(); return false;"><spring:message

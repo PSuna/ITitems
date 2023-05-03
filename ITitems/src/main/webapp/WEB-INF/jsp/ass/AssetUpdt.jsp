@@ -29,8 +29,6 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -55,28 +53,38 @@
 	
 	function getMCatList() {
 		let val = document.getElementById('largeCategory').value;
-		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
-			success: function (result) {
-				document.getElementById('middleCategory').replaceChildren();
-				let op = document.createElement('option');
-				op.textContent = '선택하세요';
-				document.getElementById('middleCategory').appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
+		if(val == ""){
+			document.getElementById('middleCategory').replaceChildren();
+			let op = document.createElement('option');
+			op.textContent = '선택하세요';
+			op.value = "";
+			document.getElementById('middleCategory').appendChild(op);
+		}else{
+			$.ajax({
+				url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+				method: 'POST',
+				contentType: 'application/x-www-form-urlencoded',
+				data: {'searchUpper' : val},
+				success: function (result) {
+					document.getElementById('middleCategory').replaceChildren();
+					let op = document.createElement('option');
+					op.textContent = '선택하세요';
 					document.getElementById('middleCategory').appendChild(op);
+					for(res of result){
+						op = document.createElement('option');
+						op.setAttribute('value', res.catId);
+						op.textContent = res.catName;
+						if('${resultVO.middleCategory}' == res.catName){
+							op.setAttribute('selected', 'selected');
+						}
+						document.getElementById('middleCategory').appendChild(op);
+					}
+				},
+				error: function (error) {
+					console.log(error);
 				}
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})
+			})
+		}
 	}
 
 	function fn_egov_validateForm(obj) {
@@ -239,14 +247,11 @@ function returnUser(val){
 }
 
 function insert_asset() {
-	document.AssetRegist.action = "<c:url value='/ass/AssetInsert.do'/>";
-    document.AssetRegist.submit();
-	
-	/* event.preventDefault();
+	event.preventDefault();
 	
 	let formData = new FormData(document.getElementById('frm'));
 	
- 	 $.ajax({
+ 	$.ajax({
 		url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
@@ -270,8 +275,13 @@ function insert_asset() {
 		error: function (error) {
 			console.log(error);
 		}
-	})  */
+	}) 
 }
+
+window.onload = function(){
+	getMCatList();
+	  }
+	  
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -293,7 +303,7 @@ function insert_asset() {
 }
 </style>
 
-<body onload="fn_egov_init_date();">
+<body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
@@ -326,7 +336,7 @@ function insert_asset() {
 								<!--// Location -->
 
 
-								<form:form modelAttribute="AssetRegist" name="AssetRegist" method="post" enctype="multipart/form-data" >
+								<form:form modelAttribute="AssetInfoVO" name="AssetInfoVO" method="post" enctype="multipart/form-data" >
 
 									<input name="pageIndex" type="hidden"
 										value="<c:out value='${searchVO.pageIndex}'/>" /> <input
@@ -398,7 +408,7 @@ function insert_asset() {
 																title="대분류" onchange="getMCatList();">
 																<option value="" label="선택하세요" />
 																<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-																	<option value="${LCat.catId}">
+																	<option value="${LCat.catId}" <c:if test="${LCat.catName == resultVO.largeCategory}">selected="selected"</c:if>>
 																		<c:out value="${LCat.catName}" />
 																	</option>
 																</c:forEach>
@@ -420,7 +430,6 @@ function insert_asset() {
 															<option value='' label="선택하세요" selected="selected" />
 														</select>
 													</label> 
-													<form:errors path="middleCategory" />
 													<br />
 												</td>
 											</tr>
@@ -430,8 +439,8 @@ function insert_asset() {
 													<label for="">품명</label>
 												</td>
 												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value=""  maxlength="60">
-													<br /><form:errors path="assetName" />
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
+													<br />
 												</td>
 											</tr>
 											<tr>
@@ -441,8 +450,8 @@ function insert_asset() {
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value=""  maxlength="20">
-													<br /><form:errors path="assetQty" />
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value="${resultVO.assetQty}"  maxlength="20">
+													<br />
 												</td>
 											</tr>
 											<tr>
@@ -452,8 +461,8 @@ function insert_asset() {
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="">
-													<br /><form:errors path="acquiredDate" />
+													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="${resultVO.acquiredDate}">
+													<br />
 												</td>
 											</tr>
 											<tr>
@@ -463,7 +472,7 @@ function insert_asset() {
 												</td>
 												<td>
 													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="number" value="0" maxlength="60">
+													name="acquiredPrice" type="number" value="${resultVO.acquiredPrice}" maxlength="60">
 													<br />
 												</td>
 											</tr>
@@ -473,7 +482,7 @@ function insert_asset() {
 													<label for="">제조사</label>
 												</td>
 												<td>
-													<input id="maker" class="f_txt w_full" name="maker" type="text" value="" maxlength="60"> 
+													<input id="maker" class="f_txt w_full" name="maker" type="text" value="${resultVO.maker}" maxlength="60"> 
 													<br />
 												</td>
 											</tr>
@@ -483,7 +492,7 @@ function insert_asset() {
 													<label for="">추가물품</label>
 												</td>
 												<td>
-													<input id="addAsset" class="f_txt w_full" name="addAsset" type="text" value="" maxlength="60">
+													<input id="addAsset" class="f_txt w_full" name="addAsset" type="text" value="${resultVO.addAsset}" maxlength="60">
 													<br />
 												</td>
 											</tr>
@@ -493,7 +502,7 @@ function insert_asset() {
 													<label for="note">비고</label>
 												</td>
 												<td>
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10" >${resultVO.note}</textarea>
 												</td>
 											</tr>
 											<!-- 파일첨부 시작 -->
@@ -510,7 +519,7 @@ function insert_asset() {
 													</div> 
 													<c:if test="${empty result.atchFileId}">
 														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-													</c:if><form:errors path="photo" />
+													</c:if>
 												</td>
 											</tr>
 										</table>
@@ -535,142 +544,12 @@ function insert_asset() {
 									
 									<br>
 									
-									<div class="board_view2">
-										<table>
-											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
-											</colgroup>
-											<tr>
-												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
-												</td>
-											</tr>
-											<!-- /파일첨부 끝 -->
-											<tr>
-												<td class="lb">
-													<!-- 부서 --> 
-													<label for="orgnztId">부서</label>
-												</td>
-												<td>
-													<label class="f_select w_30%" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" title="부서">
-															<option value="" label="선택하세요" />
-															<c:forEach var="orgnztId" items="${orgnztId_result}"
-																varStatus="status">
-																<option value="${orgnztId.code}">
-																	<c:out value="${orgnztId.codeNm}" />
-																</option>
-															</c:forEach>
-													</select>
-													</label>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 프로젝트 --> 
-													<label for="">프로젝트</label>
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
-													<button type="button" class="btn"
-														onclick="ProjectSearch();">조회</button>
-													</span> 
-													<span class="f_txt_inner ml15">(프로젝트 검색)</span> 
-													<form:errors path="prjId" /> 
-													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
-														readonly="readonly" />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- CODE명 --> 
-													<label for="">CODE명</label>
-												</td>
-												<td>
-													<input id="code" class="f_txt w_full" name="code"
-														type="text" value="" maxlength="60"> 
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령자 --> 
-													<label for="">수령자</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
-													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> 
-													<span class="f_txt_inner ml15">(회원 검색)</span> 
-													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
-														value="" maxlength="8" readonly="readonly" />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="false" />
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-													</span> 
-													<span class="f_txt_inner ml15">(회원 검색)</span> 
-													<input name="useId" id="useId" type="hidden" title="프로젝트" value=""
-														maxlength="8" readonly="readonly" />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date" value="" maxlength="60">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 반출사유 --> 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td>
-													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10">
-													</textarea>
-												</td>
-											</tr>
-										</table>
-									</div>
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="insert_asset(); return false;"><spring:message
-													code="button.create" /></a>
+													code="button.update" /></a>
 											<!-- 등록 -->
 										</div>
 									</div>
