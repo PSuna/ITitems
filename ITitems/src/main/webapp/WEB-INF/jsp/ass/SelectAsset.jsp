@@ -19,6 +19,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,10 +50,15 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <title>자산관리 > 자산등록</title>
-
+<script type="text/javascript">
+function AssetUpdt() {
+	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
+    document.frm.submit();
+}
+</script>
 </head>
 
-<body onload="fn_egov_init_date();">
+<body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
@@ -86,7 +92,7 @@
 
 
 								<form id="frm" name="frm">
-
+									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">자산정보</h2>
@@ -120,7 +126,7 @@
 												<td class="lb">
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
-												<td>${resultVO.assetQty}</td>
+												<td> <fmt:formatNumber value="${resultVO.assetQty}" pattern="#,###"/></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -132,7 +138,7 @@
 												<td class="lb">
 													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
-												<td>${resultVO.acquiredPrice}</td>
+												<td><fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -157,7 +163,7 @@
 												<td class="lb"><label for="egovComFileUploader">사진</label>
 												</td>
 												<td>
-													<img alt="" src="C:${resultPhoto.fileStreCours}${resultPhoto.streFileNm}">
+													
 												</td>
 											</tr>
 										</table>
@@ -222,11 +228,21 @@
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_col btn1">
+											<!-- 수정 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="AssetUpdt();return false;"> <spring:message
+													code="button.update" />
+											</a>
+											<!-- 반입 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="return false;"> <spring:message
-													code="button.create" />
+													code="button.carryin" />
 											</a>
-											<!-- 등록 -->
+											<!-- 반출 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="return false;"> <spring:message
+													code="button.carryout" />
+											</a>
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->

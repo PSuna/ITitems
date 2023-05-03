@@ -14,7 +14,7 @@
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
-		<result property="histStatus" column="HIST_STATUS" />
+		<result property="usageStatus" column="USAGE_STAUTS" />
 	</resultMap>
 
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -34,33 +34,35 @@
 	</resultMap>
 
 	<sql id="search">
-		<if test="searchOrgnzt != null and searchOrgnzt != ''">
-			AND a.ORGNZT_ID = #{searchOrgnzt}
-		</if>
-		<if test="searchPrj != null and searchPrj != ''">
-			AND a.PRJ_ID = #{searchPrj}
-		</if>
-		<if test="searchLCat != null and searchLCat != ''">
-			AND b.LARGE_CATEGORY = #{searchLCat}
-		</if>
-		<if test="searchdMCat != null and searchdMCat != ''">
-			AND b.MIDDLE_CATEGORY = #{searchdMCat}
-		</if>
-		<if test="searchStatus != null and searchStatus != ''">
-			AND a.HIST_STATUS = #{searchStatus}
-		</if>
-		<if test="startDate != null and startDate != ''">
-			AND b.REG_DATE >= STR_TO_DATE(#{startDate},
-			'%Y%m%d%H%i%s')
-		</if>
-		<if test="endDate != null and endDate != ''">
-			<![CDATA[
-			AND b.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
-			]]>
-		</if>
-		<if test="searchWord != null and searchWord != ''">
-			AND b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-		</if>
+		<where>
+			<if test="searchOrgnzt != null and searchOrgnzt != ''">
+				AND A.ORGNZT_ID = #{searchOrgnzt}
+			</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND A.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND B.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="searchStatus != null and searchStatus != ''">
+				AND A.HIST_STATUS = #{searchStatus}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND B.REG_DATE >= STR_TO_DATE(#{startDate},
+				'%Y%m%d%H%i%s')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND B.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
+				]]>
+			</if>
+			<if test="searchWord != null and searchWord != ''">
+				AND B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			</if>
+		</where>
 	</sql>
 
 	<select id="SelectAssetInfoVOList"
@@ -76,7 +78,7 @@
 	    	   ACQUIRED_DATE,
 	    	   ACQUIRED_PRICE,
 	    	   MAKER,
-	    	   HIST_STATUS
+	    	   USAGE_STAUTS
 	      FROM (
 		        SELECT 
 		            ROW_NUMBER() OVER(ORDER BY A.HIST_DATE DESC)AS RUM, 
@@ -88,10 +90,12 @@
 		            DATE_FORMAT(B.ACQUIRED_DATE,'%Y-%m-%d')AS ACQUIRED_DATE,
 		            B.ACQUIRED_PRICE,
 		            B.MAKER,
-		            A.HIST_STATUS
-		          FROM ASSETSHIST A,ASSETSINFO B
-		         WHERE A.ASSET_ID = B.ASSET_ID
-		          AND B.USAGE_STAUTS = 'U1'
+		            C.CODE_NM AS USAGE_STAUTS
+		          FROM ASSETSHIST A
+		          LEFT OUTER JOIN ASSETSINFO B
+		            ON A.ASSET_ID = B.ASSET_ID
+		          LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+		            ON B.USAGE_STAUTS = C.CODE
 		        <include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -100,10 +104,11 @@
 	<select id="CountAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
-		SELECT COUNT(a.HIST_ID)
-		FROM ASSETSHIST a, ASSETSINFO b
-		WHERE a.ASSET_ID = b.ASSET_ID
-		and b.USAGE_STAUTS = 'U1'
+		SELECT 
+			COUNT(a.HIST_ID)
+		  FROM ASSETSHIST a
+ 		  LEFT OUTER JOIN ASSETSINFO b
+		    on a.ASSET_ID = b.ASSET_ID
 		<include refid="search" />
 	</select>
 
