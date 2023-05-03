@@ -2,26 +2,12 @@ package egovframework.let.uss.umt.web;
 
 import java.util.Map;
 
-import egovframework.com.cmm.ComDefaultCodeVO;
-import egovframework.com.cmm.EgovMessageSource;
-import egovframework.com.cmm.service.EgovCmmUseService;
-import egovframework.let.sec.ram.service.AuthorManageVO;
-import egovframework.let.sec.ram.service.EgovAuthorManageService;
-import egovframework.let.sec.rgm.service.AuthorGroupVO;
-import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
-import egovframework.let.uss.umt.service.UserManageService;
-import egovframework.let.uss.umt.service.UserDefaultVO;
-import egovframework.let.uss.umt.service.UserManageVO;
-import egovframework.let.utl.sim.service.EgovFileScrty;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,7 +15,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springmodules.validation.commons.DefaultBeanValidator;
+
+import egovframework.com.cmm.ComDefaultCodeVO;
+import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.let.sec.ram.service.AuthorManageVO;
+import egovframework.let.sec.ram.service.EgovAuthorManageService;
+import egovframework.let.sec.rgm.service.AuthorGroupVO;
+import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
+import egovframework.let.uss.umt.service.UserDefaultVO;
+import egovframework.let.uss.umt.service.UserManageService;
+import egovframework.let.uss.umt.service.UserManageVO;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 /**
  * 사용자관련 요청을  비지니스 클래스로 전달하고 처리된결과를  해당   웹 화면으로 전달하는  Controller를 정의한다
@@ -67,10 +64,6 @@ public class UserManageController {
 	@Resource(name = "propertiesService")
 	protected EgovPropertyService propertiesService;
 
-	/** DefaultBeanValidator beanValidator */
-	@Autowired
-	private DefaultBeanValidator beanValidator;
-	
 	@Resource(name = "egovAuthorManageService")
     private EgovAuthorManageService egovAuthorManageService;
 	
@@ -224,9 +217,10 @@ public class UserManageController {
 	@RequestMapping("/uss/umt/user/EgovUserInsert.do")
 	public String insertUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, 
 							@ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
-							BindingResult bindingResult, Model model) throws Exception {
+							Model model) throws Exception {
 		
 		userManageVO.setAuthorCode("ROLE_USER_MEMBER");
+		userManageVO.setPassword("iteyes00");
 		
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -235,28 +229,9 @@ public class UserManageController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
-    	
-		beanValidator.validate(userManageVO, bindingResult);
-		if (bindingResult.hasErrors()) {
-			ComDefaultCodeVO vo = new ComDefaultCodeVO();
-			
-			//조직정보를 조회 - ORGNZT_ID정보
-			vo.setTableNm("LETTNORGNZTINFO");
-			model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-
-			//그룹정보를 조회 - GROUP_ID정보
-			vo.setTableNm("LETTNORGNZTINFO");
-			model.addAttribute("groupId_result", cmmUseService.selectGroupIdDetail(vo));
-			
-			//권한정보를 조회
-			authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
-	        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
-			return "cmm/uss/umt/EgovUserInsert";
-		} else {
-			userManageService.insertUser(userManageVO);
-			//Exception 없이 진행시 등록성공메시지
-			model.addAttribute("resultMsg", "success.common.insert");
-		}
+		userManageService.insertUser(userManageVO);
+		model.addAttribute("resultMsg", "success.common.insert");
+		
 		return "forward:/uss/umt/user/EgovUserManage.do";
 	}
 

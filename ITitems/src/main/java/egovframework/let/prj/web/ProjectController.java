@@ -150,7 +150,7 @@ public class ProjectController {
 	}
 	
 	/**
-	 * 프로젝트 등록화면 이동
+	 * 프로젝트 등록
 	 * @return String
 	 * @exception Exception
 	 */

@@ -126,8 +126,10 @@
            }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }
@@ -199,8 +201,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }]]>
@@ -244,8 +248,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }]]>
@@ -290,8 +296,10 @@
                 }
                 
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }
@@ -366,8 +374,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }]]>
@@ -437,9 +447,11 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
-                }
+					if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
+				}
                 return bValid;
             }]]>
          </javascript>
@@ -508,8 +520,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }
@@ -614,8 +628,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }]]>
@@ -768,8 +784,10 @@
                   }
                }
                if (fields.length > 0) {
-                  focusField.focus();
-                  alert(fields.join('\n'));
+                  if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                }
                return bValid;
             }
@@ -856,8 +874,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }]]>
@@ -903,8 +923,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return isValid;
             }]]>
@@ -944,8 +966,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }
@@ -1022,8 +1046,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }
@@ -1120,8 +1146,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }
@@ -1192,8 +1220,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
           }
@@ -1248,8 +1278,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
           }
@@ -1299,8 +1331,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
           }
@@ -1350,8 +1384,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
           }
@@ -1418,8 +1454,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                    focusField.focus();
-                    alert(fields.join('\n'));
+                    if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
           }
@@ -1512,8 +1550,10 @@
                     }
                 }
                 if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
+                   if (focusField != null && focusField.type == 'text') {
+						focusField.focus();
+					}
+					alert(fields.join('\n'));
                 }
                 return bValid;
             }

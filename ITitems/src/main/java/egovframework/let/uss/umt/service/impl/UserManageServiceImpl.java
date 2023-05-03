@@ -2,21 +2,18 @@ package egovframework.let.uss.umt.service.impl;
 
 import java.util.List;
 
-import egovframework.let.sec.ram.service.AuthorManageVO;
-import egovframework.let.sec.rgm.service.AuthorGroup;
-import egovframework.let.sec.rgm.service.impl.AuthorGroupDAO;
-import egovframework.let.uss.umt.service.UserManageService;
-import egovframework.let.uss.umt.service.UserDefaultVO;
-import egovframework.let.uss.umt.service.UserManageVO;
-import egovframework.let.utl.sim.service.EgovFileScrty;
+import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import egovframework.let.sec.rgm.service.AuthorGroup;
+import egovframework.let.sec.rgm.service.impl.AuthorGroupDAO;
+import egovframework.let.uss.umt.service.UserDefaultVO;
+import egovframework.let.uss.umt.service.UserManageService;
+import egovframework.let.uss.umt.service.UserManageVO;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 /**
  * 사용자관리에 관한 비지니스 클래스를 정의한다.

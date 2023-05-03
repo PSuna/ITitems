@@ -38,8 +38,9 @@
 <validator:javascript formName="userManageVO" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+var userCheck = 0;
 function fnIdCheck(){
-/* //     var retval;
+//     var retval;
 //     var url = "<c:url value='/uss/umt/cmm/egoviddplctcnfirmview.do'/>";
 //     var varparam = new object();
 //     varparam.checkid = document.usermanagevo.emplyrid.value;
@@ -48,8 +49,8 @@ function fnIdCheck(){
 //     if(retval) {
 //         document.usermanagevo.emplyrid.value = retval;
 //         document.usermanagevo.id_view.value = retval;
-//     } */
-    
+//     } 
+     
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>?" + '" width="100%" height="100%"></iframe>')
 	.dialog({
@@ -74,13 +75,8 @@ function fnListPage(){
     document.userManageVO.submit();
 }
 function fnInsert(){
-    if(validateUserManageVO(document.userManageVO)){
-        if(document.userManageVO.password.value != document.userManageVO.password2.value){
-            alert("<spring:message code="fail.user.passwordUpdate2" />");
-            return;
-        }
-        document.userManageVO.submit();
-        /* document.authorManageVO.submit(); */
+	if(validateUserManageVO(document.userManageVO)){
+		document.userManageVO.submit();
     }
 }
 function fn_egov_inqire_cert() {
@@ -180,9 +176,8 @@ function fn_egov_modal_remove() {
                                 <!--// Location -->
 
 								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserInsert.do" name="userManageVO" method="post" >
-
+                                
                                 <h1 class="tit_1">내부시스템관리</h1>
-
                                 <h2 class="tit_2">사용자등록관리</h2>
 
                                 <div class="board_view2">
@@ -200,7 +195,7 @@ function fn_egov_modal_remove() {
                                             </td>
                                             <td>
                                                 <span class="f_search2 w_150">
-                                                    <input type="text" maxlength="20" disabled="disabled" id="id_view" name="id_view" readonly="readonly">
+                                                    <input type="text" maxlength="40" disabled="disabled" id="id_view" name="id_view" readonly="readonly">
                                                     <form:input path="emplyrId" id="emplyrId" title="사용자아이디" maxlength="40" type="hidden" />
                                                     <button type="button" class="btn" onclick="fnIdCheck();">조회</button>
                                                 </span>
@@ -212,17 +207,17 @@ function fn_egov_modal_remove() {
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>
-                                                <form:input path="moblphonNo" id="moblphonNo" title="핸드폰번호" class="f_txt w_full" maxlength="15" />
+                                                <form:input path="moblphonNo" id="moblphonNo" title="ex)01012345678" class="f_txt w_full" maxlength="15"/>
                                                 <form:errors path="moblphonNo" />
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <%-- <tr>
                                             <td class="lb">
                                                 <label for="password">비밀번호</label>
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>
-                                                <form:password path="password" id="password" title="비밀번호" class="f_txt w_full" maxlength="20" />
+                                                <form:password path="password" id="password" title="연속된 문자나 순차적인 문자 4개이상 사용금지" class="f_txt w_full" maxlength="20" placeholder="8~20자리"/>
                                                 <form:errors path="password" />
                                             </td>
                                             <td class="lb">
@@ -232,14 +227,14 @@ function fn_egov_modal_remove() {
                                             <td>
                                                 <input name="password2" id="password2" title="비밀번호확인" type="password" class="f_txt w_full" maxlength="20" />
                                             </td>
-                                        </tr>
+                                        </tr> --%>
                                         <tr>
                                             <td class="lb">
                                                 <label for="emplyrNm">이름</label>
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>
-                                                <input name="emplyrNm" id="emplyrNm" title="사용자이름" type="text" class="f_txt w_full" value="" maxlength="60" />
+                                                <input name="emplyrNm" id="emplyrNm" title="사용자이름" type="text" class="f_txt w_full" value="" maxlength="50" />
                                                 <form:errors path="emplyrNm" />
                                             </td>
                                             <td class="lb">
@@ -257,12 +252,12 @@ function fn_egov_modal_remove() {
                                         </tr>
                                         <tr>
                                             <td class="lb">
-                                                <label for="grade">직위</label>
+                                                <label for="grade">직급</label>
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>
                                                 <label class="f_select w_full" for="grade">
-                                                    <form:select path="grade" id="grade" name="grade" title="직위">
+                                                    <form:select path="grade" id="grade" name="grade" title="직급">
 	                                                    <form:option value="" label="선택하세요"/>
 	                                                    <form:options items="${grd_result}" itemValue="code" itemLabel="codeNm"/>
                                                     </form:select>
@@ -274,12 +269,10 @@ function fn_egov_modal_remove() {
                                             </td>
                                             <td>
                                             	<label class="f_select w_full" for="authorCode">
-                                                	<select name="authorManageCombo" title="권한">
-                                                		<option value="" label="선택하세요"/>
-                                                    	<c:forEach var="authorManage" items="${authorManageList}" varStatus="status">
-                                                        	<option value="<c:out value="${authorManage.authorCode}"/>">${authorManage.authorNm}</option>
-                                                        </c:forEach>
-                                                    </select>
+                                                	<form:select path="authorCode" id="authorCode" name="authorCode" title="권한">
+                                                		<form:option value="" label="선택하세요"/>
+                                                        <form:options items="${authorManageList }" itemValue="authorCode" itemLabel="authorNm"/>
+                                                    </form:select>
                                                 </label>
                                                 <form:errors path="authorCode" /> 
                                             </td>
@@ -294,7 +287,7 @@ function fn_egov_modal_remove() {
                                     </div>
 
                                     <div class="right_col btn1">
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnInsert(); return fallse;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnInsert(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
                                         <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
@@ -303,7 +296,6 @@ function fn_egov_modal_remove() {
                                 <!-- 검색조건 유지 -->
 						        <input type="hidden" name="searchCondition" value="<c:out value='${userSearchVO.searchCondition}'/>"/>
 						        <input type="hidden" name="searchKeyword" value="<c:out value='${userSearchVO.searchKeyword}'/>"/>
-						        <%-- <input type="hidden" name="sbscrbSttus" value="<c:out value='${userSearchVO.sbscrbSttus}'/>"/> --%>
 						        <input type="hidden" name="pageIndex" value="<c:out value='${userSearchVO.pageIndex}'/><c:if test="${userSearchVO.pageIndex eq null}">1</c:if>"/>
 						        
 			                	</form:form>
