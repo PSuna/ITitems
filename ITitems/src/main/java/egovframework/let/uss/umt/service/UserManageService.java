@@ -20,7 +20,7 @@ import egovframework.let.sec.ram.service.AuthorManageVO;
  *
  * </pre>
  */
-public interface EgovUserManageService  {
+public interface UserManageService  {
 
 	/**
 	 * 입력한 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인

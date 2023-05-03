@@ -5,7 +5,7 @@ import java.util.List;
 import egovframework.let.sec.ram.service.AuthorManageVO;
 import egovframework.let.sec.rgm.service.AuthorGroup;
 import egovframework.let.sec.rgm.service.impl.AuthorGroupDAO;
-import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageVO;
 import egovframework.let.utl.sim.service.EgovFileScrty;
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
  * </pre>
  */
 @Service("userManageService")
-public class EgovUserManageServiceImpl extends EgovAbstractServiceImpl implements EgovUserManageService {
+public class UserManageServiceImpl extends EgovAbstractServiceImpl implements UserManageService {
 
 	@Resource(name="authorGroup")
     private AuthorGroup authorGroup;

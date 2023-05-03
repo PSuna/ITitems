@@ -65,7 +65,7 @@ function fn_egov_modal_remove() {
 		<% } else { %>
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span onclick="alert('개인정보 확인 등의 링크 제공'); return false;" style="cursor: pointer;">${loginName} 님</span> 안녕하세요</span>
+	            <span class="t"><span onclick="" >${loginName} 님</span> 안녕하세요</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
