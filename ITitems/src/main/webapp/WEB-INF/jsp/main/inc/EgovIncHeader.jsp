@@ -18,7 +18,8 @@
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
-
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script type="text/javaScript" language="javascript">
 
 function fn_egov_modal_create(){
