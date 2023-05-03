@@ -60,28 +60,16 @@
                     <div class="col">
                         <div class="left_col">
                             <div class="box">
-                                <div class="head">
-                                    <h2>오늘의 <span>할일</span></h2>
-                                    <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC'/>" class="more">더보기</a>
-                                </div>
-                                <ul class="list">
-                                	<c:forEach var="result" items="${bbsList}" varStatus="status">
-                                	<c:if test="${!(result.isExpired=='Y' || result.useAt == 'N')}">
-                                    <li>
-                                        <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC'/>">
-                                        	<c:out value="${result.nttSj}" />
-                                        </a>
-                                        <span><c:out value="${result.frstRegisterPnttm}"/></span>
-                                    </li>
-                                    </c:if>
-                                    </c:forEach>
-                                </ul>
+                                <a href="<c:url value='/ass/AssetRegist.do'/>" style="width:100%; height:100%">자산등록</a>
+                            </div>
+                            <div class="box">
+                            	<a href="<c:url value='/req/CarryRegist.do'/>">반출신청</a>
                             </div>
                         </div>
                         <div class="right_col">
                             <div class="box">
                                 <div class="head">
-                                    <h2>최신 업무공지 <span>정보</span></h2>
+                                    <h2>최신 <span>공지사항</span></h2>
                                     <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
                                 </div>
                                 <div class="list">

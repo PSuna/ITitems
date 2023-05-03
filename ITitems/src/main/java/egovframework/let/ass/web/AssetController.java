@@ -36,7 +36,7 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
-import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
@@ -81,7 +81,7 @@ public class AssetController {
 	private EgovFileMngUtil fileUtil;
 	
 	@Resource(name = "userManageService")
-	private EgovUserManageService userManageService;
+	private UserManageService userManageService;
 
 	/**
 	 * 자산조회 페이지로 이동

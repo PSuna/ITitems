@@ -22,7 +22,7 @@ import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.req.service.RequestVO;
-import egovframework.let.uss.umt.service.EgovUserManageService;
+import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
@@ -56,7 +56,7 @@ public class RequestController {
 	private EgovCmmUseService cmmUseService;
 	
 	@Resource(name = "userManageService")
-	private EgovUserManageService userManageService;
+	private UserManageService userManageService;
 
 
 	/**
