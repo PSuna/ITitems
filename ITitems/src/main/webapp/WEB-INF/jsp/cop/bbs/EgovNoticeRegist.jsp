@@ -49,7 +49,7 @@
     function fn_egov_regist_notice() {
         //document.board.onsubmit();
         
-        if (!validateBoard(document.board)){
+        if (!validate(document.board)){
             return;
         }
         <c:if test="${bdMstr.bbsAttrbCode == 'BBSA02'}">

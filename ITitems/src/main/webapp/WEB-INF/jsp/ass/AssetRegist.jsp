@@ -17,8 +17,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="validator"
-	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,233 +44,171 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="board" staticJavascript="false"
+<validator:javascript formName="assetRegist" staticJavascript="false"
 	xhtml="true" cdata="false" />
-<c:if test="${anonymous == 'true'}">
-	<c:set var="prefix" value="/anonymous" />
-</c:if>
-<script type="text/javascript">
-	let userCheck = 0;
-	
-	function getMCatList() {
-		let val = document.getElementById('largeCategory').value;
+<script type="text/javaScript" language="javascript" defer="defer">
+<!--
+var userCheck = 0;
+/* ********************************************************
+ * 프로젝트 등록 처리
+ ******************************************************** */
+function insert_asset(){
+	confirm("등록하시겠습니까?")
+	if(validateAssetRegist(document.assetRegist)){
+		let formData = new FormData(document.getElementById('assetRegist'));
 		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+	 	 $.ajax({
+			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formData,
 			success: function (result) {
-				document.getElementById('middleCategory').replaceChildren();
-				let op = document.createElement('option');
-				op.textContent = '선택하세요';
-				document.getElementById('middleCategory').appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					document.getElementById('middleCategory').appendChild(op);
-				}
+				document.getElementById("largeCategory").value  = "";
+				document.getElementById("middleCategory").value  = "";
+				document.getElementById("assetQty").value  = 0;
+				document.getElementById("assetName").value  = "";
+				document.getElementById("acquiredDate").value  = "";
+				document.getElementById("acquiredPrice").value  = 0;
+				document.getElementById("maker").value  = "";
+				document.getElementById("addAsset").value  = "";
+				document.getElementById("note").value  = "";
+				document.getElementById("photo").value  = "";
 			},
 			error: function (error) {
 				console.log(error);
 			}
-		})
-	}
+		}) 
+    }
+}
 
-	function fn_egov_validateForm(obj) {
-		return true;
-	}
-
-	function fn_egov_regist_notice() {
-		//document.board.onsubmit();
-
-		if (!validateBoard(document.board)) {
-			return;
-		}
-		<c:if test="${bdMstr.bbsAttrbCode == 'BBSA02'}">
-		if (document.getElementById("egovComFileUploader").value == "") {
-			alert("갤러리 게시판의 경우 이미지 파일 첨부가 필수사항입니다.");
-			return false;
-		}
-		</c:if>
-		if (confirm('<spring:message code="common.regist.msg" />')) {
-			//document.board.onsubmit();
-			document.board.action = "<c:url value='/cop/bbs${prefix}/insertBoardArticle.do'/>";
-			document.board.submit();
-		}
-	}
-
-	function fn_egov_select_noticeList() {
-		document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
-		document.board.submit();
-	}
-
-	/* ********************************************************
-	 * 달력
-	 ******************************************************** */
-	function fn_egov_init_date() {
-
-		$("#searchBgnDe").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					showOn : 'button',
-					buttonImage : '<c:url value='/images/ico_calendar.png'/>',
-					buttonImageOnly : true
-
-					,
-					showMonthAfterYear : true,
-					showOtherMonths : true,
-					selectOtherMonths : true,
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ]
-
-					,
-					changeMonth : true // 월선택 select box 표시 (기본은 false)
-					,
-					changeYear : true // 년선택 selectbox 표시 (기본은 false)
-					,
-					showButtonPanel : true
-				// 하단 today, done  버튼기능 추가 표시 (기본은 false)
-				});
-
-		$("#searchEndDe").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					showOn : 'button',
-					buttonImage : '<c:url value='/images/ico_calendar.png'/>',
-					buttonImageOnly : true
-
-					,
-					showMonthAfterYear : true,
-					showOtherMonths : true,
-					selectOtherMonths : true,
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ]
-
-					,
-					changeMonth : true // 월선택 select box 표시 (기본은 false)
-					,
-					changeYear : true // 년선택 selectbox 표시 (기본은 false)
-					,
-					showButtonPanel : true
-				// 하단 today, done  버튼기능 추가 표시 (기본은 false)
-				});
-	}
+/* ********************************************************
+ * 중분류 조회
+ ******************************************************** */
+function getMCatList() {
+	let val = document.getElementById('largeCategory').value;
 	
-	function ProjectSearch(){
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}
-	
-	function AssetSearch(){
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}
-	
-	function UserSearch(ch){
-		userCheck = ch;
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}
-	
-	function returnProject(val){
-		
-		if (val) {
-			document.getElementById("prjId").value  = val.prjId;
-			document.getElementById("prjNm").value  = val.prjNm;
+	$.ajax({
+		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+		method: 'POST',
+		contentType: 'application/x-www-form-urlencoded',
+		data: {'searchUpper' : val},
+		success: function (result) {
+			document.getElementById('middleCategory').replaceChildren();
+			let op = document.createElement('option');
+			op.textContent = '선택하세요';
+			document.getElementById('middleCategory').appendChild(op);
+			for(res of result){
+				op = document.createElement('option');
+				op.setAttribute('value', res.catId);
+				op.textContent = res.catName;
+				document.getElementById('middleCategory').appendChild(op);
+			}
+		},
+		error: function (error) {
+			console.log(error);
 		}
-		
-		fn_egov_modal_remove();
-	}
+	})
+}
 
-function returnAsset(val){
-		
-		if (val) {
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
-		}
-		
-		fn_egov_modal_remove();
-	}
-	
-function returnUser(val){
+/* ********************************************************
+ * 프로젝트 검색
+ ******************************************************** */
+function ProjectSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 자산 검색
+ ******************************************************** */
+function AssetSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 회원 검색
+ ******************************************************** */
+function UserSearch(ch){
+	userCheck = ch;
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 검색 프로젝트 입력
+ ******************************************************** */
+function returnProject(val){
 	
 	if (val) {
-		if(userCheck == 0){
-			document.getElementById("rcptId").value  = val.userId;
-			document.getElementById("rcptNm").value  = val.userNm;
-		}else if(userCheck == 1){
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
-		}
-		
+		document.getElementById("prjId").value  = val.prjId;
+		document.getElementById("prjNm").value  = val.prjNm;
 	}
 	
 	fn_egov_modal_remove();
 }
 
-function insert_asset() {
-	document.AssetRegist.action = "<c:url value='/ass/AssetInsert.do'/>";
-    document.AssetRegist.submit();
+/* ********************************************************
+ * 검색 자산 입력
+ ******************************************************** */
+function returnAsset(val){
 	
-	/* event.preventDefault();
+	if (val) {
+		document.getElementById("useId").value  = val.userId;
+		document.getElementById("useNm").value  = val.userNm;
+	}
 	
-	let formData = new FormData(document.getElementById('frm'));
-	
- 	 $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
-		method: 'POST',
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		data: 
-			
-			JSON.stformData,
-		success: function (result) {
-			document.getElementById("largeCategory").value  = "";
-			document.getElementById("middleCategory").value  = "";
-			document.getElementById("assetQty").value  = 0;
-			document.getElementById("assetName").value  = "";
-			document.getElementById("acquiredDate").value  = "";
-			document.getElementById("acquiredPrice").value  = 0;
-			document.getElementById("maker").value  = "";
-			document.getElementById("addAsset").value  = "";
-			document.getElementById("note").value  = "";
-			document.getElementById("photo").value  = "";
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	})  */
+	fn_egov_modal_remove();
 }
+
+/* ********************************************************
+ * 검색 회원 입력
+ ******************************************************** */
+function returnUser(val){
+
+if (val) {
+	if(userCheck == 0){
+		document.getElementById("rcptId").value  = val.userId;
+		document.getElementById("rcptNm").value  = val.userNm;
+	}else if(userCheck == 1){
+		document.getElementById("useId").value  = val.userId;
+		document.getElementById("useNm").value  = val.userNm;
+	}
+	
+}
+
+fn_egov_modal_remove();
+}
+//-->
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -293,7 +230,7 @@ function insert_asset() {
 }
 </style>
 
-<body onload="fn_egov_init_date();">
+<body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
@@ -326,7 +263,7 @@ function insert_asset() {
 								<!--// Location -->
 
 
-								<form:form modelAttribute="AssetRegist" name="AssetRegist" method="post" enctype="multipart/form-data" >
+								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" >
 
 									<input name="pageIndex" type="hidden"
 										value="<c:out value='${searchVO.pageIndex}'/>" /> <input
@@ -350,18 +287,6 @@ function insert_asset() {
 										value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" /> <input
 										type="hidden" name="authFlag"
 										value="<c:out value='${bdMstr.authFlag}'/>" />
-
-									<c:if test="${anonymous != 'true'}">
-										<input type="hidden" name="ntcrNm" value="dummy">
-										<!-- validator 처리를 위해 지정 -->
-										<input type="hidden" name="password" value="dummy">
-										<!-- validator 처리를 위해 지정 -->
-									</c:if>
-
-									<c:if test="${bdMstr.bbsAttrbCode != 'BBSA01'}">
-										<input name="ntceBgnde" type="hidden" value="10000101">
-										<input name="ntceEndde" type="hidden" value="99991231">
-									</c:if>
 
 									<h1 class="tit_1">자산관리</h1>
 
@@ -403,7 +328,6 @@ function insert_asset() {
 																	</option>
 																</c:forEach>
 															</select>
-															<form:errors path="largeCategory" />
 													</label> 
 													<br />
 												</td>
@@ -420,7 +344,6 @@ function insert_asset() {
 															<option value='' label="선택하세요" selected="selected" />
 														</select>
 													</label> 
-													<form:errors path="middleCategory" />
 													<br />
 												</td>
 											</tr>
@@ -430,30 +353,30 @@ function insert_asset() {
 													<label for="">품명</label>
 												</td>
 												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value=""  maxlength="60">
-													<br /><form:errors path="assetName" />
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<br />
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 수량 -->
-													<label for="">수량</label> 
+													<label for="assetQty">수량</label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value=""  maxlength="20">
-													<br /><form:errors path="assetQty" />
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" maxlength="20" >
+													<br />
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 취득일자 --> 
-													<label for="">취득일자</label> 
+													<label for="acquiredDate">취득일자</label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="">
-													<br /><form:errors path="acquiredDate" />
+													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" >
+													<br />
 												</td>
 											</tr>
 											<tr>
@@ -510,7 +433,7 @@ function insert_asset() {
 													</div> 
 													<c:if test="${empty result.atchFileId}">
 														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-													</c:if><form:errors path="photo" />
+													</c:if>
 												</td>
 											</tr>
 										</table>
@@ -675,7 +598,7 @@ function insert_asset() {
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
-								</form:form>
+								</form>
 							</div>
 						</div>
 					</div>
