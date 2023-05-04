@@ -169,7 +169,9 @@ function AssetUpdt() {
 												<td class="lb"><label for="egovComFileUploader">사진</label>
 												</td>
 												<td>
-													
+													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+				                                        <c:param name="param_atchFileId" value="${resultVO.photoId}" />
+				                                    </c:import>
 												</td>
 											</tr>
 										</table>

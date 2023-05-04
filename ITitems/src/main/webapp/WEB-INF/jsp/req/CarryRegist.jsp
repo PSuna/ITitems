@@ -75,7 +75,8 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					console.log("성공")
+					document.SelectCarry.reqId.value = reqId;
+					document.SelectCarry.submit();
 				},
 				error: function (error) {
 					console.log(error);
@@ -150,7 +151,7 @@ function getMCatList(Lcat) {
 		select.setAttribute('id', 'middleCategory');
 		select.setAttribute('name', 'middleCategory');
 		let op = document.createElement('option');
-		op.textContent = '선택하세요';
+		op.textContent = '중분류';
 		select.appendChild(op);
 		label.appendChild(select);
 		mCat.appendChild(label);
@@ -168,7 +169,7 @@ function getMCatList(Lcat) {
 				select.setAttribute('id', 'middleCategory');
 				select.setAttribute('name', 'middleCategory');
 				let op = document.createElement('option');
-				op.textContent = '선택하세요';
+				op.textContent = '중분류';
 				select.appendChild(op);
 				for(res of result){
 					op = document.createElement('option');
@@ -433,7 +434,7 @@ fn_egov_modal_remove();
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label><span
+												<td class="lb"><label for="">분류</label><span
 													class="req">필수</span></td>
 												<td class="lb"><label for="">수량</label><span
 													class="req">필수</span></td>
@@ -446,7 +447,7 @@ fn_egov_modal_remove();
 												<td><label class="f_select" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
 														title="대분류" onchange="getMCatList(this);">
-															<option value="" label="선택하세요" />
+															<option value="" label="대분류" />
 															<c:forEach var="LCat" items="${LCat_result}"
 																varStatus="status">
 																<option value="${LCat.catId}">
@@ -460,7 +461,7 @@ fn_egov_modal_remove();
 													<div id="mCat">
 														<label class="f_select" for="middleCategory"> <select
 															id="middleCategory" name="middleCategory" title="중분류">
-																<option value='' label="선택하세요" selected="selected" />
+																<option value='' label="중분류" selected="selected" />
 														</select>
 														</label>
 													</div></td>

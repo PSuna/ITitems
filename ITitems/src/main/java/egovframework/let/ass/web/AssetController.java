@@ -286,7 +286,6 @@ public class AssetController {
 	 * 자산수정
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
-	@ResponseBody
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO) throws Exception {
 
 		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
