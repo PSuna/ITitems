@@ -69,12 +69,12 @@ function fncManageChecked() {
     var checkField = document.listForm.delYn;
     var checkId = document.listForm.checkId;
     var selectAuthor = document.listForm.authorManageCombo;
-    var booleanRegYn = document.listForm.regYn;
+    /* var booleanRegYn = document.listForm.regYn; */
     /* var listMberTyCode = document.listForm.mberTyCode; */
         
     var returnId = "";
     var returnAuthor = "";
-    var returnRegYn = "";
+    /* var returnRegYn = ""; */
     /* var returnmberTyCode = ""; */
 
     var checkedCount = 0;
@@ -88,13 +88,13 @@ function fncManageChecked() {
                     if(returnId == "") {
                         returnId = checkField[i].value;
                         returnAuthor = selectAuthor[i].value;
-                        returnRegYn = booleanRegYn[i].value;
+                        /* returnRegYn = booleanRegYn[i].value; */
                         /* returnmberTyCode = listMberTyCode[i].value; */
                     }
                     else {
                         returnId = returnId + ";" + checkField[i].value;
                         returnAuthor = returnAuthor + ";" + selectAuthor[i].value;
-                        returnRegYn = returnRegYn + ";" + booleanRegYn[i].value;
+                        /* returnRegYn = returnRegYn + ";" + booleanRegYn[i].value; */
                         /* returnmberTyCode = returnmberTyCode + ";" + listMberTyCode[i].value; */
                         
                     }
@@ -127,7 +127,7 @@ function fncManageChecked() {
     
     document.listForm.userIds.value = returnId;
     document.listForm.authorCodes.value = returnAuthor;
-    document.listForm.regYns.value = returnRegYn;
+    /* document.listForm.regYns.value = returnRegYn; */
 
     return resultCheck;
 }
