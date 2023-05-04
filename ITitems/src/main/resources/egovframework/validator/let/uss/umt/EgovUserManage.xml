@@ -26,10 +26,6 @@
                 <var-value>50</var-value>
                 </var>
             </field>
-            
-            <!-- <field property="password" depends="required, password1, password3, password4">
-                <arg0 key="비밀번호" resource="false"/>
-            </field> -->
 
             <field property="moblphonNo" depends="maxlength">
                 <arg0 key="핸드폰번호" resource="false"/>
@@ -46,10 +42,6 @@
             
             <field property="grade" depends="required">
                 <arg0 key="직위" resource="false"/>
-            </field>
-            
-            <field property="authorCode" depends="required">
-                <arg0 key="권한" resource="false"/>
             </field>
             
         </form>

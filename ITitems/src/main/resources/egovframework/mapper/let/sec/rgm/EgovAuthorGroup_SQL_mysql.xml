@@ -47,6 +47,8 @@
 	                   A.GROUP_ID = #{searchKeyword}
 	            </if> -->
             </if>
+            AND	   USER_ID != 'admin'
+            ORDER BY USER_NM ASC
              LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
 
@@ -102,6 +104,7 @@
                        A.GROUP_ID = #{searchKeyword}
                 </if>
             </if>
+            AND	   USER_ID != 'admin'
 	</select>
 
 </mapper>

@@ -5,28 +5,42 @@
 
 
     <select id="selectUserList_S" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
-SELECT 
-    uniqId, userTy, userId , userNm, emailAdres, areaNo, middleTelno, endTelno, moblphonNo, groupId, orgnztId, sttus, sbscrbDe, grade, authorCode
-FROM(
-    SELECT
-        A.ESNTL_ID               uniqId,
-        'USR03'               userTy,
-        A.EMPLYR_ID             userId,
-        A.USER_NM             userNm,
-        A.EMAIL_ADRES           emailAdres,
-        A.AREA_NO               areaNo,
-        A.HOUSE_MIDDLE_TELNO      middleTelno,
-        A.HOUSE_END_TELNO         endTelno,
-        A.MBTLNUM           moblphonNo,
-        A.GROUP_ID              groupId,
-        (SELECT B.ORGNZT_NM FROM LETTNORGNZTINFO B WHERE B.ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
-        A.EMPLYR_STTUS_CODE     sttus,
-        DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
-        (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade,
-        (SELECT AUTHOR_NM FROM LETTNAUTHORINFO WHERE AUTHOR_CODE =
-        		(SELECT AUTHOR_CODE FROM LETTNEMPLYRSCRTYESTBS WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode
-    FROM    LETTNEMPLYRINFO A
-    ) A
+		SELECT 
+		    	uniqId, 
+		    	userTy, 
+		    	userId , 
+		    	userNm, 
+		    	emailAdres, 
+		    	areaNo, 
+		    	middleTelno, 
+		    	endTelno, 
+		    	moblphonNo, 
+		    	groupId, 
+		    	orgnztId, 
+		    	sttus, 
+		    	sbscrbDe, 
+		    	grade, 
+		    	authorCode
+		FROM(
+			    SELECT
+				        A.ESNTL_ID               uniqId,
+				        'USR03'               userTy,
+				        A.EMPLYR_ID             userId,
+				        A.USER_NM             userNm,
+				        A.EMAIL_ADRES           emailAdres,
+				        A.AREA_NO               areaNo,
+				        A.HOUSE_MIDDLE_TELNO      middleTelno,
+				        A.HOUSE_END_TELNO         endTelno,
+				        A.MBTLNUM           moblphonNo,
+				        A.GROUP_ID              groupId,
+				        (SELECT B.ORGNZT_NM FROM LETTNORGNZTINFO B WHERE B.ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
+				        A.EMPLYR_STTUS_CODE     sttus,
+				        DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+				        (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade,
+				        (SELECT AUTHOR_NM FROM LETTNAUTHORINFO WHERE AUTHOR_CODE =
+				        		(SELECT AUTHOR_CODE FROM LETTNEMPLYRSCRTYESTBS WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode
+			    FROM    LETTNEMPLYRINFO A
+		    ) A
         WHERE userId != 'admin'
 		<if test='searchCondition == "0"'>
             AND userId LIKE '%' #{searchKeyword} '%'
