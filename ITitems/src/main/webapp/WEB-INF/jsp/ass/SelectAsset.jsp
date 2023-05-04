@@ -140,7 +140,11 @@ function AssetUpdt() {
 												<td class="lb">
 													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
-												<td><fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원</td>
+												<td>
+													<c:if test="${resultVO .acquiredPrice != 0 and resultVO.acquiredPrice != null}">
+														<fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원
+													</c:if>
+												</td>											
 											</tr>
 											<tr>
 												<td class="lb">

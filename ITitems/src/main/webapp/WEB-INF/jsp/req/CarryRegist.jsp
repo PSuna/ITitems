@@ -43,51 +43,55 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="board" staticJavascript="false"
+<validator:javascript formName="carryRegist" staticJavascript="false"
 	xhtml="true" cdata="false" />
-<c:if test="${anonymous == 'true'}">
-	<c:set var="prefix" value="/anonymous" />
-</c:if>
-<script type="text/javascript">
-	let tdClone;
-	
-	function insertCarryDetail(reqId) {
-		let dataList;
-		let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr")
-		trList.forEach(function(items,index) {
-			let formdata = new FormData();
-			formdata.append('reqId', reqId);
-			let Mcat = items.querySelector('#middleCategory').value;
-			let qty = items.querySelector('#reqQty').value;
-			if(Mcat != '' && Mcat != null && qty != null && qty != '' && qty != 0){
-				formdata.append('largeCategory', items.querySelector('#largeCategory').value);
-				formdata.append('middleCategory', Mcat);
-				formdata.append('reqQty', qty);
-				formdata.append('maker', items.querySelector('#maker').value);
-				formdata.append('user', items.querySelector('#user').value);
-				formdata.append('reqOrder', trList.length - index);
-				$.ajax({
-					url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
-					method: 'POST',
-					enctype: "multipart/form-data",
-					processData: false,
-					contentType: false,
-					data: formdata,
-					success: function (result) {
-						console.log("성공")
-					},
-					error: function (error) {
-						console.log(error);
-					}
-				}) 
-			}
-			
-		});
-	}
+<script type="text/javaScript" language="javascript" defer="defer">
+<!--
+let tdClone;
 
-	function insertCarry() {
-		event.preventDefault();
+/* ********************************************************
+ * 반출신청상세 등록 처리
+ ******************************************************** */
+function insertCarryDetail(reqId) {
+	let dataList;
+	let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr")
+	trList.forEach(function(items,index) {
+		let formdata = new FormData();
+		formdata.append('reqId', reqId);
+		let Mcat = items.querySelector('#middleCategory').value;
+		let qty = items.querySelector('#reqQty').value;
+		if(Mcat != '' && Mcat != null && qty != null && qty != '' && qty != 0){
+			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
+			formdata.append('middleCategory', Mcat);
+			formdata.append('reqQty', qty);
+			formdata.append('maker', items.querySelector('#maker').value);
+			formdata.append('user', items.querySelector('#user').value);
+			formdata.append('reqOrder', trList.length - index);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
+				method: 'POST',
+				enctype: "multipart/form-data",
+				processData: false,
+				contentType: false,
+				data: formdata,
+				success: function (result) {
+					console.log("성공")
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			}) 
+		}
 		
+	});
+}
+
+/* ********************************************************
+ * 반출신청 등록 처리
+ ******************************************************** */
+function insertCarry() {
+	if(validateCarryRegist(document.frm)){
+	
 		let formData = new FormData(document.getElementById('frm'));
 		
 	 	$.ajax({
@@ -103,218 +107,163 @@
 			error: function (error) {
 				console.log(error);
 			}
-		}) 
+		})
 	}
+}
+
+/* ********************************************************
+ * 자산 입력 폼 추가
+ ******************************************************** */
+function addTd() {
+	 let td = tdClone.cloneNode(true);
+	 document.querySelector('.assetlist tbody').appendChild(td); 
+}
+
+/* ********************************************************
+ * 클론 복사
+ ******************************************************** */
+window.onload = function(){
+	let tdlist = document.querySelectorAll('.assetlist tbody tr');
+	tdClone = tdlist[tdlist.length-2].cloneNode(true);
+	  }
+
+/* ********************************************************
+ * 중분류 조회
+ ******************************************************** */
+function getMCatList(Lcat) {
 	
-	function addTd() {
-		 let td = tdClone.cloneNode(true);
-		 document.querySelector('.assetlist tbody').appendChild(td); 
-	}
-	
-	window.onload = function(){
-		let tdlist = document.querySelectorAll('.assetlist tbody tr');
-		tdClone = tdlist[tdlist.length-2].cloneNode(true);
-		  }
-	
-	function getMCatList(Lcat) {
-		
-		let val = Lcat.value;
-		let mCat = Lcat.closest("td").querySelector("div");
-		if (val == "ETC"){
-			mCat.replaceChildren();
-			let input = document.createElement('input');
-			input.setAttribute('id', 'middleCategory');
-			input.setAttribute('name', 'middleCategory');
-			input.setAttribute('type', 'text');
-			input.setAttribute('class', 'f_txt w_full');
-			mCat.appendChild(input);
-		}else if (val == ""){
-			mCat.replaceChildren();
-			let label = document.createElement('label');
-			label.setAttribute('class', 'f_select');
-			let select = document.createElement('select');
-			select.setAttribute('id', 'middleCategory');
-			select.setAttribute('name', 'middleCategory');
-			let op = document.createElement('option');
-			op.textContent = '선택하세요';
-			select.appendChild(op);
-			label.appendChild(select);
-			mCat.appendChild(label);
-		}else{
-			$.ajax({
-				url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-				method: 'POST',
-				contentType: 'application/x-www-form-urlencoded',
-				data: {'searchUpper' : val},
-				success: function (result) {
-					mCat.replaceChildren();
-					let label = document.createElement('label');
-					label.setAttribute('class', 'f_select');
-					let select = document.createElement('select');
-					select.setAttribute('id', 'middleCategory');
-					select.setAttribute('name', 'middleCategory');
-					let op = document.createElement('option');
-					op.textContent = '선택하세요';
+	let val = Lcat.value;
+	let mCat = Lcat.closest("td").querySelector("div");
+	if (val == "ETC"){
+		mCat.replaceChildren();
+		let input = document.createElement('input');
+		input.setAttribute('id', 'middleCategory');
+		input.setAttribute('name', 'middleCategory');
+		input.setAttribute('type', 'text');
+		input.setAttribute('class', 'f_txt w_full');
+		mCat.appendChild(input);
+	}else if (val == ""){
+		mCat.replaceChildren();
+		let label = document.createElement('label');
+		label.setAttribute('class', 'f_select');
+		let select = document.createElement('select');
+		select.setAttribute('id', 'middleCategory');
+		select.setAttribute('name', 'middleCategory');
+		let op = document.createElement('option');
+		op.textContent = '선택하세요';
+		select.appendChild(op);
+		label.appendChild(select);
+		mCat.appendChild(label);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				mCat.replaceChildren();
+				let label = document.createElement('label');
+				label.setAttribute('class', 'f_select');
+				let select = document.createElement('select');
+				select.setAttribute('id', 'middleCategory');
+				select.setAttribute('name', 'middleCategory');
+				let op = document.createElement('option');
+				op.textContent = '선택하세요';
+				select.appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
 					select.appendChild(op);
-					for(res of result){
-						op = document.createElement('option');
-						op.setAttribute('value', res.catId);
-						op.textContent = res.catName;
-						select.appendChild(op);
-					}
-					label.appendChild(select);
-					mCat.appendChild(label);
-				},
-				error: function (error) {
-					console.log(error);
 				}
-			})	
-		} 
-		
-	}
-
-	function fn_egov_validateForm(obj) {
-		return true;
-	}
-
-	function fn_egov_regist_notice() {
-		//document.board.onsubmit();
-
-		if (!validateBoard(document.board)) {
-			return;
-		}
-		<c:if test="${bdMstr.bbsAttrbCode == 'BBSA02'}">
-		if (document.getElementById("egovComFileUploader").value == "") {
-			alert("갤러리 게시판의 경우 이미지 파일 첨부가 필수사항입니다.");
-			return false;
-		}
-		</c:if>
-		if (confirm('<spring:message code="common.regist.msg" />')) {
-			//document.board.onsubmit();
-			document.board.action = "<c:url value='/cop/bbs${prefix}/insertBoardArticle.do'/>";
-			document.board.submit();
-		}
-	}
-
-	function fn_egov_select_noticeList() {
-		document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
-		document.board.submit();
-	}
-
-	/* ********************************************************
-	 * 달력
-	 ******************************************************** */
-	function fn_egov_init_date() {
-
-		$("#searchBgnDe").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					showOn : 'button',
-					buttonImage : '<c:url value='/images/ico_calendar.png'/>',
-					buttonImageOnly : true
-
-					,
-					showMonthAfterYear : true,
-					showOtherMonths : true,
-					selectOtherMonths : true,
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ]
-
-					,
-					changeMonth : true // 월선택 select box 표시 (기본은 false)
-					,
-					changeYear : true // 년선택 selectbox 표시 (기본은 false)
-					,
-					showButtonPanel : true
-				// 하단 today, done  버튼기능 추가 표시 (기본은 false)
-				});
-
-		$("#searchEndDe").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					showOn : 'button',
-					buttonImage : '<c:url value='/images/ico_calendar.png'/>',
-					buttonImageOnly : true
-
-					,
-					showMonthAfterYear : true,
-					showOtherMonths : true,
-					selectOtherMonths : true,
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ]
-
-					,
-					changeMonth : true // 월선택 select box 표시 (기본은 false)
-					,
-					changeYear : true // 년선택 selectbox 표시 (기본은 false)
-					,
-					showButtonPanel : true
-				// 하단 today, done  버튼기능 추가 표시 (기본은 false)
-				});
-	}
+				label.appendChild(select);
+				mCat.appendChild(label);
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})	
+	} 
 	
-	function ProjectSearch(){
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 프로젝트 검색
+ ******************************************************** */
+function ProjectSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 자산 검색
+ ******************************************************** */
+function AssetSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 회원 검색
+ ******************************************************** */
+function UserSearch(ch){
+	userCheck = ch;
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 검색 프로젝트 입력
+ ******************************************************** */
+function returnProject(val){
+	
+	if (val) {
+		document.getElementById("prjId").value  = val.prjId;
+		document.getElementById("prjNm").value  = val.prjNm;
 	}
-	
-	function AssetSearch(){
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}
-	
-	function UserSearch(ch){
-		userCheck = ch;
-	    
-	    var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 1100,
-	        height: 700
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}
-	
-	function returnProject(val){
-		
-		if (val) {
-			document.getElementById("prjId").value  = val.prjId;
-			document.getElementById("prjNm").value  = val.prjNm;
-		}
-		
-		fn_egov_modal_remove();
-	}
-	
-function returnUser(val){
-	
-	document.getElementById("pm").value  = val.userId;
-	document.getElementById("pmNm").value  = val.userNm;
 	
 	fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * 검색 회원 입력
+ ******************************************************** */
+function returnUser(val){
 
+document.getElementById("pm").value  = val.userId;
+document.getElementById("pmNm").value  = val.userNm;
+
+fn_egov_modal_remove();
+}
+
+//-->
 </script>
 
 <title>자산관리 > 자산등록</title>
@@ -397,10 +346,10 @@ function returnUser(val){
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
 														readonly="readonly">
-												</span> <input value="${userManageVO.uniqId}" name="id"
+												</span> <input value="${userManageVO.uniqId}" id="id" name="id"
 													type="hidden" readonly="readonly"></td>
 												<td class="lb">
-													<!-- 직위 --> <label for="">직위</label> <span class="req">필수</span>
+													<!-- 직위 --> <label for="">직위</label>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														type="text" readonly="readonly"
@@ -414,13 +363,13 @@ function returnUser(val){
 												</td>
 												<td colspan="3"><span class="f_search2 w_60%"> <input
 														id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
+														readonly="readonly"/>
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
 												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
 														path="prjId" /> <input name="prjId" id="prjId"
-													type="hidden" title="프로젝트" value="" maxlength="8"
-													readonly="readonly" /></td>
+													type="hidden" title="프로젝트" value="" 
+													/></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -436,8 +385,8 @@ function returnUser(val){
 														id="pmNm" type="text" title="회원" maxlength="100"
 														readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-												</span> <input name="pm" id="pm" type="hidden" title="프로젝트"
-													value="" maxlength="8" readonly="readonly" /></td>
+												</span> <input name="pm" id="pm" type="hidden" title="pm"
+													value="" /></td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -452,7 +401,7 @@ function returnUser(val){
 											</tr>
 										</table>
 									</div>
-								</form>
+								
 								<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 									<script type="text/javascript">
 											var maxFileNum = document.board.posblAtchFileNumber.value;
@@ -516,7 +465,7 @@ function returnUser(val){
 														</label>
 													</div></td>
 												<td><input id="reqQty" name="reqQty" type="number"
-													value="0" class="f_txt w_full"></td>
+													class="f_txt w_full"></td>
 												<td><input id="maker" name="maker" type="text"
 													class="f_txt w_full"></td>
 												<td><input id="user" name="user" type="text"
@@ -534,10 +483,7 @@ function returnUser(val){
 										</tr>
 									</table>
 								</div>
-								<br>
-								<div>
-									<input type="checkbox"> 상기와 같이 장비 반입/반출을 신청합니다 (동의)
-								</div>
+								</form>
 								<br>
 								<!-- 등록버튼  -->
 								<div class="board_view_bot">

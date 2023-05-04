@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+
+    <formset>
+		<form name="carryRegist">
+			<field property="id" depends="required">
+        		<arg0 key="성명" resource="false"/>
+			</field>	
+			<field property="place" depends="required">
+        		<arg0 key="사용장소" resource="false"/>
+			</field>
+			<field property="pm" depends="required">
+        		<arg0 key="PM" resource="false"/>
+			</field>
+			<field property="startDate" depends="required, date">
+        		<arg0 key="사용기간" resource="false"/>
+			</field>
+			<field property="endDate" depends="required, date">
+        		<arg0 key="사용기간" resource="false"/>
+			</field>
+			<field property="middleCategory" depends="required">
+        		<arg0 key="구분" resource="false"/>
+			</field>
+			<field property="reqQty" depends="required, integer">
+        		<arg0 key="수량" resource="false"/>
+			</field>
+		</form>
+    </formset>
+
+</form-validation>

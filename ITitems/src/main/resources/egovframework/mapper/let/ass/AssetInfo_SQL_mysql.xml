@@ -167,7 +167,22 @@
 		    #{photoId} )
 	</insert>
 
-	<update id="UpdateAssetInfo">
-
+	<update id="UpdateAssetInfo" parameterType="egovframework.let.ass.service.AssetInfoVO">
+		UPDATE 
+			ASSETSINFO
+		   SET 
+		   	LARGE_CATEGORY = #{largeCategory}, 
+		   	MIDDLE_CATEGORY = #{middleCategory}, 
+		   	ASSET_NAME = #{assetName}, 
+		   	ASSET_QTY = #{assetQty}, 
+		   	ACQUIRED_DATE = #{acquiredDate}, 
+		   	ACQUIRED_PRICE = #{acquiredPrice}, 
+		   	MAKER = #{maker}, 
+		   	NOTE = #{note}, 
+		   	ADD_ASSET = #{addAsset}, 
+		   	<if test="photoId != null and photoId != ''">
+		   	PHOTO_ID = #{photoId}
+		   	</if>
+		 WHERE ASSET_ID = #{assetId}
 	</update>
 </mapper>
