@@ -27,21 +27,17 @@
                 </var>
             </field>
             
-            <field property="password" depends="required, password1, password3, password4">
+            <!-- <field property="password" depends="required, password1, password3, password4">
                 <arg0 key="비밀번호" resource="false"/>
-            </field>
+            </field> -->
 
-            <field property="moblphonNo" depends="required, maxlength, mask">
+            <field property="moblphonNo" depends="maxlength">
                 <arg0 key="핸드폰번호" resource="false"/>
                 <arg1 key="15" resource="false"/>
                 <var>
                 <var-name>maxlength</var-name>
                 <var-value>15</var-value>
                 </var>
-                <var>
-			        <var-name>mask</var-name>
-			        <var-value>[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]</var-value>
-			    </var>
             </field>
             
             <field property="orgnztId" depends="required">
@@ -50,6 +46,10 @@
             
             <field property="grade" depends="required">
                 <arg0 key="직위" resource="false"/>
+            </field>
+            
+            <field property="authorCode" depends="required">
+                <arg0 key="권한" resource="false"/>
             </field>
             
         </form>
