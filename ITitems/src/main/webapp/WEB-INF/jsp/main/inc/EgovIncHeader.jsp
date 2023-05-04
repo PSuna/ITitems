@@ -96,7 +96,7 @@ function fn_egov_modal_remove() {
 		<% } else { %>
 			<div class="util_menu">
 	            <ul>
-	                <li><a href="" class="allmenu" title="전체메뉴">전체메뉴</a></li>
+	               <!--  <li><a href="" class="allmenu" title="전체메뉴">전체메뉴</a></li> -->
 	            </ul>
 	        </div>
         <% } %>
@@ -107,7 +107,7 @@ function fn_egov_modal_remove() {
 <!--// Header -->
 
 <!-- 전체메뉴 팝업 -->
-<div class="all_menu" id="">
+<!-- <div class="all_menu" id="">
     <div>
         <div class="inner">
         	<div>
@@ -126,7 +126,6 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA">공지사항</a></li>
                 </ul>
             </div>
-
             <div class="admin">
                 <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
@@ -148,7 +147,7 @@ function fn_egov_modal_remove() {
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--// 전체메뉴 팝업 -->
 
 <!-- Topmenu start -->
