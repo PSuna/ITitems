@@ -59,11 +59,35 @@ public class EgovAuthorGroupController {
 	 * @exception Exception
 	 */
     @RequestMapping("/sec/rgm/EgovAuthorGroupListView.do")
-    public String selectAuthorGroupListView(HttpServletRequest request) throws Exception {
+    public String selectAuthorGroupListView(@ModelAttribute("authorGroupVO") AuthorGroupVO authorGroupVO,
+								            @ModelAttribute("authorManageVO") AuthorManageVO authorManageVO,
+								            HttpServletRequest request,
+								            ModelMap model) throws Exception {
     	
     	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
     	request.getSession().setAttribute("baseMenuNo", "6000000");
     	
+    	/** paging */
+    	PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(authorGroupVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(authorGroupVO.getPageUnit());
+		paginationInfo.setPageSize(authorGroupVO.getPageSize());
+		
+		authorGroupVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		authorGroupVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		authorGroupVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		
+		authorGroupVO.setAuthorGroupList(egovAuthorGroupService.selectAuthorGroupList(authorGroupVO));
+        model.addAttribute("authorGroupList", authorGroupVO.getAuthorGroupList());
+        
+        int totCnt = egovAuthorGroupService.selectAuthorGroupListTotCnt(authorGroupVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+        model.addAttribute("paginationInfo", paginationInfo);
+
+    	authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
+        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+
+        model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
         return "/sec/rgm/EgovAuthorGroupManage";
     }    
 
@@ -120,7 +144,6 @@ public class EgovAuthorGroupController {
 	public String insertAuthorGroup(@RequestParam("userIds") String userIds,
 			                        @RequestParam("authorCodes") String authorCodes,
 			                        @RequestParam("regYns") String regYns,
-			                        @RequestParam("mberTyCodes") String mberTyCode,
 			                        @ModelAttribute("authorGroup") AuthorGroup authorGroup,
 			                         SessionStatus status,
 			                         ModelMap model) throws Exception {
@@ -128,12 +151,10 @@ public class EgovAuthorGroupController {
     	String [] strUserIds = userIds.split(";");
     	String [] strAuthorCodes = authorCodes.split(";");
     	String [] strRegYns = regYns.split(";");
-    	String [] strMberTyCode = mberTyCode.split(";");
     	
     	for(int i=0; i<strUserIds.length;i++) {
     		authorGroup.setUniqId(strUserIds[i]);
     		authorGroup.setAuthorCode(strAuthorCodes[i]);
-    		authorGroup.setMberTyCode(strMberTyCode[i]);
     		if(strRegYns[i].equals("N"))
     		    egovAuthorGroupService.insertAuthorGroup(authorGroup);
     		else 

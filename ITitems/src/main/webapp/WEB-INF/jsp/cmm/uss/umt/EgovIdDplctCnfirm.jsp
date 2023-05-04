@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.03   JJY              최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.18   천세훈              최초 생성
  
-    author   : 공통서비스 개발팀 JJY
-    since    : 2009.03.03
+    author   : 영남사업부 천세훈
+    since    : 2023.04.18
 --%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -22,7 +21,7 @@
 <title>ID중복확인</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">

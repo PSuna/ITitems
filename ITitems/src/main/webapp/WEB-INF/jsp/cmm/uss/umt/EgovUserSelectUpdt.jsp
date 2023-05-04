@@ -23,7 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="<c:url value='/'/>css/base.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
@@ -179,7 +179,7 @@ function fn_egov_modal_remove() {
 												<td class="lb"><label for="emplyrId">사용자아이디</label> <span
 													class="req">필수</span></td>
 												<td><form:input path="emplyrId" id="emplyrId"
-														class="f_txt w_full" maxlength="40" readonly="readonly" />
+														class="f_txt w_full" maxlength="100" readonly="readonly" />
 													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
 												</td>
 												<td class="lb"><label for="moblphonNo">핸드폰번호</label></td>

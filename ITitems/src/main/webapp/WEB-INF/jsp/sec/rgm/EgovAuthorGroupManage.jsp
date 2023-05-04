@@ -21,7 +21,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
@@ -70,12 +70,12 @@ function fncManageChecked() {
     var checkId = document.listForm.checkId;
     var selectAuthor = document.listForm.authorManageCombo;
     var booleanRegYn = document.listForm.regYn;
-    var listMberTyCode = document.listForm.mberTyCode;
+    /* var listMberTyCode = document.listForm.mberTyCode; */
         
     var returnId = "";
     var returnAuthor = "";
     var returnRegYn = "";
-    var returnmberTyCode = "";
+    /* var returnmberTyCode = ""; */
 
     var checkedCount = 0;
 
@@ -95,7 +95,7 @@ function fncManageChecked() {
                         returnId = returnId + ";" + checkField[i].value;
                         returnAuthor = returnAuthor + ";" + selectAuthor[i].value;
                         returnRegYn = returnRegYn + ";" + booleanRegYn[i].value;
-                        returnmberTyCode = returnmberTyCode + ";" + listMberTyCode[i].value;
+                        /* returnmberTyCode = returnmberTyCode + ";" + listMberTyCode[i].value; */
                         
                     }
                 }
@@ -277,12 +277,11 @@ function press() {
                                     	<caption>권한그룹관리</caption>
                                         <colgroup>
                                             <col style="width: 80px;">
-                                            <col style="width: auto;">
+                                            <col style="width: 390px;">
                                             <col style="width: 150px;">
                                             <col style="width: 150px;">
                                             <col style="width: 150px;">
                                             <col style="width: 150px;">
-                                            <col style="width: 80px;">
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -296,7 +295,6 @@ function press() {
                                                 <th scope="col">부서</th>
                                                 <th scope="col">직급</th>
                                                 <th scope="col">권한</th>
-                                                <th scope="col">등록 여부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -328,10 +326,6 @@ function press() {
                                                     </select>
                                                     </label>
                                                 </td>
-                                                <td>
-                                                	<c:out value="${authorGroup.regYn}"/>
-                                                	<input type="hidden" name="regYn" value="<c:out value="${authorGroup.regYn}"/>">
-                                                </td>
                                             </tr>
                                             </c:forEach>
                                             
@@ -356,7 +350,7 @@ function press() {
 								<input type="hidden" name="userIds"/>
 								<input type="hidden" name="authorCodes"/>
 								<input type="hidden" name="regYns"/>
-								<input type="hidden" name="mberTyCodes"/>
+								<!-- <input type="hidden" name="mberTyCodes"/> -->
 								<input type="hidden" name="pageIndex" value="<c:out value='${authorGroupVO.pageIndex}'/>"/>
 								
 								</form:form>
@@ -372,6 +366,6 @@ function press() {
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
-    
+
 </body>
 </html>
