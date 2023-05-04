@@ -133,9 +133,9 @@ function fnDeletePrj(prjId){
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 160px;">
+												<col style="width: 126px;">
 												<col style="width: auto;">
-												<col style="width: 160px;">
+												<col style="width: 120px;">
 												<col style="width: auto;">
 											</colgroup>
 											<tr>

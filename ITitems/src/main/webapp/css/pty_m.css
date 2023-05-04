@@ -130,10 +130,7 @@
 	.P_MAIN .visual{
 		width:700px !important;
 	}
-	
-	.P_MAIN .col{
-		padding:184px 0 24px 0 !important;
-	}
+
 	
 	.header .inner{
 		width:700px !important;
@@ -148,7 +145,8 @@
 	
 	.P_MAIN .col{
 		width:700px !important;
-	
+		padding:184px 0 24px 0 !important;
+		display:block;
 	}
 	
 	.footer .inner{
@@ -273,6 +271,15 @@
 		width:auto !important;
 	}
 	
+	.board_view2 table{
+		width:100%!important;
+	}
+	
+	
+	.pty_board_list table{
+	width:100%!important;
+	}
+	
 	.board_list th{
 		padding:23px 10px !important;
 	}
@@ -335,6 +342,19 @@
 	}
 
 
+	.pty_colbox{
+		margin:0 auto;
+	}
+	 
+	.pty_icon_box{
+		position:static!important;
+		transform:none!important;
+		padding:20px;
+	}
+	
+	.pty_icon_box p{
+		margin-top:0!important;
+	}
 	
 	
 }

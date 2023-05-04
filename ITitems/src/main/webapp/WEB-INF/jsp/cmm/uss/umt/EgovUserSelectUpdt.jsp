@@ -170,19 +170,19 @@ function fn_egov_modal_remove() {
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 160px;">
+												<col style="width: 126px;">
 												<col style="width: auto;">
-												<col style="width: 160px;">
+												<col style="width: 120px;">
 												<col style="width: auto;">
 											</colgroup>
 											<tr>
-												<td class="lb"><label for="emplyrId">사용자아이디</label> <span
+												<td class="lb"><label for="emplyrId">사용자ID</label> <span
 													class="req">필수</span></td>
 												<td><form:input path="emplyrId" id="emplyrId"
 														class="f_txt w_full" maxlength="100" readonly="readonly" />
 													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
 												</td>
-												<td class="lb"><label for="moblphonNo">핸드폰번호</label></td>
+												<td class="lb"><label for="moblphonNo">H.P</label></td>
 												<td><form:input path="moblphonNo" id="moblphonNo"
 														class="f_txt w_full" maxlength="15" /> <form:errors
 														path="moblphonNo" /></td>
@@ -225,6 +225,8 @@ function fn_egov_modal_remove() {
 	                                                </label>
 	                                                <form:errors path="grade" /> 
 	                                            </td>
+	                                            <td></td>
+	                                            <td></td>
 												<%-- <td class="lb">
 													<label for="groupId">그룹</label>
 													<span class="req">필수</span>
