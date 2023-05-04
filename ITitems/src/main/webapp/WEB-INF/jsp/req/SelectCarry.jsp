@@ -120,10 +120,10 @@
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 16%;">
+												<col style="width: 20%;">
 												<col style="width: 34%;">
-												<col style="width: 16%;">
-												<col style="width: 34%;">
+												<col style="width: 24%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
@@ -192,13 +192,13 @@
 								
 								<br>
 								
-								<div class="board_list assetlist">
+								<div class="board_list assetlist pty_board_list">
 									<table>
 										<colgroup>
-											<col style="width: 22%;">
-											<col style="width: 15%;">
-											<col style="width: 29%;">
+											<col style="width: 20%;">
 											<col style="width: 34%;">
+											<col style="width: 24%;">
+											<col style="width: 30%;">
 										</colgroup>
 										<thead>
 											<tr>

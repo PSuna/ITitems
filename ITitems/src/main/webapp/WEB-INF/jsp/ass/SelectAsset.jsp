@@ -188,7 +188,7 @@ function AssetUpdt() {
 										</c:if>
 									</div>
 									<br>
-									<div class="board_list">
+									<div class="board_list pty_board_list">
 										<table>
 											<colgroup>
 												<col style="width: 20%;">

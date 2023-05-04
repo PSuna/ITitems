@@ -271,6 +271,15 @@
 		width:auto !important;
 	}
 	
+	.board_view2 table{
+		width:100%!important;
+	}
+	
+	
+	.pty_board_list table{
+	width:100%!important;
+	}
+	
 	.board_list th{
 		padding:23px 10px !important;
 	}
@@ -342,5 +351,10 @@
 		transform:none!important;
 		padding:20px;
 	}
+	
+	.pty_icon_box p{
+		margin-top:0!important;
+	}
+	
 	
 }
