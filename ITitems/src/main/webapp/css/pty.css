@@ -18,6 +18,8 @@ body{
 	
 }
 
+
+
 .wrap{
 	height:auto;
 	
@@ -36,7 +38,11 @@ body{
 		margin:0 auto; */
 	} 
 	
-
+.pty_colbox{
+	width:600px!important;
+	height:300px!important;
+	
+}
 
 .pty_flex{
 	display:flex;
