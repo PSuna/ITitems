@@ -67,6 +67,8 @@
                field.type == 'textarea' ||
                field.type == 'file' ||
                field.type == 'radio' ||
+               field.type == 'date' ||
+               field.type == 'number' ||
                field.type == 'checkbox' ||
                field.type == 'select-one' ||
                field.type == 'password')) {

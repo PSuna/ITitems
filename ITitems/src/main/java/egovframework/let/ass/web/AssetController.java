@@ -228,7 +228,7 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetInsert.do")
 	@ResponseBody
-	public String AssetInsert(final MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, BindingResult bindingResult) throws Exception {
+	public String AssetInsert(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, BindingResult bindingResult) throws Exception {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -253,9 +253,9 @@ public class AssetController {
 		assetService.InsertAssetInfo(assetInfoVO);
 		
 		assetHistVO.setAssetId(assetInfoVO.getAssetId());
-		assetHistVO.setHistStatus("U1");
+		assetHistVO.setHistStatus("P0");
 		assetHistVO.setHistNote(assetInfoVO.getNote());
-		
+		assetHistVO.setHistQty(assetInfoVO.getAssetQty());
 		assetService.InsertAssetHist(assetHistVO);
 		
 		return "forward:/ass/AssetManagement.do";
