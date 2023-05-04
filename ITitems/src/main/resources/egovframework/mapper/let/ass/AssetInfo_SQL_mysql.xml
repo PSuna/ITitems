@@ -179,9 +179,9 @@
 		   	ACQUIRED_PRICE = #{acquiredPrice}, 
 		   	MAKER = #{maker}, 
 		   	NOTE = #{note}, 
-		   	ADD_ASSET = #{addAsset}, 
+		   	ADD_ASSET = #{addAsset} 
 		   	<if test="photoId != null and photoId != ''">
-		   	PHOTO_ID = #{photoId}
+		   	,PHOTO_ID = #{photoId}
 		   	</if>
 		 WHERE ASSET_ID = #{assetId}
 	</update>

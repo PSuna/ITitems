@@ -53,21 +53,10 @@
 function UpdateAsset(){
 	if(confirm("수정하시겠습니까?")){
 		if(validateAssetUpdt(document.AssetUpdt)){
-			let formData = new FormData(document.getElementById('AssetUpdt'));
-			
-		 	 $.ajax({
-				url: '${pageContext.request.contextPath}/ass/AssetUpdate.do',
-				method: 'POST',
-				enctype: "multipart/form-data",
-				processData: false,
-				contentType: false,
-				data: formData,
-				success: function (result) {
-				},
-				error: function (error) {
-					console.log(error);
-				}
-			}) 
+
+		    document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
+		    document.AssetUpdt.submit(); 
+		    
 	    }
 	}
 }

@@ -23,7 +23,7 @@
         		<arg0 key="사용기간" resource="false"/>
 			</field>
 			<field property="middleCategory" depends="required">
-        		<arg0 key="구분" resource="false"/>
+        		<arg0 key="분류" resource="false"/>
 			</field>
 			<field property="reqQty" depends="required, integer">
         		<arg0 key="수량" resource="false"/>

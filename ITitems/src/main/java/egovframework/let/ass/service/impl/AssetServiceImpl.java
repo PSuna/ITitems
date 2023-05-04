@@ -103,7 +103,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Override
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) {
 		
-		return 0;
+		return assetInfoDAO.UpdateAssetInfo(assetInfoVO);
 	}
 
 	/**
