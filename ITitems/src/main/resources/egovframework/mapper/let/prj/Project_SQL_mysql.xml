@@ -19,7 +19,7 @@
 	<sql id="search">
 		<where>
 			<if test="searchWord != null and searchWord != ''">
-				a.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				A.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 		</where>
 	</sql>
@@ -41,19 +41,21 @@
 		  FROM (
 			SELECT 
 				ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
-				a.PRJ_ID, 
-				a.PRJ_NAME, 
+				A.PRJ_ID, 
+				A.PRJ_NAME, 
 				DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
 				DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
-				a.CLIENT,
-				a.PRJ_STATE, 
-				b.USER_NM, 
-				c.CODE_NM
-			  FROM PROJECTS a
-			  LEFT OUTER JOIN LETTNEMPLYRINFO b
-			    ON a.ID = b.EMPLYR_ID
-			  LEFT OUTER JOIN LETTCCMMNDETAILCODE c
-			    ON b.GRADE = c.CODE
+				A.CLIENT,
+				D.CODE_NM AS PRJ_STATE, 
+				B.USER_NM, 
+				C.CODE_NM
+			  FROM PROJECTS A
+			  LEFT OUTER JOIN LETTNEMPLYRINFO B
+			    ON A.ID = B.EMPLYR_ID
+			  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+			    ON B.GRADE = C.CODE
+			  LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+			    ON A.PRJ_STATE =  D.CODE
 			<include refid="search"></include>
 			 ) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -66,7 +68,7 @@
 
 		SELECT 
 			COUNT(a.PRJ_ID)
-		  FROM projects a
+		  FROM projects A
 
 		<include refid="search"></include>
 	</select>

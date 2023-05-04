@@ -188,19 +188,6 @@ function CarryRegist() {
 									<div class="condition2">
 										<div class="pty_box01">
 											<div>
-												<span class="lb">부서</span> <label class="item f_select"
-													for="sel1"> <select id="searchOrgnzt"
-													name="searchOrgnzt" title="부서">
-														<option value="" label="선택하세요" />
-														<c:forEach var="orgnztId" items="${orgnztId_result}"
-															varStatus="status">
-															<option value="${orgnztId.code}"><c:out
-																	value="${orgnztId.codeNm}" /></option>
-														</c:forEach>
-												</select>
-												</label>
-											</div>
-											<div>
 												<span class="lb">프로젝트</span> <span class="f_search2 w_200">
 													<input id="prjNm" type="text" title="주소" maxlength="100"
 													readonly="false" />
@@ -209,10 +196,7 @@ function CarryRegist() {
 												</span><input name="searchPrj" id="searchPrj" type="hidden"
 													title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
 											</div>
-
 										</div>
-
-
 										<div class="pty_box01">
 											<div>
 												<span class="lb">대분류</span> <label class="item f_select"
