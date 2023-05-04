@@ -281,5 +281,25 @@ public class AssetController {
 	
 		return "/ass/AssetUpdt";
 	}
+	
+	/**
+	 * 자산수정
+	 */
+	@RequestMapping(value = "/ass/AssetUpdate.do")
+	@ResponseBody
+	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO) throws Exception {
+
+		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
+		photos.put("photo", multiRequest.getFile("photo"));
+		if (!photos.isEmpty()) {
+			List<FileVO> result = fileUtil.parseFileInf(photos, "BBS_", 0, "", "");
+			assetInfoVO.setPhotoId(fileMngService.insertFileInfs(result));
+		}
+		
+		assetService.UpdateAssetInfo(assetInfoVO);
+		
+		return "forward:/ass/SelectAsset.do";
+	}
+	
 
 }

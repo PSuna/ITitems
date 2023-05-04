@@ -58,7 +58,7 @@ function fn_egov_returnValue(val){
 	fn_egov_modal_remove();
 }
 
-function getMCatList() {
+function getMCatList(Mval) {
 	let val = document.getElementById('largeCategory').value;
 	if(val == ""){
 		document.getElementById('middleCategory').replaceChildren();
@@ -81,7 +81,7 @@ function getMCatList() {
 					op = document.createElement('option');
 					op.setAttribute('value', res.catId);
 					op.textContent = res.catName;
-					if('${searchVO.searchdMCat}' == res.catId){
+					if(Mval == res.catId){
 						op.setAttribute('selected', 'selected');
 					}
 					document.getElementById('middleCategory').appendChild(op);
@@ -120,11 +120,10 @@ function fn_egov_select_noticeList(pageNo) {
 }
 
 window.onload = function(){
-	getMCatList();
+	getMCatList('${searchVO.searchdMCat}');
 	  }
 	  
 function selectAsset(id) {
-	console.log('subForm'+id);
 	document.getElementById('subForm'+id).submit;
 }
 
