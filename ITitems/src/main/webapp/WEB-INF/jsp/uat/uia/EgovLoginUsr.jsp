@@ -164,9 +164,8 @@ function fnInit() {
        
     </div>
     
-     <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
-        <!--// Footer -->
+     
+       <!--// Footer -->
     
 </body>
 </html>

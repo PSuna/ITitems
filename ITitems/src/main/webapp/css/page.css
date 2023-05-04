@@ -670,6 +670,9 @@
 	width:1300px;
 	margin:0 auto;
 	padding:184px 0 75px 0;
+	
+	display:flex;
+	justify-content:center;
 }
 .P_MAIN .col::after {
 	content:"";
@@ -677,13 +680,15 @@
 	clear:both;
 }
 .P_MAIN .col>* {
-	float:left;
+	/* float:left; */
 }
 .P_MAIN .col .box {
 	height:660px;
 	border-radius:25px;
 	background:#fff;
 	overflow:hidden;
+	
+	width:50%;
 }
 .P_MAIN .col .head {
 	position:relative;
@@ -709,7 +714,12 @@
 }
 .P_MAIN .col .left_col {
 	width:440px;
-	margin-right:20px;
+	margin-right:32px;
+	
+	width:50%;
+	display:flex;
+	gap:24px;
+	
 }
 .P_MAIN .col .left_col .list li {
 	position:relative;
@@ -734,7 +744,7 @@
 	font-weight:300;
 }
 .P_MAIN .col .right_col {
-	width:840px;
+	/* width:840px; */
 }
 .P_MAIN .col .right_col .list {
 	margin-top:12px;

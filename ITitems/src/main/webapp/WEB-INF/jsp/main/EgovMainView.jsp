@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="right_col">
-                            <div class="box">
+                            <div class="box pry_colbox">
                                 <div class="head">
                                     <h2>최신 <span>공지사항</span></h2>
                                     <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
