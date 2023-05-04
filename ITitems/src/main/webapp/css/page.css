@@ -683,20 +683,26 @@
 	/* float:left; */
 }
 .P_MAIN .col .box {
-	height:660px;
+	/* height:660px; */
+	position: relative;
 	border-radius:25px;
 	background:#fff;
 	overflow:hidden;
 	
 	width:50%;
 }
+
+.P_MAIN .col .box div{
+	
+}
+
 .P_MAIN .col .head {
 	position:relative;
 	padding:38px 0 0 49px;
 }
 .P_MAIN .col .head h2 {
 	color:#222;
-	font-size:36px;
+	font-size:28px;
 	font-weight:700;
 }
 .P_MAIN .col .head h2 span {

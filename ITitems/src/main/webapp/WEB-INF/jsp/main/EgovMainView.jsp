@@ -60,14 +60,29 @@
                     <div class="col">
                         <div class="left_col">
                             <div class="box">
-                                <a href="<c:url value='/ass/AssetRegist.do'/>" style="width:100%; height:100%">자산등록</a>
+                            	
+                            	<div class="pty_icon_box">
+	                                <a href="<c:url value='/ass/AssetRegist.do'/>" style="width:100%; height:100%">
+	                                	<img src="<c:url value='/'/>images/pty_icon_01.png">
+	                                	<h2>자산등록</h2>
+	                                	<p>바로가기 →</p>
+	                                </a>
+	                            </div>    
                             </div>
                             <div class="box">
-                            	<a href="<c:url value='/req/CarryRegist.do'/>">반출신청</a>
+                            
+                            	<div class="pty_icon_box">
+	                            	<a href="<c:url value='/req/CarryRegist.do'/>">
+	                            		<img src="<c:url value='/'/>images/pty_icon_02.png">
+	                            		<h2>반출신청</h2>
+	                                	<p>바로가기 →</p>
+	                            	</a>
+	                            </div>	
+                            	
                             </div>
                         </div>
                         <div class="right_col">
-                            <div class="box pry_colbox">
+                            <div class="box pty_colbox">
                                 <div class="head">
                                     <h2>최신 <span>공지사항</span></h2>
                                     <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>

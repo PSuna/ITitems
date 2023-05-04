@@ -130,10 +130,7 @@
 	.P_MAIN .visual{
 		width:700px !important;
 	}
-	
-	.P_MAIN .col{
-		padding:184px 0 24px 0 !important;
-	}
+
 	
 	.header .inner{
 		width:700px !important;
@@ -148,7 +145,8 @@
 	
 	.P_MAIN .col{
 		width:700px !important;
-	
+		padding:184px 0 24px 0 !important;
+		display:block;
 	}
 	
 	.footer .inner{
@@ -335,6 +333,14 @@
 	}
 
 
-	
+	.pty_colbox{
+		margin:0 auto;
+	}
+	 
+	.pty_icon_box{
+		position:static!important;
+		transform:none!important;
+		padding:20px;
+	}
 	
 }
