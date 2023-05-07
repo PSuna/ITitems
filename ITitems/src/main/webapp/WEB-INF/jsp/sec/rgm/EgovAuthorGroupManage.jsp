@@ -254,8 +254,8 @@ function press() {
                                     <span class="lb mr10">조회 조건 :  </span>
                                     <label class="f_select item" for="searchCondition">
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
-    					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자 ID</option>
-    					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자 이름</option>
+    					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자ID</option>
+    					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자명</option>
     					                </select>
                                     </label>
                                     <span class="item f_search" style="margin:0">
@@ -276,11 +276,12 @@ function press() {
                                     <table summary="권한 그룹을 관리하는 테이블입니다.사용자 ID,사용자 명,사용자 유형,권한,등록 여부의 정보를 담고 있습니다.">
                                     	<caption>권한그룹관리</caption>
                                         <colgroup>
-                                            <col style="width: 80px;">
+                                            <col style="width: 50px;">
+                                            <col style="width: 30px;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 150px;">
+                                            <col style="width: 150px;">
                                             <col style="width: 390px;">
-                                            <col style="width: 150px;">
-                                            <col style="width: 150px;">
-                                            <col style="width: 150px;">
                                             <col style="width: 150px;">
                                         </colgroup>
                                         <thead>
@@ -290,10 +291,11 @@ function press() {
                                                         <input type="checkbox" name="checkAll" title="선택여부" onclick="javascript:fncCheckAll()">
                                                     </span>
                                                 </th>
-                                                <th scope="col">사용자ID</th>
+                                                <th scope="col">번호</th>
                                                 <th scope="col">사용자명</th>
-                                                <th scope="col">부서</th>
                                                 <th scope="col">직급</th>
+                                                <th scope="col">부서</th>
+                                                <th scope="col">사용자ID</th>
                                                 <th scope="col">권한</th>
                                             </tr>
                                         </thead>
@@ -313,10 +315,11 @@ function press() {
                                                         <input type="hidden" name="checkId" value="<c:out value="${authorGroup.uniqId}"/>"/>
                                                     </span>
                                                 </td>
-                                                <td><c:out value="${authorGroup.userId}"/></td>
+                                                <td><c:out value="${paginationInfo.totalRecordCount - ((authorGroupVO.pageIndex-1) * authorGroupVO.pageSize) - status.index}"/></td>
                                                 <td><c:out value="${authorGroup.userNm}"/></td>
-                                                <td><c:out value="${authorGroup.orgnztId}"/></td>
                                                 <td><c:out value="${authorGroup.grade}"/></td>
+                                                <td><c:out value="${authorGroup.orgnztId}"/></td>
+                                                <td><c:out value="${authorGroup.userId}"/></td>
                                                 <td>
                                                     <label class="f_select" for="">
                                                         <select name="authorManageCombo" title="권한">

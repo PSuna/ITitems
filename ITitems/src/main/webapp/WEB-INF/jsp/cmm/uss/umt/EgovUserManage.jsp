@@ -188,8 +188,8 @@ function setPageUnit(){
                                     
                                     <label class="item f_select" for="searchCondition">
                                         <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
-                                            <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >ID</option>
-                                            <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >Name</option>
+                                            <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >사용자ID</option>
+                                            <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
                                         </select>
                                     </label> 
 
@@ -230,26 +230,27 @@ function setPageUnit(){
                                     	<caption>사용자목록</caption>
                                         <colgroup>
                                             <col style="width: 30px;">
+                                            <col style="width: 30px;">
                                             <col style="width: 70px;">
-                                            <col style="width: 180px;">
-                                            <col style="width: 120px;">
-                                            <col style="width: 100px;">
                                             <col style="width: 80px;">
+                                            <col style="width: 120px;">
+                                            <col style="width: 180px;">
+                                            <col style="width: 100px;">
                                             <col style="width: 80px;">
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <!-- <th scope="col">번호</th> -->
                                                 <th scope="col">
                                                     <span class="f_chk_only chkAll">
                                                         <input name="checkAll" type="checkbox" title="Check All" onclick="javascript:fnCheckAll();"/>
                                                     </span>
                                                 </th>
-                                                <th scope="col">이름</th>
-                                                <th scope="col">아이디</th>
-                                                <th scope="col">전화번호</th>
-                                                <th scope="col">부서</th>
+                                                <th scope="col">번호</th>
+                                                <th scope="col">사용자명</th>
                                                 <th scope="col">직급</th>
+                                                <th scope="col">부서</th>
+                                                <th scope="col">사용자아이디</th>
+                                                <th scope="col">전화번호</th>
                                                 <th scope="col">권한</th>
                                             </tr>
                                         </thead>
@@ -260,7 +261,6 @@ function setPageUnit(){
 	                                        		<td colspan="8" ><spring:message code="common.nodata.msg" /></td>
 	                                        	</tr>
                                         	</c:if>
-                                        	
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
                                             <tr>
                                                 <td>
@@ -269,15 +269,16 @@ function setPageUnit(){
                                                         <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
                                                     </span>
                                                 </td>
+                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageSize) - status.index}"/></td>
                                                 <td><c:out value="${result.userNm}"/></td>
+                                                <td><c:out value="${result.grade}"/></td>
+                                                <td><c:out value="${result.orgnztId}"/></td>
                                                 <td>
 	                                                <a href="<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>?selectedId=<c:out value="${result.uniqId}"/>" class="lnk" onclick="javascript:fnSelectUser('<c:out value="${result.userTy}"/>:<c:out value="${result.uniqId}"/>'); return false;">
 	                                                	<c:out value="${result.userId}"/>
 	                                                </a>
                                                 </td>
                                                 <td><c:out value="${result.moblphonNo}"/></td>
-                                                <td><c:out value="${result.orgnztId}"/></td>
-                                                <td><c:out value="${result.grade}"/></td>
                                                 <td><c:out value="${result.authorCode}"/></td>
                                             </tr>
                                             </c:forEach>

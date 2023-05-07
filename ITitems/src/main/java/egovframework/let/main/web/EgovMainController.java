@@ -78,8 +78,8 @@ public class EgovMainController {
 
 		// 공지사항 메인 컨텐츠 조회 시작 ---------------------------------
 		BoardVO boardVO = new BoardVO();
-		boardVO.setPageUnit(10);
-		boardVO.setPageSize(10);
+		boardVO.setPageUnit(3);
+		boardVO.setPageSize(3);
 		boardVO.setBbsId("BBSMSTR_AAAAAAAAAAAA");
 
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -91,7 +91,8 @@ public class EgovMainController {
 		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-
+		boardVO.setUseAt("Y");
+		
 		Map<String, Object> map = bbsMngService.selectBoardArticles(boardVO, "BBSA02");
 		model.addAttribute("notiList", map.get("resultList"));
 
