@@ -21,7 +21,6 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script type="text/javaScript" language="javascript">
-
 function fn_egov_modal_create(){
 	
     var $dialog = $('<div id="modalPan"></div>')
@@ -34,6 +33,10 @@ function fn_egov_modal_create(){
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
+}
+
+function fnMypage(uniqId){
+	console.log(uniqId);
 }
 
 /**********************************************************
@@ -65,8 +68,9 @@ function fn_egov_modal_remove() {
 	        </div>
 		<% } else { %>
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
+			<c:set var="loginUniqId" value="<%= loginVO.getUniqId()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span onclick="" >${loginName} 님</span> 안녕하세요</span>
+	            <span class="t"><span style="color:black;" onclick="fnMypage(${loginUniqId})" >${loginName} 님</span> 안녕하세요</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
@@ -96,7 +100,7 @@ function fn_egov_modal_remove() {
 		<% } else { %>
 			<div class="util_menu">
 	            <ul>
-	               <!--  <li><a href="" class="allmenu" title="전체메뉴">전체메뉴</a></li> -->
+	            	<li><a href="" class="allmenu" title="전체메뉴">전체메뉴</a></li>
 	            </ul>
 	        </div>
         <% } %>
@@ -107,7 +111,7 @@ function fn_egov_modal_remove() {
 <!--// Header -->
 
 <!-- 전체메뉴 팝업 -->
-<!-- <div class="all_menu" id="">
+<div class="all_menu" id="">
     <div>
         <div class="inner">
         	<div>
@@ -126,6 +130,7 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA">공지사항</a></li>
                 </ul>
             </div>
+            <c:if test="<%= loginVO.getAuthorCode() == \"ROLE_ADMIN\"%>">
             <div class="admin">
                 <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
@@ -143,11 +148,11 @@ function fn_egov_modal_remove() {
                 <ul>
                 	<li><a href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
                 </ul>
-
             </div>
+            </c:if>
         </div>
     </div>
-</div> -->
+</div>
 <!--// 전체메뉴 팝업 -->
 
 <!-- Topmenu start -->

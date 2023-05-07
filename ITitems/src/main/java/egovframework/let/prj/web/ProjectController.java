@@ -69,6 +69,12 @@ public class ProjectController {
         	return "uat/uia/EgovLoginUsr";
     	}
     	
+    	ComDefaultCodeVO vo = new ComDefaultCodeVO();
+    	
+    	//프로젝트 진행여부를 코드정보로부터 조회
+    	vo.setCodeId("COM007");
+    	model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
+    	
 		/** pageing */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
@@ -102,7 +108,7 @@ public class ProjectController {
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
     	
-		//프로젝스 진행여부를 코드정보로부터 조회
+		//프로젝트 진행여부를 코드정보로부터 조회
 		vo.setCodeId("COM007");
 		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
 		

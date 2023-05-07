@@ -141,14 +141,16 @@ function setPageUnit(){
 				                <div class="board_list pty_board_list">
 				                    <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
 				                        <colgroup>
+				                            <col style="width: 5%;">
+				                            <col style="width: 25%;">
 				                            <col style="width: 20%;">
-				                            <col style="width: 30%;">
 				                            <col style="width: 15%;">
 				                            <col style="width: 12%;">
 				                            <col style="width: 10%;">
 				                        </colgroup>
 				                        <thead>
 				                            <tr>
+				                                <th scope="col">번호</th>
 				                                <th scope="col">프로젝트명</th>
 				                                <th scope="col">기간</th>
 				                                <th scope="col">PM(대표)</th>
@@ -159,6 +161,7 @@ function setPageUnit(){
 				                        <tbody>
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
 				                            <tr>
+				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td>
 				                                <td>
 				                                <a href="<c:url value='/prj/ProjectSelectView.do'/>?selectedId=<c:out value="${resultInfo.prjId}"/>" class="lnk">
 				                                ${resultInfo.prjName}

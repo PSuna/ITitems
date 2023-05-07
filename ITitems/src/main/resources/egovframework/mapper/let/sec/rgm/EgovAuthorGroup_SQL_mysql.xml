@@ -28,7 +28,7 @@
                    B.AUTHOR_CODE, 
                    (CASE WHEN B.SCRTY_DTRMN_TRGET_ID IS NULL THEN 'N'
                          ELSE 'Y' 
-                     END) AS REG_YN,
+                     	 END) AS REG_YN,
                     ESNTL_ID,
                     (SELECT ORGNZT_NM FROM LETTNORGNZTINFO WHERE ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
                     (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade

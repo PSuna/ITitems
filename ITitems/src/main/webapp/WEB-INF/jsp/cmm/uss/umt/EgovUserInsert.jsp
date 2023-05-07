@@ -239,6 +239,7 @@ function fn_egov_modal_remove() {
                                             </td>
                                             <td class="lb">
                                                 <label for="orgnztId">부서</label>
+                                                <span class="req">필수</span>
                                             </td>
                                             <td>
                                                 <label class="f_select w_full" for="orgnztId">
