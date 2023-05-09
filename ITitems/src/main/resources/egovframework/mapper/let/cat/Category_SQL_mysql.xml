@@ -7,6 +7,7 @@
 		id="CategoryList">
 		<result property="catId" column="CAT_ID" />
 		<result property="catName" column="CAT_NAME" />
+		<result property="upperCat" column="UPPER_CAT" />
 	</resultMap>
 
 	<sql id="search">
@@ -23,9 +24,7 @@
 		</where>
 	</sql>
 
-	<select id="SelectCategoryVOList"
-		parameterType="egovframework.let.cat.service.CategoryManageVO"
-		resultMap="CategoryList">
+	<select id="SelectCategoryVOList" parameterType="egovframework.let.cat.service.CategoryManageVO" resultMap="CategoryList">
 		SELECT CAT_ID, 
 			   CAT_NAME, 
 			   UPPER_CAT
@@ -39,22 +38,24 @@
 		WHERE CAT_ID = #{catId}
 	</delete>
 	
-	<insert id="InsertCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
+	
+	
+	<insert id="InsertCategory" parameterType="egovframework.let.cat.service.CategoryVO">
 	<selectKey resultType="String" keyProperty="catId" order="BEFORE">
-		SELECT CONCAT('cat', IFNULL(MAX(CAST(SUBSTR(CAT_ID,4) AS UNSIGNED))+1,0)) 
-		  FROM CATEGORY
+		SELECT  CONCAT('cat', IFNULL(MAX(CAST(SUBSTR(CAT_ID,4) AS UNSIGNED))+1,0))
+		  FROM  CATEGORY
 	</selectKey>
 		INSERT INTO CATEGORY
-		(
-		 CAT_ID, 
-		 CAT_NAME, 
-		 UPPER_CAT
-		)
+							(
+							 CAT_ID, 
+							 CAT_NAME, 
+							 UPPER_CAT
+							)
 		VALUES 
-		(
-		#{catId}, 
-		#{catName}, 
-		#{upperCat}
-		)
+			  (
+			  #{catId}, 
+			  #{catName}, 
+			  #{upperCat}
+			  )
 	</insert>
 </mapper>

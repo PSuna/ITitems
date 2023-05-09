@@ -12,52 +12,48 @@
 	</resultMap>
 
 	<select id="selectCmmCodeDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
-		 
 			SELECT CODE_ID, 
 				   CODE, 
 				   CODE_NM, 
 				   CODE_DC
-			FROM LETTCCMMNDETAILCODE
-			WHERE USE_AT = 'Y'
-			AND CODE_ID = #{codeId}
-		
+			  FROM LETTCCMMNDETAILCODE
+			 WHERE USE_AT = 'Y'
+			   AND CODE_ID = #{codeId}
+			 ORDER BY CODE_ORDER
 	</select>
 	
 	<select id="selectCodeDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
-		 
-			SELECT 
-			CODE_ID, CODE, CODE_NM, CODE_DC
-			FROM 
-			LETTCCMMNDETAILCODE
-			WHERE
-			USE_AT = 'Y'
-			AND CODE = #{code}
-		
+			SELECT CODE_ID, 
+				   CODE, 
+				   CODE_NM, 
+				   CODE_DC
+			  FROM LETTCCMMNDETAILCODE
+			 WHERE USE_AT = 'Y'
+			   AND CODE = #{code}
 	</select>
 
     <select id="selectOgrnztIdDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
-             
             SELECT #{tableNm} CODE_ID, 
                    ORGNZT_ID CODE, 
                    ORGNZT_NM CODE_NM, 
                    ORGNZT_DC CODE_DC
-            FROM LETTNORGNZTINFO
-            WHERE 1=1
-            <if test="haveDetailCondition == &quot;Y&quot;">AND
-                ORGNZT_ID  LIKE  #{detailConditionValue}
+              FROM LETTNORGNZTINFO
+             WHERE 1=1
+            <if test="haveDetailCondition == &quot;Y&quot;">
+               AND ORGNZT_ID LIKE #{detailConditionValue}
             </if>
+             ORDER BY ORGNZT_NM
     </select>
     
     <select id="selectGroupIdDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
-             
             SELECT #{tableNm} CODE_ID, 
-                GROUP_ID CODE, 
-                GROUP_NM CODE_NM, 
-                GROUP_DC CODE_DC
-            FROM LETTNAUTHORGROUPINFO
-            WHERE 1=1
-            <if test="haveDetailCondition == &quot;Y&quot;">AND
-                GROUP_ID  LIKE  #{detailConditionValue}
+                   GROUP_ID CODE, 
+                   GROUP_NM CODE_NM, 
+                   GROUP_DC CODE_DC
+              FROM LETTNAUTHORGROUPINFO
+             WHERE 1=1
+            <if test="haveDetailCondition == &quot;Y&quot;">
+               AND GROUP_ID LIKE #{detailConditionValue}
             </if>
     </select>
     

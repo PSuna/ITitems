@@ -2,8 +2,6 @@ package egovframework.let.cat.service;
 
 import java.io.Serializable;
 
-import egovframework.let.prj.service.ProjectVO;
-
 /**
  * 카테고리 관리를 위한 VO 클래스
  * @author 영남사업부 주소현
@@ -154,5 +152,6 @@ public class CategoryManageVO extends CategoryVO implements Serializable {
 	public void setSearchUpper(String searchUpper) {
 		this.searchUpper = searchUpper;
 	}
+
 	
 }

@@ -36,8 +36,7 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnListPage(){
-    document.passwordChgVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
-    document.passwordChgVO.submit();
+    history.back();
 }
 function fnUpdate(){
     if(validatePasswordChgVO(document.passwordChgVO)){
@@ -149,7 +148,7 @@ function fnUpdate(){
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnUpdate(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">이전</a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->

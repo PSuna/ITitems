@@ -3,8 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProjectDAO">
 
-	<resultMap type="egovframework.let.prj.service.ProjectVO"
-		id="ProjectList">
+	<resultMap type="egovframework.let.prj.service.ProjectVO" id="ProjectList">
 		<result property="prjId" column="PRJ_ID" />
 		<result property="prjName" column="PRJ_NAME" />
 		<result property="prjStart" column="PRJ_START" />
@@ -24,68 +23,50 @@
 		</where>
 	</sql>
 	
-	<select id="SelectProjectVOList"
-
-		parameterType="egovframework.let.prj.service.ProjectManageVO"
-		resultMap="ProjectList">
-		SELECT 
-			RUM,
-			PRJ_ID,
-			PRJ_NAME,
-			PRJ_START,
-			PRJ_END,
-			CLIENT,
-			PRJ_STATE,
-			USER_NM,
-			CODE_NM
-		  FROM (
-			SELECT 
-				ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
-				A.PRJ_ID, 
-				A.PRJ_NAME, 
-				DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
-				DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
-				A.CLIENT,
-				D.CODE_NM AS PRJ_STATE, 
-				B.USER_NM, 
-				C.CODE_NM
-			  FROM PROJECTS A
-			  LEFT OUTER JOIN LETTNEMPLYRINFO B
-			    ON A.ID = B.EMPLYR_ID
-			  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
-			    ON B.GRADE = C.CODE
-			  LEFT OUTER JOIN LETTCCMMNDETAILCODE D
-			    ON A.PRJ_STATE =  D.CODE
-			<include refid="search"></include>
-			 ) P 
+	<select id="SelectProjectVOList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultMap="ProjectList">
+		SELECT RUM,PRJ_ID,
+			   PRJ_NAME,
+			   PRJ_START,
+			   PRJ_END,
+			   CLIENT,
+			   PRJ_STATE,
+			   USER_NM,
+			   CODE_NM
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
+					   A.PRJ_ID, 
+				       A.PRJ_NAME, 
+				       DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
+				       DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+				       A.CLIENT,
+				       D.CODE_NM AS PRJ_STATE, 
+				       B.USER_NM, 
+				       C.CODE_NM
+			      FROM PROJECTS A LEFT OUTER JOIN LETTNEMPLYRINFO B
+			        ON A.ID = B.EMPLYR_ID LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+			        ON B.GRADE = C.CODE LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+			        ON A.PRJ_STATE =  D.CODE
+				<include refid="search"></include>) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}
-
 	</select>
 
-	<select id="CountProjectVOList"
-		parameterType="egovframework.let.prj.service.ProjectManageVO"
-		resultType="int">
-
-		SELECT 
-			COUNT(a.PRJ_ID)
+	<select id="CountProjectVOList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultType="int">
+		SELECT COUNT(a.PRJ_ID)
 		  FROM projects A
-
 		<include refid="search"></include>
 	</select>
 	
 	<select id="selectPrj" parameterType="egovframework.let.prj.service.ProjectManageVO" resultMap="ProjectList">
-		SELECT 		A.PRJ_ID,
-					A.PRJ_NAME,
-					DATE_FORMAT(A.PRJ_START,'%Y-%m-%d') AS PRJ_START,
-			  		DATE_FORMAT(A.PRJ_END,'%Y-%m-%d') AS PRJ_END,
-					A.ID,
-					A.CLIENT,
-					A.PRJ_STATE,
-					B.USER_NM
-		FROM 		PROJECTS A
-		LEFT JOIN 	LETTNEMPLYRINFO B
-		ON 			A.ID = B.EMPLYR_ID
-		WHERE		A.PRJ_ID = #{prjId}
+		SELECT A.PRJ_ID,
+			   A.PRJ_NAME,
+			   DATE_FORMAT(A.PRJ_START,'%Y-%m-%d') AS PRJ_START,
+			   DATE_FORMAT(A.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+			   A.ID,
+			   A.CLIENT,
+			   A.PRJ_STATE,
+			   B.USER_NM
+		  FROM PROJECTS A LEFT JOIN LETTNEMPLYRINFO B
+		    ON A.ID = B.EMPLYR_ID
+		 WHERE A.PRJ_ID = #{prjId}
 	</select>
 	
 	<insert id="insertPrj" parameterType="egovframework.let.prj.service.ProjectVO">

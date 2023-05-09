@@ -31,6 +31,9 @@ public class CategoryVO  implements Serializable {
 	/** 상위 카테고리 코드 */
 	private String upperCat;
 
+	/** 카테고리 sorting order */
+	private int catOrder;
+	
 	public String getCatId() {
 		return catId;
 	}
@@ -54,6 +57,15 @@ public class CategoryVO  implements Serializable {
 	public void setUpperCat(String upperCat) {
 		this.upperCat = upperCat;
 	}
+
+	public int getCatOrder() {
+		return catOrder;
+	}
+
+	public void setCatOrder(int catOrder) {
+		this.catOrder = catOrder;
+	}
+
 	
 	
 	

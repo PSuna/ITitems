@@ -6,9 +6,10 @@
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
      2023.04.23    천세훈             최초 생성
- 
+     2023.05.08	   천세훈				카테고리 순서 sorting 추가
+     
     author   : 영남사업부 천세훈 선임
-    since    : 2023.04.21
+    since    : 2023.04.23
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
@@ -66,6 +67,13 @@ function fnSetUpperCat(){
 					upperLi.onclick = function(){
 						fnSetLowerCat(this);
 					};
+					var btnDiv = document.createElement('div');
+					var upBtn = document.createElement('button');
+					upBtn.innerHTML = '△';
+					upBtn.setAttribute('class', 'catDelBtn');
+					var downBtn = document.createElement('button');
+					downBtn.innerHTML = '▽';
+					downBtn.setAttribute('class', 'catDelBtn');
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
@@ -73,7 +81,10 @@ function fnSetUpperCat(){
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					};
-					upperLi.appendChild(delBtn);
+					btnDiv.appendChild(upBtn);
+					btnDiv.appendChild(downBtn);
+					btnDiv.appendChild(delBtn);
+					upperLi.appendChild(btnDiv);
 					document.getElementById('upperUl').appendChild(upperLi);
 				}
 			}
@@ -106,6 +117,13 @@ function fnSetLowerCat(e){
 					lowerLi.setAttribute('id', res.catId);
 					lowerLi.setAttribute('class', 'lowerLi');
 					lowerLi.textContent = res.catName;
+					var btnDiv = document.createElement('div');
+					var upBtn = document.createElement('button');
+					upBtn.innerHTML = '△';
+					upBtn.setAttribute('class', 'catDelBtn');
+					var downBtn = document.createElement('button');
+					downBtn.innerHTML = '▽';
+					downBtn.setAttribute('class', 'catDelBtn');
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
@@ -113,12 +131,15 @@ function fnSetLowerCat(e){
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					}
-					lowerLi.appendChild(delBtn);
+					btnDiv.appendChild(upBtn);
+					btnDiv.appendChild(downBtn);
+					btnDiv.appendChild(delBtn);
+					lowerLi.appendChild(btnDiv);
 					document.getElementById('lowerUl').appendChild(lowerLi)
 				}
 			}
 		},error:function(error){
-			console.log(error);
+			console.log(error);d
 		}
 	})
 }
@@ -221,6 +242,7 @@ function fnDeleteCat(e){
     font-size:20px;
     border-bottom : 1px solid #eee;
     padding: 5px;
+    align-items: center;
 }
 
 .upperLi:hover, .lowerLi:hover{
@@ -285,7 +307,8 @@ function fnDeleteCat(e){
 										<div class="catInputBox">
 											<label for="upperCatName" class="catInLabel">대분류명 : </label>
 											<input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
-											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
+											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">추가</a>
+											<a href="#LINK" id="upperCatSave" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">저장</a>
 										</div>
 									</div>
 									<div class="lowerCat">
@@ -297,7 +320,8 @@ function fnDeleteCat(e){
 										<div class="catInputBox">
 											<label for="lowerCatName" class="catInLabel">중분류명 : </label>
 											<input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
-											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
+											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">추가</a>
+											<a href="#LINK" id="lowerCatSave" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">저장</a>
 										</div>
 									</div>
 								</div>
