@@ -16,9 +16,6 @@
 			<field property="assetQty" depends="required, integer">
         		<arg0 key="수량" resource="false"/>
 			</field>
-			<field property="acquiredDate" depends="required, date">
-        		<arg0 key="취득일자" resource="false"/>
-			</field>
 			<field property="photo" depends="required">
         		<arg0 key="사진" resource="false"/>
 			</field>
@@ -27,12 +24,6 @@
 			</field>
 			<field property="rcptId" depends="required">
         		<arg0 key="수령자" resource="false"/>
-			</field>
-			<field property="useId" depends="required">
-        		<arg0 key="실사용자" resource="false"/>
-			</field>
-			<field property="rcptDate" depends="required, date">
-        		<arg0 key="수령일자" resource="false"/>
 			</field>
 		</form>
     </formset>
@@ -48,8 +39,8 @@
 			<field property="assetQty" depends="required, integer">
         		<arg0 key="수량" resource="false"/>
 			</field>
-			<field property="acquiredDate" depends="required, date">
-        		<arg0 key="취득일자" resource="false"/>
+			<field property="rcptId" depends="required">
+        		<arg0 key="수령자" resource="false"/>
 			</field>
 		</form>
     </formset>

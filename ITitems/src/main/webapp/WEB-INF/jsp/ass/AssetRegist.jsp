@@ -18,6 +18,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,6 +50,7 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 var userCheck = 0;
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 /* ********************************************************
  * 자산 등록 처리
  ******************************************************** */
@@ -65,16 +67,8 @@ function insert_asset(){
 			contentType: false,
 			data: formData,
 			success: function (result) {
-				document.getElementById("largeCategory").value  = "";
-				document.getElementById("middleCategory").value  = "";
-				document.getElementById("assetQty").value  = 0;
-				document.getElementById("assetName").value  = "";
-				document.getElementById("acquiredDate").value  = "";
-				document.getElementById("acquiredPrice").value  = 0;
-				document.getElementById("maker").value  = "";
-				document.getElementById("addAsset").value  = "";
-				document.getElementById("note").value  = "";
-				document.getElementById("photo").value  = "";
+				document.SelectAsset.assetId.value = reqId;
+				document.SelectAsset.submit();
 			},
 			error: function (error) {
 				console.log(error);
@@ -172,11 +166,21 @@ function returnProject(val){
 	if (val) {
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
+		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
 	}
 	
 	fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * 프로젝트 입력 리셋
+ ******************************************************** */
+ function resetPrj(e){
+	document.getElementById("prjId").value  = "";
+	document.getElementById("prjNm").value  = "";
+	console.log(e)
+}
+ 
 /* ********************************************************
  * 검색 자산 입력
  ******************************************************** */
@@ -208,6 +212,22 @@ if (val) {
 
 fn_egov_modal_remove();
 }
+
+/* ********************************************************
+ * 수령자 입력 리셋
+ ******************************************************** */
+ function resetRcpt(){
+	document.getElementById("rcptId").value  = "";
+	document.getElementById("rcptNm").value  = "";
+}
+
+/* ********************************************************
+ * 실사용자 입력 리셋
+ ******************************************************** */
+  function resetUse(){
+ 	document.getElementById("useId").value  = "";
+ 	document.getElementById("useNm").value  = "";
+ }
 //-->
 </script>
 
@@ -228,6 +248,12 @@ fn_egov_modal_remove();
 .right_btn {
 	float: right;
 }
+
+.reset_btn{
+ width: 20px;
+ vertical-align: -webkit-baseline-middle;
+ cursor: pointer;
+}
 </style>
 
 <body>
@@ -246,9 +272,6 @@ fn_egov_modal_remove();
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu -->
 
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -261,7 +284,6 @@ fn_egov_modal_remove();
 									</ul>
 								</div>
 								<!--// Location -->
-
 
 								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" >
 
@@ -308,8 +330,10 @@ fn_egov_modal_remove();
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
@@ -331,8 +355,6 @@ fn_egov_modal_remove();
 													</label> 
 													<br />
 												</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 중분류 --> 
 													<label for="">중분류</label> 
@@ -349,16 +371,6 @@ fn_egov_modal_remove();
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">품명</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수량 -->
 													<label for="assetQty">수량</label> 
 													<span class="req">필수</span>
@@ -367,63 +379,9 @@ fn_egov_modal_remove();
 													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" maxlength="20" >
 													<br />
 												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="acquiredDate">취득일자</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" >
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
-												</td>
-												<td>
-													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="number" value="0" maxlength="60">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 제조사 --> 
-													<label for="">제조사</label>
-												</td>
-												<td>
-													<input id="maker" class="f_txt w_full" name="maker" type="text" value="" maxlength="60"> 
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 추가물품 --> 
-													<label for="">추가물품</label>
-												</td>
-												<td>
-													<input id="addAsset" class="f_txt w_full" name="addAsset" type="text" value="" maxlength="60">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 비고 --> 
-													<label for="note">비고</label>
-												</td>
-												<td>
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-												</td>
-											</tr>
-											<!-- 파일첨부 시작 -->
-											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">사진첨부</label>
-													<span class="req">필수</span></td>
+													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png"></td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="photo" id="photo" type="file" />
@@ -434,6 +392,58 @@ fn_egov_modal_remove();
 													<c:if test="${empty result.atchFileId}">
 														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
 													</c:if>
+												</td>
+											</tr>
+											<tr>
+											<td class="lb">
+													<!-- 품명 --> 
+													<label for="">품명</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<br />
+												</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img src="<c:url value='/'/>images/ico_question.png">
+												</td>
+												<td>
+													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="" maxlength="60"> 
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
+												</td>
+												<td>
+													<input id="maker" class="f_txt w_full" name="maker" type="text" maxlength="60"> 
+													<br />
+												</td>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png">
+												</td>
+												<td>
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="file" id="egovComFileUploader" type="file" />
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl"></div>
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt"
+															value="0" />
+													</c:if>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 비고 --> 
+													<label for="note">비고</label>
+												</td>
+												<td colspan="4">
+													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
 												</td>
 											</tr>
 										</table>
@@ -454,34 +464,16 @@ fn_egov_modal_remove();
 																.getElementById('egovComFileUploader'));
 											</script>
 										</c:if>
-									</div>
-									
-									<br>
-									
-									<div class="board_view2">
+									<%
+										LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+									%>
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
 											</colgroup>
-											<tr>
-												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
-												</td>
-											</tr>
-											<!-- /파일첨부 끝 -->
 											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
@@ -500,8 +492,6 @@ fn_egov_modal_remove();
 													</select>
 													</label>
 												</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
@@ -513,21 +503,9 @@ fn_egov_modal_remove();
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
-													<span class="f_txt_inner ml15">(프로젝트 검색)</span> 
 													<form:errors path="prjId" /> 
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
 														readonly="readonly" />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- CODE명 --> 
-													<label for="">CODE명</label>
-												</td>
-												<td>
-													<input id="code" class="f_txt w_full" name="code"
-														type="text" value="" maxlength="60"> 
-													<br />
 												</td>
 											</tr>
 											<tr>
@@ -537,30 +515,27 @@ fn_egov_modal_remove();
 													<span class="req">필수</span>
 												</td>
 												<td>
+													<c:set var="Nm" value="<%= loginVO.getName()%>"/>
+													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_30%"> 
 													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
+														readonly="false" value="<c:out value="${Nm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> 
-													<span class="f_txt_inner ml15">(회원 검색)</span> 
+													</span> <img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetRcpt(this)">
 													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
-														value="" maxlength="8" readonly="readonly" />
+														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
 												</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
-													<span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_30%"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="false" />
+															readonly="false" value="<c:out value="${Nm}"></c:out>"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-													</span> 
-													<span class="f_txt_inner ml15">(회원 검색)</span> 
-													<input name="useId" id="useId" type="hidden" title="프로젝트" value=""
+													</span> <img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
+													<input name="useId" id="useId" type="hidden" title="프로젝트" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
@@ -568,10 +543,9 @@ fn_egov_modal_remove();
 												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
-													<span class="req">필수</span>
 												</td>
-												<td>
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date" value="" maxlength="60">
+												<td colspan="4">
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date"  maxlength="60">
 													<br />
 												</td>
 											</tr>
@@ -580,7 +554,7 @@ fn_egov_modal_remove();
 													<!-- 반출사유 --> 
 													<label for="carryReason">반출사유</label>
 												</td>
-												<td>
+												<td colspan="4">
 													<textarea id="carryReason" name="carryReason"
 														class="f_txtar w_full h_200" cols="30" rows="10">
 													</textarea>
@@ -598,6 +572,11 @@ fn_egov_modal_remove();
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
+								</form>
+								<form name="SelectAsset" method="post"
+									action="<c:url value='/req/SelectAsset.do'/>">
+									<input type="hidden" name="assetId"
+										value="" />
 								</form>
 							</div>
 						</div>

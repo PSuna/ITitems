@@ -62,23 +62,23 @@ public class AssetInfoVO implements Serializable {
 	/** 부서 */
 	private String orgnztId;
 	
-	/** 부서 */
+	/** 프로젝트 */
 	private String prjId;
-	
-	/** 추가물품 */
-	private String addAsset;
 	
 	/** 사진코드 */
 	private String photoId;
-	
-	/** 번호 */
-	private Integer rum;
 	
 	/** 내역 수량 */
 	private Integer histQty;
 	
 	/** 내역 상태 */
 	private String histStatus;
+	
+	/** 제품번호(S/N) */
+	private String assetSn;
+	
+	/** 지급확인서 코드 */
+	private String fileId;
 
 	public String getAssetId() {
 		return assetId;
@@ -192,28 +192,12 @@ public class AssetInfoVO implements Serializable {
 		this.prjId = prjId;
 	}
 
-	public String getAddAsset() {
-		return addAsset;
-	}
-
-	public void setAddAsset(String addAsset) {
-		this.addAsset = addAsset;
-	}
-
 	public String getPhotoId() {
 		return photoId;
 	}
 
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
-	}
-
-	public Integer getRum() {
-		return rum;
-	}
-
-	public void setRum(Integer rum) {
-		this.rum = rum;
 	}
 
 	public Integer getHistQty() {
@@ -230,6 +214,22 @@ public class AssetInfoVO implements Serializable {
 
 	public void setHistStatus(String histStatus) {
 		this.histStatus = histStatus;
+	}
+
+	public String getAssetSn() {
+		return assetSn;
+	}
+
+	public void setAssetSn(String assetSn) {
+		this.assetSn = assetSn;
+	}
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
 	}
 	
 	

@@ -51,7 +51,7 @@
 <c:if test="${anonymous == 'true'}">
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
-<title>자산관리 > 자산등록</title>
+<title>ITitems</title>
 <script type="text/javascript">
 function AssetUpdt() {
 	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
@@ -76,9 +76,6 @@ function AssetUpdt() {
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu -->
 
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -103,16 +100,16 @@ function AssetUpdt() {
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
 													<!-- 대분류 --> <label for="">대분류</label>
 												</td>
 												<td>${resultVO.largeCategory}</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 중분류 --> <label for="">중분류</label>
 												</td>
@@ -120,23 +117,34 @@ function AssetUpdt() {
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label>
-												</td>
-												<td>${resultVO.assetName}</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
 												<td> <fmt:formatNumber value="${resultVO.assetQty}" pattern="#,###"/></td>
+												<td class="lb"><label for="egovComFileUploader">사진</label>
+												</td>
+												<td>
+													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+				                                        <c:param name="param_atchFileId" value="${resultVO.photoId}" />
+				                                    </c:import>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 품명 --> <label for="">품명</label>
+												</td>
+												<td>${resultVO.assetName}</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label>
+												</td>
+												<td>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 취득일자 --> <label for="">취득일자</label>
 												</td>
 												<td>${resultVO.acquiredDate}</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
@@ -151,89 +159,65 @@ function AssetUpdt() {
 													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
 												<td>${resultVO.maker}</td>
-											</tr>
-											<tr>
 												<td class="lb">
-													<!-- 추가물품 --> <label for="">추가물품</label>
+													<label for="egovComFileUploader">지급확인서</label>
 												</td>
-												<td>${resultVO.addAsset}</td>
+												<td>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 비고 --> <label for="note">비고</label>
 												</td>
-												<td>${resultVO.note}</td>
+												<td colspan="4">${resultVO.note}</td>
 											</tr>
-											<!-- 파일첨부 시작 -->
 											<tr>
-												<td class="lb"><label for="egovComFileUploader">사진</label>
+												<td class="lb">
+													<!-- 부서 --> 
+													<label for="orgnztId">부서</label>
 												</td>
 												<td>
-													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${resultVO.photoId}" />
-				                                    </c:import>
+												</td>
+												<td class="lb">
+													<!-- 프로젝트 --> 
+													<label for="">프로젝트</label>
+												</td>
+												<td>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령자 --> 
+													<label for="">수령자</label> 
+												</td>
+												<td>
+												</td>
+												<td class="lb">
+													<!-- 실사용자 --> 
+													<label for="">실사용자</label> 
+												</td>
+												<td>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="4">
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 반출사유 --> 
+													<label for="carryReason">반출사유</label>
+												</td>
+												<td colspan="4">
 												</td>
 											</tr>
 										</table>
-
-										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-											<script type="text/javascript">
-												var maxFileNum = document.board.posblAtchFileNumber.value;
-												if (maxFileNum == null
-														|| maxFileNum == "") {
-													maxFileNum = 3;
-												}
-												var multi_selector = new MultiSelector(
-														document
-																.getElementById('egovComFileList'),
-														maxFileNum);
-												multi_selector
-														.addElement(document
-																.getElementById('egovComFileUploader'));
-											</script>
-										</c:if>
 									</div>
-									<br>
-									<div class="board_list pty_board_list">
-										<table>
-											<colgroup>
-												<col style="width: 20%;">
-												<col style="width: 20%;">
-												<col style="width: 20%;">
-												<col style="width: 20%;">
-												<col style="width: 20%;">
-											</colgroup>
-											<tr>
-												<th scope="col">일자</th>
-												<th scope="col">분류</th>
-												<th scope="col">수량</th>
-												<th scope="col">사용자</th>
-												<th scope="col">상태</th>
-											</tr>
-											<c:forEach var="result" items="${resultList}" varStatus="status">
-												<tr>
-													<td><c:out value="${result.histDate}"></c:out></td>
-													<td><c:out value="${result.histGroup}"></c:out></td>
-													<td><c:out value="${result.histQty}"></c:out></td>
-													<td><c:out value="${result.useId}"></c:out></td>
-													<td><c:out value="${result.histStatus}"></c:out></td>
-												</tr>
-											</c:forEach>
-										</table>
-									</div>
-
-									<!-- 페이지 네비게이션 시작 -->
-									<%-- <div class="board_list_bot">
-											<div class="paging" id="paging_div">
-												<ul>
-													<ui:pagination paginationInfo="${paginationInfo}"
-														type="image" jsFunction="fn_egov_select_noticeList" />
-												</ul>
-											</div>
-										</div> --%>
-									<!-- //페이지 네비게이션 끝 -->
-									<br>
-									<!-- 등록버튼  -->
+									<!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_col btn1">
 											<!-- 수정 -->
@@ -241,7 +225,7 @@ function AssetUpdt() {
 												onclick="AssetUpdt();return false;"> <spring:message
 													code="button.update" />
 											</a>
-											<!-- 반입 -->
+											<%-- <!-- 반입 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="return false;"> <spring:message
 													code="button.carryin" />
@@ -250,10 +234,10 @@ function AssetUpdt() {
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="return false;"> <spring:message
 													code="button.carryout" />
-											</a>
+											</a> --%>
 										</div>
 									</div>
-									<!-- // 등록버튼 끝  -->
+									<!-- // 버튼 끝  -->
 								</form>
 							</div>
 						</div>
