@@ -34,9 +34,9 @@ function fn_egov_modal_create(){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-
 function fnMypage(uniqId){
-	console.log(uniqId);
+	var uniqId = uniqId;
+	location.href="${pageContext.request.contextPath}/uss/myp/MyManage.do?uniqId="+uniqId;
 }
 
 /**********************************************************
@@ -70,7 +70,7 @@ function fn_egov_modal_remove() {
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
 			<c:set var="loginUniqId" value="<%= loginVO.getUniqId()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span style="color:black;" onclick="fnMypage(${loginUniqId})" >${loginName} 님</span> 안녕하세요</span>
+	            <span class="t"><span style="color:black; cursor:pointer;" onclick="javascript:fnMypage('${loginUniqId}')" >${loginName} 님</span> 안녕하세요</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
@@ -130,8 +130,8 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA">공지사항</a></li>
                 </ul>
             </div>
-            <c:if test="<%= loginVO.getAuthorCode() == \"ROLE_ADMIN\"%>">
-            <div class="admin">
+            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+            <div class="admin" style="margin-left: 28px;">
                 <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
                 <ul>

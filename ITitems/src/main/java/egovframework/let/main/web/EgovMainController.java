@@ -178,16 +178,6 @@ public class EgovMainController {
      */
     @RequestMapping(value="/sym/mms/EgovMenuLeft.do")
     public String selectMenuLeft(ModelMap model) throws Exception {
-
-    	//LoginVO user = EgovUserDetailsHelper.isAuthenticated()? (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser():null;
-
-    	//LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-    	if(EgovUserDetailsHelper.isAuthenticated()){
-    		//인증된 경우 처리할 사항 추가 ...
-    		model.addAttribute("lastLogoutDateTime", "로그아웃 타임: 2021-08-12 11:30");
-    		//최근 로그아웃 시간 등에 대한 확보 후 메인 컨텐츠로 활용
-    	}
-
       	return "main/inc/EgovIncLeftmenu";
     }
 	

@@ -135,7 +135,6 @@ public class EgovAuthorGroupController {
 	 * 그룹에 권한정보를 할당하여 데이터베이스에 등록
 	 * @param userIds String
 	 * @param authorCodes String
-	 * @param regYns String
 	 * @param authorGroup AuthorGroup
 	 * @return String
 	 * @exception Exception
@@ -143,22 +142,17 @@ public class EgovAuthorGroupController {
 	@RequestMapping(value="/sec/rgm/EgovAuthorGroupInsert.do")
 	public String insertAuthorGroup(@RequestParam("userIds") String userIds,
 			                        @RequestParam("authorCodes") String authorCodes,
-			                        @RequestParam("regYns") String regYns,
 			                        @ModelAttribute("authorGroup") AuthorGroup authorGroup,
 			                         SessionStatus status,
 			                         ModelMap model) throws Exception {
 		
     	String [] strUserIds = userIds.split(";");
     	String [] strAuthorCodes = authorCodes.split(";");
-    	String [] strRegYns = regYns.split(";");
     	
     	for(int i=0; i<strUserIds.length;i++) {
     		authorGroup.setUniqId(strUserIds[i]);
     		authorGroup.setAuthorCode(strAuthorCodes[i]);
-    		if(strRegYns[i].equals("N"))
-    		    egovAuthorGroupService.insertAuthorGroup(authorGroup);
-    		else 
-    		    egovAuthorGroupService.updateAuthorGroup(authorGroup);
+    		egovAuthorGroupService.updateAuthorGroup(authorGroup);
     	}
 
         status.setComplete();
