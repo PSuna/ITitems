@@ -7232,10 +7232,10 @@ function Datepicker() {
 	this._dayOverClass = "ui-datepicker-days-cell-over"; // The name of the day hover marker class
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[ "" ] = { // Default regional settings
-		closeText: "Done", // Display text for close link
+		closeText: "취소", // Display text for close link
 		prevText: "Prev", // Display text for previous month link
 		nextText: "Next", // Display text for next month link
-		currentText: "Today", // Display text for current month link
+		currentText: "오늘", // Display text for current month link
 		monthNames: [ "January","February","March","April","May","June",
 			"July","August","September","October","November","December" ], // Names of months for drop-down and formatting
 		monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ], // For formatting
@@ -8059,7 +8059,7 @@ $.extend( Datepicker.prototype, {
 	/* Hide the date picker from view.
 	 * @param  input  element - the input field attached to the date picker
 	 */
-	_hideDatepicker: function( input ) {
+	_hideDatepicker: function( input ) { 
 		var showAnim, duration, postProcess, onClose,
 			inst = this._curInst;
 
@@ -8158,8 +8158,9 @@ $.extend( Datepicker.prototype, {
 			inst.drawMonth = inst.selectedMonth = date.getMonth();
 			inst.drawYear = inst.selectedYear = date.getFullYear();
 		}
-		this._notifyChange( inst );
-		this._adjustDate( target );
+		
+		this._selectDate( id, this._formatDate( inst,
+			inst.selectedDay, inst.selectedMonth, inst.selectedYear ) );
 	},
 
 	/* Action for selecting a new month/year. */
@@ -8780,7 +8781,7 @@ $.extend( Datepicker.prototype, {
 					$.datepicker._adjustDate( id, +stepMonths, "M" );
 				},
 				hide: function() {
-					$.datepicker._hideDatepicker();
+					$.datepicker._selectDate(id,"");
 				},
 				today: function() {
 					$.datepicker._gotoToday( id );
@@ -13878,7 +13879,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 				event.preventDefault();
 			}
 		} );
-
+		
 		// Hide original select element
 		this.element.hide();
 
@@ -14174,11 +14175,11 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 
 	_setSelection: function() {
 		var selection;
-
+		
 		if ( !this.range ) {
 			return;
 		}
-
+		
 		if ( window.getSelection ) {
 			selection = window.getSelection();
 			selection.removeAllRanges();
@@ -18553,7 +18554,7 @@ $.widget( "ui.tooltip", {
 			that = this,
 			target = $( event ? event.currentTarget : this.element ),
 			tooltipData = this._find( target );
-
+		
 		// The tooltip may already be closed
 		if ( !tooltipData ) {
 
@@ -18689,6 +18690,7 @@ if ( $.uiBackCompat !== false ) {
 			tooltipClass: null
 		},
 		_tooltip: function() {
+			
 			var tooltipData = this._superApply( arguments );
 			if ( this.options.tooltipClass ) {
 				tooltipData.tooltip.addClass( this.options.tooltipClass );

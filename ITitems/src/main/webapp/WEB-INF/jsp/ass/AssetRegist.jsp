@@ -30,7 +30,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -55,7 +56,8 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  * 자산 등록 처리
  ******************************************************** */
 function insert_asset(){
-	confirm("등록하시겠습니까?")
+	
+	/* confirm("등록하시겠습니까?")
 	if(validateAssetRegist(document.assetRegist)){
 		let formData = new FormData(document.getElementById('assetRegist'));
 		
@@ -67,14 +69,14 @@ function insert_asset(){
 			contentType: false,
 			data: formData,
 			success: function (result) {
-				document.SelectAsset.assetId.value = reqId;
+				document.SelectAsset.assetId.value = result;
 				document.SelectAsset.submit();
 			},
 			error: function (error) {
 				console.log(error);
 			}
 		}) 
-    }
+    } */
 }
 
 /* ********************************************************
@@ -92,6 +94,7 @@ function getMCatList() {
 			document.getElementById('middleCategory').replaceChildren();
 			let op = document.createElement('option');
 			op.textContent = '선택하세요';
+			op.value = '';
 			document.getElementById('middleCategory').appendChild(op);
 			for(res of result){
 				op = document.createElement('option');
@@ -228,6 +231,107 @@ fn_egov_modal_remove();
  	document.getElementById("useId").value  = "";
  	document.getElementById("useNm").value  = "";
  }
+ 
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#rcptDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+}
+
+/* ********************************************************
+ * 숫자 콤마 입력
+ ******************************************************** */
+  function getNumber(obj){
+	     var num01;
+	     var num02;
+	     num01 = obj.value;
+	     num02 = num01.replace(/\D/g,""); 
+	     num01 = setComma(num02);
+	     obj.value =  num01;
+
+	     $('#test').text(num01);
+	  }
+
+	  function setComma(n) {
+	     var reg = /(^[+-]?\d+)(\d{3})/;
+	     n += '';         
+	     while (reg.test(n)) {
+	        n = n.replace(reg, '$1' + ',' + '$2');
+	     }         
+	     return n;
+	  }
+	  
+/* ********************************************************
+ * 제품사진 안내
+ ******************************************************** */
+function PhotoManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/PhotoManual.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 시리얼넘버 안내
+ ******************************************************** */
+function PhotoManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 지급확인서 안내
+ ******************************************************** */
+function PhotoManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+window.onload = function(){
+	make_date();
+	  }
+
 //-->
 </script>
 
@@ -376,12 +480,12 @@ fn_egov_modal_remove();
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" maxlength="20" >
-													<br />
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" maxlength="20"
+														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">사진첨부</label>
-													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png"></td>
+													<label for="egovComFileUploader">제품사진</label>
+													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"></td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="photo" id="photo" type="file" />
@@ -397,7 +501,7 @@ fn_egov_modal_remove();
 											<tr>
 											<td class="lb">
 													<!-- 품명 --> 
-													<label for="">품명</label>
+													<label for="">제품명</label>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
@@ -405,7 +509,7 @@ fn_egov_modal_remove();
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img src="<c:url value='/'/>images/ico_question.png">
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png">
 												</td>
 												<td>
 													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="" maxlength="60"> 
@@ -423,7 +527,7 @@ fn_egov_modal_remove();
 												</td>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png">
+													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png">
 												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
@@ -545,8 +649,9 @@ fn_egov_modal_remove();
 													<label for="">수령일자</label> 
 												</td>
 												<td colspan="4">
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date"  maxlength="60">
-													<br />
+												<span class="search_date">
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
+												</span>
 												</td>
 											</tr>
 											<tr>

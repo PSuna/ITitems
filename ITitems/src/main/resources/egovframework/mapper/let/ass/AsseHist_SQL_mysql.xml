@@ -61,7 +61,9 @@
 		          USE_ID,  
 		          HIST_STATUS, 
 		          HIST_DATE, 
+		          <if test="rcptDate != null and rcptDate != ''">
 		          RCPT_DATE, 
+		          </if>
 		          RCPT_ID, 
 		          CARRY_REASON,
 		          HIST_GROUP
@@ -74,10 +76,12 @@
 		          #{useId},  
 		          #{histStatus},
 		          DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), 
+		          <if test="rcptDate != null and rcptDate != ''">
 		          DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), 
+		          </if>
 		          #{rcptId}, 
 		          #{carryReason},
-		          #{HIST_GROUP}
+		          #{histGroup}
 		       )
 	</insert>
 

@@ -120,7 +120,7 @@ function AssetUpdt() {
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
 												<td> <fmt:formatNumber value="${resultVO.assetQty}" pattern="#,###"/></td>
-												<td class="lb"><label for="egovComFileUploader">사진</label>
+												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
 												<td>
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
@@ -130,7 +130,7 @@ function AssetUpdt() {
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> <label for="">품명</label>
+													<!-- 품명 --> <label for="">제품명</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 												<td class="lb">

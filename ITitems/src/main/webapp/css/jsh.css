@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.search_date{
+	display: inline-grid;
+    position: relative;
+}
+
+.search_date img{
+	display: block;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 18px;
+    border: 0;
+    font-size: 0;
+    cursor: pointer;
+}
+
+.search_date input{
+	text-align: left;
+	padding-left: 5%;
+	cursor: default;
+}
+
+.f_search2  input{
+	cursor: default;
+}
+
+.manual_img{
+	cursor: pointer;
+}

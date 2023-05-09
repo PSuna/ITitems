@@ -188,12 +188,7 @@
 								<c:forEach var="result" items="${resultList}" varStatus="status">
 									<tr>
 										<td><c:out value="${result.userNm}" /></td>
-										<td><a
-											href="<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>?selectedId=<c:out value="${result.uniqId}"/>"
-											class="lnk"
-											onclick="javascript:fnSelectUser('<c:out value="${result.userTy}"/>:<c:out value="${result.uniqId}"/>'); return false;">
-												<c:out value="${result.userId}" />
-										</a></td>
+										<td><c:out value="${result.userId}" /></td>
 										<td><c:out value="${result.moblphonNo}" /></td>
 										<td><c:out value="${result.orgnztId}" /></td>
 										<td><c:out value="${result.grade}" /></td>

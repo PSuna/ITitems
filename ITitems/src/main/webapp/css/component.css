@@ -785,6 +785,7 @@ label:focus{
 	width:15px;
 	height:9px;
 	background:url(../images/ico_arrow_gray_15x9.png) no-repeat;
+	pointer-events: none;
 }
 .f_select select {
 	width:100%;

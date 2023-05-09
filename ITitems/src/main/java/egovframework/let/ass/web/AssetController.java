@@ -291,5 +291,14 @@ public class AssetController {
 		return "forward:/ass/SelectAsset.do";
 	}
 	
+	/**
+	 * 제품사진 안내 팝업창로 이동
+	 */
+	@RequestMapping(value = "/ass/PhotoManual.do")
+	public String PhotoManual() throws Exception {
+
+		return "/ass/PhotoManual";
+	}
+	
 
 }
