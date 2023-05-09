@@ -267,7 +267,7 @@ fn_egov_modal_remove();
 //-->
 </script>
 
-<title>자산관리 > 자산등록</title>
+<title>ITitems</title>
 
 </head>
 
@@ -306,9 +306,6 @@ fn_egov_modal_remove();
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu -->
 
 						<div class="content_wrap">
 							<div id="contents" class="content">

@@ -28,7 +28,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>자산관리 > 반납신청조회</title>
+<title>ITitems</title>
 
 <script type="text/javascript">
 function ProjectSearch(){
@@ -151,9 +151,6 @@ function CarryRegist() {
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu -->
 
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -196,8 +193,6 @@ function CarryRegist() {
 												</span><input name="searchPrj" id="searchPrj" type="hidden"
 													title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
 											</div>
-										</div>
-										<div class="pty_box01">
 											<div>
 												<span class="lb">대분류</span> <label class="item f_select"
 													for="sel1"><select id="largeCategory"
@@ -271,7 +266,7 @@ function CarryRegist() {
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
 												<tr onclick="childNodes[1].childNodes[1].submit();">
-													<td><c:out value="${result.rum}" />
+													<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
 														<form name="subForm" method="post"
 															action="<c:url value='/req/SelectCarry.do'/>">
 															<input type="hidden" name="reqId"

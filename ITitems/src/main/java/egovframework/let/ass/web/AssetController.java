@@ -89,7 +89,6 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetManagement.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
 
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
@@ -132,7 +131,6 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetSearchList.do")
 	public String AssetSearchList(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
 
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
@@ -187,7 +185,6 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/SelectAsset.do")
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
 		
 		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
 		model.addAttribute("resultVO", result);
@@ -210,7 +207,7 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
 	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
+	
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
@@ -258,7 +255,7 @@ public class AssetController {
 		assetHistVO.setHistQty(assetInfoVO.getAssetQty());
 		assetService.InsertAssetHist(assetHistVO);
 		
-		return "forward:/ass/AssetManagement.do";
+		return assetInfoVO.getAssetId();
 	}
 	
 	/**
@@ -266,7 +263,6 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetUpdt.do")
 	public String AssetUpdt(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 

@@ -5,7 +5,6 @@
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
 		id="assetInfoList">
-		<result property="rum" column="RUM" />
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
@@ -26,11 +25,11 @@
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
-		<result property="addAsset" column="ADD_ASSET" />
 		<result property="note" column="NOTE" />
 		<result property="photoId" column="PHOTO_ID" />
 		<result property="regId" column="REG_ID" />
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
+		<result property="assetSn" column="ASSET_SN" />
 	</resultMap>
 
 	<sql id="search">
@@ -51,12 +50,12 @@
 				AND A.HIST_STATUS = #{searchStatus}
 			</if>
 			<if test="startDate != null and startDate != ''">
-				AND B.REG_DATE >= STR_TO_DATE(#{startDate},
-				'%Y%m%d%H%i%s')
+				AND B.ACQUIRED_DATE >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
 			</if>
 			<if test="endDate != null and endDate != ''">
 				<![CDATA[
-				AND B.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
+				AND B.ACQUIRED_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
@@ -69,7 +68,7 @@
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetInfoList">
 		
-	    SELECT RUM,
+	    SELECT 
 	    	   ASSET_ID,
 	    	   LARGE_CATEGORY, 
 	    	   MIDDLE_CATEGORY, 
@@ -139,32 +138,36 @@
 		    ASSET_ID, 
 		    LARGE_CATEGORY, 
 		    MIDDLE_CATEGORY, 
-		    ASSET_NAME, 
-		    ASSET_QTY, 
+		    ASSET_QTY,
+		    PHOTO_ID,
+		    ASSET_NAME,
+		    ASSET_SN,
+		    MAKER, 
+		    FILE_ID,
+		    NOTE,
 		    ACQUIRED_DATE, 
 		    ACQUIRED_PRICE, 
-		    MAKER, 
-		    NOTE, 
 		    REG_ID, 
 		    REG_DATE, 
-		    USAGE_STAUTS, 
-		    ADD_ASSET, 
-		    PHOTO_ID)
+		    USAGE_STAUTS
+		    )
 		VALUES (
 		    #{assetId},
 		    #{largeCategory},
 		    #{middleCategory}, 
-		    #{assetName}, 
 		    #{assetQty},
-		    DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'), 
-		    #{acquiredPrice},
+		    #{photoId},
+		    #{assetName},
+		    #{assetSn},
 		    #{maker},
-		    #{note}, 
+		    #{fileId},
+		    #{note},
+		    NULL,
+		    NULL,
 		    #{regId},
-		    DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'),
-		    #{usageStatus}, 
-		    #{addAsset}, 
-		    #{photoId} )
+		    DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+		    #{usageStatus} 
+		     )
 	</insert>
 
 	<update id="UpdateAssetInfo" parameterType="egovframework.let.ass.service.AssetInfoVO">
@@ -178,8 +181,7 @@
 		   	ACQUIRED_DATE = #{acquiredDate}, 
 		   	ACQUIRED_PRICE = #{acquiredPrice}, 
 		   	MAKER = #{maker}, 
-		   	NOTE = #{note}, 
-		   	ADD_ASSET = #{addAsset} 
+		   	NOTE = #{note}
 		   	<if test="photoId != null and photoId != ''">
 		   	,PHOTO_ID = #{photoId}
 		   	</if>

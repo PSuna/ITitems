@@ -53,38 +53,32 @@
 	<insert id="InsertAssetHist"
 		parameterType="egovframework.let.ass.service.AssetHistVO">
 		
-		INSERT INTO ASSETSHIST
-		      (   HIST_ID, 
+		INSERT INTO ASSETSHIST(   
+				  HIST_ID, 
 		          ASSET_ID, 
 		          ORGNZT_ID, 
 		          PRJ_ID, 
-		          USE_ID, 
-		          HIST_QTY, 
+		          USE_ID,  
 		          HIST_STATUS, 
-		          HIST_NOTE, 
 		          HIST_DATE, 
 		          RCPT_DATE, 
 		          RCPT_ID, 
-		          CARRY_REASON, 
-		          APPROVAL, 
-		          CODE, 
-		          FILE_ID )
+		          CARRY_REASON,
+		          HIST_GROUP
+		      )
 		VALUES (
 		          #{histId}, 
 		          #{assetId}, 
 		          #{orgnztId}, 
 		          #{prjId}, 
-		          #{useId}, 
-		          #{histQty}, 
+		          #{useId},  
 		          #{histStatus},
-		          #{histNote},
-		          DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'), 
+		          DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), 
 		          DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), 
 		          #{rcptId}, 
-		          #{carryReason}, 
-		          #{approval},
-		          #{code}, 
-		          #{fileId})
+		          #{carryReason},
+		          #{HIST_GROUP}
+		       )
 	</insert>
 
 </mapper>

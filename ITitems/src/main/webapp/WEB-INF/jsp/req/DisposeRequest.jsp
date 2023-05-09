@@ -26,7 +26,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
-<title>자산관리 > 처분신청조회</title>
+<title>ITitems</title>
 
 <script type="text/javascript">
 function ProjectSearch(){
@@ -95,9 +95,6 @@ function getMCatList() {
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
         
                         <div class="content_wrap">
                             <div id="contents" class="content">

@@ -194,7 +194,10 @@ function actionLogout()
 
 <!-- Menu list -->
 <form name="menuListForm" action="" method="post">
-	<input type="hidden" id="testData" value="꽥" />
+	<c:if test="<%= loginVO.getAuthorCode() == \"ROLE_USER_MEMBER\"%>">
+		<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+		<input type="hidden" id="searchOrgnzt" name="searchOrgnzt" value="<c:out value="${orgnztId}"/>" />
+	</c:if>
     <input type="hidden" id="baseMenuNo" name="baseMenuNo" value="<%=session.getAttribute("baseMenuNo")%>" />
     <input type="hidden" id="link" name="link" value="" />
     <div style="width:0px; height:0px;">

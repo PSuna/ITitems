@@ -113,7 +113,7 @@ public class EgovLoginController {
 
 			// 2. spring security 연동
 			request.getSession().setAttribute("LoginVO", resultVO);
-
+			
 			UsernamePasswordAuthenticationFilter springSecurity = null;
 
 			ApplicationContext act = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getSession().getServletContext());

@@ -39,11 +39,11 @@
 		</if>
 		<if test="startDate != null and startDate != ''">
 			AND A.REQ_DATE >= STR_TO_DATE(#{startDate},
-			'%Y%m%d%H%i%s')
+			'%Y-%m-%d')
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
-			AND A.REQ_DATE <= STR_TO_DATE(#{endDate}, '%Y%m%d%H%i%s')
+			AND A.REQ_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
 		</if>
 	</sql>
@@ -65,7 +65,7 @@
 		VALUES (
 			#{reqId},
 			#{id},
-			DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d %H:%i:%s'),
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 			#{reqStatus},
 			#{reqNote},
 			#{prjId},

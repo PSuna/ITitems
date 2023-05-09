@@ -106,7 +106,7 @@ window.onload = function(){
 //-->
 </script>
 
-<title>자산관리 > 자산등록</title>
+<title>ITitems</title>
 
 </head>
 
@@ -141,9 +141,6 @@ window.onload = function(){
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu -->
 
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -152,7 +149,7 @@ window.onload = function(){
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>신규자산등록</li>
+										<li>자산수정</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -162,7 +159,7 @@ window.onload = function(){
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
-									<h2 class="tit_2">신규자산등록</h2>
+									<h2 class="tit_2">자산수정</h2>
 
 									<br>
 									<!-- 추가/초기화 버튼  -->
@@ -180,8 +177,10 @@ window.onload = function(){
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 190px;">
-												<col style="width: auto;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
@@ -204,8 +203,6 @@ window.onload = function(){
 													</label> 
 													<br />
 												</td>
-											</tr>
-											<tr>
 												<td class="lb">
 													<!-- 중분류 --> 
 													<label for="">중분류</label> 
@@ -221,16 +218,6 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">품명</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수량 -->
 													<label for="">수량</label> 
 													<span class="req">필수</span>
@@ -239,26 +226,35 @@ window.onload = function(){
 													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value="${resultVO.assetQty}"  maxlength="20">
 													<br />
 												</td>
+												<td class="lb">
+													<label for="egovComFileUploader">사진첨부</label> <img src="<c:url value='/'/>images/ico_question.png">
+												<td>
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="photo" id="photo" type="file" />
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl">
+													</div> 
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
+													</c:if>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label> 
-													<span class="req">필수</span>
+													<!-- 품명 --> 
+													<label for="">품명</label>
 												</td>
 												<td>
-													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="${resultVO.acquiredDate}">
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
 													<br />
 												</td>
-											</tr>
-											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img src="<c:url value='/'/>images/ico_question.png">
 												</td>
 												<td>
-													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="number" value="${resultVO.acquiredPrice}" maxlength="60">
+													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="" maxlength="60"> 
 													<br />
 												</td>
 											</tr>
@@ -271,14 +267,38 @@ window.onload = function(){
 													<input id="maker" class="f_txt w_full" name="maker" type="text" value="${resultVO.maker}" maxlength="60"> 
 													<br />
 												</td>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png">
+												</td>
+												<td>
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="file" id="egovComFileUploader" type="file" />
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl"></div>
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt"
+															value="0" />
+													</c:if>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 추가물품 --> 
-													<label for="">추가물품</label>
+													<!-- 취득일자 --> 
+													<label for="">취득일자</label>
 												</td>
 												<td>
-													<input id="addAsset" class="f_txt w_full" name="addAsset" type="text" value="${resultVO.addAsset}" maxlength="60">
+													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="${resultVO.acquiredDate}">
+													<br />
+												</td>
+												<td class="lb">
+													<!-- 취득가액 --> 
+													<label for="">취득가액</label>
+												</td>
+												<td>
+													<input id="acquiredPrice" class="f_txt w_full"
+													name="acquiredPrice" type="number" value="${resultVO.acquiredPrice}" maxlength="60">
 													<br />
 												</td>
 											</tr>
@@ -287,24 +307,92 @@ window.onload = function(){
 													<!-- 비고 --> 
 													<label for="note">비고</label>
 												</td>
-												<td>
+												<td colspan="4">
 													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10" >${resultVO.note}</textarea>
 												</td>
 											</tr>
-											<!-- 파일첨부 시작 -->
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">사진첨부</label>
+													<!-- 부서 --> 
+													<label for="orgnztId">부서</label>
+												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-													</c:if>
+													<label class="f_select w_30%" for="orgnztId">
+														<select id="orgnztId" name="orgnztId" title="부서">
+															<option value="" label="선택하세요" />
+															<c:forEach var="orgnztId" items="${orgnztId_result}"
+																varStatus="status">
+																<option value="${orgnztId.code}">
+																	<c:out value="${orgnztId.codeNm}" />
+																</option>
+															</c:forEach>
+													</select>
+													</label>
+												</td>
+												<td class="lb">
+													<!-- 프로젝트 --> 
+													<label for="">프로젝트</label>
+												</td>
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+														readonly="false" />
+													<button type="button" class="btn"
+														onclick="ProjectSearch();">조회</button>
+													</span> 
+													<form:errors path="prjId" /> 
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+														readonly="readonly" />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령자 --> 
+													<label for="">수령자</label> 
+													<span class="req">필수</span>
+												</td>
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="rcptNm" type="text" title="회원" maxlength="100"
+														readonly="false" value=""/>
+													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+													</span> 
+													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
+														value="" maxlength="8" readonly="readonly" />
+												</td>
+												<td class="lb">
+													<!-- 실사용자 --> 
+													<label for="">실사용자</label> 
+												</td>
+												<td>
+													<span class="f_search2 w_30%"> 
+														<input id="useNm" type="text" title="회원" maxlength="100"
+															readonly="false" value=""/>
+														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+													</span> 
+													<input name="useId" id="useId" type="hidden" title="프로젝트" value=""
+														maxlength="8" readonly="readonly" />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="4">
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date" value="" maxlength="60">
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 반출사유 --> 
+													<label for="carryReason">반출사유</label>
+												</td>
+												<td colspan="4">
+													<textarea id="carryReason" name="carryReason"
+														class="f_txtar w_full h_200" cols="30" rows="10">
+													</textarea>
 												</td>
 											</tr>
 										</table>
