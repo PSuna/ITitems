@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -45,48 +46,14 @@ function ProjectSearch(){
 	$dialog.dialog('open');
 }
 
-function fn_egov_returnValue(val){
+function returnProject(val){
 	
 	if (val) {
-		document.getElementById("prjId").value  = val.prjId;
+		document.getElementById("searchPrj").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
 	}
 	
 	fn_egov_modal_remove();
-}
-
-function getMCatList() {
-	let val = document.getElementById('largeCategory').value;
-	if(val == ""){
-		document.getElementById('middleCategory').replaceChildren();
-		let op = document.createElement('option');
-		op.textContent = '선택하세요';
-		op.value = "";
-		document.getElementById('middleCategory').appendChild(op);
-	}else{
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
-			success: function (result) {
-				document.getElementById('middleCategory').replaceChildren();
-				let op = document.createElement('option');
-				op.textContent = '선택하세요';
-				document.getElementById('middleCategory').appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					document.getElementById('middleCategory').appendChild(op);
-				}
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})
-	}
-	
 }
 
 function SearchCarryList() {
@@ -113,8 +80,47 @@ function fn_egov_select_noticeList(pageNo) {
     document.frm.submit(); 
 }
 
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#startDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+
+	$("#endDate").datepicker( 
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+}
+
+
 window.onload = function(){
-	getMCatList();
+	make_date();
 	  }
 
 function CarryRegist() {
@@ -191,32 +197,8 @@ function CarryRegist() {
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden"
-													title="프로젝트" value="" maxlength="8" readonly="readonly" /><br>
+													title="프로젝트" value="" maxlength="8" readonly="readonly" />
 											</div>
-											<div>
-												<span class="lb">대분류</span> <label class="item f_select"
-													for="sel1"><select id="largeCategory"
-													name="largeCategory" title="대분류" onchange="getMCatList();">
-														<option value='' label="선택하세요" selected="selected" />
-														<c:forEach var="LCat" items="${LCat_result}"
-															varStatus="status">
-															<option value="${LCat.catId}"><c:out
-																	value="${LCat.catName}" /></option>
-														</c:forEach>
-												</select> </label>
-											</div>
-
-
-											<div>
-												<span class="lb">중분류</span> <label class="item f_select"
-													for="sel1"> <select id="middleCategory"
-													name="middleCategory" title="중분류">
-														<option value='' label="선택하세요" selected="selected" />
-												</select>
-												</label>
-											</div>
-										</div>
-										<div class="pty_box01">
 											<div>
 												<span class="lb">상태</span> <label class="item f_select"
 													for="sel1"> <select id="searchStatus"
@@ -228,13 +210,22 @@ function CarryRegist() {
 																	value="${stat.codeNm}" /></option>
 														</c:forEach>
 												</select>
+												</label>
 											</div>
-
-											<span class="lb ml20">신청일자</span> <input
-												class="f_date pty_f_date" name="startDate" type="date">
-											― <input class="f_date pty_f_date" type="date" name="endDate">
+											<div>
+												<span class="lb ml20">신청일자</span>
+												<span class="search_date">
+													<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
+												</span>
+												&nbsp;&nbsp;―&nbsp;&nbsp;
+												 <span class="search_date">
+												 	<input class="f_date pty_f_date w_130" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
+												 </span> 
+											 </div>
+											 <div>
 											<button class="btn pty_btn" type="submit"
 												style="margin-left: 6px" onclick="SearchCarryList();">검색</button>
+											</div>
 										</div>
 									</div>
 								</form>

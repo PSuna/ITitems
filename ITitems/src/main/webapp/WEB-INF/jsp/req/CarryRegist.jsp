@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -119,14 +120,6 @@ function addTd() {
 	 let td = tdClone.cloneNode(true);
 	 document.querySelector('.assetlist tbody').appendChild(td); 
 }
-
-/* ********************************************************
- * 클론 복사
- ******************************************************** */
-window.onload = function(){
-	let tdlist = document.querySelectorAll('.assetlist tbody tr');
-	tdClone = tdlist[tdlist.length-2].cloneNode(true);
-	  }
 
 /* ********************************************************
  * 중분류 조회
@@ -264,6 +257,74 @@ document.getElementById("pmNm").value  = val.userNm;
 fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#startDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+
+	$("#endDate").datepicker( 
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+}
+
+
+/* ********************************************************
+ * 숫자 콤마 입력
+ ******************************************************** */
+  function getNumber(obj){
+	     var num01;
+	     var num02;
+	     num01 = obj.value;
+	     num02 = num01.replace(/\D/g,""); 
+	     num01 = setComma(num02);
+	     obj.value =  num01;
+
+	     $('#test').text(num01);
+	  }
+
+	  function setComma(n) {
+	     var reg = /(^[+-]?\d+)(\d{3})/;
+	     n += '';         
+	     while (reg.test(n)) {
+	        n = n.replace(reg, '$1' + ',' + '$2');
+	     }         
+	     return n;
+	  }
+
+window.onload = function(){
+	let tdlist = document.querySelectorAll('.assetlist tbody tr');
+	tdClone = tdlist[tdlist.length-2].cloneNode(true);
+	make_date();
+	  }
+
 //-->
 </script>
 
@@ -390,12 +451,17 @@ fn_egov_modal_remove();
 												<td class="lb">
 													<!-- 사용기간 --> <label for="">사용기간</label> <span class="req">필수</span>
 												</td>
-												<td colspan="3"><input id="startDate"
-													class="f_txt w_40%" name="startDate" type="date"
-													maxlength="60">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input id="endDate" class="f_txt w_40%" name="endDate"
-													type="date" maxlength="60"> <br /></td>
+												<td colspan="3">
+													<div>
+														<span class="search_date">
+															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" >
+														</span>
+														&nbsp;&nbsp;―&nbsp;&nbsp;
+														<span class="search_date">
+															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" >
+														</span>
+													</div>
+												</td>
 											</tr>
 										</table>
 									</div>
@@ -462,8 +528,8 @@ fn_egov_modal_remove();
 														</select>
 														</label>
 													</div></td>
-												<td><input id="reqQty" name="reqQty" type="number"
-													class="f_txt w_full"></td>
+												<td><input id="reqQty" name="reqQty" type="text"
+													class="f_txt w_full" onchange="getNumber(this);" onkeyup="getNumber(this);"></td>
 												<td><input id="maker" name="maker" type="text"
 													class="f_txt w_full"></td>
 												<td><input id="user" name="user" type="text"

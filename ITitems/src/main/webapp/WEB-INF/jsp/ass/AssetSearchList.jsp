@@ -1,6 +1,6 @@
 <%--
   Class Name : ProjectSearchList.jsp
-  Description : ProjectSearchList 화면(include)
+  Description : 프로젝트 검색 화면(include)
   Modification Information
  
       수정일         수정자                   수정내용

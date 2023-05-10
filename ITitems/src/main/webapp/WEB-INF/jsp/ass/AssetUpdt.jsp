@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -100,8 +101,73 @@ function getMCatList(Mval) {
 	}
 }
 
+/* ********************************************************
+ * 숫자 콤마 입력
+ ******************************************************** */
+  function getNumber(obj){
+	     var num01;
+	     var num02;
+	     num01 = obj.value;
+	     num02 = num01.replace(/\D/g,""); 
+	     num01 = setComma(num02);
+	     obj.value =  num01;
+
+	     $('#test').text(num01);
+	  }
+
+	  function setComma(n) {
+	     var reg = /(^[+-]?\d+)(\d{3})/;
+	     n += '';         
+	     while (reg.test(n)) {
+	        n = n.replace(reg, '$1' + ',' + '$2');
+	     }         
+	     return n;
+	  }
+
+
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#acquiredDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+	
+	$("#rcptDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+	
+}
+
 window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
+	getNumber(document.AssetUpdt.acquiredPrice);
+	make_date();
 	  }
 //-->
 </script>
@@ -223,11 +289,11 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="number" value="${resultVO.assetQty}"  maxlength="20">
-													<br />
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
+														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">사진첨부</label> <img src="<c:url value='/'/>images/ico_question.png">
+													<label for="egovComFileUploader">제품사진</label> <img src="<c:url value='/'/>images/ico_question.png">
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="photo" id="photo" type="file" />
@@ -243,7 +309,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for="">품명</label>
+													<label for="">제품명</label>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
@@ -289,8 +355,9 @@ window.onload = function(){
 													<label for="">취득일자</label>
 												</td>
 												<td>
-													<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="date" value="${resultVO.acquiredDate}">
-													<br />
+													<span class="search_date">
+														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}">
+													</span>
 												</td>
 												<td class="lb">
 													<!-- 취득가액 --> 
@@ -298,7 +365,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="number" value="${resultVO.acquiredPrice}" maxlength="60">
+													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
 													<br />
 												</td>
 											</tr>
@@ -380,8 +447,9 @@ window.onload = function(){
 													<label for="">수령일자</label> 
 												</td>
 												<td colspan="4">
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="date" value="" maxlength="60">
-													<br />
+													<span class="search_date">
+														<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
+													</span>
 												</td>
 											</tr>
 											<tr>
