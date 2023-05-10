@@ -172,7 +172,7 @@ function setPageUnit(){
                                     	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="부서"/>
 	                                        <c:forEach var="orgnztId" items="${orgnztId_result}">
-	                                        	<option value="<c:out value="${orgnztId.code}"/>" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>${orgnztId.codeNm}</option>
+	                                        	<option value="<c:out value="${orgnztId.code}"/>"<c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>${orgnztId.codeNm}</option>
 	                                        </c:forEach>
                                     	</select>
                                     </label>

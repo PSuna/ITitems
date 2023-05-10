@@ -63,7 +63,7 @@ function getMCatList(Mval) {
 	if(val == ""){
 		document.getElementById('middleCategory').replaceChildren();
 		let op = document.createElement('option');
-		op.textContent = '선택하세요';
+		op.textContent = '중분류';
 		op.value = "";
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
@@ -75,7 +75,7 @@ function getMCatList(Mval) {
 			success: function (result) {
 				document.getElementById('middleCategory').replaceChildren();
 				let op = document.createElement('option');
-				op.textContent = '선택하세요';
+				op.textContent = '중분류';
 				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
 				for(res of result){
@@ -123,40 +123,41 @@ function fn_egov_select_noticeList(pageNo) {
 /* ********************************************************
  * date input 생성
  ******************************************************** */
- function make_date(){
-		
-		$(".container #startDate").datepicker(
-		        {dateFormat:'yy-mm-dd'
-		         , showOn: 'button'
-		         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-		         , buttonImageOnly: true
-		         
-		         , showMonthAfterYear: true
-		         , showOtherMonths: true
-			     , selectOtherMonths: true
-			     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-					
-		         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-		         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-		         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-		});
+function make_date(){
+	
+	$("#startDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
 
-		$(".container #endDate").datepicker( 
-		        {dateFormat:'yy-mm-dd'
-		         , showOn: 'button'
-		         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-		         , buttonImageOnly: true
-		         
-		         , showMonthAfterYear: true
-		         , showOtherMonths: true
-			     , selectOtherMonths: true
-			     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-					
-		         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-		         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-		         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-		});
-	}
+	$("#endDate").datepicker( 
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+}
+
 
 
 window.onload = function(){
@@ -182,9 +183,6 @@ function selectAsset(id) {
 }
 .lb{
 	margin-left:10px !important;
-}
-.w_130 {
-    width: 90px !important;
 }
 </style>
 </head>
@@ -237,28 +235,29 @@ function selectAsset(id) {
 												</label> 
 											</div>
 											
-											<div style=" width: 315px;">
+											<div style=" width: 378px;">
 												<span class="lb">프로젝트</span> 
-												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" style="width: 220px;" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-													<button type="button" class="btn"style="right: -8px;" onclick="ProjectSearch();">조회</button>
+												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" style="width: 283px;" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+													<button type="button" class="btn"style="right: -73px;" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
 											<div>
-												<span class="lb">대분류</span> 
+												<span class="lb">분류</span> 
 												<label class="item f_select" for="sel1">
 												<select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
-														<option value='' label="선택하세요" />
-														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
-														</c:forEach>
+													<option value='' label="대분류" />
+													<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+														<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
+													</c:forEach>
 												</select> 
 												
 												</label> 
 											</div>
 																							
 											<div>
-												<span class="lb">중분류</span> <label class="item f_select" for="sel1"> <select id="middleCategory" name="searchdMCat" title="중분류">
-														<option value='' label="선택하세요" />
+												<label class="item f_select" for="sel1">
+												<select id="middleCategory" name="searchdMCat" title="중분류">
+													<option value='' label="중분류" />
 												</select>
 												</label> 
 											</div>
@@ -286,12 +285,12 @@ function selectAsset(id) {
 												 <span class="search_date">
 												 <input class="f_date pty_f_date w_130" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
 												 </span> 
-											</div>	
+											</div>		
 											<div class="pty_search">
 												<span class="lb" style="margin: 0 8px 0 24px !important;">조회</span>
 												<span class="item f_search">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" style="width: 286px !important;" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
 												
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
@@ -307,12 +306,16 @@ function selectAsset(id) {
 								<div class="board_list">
 									<table>
 										<colgroup>
-											<col style="width: 80px;">
-											<col style="width: auto;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
+											<col style="width: 5%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 12%;">
+											<col style="width: 8%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 10%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -325,6 +328,7 @@ function selectAsset(id) {
 												<th scope="col">취득가액</th>
 												<th scope="col">제조사</th>
 												<th scope="col">상태</th>
+												<th scope="col">결재</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -334,7 +338,7 @@ function selectAsset(id) {
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
 														<form name="subForm" method="post"
-															action="<c:url value='/sec/asm/SecSelectAsset.do'/>">
+															action="<c:url value='/ass/SelectAsset.do'/>">
 															<input type="hidden" name="assetId"
 																value="<c:out value='${result.assetId}'/>" />
 														</form>
@@ -342,7 +346,7 @@ function selectAsset(id) {
 													<td><c:out value="${result.largeCategory}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
-													<td><c:out value="${result.histQty}" /></td>
+													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.acquiredDate}" /></td>
 													<td>
 														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
@@ -351,6 +355,7 @@ function selectAsset(id) {
 													</td>
 													<td><c:out value="${result.maker}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
+													<td><c:out value="${result.approval}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>
