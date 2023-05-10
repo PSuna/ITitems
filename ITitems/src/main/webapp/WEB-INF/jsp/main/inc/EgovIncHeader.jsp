@@ -197,10 +197,10 @@ function actionLogout()
 <form name="menuListForm" action="" method="post">
 	<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
 	<input type="hidden" id="searchOrgnzt" name="searchOrgnzt" value="<c:out value="${orgnztId}"/>" />
-	<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*30L)%>" />
-	<input type="hidden" id="startDate" name="startDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+	<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+	<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 	<c:set var="end" value="<%=new java.util.Date()%>" />
-	<input type="hidden" id="endDate" name="endDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+	<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
     <input type="hidden" id="baseMenuNo" name="baseMenuNo" value="<%=session.getAttribute("baseMenuNo")%>" />
     <input type="hidden" id="link" name="link" value="" />
     <div style="width:0px; height:0px;">

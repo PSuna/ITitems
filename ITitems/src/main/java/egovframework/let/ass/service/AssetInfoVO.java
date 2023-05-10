@@ -68,9 +68,6 @@ public class AssetInfoVO implements Serializable {
 	/** 사진코드 */
 	private String photoId;
 	
-	/** 내역 수량 */
-	private Integer histQty;
-	
 	/** 내역 상태 */
 	private String histStatus;
 	
@@ -79,6 +76,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 지급확인서 코드 */
 	private String fileId;
+	
+	/** 결재 */
+	private String approval;
 
 	public String getAssetId() {
 		return assetId;
@@ -200,14 +200,6 @@ public class AssetInfoVO implements Serializable {
 		this.photoId = photoId;
 	}
 
-	public Integer getHistQty() {
-		return histQty;
-	}
-
-	public void setHistQty(Integer histQty) {
-		this.histQty = histQty;
-	}
-
 	public String getHistStatus() {
 		return histStatus;
 	}
@@ -230,6 +222,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+
+	public String getApproval() {
+		return approval;
+	}
+
+	public void setApproval(String approval) {
+		this.approval = approval;
 	}
 	
 	

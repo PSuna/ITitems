@@ -76,6 +76,13 @@ public class RequestController {
 		manageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		manageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 		
+		if(manageVO.getMenuStartDate() != null && manageVO.getMenuStartDate() != "") {
+			manageVO.setStartDate(manageVO.getMenuStartDate());
+		}
+		if(manageVO.getMenuEndDate() != null && manageVO.getMenuEndDate() != "") {
+			manageVO.setEndDate(manageVO.getMenuEndDate());
+		}
+		
 		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
 		
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));

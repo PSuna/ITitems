@@ -126,7 +126,7 @@ function fn_egov_select_noticeList(pageNo) {
  ******************************************************** */
 function make_date(){
 	
-	$(".container #startDate").datepicker(
+	$("#startDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -142,7 +142,7 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 
-	$(".container #endDate").datepicker( 
+	$("#endDate").datepicker( 
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -215,7 +215,7 @@ function selectAsset(id) {
 										<input type="hidden" name="pageIndex">
 										<div class="pty_box01">
 											<div>
-												<span class="lb">부서${searchVO.searchOrgnzt}</span>
+												<span class="lb">부서</span>
 												<label class="item f_select" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
 															<option value="" >선택하세요</option>
@@ -296,12 +296,16 @@ function selectAsset(id) {
 								<div class="board_list">
 									<table>
 										<colgroup>
-											<col style="width: 80px;">
-											<col style="width: auto;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;">
+											<col style="width: 5%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 12%;">
+											<col style="width: 8%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 11%;">
+											<col style="width: 10%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -314,6 +318,7 @@ function selectAsset(id) {
 												<th scope="col">취득가액</th>
 												<th scope="col">제조사</th>
 												<th scope="col">상태</th>
+												<th scope="col">결재</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -331,7 +336,7 @@ function selectAsset(id) {
 													<td><c:out value="${result.largeCategory}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
-													<td><c:out value="${result.histQty}" /></td>
+													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.acquiredDate}" /></td>
 													<td>
 														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
@@ -340,6 +345,7 @@ function selectAsset(id) {
 													</td>
 													<td><c:out value="${result.maker}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
+													<td><c:out value="${result.approval}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>

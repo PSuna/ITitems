@@ -95,11 +95,18 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-
+		
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		
 		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-
+		
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("resultCnt", map.get("resultCnt"));
@@ -239,7 +246,7 @@ public class AssetController {
 			files.put("file", multiRequest.getFile("file"));
 			if (!files.isEmpty()) {
 				List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
-				assetHistVO.setFileId(fileMngService.insertFileInfs(result));
+				assetInfoVO.setFileId(fileMngService.insertFileInfs(result));
 			}
 		}
 		
@@ -247,8 +254,8 @@ public class AssetController {
 		
 		assetHistVO.setAssetId(assetInfoVO.getAssetId());
 		assetHistVO.setHistStatus("P0");
-		assetHistVO.setHistNote(assetInfoVO.getNote());
-		assetHistVO.setHistQty(assetInfoVO.getAssetQty());
+		assetHistVO.setHistGroup("H2");
+		assetHistVO.setApproval("A1");
 		assetService.InsertAssetHist(assetHistVO);
 		
 		return assetInfoVO.getAssetId();

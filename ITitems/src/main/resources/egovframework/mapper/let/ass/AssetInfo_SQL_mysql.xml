@@ -9,13 +9,14 @@
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetName" column="ASSET_NAME" />
-		<result property="histQty" column="HIST_QTY" />
+		<result property="assetQty" column="ASSET_QTY" />
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
+		<result property="approval" column="APPROVAL" />
 	</resultMap>
-
+	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
 		id="assetInfoDetail">
 		<result property="assetId" column="ASSET_ID" />
@@ -35,31 +36,31 @@
 	<sql id="search">
 		<where>
 			<if test="searchOrgnzt != null and searchOrgnzt != ''">
-				AND A.ORGNZT_ID = #{searchOrgnzt}
+				AND B.ORGNZT_ID = #{searchOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
-				AND A.PRJ_ID = #{searchPrj}
+				AND B.PRJ_ID = #{searchPrj}
 			</if>
 			<if test="searchLCat != null and searchLCat != ''">
-				AND B.LARGE_CATEGORY = #{searchLCat}
+				AND A.LARGE_CATEGORY = #{searchLCat}
 			</if>
 			<if test="searchdMCat != null and searchdMCat != ''">
-				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				AND A.MIDDLE_CATEGORY = #{searchdMCat}
 			</if>
 			<if test="searchStatus != null and searchStatus != ''">
-				AND A.HIST_STATUS = #{searchStatus}
+				AND B.HIST_GROUP = #{searchStatus}
 			</if>
 			<if test="startDate != null and startDate != ''">
-				AND B.ACQUIRED_DATE >= STR_TO_DATE(#{startDate},
+				AND A.ACQUIRED_DATE >= STR_TO_DATE(#{startDate},
 				'%Y-%m-%d')
 			</if>
 			<if test="endDate != null and endDate != ''">
 				<![CDATA[
-				AND B.ACQUIRED_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				AND A.ACQUIRED_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
-				AND B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 		</where>
 	</sql>
@@ -73,29 +74,37 @@
 	    	   LARGE_CATEGORY, 
 	    	   MIDDLE_CATEGORY, 
 	    	   ASSET_NAME, 
-	    	   HIST_QTY, 
+	    	   ASSET_QTY, 
 	    	   ACQUIRED_DATE,
 	    	   ACQUIRED_PRICE,
 	    	   MAKER,
-	    	   USAGE_STAUTS
+	    	   USAGE_STAUTS,
+	    	   APPROVAL
 	      FROM (
 		        SELECT 
-		            ROW_NUMBER() OVER(ORDER BY A.HIST_DATE DESC)AS RUM, 
-		            B.ASSET_ID,
-		            (SELECT CAT_NAME FROM CATEGORY WHERE CAT_ID = B.LARGE_CATEGORY) AS LARGE_CATEGORY,
-		            (SELECT CAT_NAME FROM CATEGORY WHERE CAT_ID = B.MIDDLE_CATEGORY) AS MIDDLE_CATEGORY,
-		            B.ASSET_NAME,
-		            A.HIST_QTY,
-		            DATE_FORMAT(B.ACQUIRED_DATE,'%Y-%m-%d')AS ACQUIRED_DATE,
-		            B.ACQUIRED_PRICE,
-		            B.MAKER,
-		            C.CODE_NM AS USAGE_STAUTS
-		          FROM ASSETSHIST A
-		          LEFT OUTER JOIN ASSETSINFO B
-		            ON A.ASSET_ID = B.ASSET_ID
-		          LEFT OUTER JOIN LETTCCMMNDETAILCODE C
-		            ON B.USAGE_STAUTS = C.CODE
-		        <include refid="search" />
+					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					D.CAT_NAME AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY, 
+					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d')AS ACQUIRED_DATE, 
+					A.ACQUIRED_PRICE, 
+					A.MAKER, 
+					E.CODE_NM AS USAGE_STAUTS,
+					F.CODE_NM AS APPROVAL
+				  FROM ASSETSINFO A
+				  LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+				  LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+				  LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+		        	<include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
@@ -104,10 +113,10 @@
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
 		SELECT 
-			COUNT(a.HIST_ID)
-		  FROM ASSETSHIST a
- 		  LEFT OUTER JOIN ASSETSINFO b
-		    on a.ASSET_ID = b.ASSET_ID
+			COUNT(A.ASSET_ID)
+		  FROM ASSETSINFO A
+		  LEFT OUTER JOIN ASSETSHIST B
+		    ON A.ASSET_ID = B.ASSET_ID
 		<include refid="search" />
 	</select>
 
