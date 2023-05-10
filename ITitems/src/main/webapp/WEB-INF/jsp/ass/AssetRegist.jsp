@@ -56,9 +56,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  * 자산 등록 처리
  ******************************************************** */
 function insert_asset(){
-	
-	/* confirm("등록하시겠습니까?")
-	if(validateAssetRegist(document.assetRegist)){
+
 		let formData = new FormData(document.getElementById('assetRegist'));
 		
 	 	 $.ajax({
@@ -69,16 +67,92 @@ function insert_asset(){
 			contentType: false,
 			data: formData,
 			success: function (result) {
-				document.SelectAsset.assetId.value = result;
-				document.SelectAsset.submit();
+				RegistSuccess();
 			},
 			error: function (error) {
-				console.log(error);
+				RegistFail();
 			}
-		}) 
-    } */
+	
 }
 
+/* ********************************************************
+ * 등록확인 팝업창
+ ******************************************************** */
+ function RegistConfirm(){
+	
+	  if(validateAssetRegist(document.assetRegist)){
+		 var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 500,
+		        height: 300
+			});
+		    $(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+	 } 
+}
+
+/* ********************************************************
+ * 등록확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+ if(val){
+	 insert_asset();
+ }	  
+}
+
+/* ********************************************************
+ * 등록완료 팝업창
+ ******************************************************** */
+ function RegistSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 500,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 등록완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(val){
+	
+	if(val){
+		fn_egov_modal_remove();
+		document.assetRegist.largeCategory.focus(); 
+	}else{
+		document.AssetManagement.submit(); 
+	}
+
+}
+
+/* ********************************************************
+ * 등록실패 팝업창
+ ******************************************************** */
+ function RegistFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 500,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+		
 /* ********************************************************
  * 중분류 조회
  ******************************************************** */
@@ -297,10 +371,10 @@ function PhotoManual(){
 /* ********************************************************
  * 시리얼넘버 안내
  ******************************************************** */
-function PhotoManual(){
+function AssetSnManual(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSnManual.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -314,10 +388,10 @@ function PhotoManual(){
 /* ********************************************************
  * 지급확인서 안내
  ******************************************************** */
-function PhotoManual(){
+function FileManual(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/FileManual.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -509,10 +583,10 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png">
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="" maxlength="60"> 
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
 													<br />
 												</td>
 											</tr>
@@ -527,7 +601,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png">
+													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
@@ -584,12 +658,13 @@ window.onload = function(){
 													<label for="orgnztId">부서</label>
 												</td>
 												<td>
+													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
 													<label class="f_select w_30%" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" title="부서">
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}">
+																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>>
 																	<c:out value="${orgnztId.codeNm}" />
 																</option>
 															</c:forEach>
@@ -671,17 +746,15 @@ window.onload = function(){
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="insert_asset(); return false;"><spring:message
+												onclick="RegistConfirm(); return false;"><spring:message
 													code="button.create" /></a>
 											<!-- 등록 -->
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form>
-								<form name="SelectAsset" method="post"
-									action="<c:url value='/req/SelectAsset.do'/>">
-									<input type="hidden" name="assetId"
-										value="" />
+								<form name="AssetManagement" method="post"
+									action="<c:url value='/ass/AssetManagement.do'/>">
 								</form>
 							</div>
 						</div>

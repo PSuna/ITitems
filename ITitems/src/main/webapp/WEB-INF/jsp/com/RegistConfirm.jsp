@@ -15,6 +15,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,6 +28,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -34,6 +36,11 @@
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
+	}
+
+	function return_val(val) {
+
+		parent.parent.returnConfirm(val);
 	}
 	
 </script>
@@ -48,15 +55,26 @@
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
 				<div class="pop_header">
-					<h1>제품사진 안내</h1>
-					<button type="button" class="close"
-						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
+					<h1>등록확인</h1>
 				</div>
 				<div class="pop_container">
-			
-					
-
-
+					<div class="pop_check">
+						<h4><spring:message code="common.regist.msg" /></h4>
+						<!-- 버튼  -->
+						<div class="board_view_bot">
+							<div class="right_btn btn1">
+								<!-- 예  -->
+								<a href="#LINK" class="btn btn_blue_46 w_100"
+									onclick="return_val(true);return false;"><spring:message
+										code="button.yes" /></a>
+								<!-- 아니오  -->
+								<a href="#LINK" class="btn btn_blue_46 w_100"
+									onclick="return_val(false);return false;"><spring:message
+										code="button.no" /></a>
+							</div>
+						</div>
+						<!-- // 버튼 끝  -->
+					</div>
 				</div>
 			</div>
 		</div>

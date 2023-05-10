@@ -31,3 +31,16 @@
 .manual_img{
 	cursor: pointer;
 }
+
+.pop_check{
+	text-align: center;
+    line-height: 3;
+}
+
+.pop_check h4{
+	margin-bottom: 25px;
+}
+
+.pop_check .btn_blue_46{
+	margin: 0px 5%;
+}
