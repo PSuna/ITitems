@@ -126,7 +126,7 @@ function fn_egov_select_noticeList(pageNo) {
  ******************************************************** */
 function make_date(){
 	
-	$("#startDate").datepicker(
+	$(".container #startDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -142,7 +142,7 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 
-	$("#endDate").datepicker( 
+	$(".container #endDate").datepicker( 
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'

@@ -51,6 +51,7 @@ import egovframework.let.uss.umt.service.UserManageService;
  *
  *      </pre>
  */
+
 @Controller
 public class AssetController {
 
@@ -300,5 +301,22 @@ public class AssetController {
 		return "/ass/PhotoManual";
 	}
 	
+	/**
+	 * 시리얼넘버 안내 팝업창로 이동
+	 */
+	@RequestMapping(value = "/ass/AssetSnManual.do")
+	public String AssetSnManual() throws Exception {
 
+		return "/ass/AssetSnManual";
+	}
+	
+	/**
+	 * 지급확인서 안내 팝업창로 이동
+	 */
+	@RequestMapping(value = "/ass/FileManual.do")
+	public String FileManual() throws Exception {
+
+		return "/ass/FileManual";
+	}
+	
 }

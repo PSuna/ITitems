@@ -48,7 +48,7 @@
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
 				<div class="pop_header">
-					<h1>제품사진 안내</h1>
+					<h1>지급확인서 안내</h1>
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
