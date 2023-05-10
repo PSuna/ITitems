@@ -78,7 +78,9 @@ public class UserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/uss/umt/user/EgovUserManage.do")
-	public String selectUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, ModelMap model, HttpServletRequest request) throws Exception {
+	public String selectUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, 
+								 ModelMap model, 
+								 HttpServletRequest request) throws Exception {
 
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "6000000");

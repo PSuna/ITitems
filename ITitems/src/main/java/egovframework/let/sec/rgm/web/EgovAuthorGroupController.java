@@ -1,24 +1,27 @@
 package egovframework.let.sec.rgm.web;
 
-import egovframework.com.cmm.EgovMessageSource;
-import egovframework.let.sec.ram.service.AuthorManageVO;
-import egovframework.let.sec.ram.service.EgovAuthorManageService;
-import egovframework.let.sec.rgm.service.AuthorGroup;
-import egovframework.let.sec.rgm.service.AuthorGroupVO;
-import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
-
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+
+import egovframework.com.cmm.ComDefaultCodeVO;
+import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.let.sec.ram.service.AuthorManageVO;
+import egovframework.let.sec.ram.service.EgovAuthorManageService;
+import egovframework.let.sec.rgm.service.AuthorGroup;
+import egovframework.let.sec.rgm.service.AuthorGroupVO;
+import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
+import egovframework.let.uss.umt.service.UserDefaultVO;
 
 /**
  * 권한그룹에 관한 controller 클래스를 정의한다.
@@ -45,6 +48,10 @@ public class EgovAuthorGroupController {
     
     @Resource(name = "egovAuthorGroupService")
     private EgovAuthorGroupService egovAuthorGroupService;
+    
+	/** cmmUseService */
+	@Resource(name = "EgovCmmUseService")
+	private EgovCmmUseService cmmUseService;
     
     @Resource(name = "egovAuthorManageService")
     private EgovAuthorManageService egovAuthorManageService;
@@ -78,6 +85,7 @@ public class EgovAuthorGroupController {
 		authorGroupVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		
 		authorGroupVO.setAuthorGroupList(egovAuthorGroupService.selectAuthorGroupList(authorGroupVO));
+		
         model.addAttribute("authorGroupList", authorGroupVO.getAuthorGroupList());
         
         int totCnt = egovAuthorGroupService.selectAuthorGroupListTotCnt(authorGroupVO);
@@ -88,7 +96,7 @@ public class EgovAuthorGroupController {
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
-        return "/sec/rgm/EgovAuthorGroupManage";
+        return "sec/rgm/EgovAuthorGroupManage";
     }    
 
 	/**

@@ -1,20 +1,26 @@
 package egovframework.let.sec.asm.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.cmm.service.FileVO;
+import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
@@ -71,8 +77,10 @@ public class SecAssetManageController {
 	@RequestMapping(value = "/sec/asm/SecAssetManage.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
+		
+    	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
+    	request.getSession().setAttribute("baseMenuNo", "6000000");
+    	
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
@@ -106,5 +114,72 @@ public class SecAssetManageController {
 		model.addAttribute("searchVO", assetManageVO);
 		
 		return "/sec/asm/SecAssetManage";
+	}
+	
+	/**
+	 * 자산상세정보 페이지로 이동
+	 */
+	@RequestMapping(value = "/sec/asm/SecSelectAsset.do")
+	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		
+		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		model.addAttribute("resultVO", result);
+		
+		FileVO fvo = new FileVO();
+		fvo.setAtchFileId(result.getPhotoId());
+		
+		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
+		
+		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		 
+		
+		return "/sec/asm/SecSelectAsset";
+	}
+	
+	/**
+	 * 자산수정 페이지로 이동
+	 */
+	@RequestMapping(value = "/sec/asm/SecAssetUpdt.do")
+	public String AssetUpdt(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		model.addAttribute("resultVO", result);
+	
+		return "/sec/asm/SecAssetUpdt";
+	}
+	/**
+	 * 자산수정
+	 */
+	@RequestMapping(value = "/sec/asm/SecAssetUpdate.do")
+	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO) throws Exception {
+
+		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
+		photos.put("photo", multiRequest.getFile("photo"));
+		if (!photos.isEmpty()) {
+			List<FileVO> result = fileUtil.parseFileInf(photos, "BBS_", 0, "", "");
+			assetInfoVO.setPhotoId(fileMngService.insertFileInfs(result));
+		}
+		
+		assetService.UpdateAssetInfo(assetInfoVO);
+		
+		return "forward:/sec/asm/SecSelectAsset.do";
+	}
+	
+	/**
+	 * 제품사진 안내 팝업창로 이동
+	 */
+	@RequestMapping(value = "/sec/asm/PhotoManual.do")
+	public String PhotoManual() throws Exception {
+
+		return "/sec/asm/PhotoManual";
 	}
 }
