@@ -101,7 +101,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -117,7 +117,7 @@ function fn_egov_select_noticeList(pageNo) {
 	document.frm.endDate.value = '${searchVO.endDate}';
 	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -242,17 +242,6 @@ function selectAsset(id) {
 										</div>	
 											
 										<div class="pty_box01">	
-											<div>							
-												<span class="lb">상태</span> 
-												<label class="item f_select" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" title="상태">
-															<option value='' label="선택하세요" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div>
 											
 											<div>
 												<span class="lb ml20">등록일자</span> 
@@ -287,12 +276,11 @@ function selectAsset(id) {
 											<col style="width: 5%;">
 											<col style="width: 11%;">
 											<col style="width: 11%;">
-											<col style="width: 12%;">
+											<col style="width: 17%;">
 											<col style="width: 8%;">
+											<col style="width: 15%;">
+											<col style="width: 12%;">
 											<col style="width: 11%;">
-											<col style="width: 11%;">
-											<col style="width: 11%;">
-											<col style="width: 10%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
@@ -324,9 +312,8 @@ function selectAsset(id) {
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
-													<td></td>
-													<td>
-													</td>
+													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.regDate}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
 													<td><c:out value="${result.approval}" /></td>
 												</tr>

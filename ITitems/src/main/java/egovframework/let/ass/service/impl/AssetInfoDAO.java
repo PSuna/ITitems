@@ -30,17 +30,31 @@ import egovframework.let.cop.bbs.service.BoardMaster;
 public class AssetInfoDAO extends EgovAbstractMapper {
 
 	/**
-	 * 조건에 맞는 자산 전체 조회
+	 * 조건에 맞는 전체자산 전체 조회
 	 */
 	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) {
 		return selectList("AssetInfoDAO.SelectAssetInfoVOList", assetManageVO);
 	}
 
 	/**
-	 * 조건에 맞는 자산 전체 갯수 조회
+	 * 조건에 맞는 전체자산 전체 갯수 조회
 	 */
 	public int CountAssetInfoVOList(AssetManageVO assetManageVO) {
 		return selectOne("AssetInfoDAO.CountAssetInfoVOList", assetManageVO);
+	}
+	
+	/**
+	 * 조건에 맞는 내자산 전체 조회
+	 */
+	public List<AssetInfoVO> SelectMyAssetInfoList(AssetManageVO assetManageVO) {
+		return selectList("AssetInfoDAO.SelectMyAssetInfoList", assetManageVO);
+	}
+
+	/**
+	 * 조건에 맞는 내자산 전체 갯수 조회
+	 */
+	public int CountMyAssetInfoList(AssetManageVO assetManageVO) {
+		return selectOne("AssetInfoDAO.CountMyAssetInfoList", assetManageVO);
 	}
 	
 	/**

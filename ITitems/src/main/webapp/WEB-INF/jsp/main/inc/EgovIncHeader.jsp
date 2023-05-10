@@ -118,11 +118,16 @@ function fn_egov_modal_remove() {
         	<div>
                 <h2>자산관리</h2>
                 <ul>
-                    <li><a href="/ebt_webapp/ass/AssetManagement.do">자산조회</a></li>
-                    <li><a href="/ebt_webapp/ass/AssetRegist.do">자산등록</a></li>
-                    <li><a href="/ebt_webapp/ass/ReturnRequest.do">반납신청조회</a></li>
-                    <li><a href="/ebt_webapp/ass/DisposeRequest.do">처분신청조회</a></li>
-                    <li><a href="/ebt_webapp/ass/RepairRequest.do">파손내역조회</a></li>
+                	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
+                		<li><a href="/ebt_webapp/ass/MyAssetManagement.do">내자산조회</a></li>
+                	</c:if>
+                	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                    	<li><a href="/ebt_webapp/ass/AssetManagement.do">전체자산조회</a></li>
+                    </c:if>
+                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
+                    	<li><a href="/ebt_webapp/ass/AssetRegist.do">자산등록</a></li>
+                    </c:if>
+                    <li><a href="/ebt_webapp/ass/ReturnRequest.do">반출/반입신청조회</a></li>
                 </ul>
             </div>
             <div>

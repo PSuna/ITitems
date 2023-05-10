@@ -18,6 +18,19 @@
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
+		id="myAssetList">
+		<result property="assetId" column="ASSET_ID" />
+		<result property="largeCategory" column="LARGE_CATEGORY" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="regDate" column="REG_DATE" />
+		<result property="usageStatus" column="USAGE_STAUTS" />
+		<result property="approval" column="APPROVAL" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
 		id="assetInfoDetail">
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
@@ -63,6 +76,30 @@
 				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 		</where>
+	</sql>
+
+	<sql id="mySearch">
+			<if test="searchPrj != null and searchPrj != ''">
+				AND B.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND A.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND A.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND A.REG_DATE >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND A.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			<if test="searchWord != null and searchWord != ''">
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			</if>
 	</sql>
 
 	<select id="SelectAssetInfoVOList"
@@ -118,6 +155,61 @@
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
 		<include refid="search" />
+	</select>
+	
+	<select id="SelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="myAssetList">
+		
+	    SELECT 
+	    	   ASSET_ID,
+	    	   LARGE_CATEGORY, 
+	    	   MIDDLE_CATEGORY, 
+	    	   ASSET_NAME, 
+	    	   ASSET_QTY, 
+	    	   PRJ_ID,
+	    	   REG_DATE,
+	    	   USAGE_STAUTS,
+	    	   APPROVAL
+	      FROM (
+		        SELECT 
+					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					D.CAT_NAME AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY,
+					G.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d')AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					F.CODE_NM AS APPROVAL
+				  FROM ASSETSINFO A
+				  LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+				  LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+				  LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+				  LEFT OUTER JOIN PROJECTS G
+				    ON B.PRJ_ID = G.PRJ_ID
+				 WHERE B.USE_ID = #{userId}
+		        	<include refid="mySearch" />
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultType="int">
+		SELECT 
+			COUNT(A.ASSET_ID)
+		  FROM ASSETSINFO A
+		  LEFT OUTER JOIN ASSETSHIST B
+		    ON A.ASSET_ID = B.ASSET_ID
+		 WHERE B.USE_ID = #{userId}
+		<include refid="mySearch" />
 	</select>
 
 	<select id="SelectAssetInfoVO"

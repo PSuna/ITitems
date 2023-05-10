@@ -85,7 +85,10 @@ public class AssetController {
 	@RequestMapping(value = "/ass/MyAssetManagement.do")
 	public String MyAssetManagement(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
-
+		
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetManageVO.setUserId(user.getUniqId());
+		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
@@ -103,7 +106,7 @@ public class AssetController {
 			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
 		}
 		
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectMyAssetInfoList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 		

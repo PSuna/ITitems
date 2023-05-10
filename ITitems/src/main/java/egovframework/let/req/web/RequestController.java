@@ -85,6 +85,8 @@ public class RequestController {
 		if(manageVO.getMenuOrgnzt() != null && manageVO.getMenuOrgnzt() != "") {
 			manageVO.setSearchOrgnzt(manageVO.getMenuOrgnzt());
 		}
+		
+		manageVO.setReqGroup("C1");
 		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
 		
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
