@@ -17,8 +17,8 @@ import egovframework.let.utl.sim.service.EgovFileScrty;
 
 /**
  * 사용자관리에 관한 비지니스 클래스를 정의한다.
- * @author 공통서비스 개발팀 조재영
- * @since 2009.04.10
+ * @author 영남사업부 천세훈
+ * @since 2023.04.10
  * @version 1.0
  * @see
  *
@@ -27,8 +27,7 @@ import egovframework.let.utl.sim.service.EgovFileScrty;
  *
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *   2009.04.10  조재영          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2023.04.10  천세훈          최초 생성
  *
  * </pre>
  */
@@ -45,14 +44,6 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	/** authorGroupDAO */
 	@Resource(name="authorGroupDAO")
     private AuthorGroupDAO authorGroupDAO;
-
-	/** mberManageDAO */
-	//EBT-CUSTOMIZING//@Resource(name="mberManageDAO")
-	//EBT-CUSTOMIZING//private MberManageDAO mberManageDAO;
-
-	/** entrprsManageDAO */
-	//EBT-CUSTOMIZING//@Resource(name="entrprsManageDAO")
-	//EBT-CUSTOMIZING//private EntrprsManageDAO entrprsManageDAO;
 
 	/** egovUsrCnfrmIdGnrService */
 	@Resource(name="egovUsrCnfrmIdGnrService")
