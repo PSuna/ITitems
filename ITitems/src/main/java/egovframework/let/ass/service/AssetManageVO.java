@@ -50,6 +50,12 @@ public class AssetManageVO implements Serializable {
     /** 검색종료일 */
     private String endDate  = "";
     
+    /** 기본 검색시작일 */
+    private String menuStartDate  = "";
+    
+    /** 기본 검색종료일 */
+    private String menuEndDate  = "";
+    
     /** 검색단어 */
     private String searchWord = "";
     
@@ -303,6 +309,18 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setAssetId(String assetId) {
 		this.assetId = assetId;
+	}
+	public String getMenuStartDate() {
+		return menuStartDate;
+	}
+	public void setMenuStartDate(String menuStartDate) {
+		this.menuStartDate = menuStartDate;
+	}
+	public String getMenuEndDate() {
+		return menuEndDate;
+	}
+	public void setMenuEndDate(String menuEndDate) {
+		this.menuEndDate = menuEndDate;
 	}
 	
 	

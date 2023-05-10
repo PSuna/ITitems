@@ -73,6 +73,7 @@ function insert_asset(){
 				RegistFail();
 			}
 	
+		})
 }
 
 /* ********************************************************
@@ -100,9 +101,9 @@ function insert_asset(){
  function returnConfirm(val){
  
 	fn_egov_modal_remove();
- if(val){
-	 insert_asset();
- }	  
+	 if(val){
+		 insert_asset();
+	 }	  
 }
 
 /* ********************************************************
