@@ -250,23 +250,24 @@ function press() {
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition2">
-                                    <span class="lb mr10">조회 조건 :  </span>
+                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
                                     <label class="f_select item" for="searchCondition">
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
-    					                    <option value="1" <c:if test="${authorGroupVO.searchCondition == '1'}">selected</c:if> >사용자ID</option>
-    					                    <option value="2" <c:if test="${authorGroupVO.searchCondition == '2'}">selected</c:if> >사용자명</option>
+    					                    <option value="1" <c:if test="${userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
+                                            <option value="2" <c:if test="${userSearchVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
     					                </select>
-                                    </label>
-                                    <span class="item f_search" style="margin:0">
-                                        <input class="f_input" name="searchKeyword" type="text" value="<c:out value='${authorGroupVO.searchKeyword}'/>" title="검색" onkeypress="press();"/>
-                                        <button class="btn" type="submit" onclick="javascript:fncSelectAuthorGroupList('1')"><spring:message code='button.inquire' /></button><!-- 조회 -->
-                                    </span>
+                                    </label> 
+									<div class="pty_search" style="margin-left:10px;">
+										<span class="item f_search">
+											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
+										</span>
+										<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
+									</div>
                                 </div>
                                 <!--// 검색조건 -->
 
                                 <div class="board_list_top">
-                                    <div class="right_col">
+                                    <div class="right_col" style="padding-top:26px;">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
                                     </div>
                                 </div>

@@ -167,7 +167,7 @@ function setPageUnit(){
                                 <h2 class="tit_2">사용자목록</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition pty_condition">
+                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
                                     <label class="item f_select" for="searchOrgnzt">
                                     	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="부서"/>
@@ -192,11 +192,12 @@ function setPageUnit(){
                                             <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
                                         </select>
                                     </label> 
-
-                                    <span class="item f_search pty_f_search">
-                                        <input class="f_input" name="searchKeyword" title="검색어" type="text" value="<c:out value="${userSearchVO.searchKeyword}"/>" />
-                                        <button class="btn" type="submit" onclick="javascript:fnSearch(); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
-                                    </span>
+									<div class="pty_search" style="margin-left:10px;">
+										<span class="item f_search">
+											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+										</span>
+										<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+									</div>
                                 </div>
                                 <!--// 검색조건 -->
 								

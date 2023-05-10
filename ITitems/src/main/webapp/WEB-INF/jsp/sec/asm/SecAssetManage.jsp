@@ -32,7 +32,6 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 <title>사이트관리 > 자산전체현황</title>
-
 <script type="text/javascript">
 function ProjectSearch(){
     
@@ -48,7 +47,7 @@ function ProjectSearch(){
 	$dialog.dialog('open');
 }
 
-function fn_egov_returnValue(val){
+function returnProject(val){
 	
 	if (val) {
 		document.getElementById("searchPrj").value  = val.prjId;
@@ -76,6 +75,7 @@ function getMCatList(Mval) {
 				document.getElementById('middleCategory').replaceChildren();
 				let op = document.createElement('option');
 				op.textContent = '선택하세요';
+				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
 				for(res of result){
 					op = document.createElement('option');
@@ -99,7 +99,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/sec/asm/SecAssetManage.do'/>";
     document.frm.submit(); 
 }
 
@@ -115,12 +115,52 @@ function fn_egov_select_noticeList(pageNo) {
 	document.frm.endDate.value = '${searchVO.endDate}';
 	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/sec/asm/SecAssetManage.do'/>";
     document.frm.submit(); 
 }
 
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#startDate").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+
+	$("#endDate").datepicker( 
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+}
+
+
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
+	make_date();
 	  }
 	  
 function selectAsset(id) {
@@ -133,6 +173,17 @@ function selectAsset(id) {
 .board_list tbody tr:hover {
 	background: #ccc;
 	cursor: pointer;
+}
+.secAssBox{
+	display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.lb{
+	margin-left:10px !important;
+}
+.w_130 {
+    width: 90px !important;
 }
 </style>
 </head>
@@ -154,32 +205,29 @@ function selectAsset(id) {
 						<!-- Left menu -->
 						<c:import url="/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
-
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
 								<div class="location">
 									<ul>
 										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
-										<li>자산조회</li>
+										<li><a href="">사이트관리</a></li>
+										<li>자산전체현황</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
-								<h1 class="tit_1">자산관리</h1>
-
-								<h2 class="tit_2">자산조회</h2>
+								<h2 class="tit_2">자산전체현황</h2>
 								<br>
 								<!-- 검색조건 -->
 								<form id="frm" name="frm">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex">
-										<div class="pty_box01">
+										<div class="secAssBox">
 											<div>
-												<span class="lb">부서</span>
+												<span class="lb">부서${searchVO.searchOrgnzt}</span>
 												<label class="item f_select" for="sel1"> 
-													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
+													<select id="searchOrgnzt" name="searchOrgnzt" title="부서" style=" width: 200px;">
 															<option value="" >선택하세요</option>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
@@ -188,15 +236,12 @@ function selectAsset(id) {
 												</label> 
 											</div>
 											
-											<div>
+											<div style=" width: 315px;">
 												<span class="lb">프로젝트</span> 
-												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" style="width: 220px;" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+													<button type="button" class="btn"style="right: -8px;" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
-										</div>	
-											
-										<div class="pty_box01">	
 											<div>
 												<span class="lb">대분류</span> 
 												<label class="item f_select" for="sel1">
@@ -222,7 +267,7 @@ function selectAsset(id) {
 											<div>							
 												<span class="lb">상태</span> 
 												<label class="item f_select" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" title="상태">
+													<select id="searchStatus" name="searchStatus" title="상태" style=" width: 200px;">
 															<option value='' label="선택하세요" />
 															<c:forEach var="stat" items="${status_result}" varStatus="status">
 																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
@@ -233,27 +278,25 @@ function selectAsset(id) {
 											
 											<div>
 												<span class="lb ml20">취득일자</span> 
-												<input class="f_date pty_f_date" type="date" name="startDate" value="<c:out value="${searchVO.startDate}"/>"> ― <input class="f_date pty_f_date" type="date" name="endDate" value="<c:out value="${searchVO.endDate}"/>"> 
+												<span class="search_date">
+												<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
+												</span>
+												 ― 
+												 <span class="search_date">
+												 <input class="f_date pty_f_date w_130" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
+												 </span> 
 											</div>	
-						
+											<div class="pty_search">
+												<span class="lb" style="margin: 0 8px 0 24px !important;">조회</span>
+												<span class="item f_search">
+														<!-- <span>검색</span>  -->
+													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" style="width: 286px !important;" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+												</span>
+												
+												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
+											</div>
 										</div>
-										
-										<div class="pty_search">
-											<span class="lb">조회</span>
-											<span class="item f_search">
-													<!-- <span>검색</span>  -->
-												<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
-											</span>
-											
-											<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
-										</div>
-										
-										
 									</div>	
-									
-									
-									
-									
 								</form>
 								<!--// 검색 조건 -->
 								
@@ -288,9 +331,9 @@ function selectAsset(id) {
 												varStatus="status">
 												<tr onclick="childNodes[1].childNodes[1].submit();">
 													<td>
-														<c:out value="${result.rum}" />
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
 														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
+															action="<c:url value='/sec/asm/SecSelectAsset.do'/>">
 															<input type="hidden" name="assetId"
 																value="<c:out value='${result.assetId}'/>" />
 														</form>
