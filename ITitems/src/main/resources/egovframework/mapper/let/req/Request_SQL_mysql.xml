@@ -132,7 +132,7 @@
 				    ON A.ID = F.ESNTL_ID
 				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
-				 WHERE A.REQ_GROUP = 'H2' 
+				 WHERE A.REQ_GROUP = #{reqGroup} 
 				 <include refid="search" />
 				 GROUP BY 
 				 	A.REQ_ID, 

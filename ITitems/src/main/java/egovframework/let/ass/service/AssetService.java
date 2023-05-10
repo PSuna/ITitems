@@ -25,6 +25,8 @@ public interface AssetService {
 	
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO);
 	
+	public Map<String, Object> SelectMyAssetInfoList(AssetManageVO assetManageVO);
+	
 	public int InsertAssetInfo(AssetInfoVO assetInfoVO);
 	
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO);

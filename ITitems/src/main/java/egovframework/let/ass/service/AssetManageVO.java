@@ -23,6 +23,9 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class AssetManageVO implements Serializable {
 
+	/** 검색 사용자 */
+	private String userId;
+	
 	/** 자산코드 */
 	private String assetId;
 	
@@ -330,6 +333,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setMenuOrgnzt(String menuOrgnzt) {
 		this.menuOrgnzt = menuOrgnzt;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

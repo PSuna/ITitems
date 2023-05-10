@@ -225,16 +225,11 @@ function AssetUpdt() {
 												onclick="AssetUpdt();return false;"> <spring:message
 													code="button.update" />
 											</a>
-											<%-- <!-- 반입 -->
+											<!-- 상태변경 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="return false;"> <spring:message
 													code="button.carryin" />
 											</a>
-											<!-- 반출 -->
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="return false;"> <spring:message
-													code="button.carryout" />
-											</a> --%>
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->

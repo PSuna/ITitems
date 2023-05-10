@@ -34,10 +34,13 @@ public class RequestManageVO implements Serializable {
 
 	/** 검색프로젝트 */
 	private String searchPrj = "";
-
+	
 	/** 프로젝트명 */
 	private String prjNm = "";
 
+	/** 검색 신청분류 */
+	private String reqGroup = "";
+	
 	/** 검색대분류 */
 	private String searchLCat = "";
 
@@ -244,6 +247,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setMenuOrgnzt(String menuOrgnzt) {
 		this.menuOrgnzt = menuOrgnzt;
+	}
+	public String getReqGroup() {
+		return reqGroup;
+	}
+	public void setReqGroup(String reqGroup) {
+		this.reqGroup = reqGroup;
 	}
 	
 }
