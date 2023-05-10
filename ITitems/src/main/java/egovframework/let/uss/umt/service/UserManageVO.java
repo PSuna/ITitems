@@ -2,7 +2,7 @@ package egovframework.let.uss.umt.service;
 
 /**
  * 업무사용자VO클래스로서 업무사용자관리 비지니스로직 처리용 항목을 구성한다.
- * @author 영남사업부 천세훈 선임
+ * @author 영남사업부 천세훈
  * @since 2023.04.10
  * @version 1.0
  * @see

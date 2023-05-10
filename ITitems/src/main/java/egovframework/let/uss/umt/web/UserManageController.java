@@ -31,7 +31,7 @@ import egovframework.let.utl.sim.service.EgovFileScrty;
 /**
  * 사용자관련 요청을  비지니스 클래스로 전달하고 처리된결과를  해당   웹 화면으로 전달하는  Controller를 정의한다
  * @author 영남사업부 천세훈
- * @since 2023.04.17
+ * @since 2023.04.10
  * @version 1.0
  * @see
  *
@@ -40,7 +40,7 @@ import egovframework.let.utl.sim.service.EgovFileScrty;
  *
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *   2023.04.17  천세훈         최초 생성
+ *   2023.04.10  천세훈         최초 생성
  *
  *
  * </pre> 

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 사용자정보 VO클래스로서 일반회원 비즈니스로직 처리시 기타조건사항을 구성한다.
- * @author 영남사업부 천세훈 선임
+ * @author 영남사업부 천세훈
  * @since 2023.04.10
  * @version 1.0
  * @see
