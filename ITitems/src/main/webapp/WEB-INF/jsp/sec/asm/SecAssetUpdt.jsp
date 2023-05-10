@@ -48,6 +48,8 @@
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+var userCheck = 0;
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 /* ********************************************************
  * 자산 수정 처리
  ******************************************************** */
@@ -58,6 +60,67 @@ function UpdateAsset(){
 		    document.AssetUpdt.submit(); 
 	    }
 	}
+}
+/* ********************************************************
+ * 등록확인 팝업창
+ ******************************************************** */
+ function RegistConfirm(){
+	
+	  if(validateAssetRegist(document.assetRegist)){
+		 var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 500,
+		        height: 300
+			});
+		    $(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+	 } 
+}
+
+
+ /* ********************************************************
+  * 등록확인 결과 처리
+  ******************************************************** */
+  function returnConfirm(val){
+  
+ 	fn_egov_modal_remove();
+ 	 if(val){
+ 		UpdateAsset();
+ 	 }	  
+ }
+
+/* ********************************************************
+ * 등록완료 팝업창
+ ******************************************************** */
+ function RegistSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 500,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 등록완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(val){
+	
+	if(val){
+		fn_egov_modal_remove();
+		document.assetRegist.largeCategory.focus(); 
+	}else{
+		document.AssetInfoVO.submit(); 
+	}
+
 }
 
 /* ********************************************************

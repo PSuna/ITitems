@@ -131,7 +131,7 @@ function fn_egov_modal_remove() {
                     <li><a href="/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA">공지사항</a></li>
                 </ul>
             </div>
-            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
             <div class="admin" style="margin-left: 28px;">
                 <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
