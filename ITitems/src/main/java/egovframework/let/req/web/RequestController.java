@@ -82,7 +82,9 @@ public class RequestController {
 		if(manageVO.getMenuEndDate() != null && manageVO.getMenuEndDate() != "") {
 			manageVO.setEndDate(manageVO.getMenuEndDate());
 		}
-		
+		if(manageVO.getMenuOrgnzt() != null && manageVO.getMenuOrgnzt() != "") {
+			manageVO.setSearchOrgnzt(manageVO.getMenuOrgnzt());
+		}
 		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
 		
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));

@@ -195,8 +195,10 @@ function actionLogout()
 
 <!-- Menu list -->
 <form name="menuListForm" action="" method="post">
-	<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-	<input type="hidden" id="searchOrgnzt" name="searchOrgnzt" value="<c:out value="${orgnztId}"/>" />
+	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+		<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+		<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+	</c:if>
 	<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 	<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 	<c:set var="end" value="<%=new java.util.Date()%>" />

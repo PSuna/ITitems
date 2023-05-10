@@ -130,6 +130,7 @@ function insert_asset(){
 	
 	if(val){
 		fn_egov_modal_remove();
+		$()
 		document.assetRegist.largeCategory.focus(); 
 	}else{
 		document.AssetManagement.submit(); 
@@ -466,46 +467,11 @@ window.onload = function(){
 
 								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" >
 
-									<input name="pageIndex" type="hidden"
-										value="<c:out value='${searchVO.pageIndex}'/>" /> <input
-										type="hidden" name="bbsId"
-										value="<c:out value='${bdMstr.bbsId}'/>" /> <input
-										type="hidden" name="bbsAttrbCode"
-										value="<c:out value='${bdMstr.bbsAttrbCode}'/>" /> <input
-										type="hidden" name="bbsTyCode"
-										value="<c:out value='${bdMstr.bbsTyCode}'/>" /> <input
-										type="hidden" name="replyPosblAt"
-										value="<c:out value='${bdMstr.replyPosblAt}'/>" /> <input
-										type="hidden" name="fileAtchPosblAt"
-										value="<c:out value='${bdMstr.fileAtchPosblAt}'/>" /> <input
-										type="hidden" name="posblAtchFileNumber"
-										value="<c:out value='${bdMstr.posblAtchFileNumber}'/>" /> <input
-										type="hidden" name="posblAtchFileSize"
-										value="<c:out value='${bdMstr.posblAtchFileSize}'/>" /> <input
-										type="hidden" name="tmplatId"
-										value="<c:out value='${bdMstr.tmplatId}'/>" /> <input
-										type="hidden" name="cal_url"
-										value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" /> <input
-										type="hidden" name="authFlag"
-										value="<c:out value='${bdMstr.authFlag}'/>" />
-
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">신규자산등록</h2>
 
 									<br>
-									<!-- 추가/초기화 버튼  -->
-									<!-- <div class="board_view_bot">
-										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="AssetSearch(); return fasle;">기존 자산 등록</a>
-											기존 자산 추가
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="frm_reset(); return fasle;">초기화</a>
-											초기화
-										</div>
-									</div> -->
-									<!-- // 추가/초기화 버튼 끝  -->
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -521,7 +487,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select" for="largeCategory">
+													<label class="f_select w_full" for="largeCategory">
 															<select id="largeCategory" name="largeCategory"
 																title="대분류" onchange="getMCatList();">
 																<option value="" label="선택하세요" />
@@ -540,7 +506,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select" for="middleCategory">
+													<label class="f_select w_full" for="middleCategory">
 														<select id="middleCategory" name="middleCategory">
 															<option value='' label="선택하세요" selected="selected" />
 														</select>
@@ -660,7 +626,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
-													<label class="f_select w_30%" for="orgnztId">
+													<label class="f_select w_70%" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" title="부서">
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"

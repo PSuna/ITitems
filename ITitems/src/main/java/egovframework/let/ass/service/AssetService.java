@@ -21,8 +21,6 @@ import java.util.Map;
  */
 public interface AssetService {
 	
-	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetManageVO);
-	
 	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO);
 	
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO);

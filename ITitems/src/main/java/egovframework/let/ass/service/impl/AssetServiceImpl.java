@@ -50,18 +50,6 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	private EgovIdGnrService histIdGnrService;
 
 	/**
-     * 조건에 맞는 자산 내역을 전부 조회한다.
-     */
-	@Override
-	public Map<String, Object> SelectAssetHistVOList(AssetManageVO assetHistVO) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("resultList", assetHistDAO.SelectAssetHistVOList(assetHistVO));
-		map.put("resultCnt", Integer.toString(assetHistDAO.CountAssetHistVOList(assetHistVO)));
-		return map;
-	}
-	
-	/**
      * 조건에 맞는 자산을 전부 조회한다.
      */
 	@Override
