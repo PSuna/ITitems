@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -122,40 +123,40 @@ function fn_egov_select_noticeList(pageNo) {
 /* ********************************************************
  * date input 생성
  ******************************************************** */
-function make_date(){
-	
-	$("#startDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
+ function make_date(){
+		
+		$(".container #startDate").datepicker(
+		        {dateFormat:'yy-mm-dd'
+		         , showOn: 'button'
+		         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+		         , buttonImageOnly: true
+		         
+		         , showMonthAfterYear: true
+		         , showOtherMonths: true
+			     , selectOtherMonths: true
+			     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+					
+		         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+		         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+		         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+		});
 
-	$("#endDate").datepicker( 
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-}
+		$(".container #endDate").datepicker( 
+		        {dateFormat:'yy-mm-dd'
+		         , showOn: 'button'
+		         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+		         , buttonImageOnly: true
+		         
+		         , showMonthAfterYear: true
+		         , showOtherMonths: true
+			     , selectOtherMonths: true
+			     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+					
+		         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+		         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+		         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+		});
+	}
 
 
 window.onload = function(){
@@ -223,9 +224,9 @@ function selectAsset(id) {
 								<form id="frm" name="frm">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex">
-										<div class="secAssBox">
+										<div class="pty_box01">
 											<div>
-												<span class="lb">부서${searchVO.searchOrgnzt}</span>
+												<span class="lb">부서</span>
 												<label class="item f_select" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" title="부서" style=" width: 200px;">
 															<option value="" >선택하세요</option>
