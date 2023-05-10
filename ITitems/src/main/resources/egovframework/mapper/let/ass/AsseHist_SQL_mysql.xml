@@ -3,53 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AssetHistDAO">
 
-	<resultMap type="egovframework.let.ass.service.AssetHistVO"
-		id="AssetHistList">
-		<result property="histId" column="HIST_ID" />
-		<result property="useId" column="USE_ID" />
-		<result property="histQty" column="HIST_QTY" />
-		<result property="histStatus" column="HIST_STATUS" />
-		<result property="histDate" column="HIST_DATE" />
-		<result property="histGroup" column="HIST_GROUP" />
-	</resultMap>
-
-	<resultMap type="egovframework.let.ass.service.AssetHistVO"
-		id="AssetHistDetail">
-		<result property="" column="" />
-	</resultMap>
-
-
-	<select id="SelectAssetHistVOList"
-		parameterType="egovframework.let.ass.service.AssetManageVO"
-		resultMap="AssetHistList">
-		SELECT 
-			A.HIST_ID, 
-			CONCAT(B.USER_NM,' ',C.CODE_NM) AS USE_ID, 
-			A.HIST_QTY, 
-			E.CODE_NM AS HIST_STATUS, 
-			DATE_FORMAT(A.HIST_DATE,'%Y-%m-%d') AS HIST_DATE, 
-			D.CODE_NM AS HIST_GROUP
-		  FROM ASSETSHIST A
-		  LEFT OUTER JOIN LETTNEMPLYRINFO B
-		    ON A.USE_ID = B.ESNTL_ID
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
-		    ON B.GRADE = C.CODE
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE D
-		    ON A.HIST_GROUP = D.CODE
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
-		    ON A.HIST_STATUS = E.CODE
-		 WHERE ASSET_ID = #{assetId}
-	</select>
-
-	<select id="CountAssetHistVOList"
-		parameterType="egovframework.let.ass.service.AssetManageVO"
-		resultType="int">
-		SELECT 
-			COUNT(HIST_ID)
-		  FROM ASSETSHIST
-		 WHERE ASSET_ID = #{assetId}
-	</select>
-
 	<insert id="InsertAssetHist"
 		parameterType="egovframework.let.ass.service.AssetHistVO">
 		

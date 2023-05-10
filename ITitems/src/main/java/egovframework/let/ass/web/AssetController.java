@@ -80,7 +80,56 @@ public class AssetController {
 	private UserManageService userManageService;
 
 	/**
-	 * 자산조회 페이지로 이동
+	 * 내자산조회 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/MyAssetManagement.do")
+	public String MyAssetManagement(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/MyAssetManagement";
+	}
+	
+	/**
+	 * 전체자산조회 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetManagement.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
@@ -102,7 +151,9 @@ public class AssetController {
 		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
 			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
 		}
-		
+		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
+			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
+		}
 		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -196,10 +247,6 @@ public class AssetController {
 		fvo.setAtchFileId(result.getPhotoId());
 		
 		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
-		
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
-		model.addAttribute("resultList", map.get("resultList"));
-		 
 		
 		return "/ass/SelectAsset";
 	}

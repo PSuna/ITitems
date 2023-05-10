@@ -200,32 +200,20 @@ function selectAsset(id) {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>전체자산조회</li>
+										<li>내자산조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 								<h1 class="tit_1">자산관리</h1>
 
-								<h2 class="tit_2">전체자산조회</h2>
+								<h2 class="tit_2">내자산조회</h2>
 								<br>
 								<!-- 검색조건 -->
 								<form id="frm" name="frm">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex">
 										<div class="pty_box01">
-											<div>
-												<span class="lb">부서</span>
-												<label class="item f_select" for="sel1"> 
-													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
-															<option value="" >선택하세요</option>
-															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div>
-											
 											<div>
 												<span class="lb">프로젝트</span> 
 												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
@@ -267,7 +255,7 @@ function selectAsset(id) {
 											</div>
 											
 											<div>
-												<span class="lb ml20">취득일자</span> 
+												<span class="lb ml20">등록일자</span> 
 												<span class="search_date">
 												<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
 												</span>
@@ -314,9 +302,8 @@ function selectAsset(id) {
 												<th scope="col">중분류</th>
 												<th scope="col">품명</th>
 												<th scope="col">수량</th>
-												<th scope="col">취득일자</th>
-												<th scope="col">취득가액</th>
-												<th scope="col">제조사</th>
+												<th scope="col">프로젝트</th>
+												<th scope="col">등록일자</th>
 												<th scope="col">상태</th>
 												<th scope="col">결재</th>
 											</tr>
@@ -337,13 +324,9 @@ function selectAsset(id) {
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
-													<td><c:out value="${result.acquiredDate}" /></td>
+													<td></td>
 													<td>
-														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
-														<fmt:formatNumber value="${result.acquiredPrice}" pattern="#,###"/>원
-														</c:if>
 													</td>
-													<td><c:out value="${result.maker}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
 													<td><c:out value="${result.approval}" /></td>
 												</tr>

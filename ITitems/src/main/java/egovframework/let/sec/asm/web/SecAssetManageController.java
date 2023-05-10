@@ -129,9 +129,6 @@ public class SecAssetManageController {
 		fvo.setAtchFileId(result.getPhotoId());
 		
 		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
-		
-		Map<String, Object> map = assetService.SelectAssetHistVOList(assetManageVO);
-		model.addAttribute("resultList", map.get("resultList"));
 		 
 		
 		return "/sec/asm/SecSelectAsset";

@@ -28,6 +28,9 @@ public class RequestManageVO implements Serializable {
 	
 	/** 검색부서 */
 	private String searchOrgnzt = "";
+	
+	/** 기본 검색부서 */
+    private String menuOrgnzt = "";
 
 	/** 검색프로젝트 */
 	private String searchPrj = "";
@@ -235,6 +238,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setMenuEndDate(String menuEndDate) {
 		this.menuEndDate = menuEndDate;
+	}
+	public String getMenuOrgnzt() {
+		return menuOrgnzt;
+	}
+	public void setMenuOrgnzt(String menuOrgnzt) {
+		this.menuOrgnzt = menuOrgnzt;
 	}
 	
 }
