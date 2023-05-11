@@ -1,7 +1,5 @@
 package egovframework.let.aprv.service;
 
-import java.util.Date;
-
 /**
  * 결재게시판VO클래스로서 결재게시판관리 비지니스로직 처리용 항목을 구성한다.
  * @author 영남사업부 천세훈
@@ -49,12 +47,12 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	/**
 	 * 사용시작일
 	 */
-	private Date startDate;
+	private String startDate;
 	
 	/**
 	 * 사용종료일
 	 */
-	private Date endDate;
+	private String endDate;
 	
 	/**
 	 * 사용위치
@@ -64,7 +62,7 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	/**
 	 * 요청일
 	 */
-	private Date reqDate;
+	private String reqDate;
 	
 	/**
 	 * 요청분류
@@ -75,6 +73,11 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 요청상태
 	 */
 	private String reqStatus;
+	
+	/**
+	 * 요청자직급
+	 */
+	private String grade;
 
 	public String getReqId() {
 		return reqId;
@@ -108,20 +111,6 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 		this.pm = pm;
 	}
 
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
 
 	public String getPlace() {
 		return place;
@@ -131,13 +120,6 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 		this.place = place;
 	}
 
-	public Date getReqDate() {
-		return reqDate;
-	}
-
-	public void setReqDate(Date reqDate) {
-		this.reqDate = reqDate;
-	}
 
 	public String getReqGroup() {
 		return reqGroup;
@@ -154,5 +136,38 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	public void setReqStatus(String reqStatus) {
 		this.reqStatus = reqStatus;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getReqDate() {
+		return reqDate;
+	}
+
+	public void setReqDate(String reqDate) {
+		this.reqDate = reqDate;
+	}
+
 
 }
