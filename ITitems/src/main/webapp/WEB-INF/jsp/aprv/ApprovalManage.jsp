@@ -35,7 +35,13 @@
 <!--
 function setPageUnit(){
 	document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+    document.listForm.submit();
+}
+
+function fnSearch(){
+    document.listForm.pageIndex.value = 1;
+    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
 //-->
@@ -81,9 +87,9 @@ function setPageUnit(){
                                 			</select>
                                 		</label>
                                 		
-                                		<label class="item f_select" for="searchGroup">
-                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-                                				<option value="" label="요청분류"/>
+                                		<label class="item f_select" for="searchStatus">
+                                			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
+                                				<option value="" label="요청상태"/>
                                 				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
                                 					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
                                 				</c:forEach>
@@ -168,7 +174,7 @@ function setPageUnit(){
                                 		</table>
                                 	</div>
                                 	<!-- 페이지 네비게이션 시작 -->
-								<c:if test="${!empty userSearchVO.pageIndex }">
+								<c:if test="${!empty approvalSearchVO.pageIndex }">
                                 <div class="board_list_bot">
                                     <div class="paging" id="paging_div">
                                         <ul>

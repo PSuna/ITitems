@@ -43,7 +43,7 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 	 * @return 총요청갯수(int)
 	 */
 	public int selectApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) {
-		return (Integer)selectOne("approvalManageVO.selectApprovalListTotCnt", approvalSearchVO);
+		return (Integer)selectOne("approvalManageDAO.selectApprovalListTotCnt", approvalSearchVO);
 	}
 
 }

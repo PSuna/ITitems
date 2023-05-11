@@ -90,6 +90,7 @@ public class ApprovalManageController {
 		
 		int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		

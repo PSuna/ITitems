@@ -5,7 +5,7 @@
 
 	<resultMap type="egovframework.let.aprv.service.ApprovalManageVO" id="ApprovalList">
 		<result property="reqId" column="REQ_ID"/>
-		<result property="id" column="ID"/>
+		<result property="id" column="USER_NM"/>
 		<result property="prjId" column="PRJ_ID"/>
 		<result property="pm" column="PM"/>
 		<result property="startDate" column="START_DATE"/>
@@ -14,32 +14,41 @@
 		<result property="reqDate" column="REQ_DATE"/>
 		<result property="reqGroup" column="REQ_GROUP"/>
 		<result property="reqStatus" column="REQ_STATUS"/>
+		<result property="grade" column="GRADE"/>
+		
 	</resultMap>
 
 	<select id="selectApprovalList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
 		 SELECT R.REQ_ID,
-			    R.ID,
-			    R.PRJ_ID,
+			    E.USER_NM,
+			    P.PRJ_NAME PRJ_ID,
 			    R.PM,
-			    DATE_FORMAT(R.START_DATE,'%Y %m %d'),
-			    DATE_FORMAT(R.END_DATE,'%Y %m %d'),
+			    DATE_FORMAT(R.START_DATE,'%Y %m %d') START_DATE,
+			    DATE_FORMAT(R.END_DATE,'%Y %m %d') END_DATE,
 			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d'),
+			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
 			    R.REQ_GROUP,
 			    R.REQ_STATUS,
-			    A.TARGET_ID
-		   FROM REQUESTS R LEFT JOIN APRVTARGET A
-		     ON R.REQ_ID = A.REQ_ID
-		  <!--  WHERE A.TARGET_ID = #{uniqId} -->
+			    A.TARGET_ID,
+			    E.GRADE
+		   FROM REQUESTS R 
+	  LEFT JOIN APRVTARGET A
+		     ON R.REQ_ID = A.REQ_ID 
+	  LEFT JOIN PROJECTS P
+	         ON R.PRJ_ID = P.PRJ_ID
+	  LEFT JOIN LETTNEMPLYRINFO E
+	  		 ON R.ID = E.ESNTL_ID
+          WHERE A.TARGET_ID = #{uniqId}
+          
 	   ORDER BY R.REQ_DATE
 	</select>
 	
-	<select id="selectApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="java.util.HashMap">
+	<select id="selectApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
 		SELECT COUNT(R.REQ_ID) totcnt
 		  FROM REQUESTS R 
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
-		<!-- WHERE A.TARGET_ID = #{uniqId} --> 
+		 WHERE A.TARGET_ID = #{uniqId} 
 	</select>
 
 </mapper>
