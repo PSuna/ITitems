@@ -1,5 +1,7 @@
 package egovframework.let.aprv.service;
 
+import java.util.List;
+
 /**
  * 결재게시판VO클래스로서 결재게시판관리 비지니스로직 처리용 항목을 구성한다.
  * @author 영남사업부 천세훈
@@ -33,6 +35,11 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 요청자Id
 	 */
 	private String id;
+
+	/**
+	 * 요청자이름
+	 */
+	private String userNm;
 	
 	/**
 	 * 프로젝트 ID
@@ -44,6 +51,14 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 */
 	private String pm;
 	
+	/**
+	 * PM 이름
+	 */
+	private String pmName;
+	/**
+	 * PM 지급
+	 */
+	private String pmGrade;
 	/**
 	 * 사용시작일
 	 */
@@ -78,7 +93,15 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 요청자직급
 	 */
 	private String grade;
-
+	/**
+	 * 요청자산 목록
+	 */
+	private List<ApprovalDetailVO> approvalDetailList;
+	/**
+	 * 결재자 ID
+	 */
+	private String targetId;
+	
 	public String getReqId() {
 		return reqId;
 	}
@@ -137,13 +160,7 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 		this.reqStatus = reqStatus;
 	}
 
-	public String getGrade() {
-		return grade;
-	}
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
 
 	public String getStartDate() {
 		return startDate;
@@ -167,6 +184,54 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setReqDate(String reqDate) {
 		this.reqDate = reqDate;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public List<ApprovalDetailVO> getApprovalDetailList() {
+		return approvalDetailList;
+	}
+
+	public void setApprovalDetailList(List<ApprovalDetailVO> approvalDetailList) {
+		this.approvalDetailList = approvalDetailList;
+	}
+
+	public String getPmName() {
+		return pmName;
+	}
+
+	public void setPmName(String pmName) {
+		this.pmName = pmName;
+	}
+
+	public String getPmGrade() {
+		return pmGrade;
+	}
+
+	public void setPmGrade(String pmGrade) {
+		this.pmGrade = pmGrade;
+	}
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+
+	public String getTargetId() {
+		return targetId;
+	}
+
+	public void setTargetId(String targetId) {
+		this.targetId = targetId;
 	}
 
 

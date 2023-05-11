@@ -1,7 +1,6 @@
 package egovframework.let.aprv.service;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 결재게시판정보 VO클래스로서 일반회원 비즈니스로직 처리시 기타조건사항을 구성한다.
@@ -24,10 +23,6 @@ public class ApprovalDefaultVO  implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 사용자부재 목록
-	 */
-	List<ApprovalDetailVO> approvalDetailList;
     
     /** 검색Keyword */
     private String searchKeyword = "";

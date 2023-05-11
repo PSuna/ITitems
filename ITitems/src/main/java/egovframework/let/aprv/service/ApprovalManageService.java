@@ -36,4 +36,12 @@ public interface ApprovalManageService {
 	 */
 	public int selectApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) throws Exception;
 
+	public ApprovalManageVO SelectApproval(String reqId);
+
+	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId);
+
+	public int UpdateApproval(ApprovalManageVO approvalManageVO);
+	
+	public int InsertApproval(ApprovalManageVO approvalManageVO);
+
 }

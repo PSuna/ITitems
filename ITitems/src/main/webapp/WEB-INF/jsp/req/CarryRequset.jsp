@@ -165,14 +165,14 @@ function CarryRegist() {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>반출/반입신청조회</li>
+										<li>반출신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 								<h1 class="tit_1">자산관리</h1>
 
-								<h2 class="tit_2">반출/반입신청조회</h2>
+								<h2 class="tit_2">반출신청</h2>
 
 								<br />
 								<form name="regist" method="post"

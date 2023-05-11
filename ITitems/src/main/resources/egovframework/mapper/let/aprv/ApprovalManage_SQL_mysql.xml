@@ -7,30 +7,28 @@
 		<result property="reqId" column="REQ_ID"/>
 		<result property="id" column="USER_NM"/>
 		<result property="prjId" column="PRJ_ID"/>
-		<result property="pm" column="PM"/>
-		<result property="startDate" column="START_DATE"/>
-		<result property="endDate" column="END_DATE"/>
 		<result property="place" column="PLACE"/>
 		<result property="reqDate" column="REQ_DATE"/>
 		<result property="reqGroup" column="REQ_GROUP"/>
 		<result property="reqStatus" column="REQ_STATUS"/>
 		<result property="grade" column="GRADE"/>
-		
 	</resultMap>
 
 	<select id="selectApprovalList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
 		 SELECT R.REQ_ID,
 			    E.USER_NM,
 			    P.PRJ_NAME PRJ_ID,
-			    R.PM,
-			    DATE_FORMAT(R.START_DATE,'%Y %m %d') START_DATE,
-			    DATE_FORMAT(R.END_DATE,'%Y %m %d') END_DATE,
 			    R.PLACE,
 			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    R.REQ_GROUP,
-			    R.REQ_STATUS,
-			    A.TARGET_ID,
-			    E.GRADE
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = E.GRADE) AS GRADE
 		   FROM REQUESTS R 
 	  LEFT JOIN APRVTARGET A
 		     ON R.REQ_ID = A.REQ_ID 
@@ -39,8 +37,18 @@
 	  LEFT JOIN LETTNEMPLYRINFO E
 	  		 ON R.ID = E.ESNTL_ID
           WHERE A.TARGET_ID = #{uniqId}
-          
-	   ORDER BY R.REQ_DATE
+          <if test='searchKeyword !=""'>
+          	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
+          	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
+          </if>
+          <if test='searchGroup !=""'>
+            AND R.REQ_GROUP = #{searchGroup}
+          </if>
+          <if test='searchStatus !=""'>
+            AND R.REQ_STATUS = #{searchStatus}
+          </if>
+	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
 	</select>
 	
 	<select id="selectApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
@@ -51,4 +59,69 @@
 		 WHERE A.TARGET_ID = #{uniqId} 
 	</select>
 
+	<select id="SelectApproval" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalManageVO">
+		SELECT  R.REQ_ID,
+				E.USER_NM,
+				(SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = E.GRADE) AS GRADE,
+			    P.PRJ_NAME PRJ_ID,
+			    (SELECT USER_NM
+			       FROM LETTNEMPLYRINFO
+			      WHERE EMPLYR_ID = P.ID) AS PM_NAME,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE 
+			      WHERE CODE = (SELECT GRADE
+			      				  FROM LETTNEMPLYRINFO
+			      				 WHERE EMPLYR_ID = P.ID)) AS PM_GRADE,
+			    R.PLACE,
+			    DATE_FORMAT(R.START_DATE,'%Y-%m-%d') START_DATE,
+			    DATE_FORMAT(R.END_DATE,'%Y-%m-%d') END_DATE,
+			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP
+		   FROM REQUESTS R 
+	  LEFT JOIN PROJECTS P
+	         ON R.PRJ_ID = P.PRJ_ID
+	  LEFT JOIN LETTNEMPLYRINFO E
+	  		 ON R.ID = E.ESNTL_ID
+	      WHERE R.REQ_ID = #{reqId}
+	</select>
+	
+	<select id="SelectApprovalDetailList" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalDetailVO">
+		SELECT (SELECT CAT_NAME
+			       FROM CATEGORY 
+			      WHERE CAT_ID = R.LARGE_CATEGORY) AS LARGE_CATEGORY,
+			   (SELECT CAT_NAME
+			       FROM CATEGORY 
+			      WHERE CAT_ID = R.MIDDLE_CATEGORY) AS MIDDLE_CATEGORY,
+			   R.REQ_QTY,
+			   R.MAKER,
+			   R.USER,
+			   E.USER_NM,
+			   (SELECT CODE_NM
+			      FROM LETTCCMMNDETAILCODE
+			     WHERE CODE = E.GRADE) AS GRADE	   
+		  FROM REQUESTDETAIL R
+	 LEFT JOIN LETTNEMPLYRINFO E
+	 	    ON R.USER = E.ESNTL_ID
+		 WHERE R.REQ_ID = #{reqId}
+	</select>
+	
+	<update id="UpdateApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
+		UPDATE APRVTARGET
+		   SET REQ_STATUS = 'A1'
+		 WHERE REQ_ID = #{reqId}
+		   AND TARGET_ID = #{targetId}
+	</update>
+	
+	<insert id="InsertApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
+		INSERT INTO APRVTARGET (REQ_ID,
+								USER_ID,
+								TARGET_ID)
+		VALUES (#{reqId},
+				#{userId},
+				#{targetId})
+	</insert>
 </mapper>

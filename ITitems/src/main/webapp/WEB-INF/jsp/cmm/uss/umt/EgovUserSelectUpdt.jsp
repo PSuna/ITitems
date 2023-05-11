@@ -213,7 +213,7 @@ function fn_egov_modal_remove() {
 											</tr>
 											<tr>
 												<td class="lb">
-	                                                <label for="grade">직위</label>
+	                                                <label for="grade">직급</label>
 	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
@@ -227,19 +227,6 @@ function fn_egov_modal_remove() {
 	                                            </td>
 	                                            <td></td>
 	                                            <td></td>
-												<%-- <td class="lb">
-													<label for="groupId">그룹</label>
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<label class="f_select w_full" for="groupId">
-														<form:select path="groupId" id="groupId" name="groupId" title="그룹아이디">
-															<form:option value="" label="선택하세요" />
-															<form:options items="${groupId_result}" itemValue="code" itemLabel="codeNm" />
-														</form:select>
-													</label>
-													<form:errors path="groupId" />
-												</td> --%>
 											</tr>
 										</table>
 									</div>
@@ -255,11 +242,10 @@ function fn_egov_modal_remove() {
 											<a
 												href="<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>"
 												class="btn btn_skyblue_h46 w_100"
-												onclick="fnPasswordMove(); return false;"><spring:message
-													code="button.passwordUpdate" /></a>
+												onclick="JavaScript:fnPasswordMove(); return false;">
+												<spring:message code="button.passwordUpdate" /></a>
 											<!-- 비밀번호변경 -->
-											<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-												onclick="javascript:document.userManageVO.reset();">초기화</a>
+											<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.userManageVO.reset();">초기화</a>
 											<!-- 초기화 -->
 										</div>
 
@@ -270,7 +256,7 @@ function fn_egov_modal_remove() {
 											<!-- 저장 -->
 											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>"
 												class="btn btn_blue_46 w_100"
-												onclick="fnListPage(); return false;"><spring:message
+												onclick="JavaScript:fnListPage(); return false;"><spring:message
 													code="button.list" /></a>
 											<!-- 목록 -->
 										</div>

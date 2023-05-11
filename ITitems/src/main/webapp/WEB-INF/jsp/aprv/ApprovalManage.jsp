@@ -46,7 +46,12 @@ function fnSearch(){
 }
 //-->
 </script>
-
+<style>
+.board_list tbody tr:hover {
+	background: #ccc;
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -77,7 +82,7 @@ function fnSearch(){
                                 	<h2 class="tit_2">결재요청목록</h2>
                                 	
                                 	<!-- 검색조건 -->
-                                	<div class="condition pty_condition">
+                                	<div class="condition pty_condition" style="display:flex;justify-content: center;">
                                 		<label class="item f_select" for="searchGroup">
                                 			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
                                 				<option value="" label="요청분류"/>
@@ -106,7 +111,7 @@ function fnSearch(){
                                 	<!-- //검색조건 -->
                                 	
                                 	<div class="board_list_top">
-                                		<div class="left_col">
+                                		<div class="list_count">
                                 			<span>결재대기중</span>
                                 			<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
                                 			<div style="float: right;display: flex;align-items: center;">
@@ -159,7 +164,7 @@ function fnSearch(){
                                 				</c:if>
                                 				
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
-                                					<tr>
+                                					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageSize) - status.index}"/></td>
                                 						<td><c:out value="${result.id}"/></td>
                                 						<td><c:out value="${result.grade}"/></td>

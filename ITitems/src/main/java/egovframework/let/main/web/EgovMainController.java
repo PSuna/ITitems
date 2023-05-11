@@ -4,6 +4,8 @@ import java.util.Map;
 
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.com.cmm.LoginVO;
+import egovframework.let.aprv.service.ApprovalDefaultVO;
+import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.cop.bbs.service.BoardVO;
 import egovframework.let.cop.bbs.service.EgovBBSManageService;
 import egovframework.let.sym.mnu.mpm.service.EgovMenuManageService;
@@ -46,7 +48,11 @@ public class EgovMainController {
 	 */
 	@Resource(name = "EgovBBSManageService")
     private EgovBBSManageService bbsMngService;
-
+	
+	/** approvalManageService */
+	@Resource(name = "approvalManageService")
+	private ApprovalManageService approvalManageService;
+	
 	/** EgovMenuManageService */
 	@Resource(name = "meunManageService")
     private EgovMenuManageService menuManageService;
@@ -74,14 +80,18 @@ public class EgovMainController {
 	 */
 	@RequestMapping(value = "/cmm/main/mainPage.do")
 	public String getMgtMainPage(HttpServletRequest request, ModelMap model)
-	  throws Exception{
-
+								 throws Exception{
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		
+		ApprovalDefaultVO approvalSearchVO = new ApprovalDefaultVO();
+		approvalSearchVO.setUniqId(loginId.getUniqId());
 		// 공지사항 메인 컨텐츠 조회 시작 ---------------------------------
 		BoardVO boardVO = new BoardVO();
 		boardVO.setPageUnit(3);
 		boardVO.setPageSize(3);
 		boardVO.setBbsId("BBSMSTR_AAAAAAAAAAAA");
-
+		approvalSearchVO.setPageUnit(3);
+		approvalSearchVO.setPageSize(3);
 		PaginationInfo paginationInfo = new PaginationInfo();
 
 		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
@@ -92,11 +102,16 @@ public class EgovMainController {
 		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		boardVO.setUseAt("Y");
+		approvalSearchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		approvalSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		approvalSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		
 		Map<String, Object> map = bbsMngService.selectBoardArticles(boardVO, "BBSA02");
+		model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
 		model.addAttribute("notiList", map.get("resultList"));
 
-
+		int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
 		// 공지사항 메인컨텐츠 조회 끝 -----------------------------------
 
 		// 자료실 메인 컨텐츠 조회 시작 -------------------------------
@@ -111,7 +126,7 @@ public class EgovMainController {
 		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-
+		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("bbsList", bbsMngService.selectBoardArticles(boardVO, "BBSA02").get("resultList"));
 
 		// 자료실 메인컨텐츠 조회 끝 -----------------------------------

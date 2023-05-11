@@ -51,27 +51,31 @@
 
                 <div class="bot">
                     <div class="col">
-                        <div class="left_col">
-                            <div class="box">
-                            	
-                            	<div class="pty_icon_box">
-	                                <a href="<c:url value='/ass/AssetRegist.do'/>" style="width:100%; height:100%">
-	                                	<img src="<c:url value='/'/>images/pty_icon_01.png">
-	                                	<h2>자산등록</h2>
-	                                	<p>바로가기 →</p>
-	                                </a>
-	                            </div>    
-                            </div>
-                            <div class="box">
-                            
-                            	<div class="pty_icon_box">
-	                            	<a href="<c:url value='/req/CarryRegist.do'/>">
-	                            		<img src="<c:url value='/'/>images/pty_icon_02.png">
-	                            		<h2>반출신청</h2>
-	                                	<p>바로가기 →</p>
-	                            	</a>
-	                            </div>	
-                            	
+                        <div class="right_col" style="margin-right:10px;">
+                            <div class="box pty_colbox">
+                                <div class="head">
+                                    <h2>신규 <span>결재요청</span></h2>
+                                    <a href="<c:url value='/aprv/ApprovalManage.do'/>"><c:out value="${paginationInfo.totalRecordCount}"/></a>
+                                </div>
+                                <div class="list">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width: auto;">
+                                            <col style="width: 110px">
+                                        </colgroup>
+                                        <c:forEach var="Appresult" items="${resultList}" varStatus="status">
+                                        <tr>
+                                            <td>
+                                            	<a href="<c:url value='/aprv/selectApproval.do?reqId=${Appresult.reqId}'/>">
+                                            		<c:out value="${Appresult.reqGroup}" />
+                                            	</a>
+                                            	<span>NEW</span>
+                                            </td>
+                                            <td class="al_c"><c:out value="${Appresult.reqDate}" /></td>
+                                        </tr>
+                                        </c:forEach>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="right_col">
