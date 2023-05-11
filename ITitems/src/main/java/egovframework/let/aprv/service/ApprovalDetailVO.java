@@ -69,7 +69,15 @@ public class ApprovalDetailVO implements Serializable{
 	 * 요청순서
 	 */
 	private int reqOrder;
-
+	/**
+	 * 실사용자 이름
+	 */
+	private String userNm;
+	/**
+	 * 실사용자 직급
+	 */
+	private String grade;
+	
 	public String getRedId() {
 		return redId;
 	}
@@ -140,6 +148,22 @@ public class ApprovalDetailVO implements Serializable{
 
 	public void setReqOrder(int reqOrder) {
 		this.reqOrder = reqOrder;
+	}
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 }
 

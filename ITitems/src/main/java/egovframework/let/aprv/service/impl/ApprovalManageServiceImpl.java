@@ -8,6 +8,7 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
+import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
 
@@ -57,5 +58,24 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	public int selectApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) throws Exception {
 		return approvalManageDAO.selectApprovalListTotCnt(approvalSearchVO);
 	}
+
+	@Override
+	public ApprovalManageVO SelectApproval(String reqId) {
+		return approvalManageDAO.SelectApproval(reqId);
+	}
+
+	@Override
+	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId) {
+		return  approvalManageDAO.SelectApprovalDetailList(reqId);
+	}
+
+	@Override
+	public int UpdateApproval(ApprovalManageVO approvalManageVO) {
+		return approvalManageDAO.UpdateApproval(approvalManageVO);
+	}
 	
+	@Override
+	public int InsertApproval(ApprovalManageVO approvalManageVO) {
+		return approvalManageDAO.InsertApproval(approvalManageVO);
+	}
 }

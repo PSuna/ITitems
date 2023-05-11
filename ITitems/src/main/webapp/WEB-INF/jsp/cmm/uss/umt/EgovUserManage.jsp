@@ -124,7 +124,12 @@ function setPageUnit(){
 }
 //-->
 </script>
-
+<style>
+.board_list tbody tr:hover {
+	background: #ccc;
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -263,7 +268,7 @@ function setPageUnit(){
 	                                        	</tr>
                                         	</c:if>
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
-                                            <tr>
+                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
                                                 <td>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
@@ -274,11 +279,7 @@ function setPageUnit(){
                                                 <td><c:out value="${result.userNm}"/></td>
                                                 <td><c:out value="${result.grade}"/></td>
                                                 <td><c:out value="${result.orgnztId}"/></td>
-                                                <td>
-	                                                <a href="<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>?selectedId=<c:out value="${result.uniqId}"/>" class="lnk" onclick="javascript:fnSelectUser('<c:out value="${result.userTy}"/>:<c:out value="${result.uniqId}"/>'); return false;">
-	                                                	<c:out value="${result.userId}"/>
-	                                                </a>
-                                                </td>
+                                                <td><c:out value="${result.userId}"/></td>
                                                 <td><c:out value="${result.moblphonNo}"/></td>
                                                 <td><c:out value="${result.authorCode}"/></td>
                                             </tr>

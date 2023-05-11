@@ -186,7 +186,7 @@ function fn_egov_modal_remove() {
 											</tr>
 											<tr>
 												<td class="lb">
-	                                                <label for="grade">직위</label>
+	                                                <label for="grade">직급</label>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="grade">

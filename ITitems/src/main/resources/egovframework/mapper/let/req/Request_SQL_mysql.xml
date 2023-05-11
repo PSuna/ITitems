@@ -153,7 +153,7 @@
 				  FROM REQUESTS A
 				  LEFT OUTER JOIN REQUESTDETAIL B
 					ON A.REQ_ID = B.REQ_ID
-				 WHERE A.REQ_GROUP = 'H2'
+				 WHERE A.REQ_GROUP = 'C1'
 				 <include refid="search" />
 				 GROUP BY A.REQ_ID
 			 ) P

@@ -1,24 +1,20 @@
 <%--
-  Class Name : AssetInsert.jsp
-  Description : 자산등록 화면
+  Class Name : SelectApproval.jsp
+  Description : 결재요청상세조회
   Modification Information
- 
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2023.04.13   주소현              최초 생성
- 
-    author   : 영남사업부 주소현
-    since    : 2023.04.13
+     2023.05.11  천세훈              최초 생성
+    author   : 영남사업부 천세훈
+    since    : 2023.05.11
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="validator"
-	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,9 +30,7 @@
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
-
-<link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
-	type="text/css">
+<link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <script type="text/javascript"
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
@@ -49,14 +43,53 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <script type="text/javascript">
-
-
+<!--
+function fnListPage(){
+    history.back();
+}
+/* ********************************************************
+ * 승인확인 팝업창
+ ******************************************************** */
+function fnAgree(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+		    autoOpen: false,
+		    modal: true,
+		    width: 500,
+		    height: 300
+		});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 승인확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 fnUpdate();
+	 }	  
+}
+ /* ********************************************************
+  * 승인처리
+  ******************************************************** */
+function fnUpdate(){
+	 var reqId = document.getElementById("reqId").value;
+	 console.log(reqId);
+	 $.ajax({
+		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do?reqId='+reqId,
+			method: 'POST',
+			success: function (result) {
+				location.href="${pageContext.request.contextPath}/aprv/ApprovalManage.do"
+			}
+	 });
+ }
+//-->
 </script>
-
 <title>ITitems</title>
-
 </head>
-
 <style type="text/css">
 .ui-datepicker-trigger {
 	margin-left: 10px;
@@ -79,7 +112,6 @@
 <body >
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
-
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 
@@ -87,33 +119,23 @@
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
 								<div class="location">
 									<ul>
 										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
-										<li>반출요청 정보</li>
+										<li><a href="">결재요청</a></li>
+										<li>결재요청정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
-
-
 								<form id="frm" name="frm">
-
-									<h1 class="tit_1">자산관리</h1>
- 
-									<h2 class="tit_2">반출요청 정보</h2>
-									
-									<br>
-									
+									<h2 class="tit_2">결재요청정보</h2>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -128,7 +150,8 @@
 													<label for="">신청자</label> 
 												</td>
 												<td colspan="3">
-													<c:out value="${resultVO.id}"></c:out>
+													<c:out value="${approvalVO.userNm} ${approvalVO.grade }"></c:out>
+													<input type="hidden" id="reqId" value="<c:out value="${approvalVO.reqId}"/>">
 												</td>
 											</tr>
 											<tr>
@@ -137,7 +160,7 @@
 													<label for="">프로젝트</label>
 												</td>
 												<td colspan="3">
-													<c:out value="${resultVO.prjId}"></c:out>
+													<c:out value="${approvalVO.prjId}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -146,14 +169,14 @@
 													<label for="">사용장소</label> 
 												</td>
 												<td>
-													<c:out value="${resultVO.place}"></c:out>
+													<c:out value="${approvalVO.place}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
 													<label for="">PM(관리자)</label>
 												</td>
 												<td>
-													<c:out value="${resultVO.pm}"></c:out>
+													<c:out value="${approvalVO.pmName} ${approvalVO.pmGrade}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -162,7 +185,7 @@
 													<label for="">사용기간</label> 
 												</td>
 												<td colspan="3">
-													<c:out value="${resultVO.startDate}"></c:out> — <c:out value="${resultVO.endDate}"></c:out>
+													<c:out value="${approvalVO.startDate}"></c:out> — <c:out value="${approvalVO.endDate}"></c:out>
 												</td>
 											</tr>
 										</table>
@@ -171,24 +194,14 @@
 									<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 										<script type="text/javascript">
 											var maxFileNum = document.board.posblAtchFileNumber.value;
-											if (maxFileNum == null
-													|| maxFileNum == "") {
+											if (maxFileNum == null || maxFileNum == "") {
 												maxFileNum = 3;
 											}
-											var multi_selector = new MultiSelector(
-													document
-															.getElementById('egovComFileList'),
-													maxFileNum);
-											multi_selector
-													.addElement(document
-															.getElementById('egovComFileUploader'));
+											var multi_selector = new MultiSelector(document.getElementById('egovComFileList'),maxFileNum);
+											multi_selector.addElement(document.getElementById('egovComFileUploader'));
 										</script>
 									</c:if>
-									
-								
-								
 								<br>
-								
 								<div class="board_list assetlist pty_board_list">
 									<table>
 										<colgroup>
@@ -206,8 +219,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="result" items="${resultList}"
-												varStatus="status" >
+											<c:forEach var="result" items="${approvalDetailList}" varStatus="status" >
 												<tr>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td><c:out value="${result.reqQty}"></c:out></td>
@@ -223,10 +235,14 @@
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_100"
-											onclick="return false;">지급확인<spring:message
-												code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree(); return false;">
+											<spring:message code="button.agree" />
+										</a>
 										<!-- 지급확인 -->
+										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
+											<spring:message code="button.list" />
+										</a>
+										<!-- 목록 -->
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  --> 
@@ -236,12 +252,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
 		<!-- Footer -->
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-
 </body>
 </html>

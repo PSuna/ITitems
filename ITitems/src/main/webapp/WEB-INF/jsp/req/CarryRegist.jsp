@@ -105,6 +105,7 @@ function insertCarry() {
 			data: formData,
 			success: function (result) {
 				insertCarryDetail(result);
+				insertApproval(result);
 			},
 			error: function (error) {
 				console.log(error);
@@ -112,7 +113,13 @@ function insertCarry() {
 		})
 	}
 }
-
+/* ********************************************************
+ * 결재자 등록 처리
+ ******************************************************** */
+function insertApproval(result){
+	let reqId = result;
+	console.log(reqId);
+}
 /* ********************************************************
  * 자산 입력 폼 추가
  ******************************************************** */
@@ -232,6 +239,7 @@ function UserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
+
 
 /* ********************************************************
  * 검색 프로젝트 입력
@@ -538,6 +546,37 @@ window.onload = function(){
 										</tbody>
 										<tr>
 											<td colspan="4">
+												<div class="right_btn btn1">
+													<!-- 입력칸 추가 -->
+													<a href="#LINK" class="btn btn_blue_46 w_100"
+														onclick="addTd();">+</a>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<br><br>
+								<h2>결재자</h2>
+								<div class="assetlist">
+									<table class="board_view2 assetlist"style="width:25%;">
+										<thead>
+											<tr>
+												<th><label for="">결재자</label></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td style="width:100%;" >
+													<span class="f_search2 w_100%">
+														<input name="pmNm" type="text" title="결재자이름" maxlength="100" readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+													</span>
+													<input name="pm" id="pm" type="hidden" title="결재자ID" value="" />
+												</td>
+											</tr>
+										</tbody>
+										<tr>
+											<td>
 												<div class="right_btn btn1">
 													<!-- 입력칸 추가 -->
 													<a href="#LINK" class="btn btn_blue_46 w_100"

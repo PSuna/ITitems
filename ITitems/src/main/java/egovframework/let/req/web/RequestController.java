@@ -60,10 +60,10 @@ public class RequestController {
 
 
 	/**
-	 * 반입/반출신청조회 페이지로 이동
+	 * 반출신청 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRequset.do")
-	public String CarryRequset(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
+	public String CarryRequset(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");  
 
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -90,7 +90,6 @@ public class RequestController {
 		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
 		
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("resultCnt", map.get("resultCnt"));

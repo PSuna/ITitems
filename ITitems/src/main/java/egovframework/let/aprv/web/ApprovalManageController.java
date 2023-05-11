@@ -10,12 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
+import egovframework.let.aprv.service.ApprovalManageVO;
 
 /**
  * 사용자관련 요청을  비지니스 클래스로 전달하고 처리된결과를  해당   웹 화면으로 전달하는  Controller를 정의한다
@@ -65,6 +69,9 @@ public class ApprovalManageController {
 									 ModelMap model, HttpServletRequest request) throws Exception{
 		//메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "2000000");
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		
+		approvalSearchVO.setUniqId(loginId.getUniqId());
 		
 		//미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -104,4 +111,42 @@ public class ApprovalManageController {
 		
 		return "aprv/ApprovalManage";
 	}
+	
+	/**
+	 * 반출신청상세정보 페이지로 이동
+	 */
+	@RequestMapping(value = "/aprv/selectApproval.do")
+	public String SelectApproval(@ModelAttribute("approvalSearchVO") ApprovalDefaultVO approvalSearchVO,
+								@RequestParam("reqId")String reqId,
+								HttpServletRequest request,
+								ModelMap model) throws Exception {
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+    	
+		ApprovalManageVO approvalManageVO = new ApprovalManageVO();
+		approvalManageVO = approvalManageService.SelectApproval(reqId);
+		model.addAttribute("approvalVO", approvalManageVO);
+		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(reqId));
+		return "/aprv/SelectApproval";
+	}
+	
+	/**
+	 * 반출신청 승인처리
+	 */
+	@RequestMapping(value = "/aprv/ApprovalUpdate.do")
+	@ResponseBody
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request, @RequestParam String reqId ) {
+		System.out.println("reqId>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+reqId);
+		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
+		String targetId = loginVO.getUniqId();
+		approvalManageVO.setReqId(reqId);
+		approvalManageVO.setTargetId(targetId);
+		int r =  approvalManageService.UpdateApproval(approvalManageVO);
+		return r;
+	}
+	
 }

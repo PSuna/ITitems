@@ -6,6 +6,7 @@ import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
+import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageVO;
 
 /**
@@ -46,4 +47,19 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return (Integer)selectOne("approvalManageDAO.selectApprovalListTotCnt", approvalSearchVO);
 	}
 
+	public ApprovalManageVO SelectApproval(String reqId) {
+		return selectOne("approvalManageDAO.SelectApproval", reqId);
+	}
+
+	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId) {
+		return selectList("approvalManageDAO.SelectApprovalDetailList", reqId);
+	}
+
+	public int UpdateApproval(ApprovalManageVO approvalManageVO) {
+		return update("approvalManageDAO.UpdateApproval", approvalManageVO);
+	}
+	
+	public int InsertApproval(ApprovalManageVO approvalManageVO) { 
+		return insert("approvalManageDAO,InsertApproval", approvalManageVO);
+	}
 }

@@ -63,4 +63,11 @@ public class CommonController {
 		
 		return "/com/AlertModal";
 	}
+	/**
+	 * 승인확인 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/ApprovalConfirm.do")
+	public String ApprovalConfirm() throws Exception {
+		return "/com/ApprovalConfirm";
+	}
 }
