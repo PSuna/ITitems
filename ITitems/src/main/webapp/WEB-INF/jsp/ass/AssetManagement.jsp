@@ -16,6 +16,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -339,8 +340,8 @@ function selectAsset(id) {
 													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.acquiredDate}" /></td>
 													<td>
-														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
-														<fmt:formatNumber value="${result.acquiredPrice}" pattern="#,###"/>원
+														<c:if test="${not empty result.acquiredPrice}">
+															<c:out value="${result.acquiredPrice}" />원
 														</c:if>
 													</td>
 													<td><c:out value="${result.maker}" /></td>
@@ -350,18 +351,22 @@ function selectAsset(id) {
 											</c:forEach>
 										</tbody>
 									</table>
+									<c:if test="${empty resultList}">
+										<div class="empty"><h4><spring:message code="ass.null" /></h4></div>
+									</c:if>
 								</div>
-
-								<!-- 페이지 네비게이션 시작 -->
-								<div class="board_list_bot">
-									<div class="paging" id="paging_div">
-										<ul>
-											<ui:pagination paginationInfo="${paginationInfo}"
-												type="image" jsFunction="fn_egov_select_noticeList" />
-										</ul>
+								<c:if test="${not empty resultList}">
+									<!-- 페이지 네비게이션 시작 -->
+									<div class="board_list_bot">
+										<div class="paging" id="paging_div">
+											<ul>
+												<ui:pagination paginationInfo="${paginationInfo}"
+													type="image" jsFunction="fn_egov_select_noticeList" />
+											</ul>
+										</div>
 									</div>
-								</div>
-								<!-- //페이지 네비게이션 끝 -->
+									<!-- //페이지 네비게이션 끝 -->
+								</c:if>
 								<!--// 게시판 -->
 							</div>
 						</div>

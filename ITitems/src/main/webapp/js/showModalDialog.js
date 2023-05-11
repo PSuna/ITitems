@@ -26,7 +26,7 @@ if (!window.showModalDialog) {
 		var resizable = "no";
 		var scroll = "no";
 		var status = "no";
-
+		
 		// get the modal specs
 		var mdattrs = arg3.split(";");
 		for (i = 0; i < mdattrs.length; i++) {
@@ -40,7 +40,7 @@ if (!window.showModalDialog) {
 			if (v) {
 				v = v.trim().toLowerCase();
 			}
-
+			
 			if (n == "dialogheight") {
 				h = v.replace("px", "");
 			} else if (n == "dialogwidth") {
@@ -55,7 +55,7 @@ if (!window.showModalDialog) {
 				// no-op
 			}
 		}
-
+		
 		var left = window.screenX + (window.outerWidth / 2) - (w / 2);
 		var top = window.screenY + (window.outerHeight / 2) - (h / 2);
 		var targetWin = window.open(arg1, "ShowModalDialog" + arg1, 'toolbar=no, location=no, directories=no, status=' + status + ', menubar=no, scrollbars=' + scroll + ', resizable=' + resizable + ', copyhistory=no, width=' + w	+ ', height=' + h + ', top=' + top + ', left=' + left);

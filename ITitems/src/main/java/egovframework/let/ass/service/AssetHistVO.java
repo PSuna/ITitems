@@ -39,7 +39,7 @@ public class AssetHistVO implements Serializable {
 	private String useId;
 	
 	/** 자산내역수량 */
-	private int histQty;
+	private String histQty;
 	
 	/** 자산내역상태 */
 	private String histStatus;
@@ -125,11 +125,11 @@ public class AssetHistVO implements Serializable {
 		this.prjId = prjId;
 	}
 	
-	public int getHistQty() {
+	public String getHistQty() {
 		return histQty;
 	}
 
-	public void setHistQty(int histQty) {
+	public void setHistQty(String histQty) {
 		this.histQty = histQty;
 	}
 

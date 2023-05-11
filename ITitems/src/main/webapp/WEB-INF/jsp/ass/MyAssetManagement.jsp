@@ -15,7 +15,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -320,18 +321,22 @@ function selectAsset(id) {
 											</c:forEach>
 										</tbody>
 									</table>
+									<c:if test="${empty resultList}">
+										<div class="empty"><h4><spring:message code="ass.null" /></h4></div>
+									</c:if>
 								</div>
-
-								<!-- 페이지 네비게이션 시작 -->
-								<div class="board_list_bot">
-									<div class="paging" id="paging_div">
-										<ul>
-											<ui:pagination paginationInfo="${paginationInfo}"
-												type="image" jsFunction="fn_egov_select_noticeList" />
-										</ul>
+								<c:if test="${not empty resultList}">
+									<!-- 페이지 네비게이션 시작 -->
+									<div class="board_list_bot">
+										<div class="paging" id="paging_div">
+											<ul>
+												<ui:pagination paginationInfo="${paginationInfo}"
+													type="image" jsFunction="fn_egov_select_noticeList" />
+											</ul>
+										</div>
 									</div>
-								</div>
-								<!-- //페이지 네비게이션 끝 -->
+									<!-- //페이지 네비게이션 끝 -->
+								</c:if>
 								<!--// 게시판 -->
 							</div>
 						</div>

@@ -58,10 +58,10 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
+                var fieldList = new Object();
                 oRequired = new required();                                
                 for (x in oRequired) {
-                var field = form[oRequired[x][0]];                 
-
+                var field = form[oRequired[x][0]];   
            if ((field.type == 'hidden' ||
                field.type == 'text' ||
                field.type == 'textarea' ||
@@ -90,6 +90,7 @@
                    if ((i == 0) && (field.type != 'hidden')) {
                        focusField = field;
                    }
+                   fieldList[field.name] = oRequired[x][1];
                    fields[i++] = oRequired[x][1];
                    isValid = false;
                }
@@ -128,10 +129,8 @@
            }
                 }
                 if (fields.length > 0) {
-                   if (focusField != null && focusField.type == 'text') {
-						focusField.focus();
-					}
-					alert(fields.join('\n'));
+					focusField.focus();
+					alertValid(fieldList);
                 }
                 return isValid;
             }
@@ -140,7 +139,7 @@
             function trim(s) {
                 return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
             }
-            
+
             ]]>
          </javascript>
 

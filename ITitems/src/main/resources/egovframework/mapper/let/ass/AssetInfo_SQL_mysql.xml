@@ -37,15 +37,22 @@
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetName" column="ASSET_NAME" />
 		<result property="assetQty" column="ASSET_QTY" />
+		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
 		<result property="note" column="NOTE" />
+		<result property="regDate" column="REG_DATE" />
 		<result property="photoId" column="PHOTO_ID" />
-		<result property="regId" column="REG_ID" />
-		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="assetSn" column="ASSET_SN" />
+		<result property="fileId" column="FILE_ID" />
+		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="useId" column="USE_ID" />
+		<result property="rcptDate" column="RCPT_DATE" />
+		<result property="rcptId" column="RCPT_ID" />
+		<result property="carryReason" column="CARRY_REASON" />
 	</resultMap>
-
+	
 	<sql id="search">
 		<where>
 			<if test="searchOrgnzt != null and searchOrgnzt != ''">
@@ -64,12 +71,12 @@
 				AND B.HIST_GROUP = #{searchStatus}
 			</if>
 			<if test="startDate != null and startDate != ''">
-				AND A.ACQUIRED_DATE >= STR_TO_DATE(#{startDate},
+				AND DATE_FORMAT(A.ACQUIRED_DATE, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
 				'%Y-%m-%d')
 			</if>
 			<if test="endDate != null and endDate != ''">
 				<![CDATA[
-				AND A.ACQUIRED_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				AND DATE_FORMAT(A.ACQUIRED_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
@@ -94,11 +101,11 @@
 			</if>
 			<if test="endDate != null and endDate != ''">
 				<![CDATA[
-				AND A.REG_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
-				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 	</sql>
 
@@ -125,7 +132,7 @@
 					D.CAT_NAME AS MIDDLE_CATEGORY,
 					A.ASSET_NAME,
 					A.ASSET_QTY, 
-					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d')AS ACQUIRED_DATE, 
+					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
 					A.ACQUIRED_PRICE, 
 					A.MAKER, 
 					E.CODE_NM AS USAGE_STAUTS,
@@ -179,7 +186,7 @@
 					A.ASSET_NAME,
 					A.ASSET_QTY,
 					G.PRJ_NAME AS PRJ_ID,
-					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d')AS REG_DATE, 
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS,
 					F.CODE_NM AS APPROVAL
 				  FROM ASSETSINFO A
@@ -216,20 +223,39 @@
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetInfoDetail">
 		SELECT 
-		    ASSET_ID, 
-		    (SELECT CAT_NAME FROM category WHERE CAT_ID = LARGE_CATEGORY) AS LARGE_CATEGORY,
-		    (SELECT CAT_NAME FROM category WHERE CAT_ID = MIDDLE_CATEGORY) AS MIDDLE_CATEGORY, 
-		    ASSET_NAME,
-		    ASSET_QTY,
-		    ACQUIRED_PRICE, 
-		    MAKER, 
-		    ADD_ASSET, 
-		    NOTE, 
-		    PHOTO_ID, 
-		    REG_ID,
-		    DATE_FORMAT(ACQUIRED_DATE,'%Y-%m-%d')AS ACQUIRED_DATE
-		FROM ASSETSINFO
-		WHERE ASSET_ID = #{assetId}
+			A.ASSET_ID,
+			C.CAT_NAME AS LARGE_CATEGORY, 
+			D.CAT_NAME AS MIDDLE_CATEGORY,
+			A.ASSET_NAME,
+			A.ASSET_QTY,
+			DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,
+			A.ACQUIRED_PRICE,
+			A.MAKER,
+			A.NOTE,
+			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
+			A.PHOTO_ID,
+			A.ASSET_SN,
+			A.FILE_ID,
+			B.ORGNZT_ID,
+			B.PRJ_ID,
+			B.USE_ID,
+			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
+			B.RCPT_ID,
+			B.CARRY_REASON
+		  FROM ASSETSINFO A
+		  LEFT OUTER JOIN ASSETSHIST B
+		    ON A.ASSET_ID = B.ASSET_ID
+		  LEFT OUTER JOIN CATEGORY C
+	    	ON A.LARGE_CATEGORY = C.CAT_ID
+		  LEFT OUTER JOIN CATEGORY D
+		    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	      LEFT OUTER JOIN CATEGORY E
+	        ON A.MIDDLE_CATEGORY = D.CAT_ID
+	      LEFT OUTER JOIN CATEGORY F
+	        ON A.MIDDLE_CATEGORY = D.CAT_ID  
+	      LEFT OUTER JOIN CATEGORY G
+	        ON A.MIDDLE_CATEGORY = D.CAT_ID
+		 WHERE A.ASSET_ID = #{assetId}
 	</select>
 
 	<insert id="InsertAssetInfo"

@@ -13,7 +13,7 @@
 			<field property="middleCategory" depends="required">
         		<arg0 key="중분류" resource="false"/>
 			</field> 
-			<field property="assetQty" depends="required, integer">
+			<field property="assetQty" depends="required">
         		<arg0 key="수량" resource="false"/>
 			</field>
 			<field property="photo" depends="required">
@@ -36,7 +36,7 @@
 			<field property="middleCategory" depends="required">
         		<arg0 key="중분류" resource="false"/>
 			</field> 
-			<field property="assetQty" depends="required, integer">
+			<field property="assetQty" depends="required">
         		<arg0 key="수량" resource="false"/>
 			</field>
 			<field property="rcptId" depends="required">

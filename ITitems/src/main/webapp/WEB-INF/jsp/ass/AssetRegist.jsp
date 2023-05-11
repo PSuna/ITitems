@@ -116,8 +116,8 @@ function insert_asset(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 500,
-	        height: 300
+	        width: 600,
+	        height: 400
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -148,8 +148,8 @@ function insert_asset(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 500,
-	        height: 300
+	        width: 600,
+	        height: 400
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -404,6 +404,39 @@ function FileManual(){
 	$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 유효성 체크
+ ******************************************************** */
+let typeList = ["input", "select"]
+
+function removeP(objList) {
+	$(typeList).each(function(index, type){
+		$("#assetRegist").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			if($(td).children().last().prop('tagName') == 'P'){
+				$(td).children().last().remove();
+			}
+		})
+	})
+}
+
+function alertValid(objList) {
+	removeP(objList);
+	$(typeList).each(function(index, type){
+		$("#assetRegist").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
+}
+
+/* ********************************************************
+ * onload
+ ******************************************************** */
 window.onload = function(){
 	make_date();
 	  }
