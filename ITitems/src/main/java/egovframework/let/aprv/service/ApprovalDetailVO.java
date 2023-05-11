@@ -24,4 +24,122 @@ public class ApprovalDetailVO implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 요청세부고유번호
+	 */
+	private String redId;
+	
+	/**
+	 * 해당요청고유번호
+	 */
+	private String reqId;
+	
+	/**
+	 * 대분류
+	 */
+	private String largeCategory;
+	
+	/**
+	 * 중분류
+	 */
+	private String middleCategory;
+	
+	/**
+	 * 요청수량
+	 */
+	private int reqQty;
+	
+	/**
+	 * 제조사
+	 */
+	private String maker;
+	
+	/**
+	 * 실사용자
+	 */
+	private String user;
+	
+	/**
+	 * 자산ID
+	 */
+	private String assetId;
+	
+	/**
+	 * 요청순서
+	 */
+	private int reqOrder;
+
+	public String getRedId() {
+		return redId;
+	}
+
+	public void setRedId(String redId) {
+		this.redId = redId;
+	}
+
+	public String getReqId() {
+		return reqId;
+	}
+
+	public void setReqId(String reqId) {
+		this.reqId = reqId;
+	}
+
+	public String getLargeCategory() {
+		return largeCategory;
+	}
+
+	public void setLargeCategory(String largeCategory) {
+		this.largeCategory = largeCategory;
+	}
+
+	public String getMiddleCategory() {
+		return middleCategory;
+	}
+
+	public void setMiddleCategory(String middleCategory) {
+		this.middleCategory = middleCategory;
+	}
+
+	public int getReqQty() {
+		return reqQty;
+	}
+
+	public void setReqQty(int reqQty) {
+		this.reqQty = reqQty;
+	}
+
+	public String getMaker() {
+		return maker;
+	}
+
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getAssetId() {
+		return assetId;
+	}
+
+	public void setAssetId(String assetId) {
+		this.assetId = assetId;
+	}
+
+	public int getReqOrder() {
+		return reqOrder;
+	}
+
+	public void setReqOrder(int reqOrder) {
+		this.reqOrder = reqOrder;
+	}
 }
+
