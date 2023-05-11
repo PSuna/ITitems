@@ -39,5 +39,18 @@
 		          #{histGroup}
 		       )
 	</insert>
+	
+	<update id="UpdateAssetHist" parameterType="egovframework.let.ass.service.AssetHistVO">
+		UPDATE 
+			ASSETSHIST
+		   SET
+			ORGNZT_ID = #{orgnztId}, 
+			PRJ_ID = #{prjId}, 
+			USE_ID = #{useId},   
+			RCPT_DATE = #{rcptDate},
+			RCPT_ID = #{rcptId}, 
+			CARRY_REASON = #{carryReason}
+		 WHERE ASSET_ID = #{assetId}
+	</update>
 
 </mapper>

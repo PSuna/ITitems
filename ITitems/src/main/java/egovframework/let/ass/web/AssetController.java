@@ -335,7 +335,7 @@ public class AssetController {
 	 * 자산수정
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
-	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO) throws Exception {
+	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO) throws Exception {
 
 		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
 		photos.put("photo", multiRequest.getFile("photo"));
@@ -343,8 +343,14 @@ public class AssetController {
 			List<FileVO> result = fileUtil.parseFileInf(photos, "BBS_", 0, "", "");
 			assetInfoVO.setPhotoId(fileMngService.insertFileInfs(result));
 		}
-		
+		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
+		files.put("file", multiRequest.getFile("file"));
+		if (!files.isEmpty()) {
+			List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
+			assetInfoVO.setFileId(fileMngService.insertFileInfs(result));
+		}
 		assetService.UpdateAssetInfo(assetInfoVO);
+		assetService.UpdateAssetHist(assetHistVO);
 		
 		return "forward:/ass/SelectAsset.do";
 	}
