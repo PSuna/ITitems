@@ -36,13 +36,13 @@ public class AssetInfoVO implements Serializable {
 	private String assetName;
 	
 	/** 수량 */
-	private Integer assetQty;
+	private String assetQty;
 	
 	/** 취득일자 */
 	private String acquiredDate;
 	
 	/** 취득가액 */
-	private Integer acquiredPrice;
+	private String acquiredPrice;
 	
 	/** 제조사 */
 	private String maker;
@@ -79,6 +79,18 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 결재 */
 	private String approval;
+	
+	/** 실사용자 */
+	private String useId;
+	
+	/** 수령일자 */
+	private String rcptDate;
+	
+	/** 수령자 */
+	private String rcptId;
+	
+	/** 반출사유 */
+	private String carryReason;
 
 	public String getAssetId() {
 		return assetId;
@@ -112,11 +124,11 @@ public class AssetInfoVO implements Serializable {
 		this.assetName = assetName;
 	}
 
-	public Integer getAssetQty() {
+	public String getAssetQty() {
 		return assetQty;
 	}
 
-	public void setAssetQty(Integer assetQty) {
+	public void setAssetQty(String assetQty) {
 		this.assetQty = assetQty;
 	}
 
@@ -168,11 +180,11 @@ public class AssetInfoVO implements Serializable {
 		this.usageStatus = usageStatus;
 	}
 
-	public Integer getAcquiredPrice() {
+	public String getAcquiredPrice() {
 		return acquiredPrice;
 	}
 
-	public void setAcquiredPrice(Integer acquiredPrice) {
+	public void setAcquiredPrice(String acquiredPrice) {
 		this.acquiredPrice = acquiredPrice;
 	}
 
@@ -230,6 +242,38 @@ public class AssetInfoVO implements Serializable {
 
 	public void setApproval(String approval) {
 		this.approval = approval;
+	}
+
+	public String getUseId() {
+		return useId;
+	}
+
+	public void setUseId(String useId) {
+		this.useId = useId;
+	}
+
+	public String getRcptDate() {
+		return rcptDate;
+	}
+
+	public void setRcptDate(String rcptDate) {
+		this.rcptDate = rcptDate;
+	}
+
+	public String getRcptId() {
+		return rcptId;
+	}
+
+	public void setRcptId(String rcptId) {
+		this.rcptId = rcptId;
+	}
+
+	public String getCarryReason() {
+		return carryReason;
+	}
+
+	public void setCarryReason(String carryReason) {
+		this.carryReason = carryReason;
 	}
 	
 	

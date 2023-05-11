@@ -16,16 +16,16 @@
 			<field property="pm" depends="required">
         		<arg0 key="PM" resource="false"/>
 			</field>
-			<field property="startDate" depends="required, date">
+			<field property="startDate" depends="required">
         		<arg0 key="사용기간" resource="false"/>
 			</field>
-			<field property="endDate" depends="required, date">
+			<field property="endDate" depends="required">
         		<arg0 key="사용기간" resource="false"/>
 			</field>
 			<field property="middleCategory" depends="required">
         		<arg0 key="분류" resource="false"/>
 			</field>
-			<field property="reqQty" depends="required, integer">
+			<field property="reqQty" depends="required">
         		<arg0 key="수량" resource="false"/>
 			</field>
 		</form>

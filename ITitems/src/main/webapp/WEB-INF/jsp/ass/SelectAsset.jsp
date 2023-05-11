@@ -119,7 +119,7 @@ function AssetUpdt() {
 												<td class="lb">
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
-												<td> <fmt:formatNumber value="${resultVO.assetQty}" pattern="#,###"/></td>
+												<td> ${resultVO.assetQty}</td>
 												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
 												<td>
@@ -149,8 +149,8 @@ function AssetUpdt() {
 													<!-- 취득가액 --> <label for="">취득가액</label>
 												</td>
 												<td>
-													<c:if test="${resultVO .acquiredPrice != 0 and resultVO.acquiredPrice != null}">
-														<fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원
+													<c:if test="${not empty resultVO.acquiredPrice}">
+														${resultVO.acquiredPrice}원
 													</c:if>
 												</td>											
 											</tr>
@@ -163,6 +163,9 @@ function AssetUpdt() {
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
 												<td>
+													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+				                                        <c:param name="param_atchFileId" value="${resultVO.fileId}" />
+				                                    </c:import>
 												</td>
 											</tr>
 											<tr>
@@ -177,12 +180,14 @@ function AssetUpdt() {
 													<label for="orgnztId">부서</label>
 												</td>
 												<td>
+													${resultVO.orgnztId}
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
 												<td>
+													${resultVO.prjId}
 												</td>
 											</tr>
 											<tr>
@@ -191,12 +196,14 @@ function AssetUpdt() {
 													<label for="">수령자</label> 
 												</td>
 												<td>
+													${resultVO.rcptId}
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
 												<td>
+													${resultVO.useId}
 												</td>
 											</tr>
 											<tr>
@@ -204,7 +211,15 @@ function AssetUpdt() {
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td colspan="4">
+												<td >
+													${resultVO.rcptDate}
+												</td>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">등록일자</label> 
+												</td>
+												<td >
+													${resultVO.regDate}
 												</td>
 											</tr>
 											<tr>
@@ -213,6 +228,7 @@ function AssetUpdt() {
 													<label for="carryReason">반출사유</label>
 												</td>
 												<td colspan="4">
+													${resultVO.carryReason}
 												</td>
 											</tr>
 										</table>

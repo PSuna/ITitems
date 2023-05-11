@@ -1,6 +1,8 @@
 package egovframework.let.com.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -49,5 +51,16 @@ public class CommonController {
 	public String RegistFail() throws Exception {
 
 		return "/com/RegistFail";
+	}
+	
+	/**
+	 * 알람 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/AlertModal.do")
+	public String AlertModal(ModelMap model,@ModelAttribute("fields") StringBuffer buffer) throws Exception {
+		
+		model.addAttribute("fields", buffer);
+		
+		return "/com/AlertModal";
 	}
 }

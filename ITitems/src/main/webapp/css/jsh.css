@@ -44,3 +44,11 @@
 .pop_check .btn_blue_46{
 	margin: 0px 5%;
 }
+
+.empty{
+	text-align: center;
+    margin: 100px;
+}
+.alertV{
+	color: red;
+}
