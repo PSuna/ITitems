@@ -121,6 +121,15 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return assetHistDAO.InsertAssetHist(assetHistVO);
 	}
 
+	/**
+     * 자산내역 수정.
+     */
+	@Override
+	public int UpdateAssetHist(AssetHistVO assetHistVO) {
+
+		return assetHistDAO.UpdateAssetHist(assetHistVO);
+	}
+
 
 
 }

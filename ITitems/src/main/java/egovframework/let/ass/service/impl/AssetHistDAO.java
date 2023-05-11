@@ -35,4 +35,11 @@ public class AssetHistDAO extends EgovAbstractMapper {
 		return insert("AssetHistDAO.InsertAssetHist", assetHistVO);
 	}
 	
+	/**
+	 * 자산내역 수정
+	 */
+	public int UpdateAssetHist(AssetHistVO assetHistVO) {
+		return update("AssetHistDAO.UpdateAssetHist", assetHistVO);
+	}
+	
 }

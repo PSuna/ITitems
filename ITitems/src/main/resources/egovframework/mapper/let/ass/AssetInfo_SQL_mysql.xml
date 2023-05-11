@@ -236,11 +236,11 @@
 			A.PHOTO_ID,
 			A.ASSET_SN,
 			A.FILE_ID,
-			B.ORGNZT_ID,
-			B.PRJ_ID,
-			B.USE_ID,
+			G.ORGNZT_NM AS ORGNZT_ID,
+			H.PRJ_NAME AS PRJ_ID,
+			E.USER_NM AS USE_ID,
 			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
-			B.RCPT_ID,
+			F.USER_NM AS RCPT_ID,
 			B.CARRY_REASON
 		  FROM ASSETSINFO A
 		  LEFT OUTER JOIN ASSETSHIST B
@@ -249,12 +249,14 @@
 	    	ON A.LARGE_CATEGORY = C.CAT_ID
 		  LEFT OUTER JOIN CATEGORY D
 		    ON A.MIDDLE_CATEGORY = D.CAT_ID
-	      LEFT OUTER JOIN CATEGORY E
-	        ON A.MIDDLE_CATEGORY = D.CAT_ID
-	      LEFT OUTER JOIN CATEGORY F
-	        ON A.MIDDLE_CATEGORY = D.CAT_ID  
-	      LEFT OUTER JOIN CATEGORY G
-	        ON A.MIDDLE_CATEGORY = D.CAT_ID
+	      LEFT OUTER JOIN LETTNEMPLYRINFO E
+	        ON B.USE_ID = E.ESNTL_ID
+	      LEFT OUTER JOIN LETTNEMPLYRINFO F
+	        ON B.RCPT_ID = F.ESNTL_ID  
+	      LEFT OUTER JOIN LETTNORGNZTINFO G
+	        ON B.ORGNZT_ID = G.ORGNZT_ID
+	      LEFT OUTER JOIN PROJECTS H
+	        ON B.PRJ_ID = H.PRJ_ID
 		 WHERE A.ASSET_ID = #{assetId}
 	</select>
 
@@ -301,16 +303,20 @@
 		UPDATE 
 			ASSETSINFO
 		   SET 
-		   	LARGE_CATEGORY = #{largeCategory}, 
-		   	MIDDLE_CATEGORY = #{middleCategory}, 
-		   	ASSET_NAME = #{assetName}, 
-		   	ASSET_QTY = #{assetQty}, 
-		   	ACQUIRED_DATE = #{acquiredDate}, 
-		   	ACQUIRED_PRICE = #{acquiredPrice}, 
-		   	MAKER = #{maker}, 
-		   	NOTE = #{note}
+		    LARGE_CATEGORY = #{largeCategory}, 
+		    MIDDLE_CATEGORY = #{middleCategory}, 
+		    ASSET_QTY = #{assetQty}, 
+		    ASSET_NAMEE = #{assetName},
+		    ASSET_SN = #{assetSn},
+		    MAKER = #{maker},  
+		    NOTE = #{note},
+		    ACQUIRED_DATE = #{acquiredDate}, 
+		    ACQUIRED_PRICE = #{acquiredPrice}
 		   	<if test="photoId != null and photoId != ''">
 		   	,PHOTO_ID = #{photoId}
+		   	</if>
+		   	<if test="fileId != null and fileId != ''">
+		   	,FILE_ID = #{fileId}
 		   	</if>
 		 WHERE ASSET_ID = #{assetId}
 	</update>
