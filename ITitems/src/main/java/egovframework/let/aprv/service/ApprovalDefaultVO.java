@@ -28,11 +28,15 @@ public class ApprovalDefaultVO  implements Serializable{
 	 * 사용자부재 목록
 	 */
 	List<ApprovalDetailVO> approvalDetailList;
-	/** 검색조건 */
-    private String searchCondition = "";
     
     /** 검색Keyword */
     private String searchKeyword = "";
+    
+    /** 검색분류 (반입/반출/신규등록) */
+    private String searchGroup="";
+    
+    /** 상태분류 (결재대기/결재승인/반려) */
+    private String searchStatus="";
     
     /** 현재페이지 */
     private int pageIndex = 1;
@@ -51,14 +55,9 @@ public class ApprovalDefaultVO  implements Serializable{
 
     /** recordCountPerPage */
     private int recordCountPerPage = 10;
-
-	public String getSearchCondition() {
-		return searchCondition;
-	}
-
-	public void setSearchCondition(String searchCondition) {
-		this.searchCondition = searchCondition;
-	}
+    
+    /** 타겟 uniqId */
+    private String uniqId;
 
 	public String getSearchKeyword() {
 		return searchKeyword;
@@ -114,5 +113,29 @@ public class ApprovalDefaultVO  implements Serializable{
 
 	public void setRecordCountPerPage(int recordCountPerPage) {
 		this.recordCountPerPage = recordCountPerPage;
+	}
+
+	public String getSearchGroup() {
+		return searchGroup;
+	}
+
+	public void setSearchGroup(String searchGroup) {
+		this.searchGroup = searchGroup;
+	}
+
+	public String getSearchStatus() {
+		return searchStatus;
+	}
+
+	public void setSearchStatus(String searchStatus) {
+		this.searchStatus = searchStatus;
+	}
+
+	public String getUniqId() {
+		return uniqId;
+	}
+
+	public void setUniqId(String uniqId) {
+		this.uniqId = uniqId;
 	}
 }
