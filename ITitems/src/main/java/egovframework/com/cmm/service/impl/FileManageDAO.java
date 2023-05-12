@@ -33,17 +33,26 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	 * @throws Exception
 	 */
 	public String insertFileInfs(List<?> fileList) throws Exception {
-		FileVO vo = (FileVO) fileList.get(0);
-		String atchFileId = vo.getAtchFileId();
-
-		insert("FileManageDAO.insertFileMaster", vo);
-
-		Iterator<?> iter = fileList.iterator();
-		while (iter.hasNext()) {
-			vo = (FileVO) iter.next();
-
+		
+		String atchFileId = "";
+		for(Object fvo : fileList) {
+			FileVO vo = (FileVO) fvo;
+			atchFileId = vo.getAtchFileId();
+			System.out.println(">>>>>>" + atchFileId);
+			insert("FileManageDAO.insertFileMaster", vo);
 			insert("FileManageDAO.insertFileDetail", vo);
 		}
+		
+		/*
+		 * FileVO vo = (FileVO) fileList.get(0); String atchFileId = vo.getAtchFileId();
+		 * 
+		 * insert("FileManageDAO.insertFileMaster", vo);
+		 * 
+		 * Iterator<?> iter = fileList.iterator(); while (iter.hasNext()) { vo =
+		 * (FileVO) iter.next();
+		 * 
+		 * insert("FileManageDAO.insertFileDetail", vo); }
+		 */
 
 		return atchFileId;
 	}
@@ -178,5 +187,13 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	@SuppressWarnings("unchecked")
 	public List<FileVO> selectImageFileList(FileVO vo) throws Exception {
 		return (List<FileVO>) list("FileManageDAO.selectImageFileList", vo);
+	}
+	
+	/**
+	 * 조건에 맞는 첨부파일 전체 조회
+	 *
+	 */
+	public List<FileVO> selectAssFileList(FileVO vo) {
+		return selectList("FileManageDAO.selectAssFileList", vo);
 	}
 }

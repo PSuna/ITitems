@@ -247,9 +247,10 @@ public class AssetController {
 		model.addAttribute("resultVO", result);
 		
 		FileVO fvo = new FileVO();
-		fvo.setAtchFileId(result.getPhotoId());
+		fvo.setFileGroup(assetManageVO.getAssetId());
+		fvo.setFileType("PHOTO");
 		
-		model.addAttribute("resultPhoto", fileMngService.selectFileInf(fvo));
+		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		
 		return "/ass/SelectAsset";
 	}
@@ -285,28 +286,30 @@ public class AssetController {
 		assetInfoVO.setRegId(user.getUniqId());
 		assetInfoVO.setUsageStatus("U1");
 
-		if (isAuthenticated) {
-			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
-			photos.put("photo", multiRequest.getFile("photo"));
-			if (!photos.isEmpty()) {
-				List<FileVO> result = fileUtil.parseFileInf(photos, "BBS_", 0, "", "");
-				assetInfoVO.setPhotoId(fileMngService.insertFileInfs(result));
-			}
-			Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
-			files.put("file", multiRequest.getFile("file"));
-			if (!files.isEmpty()) {
-				List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
-				assetInfoVO.setFileId(fileMngService.insertFileInfs(result));
-			}
-		}
-		
-		assetService.InsertAssetInfo(assetInfoVO);
+//		assetService.InsertAssetInfo(assetInfoVO);
 		
 		assetHistVO.setAssetId(assetInfoVO.getAssetId());
 		assetHistVO.setHistStatus("P0");
 		assetHistVO.setHistGroup("H2");
 		assetHistVO.setApproval("A1");
-		assetService.InsertAssetHist(assetHistVO);
+//		assetService.InsertAssetHist(assetHistVO);
+		
+		if (isAuthenticated) {
+			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
+			photos.put("photo", multiRequest.getFile("photo"));
+			System.out.println(">>>>>>>>   " + multiRequest.getFile("photo"));
+			if (!photos.isEmpty()) {
+				List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+				
+//				fileMngService.insertFileInfs(result);
+			}
+			Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
+			files.put("file", multiRequest.getFile("file"));
+			if (!files.isEmpty()) {
+				List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+//				fileMngService.insertFileInfs(result);
+			}
+		}
 		
 		return assetInfoVO.getAssetId();
 	}
@@ -325,8 +328,7 @@ public class AssetController {
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
-		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
-		model.addAttribute("resultVO", result);
+		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
 	
 		return "/ass/AssetUpdt";
 	}

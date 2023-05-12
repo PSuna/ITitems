@@ -26,6 +26,19 @@
 		<result property="orignlFileNm" column="ORIGNL_FILE_NM"/>
 		<result property="streFileNm" column="STRE_FILE_NM"/>
 	</resultMap>	
+	
+	<resultMap id="assFileList" type="egovframework.com.cmm.service.FileVO">
+		<result property="atchFileId" column="ATCH_FILE_ID"/>
+		<result property="fileCn" column="FILE_CN"/>
+		<result property="fileExtsn" column="FILE_EXTSN"/>
+		<result property="fileMg" column="FILE_SIZE"/>
+		<result property="fileSn" column="FILE_SN"/>
+		<result property="fileStreCours" column="FILE_STRE_COURS"/>
+		<result property="orignlFileNm" column="ORIGNL_FILE_NM"/>
+		<result property="streFileNm" column="STRE_FILE_NM"/>
+		<result property="fileGroup" column="FILE_GROUP"/>
+		<result property="fileType" column="FILE_TYPE"/>
+	</resultMap>	
 
 
  	<select id="selectFileList" parameterType="FileVO" resultMap="fileList">
@@ -58,11 +71,11 @@
 		
 			INSERT INTO LETTNFILEDETAIL
 			( ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM, 
-			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN )
+			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN, FILE_GROUP, FILE_TYPE )
 			VALUES
 			( #{atchFileId}, #{fileSn}, #{fileStreCours}, #{streFileNm}, 
-			  #{orignlFileNm}, #{fileExtsn}, #{fileMg}, #{fileCn} )			
-		
+			  #{orignlFileNm}, #{fileExtsn}, #{fileMg}, #{fileCn}, #{fileGroup}, #{fileType} )			
+
 	</insert>	
 	
 	<delete id="deleteFileDetail" parameterType="FileVO">
@@ -166,5 +179,27 @@
 			ORDER BY b.FILE_SN	
  		
  	</select>	
+ 	
+ 	<select id="selectAssFileList" parameterType="FileVO" resultMap="assFileList">
+ 			SELECT 
+				ATCH_FILE_ID, 
+				FILE_CN, 
+				FILE_SN, 
+				FILE_STRE_COURS, 
+				STRE_FILE_NM,
+				FILE_EXTSN, 
+				ORIGNL_FILE_NM, 
+				FILE_SIZE,
+				FILE_GROUP,
+				FILE_TYPE
+			FROM
+				LETTNFILEDETAIL
+			WHERE
+				FILE_GROUP = #{fileGroup}
+			AND
+				FILE_TYPE = #{fileType}
+			AND 
+				FILE_SN = #{fileSn}	
+ 	</select>
  	
 </mapper>

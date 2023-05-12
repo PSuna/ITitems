@@ -112,4 +112,10 @@ public interface EgovFileMngService {
      * @throws Exception
      */
     public List<FileVO> selectImageFileList(FileVO vo) throws Exception;
+    
+    /**
+	 * 조건에 맞는 첨부파일 전체 조회
+	 *
+	 */
+    public List<FileVO> selectFileList(FileVO vo);
 }

@@ -16,13 +16,7 @@
 			<field property="assetQty" depends="required">
         		<arg0 key="수량" resource="false"/>
 			</field>
-			<field property="photo" depends="required">
-        		<arg0 key="사진" resource="false"/>
-			</field>
-			<field property="file" depends="required">
-        		<arg0 key="지급확인서" resource="false"/>
-			</field>
-			<field property="rcptId" depends="required">
+			<field property="rcptNm" depends="required">
         		<arg0 key="수령자" resource="false"/>
 			</field>
 		</form>
@@ -39,7 +33,7 @@
 			<field property="assetQty" depends="required">
         		<arg0 key="수량" resource="false"/>
 			</field>
-			<field property="rcptId" depends="required">
+			<field property="rcptNm" depends="required">
         		<arg0 key="수령자" resource="false"/>
 			</field>
 		</form>
