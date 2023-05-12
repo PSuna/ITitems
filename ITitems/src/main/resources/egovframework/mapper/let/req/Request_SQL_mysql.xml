@@ -43,7 +43,7 @@
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
-			AND A.REQ_DATE <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
 		</if>
 	</sql>
@@ -112,7 +112,7 @@
 			REQ_STATUS
 		  FROM (
 				SELECT
-					ROW_NUMBER() OVER(ORDER BY A.REQ_DATE DESC) AS RUM,
+					ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
 					A.REQ_ID,
 					E.CODE_NM AS REQ_GROUP,
 					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
@@ -133,6 +133,7 @@
 				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
 				 WHERE A.REQ_GROUP = #{reqGroup} 
+				   AND A.ID = #{id}
 				 <include refid="search" />
 				 GROUP BY 
 				 	A.REQ_ID, 
@@ -142,6 +143,7 @@
 				 	C.CODE_NM
 			 ) P
 		 WHERE P.RUM BETWEEN #{first} AND #{last}
+		 
 	</select>
 
 	<select id="CountRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="int">
@@ -153,7 +155,8 @@
 				  FROM REQUESTS A
 				  LEFT OUTER JOIN REQUESTDETAIL B
 					ON A.REQ_ID = B.REQ_ID
-				 WHERE A.REQ_GROUP = 'C1'
+				 WHERE A.REQ_GROUP = #{reqGroup} 
+				   AND A.ID = #{id}
 				 <include refid="search" />
 				 GROUP BY A.REQ_ID
 			 ) P

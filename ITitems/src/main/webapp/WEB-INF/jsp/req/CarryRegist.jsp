@@ -4,21 +4,19 @@
   Modification Information
  
       수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2023.04.13   주소현              최초 생성
+    -------      --------    ---------------------------
+     2023.04.13    주소현              최초 생성
  
     author   : 영남사업부 주소현
     since    : 2023.04.13
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="validator"
-	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,7 +47,8 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 let tdClone;
-
+var userCheck = 0;
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 /* ********************************************************
  * 반출신청상세 등록 처리
  ******************************************************** */
@@ -76,8 +75,7 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					document.SelectCarry.reqId.value = reqId;
-					document.SelectCarry.submit();
+					insertApproval(result);
 				},
 				error: function (error) {
 					console.log(error);
@@ -105,7 +103,6 @@ function insertCarry() {
 			data: formData,
 			success: function (result) {
 				insertCarryDetail(result);
-				insertApproval(result);
 			},
 			error: function (error) {
 				console.log(error);
@@ -116,9 +113,50 @@ function insertCarry() {
 /* ********************************************************
  * 결재자 등록 처리
  ******************************************************** */
-function insertApproval(result){
-	let reqId = result;
+function insertApproval(reqId){
 	console.log(reqId);
+	let dataList;
+	let id = document.querySelector("#id").value;
+	let trList = document.querySelector('.aprvlist tbody').querySelectorAll("tr");
+	reqId = reqId;
+	$.ajax({
+		url: '${pageContext.request.contextPath}/aprv/HighApprovalInsert.do?reqId='+reqId+'&id='+id,
+		method: 'POST',
+		success: function (result) {
+			trList.forEach(function(items,index) {
+				let formdata = new FormData();
+				formdata.append('reqId', reqId);
+				formdata.append('id', id);
+				let aprv = '#aprv'+index;
+				let targetId = items.querySelector(aprv).value;
+				console.log(aprv);
+				if(!targetId){
+					return;
+				}else{
+					formdata.append('targetId', targetId);
+				}
+				$.ajax({
+					url: '${pageContext.request.contextPath}/aprv/ApprovalInsert.do',
+					method: 'POST',
+					enctype: "multipart/form-data",
+					processData: false,
+					contentType: false,
+					data: formdata,
+					success: function (result) {
+						document.SelectCarry.reqId.value = reqId;
+						document.SelectCarry.submit();
+					},
+					error: function (error) {
+						console.log(error);
+					}
+				}) 
+			});
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	}) 
+	
 }
 /* ********************************************************
  * 자산 입력 폼 추가
@@ -227,7 +265,6 @@ function AssetSearch(){
  ******************************************************** */
 function UserSearch(ch){
 	userCheck = ch;
-    
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
@@ -258,12 +295,29 @@ function returnProject(val){
  * 검색 회원 입력
  ******************************************************** */
 function returnUser(val){
-
-document.getElementById("pm").value  = val.userId;
-document.getElementById("pmNm").value  = val.userNm;
+if (val) {
+	if(userCheck == 0){
+		document.getElementById("pm").value  = val.userId;
+		document.getElementById("pmNm").value  = val.userNm;
+	}else if(userCheck == 1){
+		document.getElementById("aprv0").value  = val.userId;
+		document.getElementById("aprvNm0").value  = val.userNm;
+	}else if(userCheck == 2){
+		document.getElementById("aprv1").value  = val.userId;
+		document.getElementById("aprvNm1").value  = val.userNm;
+	}else if(userCheck == 3){
+		document.getElementById("aprv2").value  = val.userId;
+		document.getElementById("aprvNm2").value  = val.userNm;
+	}else if(userCheck == 4){
+		document.getElementById("aprv3").value  = val.userId;
+		document.getElementById("aprvNm3").value  = val.userNm;
+	}
+	
+}
 
 fn_egov_modal_remove();
 }
+
 
 /* ********************************************************
  * date input 생성
@@ -362,15 +416,12 @@ window.onload = function(){
 <body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
-
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
-
 	<div class="wrap">
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
@@ -387,18 +438,11 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-
-
 								<form id="frm" name="frm">
-
-									<h1 class="tit_1">자산관리</h1>
-
 									<h2 class="tit_2">반출 신청</h2>
-									<input name="reqGroup" value="H2" type="hidden"> <input
-										name="reqStatus" value="R0" type="hidden"> <br>
-
+									<input name="reqGroup" value="C1" type="hidden"> <input
+										name="reqStatus" value="A0" type="hidden"> <br>
 									<div class="board_view2">
-
 										<table>
 											<colgroup>
 												<col style="width: 16%;">
@@ -448,12 +492,13 @@ window.onload = function(){
 													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
 													class="req">필수</span>
 												</td>
-												<td><span class="f_search2 w_30%"> <input
-														id="pmNm" type="text" title="회원" maxlength="100"
-														readonly="false" />
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-												</span> <input name="pm" id="pm" type="hidden" title="pm"
-													value="" /></td>
+												<td>
+													<span class="f_search2 w_30%"> 
+														<input id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+													</span>
+													<input name="pm" id="pm" type="hidden" title="pm" value="" />
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -473,7 +518,6 @@ window.onload = function(){
 											</tr>
 										</table>
 									</div>
-								
 								<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 									<script type="text/javascript">
 											var maxFileNum = document.board.posblAtchFileNumber.value;
@@ -490,11 +534,7 @@ window.onload = function(){
 															.getElementById('egovComFileUploader'));
 										</script>
 								</c:if>
-
-
-
 								<br>
-
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
@@ -513,7 +553,7 @@ window.onload = function(){
 												<td class="lb"><label for="">사용자</label></td>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id='clonehere'>
 											<tr>
 												<td><label class="f_select" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
@@ -557,33 +597,51 @@ window.onload = function(){
 								</div>
 								<br><br>
 								<h2>결재자</h2>
-								<div class="assetlist">
-									<table class="board_view2 assetlist"style="width:25%;">
+								<div class="approvalList">
+									<table class="board_view2 aprvlist"style="width:25%;">
 										<thead>
 											<tr>
-												<th><label for="">결재자</label></th>
+												<th><label for=""></label></th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td style="width:100%;" >
 													<span class="f_search2 w_100%">
-														<input name="pmNm" type="text" title="결재자이름" maxlength="100" readonly="false" />
+														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
-													<input name="pm" id="pm" type="hidden" title="결재자ID" value="" />
+													<input name="aprv0" id="aprv0" type="hidden" title="결재자1ID" value="" />
+												</td>
+											</tr>
+											<tr>
+												<td style="width:100%;" >
+													<span class="f_search2 w_100%">
+														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
+													</span>
+													<input name="aprv1" id="aprv1" type="hidden" title="결재자1ID" value="" />
+												</td>
+											</tr>
+											<tr>
+												<td style="width:100%;" >
+													<span class="f_search2 w_100%">
+														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
+													</span>
+													<input name="aprv2" id="aprv2" type="hidden" title="결재자1ID" value="" />
+												</td>
+											</tr>
+											<tr>
+												<td style="width:100%;" >
+													<span class="f_search2 w_100%">
+														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>
+													</span>
+													<input name="aprv3" id="aprv3" type="hidden" title="결재자1ID" value="" />
 												</td>
 											</tr>
 										</tbody>
-										<tr>
-											<td>
-												<div class="right_btn btn1">
-													<!-- 입력칸 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_100"
-														onclick="addTd();">+</a>
-												</div>
-											</td>
-										</tr>
 									</table>
 								</div>
 								</form>
@@ -591,17 +649,13 @@ window.onload = function(){
 								<!-- 등록버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_100"
-											onclick="insertCarry();return false;">신청 <spring:message
-												code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="insertCarry();return false;">신청 <spring:message code="button.create" /></a>
 										<!-- 등록 -->
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  -->
-								<form name="SelectCarry" method="post"
-									action="<c:url value='/req/SelectCarry.do'/>">
-									<input type="hidden" name="reqId"
-										value="" />
+								<form name="SelectCarry" method="post" action="<c:url value='/req/SelectCarry.do'/>">
+									<input type="hidden" name="reqId" value="" />
 								</form>
 							</div>
 						</div>
@@ -609,12 +663,9 @@ window.onload = function(){
 				</div>
 			</div>
 		</div> 
-	</div>
-
 	<!-- Footer -->
 	<c:import url="/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
 	</div>
-
 </body>
 </html>

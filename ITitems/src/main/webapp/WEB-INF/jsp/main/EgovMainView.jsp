@@ -63,7 +63,7 @@
                                             <col style="width: auto;">
                                             <col style="width: 110px">
                                         </colgroup>
-                                        <c:forEach var="Appresult" items="${resultList}" varStatus="status">
+                                        <c:forEach var="Appresult" items="${resultList}" varStatus="status" end="2">
                                         <tr>
                                             <td>
                                             	<a href="<c:url value='/aprv/selectApproval.do?reqId=${Appresult.reqId}'/>">

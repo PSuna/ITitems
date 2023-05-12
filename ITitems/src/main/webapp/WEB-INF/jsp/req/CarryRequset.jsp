@@ -67,11 +67,8 @@ function SearchCarryList() {
 
 function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
-	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
 	document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
-	document.frm.searchLCat.value = '${searchVO.searchLCat}';
-	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
 	document.frm.searchStatus.value = '${searchVO.searchStatus}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';

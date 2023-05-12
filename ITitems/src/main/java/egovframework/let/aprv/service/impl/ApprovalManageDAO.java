@@ -60,6 +60,23 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 	}
 	
 	public int InsertApproval(ApprovalManageVO approvalManageVO) { 
-		return insert("approvalManageDAO,InsertApproval", approvalManageVO);
+		return insert("approvalManageDAO.InsertApproval", approvalManageVO);
+	}
+
+	public void HighInsertApproval(ApprovalManageVO approvalManageVO) {
+		insert("approvalManageDAO.HighInsertApproval",approvalManageVO);
+	}
+
+	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO) {
+		return selectList("approvalManageDAO.selectHighApprovalList", approvalSearchVO);
+	}
+
+	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) {
+		return (Integer)selectOne("approvalManageDAO.selectHighApprovalListTotCnt", approvalSearchVO);
+	}
+
+	public void UpdateRequest(ApprovalManageVO approvalManageVO) {
+		update("approvalManageDAO.UpdateRequest", approvalManageVO);
+		
 	}
 }

@@ -41,7 +41,16 @@ public interface ApprovalManageService {
 	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId);
 
 	public int UpdateApproval(ApprovalManageVO approvalManageVO);
+
+	public int UpdateHighApproval(ApprovalManageVO approvalManageVO);
 	
 	public int InsertApproval(ApprovalManageVO approvalManageVO);
+
+	public void HighInsertApproval(ApprovalManageVO approvalManageVO);
+
+	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO);
+
+	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO);
+
 
 }
