@@ -61,6 +61,8 @@ public class UserDefaultVO implements Serializable {
 
     /** recordCountPerPage */
     private int recordCountPerPage = 10;
+    
+    private String uniqId;
 
 	/**
 	 * sbscrbSttus attribute 값을  리턴한다.
@@ -243,6 +245,14 @@ public class UserDefaultVO implements Serializable {
 
 	public void setSearchGrade(String searchGrade) {
 		this.searchGrade = searchGrade;
+	}
+
+	public String getUniqId() {
+		return uniqId;
+	}
+
+	public void setUniqId(String uniqId) {
+		this.uniqId = uniqId;
 	}
 
 

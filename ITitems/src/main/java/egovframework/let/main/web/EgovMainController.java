@@ -79,11 +79,10 @@ public class EgovMainController {
 	 * @exception Exception Exception
 	 */
 	@RequestMapping(value = "/cmm/main/mainPage.do")
-	public String getMgtMainPage(HttpServletRequest request, ModelMap model)
+	public String getMgtMainPage(ApprovalDefaultVO approvalSearchVO, HttpServletRequest request, ModelMap model)
 								 throws Exception{
 		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
 		
-		ApprovalDefaultVO approvalSearchVO = new ApprovalDefaultVO();
 		approvalSearchVO.setUniqId(loginId.getUniqId());
 		// 공지사항 메인 컨텐츠 조회 시작 ---------------------------------
 		BoardVO boardVO = new BoardVO();
@@ -107,11 +106,19 @@ public class EgovMainController {
 		approvalSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		
 		Map<String, Object> map = bbsMngService.selectBoardArticles(boardVO, "BBSA02");
-		model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
 		model.addAttribute("notiList", map.get("resultList"));
 
-		int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
-		paginationInfo.setTotalRecordCount(totCnt);
+		if(loginId.getAuthorCode().equals("ROLE_HIGH_ADMIN")) {
+			model.addAttribute("resultList", approvalManageService.selectHighApprovalList(approvalSearchVO));
+			int totCnt = approvalManageService.selectHighApprovalListTotCnt(approvalSearchVO);
+			paginationInfo.setTotalRecordCount(totCnt);
+			model.addAttribute("paginationInfo", paginationInfo);
+		}else {
+			model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
+			int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
+			paginationInfo.setTotalRecordCount(totCnt);
+			model.addAttribute("paginationInfo", paginationInfo);
+		}
 		// 공지사항 메인컨텐츠 조회 끝 -----------------------------------
 
 		return "main/EgovMainView";

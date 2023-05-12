@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.sec.ram.service.AuthorManageVO;
 import egovframework.let.sec.ram.service.EgovAuthorManageService;
@@ -137,6 +138,8 @@ public class UserManageController {
 		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
 
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		String enstl_id = (loginId.getUniqId());
 		/** paging */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());

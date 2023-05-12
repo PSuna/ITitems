@@ -553,7 +553,7 @@ window.onload = function(){
 												<td class="lb"><label for="">사용자</label></td>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id='clonehere'>
 											<tr>
 												<td><label class="f_select" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
@@ -597,7 +597,7 @@ window.onload = function(){
 								</div>
 								<br><br>
 								<h2>결재자</h2>
-								<div class="assetlist">
+								<div class="approvalList">
 									<table class="board_view2 aprvlist"style="width:25%;">
 										<thead>
 											<tr>
