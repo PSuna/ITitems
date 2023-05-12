@@ -26,6 +26,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -41,7 +43,6 @@
 		val.userId = userId;
 		val.userNm = userNm;
 		val.address = address
-
 		parent.parent.returnUser(val);
 	}
 
@@ -111,9 +112,9 @@
 						</label> <label class="item f_select" for="searchCondition"> <select
 							name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
 								<option value="0"
-									<c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if>>ID</option>
+									<c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if>>사용자ID</option>
 								<option value="1"
-									<c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if>>Name</option>
+									<c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if>>사용자명</option>
 						</select>
 						</label> <span class="item f_search"> <input class="f_input w_250"
 							name="searchKeyword" title="검색어" type="text"
@@ -125,34 +126,6 @@
 						</span>
 					</div>
 					<!--// 검색조건 -->
-					<%-- <div class="board_list_top">
-						<div class="left_col">
-							<div class="list_count">
-								<span>사용자수</span> <strong><c:out
-										value="${paginationInfo.totalRecordCount}" /></strong>
-								<div style="float: right; display: flex; align-items: center;">
-									<span>페이지당 항목 수</span> <label class="item f_select"
-										for="pageUnit"> <select name="pageUnit" id="pageUnit"
-										title="페이지당 항목 수" onchange="fn_egov_pageview(); return false;">
-											<option value="10"
-												<c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-											<option value="20"
-												<c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-											<option value="50"
-												<c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-											<option value="100"
-												<c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-											<option value="300"
-												<c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-											<option value="500"
-												<c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
-									</select>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div> --%>
-
 					<!-- 게시판 -->
 					<div class="board_list">
 						<table summary="사용자 목록을 제공한다.">
@@ -168,8 +141,8 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col">이름</th>
-									<th scope="col">아이디</th>
+									<th scope="col">사용자명</th>
+									<th scope="col">사용자ID</th>
 									<th scope="col">전화번호</th>
 									<th scope="col">부서</th>
 									<th scope="col">직급</th>
@@ -207,8 +180,10 @@
 					<div class="board_list_bot">
 						<div class="paging" id="paging_div">
 							<ul>
+							<li>
 								<ui:pagination paginationInfo="${paginationInfo}" type="image"
 									jsFunction="fn_egov_pageview" />
+									</li>
 							</ul>
 						</div>
 					</div>

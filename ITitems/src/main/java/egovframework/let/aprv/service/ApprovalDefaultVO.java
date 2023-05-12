@@ -53,7 +53,10 @@ public class ApprovalDefaultVO  implements Serializable{
     
     /** 타겟 uniqId */
     private String uniqId;
-
+    
+    /** 권한 */
+    private String authorCode;
+    
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -132,5 +135,13 @@ public class ApprovalDefaultVO  implements Serializable{
 
 	public void setUniqId(String uniqId) {
 		this.uniqId = uniqId;
+	}
+
+	public String getAuthorCode() {
+		return authorCode;
+	}
+
+	public void setAuthorCode(String authorCode) {
+		this.authorCode = authorCode;
 	}
 }

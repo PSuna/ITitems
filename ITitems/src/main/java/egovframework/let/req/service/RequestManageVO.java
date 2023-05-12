@@ -38,6 +38,9 @@ public class RequestManageVO implements Serializable {
 	/** 프로젝트명 */
 	private String prjNm = "";
 
+	/** 요청자 고유번호 */
+	private String id = "";
+	
 	/** 검색 신청분류 */
 	private String reqGroup = "";
 	
@@ -253,6 +256,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setReqGroup(String reqGroup) {
 		this.reqGroup = reqGroup;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

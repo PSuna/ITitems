@@ -9,7 +9,6 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -65,7 +64,9 @@ public class RequestController {
 	@RequestMapping(value = "/req/CarryRequset.do")
 	public String CarryRequset(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");  
-
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		
+		manageVO.setId(loginId.getUniqId());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(manageVO.getPageIndex());
@@ -153,11 +154,11 @@ public class RequestController {
 	 */
 	@RequestMapping(value = "/req/insertRequestDetail.do")
 	@ResponseBody
-	public String insertRequestDetail(RequestDetailVO requestDetailVO) throws Exception {
+	public String insertRequestDetail(RequestVO requestVO, RequestDetailVO requestDetailVO) throws Exception {
 		
 		requestService.InsertRequestDetailVO(requestDetailVO);
 		
-		return "/req/CarryRegist";
+		return requestVO.getReqId();
 	}
 	
 	/**

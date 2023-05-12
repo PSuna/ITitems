@@ -221,14 +221,14 @@
 								<br>
 								<br>
 								 <!-- 지급확인버튼  -->
-								<div class="board_view_bot">
+								<%-- <div class="board_view_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100"
 											onclick="return false;">지급확인<spring:message
 												code="button.create" /></a>
 										<!-- 지급확인 -->
 									</div>
-								</div>
+								</div> --%>
 								<!-- // 등록버튼 끝  --> 
 								</div>
 							</div>

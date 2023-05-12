@@ -44,15 +44,18 @@
 </c:if>
 <script type="text/javascript">
 <!--
+var loginAuthor= "";
 function fnListPage(){
     history.back();
 }
 /* ********************************************************
  * 승인확인 팝업창
  ******************************************************** */
-function fnAgree(){
+function fnAgree(AuthorCode){
+	loginAuthor = AuthorCode;
+	console.log(loginAuthor);
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
@@ -66,11 +69,15 @@ function fnAgree(){
  * 승인확인 결과 처리
  ******************************************************** */
  function returnConfirm(val){
- 
 	fn_egov_modal_remove();
+	var a = "ROLE_HIGH_ADMIN";
 	 if(val){
-		 fnUpdate();
-	 }	  
+		 if(loginAuthor==a){
+			 fnHighUpdate();
+		 }else{
+		 	 fnUpdate();
+		 }
+	 }
 }
  /* ********************************************************
   * 승인처리
@@ -86,6 +93,20 @@ function fnUpdate(){
 			}
 	 });
  }
+/* ********************************************************
+ * 최고관리자 승인처리
+ ******************************************************** */
+function fnHighUpdate(){
+	 var reqId = document.getElementById("reqId").value;
+	 console.log(reqId);
+	 $.ajax({
+		 	url: '${pageContext.request.contextPath}/aprv/HighApprovalUpdate.do?reqId='+reqId,
+			method: 'POST',
+			success: function (result) {
+				location.href="${pageContext.request.contextPath}/aprv/ApprovalManage.do"
+			}
+	 });
+}
 //-->
 </script>
 <title>ITitems</title>
@@ -235,9 +256,11 @@ function fnUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree(); return false;">
-											<spring:message code="button.agree" />
-										</a>
+										<c:if test="${approvalVO.reqStatus}=='A0'">
+											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree('${AuthorCode}'); return false;">
+												<spring:message code="button.agree" />
+											</a>
+										</c:if>
 										<!-- 지급확인 -->
 										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
 											<spring:message code="button.list" />

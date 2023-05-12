@@ -114,23 +114,6 @@ public class EgovMainController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		// 공지사항 메인컨텐츠 조회 끝 -----------------------------------
 
-		// 자료실 메인 컨텐츠 조회 시작 -------------------------------
-		boardVO.setPageUnit(5);
-		boardVO.setPageSize(10);
-		boardVO.setBbsId("BBSMSTR_CCCCCCCCCCCC");
-
-		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
-		paginationInfo.setPageSize(boardVO.getPageSize());
-
-		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
-		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		model.addAttribute("paginationInfo", paginationInfo);
-		model.addAttribute("bbsList", bbsMngService.selectBoardArticles(boardVO, "BBSA02").get("resultList"));
-
-		// 자료실 메인컨텐츠 조회 끝 -----------------------------------
-
 		return "main/EgovMainView";
 	}
 
