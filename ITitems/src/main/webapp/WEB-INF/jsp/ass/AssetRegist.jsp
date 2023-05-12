@@ -36,6 +36,7 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
+<script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -56,7 +57,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  * 자산 등록 처리
  ******************************************************** */
 function insert_asset(){
-
+		inputFile();
 		let formData = new FormData(document.getElementById('assetRegist'));
 		
 	 	 $.ajax({
@@ -558,19 +559,21 @@ window.onload = function(){
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">제품사진</label>
-													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"></td>
+													<label for="egovComFileUploader">지급확인서</label>
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
+														<input name="file" id="egovComFileUploader" type="file" />
 														<div id="egovComFileList"></div>
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
+													<div class="board_attach2" id="file_upload_imposbl"></div>
 													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
+														<input type="hidden" id="fileListCnt" name="fileListCnt"
+															value="0" />
 													</c:if>
 												</td>
+												
 											</tr>
 											<tr>
 											<td class="lb">
@@ -600,93 +603,18 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
 												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
+												<span class="search_date w_full">
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
+												</span>
 												</td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 비고 --> 
-													<label for="note">비고</label>
-												</td>
-												<td colspan="4">
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-												</td>
-											</tr>
-										</table>
-
-										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-											<script type="text/javascript">
-												var maxFileNum = document.board.posblAtchFileNumber.value;
-												if (maxFileNum == null
-														|| maxFileNum == "") {
-													maxFileNum = 3;
-												}
-												var multi_selector = new MultiSelector(
-														document
-																.getElementById('egovComFileList'),
-														maxFileNum);
-												multi_selector
-														.addElement(document
-																.getElementById('egovComFileUploader'));
-											</script>
-										</c:if>
-									<%
-										LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-									%>
-										<table>
-											<colgroup>
-												<col style="width: 20%;">
-												<col style="width: 30%;">
-												<col style="width: 20%;">
-												<col style="width: 30%;">
-											</colgroup>
-											<tr>
-												<td class="lb">
-													<!-- 부서 --> 
-													<label for="orgnztId">부서</label>
-												</td>
-												<td>
-													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
-													<label class="f_select w_70%" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" title="부서">
-															<option value="" label="선택하세요" />
-															<c:forEach var="orgnztId" items="${orgnztId_result}"
-																varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>>
-																	<c:out value="${orgnztId.codeNm}" />
-																</option>
-															</c:forEach>
-													</select>
-													</label>
-												</td>
-												<td class="lb">
-													<!-- 프로젝트 --> 
-													<label for="">프로젝트</label>
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
-													<button type="button" class="btn"
-														onclick="ProjectSearch();">조회</button>
-													</span> 
-													<form:errors path="prjId" /> 
-													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
-														readonly="readonly" />
-												</td>
-											</tr>
+											<%
+												LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+											%>
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
@@ -720,13 +648,68 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<!-- 부서 --> 
+													<label for="orgnztId">부서</label>
+												</td>
+												<td>
+													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
+													<label class="f_select w_full" for="orgnztId">
+														<select id="orgnztId" name="orgnztId" title="부서">
+															<option value="" label="선택하세요" />
+															<c:forEach var="orgnztId" items="${orgnztId_result}"
+																varStatus="status">
+																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>>
+																	<c:out value="${orgnztId.codeNm}" />
+																</option>
+															</c:forEach>
+													</select>
+													</label>
+												</td>
+												<td class="lb">
+													<!-- 프로젝트 --> 
+													<label for="">프로젝트</label>
+												</td>
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+														readonly="false" />
+													<button type="button" class="btn"
+														onclick="ProjectSearch();">조회</button>
+													</span> 
+													<form:errors path="prjId" /> 
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+														readonly="readonly" />
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="lb">
+													<label for="egovComFileUploader">제품사진</label>
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();">
 												</td>
 												<td colspan="4">
-												<span class="search_date">
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
-												</span>
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="photoFrm" id="photoFrm" type="file" multiple/>
+														<input name="photo" id="photo" type="file" style="display: none"/>
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl">
+													</div> 
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
+													</c:if>
+													<div class="photo_box">
+													</div>
+												</td>
+												
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 비고 --> 
+													<label for="note">비고</label>
+												</td>
+												<td colspan="4">
+													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
 												</td>
 											</tr>
 											<tr>

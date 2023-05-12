@@ -52,3 +52,22 @@
 .alertV{
 	color: red;
 }
+
+.photo_box img{
+	width: 18%;
+    height: 150px;
+}
+
+input[type=file]::file-selector-button {
+	height: 35px;
+    width: 100px;
+    background: var(--box-color);
+    border-radius: 6px;
+    border: 1px solid #dde2e5;
+    font-size: 16px;
+}
+
+input[type=file]::file-selector-button:hover{
+	background: #dde2e5;
+	cursor: pointer;
+}

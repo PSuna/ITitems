@@ -48,18 +48,47 @@
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+var userCheck = 0;
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
+
 /* ********************************************************
  * 자산 수정 처리
  ******************************************************** */
 function UpdateAsset(){
-	if(confirm("수정하시겠습니까?")){
-		if(validateAssetUpdt(document.AssetUpdt)){
+	
+    document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
+    document.AssetUpdt.submit(); 
+		  
+}
 
-		    document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
-		    document.AssetUpdt.submit(); 
-		    
-	    }
-	}
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+ function UpdtConfirm(){
+	
+	  if(validateAssetUpdt(document.AssetUpdt)){
+		 var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 500,
+		        height: 300
+			});
+		    $(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+	 } 
+}
+
+/* ********************************************************
+ * 수정확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 UpdateAsset();
+	 }	  
 }
 
 /* ********************************************************
@@ -105,25 +134,118 @@ function getMCatList(Mval) {
  * 숫자 콤마 입력
  ******************************************************** */
   function getNumber(obj){
-	     var num01;
-	     var num02;
-	     num01 = obj.value;
-	     num02 = num01.replace(/\D/g,""); 
-	     num01 = setComma(num02);
-	     obj.value =  num01;
+     var num01;
+     var num02;
+     num01 = obj.value;
+     num02 = num01.replace(/\D/g,""); 
+     num01 = setComma(num02);
+     obj.value =  num01;
 
-	     $('#test').text(num01);
-	  }
+     $('#test').text(num01);
+  }
 
-	  function setComma(n) {
-	     var reg = /(^[+-]?\d+)(\d{3})/;
-	     n += '';         
-	     while (reg.test(n)) {
-	        n = n.replace(reg, '$1' + ',' + '$2');
-	     }         
-	     return n;
-	  }
+  function setComma(n) {
+     var reg = /(^[+-]?\d+)(\d{3})/;
+     n += '';         
+     while (reg.test(n)) {
+        n = n.replace(reg, '$1' + ',' + '$2');
+     }         
+     return n;
+  }
 
+
+/* ********************************************************
+ * 프로젝트 검색
+ ******************************************************** */
+function ProjectSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+} 
+  
+/* ********************************************************
+ * 회원 검색
+ ******************************************************** */
+function UserSearch(ch){
+	userCheck = ch;
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 검색 프로젝트 입력
+ ******************************************************** */
+function returnProject(val){
+	
+	if (val) {
+		document.getElementById("prjId").value  = val.prjId;
+		document.getElementById("prjNm").value  = val.prjNm;
+		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
+	}
+	
+	fn_egov_modal_remove();
+}
+
+/* ********************************************************
+ * 프로젝트 입력 리셋
+ ******************************************************** */
+ function resetPrj(e){
+	document.getElementById("prjId").value  = "";
+	document.getElementById("prjNm").value  = "";
+	console.log(e)
+}
+
+/* ********************************************************
+ * 검색 회원 입력
+ ******************************************************** */
+function returnUser(val){
+
+if (val) {
+	if(userCheck == 0){
+		document.getElementById("rcptId").value  = val.userId;
+		document.getElementById("rcptNm").value  = val.userNm;
+	}else if(userCheck == 1){
+		document.getElementById("useId").value  = val.userId;
+		document.getElementById("useNm").value  = val.userNm;
+	}
+	
+}
+
+fn_egov_modal_remove();
+}
+
+/* ********************************************************
+ * 수령자 입력 리셋
+ ******************************************************** */
+ function resetRcpt(){
+	document.getElementById("rcptId").value  = "";
+	document.getElementById("rcptNm").value  = "";
+}
+
+/* ********************************************************
+ * 실사용자 입력 리셋
+ ******************************************************** */
+  function resetUse(){
+ 	document.getElementById("useId").value  = "";
+ 	document.getElementById("useNm").value  = "";
+ }
 
 /* ********************************************************
  * date input 생성
@@ -162,6 +284,36 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 	
+}
+
+/* ********************************************************
+ * 유효성 체크
+ ******************************************************** */
+let typeList = ["input", "select"]
+
+function removeP(objList) {
+	$(typeList).each(function(index, type){
+		$("#assetRegist").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			if($(td).children().last().prop('tagName') == 'P'){
+				$(td).children().last().remove();
+			}
+		})
+	})
+}
+
+function alertValid(objList) {
+	removeP(objList);
+	$(typeList).each(function(index, type){
+		$("#AssetUpdt").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
 }
 
 window.onload = function(){
@@ -255,7 +407,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select" for="largeCategory">
+													<label class="f_select w_full" for="largeCategory">
 															<select id="largeCategory" name="largeCategory"
 																title="대분류" onchange="getMCatList();">
 																<option value="" label="선택하세요" />
@@ -275,7 +427,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select" for="middleCategory">
+													<label class="f_select w_full" for="middleCategory">
 														<select id="middleCategory" name="middleCategory">
 														</select>
 													</label> 
@@ -293,17 +445,40 @@ window.onload = function(){
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">제품사진</label> <img src="<c:url value='/'/>images/ico_question.png">
+													<label for="egovComFileUploader">지급확인서</label>
+													<img src="<c:url value='/'/>images/ico_question.png">
+												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
+														<input name="file" id="egovComFileUploader" type="file" />
 														<div id="egovComFileList"></div>
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
+													<div class="board_attach2" id="file_upload_imposbl"></div>
 													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
+														<input type="hidden" id="fileListCnt" name="fileListCnt"
+															value="0" />
 													</c:if>
+												</td>
+												
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 취득일자 --> 
+													<label for="">취득일자</label>
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
+													</span>
+												</td>
+												<td class="lb">
+													<!-- 취득가액 --> 
+													<label for="">취득가액</label>
+												</td>
+												<td>
+													<input id="acquiredPrice" class="f_txt w_full"
+													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
+													<br />
 												</td>
 											</tr>
 											<tr>
@@ -320,10 +495,11 @@ window.onload = function(){
 													<label for="">시리얼넘버</label> <img src="<c:url value='/'/>images/ico_question.png">
 												</td>
 												<td>
-													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="" maxlength="60"> 
+													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="${resultVO.assetSn}" maxlength="60"> 
 													<br />
 												</td>
 											</tr>
+											
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> 
@@ -334,48 +510,42 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<span class="req">필수</span> <img src="<c:url value='/'/>images/ico_question.png">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
 												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
-													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label>
-												</td>
-												<td>
-													<span class="search_date">
-														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}">
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
 												</td>
-												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
-												</td>
-												<td>
-													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
-													<br />
-												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 비고 --> 
-													<label for="note">비고</label>
+													<!-- 수령자 --> 
+													<label for="">수령자</label> 
+													<span class="req">필수</span>
 												</td>
-												<td colspan="4">
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10" >${resultVO.note}</textarea>
+												<td>
+													<span class="f_search2 w_30%"> 
+													<input id="rcptNm" type="text" title="회원" maxlength="100"
+														readonly="readonly"  value="${resultVO.rcptNm}"/>
+													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+													</span> 
+													<input name="rcptId" id="rcptId" type="hidden"
+														maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+												</td>
+												<td class="lb">
+													<!-- 실사용자 --> 
+													<label for="">실사용자</label> 
+												</td>
+												<td>
+													<span class="f_search2 w_30%"> 
+														<input id="useNm" type="text" title="회원" maxlength="100"
+															readonly="readonly" value="${resultVO.useNm}"/>
+														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+													</span> 
+													<input name="useId" id="useId" type="hidden"
+														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
 												</td>
 											</tr>
 											<tr>
@@ -384,12 +554,12 @@ window.onload = function(){
 													<label for="orgnztId">부서</label>
 												</td>
 												<td>
-													<label class="f_select w_30%" for="orgnztId">
+													<label class="f_select  w_full" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" title="부서">
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}">
+																<option value="${orgnztId.code}" <c:if test="${orgnztId.codeNm == resultVO.orgnztId}">selected="selected"</c:if>>
 																	<c:out value="${orgnztId.codeNm}" />
 																</option>
 															</c:forEach>
@@ -403,53 +573,38 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_30%"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
+														readonly="readonly" value="${resultVO.prjNm}"/>
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
 													<form:errors path="prjId" /> 
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
-														readonly="readonly" />
+														readonly="readonly" value="${resultVO.prjId}"/>
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="lb">
+													<label for="egovComFileUploader">제품사진</label> <img src="<c:url value='/'/>images/ico_question.png">
+												<td colspan="4">
+													<div class="board_attach2" id="file_upload_posbl">
+														<input name="photo" id="photo" type="file" />
+														<div id="egovComFileList"></div>
+													</div>
+													<div class="board_attach2" id="file_upload_imposbl">
+													</div> 
+													<c:if test="${empty result.atchFileId}">
+														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
+													</c:if>
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
-													<label for="">수령자</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="false" value=""/>
-													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> 
-													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
-														value="" maxlength="8" readonly="readonly" />
-												</td>
-												<td class="lb">
-													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
-												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
-														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="false" value=""/>
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-													</span> 
-													<input name="useId" id="useId" type="hidden" title="프로젝트" value=""
-														maxlength="8" readonly="readonly" />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<!-- 비고 --> 
+													<label for="note">비고</label>
 												</td>
 												<td colspan="4">
-													<span class="search_date">
-														<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
-													</span>
+													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10" >${resultVO.note}</textarea>
 												</td>
 											</tr>
 											<tr>
@@ -458,8 +613,10 @@ window.onload = function(){
 													<label for="carryReason">반출사유</label>
 												</td>
 												<td colspan="4">
+												
 													<textarea id="carryReason" name="carryReason"
 														class="f_txtar w_full h_200" cols="30" rows="10">
+														${resultVO.carryReason}
 													</textarea>
 												</td>
 											</tr>
@@ -489,7 +646,7 @@ window.onload = function(){
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="UpdateAsset(); return false;"><spring:message
+												onclick="UpdtConfirm(); return false;"><spring:message
 													code="button.update" /></a>
 											<!-- 등록 -->
 										</div>

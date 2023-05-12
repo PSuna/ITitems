@@ -58,6 +58,14 @@ public class FileVO implements Serializable {
      * 저장파일명
      */
     public String streFileNm = "";
+    /**
+     * 파일그룹
+     */
+    public String fileGroup = "";
+    /**
+     * 파일유형
+     */
+    public String fileType = "";
 
     /**
      * atchFileId attribute를 리턴한다.
@@ -236,5 +244,21 @@ public class FileVO implements Serializable {
     public String toString() {
 	return ToStringBuilder.reflectionToString(this);
     }
+
+	public String getFileGroup() {
+		return fileGroup;
+	}
+
+	public void setFileGroup(String fileGroup) {
+		this.fileGroup = fileGroup;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 	
 }

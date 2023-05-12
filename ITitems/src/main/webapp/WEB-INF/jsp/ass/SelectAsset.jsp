@@ -31,7 +31,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -120,25 +121,15 @@ function AssetUpdt() {
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
 												<td> ${resultVO.assetQty}</td>
-												<td class="lb"><label for="egovComFileUploader">제품사진</label>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
 												</td>
 												<td>
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${resultVO.photoId}" />
+				                                        <c:param name="param_atchFileId" value="${resultVO.fileId}" />
 				                                    </c:import>
 												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 품명 --> <label for="">제품명</label>
-												</td>
-												<td>${resultVO.assetName}</td>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label>
-												</td>
-												<td>
-												</td>
+												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -156,23 +147,45 @@ function AssetUpdt() {
 											</tr>
 											<tr>
 												<td class="lb">
+													<!-- 품명 --> <label for="">제품명</label>
+												</td>
+												<td>${resultVO.assetName}</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label>
+												</td>
+												<td>
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="lb">
 													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
 												<td>${resultVO.maker}</td>
 												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
 												</td>
-												<td>
-													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${resultVO.fileId}" />
-				                                    </c:import>
+												<td >
+													${resultVO.rcptDate}
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 비고 --> <label for="note">비고</label>
+													<!-- 수령자 --> 
+													<label for="">수령자</label> 
 												</td>
-												<td colspan="4">${resultVO.note}</td>
+												<td>
+													${resultVO.rcptNm}
+												</td>
+												<td class="lb">
+													<!-- 실사용자 --> 
+													<label for="">실사용자</label> 
+												</td>
+												<td>
+													${resultVO.useNm}
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -187,40 +200,27 @@ function AssetUpdt() {
 													<label for="">프로젝트</label>
 												</td>
 												<td>
-													${resultVO.prjId}
+													${resultVO.prjNm}
 												</td>
 											</tr>
+											
 											<tr>
-												<td class="lb">
-													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
-												<td>
-													${resultVO.rcptId}
-												</td>
-												<td class="lb">
-													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
-												</td>
-												<td>
-													${resultVO.useId}
+												<td colspan="4">
+													<div class="photo_box">
+														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
+					                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
+					                                   	</c:forEach>
+				                                   	</div>
 												</td>
 											</tr>
+											<% pageContext.setAttribute("newLineChar", "\n"); %>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<!-- 비고 --> <label for="note">비고</label>
 												</td>
-												<td >
-													${resultVO.rcptDate}
-												</td>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">등록일자</label> 
-												</td>
-												<td >
-													${resultVO.regDate}
-												</td>
+												<td colspan="4">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -228,7 +228,16 @@ function AssetUpdt() {
 													<label for="carryReason">반출사유</label>
 												</td>
 												<td colspan="4">
-													${resultVO.carryReason}
+													${fn:replace(resultVO.carryReason, newLineChar, "<br/>")}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 등록일자 --> 
+													<label for="">등록일자</label> 
+												</td>
+												<td colspan="4">
+													${resultVO.regDate}
 												</td>
 											</tr>
 										</table>
@@ -240,11 +249,6 @@ function AssetUpdt() {
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="AssetUpdt();return false;"> <spring:message
 													code="button.update" />
-											</a>
-											<!-- 상태변경 -->
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="return false;"> <spring:message
-													code="button.carryin" />
 											</a>
 										</div>
 									</div>

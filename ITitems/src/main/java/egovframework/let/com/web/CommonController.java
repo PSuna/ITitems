@@ -70,4 +70,13 @@ public class CommonController {
 	public String ApprovalConfirm() throws Exception {
 		return "/com/ApprovalConfirm";
 	}
+	
+	/**
+	 * 수정확인 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtConfirm.do")
+	public String UpdtConfirm() throws Exception {
+
+		return "/com/UpdtConfirm";
+	}
 }

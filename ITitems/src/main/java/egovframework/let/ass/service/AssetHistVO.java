@@ -66,7 +66,7 @@ public class AssetHistVO implements Serializable {
 	private String acquiredDate;
 	
 	/** 취득가액 */
-	private int acquiredPrice;
+	private String acquiredPrice;
 	
 	/** 제조사 */
 	private String maker;
@@ -197,11 +197,11 @@ public class AssetHistVO implements Serializable {
 		this.acquiredDate = acquiredDate;
 	}
 
-	public int getAcquiredPrice() {
+	public String getAcquiredPrice() {
 		return acquiredPrice;
 	}
 
-	public void setAcquiredPrice(int acquiredPrice) {
+	public void setAcquiredPrice(String acquiredPrice) {
 		this.acquiredPrice = acquiredPrice;
 	}
 

@@ -3,6 +3,8 @@ package egovframework.let.ass.service;
 import java.io.Serializable;
 import java.util.Date;
 
+import egovframework.com.cmm.service.FileVO;
+
 /**
  * 자산정보에 대한 데이터 처리 모델 클래스
  * @author 영남사업부 주소현
@@ -65,6 +67,9 @@ public class AssetInfoVO implements Serializable {
 	/** 프로젝트 */
 	private String prjId;
 	
+	/** 프로젝트 이름 */
+	private String prjNm;
+	
 	/** 사진코드 */
 	private String photoId;
 	
@@ -83,11 +88,17 @@ public class AssetInfoVO implements Serializable {
 	/** 실사용자 */
 	private String useId;
 	
+	/** 실사용자 이름 */
+	private String useNm;
+	
 	/** 수령일자 */
 	private String rcptDate;
 	
 	/** 수령자 */
 	private String rcptId;
+	
+	/** 수령자 이름 */
+	private String rcptNm;
 	
 	/** 반출사유 */
 	private String carryReason;
@@ -274,6 +285,30 @@ public class AssetInfoVO implements Serializable {
 
 	public void setCarryReason(String carryReason) {
 		this.carryReason = carryReason;
+	}
+
+	public String getPrjNm() {
+		return prjNm;
+	}
+
+	public void setPrjNm(String prjNm) {
+		this.prjNm = prjNm;
+	}
+
+	public String getUseNm() {
+		return useNm;
+	}
+
+	public void setUseNm(String useNm) {
+		this.useNm = useNm;
+	}
+
+	public String getRcptNm() {
+		return rcptNm;
+	}
+
+	public void setRcptNm(String rcptNm) {
+		this.rcptNm = rcptNm;
 	}
 	
 	
