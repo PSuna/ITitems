@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -53,8 +54,10 @@
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
 				<div class="pop_container">
-			
-					
+						<h3>해당 지급확인서를 작성하여 등록해주세요.</h3>
+						<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                            <c:param name="param_atchFileId" value="${resultVO.fileId}" />
+                        </c:import>
 
 
 				</div>

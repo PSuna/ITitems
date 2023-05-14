@@ -685,7 +685,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();">
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
 												</td>
 												<td colspan="4">
 													<div class="board_attach2" id="file_upload_posbl">

@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -52,9 +53,9 @@
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
-				<div class="pop_container">
-			
-					
+				<div class="pop_container pop_Manual">
+					<h3>지급받은 제품의 전체 모습을 사진으로 찍어 등록해주세요.</h3>
+					<img alt="" src="<c:url value='/'/>images/PhotoManual.png">
 
 
 				</div>

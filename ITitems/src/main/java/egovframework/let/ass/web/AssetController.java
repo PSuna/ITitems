@@ -286,13 +286,13 @@ public class AssetController {
 		assetInfoVO.setRegId(user.getUniqId());
 		assetInfoVO.setUsageStatus("U1");
 
-//		assetService.InsertAssetInfo(assetInfoVO);
+		assetService.InsertAssetInfo(assetInfoVO);
 		
 		assetHistVO.setAssetId(assetInfoVO.getAssetId());
 		assetHistVO.setHistStatus("P0");
 		assetHistVO.setHistGroup("H2");
 		assetHistVO.setApproval("A1");
-//		assetService.InsertAssetHist(assetHistVO);
+		assetService.InsertAssetHist(assetHistVO);
 		
 		if (isAuthenticated) {
 			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
@@ -301,13 +301,13 @@ public class AssetController {
 			if (!photos.isEmpty()) {
 				List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
 				
-//				fileMngService.insertFileInfs(result);
+				fileMngService.insertFileInfs(result);
 			}
 			Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
 			files.put("file", multiRequest.getFile("file"));
 			if (!files.isEmpty()) {
 				List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
-//				fileMngService.insertFileInfs(result);
+				fileMngService.insertFileInfs(result);
 			}
 		}
 		
