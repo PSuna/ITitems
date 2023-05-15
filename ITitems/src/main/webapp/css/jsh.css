@@ -85,3 +85,12 @@ input[type=file]::file-selector-button:hover{
 	text-align: center;
 	line-height: 3;
 }
+
+.board_list th{
+	cursor: default;
+}
+
+.selete_table tbody tr:hover{
+	background: #dde2e5;
+	cursor: pointer;
+}

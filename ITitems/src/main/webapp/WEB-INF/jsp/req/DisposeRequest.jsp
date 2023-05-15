@@ -114,7 +114,7 @@ function getMCatList() {
                                 <br>
                                 
                                 <!-- 검색조건 -->
-								<form id="searchVO">
+								<form id="searchVO" autocomplete="off">
 									<div class="condition2">
 										
 										<div class="pty_box01">

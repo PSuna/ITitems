@@ -365,8 +365,9 @@ function make_date(){
 	     var num01;
 	     var num02;
 	     num01 = obj.value;
-	     num02 = num01.replace(/\D/g,""); 
-	     num01 = setComma(num02);
+	     num02 = num01.replace(/(^0+)/, "");
+	     num03 = num02.replace(/\D/g,"");
+	     num01 = setComma(num03);
 	     obj.value =  num01;
 
 	     $('#test').text(num01);
@@ -438,7 +439,7 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-								<form id="frm" name="frm">
+								<form id="frm" name="frm" autocomplete="off">
 									<h2 class="tit_2">반출 신청</h2>
 									<input name="reqGroup" value="C1" type="hidden"> <input
 										name="reqStatus" value="A0" type="hidden"> <br>

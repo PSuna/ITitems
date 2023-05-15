@@ -179,4 +179,10 @@ public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements E
 		
 		return fileMngDAO.selectFileVO(vo);
 	}
+
+	@Override
+	public int updateFileUse(FileVO vo) {
+		
+		return fileMngDAO.updateFileUse(vo);
+	}
 }

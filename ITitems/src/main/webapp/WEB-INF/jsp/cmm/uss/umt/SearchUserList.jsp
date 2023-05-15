@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -127,27 +128,21 @@
 					</div>
 					<!--// 검색조건 -->
 					<!-- 게시판 -->
-					<div class="board_list">
+					<div class="board_list selete_table">
 						<table summary="사용자 목록을 제공한다.">
 							<caption>사용자목록</caption>
 							<colgroup>
-								<col style="width: 70px;">
-								<col style="width: 200px;">
-								<col style="width: 220px;">
-								<col style="width: 120px;">
-								<col style="width: 80px;">
-								<col style="width: 80px;">
-								<col style="width: 80px;">
+								<col style="width: 25%;">
+								<col style="width: 25%;">
+								<col style="width: 25%;">
+								<col style="width: 25%;">
 							</colgroup>
 							<thead>
 								<tr>
 									<th scope="col">사용자명</th>
-									<th scope="col">사용자ID</th>
 									<th scope="col">전화번호</th>
 									<th scope="col">부서</th>
 									<th scope="col">직급</th>
-									<th scope="col">권한</th>
-									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -159,16 +154,11 @@
 								</c:if>
 
 								<c:forEach var="result" items="${resultList}" varStatus="status">
-									<tr>
+									<tr onclick="fn_egov_return('${result.uniqId}', '${result.userNm}', '${result.userId}');">
 										<td><c:out value="${result.userNm}" /></td>
-										<td><c:out value="${result.userId}" /></td>
 										<td><c:out value="${result.moblphonNo}" /></td>
 										<td><c:out value="${result.orgnztId}" /></td>
 										<td><c:out value="${result.grade}" /></td>
-										<td><c:out value="${result.authorCode}" /></td>
-										<td><a href="#LINK" class="btn btn_blue_30 w_80"
-											onclick="fn_egov_return('${result.uniqId}', '${result.userNm}', '${result.userId}');">
-												선택 </a></td>
 									</tr>
 								</c:forEach>
 

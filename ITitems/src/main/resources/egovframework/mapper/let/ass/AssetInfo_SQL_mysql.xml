@@ -107,7 +107,7 @@
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
-				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') LIKE CONCAT ('%', #{searchWord},'%')
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 	</sql>
 

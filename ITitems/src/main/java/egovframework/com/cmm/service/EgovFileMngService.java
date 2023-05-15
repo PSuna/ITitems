@@ -124,4 +124,10 @@ public interface EgovFileMngService {
    	 *
    	 */
     public FileVO selectFileVO(FileVO vo);
+    
+    /**
+   	 * 이미지 사용 안함 처리
+   	 *
+   	 */
+    public int updateFileUse(FileVO vo);
 }

@@ -137,8 +137,9 @@ function getMCatList(Mval) {
      var num01;
      var num02;
      num01 = obj.value;
-     num02 = num01.replace(/\D/g,""); 
-     num01 = setComma(num02);
+     num02 = num01.replace(/(^0+)/, "");
+     num03 = num02.replace(/\D/g,"");
+     num01 = setComma(num03);
      obj.value =  num01;
 
      $('#test').text(num01);
@@ -316,6 +317,58 @@ function alertValid(objList) {
 	})
 }
 
+/* ********************************************************
+ * 제품사진 안내
+ ******************************************************** */
+function PhotoManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/PhotoManual.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 시리얼넘버 안내
+ ******************************************************** */
+function AssetSnManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSnManual.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 지급확인서 안내
+ ******************************************************** */
+function FileManual(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/FileManual.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+
 window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
 	getNumber(document.AssetUpdt.acquiredPrice);
@@ -373,7 +426,7 @@ window.onload = function(){
 								<!--// Location -->
 
 
-								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" >
+								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
@@ -446,7 +499,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
-													<img src="<c:url value='/'/>images/ico_question.png">
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td>
 													<div class="board_attach2" id="file_upload_posbl">
@@ -492,7 +545,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img src="<c:url value='/'/>images/ico_question.png">
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="${resultVO.assetSn}" maxlength="60"> 
@@ -585,7 +638,8 @@ window.onload = function(){
 											
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">제품사진</label> <img src="<c:url value='/'/>images/ico_question.png">
+													<label for="egovComFileUploader">제품사진</label>
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
 												<td colspan="4">
 													<div class="board_attach2" id="file_upload_posbl">
 														<input name="photo" id="photo" type="file" />

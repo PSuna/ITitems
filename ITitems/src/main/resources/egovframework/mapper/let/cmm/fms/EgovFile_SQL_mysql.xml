@@ -233,4 +233,27 @@
 				A.FILE_TYPE = #{fileType}	
 			</if>
  	</select>
+ 	
+ 	<update id="updateFileUse" parameterType="FileVO">
+ 		UPDATE 
+ 			LETTNFILE A
+ 		   SET
+ 			A.USE_AT = 'N'
+ 		WHERE 
+ 			A.ATCH_FILE_ID IN ( SELECT 
+ 									B.ATCH_FILE_ID
+ 								FROM
+ 									LETTNFILEDETAIL B
+ 								<where>
+									<if test="fileGroup != null and fileGroup != ''">
+									 AND
+										B.FILE_GROUP = #{fileGroup}
+									</if>
+									<if test="fileType != null and fileType != ''">
+									 AND
+										B.FILE_TYPE = #{fileType}	
+									</if>
+								</where>
+ 								)
+ 	</update>
 </mapper>

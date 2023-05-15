@@ -106,7 +106,7 @@
 								<!--// Location -->
 
 
-								<form id="frm" name="frm">
+								<form id="frm" name="frm" autocomplete="off">
 
 									<h1 class="tit_1">자산관리</h1>
  

@@ -65,7 +65,7 @@
 		기능을 사용하실 수 없습니다.</noscript>
 
 	<form name="listForm"
-		action="<c:url value='/prj/ProjectSearchList.do'/>" method="post">
+		action="<c:url value='/prj/ProjectSearchList.do'/>" method="post" autocomplete="off">
 
 		<input name="searchCondition" type="hidden" size="35" value="4" />
 
@@ -80,7 +80,7 @@
 				<div class="pop_container">
 			
 					<!-- 검색조건 -->
-					<form id="frm" name="frm">
+					<form id="frm" name="frm" autocomplete="off">
 						<div class="condition2">
 							<span class="lb">부서</span>
 							<label class="item f_select" for="sel1">
