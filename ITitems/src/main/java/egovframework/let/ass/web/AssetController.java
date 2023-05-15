@@ -340,20 +340,28 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetUpdate.do")
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO) throws Exception {
 
+		assetService.UpdateAssetInfo(assetInfoVO);
+		assetService.UpdateAssetHist(assetHistVO);
+		
 		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
 		photos.put("photo", multiRequest.getFile("photo"));
+		FileVO fvo = new FileVO();
+		fvo.setFileGroup(assetInfoVO.getAssetId());
 		if (!photos.isEmpty()) {
-			List<FileVO> result = fileUtil.parseFileInf(photos, "BBS_", 0, "", "");
-			assetInfoVO.setPhotoId(fileMngService.insertFileInfs(result));
+			fvo.setFileType("PHOTO");
+			fileMngService.updateFileUse(fvo);
+			List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+			fileMngService.insertFileInfs(result);
 		}
 		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
 		files.put("file", multiRequest.getFile("file"));
 		if (!files.isEmpty()) {
-			List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
-			assetInfoVO.setFileId(fileMngService.insertFileInfs(result));
+			fvo.setFileType("FILE");
+			fileMngService.updateFileUse(fvo);
+			List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+			fileMngService.insertFileInfs(result);
 		}
-		assetService.UpdateAssetInfo(assetInfoVO);
-		assetService.UpdateAssetHist(assetHistVO);
+		
 		
 		return "forward:/ass/SelectAsset.do";
 	}

@@ -173,7 +173,7 @@ function CarryRegist() {
 
 								<br />
 								<form name="regist" method="post"
-									action="<c:url value='/req/CarryRegist.do'/>">
+									action="<c:url value='/req/CarryRegist.do'/>" autocomplete="off">
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_130"
@@ -183,7 +183,7 @@ function CarryRegist() {
 								</form>
 								<br>
 								<!-- 검색조건 -->
-								<form id="searchVO" name="frm">
+								<form id="searchVO" name="frm" autocomplete="off">
 									<input type="hidden" name="pageIndex">
 									<div class="condition2">
 										<div class="pty_box01">

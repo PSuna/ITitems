@@ -204,4 +204,13 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	public FileVO selectFileVO(FileVO vo) {
 		return selectOne("FileManageDAO.selectFileVO", vo);
 	}
+	
+
+	/**
+	 * 이미지 사용 안함 처리
+	 *
+	 */
+	public int updateFileUse(FileVO vo) {
+		return update("FileManageDAO.updateFileUse", vo);
+	}
 }

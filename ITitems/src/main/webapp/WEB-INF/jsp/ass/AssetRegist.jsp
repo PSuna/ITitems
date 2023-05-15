@@ -338,8 +338,9 @@ function make_date(){
 	     var num01;
 	     var num02;
 	     num01 = obj.value;
-	     num02 = num01.replace(/\D/g,""); 
-	     num01 = setComma(num02);
+	     num02 = num01.replace(/(^0+)/, "");
+	     num03 = num02.replace(/\D/g,"");
+	     num01 = setComma(num03);
 	     obj.value =  num01;
 
 	     $('#test').text(num01);
@@ -499,7 +500,7 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 
-								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" >
+								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" autocomplete="off">
 
 									<h1 class="tit_1">자산관리</h1>
 
@@ -719,8 +720,7 @@ window.onload = function(){
 												</td>
 												<td colspan="4">
 													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10">
-													</textarea>
+														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
 												</td>
 											</tr>
 										</table>

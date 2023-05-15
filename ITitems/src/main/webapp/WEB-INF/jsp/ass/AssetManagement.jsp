@@ -172,12 +172,6 @@ function selectAsset(id) {
 
 
 </script>
-<style type="text/css">
-.board_list tbody tr:hover {
-	background: #ccc;
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
 	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -211,7 +205,7 @@ function selectAsset(id) {
 								<h2 class="tit_2">전체자산조회</h2>
 								<br>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm">
+								<form id="frm" name="frm" autocomplete="off">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex">
 										<div class="pty_box01">
@@ -278,7 +272,7 @@ function selectAsset(id) {
 												 </span> 
 											</div>	
 											<div class="pty_search">
-												<span class="lb">조회</span>
+												<span class="lb">품명</span>
 												<span class="item f_search">
 														<!-- <span>검색</span>  -->
 													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
@@ -294,7 +288,7 @@ function selectAsset(id) {
 							
 								
 								<!-- 게시판 -->
-								<div class="board_list">
+								<div class="board_list selete_table">
 									<table>
 										<colgroup>
 											<col style="width: 5%;">

@@ -91,7 +91,7 @@ function AssetUpdt() {
 								<!--// Location -->
 
 
-								<form id="frm" name="frm">
+								<form id="frm" name="frm" autocomplete="off">
 									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
