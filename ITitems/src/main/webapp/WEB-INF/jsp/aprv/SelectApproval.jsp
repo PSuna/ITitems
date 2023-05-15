@@ -256,7 +256,7 @@ function fnHighUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus}=='A0'">
+										<c:if test="${approvalVO.reqStatus eq 'A0'}">
 											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree('${AuthorCode}'); return false;">
 												<spring:message code="button.agree" />
 											</a>

@@ -122,6 +122,9 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
+functino trsfExcel(){
+	
+}
 //-->
 </script>
 <style>
@@ -268,7 +271,7 @@ function setPageUnit(){
 	                                        	</tr>
                                         	</c:if>
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
-                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
+                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId};"/>'">
                                                 <td>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
@@ -287,6 +290,7 @@ function setPageUnit(){
                                             
                                         </tbody>
                                     </table>
+                                    <!-- <button class="btn pty_btn" onclick="javascript:trsfExcel(); return false;">Excel</button> -->
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->
