@@ -249,8 +249,9 @@ public class AssetController {
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
-		
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
+		fvo.setFileType("FILE");
+		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		
 		return "/ass/SelectAsset";
 	}
@@ -379,8 +380,12 @@ public class AssetController {
 	 * 지급확인서 안내 팝업창로 이동
 	 */
 	@RequestMapping(value = "/ass/FileManual.do")
-	public String FileManual() throws Exception {
-
+	public String FileManual(ModelMap model) throws Exception {
+		
+		FileVO fvo = new FileVO();
+		fvo.setFileType("CONF");
+		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		
 		return "/ass/FileManual";
 	}
 	

@@ -74,10 +74,14 @@ input[type=file]::file-selector-button:hover{
 
 .pop_Manual img{
 	width: 70%;
-	height: 400px;
 }
 
 .pop_Manual {
 	text-align: center;
 	line-height: 6;
+}
+
+.pop_Manual_File{
+	text-align: center;
+	line-height: 3;
 }

@@ -182,24 +182,55 @@
  	
  	<select id="selectAssFileList" parameterType="FileVO" resultMap="assFileList">
  			SELECT 
-				ATCH_FILE_ID, 
-				FILE_CN, 
-				FILE_SN, 
-				FILE_STRE_COURS, 
-				STRE_FILE_NM,
-				FILE_EXTSN, 
-				ORIGNL_FILE_NM, 
-				FILE_SIZE,
-				FILE_GROUP,
-				FILE_TYPE
+				A.ATCH_FILE_ID, 
+				A.FILE_CN, 
+				A.FILE_SN, 
+				A.FILE_STRE_COURS, 
+				A.STRE_FILE_NM,
+				A.FILE_EXTSN, 
+				A.ORIGNL_FILE_NM, 
+				A.FILE_SIZE,
+				A.FILE_GROUP,
+				A.FILE_TYPE
 			FROM
-				LETTNFILEDETAIL
+				LETTNFILEDETAIL A
+			LEFT OUTER JOIN 
+				LETTNFILE B
+			  ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
 			WHERE
-				FILE_GROUP = #{fileGroup}
+				A.FILE_GROUP = #{fileGroup}
 			AND
-				FILE_TYPE = #{fileType}
+				A.FILE_TYPE = #{fileType}
 			AND 
-				FILE_SN = #{fileSn}	
+				B.USE_AT = 'Y'
  	</select>
  	
+ 	<select id="selectFileVO" parameterType="FileVO" resultMap="assFileList">
+ 			SELECT 
+				A.ATCH_FILE_ID, 
+				A.FILE_CN, 
+				A.FILE_SN, 
+				A.FILE_STRE_COURS, 
+				A.STRE_FILE_NM,
+				A.FILE_EXTSN, 
+				A.ORIGNL_FILE_NM, 
+				A.FILE_SIZE,
+				A.FILE_GROUP,
+				A.FILE_TYPE
+			FROM
+				LETTNFILEDETAIL A
+			LEFT OUTER JOIN 
+				LETTNFILE B
+			  ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+		   WHERE  
+				B.USE_AT = 'Y'
+			<if test="fileGroup != null and fileGroup != ''">
+			 AND
+				A.FILE_GROUP = #{fileGroup}
+			</if>
+			<if test="fileType != null and fileType != ''">
+			 AND
+				A.FILE_TYPE = #{fileType}	
+			</if>
+ 	</select>
 </mapper>

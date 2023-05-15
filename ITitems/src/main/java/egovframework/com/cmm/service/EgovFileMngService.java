@@ -118,4 +118,10 @@ public interface EgovFileMngService {
 	 *
 	 */
     public List<FileVO> selectFileList(FileVO vo);
+    
+    /**
+   	 * 조건에 맞는 첨부파일 단건 조회
+   	 *
+   	 */
+    public FileVO selectFileVO(FileVO vo);
 }

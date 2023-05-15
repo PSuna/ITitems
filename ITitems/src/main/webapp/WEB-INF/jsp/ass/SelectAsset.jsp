@@ -126,7 +126,7 @@ function AssetUpdt() {
 												</td>
 												<td>
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${resultVO.fileId}" />
+				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                                    </c:import>
 												</td>
 												
