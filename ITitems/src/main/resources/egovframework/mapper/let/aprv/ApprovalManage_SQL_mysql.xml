@@ -196,4 +196,41 @@
 		   SET REQ_STATUS = 'A1'
 		 WHERE REQ_ID = #{reqId}
 	</update>
+	
+	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
+		 SELECT E.USER_NM,
+		 		(SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = E.GRADE) AS GRADE,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
+			    P.PRJ_NAME PRJ_ID,
+			    R.PLACE,
+			    DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d') REQ_DATE,
+			    (SELECT CODE_NM
+			       FROM LETTCCMMNDETAILCODE
+			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS
+		   FROM REQUESTS R 
+	  LEFT JOIN APRVTARGET A
+		     ON R.REQ_ID = A.REQ_ID 
+	  LEFT JOIN PROJECTS P
+	         ON R.PRJ_ID = P.PRJ_ID
+	  LEFT JOIN LETTNEMPLYRINFO E
+	  		 ON R.ID = E.ESNTL_ID
+          WHERE A.TARGET_ID = #{uniqId}
+          <if test='searchKeyword !=""'>
+          	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
+          	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
+          </if>
+          <if test='searchGroup !=""'>
+            AND R.REQ_GROUP = #{searchGroup}
+          </if>
+          <if test='searchStatus !=""'>
+            AND R.REQ_STATUS = #{searchStatus}
+          </if>
+	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
+	   LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
 </mapper>

@@ -10,7 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import egovframework.com.cmm.LoginVO;
+import egovframework.let.aprv.service.ApprovalDefaultVO;
+import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageService;
 
@@ -38,6 +39,9 @@ public class CommonController {
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 	
+	/** approvalManageService */
+	@Resource(name = "approvalManageService")
+	private ApprovalManageService approvalManageService;
 	/**
 	 * 등록확인 팝업창로 이동
 	 */
@@ -95,15 +99,26 @@ public class CommonController {
 	/*
 	 * //사용자 목록 엑셀 추출
 	 * 
-	 * @RequestMapping("/com/xlsxTrsfUserManage.do") public void
-	 * xlsxTrsfUserManage(HttpServletRequest req, HttpServletResponse res, ModelMap
+	 * @requestmapping("/com/xlsxtrsfusermanage.do") public void
+	 * xlsxtrsfusermanage(httpservletrequest req, httpservletresponse res, modelmap
 	 * model ,
 	 * 
-	 * @ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, HttpSession
-	 * session) throws Exception { LoginVO loginVo =
-	 * (LoginVO)session.getAttribute("loginVo");
-	 * userSearchVO.setRecordCountPerPage(10000); userSearchVO.setFirstIndex(0);
+	 * @modelattribute("usersearchvo") userdefaultvo usersearchvo, httpsession
+	 * session) throws exception { loginvo loginvo =
+	 * (loginvo)session.getattribute("loginvo");
+	 * usersearchvo.setrecordcountperpage(10000); usersearchvo.setfirstindex(0);
 	 * 
-	 * userManageService.xlsxTrsfUserManage(userSearchVO,req,res); }
+	 * usermanageservice.xlsxtrsfusermanage(usersearchvo,req,res); }
 	 */
+	//사용자목록 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfUserList.do")
+	public void xlsxTrsfUserList(HttpServletRequest req, HttpServletResponse res, ModelMap model, UserDefaultVO userSearchVO, HttpSession session) throws Exception {
+			userManageService.xlsxTrsfUserList(userSearchVO,req,res);
+	}
+	
+	//사용자목록 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfAprvList.do")
+	public void xlsxTrsfAprvList(HttpServletRequest req, HttpServletResponse res, ModelMap model, ApprovalDefaultVO approvalSearchVO, HttpSession session) throws Exception {
+			approvalManageService.xlsxTrsfAprvList(approvalSearchVO,req,res);
+	}
 }

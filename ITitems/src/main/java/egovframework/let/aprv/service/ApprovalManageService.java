@@ -2,6 +2,9 @@ package egovframework.let.aprv.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 결재게시판에 관한 인터페이스클래스를 정의한다.
  * @author 영남사업부 천세훈
@@ -51,6 +54,8 @@ public interface ApprovalManageService {
 	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO);
 
 	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO);
+
+	public void xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 
 }
