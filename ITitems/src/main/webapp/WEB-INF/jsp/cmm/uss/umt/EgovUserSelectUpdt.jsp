@@ -143,10 +143,7 @@ function fn_egov_modal_remove() {
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="userManageVO"
-									action="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do"
-									name="userManageVO" method="post">
-
+								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
 									<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
 									<!-- 검색조건 유지 -->

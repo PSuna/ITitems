@@ -349,8 +349,8 @@ function selectAsset(id) {
 													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.acquiredDate}" /></td>
 													<td>
-														<c:if test="${result.acquiredPrice != 0 and result.acquiredPrice != null}">
-														<fmt:formatNumber value="${result.acquiredPrice}" pattern="#,###"/>원
+														<c:if test="${not empty result.acquiredPrice}">
+															<c:out value="${result.acquiredPrice}" />원
 														</c:if>
 													</td>
 													<td><c:out value="${result.maker}" /></td>

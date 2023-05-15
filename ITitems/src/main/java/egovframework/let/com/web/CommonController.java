@@ -1,9 +1,18 @@
 package egovframework.let.com.web;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import egovframework.com.cmm.LoginVO;
+import egovframework.let.uss.umt.service.UserDefaultVO;
+import egovframework.let.uss.umt.service.UserManageService;
 
 /**
  * 공통기능을 위한 컨트롤러 클래스
@@ -25,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CommonController {
+	/** userManageService */
+	@Resource(name = "userManageService")
+	private UserManageService userManageService;
 	
 	/**
 	 * 등록확인 팝업창로 이동
@@ -79,4 +91,19 @@ public class CommonController {
 
 		return "/com/UpdtConfirm";
 	}
+	
+	/*
+	 * //사용자 목록 엑셀 추출
+	 * 
+	 * @RequestMapping("/com/xlsxTrsfUserManage.do") public void
+	 * xlsxTrsfUserManage(HttpServletRequest req, HttpServletResponse res, ModelMap
+	 * model ,
+	 * 
+	 * @ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, HttpSession
+	 * session) throws Exception { LoginVO loginVo =
+	 * (LoginVO)session.getAttribute("loginVo");
+	 * userSearchVO.setRecordCountPerPage(10000); userSearchVO.setFirstIndex(0);
+	 * 
+	 * userManageService.xlsxTrsfUserManage(userSearchVO,req,res); }
+	 */
 }

@@ -138,6 +138,7 @@ public class ApprovalManageController {
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
 		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(reqId));
+		
 		return "/aprv/SelectApproval";
 	}
 	
