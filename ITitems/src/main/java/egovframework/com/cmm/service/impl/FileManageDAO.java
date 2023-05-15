@@ -196,4 +196,12 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	public List<FileVO> selectAssFileList(FileVO vo) {
 		return selectList("FileManageDAO.selectAssFileList", vo);
 	}
+	
+	/**
+	 * 조건에 맞는 첨부파일 단건 조회
+	 *
+	 */
+	public FileVO selectFileVO(FileVO vo) {
+		return selectOne("FileManageDAO.selectFileVO", vo);
+	}
 }

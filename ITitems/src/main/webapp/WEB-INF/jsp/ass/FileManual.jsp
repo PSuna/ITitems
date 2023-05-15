@@ -53,11 +53,13 @@
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
-				<div class="pop_container">
-						<h3>해당 지급확인서를 작성하여 등록해주세요.</h3>
+				<div class="pop_container pop_Manual_File">
+						<h3>아래 지급확인서를 다운받아 작성하여 등록해주세요.</h3>
 						<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-                            <c:param name="param_atchFileId" value="${resultVO.fileId}" />
+                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
                         </c:import>
+                        <h3>(예시)</h3>
+						<img alt="" src="<c:url value='/'/>images/FileManual.png">
 
 
 				</div>

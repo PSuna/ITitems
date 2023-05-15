@@ -173,4 +173,10 @@ public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements E
 		
 		return fileMngDAO.selectAssFileList(vo);
 	}
+
+	@Override
+	public FileVO selectFileVO(FileVO vo) {
+		
+		return fileMngDAO.selectFileVO(vo);
+	}
 }
