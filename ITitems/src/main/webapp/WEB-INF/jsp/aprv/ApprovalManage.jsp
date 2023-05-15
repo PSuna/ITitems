@@ -44,6 +44,10 @@ function fnSearch(){
     document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
+function fntrsfExcel(){
+    document.listForm.action = "<c:url value='/com/xlsxTrsfAprvList.do'/>";
+    document.listForm.submit();
+}
 //-->
 </script>
 <style>
@@ -78,6 +82,8 @@ function fnSearch(){
                                 
                                 <form name="listForm" action="<c:url value='/aprv/ApprovalManage.do'/>" method="post">
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
+                                	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
+									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
                                 	
                                 	<h2 class="tit_2">결재요청목록</h2>
                                 	
@@ -177,6 +183,7 @@ function fnSearch(){
                                 				</c:forEach>
                                 			</tbody>
                                 		</table>
+                                		<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
                                 	</div>
                                 	<!-- 페이지 네비게이션 시작 -->
 								<c:if test="${!empty approvalSearchVO.pageIndex }">

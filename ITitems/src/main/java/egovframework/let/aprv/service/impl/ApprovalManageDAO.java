@@ -3,6 +3,7 @@ package egovframework.let.aprv.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
@@ -78,5 +79,9 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 	public void UpdateRequest(ApprovalManageVO approvalManageVO) {
 		update("approvalManageDAO.UpdateRequest", approvalManageVO);
 		
+	}
+
+	public List<EgovMap> xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO) {
+		return selectList("approvalManageDAO.xlsxTrsfAprvList",approvalSearchVO);
 	}
 }

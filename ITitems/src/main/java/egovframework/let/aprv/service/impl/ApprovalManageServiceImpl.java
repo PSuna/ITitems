@@ -3,14 +3,18 @@ package egovframework.let.aprv.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.com.service.ExcelUtil;
 
 /**
  * 결재게시판에 관한 비지니스 클래스를 정의한다.
@@ -98,5 +102,15 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 		return approvalManageDAO.selectHighApprovalListTotCnt(approvalSearchVO);
 	}
 
-	
+	@Override
+	public void xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String title = "자산관리솔루션 - 결재요청 목록";
+		try {
+			List<EgovMap> tmpList = approvalManageDAO.xlsxTrsfAprvList(approvalSearchVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 }

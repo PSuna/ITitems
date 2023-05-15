@@ -122,9 +122,11 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
-functino trsfExcel(){
-	
+function fntrsfExcel(){
+    document.listForm.action = "<c:url value='/com/xlsxTrsfUserList.do'/>";
+    document.listForm.submit();
 }
+
 //-->
 </script>
 <style>
@@ -171,6 +173,8 @@ functino trsfExcel(){
 								<input name="selectedId" type="hidden" />
 								<input name="checkedIdForDel" type="hidden" />
 								<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
+								<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
+								<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
 
                                 <h2 class="tit_2">사용자목록</h2>
                                 
@@ -271,7 +275,7 @@ functino trsfExcel(){
 	                                        	</tr>
                                         	</c:if>
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
-                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId};"/>'">
+                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
                                                 <td>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
@@ -290,7 +294,7 @@ functino trsfExcel(){
                                             
                                         </tbody>
                                     </table>
-                                    <!-- <button class="btn pty_btn" onclick="javascript:trsfExcel(); return false;">Excel</button> -->
+                                    <button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->

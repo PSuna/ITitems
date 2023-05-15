@@ -14,7 +14,6 @@
 		       middleTelno, 
 		       endTelno, 
 		       moblphonNo, 
-		       groupId, 
 		       orgnztId, 
 		       sttus, 
 		       sbscrbDe, 
@@ -301,4 +300,49 @@
         
     </select>
     
+    <select id="xlsxUserList" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
+		SELECT userNm,
+			   grade, 
+			   orgnztId,
+			   userId, 
+		       moblphonNo, 
+		       sbscrbDe, 
+		       authorCode
+		  FROM (SELECT A.USER_NM userNm,
+		  			   (SELECT CODE_NM 
+				          FROM LETTCCMMNDETAILCODE 
+				         WHERE CODE = A.GRADE) as grade,
+				       (SELECT B.ORGNZT_NM 
+				          FROM LETTNORGNZTINFO B 
+				         WHERE B.ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
+		  			   A.EMPLYR_ID userId,
+				       A.MBTLNUM moblphonNo,
+				       DATE_FORMAT(A.SBSCRB_DE, '%Y-%m-%d') as sbscrbDe,
+				       (SELECT AUTHOR_NM 
+				          FROM LETTNAUTHORINFO 
+				         WHERE AUTHOR_CODE =(SELECT AUTHOR_CODE 
+				      						   FROM LETTNEMPLYRSCRTYESTBS 
+				      					      WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode
+			   FROM LETTNEMPLYRINFO A) A
+         WHERE userId != 'admin'
+		<if test='searchCondition == "0"'>
+           AND userId LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchCondition == "1"'>
+           AND userNm LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchOrgnzt != ""'>
+           AND orgnztid = (SELECT orgnzt_nm 
+        				     FROM lettnorgnztinfo 
+        				    WHERE orgnzt_id = #{searchOrgnzt})
+        </if>
+        <if test='searchGrade != ""'>
+       	   AND grade = (SELECT CODE_NM 
+       				      FROM lettccmmndetailcode 
+       				     WHERE CODE = #{searchGrade} 
+       				       AND CODE_ID = 'COM002')
+        </if>
+         ORDER BY userNm ASC, sbscrbDe DESC
+         LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+    </select>
 </mapper>
