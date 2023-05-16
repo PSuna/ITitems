@@ -12,7 +12,7 @@
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
-		<result property="maker" column="MAKER" />
+		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
 		<result property="approval" column="APPROVAL" />
 	</resultMap>
@@ -73,12 +73,12 @@
 				AND B.HIST_GROUP = #{searchStatus}
 			</if>
 			<if test="startDate != null and startDate != ''">
-				AND DATE_FORMAT(A.ACQUIRED_DATE, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
 				'%Y-%m-%d')
 			</if>
 			<if test="endDate != null and endDate != ''">
 				<![CDATA[
-				AND DATE_FORMAT(A.ACQUIRED_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
@@ -123,12 +123,12 @@
 	    	   ASSET_QTY, 
 	    	   ACQUIRED_DATE,
 	    	   ACQUIRED_PRICE,
-	    	   MAKER,
+	    	   REG_DATE,
 	    	   USAGE_STAUTS,
 	    	   APPROVAL
 	      FROM (
 		        SELECT 
-					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
+					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
 					D.CAT_NAME AS MIDDLE_CATEGORY,
@@ -136,7 +136,7 @@
 					A.ASSET_QTY, 
 					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
 					A.ACQUIRED_PRICE, 
-					A.MAKER, 
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS,
 					F.CODE_NM AS APPROVAL
 				  FROM ASSETSINFO A
@@ -181,7 +181,7 @@
 	    	   APPROVAL
 	      FROM (
 		        SELECT 
-					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
+					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
 					D.CAT_NAME AS MIDDLE_CATEGORY,

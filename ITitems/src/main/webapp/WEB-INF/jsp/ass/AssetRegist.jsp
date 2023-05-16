@@ -19,6 +19,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,8 +60,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
 function insert_asset(){
 		inputFile();
 		let formData = new FormData(document.getElementById('assetRegist'));
-		
-	 	 $.ajax({
+	 	   $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
@@ -73,8 +73,7 @@ function insert_asset(){
 			error: function (error) {
 				RegistFail();
 			}
-	
-		})
+		})    
 }
 
 /* ********************************************************
@@ -131,10 +130,14 @@ function insert_asset(){
 	
 	if(val){
 		fn_egov_modal_remove();
-		$()
+		  $('form').each(function() {
+		      this.reset();
+		  });
+		  $(".photoList").children().remove();
+		  removeP();
 		document.assetRegist.largeCategory.focus(); 
 	}else{
-		document.AssetManagement.submit(); 
+		document.MyAssetManagement.submit(); 
 	}
 
 }
@@ -411,7 +414,7 @@ function FileManual(){
  ******************************************************** */
 let typeList = ["input", "select"]
 
-function removeP(objList) {
+function removeP() {
 	$(typeList).each(function(index, type){
 		$("#assetRegist").find(type).each(function(index, item){
 			let td = $(item).closest("td");
@@ -423,7 +426,7 @@ function removeP(objList) {
 }
 
 function alertValid(objList) {
-	removeP(objList);
+	removeP();
 	$(typeList).each(function(index, type){
 		$("#assetRegist").find(type).each(function(index, item){
 			let td = $(item).closest("td");
@@ -436,6 +439,29 @@ function alertValid(objList) {
 	})
 }
 
+/* ********************************************************
+ * 지급확인서 파일명 가져오기
+ ******************************************************** */
+ function getFileName(obj) {
+	 if(obj.files.length>0){
+		 $('#fileNm').val(obj.files[0].name);
+		 $('input[name=file]')[0].files = obj.files;
+		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+			 delFileName();
+			}));
+		 $(obj).val('');
+	 }
+}
+
+/* ********************************************************
+ * 지급확인서 파일 지우기
+ ******************************************************** */
+ function delFileName() {
+	 $('#fileNm').val('');
+	 $('input[name=file]').val('');
+	 $('#fileNm').closest(".filebox").find('img')[0].remove();
+}
+ 
 /* ********************************************************
  * onload
  ******************************************************** */
@@ -564,17 +590,15 @@ window.onload = function(){
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
+													<div class="filebox">
+													    <label for="fileFrm">파일찾기</label > 
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
+													    <div class="namebox">
+													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
+													    </div>
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
+													<input name="file" id="file" type="file" style="display: none">
 												</td>
-												
 											</tr>
 											<tr>
 											<td class="lb">
@@ -689,20 +713,14 @@ window.onload = function(){
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
 												</td>
 												<td colspan="4">
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photoFrm" id="photoFrm" type="file" multiple/>
-														<input name="photo" id="photo" type="file" style="display: none"/>
-														<div id="egovComFileList"></div>
+													<div class="filebox">
+													    <label for="photoFrm">파일찾기</label> 
+													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-													</c:if>
-													<div class="photo_box">
+													<input name="photo" id="photo" type="file" style="display: none"/>
+													<div class="photoList">
 													</div>
 												</td>
-												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -736,8 +754,12 @@ window.onload = function(){
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form>
-								<form name="AssetManagement" method="post"
-									action="<c:url value='/ass/AssetManagement.do'/>">
+								<form name="MyAssetManagement" method="post"
+									action="<c:url value='/ass/MyAssetManagement.do'/>">
+									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+									<c:set var="end" value="<%=new java.util.Date()%>" />
+									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
 								</form>
 							</div>
 						</div>

@@ -20,6 +20,7 @@
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -208,7 +209,7 @@ function AssetUpdt() {
 												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
 												<td colspan="4">
-													<div class="photo_box">
+													<div class="photoList">
 														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
 					                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
 					                                   	</c:forEach>
@@ -242,6 +243,12 @@ function AssetUpdt() {
 											</tr>
 										</table>
 									</div>
+										<%
+											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+										%>
+										<c:set var="login" value="<%= loginVO.getOrgnztId()%>"/>
+										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
+									<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_ADMIN' || resultVO.useId == login}">
 									<!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_col btn1">
@@ -253,6 +260,7 @@ function AssetUpdt() {
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
+									</c:if>
 								</form>
 							</div>
 						</div>

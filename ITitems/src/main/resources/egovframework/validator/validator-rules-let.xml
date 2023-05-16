@@ -132,7 +132,6 @@
                  	if(focusField != null){
 					focusField.focus();
                  	}
-                 	console.log(fields);
 					alertValid(fieldList);
                 }
                 return isValid;

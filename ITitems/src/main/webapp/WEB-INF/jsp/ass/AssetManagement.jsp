@@ -262,7 +262,7 @@ function selectAsset(id) {
 											</div>
 											
 											<div>
-												<span class="lb ml20">취득일자</span> 
+												<span class="lb ml20">등록일자</span> 
 												<span class="search_date">
 												<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
 												</span>
@@ -311,7 +311,7 @@ function selectAsset(id) {
 												<th scope="col">수량</th>
 												<th scope="col">취득일자</th>
 												<th scope="col">취득가액</th>
-												<th scope="col">제조사</th>
+												<th scope="col">등록일자</th>
 												<th scope="col">상태</th>
 												<th scope="col">결재</th>
 											</tr>
@@ -338,7 +338,7 @@ function selectAsset(id) {
 															<c:out value="${result.acquiredPrice}" />원
 														</c:if>
 													</td>
-													<td><c:out value="${result.maker}" /></td>
+													<td><c:out value="${result.regDate}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
 													<td><c:out value="${result.approval}" /></td>
 												</tr>
