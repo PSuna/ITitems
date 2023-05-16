@@ -34,6 +34,7 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
+<script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -368,7 +369,41 @@ function FileManual(){
 	$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 파일명 가져오기
+ ******************************************************** */
+ function getFileName(obj) {
+	 if(obj.files.length>0){
+		 $('#fileNm').val(obj.files[0].name);
+	 }
+}
 
+/* ********************************************************
+ * 지급확인서 파일명 가져오기
+ ******************************************************** */
+ function getFileName(obj) {
+	 if(obj.files.length>0){
+		 $('#fileNm').val(obj.files[0].name);
+		 $('input[name=file]')[0].files = obj.files;
+		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+			 delFileName();
+			}));
+		 $(obj).val('');
+	 }
+}
+
+/* ********************************************************
+ * 지급확인서 파일 지우기
+ ******************************************************** */
+ function delFileName() {
+	 $('#fileNm').val('');
+	 $('input[name=file]').val('');
+	 $('#fileNm').closest(".filebox").find('img')[0].remove();
+}
+
+/* ********************************************************
+ * onload
+ ******************************************************** */
 window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
 	getNumber(document.AssetUpdt.acquiredPrice);
@@ -502,17 +537,15 @@ window.onload = function(){
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td>
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="file" id="egovComFileUploader" type="file" />
-														<div id="egovComFileList"></div>
+													<div class="filebox">
+													    <label for="fileFrm">파일찾기</label > 
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
+													    <div class="namebox">
+													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
+													    </div>
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl"></div>
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt"
-															value="0" />
-													</c:if>
+													<input name="file" id="file" type="file" style="display: none">
 												</td>
-												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -641,15 +674,13 @@ window.onload = function(){
 													<label for="egovComFileUploader">제품사진</label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
 												<td colspan="4">
-													<div class="board_attach2" id="file_upload_posbl">
-														<input name="photo" id="photo" type="file" />
-														<div id="egovComFileList"></div>
+													<div class="filebox">
+													    <label for="photoFrm">파일찾기</label> 
+													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
 													</div>
-													<div class="board_attach2" id="file_upload_imposbl">
-													</div> 
-													<c:if test="${empty result.atchFileId}">
-														<input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-													</c:if>
+													<input name="photo" id="photo" type="file" style="display: none"/>
+													<div class="photoList">
+													</div>
 												</td>
 											</tr>
 											<tr>

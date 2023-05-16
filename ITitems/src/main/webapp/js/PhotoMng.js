@@ -11,21 +11,77 @@
  */
 let photoFileList = [];
 
-function MakePhotoList(obj){
-	 
+// 알람 지우기 
+function delAlert(obj){
+	if($(obj).closest(".filebox").children().last().prop('tagName') == 'P'){
+		$(obj).closest(".filebox").children().last().remove();
+	}
 }
 
-//이미지목록에서 삭제하면 input file도 삭제
-function delfileList(fileName) {
+//경고,알람 표시 
+function alertPhoto(obj, val){
+	if(val == 0){
+		$(obj).closest(".filebox").append($("<p/>").text("등록할 수 없는 파일입니다").addClass("alertV"));
+  	    $(obj).val("");
+	}else if(val == 1){
+		$(obj).closest(".filebox").append($("<p/>").text("등록하는 파일이 5장을 초과할 수 없습니다").addClass("alertV"));
+  	    $(obj).val("");
+	}
+}
+
+
+// 제품사진 확장자 체크
+ function checkPhoto(obj){
+	delAlert(obj);
+	if( $(obj).val() != "" ){
+          var ext = $(obj).val().split('.').pop().toLowerCase();
+  	  if($.inArray(ext, ['png','jpg','jpeg']) == -1) {
+  	     alertPhoto(obj, 0);
+  	     return;
+ 	  }else{
+			checkCount(obj);
+		}
+     }
+}
+
+// 이미지 갯수 체크
+function checkCount(obj) {
+	let fileCnt = obj.files.length;
+	if (photoFileList.length + fileCnt > 5) {
+		alertPhoto(obj, 1);
+	} else {
+		MakePhotoList(obj);
+	}
+}
+
+// 이미지 미리보기 생성
+function MakePhotoList(obj){
+	 let fileList = obj.files;
+	for (var i = 0; i < fileList.length; i++) {
+		let file = fileList[i];
+		let fileUrl = URL.createObjectURL(file);
+		photoFileList.push(file);
+		let delBtn = $("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+			delfileList(this,file);
+		});
+		let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
+		let boxImg = $("<div/>").addClass("boxImg").append($("<img/>").attr("src",fileUrl));
+		$(".photoList").append($("<div/>").addClass("photobox").append(boxBtn,boxImg));
+	}
+	$(obj).val('');
+}
+
+//이미지 삭제
+function delfileList(obj,file) {
+	$(obj).closest(".photobox").remove();
 	for (let i = 0; i < photoFileList.length; i++) {
-		if (photoFileList[i].name == fileName) {
+		if (photoFileList[i].name == file.name) {
 			photoFileList.splice(i, 1);
 		}
 	}
-	$('#aks-file-upload').find('input#aksfileupload').val("");
 }
 
-//img 비교해서 이미 표시된 이미지면 표시안함
+/*//img 비교해서 이미 표시된 이미지면 표시안함
 function matchfile(fileName) {
 	let check = true;
 	if (photoFileList.length == 0) {
@@ -42,8 +98,9 @@ function matchfile(fileName) {
 		listinput(fileName);
 	}
 	return check;
-}
+}*/
 
+/*
 // 중복되지 않는 파일은 저장
 function listinput(fileName) {
 	let files = $('#aks-file-upload').find('input#aksfileupload')[0].files;
@@ -54,30 +111,13 @@ function listinput(fileName) {
 		}
 	}
 	return;
-}
+}*/
 
-// 이미지 갯수 확인
-function fileCount(inputCount) {
-	if ($('input[name=applyFile]').parentsUntil('.form').prev().prop('tagName') == 'P') {
-		$('input[name=applyFile]').parentsUntil('.form').prev().remove();
-	}
-	let check = true;
-	if (photoFileList.length + inputCount > 10) {
-		$('input[name=applyFile]').parentsUntil('.form').before($('<p/>').text("사진은 최대 10장까지 등록가능합니다").css(
-			"margin-left", "20%").css("color", "#f20000"));
-		check = false;
-	} else if (photoFileList.length + inputCount < 5) {
-		$('input[name=applyFile]').parentsUntil('.form').before($('<p/>').text("사진을 최소 5장이상 등록해주세요").css(
-			"margin-left", "20%").css("color", "#f20000"));
-	}
-	return check;
-}
-
-// 파일들 원하는 input에 담기
+// 파일들을 원하는 input에 담기
 function inputFile() {
 	const dataTransfer = new DataTransfer();
 	photoFileList.forEach(file => {
 		dataTransfer.items.add(file);
 	});
-	$('input[name=photo]')[0].files = dataTransfer.files; //제거 처리된 FileList를 돌려줌
+	$('input[name=photo]')[0].files = dataTransfer.files; 
 }
