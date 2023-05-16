@@ -422,13 +422,7 @@ window.onload = function(){
 	vertical-align: middle;
 }
 
-.board_view_bot {
-	overflow: hidden;
-}
 
-.right_btn {
-	float: right;
-}
 </style>
 
 <body>
@@ -680,6 +674,16 @@ window.onload = function(){
 													</div>
 													<input name="photo" id="photo" type="file" style="display: none"/>
 													<div class="photoList">
+														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
+															<div class="photobox">
+																<div class="boxBtn">
+																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delPhoto(this);">
+																</div>
+																<div class="boxImg">
+																	<img alt="" src="/uploadFile/${photo.streFileNm}">
+																</div>
+															</div>
+														</c:forEach>
 													</div>
 												</td>
 											</tr>

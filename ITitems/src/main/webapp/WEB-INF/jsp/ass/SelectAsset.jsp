@@ -251,7 +251,7 @@ function AssetUpdt() {
 									<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_ADMIN' || resultVO.useId == login}">
 									<!-- 버튼  -->
 									<div class="board_view_bot">
-										<div class="right_col btn1">
+										<div class="right_btn btn1">
 											<!-- 수정 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="AssetUpdt();return false;"> <spring:message
