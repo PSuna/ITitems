@@ -81,6 +81,32 @@ function delfileList(obj,file) {
 	}
 }
 
+// 파일들을 원하는 input에 담기
+function inputFile() {
+	const dataTransfer = new DataTransfer();
+	photoFileList.forEach(file => {
+		dataTransfer.items.add(file);
+	});
+	$('input[name=photo]')[0].files = dataTransfer.files; 
+}
+
+// 기존 파일 출력
+function getPhotoList(PhotoList){
+	console.log(PhotoList);
+	/*PhotoList.each(file,function(index, file){
+		let delBtn = $("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+			delPhoto(this);
+		});
+		let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
+		let boxImg = $("<div/>").addClass("boxImg").append($("<img/>").attr("src","/uploadFile/"+file.streFileNm));
+		$(".photoList").append($("<div/>").addClass("photobox").append(boxBtn,boxImg));
+	})*/
+}
+
+// 기존파일 삭제
+function delPhoto(obj) {
+	$(obj).closest(".photobox").remove();
+}
 /*//img 비교해서 이미 표시된 이미지면 표시안함
 function matchfile(fileName) {
 	let check = true;
@@ -113,11 +139,4 @@ function listinput(fileName) {
 	return;
 }*/
 
-// 파일들을 원하는 input에 담기
-function inputFile() {
-	const dataTransfer = new DataTransfer();
-	photoFileList.forEach(file => {
-		dataTransfer.items.add(file);
-	});
-	$('input[name=photo]')[0].files = dataTransfer.files; 
-}
+

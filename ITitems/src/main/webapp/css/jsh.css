@@ -184,3 +184,11 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+.right_btn {
+	float: right;
+}
+
+.board_view_bot {
+	overflow: hidden;
+}
