@@ -219,15 +219,15 @@
 	  LEFT JOIN LETTNEMPLYRINFO E
 	  		 ON R.ID = E.ESNTL_ID
           WHERE A.TARGET_ID = #{uniqId}
-          <if test='searchKeyword !=""'>
+          <if test='searchKeyword !="" and searchKeaword != null'>
           	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
           	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
           	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
           </if>
-          <if test='searchGroup !=""'>
+          <if test='searchGroup !="" and searchGroup != null'>
             AND R.REQ_GROUP = #{searchGroup}
           </if>
-          <if test='searchStatus !=""'>
+          <if test='searchStatus !="" and searchStatus != null'>
             AND R.REQ_STATUS = #{searchStatus}
           </if>
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC

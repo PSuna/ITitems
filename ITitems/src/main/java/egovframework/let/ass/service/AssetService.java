@@ -3,6 +3,9 @@ package egovframework.let.ass.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 자산 관리를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 주소현
@@ -34,4 +37,6 @@ public interface AssetService {
 	public int InsertAssetHist(AssetHistVO assetHistVO);
 	
 	public int UpdateAssetHist(AssetHistVO assetHistVO);
+
+	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 }

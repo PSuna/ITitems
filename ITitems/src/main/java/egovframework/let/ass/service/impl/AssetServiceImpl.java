@@ -5,16 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetHistVO;
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.prj.service.impl.ProjectDAO;
 
 /**
@@ -128,6 +132,22 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	public int UpdateAssetHist(AssetHistVO assetHistVO) {
 
 		return assetHistDAO.UpdateAssetHist(assetHistVO);
+	}
+
+
+	@Override
+	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		String title = "자산관리솔루션 - 전체자산목록";
+		try {
+			List<EgovMap> tmpList = assetInfoDAO.xlsxTrsfAssetList(assetManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			
+			System.out.println("tmpList>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+tmpList.get(2));
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 

@@ -99,9 +99,14 @@ function getMCatList(Mval) {
 function SearchAssetList() {
 	event.preventDefault();
 	
-	document.frm.pageIndex.value = '1';
+	document.frm.pageIndex.value = 1;
     document.frm.action = "<c:url value='/sec/asm/SecAssetManage.do'/>";
     document.frm.submit(); 
+}
+function setPageUnit(){
+	document.frm.pageIndex.value = 1;
+    document.frm.action = "<c:url value='/sec/asm/SecAssetManage.do'/>";
+    document.frm.submit();
 }
 
 function fn_egov_select_noticeList(pageNo) {
@@ -169,7 +174,14 @@ function selectAsset(id) {
 	document.getElementById('subForm'+id).submit;
 }
 
-
+function fntrsfExcel(){
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 목록이 없습니다.")
+	}else{
+	    document.frm.action = "<c:url value='/com/xlsxTrsfAssetList.do'/>";
+	    document.frm.submit();
+	}
+}
 </script>
 <style type="text/css">
 .board_list tbody tr:hover {
@@ -183,6 +195,15 @@ function selectAsset(id) {
 }
 .lb{
 	margin-left:10px !important;
+}
+.condition2+.board_list_top{
+	margin-top:0;
+	display:flex;
+	justify-content: space-between;
+    align-items: flex-end;
+}
+.board_list{
+	margin-top:0;
 }
 </style>
 </head>
@@ -221,7 +242,7 @@ function selectAsset(id) {
 								<!-- 검색조건 -->
 								<form id="frm" name="frm">
 									<div class="condition2">
-										<input type="hidden" name="pageIndex">
+										<input type="hidden" name="pageIndex" value=1>
 										<div class="pty_box01">
 											<div>
 												<span class="lb">부서</span>
@@ -297,11 +318,25 @@ function selectAsset(id) {
 											</div>
 										</div>
 									</div>	
-								</form>
 								<!--// 검색 조건 -->
 								
-							
-								
+								<div class="board_list_top">
+								<button class="btn pty_btn" id="ExcelBtn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									<div style="float: right; display: flex; margin-top:10px; align-items: center;">
+										<span>페이지당 항목 수</span> 
+										<label class="item f_select" for="pageUnit">
+										<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">
+												<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+												<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+												<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+												<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+												<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+												<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+										</select>
+										</label>
+									</div>
+								</div>
+								</form>
 								<!-- 게시판 -->
 								<div class="board_list">
 									<table>

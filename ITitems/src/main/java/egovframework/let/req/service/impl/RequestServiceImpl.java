@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
+import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
@@ -92,6 +96,20 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		List<RequestDetailVO> resultList = requestDAO.SelectRequestDetailVOList(manageVO);
 		
 		return resultList;
+	}
+
+	@Override
+	public void xlsxTrsfReqList(RequestManageVO requestManageVO, HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		String title = "자산관리솔루션 - 반출신청 목록";
+		try {
+			List<EgovMap> tmpList = requestDAO.xlsxTrsfReqList(requestManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
+		
 	}
 
 }

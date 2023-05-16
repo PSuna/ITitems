@@ -208,4 +208,41 @@
 		 WHERE REQ_ID = #{reqId}
 		 ORDER BY A.REQ_ORDER
 	</select>
+	
+	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
+		SELECT REQ_GROUP,
+			   ID,
+			   PRJ_ID,
+			   REQ_DATE,
+			   REQ_STATUS
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
+					   A.REQ_ID,
+					   E.CODE_NM AS REQ_GROUP,
+					   CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
+					   D.PRJ_NAME AS PRJ_ID,
+					   DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					   C.CODE_NM AS REQ_STATUS
+				  FROM REQUESTS A
+	   LEFT OUTER JOIN REQUESTDETAIL B
+				    ON A.REQ_ID = B.REQ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON A.REQ_STATUS = C.CODE
+	   LEFT OUTER JOIN PROJECTS D
+				    ON A.PRJ_ID = D.PRJ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE A.REQ_GROUP = #{reqGroup} 
+				   AND A.ID = #{id}
+				 <include refid="search" />
+			  GROUP BY A.REQ_ID,
+				 	   E.CODE_NM,
+				 	   F.USER_NM,
+				 	   G.CODE_NM,
+				 	   C.CODE_NM) P
+		 WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
 </mapper>

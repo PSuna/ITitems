@@ -3,6 +3,7 @@ package egovframework.let.req.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.req.service.RequestDetailVO;
@@ -76,5 +77,9 @@ public class RequestDAO extends EgovAbstractMapper {
 	public List<RequestDetailVO> SelectRequestDetailVOList(RequestManageVO manageVO) {
 		
 		return selectList("RequestDAO.SelectRequestDetailVOList", manageVO);
+	}
+
+	public List<EgovMap> xlsxTrsfReqList(RequestManageVO requestManageVO) {
+		return selectList("RequestDAO.xlsxTrsfReqList", requestManageVO);
 	}
 }

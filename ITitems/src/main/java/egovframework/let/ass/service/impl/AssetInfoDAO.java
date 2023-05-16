@@ -3,11 +3,11 @@ package egovframework.let.ass.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
-import egovframework.let.cop.bbs.service.BoardMaster;
 
 /**
  * 자산정보 관리를 위한 데이터 접근 클래스
@@ -76,5 +76,12 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	 */
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO){
 		return update("AssetInfoDAO.UpdateAssetInfo", assetInfoVO);
+	}
+
+	/**
+	 * 자산정보 엑셀 추출
+	 */
+	public List<EgovMap> xlsxTrsfAssetList(AssetManageVO assetManageVO) {
+		return selectList("AssetInfoDAO.xlsxTrsfAssetList", assetManageVO);
 	}
 }

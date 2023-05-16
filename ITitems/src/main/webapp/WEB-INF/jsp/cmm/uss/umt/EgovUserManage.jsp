@@ -123,8 +123,12 @@ function setPageUnit(){
     document.listForm.submit();
 }
 function fntrsfExcel(){
-    document.listForm.action = "<c:url value='/com/xlsxTrsfUserList.do'/>";
-    document.listForm.submit();
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 항목이 없습니다.")
+	}else{
+	    document.listForm.action = "<c:url value='/com/xlsxTrsfUserList.do'/>";
+	    document.listForm.submit();
+	}
 }
 
 //-->
@@ -133,6 +137,9 @@ function fntrsfExcel(){
 .board_list tbody tr:hover {
 	background: #ccc;
 	cursor: pointer;
+}
+.board_list_top+.board_list{
+	margin-top:0;
 }
 </style>
 </head>
@@ -218,6 +225,7 @@ function fntrsfExcel(){
 	                                	<div class="list_count">
 			                                 	<span>사용자수</span>
 			                                 	<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
+			                                 	
 		                                 		<div style="float: right;display: flex;align-items: center;">
 			                                 		<span>페이지당 항목 수</span>
 			                                 		<label class="item f_select" for="pageUnit">
@@ -234,6 +242,7 @@ function fntrsfExcel(){
                                     				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 		                                 		</div>
 	                                 	</div>
+	                                 	<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 	                            	</div>
                                 </div>
 								
@@ -271,7 +280,7 @@ function fntrsfExcel(){
                                         	
                                         	<c:if test="${fn:length(resultList) == 0}">
 	                                        	<tr>
-	                                        		<td colspan="8" ><spring:message code="common.nodata.msg" /></td>
+	                                        		<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>
 	                                        	</tr>
                                         	</c:if>
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
@@ -294,7 +303,7 @@ function fntrsfExcel(){
                                             
                                         </tbody>
                                     </table>
-                                    <button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                    
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->

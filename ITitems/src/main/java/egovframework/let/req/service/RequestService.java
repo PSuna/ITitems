@@ -3,6 +3,9 @@ package egovframework.let.req.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 신청 관리를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 주소현
@@ -31,4 +34,6 @@ public interface RequestService {
 	public RequestVO SelectRequestVO(RequestManageVO manageVO);
 	
 	public List<RequestDetailVO> SelectRequestDetailVOList (RequestManageVO manageVO);
+
+	public void xlsxTrsfReqList(RequestManageVO requestManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 }

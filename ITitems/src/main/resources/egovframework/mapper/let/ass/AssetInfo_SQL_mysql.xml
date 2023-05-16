@@ -292,7 +292,7 @@
 		    #{maker},
 		    #{note},
 		    NULL,
-		    NULL,
+		    '',
 		    #{regId},
 		    DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 		    #{usageStatus} 
@@ -314,4 +314,47 @@
 		    ACQUIRED_PRICE = #{acquiredPrice}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
+	
+	<select id="xlsxTrsfAssetList"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultType="egovMap">
+		
+	    SELECT 
+	    	   IFNULL(LARGE_CATEGORY,'') LARGE_CATEGORY, 
+	    	   IFNULL(MIDDLE_CATEGORY, '') MIDDLE_CATEGORY,
+	    	   IFNULL(ASSET_NAME, '') ASSET_NAME,
+	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
+	    	   IFNULL(ACQUIRED_DATE,'') ACQUIRED_DATE,
+	    	   IFNULL(ACQUIRED_PRICE,'') ACQUIRED_PRICE,
+	    	   IFNULL(MAKER,'') MAKER,
+	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS,
+	    	   IFNULL(APPROVAL, '') APPROVAL
+	      FROM (
+		        SELECT 
+					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					D.CAT_NAME AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY, 
+					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
+					A.ACQUIRED_PRICE, 
+					A.MAKER, 
+					E.CODE_NM AS USAGE_STAUTS,
+					F.CODE_NM AS APPROVAL
+				  FROM ASSETSINFO A
+				  LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+				  LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+				  LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+		        	<include refid="search" />
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
 </mapper>

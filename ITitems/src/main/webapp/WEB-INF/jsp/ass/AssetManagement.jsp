@@ -17,6 +17,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -170,7 +171,14 @@ function selectAsset(id) {
 	document.getElementById('subForm'+id).submit;
 }
 
-
+function fntrsfExcel(){
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 목록이 없습니다.")
+	}else{
+	    document.frm.action = "<c:url value='/com/xlsxTrsfAssetList.do'/>";
+	    document.frm.submit();
+	}
+}
 </script>
 </head>
 <body>
@@ -206,8 +214,10 @@ function selectAsset(id) {
 								<br>
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off">
+								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
+								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
-										<input type="hidden" name="pageIndex">
+										<input type="hidden" name="pageIndex" value=1>
 										<div class="pty_box01">
 											<div>
 												<span class="lb">부서</span>
@@ -345,8 +355,9 @@ function selectAsset(id) {
 											</c:forEach>
 										</tbody>
 									</table>
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 									<c:if test="${empty resultList}">
-										<div class="empty"><h4><spring:message code="ass.null" /></h4></div>
+										<div class="empty" id="noData"><h4><spring:message code="ass.null" /></h4></div>
 									</c:if>
 								</div>
 								<c:if test="${not empty resultList}">
