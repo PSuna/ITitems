@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
+import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
@@ -71,18 +74,34 @@ public class SecAssetManageController {
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 	
+	/** EgovPropertyService */
+	@Resource(name = "propertiesService")
+	protected EgovPropertyService propertiesService;
+	
+	/** EgovMessageSource */
+	@Resource(name = "egovMessageSource")
+	EgovMessageSource egovMessageSource;
+	
 	/**
 	 * 자산조회 페이지로 이동
 	 */
 	@RequestMapping(value = "/sec/asm/SecAssetManage.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
+			 @ModelAttribute("searchVO") AssetManageVO assetManageVO) throws Exception {
+		
+		//미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		if(!isAuthenticated) {
+			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+			return "uat/uia/EgovLoginUsr";
+		}
 		
     	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
     	request.getSession().setAttribute("baseMenuNo", "6000000");
     	
+    	assetManageVO.setPageSize(propertiesService.getInt("pageSize"));
+    	
 		PaginationInfo paginationInfo = new PaginationInfo();
-		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
 		paginationInfo.setPageSize(assetManageVO.getPageSize());
@@ -93,11 +112,11 @@ public class SecAssetManageController {
 
 		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-
-		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("resultCnt", map.get("resultCnt"));
+		
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -110,9 +129,6 @@ public class SecAssetManageController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		
 		return "/sec/asm/SecAssetManage";
 	}
 	

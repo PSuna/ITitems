@@ -45,8 +45,12 @@ function fnSearch(){
     document.listForm.submit();
 }
 function fntrsfExcel(){
-    document.listForm.action = "<c:url value='/com/xlsxTrsfAprvList.do'/>";
-    document.listForm.submit();
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 목록이 없습니다.")
+	}else{
+	    document.listForm.action = "<c:url value='/com/xlsxTrsfAprvList.do'/>";
+	    document.listForm.submit();
+	}
 }
 //-->
 </script>
@@ -81,6 +85,7 @@ function fntrsfExcel(){
                                 <!--// Location -->
                                 
                                 <form name="listForm" action="<c:url value='/aprv/ApprovalManage.do'/>" method="post">
+                                	<input name="targetId" type="hidden" value="<c:out value='${approvalSearchVO.uniqId}'/>"/>
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
@@ -165,7 +170,7 @@ function fntrsfExcel(){
                                 			<tbody>
                                 				<c:if test="${fn:length(resultList) == 0}">
                                 					<tr>
-                                						<td colspan="8" ><spring:message code="common.nodata.msg" /></td>
+                                						<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>
                                 					</tr>
                                 				</c:if>
                                 				

@@ -13,8 +13,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %><%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -123,6 +124,14 @@ window.onload = function(){
 function CarryRegist() {
 	 document.regist.submit();
 }
+function fntrsfExcel(){
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 목록이 없습니다.")
+	}else{
+	    document.frm.action = "<c:url value='/com/xlsxTrsfReqList.do'/>";
+	    document.frm.submit();
+	}
+}
 </script>
 <style type="text/css">
 .board_view_bot {
@@ -141,7 +150,6 @@ function CarryRegist() {
 </head>
 <body>
 	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 
@@ -149,7 +157,6 @@ function CarryRegist() {
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
@@ -162,33 +169,30 @@ function CarryRegist() {
 									<ul>
 										<li><a class="home" href="">Home</a></li>
 										<li><a href="">자산관리</a></li>
-										<li>반출신청</li>
+										<li>반출관리</li>
 									</ul>
 								</div>
 								<!--// Location -->
-
-								<h1 class="tit_1">자산관리</h1>
-
-								<h2 class="tit_2">반출신청</h2>
-
+								<h2 class="tit_2">반출관리</h2>
 								<br />
 								<form name="regist" method="post"
 									action="<c:url value='/req/CarryRegist.do'/>" autocomplete="off">
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="CarryRegist();">반출신청</a>
+												onclick="CarryRegist();">반출요청</a>
 										</div>
 									</div>
 								</form>
 								<br>
 								<!-- 검색조건 -->
-								<form id="searchVO" name="frm" autocomplete="off">
-									<input type="hidden" name="pageIndex">
+								<form id="searchVO" name="frm" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
+									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
+									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<div class="condition2">
 										<div class="pty_box01">
 											<div>
-												<span class="lb">프로젝트</span> <span class="f_search2 w_200">
+												<span class="lb">프로젝트명</span> <span class="f_search2 w_200">
 													<input id="prjNm" type="text" title="주소" maxlength="100"
 													readonly="false" />
 													<button type="button" class="btn"
@@ -197,7 +201,7 @@ function CarryRegist() {
 													title="프로젝트" value="" maxlength="8" readonly="readonly" />
 											</div>
 											<div>
-												<span class="lb">상태</span> <label class="item f_select"
+												<span class="lb">요청상태</span> <label class="item f_select"
 													for="sel1"> <select id="searchStatus"
 													name="searchStatus" title="상태">
 														<option value='' label="선택하세요" selected="selected" />
@@ -210,7 +214,7 @@ function CarryRegist() {
 												</label>
 											</div>
 											<div>
-												<span class="lb ml20">신청일자</span>
+												<span class="lb ml20">요청일자</span>
 												<span class="search_date">
 													<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
 												</span>
@@ -243,14 +247,19 @@ function CarryRegist() {
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">분류</th>
-												<th scope="col">신청자</th>
-												<th scope="col">프로젝트</th>
-												<th scope="col">신청일자</th>
-												<th scope="col">신청상태</th>
+												<th scope="col">요청분류</th>
+												<th scope="col">요청자명</th>
+												<th scope="col">프로젝트명</th>
+												<th scope="col">요청일자</th>
+												<th scope="col">요청상태</th>
 											</tr>
 										</thead>
 										<tbody>
+											<c:if test="${fn:length(resultList) == 0}">
+                                					<tr>
+                                						<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>
+                                					</tr>
+                                			</c:if>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
 												<tr onclick="childNodes[1].childNodes[1].submit();">
@@ -269,6 +278,7 @@ function CarryRegist() {
 											</c:forEach>
 										</tbody>
 									</table>
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 								</div>
 
 								<!-- 페이지 네비게이션 시작 -->

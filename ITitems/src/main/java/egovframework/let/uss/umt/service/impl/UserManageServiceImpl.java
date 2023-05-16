@@ -1,7 +1,5 @@
 package egovframework.let.uss.umt.service.impl;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.com.service.ExcelUtil;
@@ -198,12 +195,8 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		String title = "자산관리솔루션 - 사용자 목록";
 		try {
 			List<EgovMap> tmpList = userManageDAO.xlsxUserList(userSearchVO);
-			
 			ExcelUtil excelUtil = new ExcelUtil();
-		
 			excelUtil.getxlsxDownload(title , tmpList , req, res);	
-
-			
 		}catch(Exception e) {
 			throw e;
 		}

@@ -10,8 +10,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import egovframework.com.cmm.LoginVO;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
+import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetService;
+import egovframework.let.req.service.RequestManageVO;
+import egovframework.let.req.service.RequestService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageService;
 
@@ -42,6 +47,15 @@ public class CommonController {
 	/** approvalManageService */
 	@Resource(name = "approvalManageService")
 	private ApprovalManageService approvalManageService;
+	
+	/** requestService */
+	@Resource(name = "RequestService")
+	private RequestService requestService;
+	
+	/** assetService */
+	@Resource(name = "AssetService")
+	private AssetService assetService;
+	
 	/**
 	 * 등록확인 팝업창로 이동
 	 */
@@ -95,30 +109,33 @@ public class CommonController {
 
 		return "/com/UpdtConfirm";
 	}
-	
-	/*
-	 * //사용자 목록 엑셀 추출
-	 * 
-	 * @requestmapping("/com/xlsxtrsfusermanage.do") public void
-	 * xlsxtrsfusermanage(httpservletrequest req, httpservletresponse res, modelmap
-	 * model ,
-	 * 
-	 * @modelattribute("usersearchvo") userdefaultvo usersearchvo, httpsession
-	 * session) throws exception { loginvo loginvo =
-	 * (loginvo)session.getattribute("loginvo");
-	 * usersearchvo.setrecordcountperpage(10000); usersearchvo.setfirstindex(0);
-	 * 
-	 * usermanageservice.xlsxtrsfusermanage(usersearchvo,req,res); }
-	 */
+
 	//사용자목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfUserList.do")
 	public void xlsxTrsfUserList(HttpServletRequest req, HttpServletResponse res, ModelMap model, UserDefaultVO userSearchVO, HttpSession session) throws Exception {
 			userManageService.xlsxTrsfUserList(userSearchVO,req,res);
 	}
 	
-	//사용자목록 엑셀 출력
+	//결재요청목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfAprvList.do")
 	public void xlsxTrsfAprvList(HttpServletRequest req, HttpServletResponse res, ModelMap model, ApprovalDefaultVO approvalSearchVO, HttpSession session) throws Exception {
-			approvalManageService.xlsxTrsfAprvList(approvalSearchVO,req,res);
+		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+		approvalSearchVO.setUniqId(loginId.getUniqId());
+		approvalManageService.xlsxTrsfAprvList(approvalSearchVO,req,res);
 	}
+	//반출목록 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfReqList.do")
+	public void xlsxTrsfReqList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RequestManageVO requestManageVO, HttpSession session) throws Exception {
+		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+		requestManageVO.setId(loginId.getUniqId());
+		requestService.xlsxTrsfReqList(requestManageVO,req,res);
+	}
+	//전체자산목록 엑셀 출력
+		@RequestMapping("/com/xlsxTrsfAssetList.do")
+		public void xlsxTrsfAssetList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
+			LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+			assetManageVO.setUserId(loginId.getUniqId());
+			assetService.xlsxTrsfAssetList(assetManageVO,req,res);
+		}
+	
 }
