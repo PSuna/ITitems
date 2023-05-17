@@ -301,13 +301,13 @@
     </select>
     
     <select id="xlsxUserList" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
-		SELECT userNm,
-			   grade, 
-			   orgnztId,
-			   userId, 
-		       moblphonNo, 
-		       sbscrbDe, 
-		       authorCode
+		SELECT IFNULL(userNm, '') userNm,
+			   IFNULL(grade, '') grade, 
+			   IFNULL(orgnztId, '') orgnztId,
+			   IFNULL(userId, '') userId, 
+		       IFNULL(moblphonNo, '') moblphonNo, 
+		       IFNULL(sbscrbDe, '') sbscrbDe, 
+		       IFNULL(authorCode, '') authorCode
 		  FROM (SELECT A.USER_NM userNm,
 		  			   (SELECT CODE_NM 
 				          FROM LETTCCMMNDETAILCODE 

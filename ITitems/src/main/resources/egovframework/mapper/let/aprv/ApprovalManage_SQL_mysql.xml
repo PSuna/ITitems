@@ -198,19 +198,19 @@
 	</update>
 	
 	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
-		 SELECT E.USER_NM,
-		 		(SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
-			    P.PRJ_NAME PRJ_ID,
-			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS
+		 SELECT IFNULL(E.USER_NM, '') USER_NM,
+		 		IFNULL((SELECT CODE_NM
+			              FROM LETTCCMMNDETAILCODE
+			             WHERE CODE = E.GRADE), ''), GRADE,
+			    IFNULL((SELECT CODE_NM
+			              FROM LETTCCMMNDETAILCODE
+			             WHERE CODE = R.REQ_GROUP), ''), REQ_GROUP,
+			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
+			    IFNULL(R.PLACE, '') PLACE,
+			    IFNULL(DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d'), '') REQ_DATE,
+			    IFNULL((SELECT CODE_NM
+			              FROM LETTCCMMNDETAILCODE
+			             WHERE CODE = A.REQ_STATUS),'') REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN APRVTARGET A
 		     ON R.REQ_ID = A.REQ_ID 

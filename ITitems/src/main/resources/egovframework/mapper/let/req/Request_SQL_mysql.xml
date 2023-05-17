@@ -210,11 +210,11 @@
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
-		SELECT REQ_GROUP,
-			   ID,
-			   PRJ_ID,
-			   REQ_DATE,
-			   REQ_STATUS
+		SELECT INNULL(REQ_GROUP, '') REQ_GROUP,
+			   IFNULL(ID, '') ID,
+			   IFNULL(PRJ_ID, '') PRJ_ID,
+			   IFNULL(REQ_DATE, '') REQ_DATE,
+			   IFNULL(REQ_STATUS, '') REQ_STATUS
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
 					   A.REQ_ID,
 					   E.CODE_NM AS REQ_GROUP,

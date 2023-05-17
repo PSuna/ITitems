@@ -357,4 +357,40 @@
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
+	
+	<select id="xlsxTrsfMyAssList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">
+	    SELECT IFNULL(LARGE_CATEGORY,'') LARGE_CATEGORY, 
+	    	   IFNULL(MIDDLE_CATEGORY, '') MIDDLE_CATEGORY,
+	    	   IFNULL(ASSET_NAME, '') ASSET_NAME,
+	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
+	    	   IFNULL(PRJ_ID, '') PRJ_ID,
+	    	   IFNULL(REG_DATE, '') REG_DATE,
+	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS,
+	    	   IFNULL(APPROVAL, '') APPROVAL
+	      FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+					   C.CAT_NAME AS LARGE_CATEGORY, 
+					   D.CAT_NAME AS MIDDLE_CATEGORY,
+					   A.ASSET_NAME,
+					   A.ASSET_QTY,
+					   G.PRJ_NAME AS PRJ_ID,
+					   DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					   E.CODE_NM AS USAGE_STAUTS,
+					   F.CODE_NM AS APPROVAL
+				  FROM ASSETSINFO A
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+	   LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+	   LEFT OUTER JOIN PROJECTS G
+				    ON B.PRJ_ID = G.PRJ_ID
+				 WHERE B.USE_ID = #{userId}
+		        <include refid="mySearch" />) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
 </mapper>
