@@ -84,4 +84,20 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 	public List<EgovMap> xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO) {
 		return selectList("approvalManageDAO.xlsxTrsfAprvList",approvalSearchVO);
 	}
+
+	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) {
+		return (Integer)selectOne("approvalManageDAO.selectHighApprovalListTotCntB", approvalSearchVO);
+	}
+
+	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) {
+		return (Integer)selectOne("approvalManageDAO.selectApprovalListTotCntB", approvalSearchVO);
+	}
+
+	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) {
+		return selectList("approvalManageDAO.selectApprovalListB", approvalSearchVO);
+	}
+
+	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) {
+		return selectList("approvalManageDAO.selectHighApprovalListB", approvalSearchVO);
+	}
 }

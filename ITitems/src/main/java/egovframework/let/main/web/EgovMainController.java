@@ -109,13 +109,13 @@ public class EgovMainController {
 		model.addAttribute("notiList", map.get("resultList"));
 
 		if(loginId.getAuthorCode().equals("ROLE_HIGH_ADMIN")) {
-			model.addAttribute("resultList", approvalManageService.selectHighApprovalList(approvalSearchVO));
-			int totCnt = approvalManageService.selectHighApprovalListTotCnt(approvalSearchVO);
+			model.addAttribute("resultList", approvalManageService.selectHighApprovalListB(approvalSearchVO));
+			int totCnt = approvalManageService.selectHighApprovalListTotCntB(approvalSearchVO);
 			paginationInfo.setTotalRecordCount(totCnt);
 			model.addAttribute("paginationInfo", paginationInfo);
 		}else {
-			model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
-			int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
+			model.addAttribute("resultList", approvalManageService.selectApprovalListB(approvalSearchVO));
+			int totCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
 			paginationInfo.setTotalRecordCount(totCnt);
 			model.addAttribute("paginationInfo", paginationInfo);
 		}

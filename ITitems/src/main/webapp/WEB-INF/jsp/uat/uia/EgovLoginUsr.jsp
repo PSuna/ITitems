@@ -85,16 +85,9 @@ function getid(form) {
 }
 
 function fnInit() {
-	var search = searchid + "="
     var message = document.loginForm.message.value;
     if (message != "") {
         alert(message);
-    }
-    if (document.cookie.length > 0) {
-    	offset = document.cookie.indexOf(search)
-    	if (offset != -1) {
-    		form.checkId.checked;
-    	}
     }
     getid(document.loginForm);
 }

@@ -285,7 +285,7 @@ function fntrsfExcel(){
                                         	</c:if>
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
                                             <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
-                                                <td>
+                                                <td onclick='event.cancelBubble=true;'>
                                                     <span class="f_chk_only">
                                                         <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
                                                         <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>

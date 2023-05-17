@@ -18,6 +18,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -113,16 +114,15 @@
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
-        
+				        <%
+							LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+						%>
                         <div class="content_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->
                                 <div class="location">
                                     <ul>
-                                        <li><a class="home" href="">Home</a></li>
+                                        <li><a class="home" href="/ebt_webapp/uat/uia/actionMain.do">Home</a></li>
                                         <li><a href="">알림정보</a></li>
                                         <li><c:out value='${result.bbsNm}'/></li>
                                     </ul>
@@ -220,8 +220,10 @@
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a><!-- 삭제 -->
                                             </c:if>
-                                            <c:if test="${result.replyPosblAt == 'Y'}">
-                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
+                                            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+	                                            <c:if test="${result.replyPosblAt == 'Y'}">
+	                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
+	                                            </c:if>
                                             </c:if>
                                         </div>
 

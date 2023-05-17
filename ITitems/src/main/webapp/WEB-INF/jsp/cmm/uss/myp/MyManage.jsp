@@ -38,18 +38,12 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnListPage(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.userManageVO.action = "<c:url value='/cmm/main/mainPage.do'/>";
     document.userManageVO.submit();
 }
-function fnDeleteUser(checkedIds) {
-    if(confirm("<spring:message code="common.delete.msg" />")){
-        document.userManageVO.checkedIdForDel.value=checkedIds;
-        document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
-        document.userManageVO.submit(); 
-    }
-}
+
 function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
+    document.userManageVO.action = "<c:url value='/uss/myp/EgovUserMyPasswordUpdtView.do'/>";
     document.userManageVO.submit();
 }
 function fnUpdate(){
@@ -224,7 +218,7 @@ function fn_egov_modal_remove() {
 											<!-- 저장 -->
 											<a href="<c:url value='/cmm/main/mainPage.do'/>"
 												class="btn btn_blue_46 w_100"
-												onclick="fnListPage(); return false;">이전</a>
+												onclick="fnListPage(); return false;">메인으로</a>
 											<!-- 목록 -->
 										</div>
 									</div>

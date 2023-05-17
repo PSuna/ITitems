@@ -57,5 +57,13 @@ public interface ApprovalManageService {
 
 	public void xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
+	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception;
+
+	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception;
+
+	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
+
+	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
+
 
 }

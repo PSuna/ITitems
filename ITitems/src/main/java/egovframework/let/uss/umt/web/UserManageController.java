@@ -4,17 +4,21 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -80,7 +84,7 @@ public class UserManageController {
 	 */
 	@RequestMapping(value = "/uss/umt/user/EgovUserManage.do")
 	public String selectUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, 
-								 ModelMap model, 
+								 ModelMap model,
 								 HttpServletRequest request) throws Exception {
 
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
@@ -93,8 +97,6 @@ public class UserManageController {
         	return "uat/uia/EgovLoginUsr";
     	}
     	
-		/** EgovPropertyService */
-		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
 
 		/** paging */
@@ -220,7 +222,7 @@ public class UserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserInsert.do")
-	public String insertUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, 
+	public String insertUser(@ModelAttribute("userManageVO") @Valid UserManageVO userManageVO, Errors errors,
 							@ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
 							Model model) throws Exception {
 		
@@ -234,6 +236,23 @@ public class UserManageController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
+		if (errors.hasErrors()) {
+			ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+			//직급코드를 코드정보로부터 조회 - COM002 
+			vo.setCodeId("COM002");
+			model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+
+			//조직정보를 조회 - ORGNZT_ID정보
+			vo.setTableNm("LETTNORGNZTINFO");
+			model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+
+			//권한정보를 조회
+			authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
+	        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+			
+			return "cmm/uss/umt/EgovUserInsert";
+		}
 		userManageService.insertUser(userManageVO);
 		model.addAttribute("resultMsg", "success.common.insert");
 		
@@ -391,13 +410,14 @@ public class UserManageController {
 	 * @param commandMap 파라메터전달용 commandMap
 	 * @param userSearchVO 검색조 건
 	 * @param userManageVO 사용자수정정보(비밀번호)
-	 * @return cmm/uss/umt/EgovUserPasswordUpdt
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/uss/umt/user/EgovUserPasswordUpdt.do")
 	public String updatePassword(ModelMap model, @RequestParam Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
 			@ModelAttribute("userManageVO") UserManageVO userManageVO) throws Exception {
 
+		String id = userManageVO.getUniqId();
+		
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -443,7 +463,7 @@ public class UserManageController {
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("resultMsg", resultMsg);
 
-		return "cmm/uss/umt/EgovUserPasswordUpdt";
+		return "forward:/uss/umt/user/EgovUserSelectUpdtView.do?selectedId="+id;
 	}
 
 	/**
@@ -473,5 +493,5 @@ public class UserManageController {
 		model.addAttribute("userSearchVO", userSearchVO);
 		return "cmm/uss/umt/EgovUserPasswordUpdt";
 	}
-
+	
 }

@@ -1,11 +1,14 @@
 package egovframework.let.uss.myp.web;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageService;
 import egovframework.let.uss.umt.service.UserManageVO;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 /**
  * 마이페이지 관련 요청을 비지니스 클래스로 전달하고 처리된 결과를 해당 웹화면으로 전달하는 Controller를 정의한다
@@ -63,9 +67,6 @@ public class MyManageController {
 								 @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
 								 HttpServletRequest request,
 								 Model model) throws Exception{
-		
-    	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
-    	request.getSession().setAttribute("baseMenuNo", "2000000");
 		
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -117,5 +118,95 @@ public class MyManageController {
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
 		return "forward:/cmm/main/mainPage.do";
+	}
+	
+	/**
+	 * 업무사용자 암호 수정  화면 이동
+	 * @param model 화면모델
+	 * @param commandMap 파라메터전달용 commandMap
+	 * @param userSearchVO 검색조건
+	 * @param userManageVO 사용자수정정보(비밀번호)
+	 * @return cmm/uss/umt/EgovUserPasswordUpdt
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/uss/myp/EgovUserMyPasswordUpdtView.do")
+	public String EgovUserMyPasswordUpdtView(ModelMap model, @RequestParam Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
+			@ModelAttribute("userManageVO") UserManageVO userManageVO) throws Exception {
+
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+
+		String userTyForPassword = (String) commandMap.get("userTyForPassword");
+		userManageVO.setUserTy(userTyForPassword);
+
+		model.addAttribute("userManageVO", userManageVO);
+		model.addAttribute("userSearchVO", userSearchVO);
+		return "cmm/uss/myp/MyPassUpdt";
+	}
+	
+	/**
+	 * 업무사용자 암호 수정처리 후 화면 이동
+	 * @param model 화면모델
+	 * @param commandMap 파라메터전달용 commandMap
+	 * @param userSearchVO 검색조 건
+	 * @param userManageVO 사용자수정정보(비밀번호)
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/uss/myp/EgovMyPasswordUpdt.do")
+	public String EgovMyPasswordUpdt(ModelMap model, @RequestParam Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
+			@ModelAttribute("userManageVO") UserManageVO userManageVO) throws Exception {
+
+		String id = userManageVO.getUniqId();
+		
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+
+		String oldPassword = (String) commandMap.get("oldPassword");
+		String newPassword = (String) commandMap.get("newPassword");
+		String newPassword2 = (String) commandMap.get("newPassword2");
+		String uniqId = (String) commandMap.get("uniqId");
+
+		boolean isCorrectPassword = false;
+		UserManageVO resultVO = new UserManageVO();
+		userManageVO.setPassword(newPassword);
+		userManageVO.setOldPassword(oldPassword);
+		userManageVO.setUniqId(uniqId);
+
+		String resultMsg = "";
+		resultVO = userManageService.selectPassword(userManageVO);
+		//패스워드 암호화
+		String encryptPass = EgovFileScrty.encryptPassword(oldPassword, userManageVO.getEmplyrId());
+		if (encryptPass.equals(resultVO.getPassword())) {
+			if (newPassword.equals(newPassword2)) {
+				isCorrectPassword = true;
+			} else {
+				isCorrectPassword = false;
+				resultMsg = "fail.user.passwordUpdate2";
+			}
+		} else {
+			isCorrectPassword = false;
+			resultMsg = "fail.user.passwordUpdate1";
+		}
+
+		if (isCorrectPassword) {
+			userManageVO.setPassword(EgovFileScrty.encryptPassword(newPassword, userManageVO.getEmplyrId()));
+			userManageService.updatePassword(userManageVO);
+			model.addAttribute("userManageVO", userManageVO);
+			resultMsg = "success.common.update";
+		} else {
+			model.addAttribute("userManageVO", userManageVO);
+		}
+		model.addAttribute("userSearchVO", userSearchVO);
+		model.addAttribute("resultMsg", resultMsg);
+
+		return "forward:/uss/myp/MyManage.do?=uniqId"+id;
 	}
 }

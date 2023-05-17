@@ -1,5 +1,7 @@
 package egovframework.let.uss.umt.service;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
+
 /**
  * 업무사용자VO클래스로서 업무사용자관리 비지니스로직 처리용 항목을 구성한다.
  * @author 영남사업부 천세훈
@@ -62,10 +64,12 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * 사용자 ID
 	 */
+	@NotEmpty(message="사용자ID는 필수 입력값 입니다.")
 	private String emplyrId;
 	/**
 	 * 사용자 명
 	 */
+	@NotEmpty(message="사용자명은 필수 입력값 입니다.")
 	private String emplyrNm;
 	/**
 	 * 사용자 상태
@@ -118,10 +122,12 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * 조직 ID
 	 */
+	@NotEmpty(message="부서는 필수 입력값 입니다.")
 	private String orgnztId;
 	/**
 	 * 직급 ID
 	 */
+	@NotEmpty(message="직급은 필수 입력값 입니다.")
 	private String grade;
 	/**
 	 * 비밀번호
@@ -160,6 +166,7 @@ public class UserManageVO extends UserDefaultVO{
 	
 	private String mberTyCode;
 	
+	@NotEmpty(message="권한은 필수 입력값 입니다.")
 	private String authorCode;
 	
 	/**

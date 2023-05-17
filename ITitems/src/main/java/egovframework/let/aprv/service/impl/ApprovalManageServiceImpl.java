@@ -113,4 +113,24 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 			throw e;
 		}
 	}
+
+	@Override
+	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception {
+		return approvalManageDAO.selectHighApprovalListTotCntB(approvalSearchVO);
+	}
+
+	@Override
+	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception {
+		return approvalManageDAO.selectApprovalListTotCntB(approvalSearchVO);
+	}
+
+	@Override
+	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception {
+		return approvalManageDAO.selectHighApprovalListB(approvalSearchVO);
+	}
+
+	@Override
+	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception {
+		return approvalManageDAO.selectApprovalListB(approvalSearchVO);
+	}
 }
