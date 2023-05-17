@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-<title>사이트관리 > 카테고리관리 > 카테고리목록관리</title>
+<title>ITITEMS 자산관리솔루션</title>
 <script type="text/javaScript">
 <!-- 
 var imgpath = "<c:url value='/'/>images/";
@@ -68,12 +68,12 @@ function fnSetUpperCat(){
 						fnSetLowerCat(this);
 					};
 					var btnDiv = document.createElement('div');
-					var upBtn = document.createElement('button');
+					/* var upBtn = document.createElement('button');
 					upBtn.innerHTML = '△';
 					upBtn.setAttribute('class', 'catDelBtn');
 					var downBtn = document.createElement('button');
 					downBtn.innerHTML = '▽';
-					downBtn.setAttribute('class', 'catDelBtn');
+					downBtn.setAttribute('class', 'catDelBtn'); */
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
@@ -81,8 +81,8 @@ function fnSetUpperCat(){
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					};
-					btnDiv.appendChild(upBtn);
-					btnDiv.appendChild(downBtn);
+					/* btnDiv.appendChild(upBtn);
+					btnDiv.appendChild(downBtn); */
 					btnDiv.appendChild(delBtn);
 					upperLi.appendChild(btnDiv);
 					document.getElementById('upperUl').appendChild(upperLi);
@@ -118,12 +118,12 @@ function fnSetLowerCat(e){
 					lowerLi.setAttribute('class', 'lowerLi');
 					lowerLi.textContent = res.catName;
 					var btnDiv = document.createElement('div');
-					var upBtn = document.createElement('button');
+					/* var upBtn = document.createElement('button');
 					upBtn.innerHTML = '△';
 					upBtn.setAttribute('class', 'catDelBtn');
 					var downBtn = document.createElement('button');
 					downBtn.innerHTML = '▽';
-					downBtn.setAttribute('class', 'catDelBtn');
+					downBtn.setAttribute('class', 'catDelBtn'); */
 					var delBtn = document.createElement('button');
 					delBtn.innerHTML = 'X';
 					delBtn.setAttribute('id', res.catId);
@@ -131,8 +131,8 @@ function fnSetLowerCat(e){
 					delBtn.onclick = function(){
 						fnDeleteCat(this);
 					}
-					btnDiv.appendChild(upBtn);
-					btnDiv.appendChild(downBtn);
+					/* btnDiv.appendChild(upBtn);
+					btnDiv.appendChild(downBtn); */
 					btnDiv.appendChild(delBtn);
 					lowerLi.appendChild(btnDiv);
 					document.getElementById('lowerUl').appendChild(lowerLi)
@@ -147,6 +147,11 @@ function fnSetLowerCat(e){
  * 대분류 추가 함수
  ******************************************************** */
 function fnUpperInsertCat(){
+	if(!document.getElementById('upperCatName').value){
+		alert("대분류명을 입력해주세요.");
+		document.getElementById('upperCatName').focus();
+		return;
+	}
 	var catName = document.getElementById('upperCatName').value;
 	$.ajax({
 		url: "${pageContext.request.contextPath}/cat/InsertCategory.do",
@@ -168,6 +173,11 @@ function fnUpperInsertCat(){
  * 중분류 추가 함수
  ******************************************************** */
 function fnLowerInsertCat(){
+	if(!document.getElementById('lowerCatName').value){
+		alert("중분류명을 입력해주세요.");
+		document.getElementById('lowerCatName').focus();
+		return;
+	}
 	var catName = document.getElementById('lowerCatName').value;
 	var upperCat = document.getElementById('settedUpper').value;
 	var setLow = document.createElement('input');
@@ -307,8 +317,8 @@ function fnDeleteCat(e){
 										<div class="catInputBox">
 											<label for="upperCatName" class="catInLabel">대분류명 : </label>
 											<input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
-											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">추가</a>
-											<a href="#LINK" id="upperCatSave" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">저장</a>
+											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
+											<!-- <a href="#LINK" id="upperCatSave" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">저장</a> -->
 										</div>
 									</div>
 									<div class="lowerCat">
@@ -320,8 +330,8 @@ function fnDeleteCat(e){
 										<div class="catInputBox">
 											<label for="lowerCatName" class="catInLabel">중분류명 : </label>
 											<input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
-											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">추가</a>
-											<a href="#LINK" id="lowerCatSave" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">저장</a>
+											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
+											<!-- <a href="#LINK" id="lowerCatSave" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">저장</a> -->
 										</div>
 									</div>
 								</div>
