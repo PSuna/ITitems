@@ -75,18 +75,19 @@ function MakePhotoList(obj){
 //이미지 삭제
 function delfileList(obj,file) {
 	$(obj).closest(".photobox").remove();
-	if(file.name != null && file.name != "" ){
-		for (let i = 0; i < photoFileList.length; i++) {
-			if (photoFileList[i].name == file.name) {
-				photoFileList.splice(i, 1);
-			}
+	for (let i = 0; i < photoFileList.length; i++) {
+		if (photoFileList[i].name == file.name) {
+			photoFileList.splice(i, 1);
 		}
 	}
-	console.log(file.streFileNm);
-	if(file.streFileNm != null && file.streFileNm != "" ){
-		 delPhotoList += "/" + file.streFileNm;
-	}
-	console.log(delPhotoList);
+}
+
+// 기존파일 삭제
+function addDelPhoto(obj,fileId) {
+	$(obj).closest(".photobox").remove();
+	 if(fileId != null && fileId != ""){
+	 	delPhotoList += fileId + "/";
+	 }
 }
 
 // 파일들을 원하는 input에 담기
@@ -97,6 +98,8 @@ function inputFile() {
 	});
 	$('input[name=photo]')[0].files = dataTransfer.files; 
 }
+
+
 
 // 삭제할 파일 목록 input에 담기
 function getDelPhotoList() {

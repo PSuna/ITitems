@@ -348,30 +348,38 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetUpdate.do")
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, String fileNm, String delPhoto) throws Exception {
 
-//		assetService.UpdateAssetInfo(assetInfoVO);
-//		assetService.UpdateAssetHist(assetHistVO);
+		assetService.UpdateAssetInfo(assetInfoVO);
+		assetService.UpdateAssetHist(assetHistVO);
 		
-		System.out.println(">>>>>>> fileNm >>>>>>>>>  " + fileNm);
-		System.out.println(">>>>>>> delPhoto >>>>>>>>>  " + delPhoto);
-		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
-		photos.put("photo", multiRequest.getFile("photo"));
+		String[] delPhotoList = delPhoto.split("/");
+		
 		FileVO fvo = new FileVO();
-		
-		if (!photos.isEmpty()) {
-			fvo.setFileType("PHOTO");
-//			fileMngService.updateFileUse(fvo);
-//			List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
-//			fileMngService.insertFileInfs(result);
+		for(String photoId : delPhotoList) {
+			fvo.setAtchFileId(photoId);
+			fileMngService.updateFileListUse(fvo);
 		}
-		
-		fvo.setFileGroup(assetInfoVO.getAssetId());
+		List<MultipartFile> photoList = multiRequest.getFiles("photo");
+		for(MultipartFile photo : photoList) {
+			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
+			photos.put("photo", photo);
+			if (!photos.isEmpty()) {
+				List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+				fileMngService.insertFileInfs(result);
+			}
+		}
+		if(fileNm == null || fileNm == "") {
+			fvo.setFileGroup(assetInfoVO.getAssetId());
+			fileMngService.updateFileUse(fvo);
+		}
 		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
 		files.put("file", multiRequest.getFile("file"));
+		System.out.println(">>>>> files >>>>>>  " + files);
+		System.out.println(">>>>> fileNm >>>>>>  " + fileNm);
 		if (!files.isEmpty()) {
-			fvo.setFileType("FILE");
-//			fileMngService.updateFileUse(fvo);
-//			List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
-//			fileMngService.insertFileInfs(result);
+			fvo.setFileGroup(assetInfoVO.getAssetId());
+			fileMngService.updateFileUse(fvo);
+			List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+			fileMngService.insertFileInfs(result);
 		}
 		
 		

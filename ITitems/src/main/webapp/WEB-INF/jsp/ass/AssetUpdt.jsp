@@ -58,10 +58,21 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
 function UpdateAsset(){
 	inputFile();
 	getDelPhotoList();
-	console.log(delPhotoList);
-    /* document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
-    document.AssetUpdt.submit(); */ 
-		  
+    let formData = new FormData(document.getElementById('AssetUpdt'));
+	   $.ajax({
+		url: '${pageContext.request.contextPath}/ass/AssetUpdate.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			UpdtSuccess();
+		},
+		error: function (error) {
+			UpdtFail();
+		}
+	})      
 }
 
 /* ********************************************************
@@ -92,6 +103,49 @@ function UpdateAsset(){
 	 if(val){
 		 UpdateAsset();
 	 }	  
+}
+
+/* ********************************************************
+ * 수정완료 팝업창
+ ******************************************************** */
+ function UpdtSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+	 fn_egov_modal_remove();
+	 document.subForm.submit();
+
+}
+
+/* ********************************************************
+ * 수정실패 팝업창
+ ******************************************************** */
+ function UpdtFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 400
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
 }
 
 /* ********************************************************
@@ -386,7 +440,9 @@ function FileManual(){
  function getFileName(obj) {
 	 if(obj.files.length>0){
 		 $('#fileNm').val(obj.files[0].name);
-		 $('input[name=file]')[0].files = obj.files;
+		 const dataTransfer = new DataTransfer();
+		 dataTransfer.items.add(obj.files[0]);
+		 $('input[name=file]')[0].files = dataTransfer.files; 
 		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
 			 delFileName();
 			}));
@@ -683,7 +739,7 @@ window.onload = function(){
 														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
 															<div class="photobox">
 																<div class="boxBtn">
-																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delfileList(this,'${photo}');">
+																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="addDelPhoto(this,'${photo.atchFileId}')">
 																</div>
 																<div class="boxImg">
 																	<img alt="" src="/uploadFile/${photo.streFileNm}">
@@ -710,9 +766,7 @@ window.onload = function(){
 												<td colspan="4">
 												
 													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10">
-														${resultVO.carryReason}
-													</textarea>
+														class="f_txtar w_full h_200" cols="30" rows="10">${resultVO.carryReason}</textarea>
 												</td>
 											</tr>
 										</table>
@@ -731,6 +785,10 @@ window.onload = function(){
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form:form>
+								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
+									<input type="hidden" name="assetId"
+										value="<c:out value='${resultVO.assetId}'/>" />
+								</form>
 							</div>
 						</div>
 					</div>

@@ -58,7 +58,7 @@
 						<h4><spring:message code="fail.common.msg" /></h4>
 						<!-- 버튼  -->
 						<div class="board_view_bot">
-							<div class="right_btn btn1">
+							<div class="btn1">
 							<!-- 확인  -->
 								<a href="#LINK" class="btn btn_blue_46 w_100"
 									onclick="fn_egov_cancel_popup();return false;"><spring:message

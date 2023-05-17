@@ -277,14 +277,13 @@ function fntrsfExcel(){
 									<table>
 										<colgroup>
 											<col style="width: 5%;">
-											<col style="width: 11%;">
-											<col style="width: 11%;">
-											<col style="width: 17%;">
-											<col style="width: 8%;">
-											<col style="width: 15%;">
 											<col style="width: 12%;">
-											<col style="width: 11%;">
-											<col style="width: 10%;">
+											<col style="width: 12%;">
+											<col style="width: 19%;">
+											<col style="width: 9%;">
+											<col style="width: 18%;">
+											<col style="width: 13%;">
+											<col style="width: 12%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -296,7 +295,6 @@ function fntrsfExcel(){
 												<th scope="col">프로젝트</th>
 												<th scope="col">등록일자</th>
 												<th scope="col">상태</th>
-												<th scope="col">결재</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -318,7 +316,6 @@ function fntrsfExcel(){
 													<td><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.regDate}" /></td>
 													<td><c:out value="${result.usageStatus}" /></td>
-													<td><c:out value="${result.approval}" /></td>
 												</tr>
 											</c:forEach>
 										</tbody>

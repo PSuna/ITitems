@@ -37,11 +37,6 @@
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
 	}
-
-	function return_val(val) {
-
-		parent.parent.returnConfirm(val);
-	}
 	
 </script>
 </head>
@@ -55,22 +50,19 @@
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
 				<div class="pop_header">
-					<h1>수정확인</h1>
+					<h1>수정실패</h1>
 				</div>
 				<div class="pop_container">
 					<div class="pop_check">
-						<h4><spring:message code="common.update.msg" /></h4>
+						<h4><spring:message code="fail.common.update" /></h4>
+						<h4><spring:message code="fail.common.msg" /></h4>
 						<!-- 버튼  -->
 						<div class="board_view_bot">
 							<div class="btn1">
-								<!-- 예  -->
+							<!-- 확인  -->
 								<a href="#LINK" class="btn btn_blue_46 w_100"
-									onclick="return_val(true);return false;"><spring:message
-										code="button.yes" /></a>
-								<!-- 아니오  -->
-								<a href="#LINK" class="btn btn_blue_46 w_100"
-									onclick="return_val(false);return false;"><spring:message
-										code="button.no" /></a>
+									onclick="fn_egov_cancel_popup();return false;"><spring:message
+										code="button.confirm" /></a>
 							</div>
 						</div>
 						<!-- // 버튼 끝  -->

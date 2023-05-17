@@ -13,20 +13,14 @@
 			<field property="place" depends="required">
         		<arg0 key="사용장소" resource="false"/>
 			</field>
-			<field property="pm" depends="required">
+			<field property="pmNm" depends="required">
         		<arg0 key="PM" resource="false"/>
 			</field>
 			<field property="startDate" depends="required">
-        		<arg0 key="사용기간" resource="false"/>
+        		<arg0 key="사용기간(시작일)" resource="false"/>
 			</field>
 			<field property="endDate" depends="required">
-        		<arg0 key="사용기간" resource="false"/>
-			</field>
-			<field property="middleCategory" depends="required">
-        		<arg0 key="분류" resource="false"/>
-			</field>
-			<field property="reqQty" depends="required">
-        		<arg0 key="수량" resource="false"/>
+        		<arg0 key="사용기간(종료일)" resource="false"/>
 			</field>
 		</form>
     </formset>

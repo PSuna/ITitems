@@ -193,3 +193,45 @@
 .board_view_bot {
 	overflow: hidden;
 }
+
+.f_s_21 {
+	font-size: 21px;
+}
+
+.f_s_15{
+	font-size: 15px;
+}
+
+.btn_rel{
+	position: relative;
+}
+
+.btn_rel .btn1{
+	position: absolute;
+	top: 10px;
+	right: 5%;
+	width: 15%;
+	height: 20%;
+}
+
+.btn_rel .btn{
+	width: 100%;
+	opacity: 0.9;
+    cursor: pointer;
+    height: 100%;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 40px;
+    text-align: center;
+    background: #ff6600;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.approvalList .board_view2 td{
+	padding: 5px 0;
+    border-bottom: 1px solid #dde2e5;
+    color: #666;
+    text-align: center;
+}

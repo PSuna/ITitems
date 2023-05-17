@@ -117,7 +117,7 @@ function insert_asset(){
 	    	autoOpen: false,
 	        modal: true,
 	        width: 600,
-	        height: 400
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -130,11 +130,12 @@ function insert_asset(){
 	
 	if(val){
 		fn_egov_modal_remove();
-		  $('form').each(function() {
-		      this.reset();
-		  });
-		  $(".photoList").children().remove();
-		  removeP();
+	    $('form').each(function() {
+	        this.reset();
+	    });
+	    $(".photoList").children().remove();
+	    removeP();
+	    $('#fileNm').closest(".filebox").find('img')[0].remove();
 		document.assetRegist.largeCategory.focus(); 
 	}else{
 		document.MyAssetManagement.submit(); 
@@ -445,7 +446,9 @@ function alertValid(objList) {
  function getFileName(obj) {
 	 if(obj.files.length>0){
 		 $('#fileNm').val(obj.files[0].name);
-		 $('input[name=file]')[0].files = obj.files;
+		 const dataTransfer = new DataTransfer();
+		 dataTransfer.items.add(obj.files[0]);
+		 $('input[name=file]')[0].files = dataTransfer.files; 
 		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
 			 delFileName();
 			}));

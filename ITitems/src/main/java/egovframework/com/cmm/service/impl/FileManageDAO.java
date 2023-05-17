@@ -213,4 +213,12 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	public int updateFileUse(FileVO vo) {
 		return update("FileManageDAO.updateFileUse", vo);
 	}
+	
+	/**
+   	 * 이미지 사용 안함 복수처리 
+   	 *
+   	 */
+    public int updateFileListUse(FileVO vo) {
+    	return update("FileManageDAO.updateFileListUse", vo);
+    }
 }
