@@ -19,7 +19,6 @@
 		          </if>
 		          RCPT_ID, 
 		          CARRY_REASON,
-		          APPROVAL,
 		          HIST_GROUP
 		      )
 		VALUES (
@@ -35,7 +34,6 @@
 		          </if>
 		          #{rcptId}, 
 		          #{carryReason},
-		          #{approval},
 		          #{histGroup}
 		       )
 	</insert>
@@ -46,8 +44,10 @@
 		   SET
 			ORGNZT_ID = #{orgnztId}, 
 			PRJ_ID = #{prjId}, 
-			USE_ID = #{useId},   
+			USE_ID = #{useId},
+			<if test="rcptDate != null and rcptDate != ''">
 			RCPT_DATE = #{rcptDate},
+			</if>
 			RCPT_ID = #{rcptId}, 
 			CARRY_REASON = #{carryReason}
 		 WHERE ASSET_ID = #{assetId}

@@ -130,4 +130,11 @@ public interface EgovFileMngService {
    	 *
    	 */
     public int updateFileUse(FileVO vo);
+    
+    /**
+   	 * 이미지 사용 안함 복수처리 
+   	 *
+   	 */
+    public int updateFileListUse(FileVO vo);
+    
 }

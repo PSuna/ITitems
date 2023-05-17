@@ -14,7 +14,6 @@
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
-		<result property="approval" column="APPROVAL" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -27,7 +26,6 @@
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
-		<result property="approval" column="APPROVAL" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -124,8 +122,7 @@
 	    	   ACQUIRED_DATE,
 	    	   ACQUIRED_PRICE,
 	    	   REG_DATE,
-	    	   USAGE_STAUTS,
-	    	   APPROVAL
+	    	   USAGE_STAUTS
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
@@ -137,8 +134,7 @@
 					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
 					A.ACQUIRED_PRICE, 
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					E.CODE_NM AS USAGE_STAUTS,
-					F.CODE_NM AS APPROVAL
+					E.CODE_NM AS USAGE_STAUTS
 				  FROM ASSETSINFO A
 				  LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
@@ -177,8 +173,7 @@
 	    	   ASSET_QTY, 
 	    	   PRJ_ID,
 	    	   REG_DATE,
-	    	   USAGE_STAUTS,
-	    	   APPROVAL
+	    	   USAGE_STAUTS
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
@@ -189,8 +184,7 @@
 					A.ASSET_QTY,
 					G.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					E.CODE_NM AS USAGE_STAUTS,
-					F.CODE_NM AS APPROVAL
+					E.CODE_NM AS USAGE_STAUTS
 				  FROM ASSETSINFO A
 				  LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
@@ -310,11 +304,13 @@
 		    ASSET_SN = #{assetSn},
 		    MAKER = #{maker},  
 		    NOTE = #{note},
-		    ACQUIRED_DATE = #{acquiredDate}, 
+		    <if test="acquiredDate != null and acquiredDate != ''">
+		    ACQUIRED_DATE = STR_TO_DATE(#{acquiredDate}, '%Y-%m-%d'), 
+		    </if>
 		    ACQUIRED_PRICE = #{acquiredPrice}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
-	
+	 
 	<select id="xlsxTrsfAssetList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="egovMap">
@@ -327,8 +323,7 @@
 	    	   IFNULL(ACQUIRED_DATE,'') ACQUIRED_DATE,
 	    	   IFNULL(ACQUIRED_PRICE,'') ACQUIRED_PRICE,
 	    	   IFNULL(REG_DATE,'') REG_DATE,
-	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS,
-	    	   IFNULL(APPROVAL, '') APPROVAL
+	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.ACQUIRED_DATE DESC, A.REG_DATE DESC)AS RUM,
@@ -340,8 +335,7 @@
 					DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
 					A.ACQUIRED_PRICE, 
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					E.CODE_NM AS USAGE_STAUTS,
-					F.CODE_NM AS APPROVAL
+					E.CODE_NM AS USAGE_STAUTS
 				  FROM ASSETSINFO A
 				  LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
@@ -365,8 +359,7 @@
 	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
 	    	   IFNULL(PRJ_ID, '') PRJ_ID,
 	    	   IFNULL(REG_DATE, '') REG_DATE,
-	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS,
-	    	   IFNULL(APPROVAL, '') APPROVAL
+	    	   IFNULL(USAGE_STAUTS,'') USAGE_STAUTS
 	      FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					   C.CAT_NAME AS LARGE_CATEGORY, 
 					   D.CAT_NAME AS MIDDLE_CATEGORY,
@@ -374,8 +367,7 @@
 					   A.ASSET_QTY,
 					   G.PRJ_NAME AS PRJ_ID,
 					   DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					   E.CODE_NM AS USAGE_STAUTS,
-					   F.CODE_NM AS APPROVAL
+					   E.CODE_NM AS USAGE_STAUTS
 				  FROM ASSETSINFO A
 	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID

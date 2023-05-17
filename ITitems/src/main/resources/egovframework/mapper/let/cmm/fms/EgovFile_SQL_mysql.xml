@@ -240,20 +240,24 @@
  		   SET
  			A.USE_AT = 'N'
  		WHERE 
- 			A.ATCH_FILE_ID IN ( SELECT 
+ 			A.ATCH_FILE_ID = ( SELECT 
  									B.ATCH_FILE_ID
- 								FROM
+ 								 FROM
  									LETTNFILEDETAIL B
- 								<where>
-									<if test="fileGroup != null and fileGroup != ''">
-									 AND
-										B.FILE_GROUP = #{fileGroup}
-									</if>
-									<if test="fileType != null and fileType != ''">
-									 AND
-										B.FILE_TYPE = #{fileType}	
-									</if>
-								</where>
+ 							    WHERE
+									B.FILE_GROUP = #{fileGroup}
+								  AND
+									B.FILE_TYPE = 'FILE'
  								)
  	</update>
+ 	
+ 	<update id="updateFileListUse" parameterType="FileVO">
+ 		UPDATE 
+ 			LETTNFILE A
+ 		   SET
+ 			A.USE_AT = 'N'
+ 		WHERE 
+ 			A.ATCH_FILE_ID = #{atchFileId}
+ 	</update>
+ 	
 </mapper>

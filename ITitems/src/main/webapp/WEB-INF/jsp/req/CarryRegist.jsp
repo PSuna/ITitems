@@ -46,7 +46,8 @@
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
-let tdClone;
+let trClone;
+let addtrClone;
 var userCheck = 0;
 var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 /* ********************************************************
@@ -161,9 +162,30 @@ function insertApproval(reqId){
 /* ********************************************************
  * 자산 입력 폼 추가
  ******************************************************** */
-function addTd() {
-	 let td = tdClone.cloneNode(true);
-	 document.querySelector('.assetlist tbody').appendChild(td); 
+function addTr(num) {
+	for(let i=0; i<num; i++){
+	 let tr = $(trClone).clone(true);
+	 let a = $('<a/>').addClass('btn').text('-').on('click',function(){
+		 delTr(this);
+	 });
+	 let btn = $('<div/>').addClass('btn1').append(a);
+	 $(tr).children('td').last().append(btn);
+	 $('#clonehere tr').last().before(tr);
+	 if($('#clonehere').children('tr').length == 11){
+		 $('#clonehere tr').last().remove();
+		 return;
+	 }
+	}
+}
+
+/* ********************************************************
+ * 자산 입력 폼 삭제
+ ******************************************************** */
+function delTr(obj) {
+	if($('#clonehere').children('tr').length == 10){
+		 $('#clonehere').append(addtrClone);
+	 }
+	 $(obj).closest('tr').remove();
 }
 
 /* ********************************************************
@@ -184,7 +206,7 @@ function getMCatList(Lcat) {
 	}else if (val == ""){
 		mCat.replaceChildren();
 		let label = document.createElement('label');
-		label.setAttribute('class', 'f_select');
+		label.setAttribute('class', 'f_select w_full');
 		let select = document.createElement('select');
 		select.setAttribute('id', 'middleCategory');
 		select.setAttribute('name', 'middleCategory');
@@ -202,7 +224,7 @@ function getMCatList(Lcat) {
 			success: function (result) {
 				mCat.replaceChildren();
 				let label = document.createElement('label');
-				label.setAttribute('class', 'f_select');
+				label.setAttribute('class', 'f_select w_full');
 				let select = document.createElement('select');
 				select.setAttribute('id', 'middleCategory');
 				select.setAttribute('name', 'middleCategory');
@@ -381,10 +403,43 @@ function make_date(){
 	     }         
 	     return n;
 	  }
+	  
+/* ********************************************************
+ * 유효성 체크
+ ******************************************************** */
+let typeList = ["input", "select"]
 
+function removeP() {
+	$(typeList).each(function(index, type){
+		$("#frm").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			if($(td).children().last().prop('tagName') == 'P'){
+				$(td).children().last().remove();
+			}
+		})
+	})
+}
+
+function alertValid(objList) {
+	removeP();
+	$(typeList).each(function(index, type){
+		$("#frm").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
+}
+
+/* ********************************************************
+ * onload
+ ******************************************************** */
 window.onload = function(){
-	let tdlist = document.querySelectorAll('.assetlist tbody tr');
-	tdClone = tdlist[tdlist.length-2].cloneNode(true);
+	addtrClone =  $('#clonehere tr').last().clone(true);
+	trClone = $('#clonehere tr').last().prev().clone(true);
 	make_date();
 	  }
 
@@ -443,6 +498,7 @@ window.onload = function(){
 									<h2 class="tit_2">반출 신청</h2>
 									<input name="reqGroup" value="C1" type="hidden"> <input
 										name="reqStatus" value="A0" type="hidden"> <br>
+									<h3> ■ 신청자정보</h3>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -519,23 +575,8 @@ window.onload = function(){
 											</tr>
 										</table>
 									</div>
-								<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-									<script type="text/javascript">
-											var maxFileNum = document.board.posblAtchFileNumber.value;
-											if (maxFileNum == null
-													|| maxFileNum == "") {
-												maxFileNum = 3;
-											}
-											var multi_selector = new MultiSelector(
-													document
-															.getElementById('egovComFileList'),
-													maxFileNum);
-											multi_selector
-													.addElement(document
-															.getElementById('egovComFileUploader'));
-										</script>
-								</c:if>
 								<br>
+								<h3> ■ 자산정보 <span class="f_s_15">(최대 10칸)</span></h3>
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
@@ -556,7 +597,7 @@ window.onload = function(){
 										</thead>
 										<tbody id='clonehere'>
 											<tr>
-												<td><label class="f_select" for="largeCategory">
+												<td><label class="f_select w_full" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
 														title="대분류" onchange="getMCatList(this);">
 															<option value="" label="대분류" />
@@ -571,7 +612,7 @@ window.onload = function(){
 												</label> <br>
 												<br>
 													<div id="mCat">
-														<label class="f_select" for="middleCategory"> <select
+														<label class="f_select w_full" for="middleCategory"> <select
 															id="middleCategory" name="middleCategory" title="중분류">
 																<option value='' label="중분류" selected="selected" />
 														</select>
@@ -581,60 +622,67 @@ window.onload = function(){
 													class="f_txt w_full" onchange="getNumber(this);" onkeyup="getNumber(this);"></td>
 												<td><input id="maker" name="maker" type="text"
 													class="f_txt w_full"></td>
-												<td><input id="user" name="user" type="text"
-													class="f_txt w_full"></td>
+												<td class="btn_rel"><input id="user" name="user" type="text"
+													class="f_txt w_full">	
+												</td>
 											</tr>
-										</tbody>
-										<tr>
+											<tr>
 											<td colspan="4">
 												<div class="right_btn btn1">
-													<!-- 입력칸 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_100"
-														onclick="addTd();">+</a>
+													<!-- 입력칸 1개 추가 -->
+													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
+														onclick="addTr(1);">+</a>
+													<!-- 입력칸 5개 추가 -->
+													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
+														onclick="addTr(5);">+ 5</a>
 												</div>
 											</td>
 										</tr>
+										</tbody>
 									</table>
 								</div>
-								<br><br>
-								<h2>결재자</h2>
+								<br>
 								<div class="approvalList">
-									<table class="board_view2 aprvlist"style="width:25%;">
+								<h3> ■ 결재정보</h3>
+									<table class="board_view2">
+										<colgroup>
+											<col style="width: 25%;">
+											<col style="width: 25%;">
+											<col style="width: 25%;">
+											<col style="width: 25%;">
+										</colgroup>
 										<thead>
 											<tr>
-												<th><label for=""></label></th>
+												<td>결재자1</td>
+												<td>결재자2</td>
+												<td>결재자3</td>
+												<td>결재자4</td>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td style="width:100%;" >
+												<td >
 													<span class="f_search2 w_100%">
 														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
 													<input name="aprv0" id="aprv0" type="hidden" title="결재자1ID" value="" />
 												</td>
-											</tr>
-											<tr>
-												<td style="width:100%;" >
+												<td>
 													<span class="f_search2 w_100%">
 														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
 													</span>
 													<input name="aprv1" id="aprv1" type="hidden" title="결재자1ID" value="" />
 												</td>
-											</tr>
-											<tr>
-												<td style="width:100%;" >
+												<td >
 													<span class="f_search2 w_100%">
 														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
 													</span>
 													<input name="aprv2" id="aprv2" type="hidden" title="결재자1ID" value="" />
 												</td>
-											</tr>
-											<tr>
-												<td style="width:100%;" >
+												<td >
 													<span class="f_search2 w_100%">
 														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>

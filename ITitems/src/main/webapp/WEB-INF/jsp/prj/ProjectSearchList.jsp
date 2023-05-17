@@ -25,6 +25,9 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -83,12 +86,14 @@ function fn_egov_search_Prj() {
                 <!--// 검색조건 -->
 
                 <!-- 게시판 -->
-                <div class="board_list">
+                <div class="board_list selete_table">
                     <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
                         <colgroup>
-                            <col style="width: 30%;">
-                            <col style="width: auto;">
-                            <col style="width: 150px;">
+                            <col style="width: 27%;">
+                            <col style="width: 27%;">
+                            <col style="width: 27%;">
+                            <col style="width: 27%;">
+                            <col style="width: 17%;">
                         </colgroup>
                         <thead>
                             <tr>
@@ -97,22 +102,16 @@ function fn_egov_search_Prj() {
                                 <th scope="col">PM(대표)</th>
                                 <th scope="col">고객사</th>
                                 <th scope="col">상태</th>
-                                <th scope="col"> </th>
                             </tr>
                         </thead>
                         <tbody>
                         	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
-                            <tr>
+                            <tr onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}');">
                                 <td>${resultInfo.prjName}</td>
                                 <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
                                 <td>${resultInfo.name} ${resultInfo.position}</td>
                                 <td>${resultInfo.client}</td>
                                 <td>${resultInfo.prjState}</td>
-                                <td>
-                                	<a href="#LINK" class="btn btn_blue_30 w_80" onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}');">
-                                		선택
-                                	</a>
-                                </td>
                             </tr>
                             </c:forEach>
                         </tbody>

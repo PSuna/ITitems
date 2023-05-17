@@ -109,6 +109,24 @@ public class CommonController {
 
 		return "/com/UpdtConfirm";
 	}
+	
+	/**
+	 * 수정완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtSuccess.do")
+	public String UpdtSuccess() throws Exception {
+
+		return "/com/UpdtSuccess";
+	}
+	
+	/**
+	 * 수정실패 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtFail.do")
+	public String UpdtFail() throws Exception {
+
+		return "/com/UpdtFail";
+	}
 
 	//사용자목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfUserList.do")
