@@ -79,9 +79,16 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	}
 
 	/**
-	 * 자산정보 엑셀 추출
+	 * 전체자산정보 엑셀 추출
 	 */
 	public List<EgovMap> xlsxTrsfAssetList(AssetManageVO assetManageVO) {
 		return selectList("AssetInfoDAO.xlsxTrsfAssetList", assetManageVO);
+	}
+
+	/*
+	 * 내자산정보 엑셀추출
+	 */
+	public List<EgovMap> xlsxTrsfMyAssList(AssetManageVO assetManageVO) {
+		return selectList("AssetInfoDAO.xlsxTrsfMyAssList", assetManageVO);
 	}
 }

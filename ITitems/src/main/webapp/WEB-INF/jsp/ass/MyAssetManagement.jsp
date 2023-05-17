@@ -170,6 +170,14 @@ function selectAsset(id) {
 	document.getElementById('subForm'+id).submit;
 }
 
+function fntrsfExcel(){
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 목록이 없습니다.")
+	}else{
+	    document.frm.action = "<c:url value='/com/xlsxTrsfMyAssList.do'/>";
+	    document.frm.submit();
+	}
+}
 
 </script>
 </head>
@@ -207,7 +215,7 @@ function selectAsset(id) {
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off">
 									<div class="condition2">
-										<input type="hidden" name="pageIndex">
+										<input type="hidden" name="pageIndex" value='1'>
 										<div class="pty_box01">
 											<div>
 												<span class="lb">프로젝트</span> 
@@ -316,8 +324,9 @@ function selectAsset(id) {
 										</tbody>
 									</table>
 									<c:if test="${empty resultList}">
-										<div class="empty"><h4><spring:message code="ass.null" /></h4></div>
+										<div class="empty" id="noData"><h4><spring:message code="ass.null" /></h4></div>
 									</c:if>
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 								</div>
 								<c:if test="${not empty resultList}">
 									<!-- 페이지 네비게이션 시작 -->

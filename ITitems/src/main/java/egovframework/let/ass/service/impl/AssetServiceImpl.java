@@ -143,11 +143,26 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			List<EgovMap> tmpList = assetInfoDAO.xlsxTrsfAssetList(assetManageVO);
 			ExcelUtil excelUtil = new ExcelUtil();
 			
-			System.out.println("tmpList>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+tmpList.get(2));
 			excelUtil.getxlsxDownload(title , tmpList , req, res);	
 		}catch(Exception e) {
 			throw e;
 		}
+	}
+
+
+	@Override
+	public void xlsxTrsfMyAssList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		String title = "자산관리솔루션 - 나의자산목록";
+		try {
+			List<EgovMap> tmpList = assetInfoDAO.xlsxTrsfMyAssList(assetManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
+		
 	}
 
 
