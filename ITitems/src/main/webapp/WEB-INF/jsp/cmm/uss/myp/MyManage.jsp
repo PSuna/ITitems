@@ -147,14 +147,15 @@ function fn_egov_modal_remove() {
 											</colgroup>
 											<tr>
 												<td class="lb"><label for="emplyrId">사용자ID</label></td>
+												<form:input path="authorCode" id="authorCode" type="hidden"/>
 												<td><form:input path="emplyrId" id="emplyrId"
 														class="f_txt w_full" maxlength="100" readonly="true"/>
 													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
 												</td>
 												<td class="lb"><label for="moblphonNo">H.P</label></td>
 												<td><form:input path="moblphonNo" id="moblphonNo"
-														class="f_txt w_full" maxlength="15" /> <form:errors
-														path="moblphonNo" /></td>
+														class="f_txt w_full" maxlength="15" placeholder="ex) 010-XXXX-XXXX"/><form:errors
+														path="moblphonNo"/></td>
 											</tr>
 											<tr>
 												<td class="lb">

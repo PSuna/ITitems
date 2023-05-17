@@ -143,7 +143,7 @@ function returnUser(val){
 												</td>
 												<td>
 													<span class="f_search2 w_30%"> 
-													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
+													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readOnly="true" />
 													<form:errors path="name" />
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
