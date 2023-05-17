@@ -16,6 +16,7 @@
 		<result property="grade" column="grade"/>
 		<result property="uniqId" column="uniqId"/>		
 		<result property="authorCode" column="authorCode"/>
+		<result property="authorNm" column="authorNm"/>
 	</resultMap>
 	
 	<!-- 아이디 찾기를 위한 resultMap 
@@ -42,8 +43,12 @@
                  , A.GRADE as grade
                  , A.ESNTL_ID AS uniqId
                  , B.AUTHOR_CODE AS authorCode
-              FROM LETTNEMPLYRINFO A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
+                 , C.AUTHOR_NM AS authorNm
+              FROM LETTNEMPLYRINFO A 
+   LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
+   LEFT OUTER JOIN LETTNAUTHORINFO C
+                ON B.AUTHOR_CODE = C.AUTHOR_CODE
              WHERE A.EMPLYR_ID = #{id}
                AND A.PASSWORD = #{password}
                AND A.EMPLYR_STTUS_CODE = 'P'

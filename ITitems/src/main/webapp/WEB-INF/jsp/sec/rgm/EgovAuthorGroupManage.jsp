@@ -5,9 +5,9 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2023.04.17    천세훈	선임		최초 생성
+     2023.04.17    천세훈		최초 생성
  
-    author   : 영남사업부 천세훈 선임
+    author   : 영남사업부 천세훈
     since    : 2023.04.17
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
@@ -32,7 +32,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>내부업무 사이트 > 내부시스템관리 > 사용자별권한관리</title>
+<title>Iteyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--

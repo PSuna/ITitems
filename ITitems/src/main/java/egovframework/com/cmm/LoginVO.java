@@ -57,6 +57,8 @@ public class LoginVO implements Serializable{
 	
 	private String authorCode;
 	
+	private String authorNm;
+	
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String
@@ -262,6 +264,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setAuthorCode(String authorCode) {
 		this.authorCode = authorCode;
+	}
+	public String getAuthorNm() {
+		return authorNm;
+	}
+	public void setAuthorNm(String authorNm) {
+		this.authorNm = authorNm;
 	}
 	
 }

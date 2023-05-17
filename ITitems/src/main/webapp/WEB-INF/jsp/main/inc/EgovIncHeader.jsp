@@ -5,10 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.10   천세훈       최초 생성
  
-    author   : 실행환경개발팀 JJY
-    since    : 2011.08.31 
+    author   : 영남사업부 천세훈
+    since    : 2023.04.10
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
@@ -70,8 +70,9 @@ function fn_egov_modal_remove() {
 		<% } else { %>
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
 			<c:set var="loginUniqId" value="<%= loginVO.getUniqId()%>"/>
+			<c:set var="loginAuthorNm" value="<%= loginVO.getAuthorNm()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span style="color:black; cursor:pointer;" onclick="javascript:fnMypage('${loginUniqId}')" >${loginName} 님</span> 안녕하세요</span>
+	            <span class="t"><span style="color:black; cursor:pointer;" onclick="javascript:fnMypage('${loginUniqId}')" >${loginName} 님</span>(${loginAuthorNm})</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
@@ -115,36 +116,46 @@ function fn_egov_modal_remove() {
 <div class="all_menu" id="">
     <div>
         <div class="inner">
-        	<div>
-                <h2>자산관리</h2>
-                <ul>
-                	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
-                		<li><a href="/ebt_webapp/ass/MyAssetManagement.do">내자산조회</a></li>
-                	</c:if>
-                	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-                    	<li><a href="/ebt_webapp/ass/AssetManagement.do">전체자산조회</a></li>
-                    </c:if>
-                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
-                    	<li><a href="/ebt_webapp/ass/AssetRegist.do">자산등록</a></li>
-                    </c:if>
-                    <li><a href="/ebt_webapp/ass/ReturnRequest.do">반출/반입신청조회</a></li>
-                </ul>
+        	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
+	        	<div>
+	                <h2 onclick="location.href='/ebt_webapp/ass/MyAssetManagement.do'" style="cursor:pointer">내자산조회</h2>
+	            </div>
+            </c:if>
+            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+            <div>
+                <h2 onclick="location.href='/ebt_webapp/ass/AssetManagement.do'" style="cursor:pointer">전체자산조회</h2>
+            </div>
+            </c:if>
+            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
+	            <div>
+	                <h2 onclick="location.href='/ebt_webapp/ass/AssetRegist.do'" style="cursor:pointer">신규자산등록</h2>
+	            </div>
+            </c:if>
+            <div>
+                <h2 onclick="location.href='/ebt_webapp/ass/ReturnRequest.do'" style="cursor:pointer">반출관리</h2>
             </div>
             <div>
-                <h2>알림정보</h2>
-                <ul>
-                    <li><a href="/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA">공지사항</a></li>
-                </ul>
+                <h2 onclick="location.href='/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'" style="cursor:pointer">공지사항</h2>
+            </div>
+            <div>
+                <h2 onclick="location.href='/ebt_webapp/aprv/ApprovalManage.do'" style="cursor:pointer">결재요청</h2>
             </div>
             <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
             <div class="admin" style="margin-left: 28px;">
                 <h2>사이트관리</h2>
                 <h3>사용자관리</h3>
                 <ul>
-                    <li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자관리</a></li>
-                    <li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
+                    <li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
+                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                    	<li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
+                    </c:if>
                 </ul>
-
+                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+					<h3>메뉴관리</h3>
+	                <ul>
+	                	<li><a href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+	                </ul>
+                </c:if>
                 <h3>카테고리관리</h3>
                 <ul>
                 	<li><a href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>

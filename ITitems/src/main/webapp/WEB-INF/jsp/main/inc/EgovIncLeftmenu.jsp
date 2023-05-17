@@ -5,10 +5,10 @@
 
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.10   천세훈       최초생성
 
-    author   : 실행환경개발팀 JJY
-    since    : 2011.08.31
+    author   : 영남사업부 천세훈
+    since    : 2023.04.10
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>

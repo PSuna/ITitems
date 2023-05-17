@@ -1,6 +1,6 @@
 <%--
   Class Name : SecAssetUpdt.jsp
-  Description : 자산수정 화면
+  Description : 사이트관리 > 자산수정 화면
   Modification Information
  
       수정일         수정자                   수정내용
