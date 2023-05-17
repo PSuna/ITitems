@@ -10,6 +10,7 @@
  *
  */
 let photoFileList = [];
+let delPhotoList = "";
 
 // 알람 지우기 
 function delAlert(obj){
@@ -74,11 +75,18 @@ function MakePhotoList(obj){
 //이미지 삭제
 function delfileList(obj,file) {
 	$(obj).closest(".photobox").remove();
-	for (let i = 0; i < photoFileList.length; i++) {
-		if (photoFileList[i].name == file.name) {
-			photoFileList.splice(i, 1);
+	if(file.name != null && file.name != "" ){
+		for (let i = 0; i < photoFileList.length; i++) {
+			if (photoFileList[i].name == file.name) {
+				photoFileList.splice(i, 1);
+			}
 		}
 	}
+	console.log(file.streFileNm);
+	if(file.streFileNm != null && file.streFileNm != "" ){
+		 delPhotoList += "/" + file.streFileNm;
+	}
+	console.log(delPhotoList);
 }
 
 // 파일들을 원하는 input에 담기
@@ -90,23 +98,11 @@ function inputFile() {
 	$('input[name=photo]')[0].files = dataTransfer.files; 
 }
 
-// 기존 파일 출력
-function getPhotoList(PhotoList){
-	console.log(PhotoList);
-	/*PhotoList.each(file,function(index, file){
-		let delBtn = $("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
-			delPhoto(this);
-		});
-		let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
-		let boxImg = $("<div/>").addClass("boxImg").append($("<img/>").attr("src","/uploadFile/"+file.streFileNm));
-		$(".photoList").append($("<div/>").addClass("photobox").append(boxBtn,boxImg));
-	})*/
+// 삭제할 파일 목록 input에 담기
+function getDelPhotoList() {
+	$('#delPhoto').val(delPhotoList);
 }
 
-// 기존파일 삭제
-function delPhoto(obj) {
-	$(obj).closest(".photobox").remove();
-}
 /*//img 비교해서 이미 표시된 이미지면 표시안함
 function matchfile(fileName) {
 	let check = true;
