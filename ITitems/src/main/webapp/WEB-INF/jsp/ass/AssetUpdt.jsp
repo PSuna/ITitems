@@ -56,9 +56,11 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  * 자산 수정 처리
  ******************************************************** */
 function UpdateAsset(){
-	
-    document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
-    document.AssetUpdt.submit(); 
+	inputFile();
+	getDelPhotoList();
+	console.log(delPhotoList);
+    /* document.AssetUpdt.action = "<c:url value='/ass/AssetUpdate.do'/>";
+    document.AssetUpdt.submit(); */ 
 		  
 }
 
@@ -535,8 +537,11 @@ window.onload = function(){
 													    <label for="fileFrm">파일찾기</label > 
 													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
 													    <div class="namebox">
-													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
+													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
 													    </div>
+													    <c:if test="${not empty FileVO}">
+													    	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delFileName();">
+													    </c:if>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 												</td>
@@ -673,11 +678,12 @@ window.onload = function(){
 													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
 													</div>
 													<input name="photo" id="photo" type="file" style="display: none"/>
+													<input name="delPhoto" id="delPhoto" type="hidden">
 													<div class="photoList">
 														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
 															<div class="photobox">
 																<div class="boxBtn">
-																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delPhoto(this);">
+																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delfileList(this,'${photo}');">
 																</div>
 																<div class="boxImg">
 																	<img alt="" src="/uploadFile/${photo.streFileNm}">
@@ -710,23 +716,6 @@ window.onload = function(){
 												</td>
 											</tr>
 										</table>
-
-										<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-											<script type="text/javascript">
-												var maxFileNum = document.board.posblAtchFileNumber.value;
-												if (maxFileNum == null
-														|| maxFileNum == "") {
-													maxFileNum = 3;
-												}
-												var multi_selector = new MultiSelector(
-														document
-																.getElementById('egovComFileList'),
-														maxFileNum);
-												multi_selector
-														.addElement(document
-																.getElementById('egovComFileUploader'));
-											</script>
-										</c:if>
 									</div>
 									
 									<br>
