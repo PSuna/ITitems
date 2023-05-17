@@ -14,6 +14,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="egovframework.com.cmm.service.EgovProperties" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -95,22 +96,19 @@
         <!-- Header -->
         <c:import url="/sym/mms/EgovHeader.do" />
         <!--// Header -->
-
+		<%
+			LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+		%>
         <div class="container">
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
-        
                         <div class="content_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->
                                 <div class="location">
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li><a href="">알림정보</a></li>
                                         <li><c:out value="${brdMstrVO.bbsNm}"/></li>
                                     </ul>
                                 </div>
@@ -144,14 +142,15 @@
                                         <input class="f_input w_350" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
                                         <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
-
-                                    <a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
-                                    
+									
                                     </form>
                                 </div>
                                 <!--// 검색조건 -->
-
+									
                                 <!-- 게시판 -->
+                                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                                    <a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
+                                </c:if>
                                 <div class="board_list pty_board_list">
                                     <table summary="번호, 제목, 게시시작일, 게시종료일, 작성자, 작성일, 조회수  입니다">
                                     	<caption>게시물 목록</caption>

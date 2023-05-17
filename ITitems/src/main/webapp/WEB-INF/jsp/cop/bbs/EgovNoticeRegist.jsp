@@ -48,10 +48,7 @@
     
     function fn_egov_regist_notice() {
         //document.board.onsubmit();
-        
-        if (!validate(document.board)){
-            return;
-        }
+
         <c:if test="${bdMstr.bbsAttrbCode == 'BBSA02'}">
         if(document.getElementById("egovComFileUploader").value==""){
             alert("갤러리 게시판의 경우 이미지 파일 첨부가 필수사항입니다.");
@@ -136,10 +133,6 @@
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
-        
                         <div class="content_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->

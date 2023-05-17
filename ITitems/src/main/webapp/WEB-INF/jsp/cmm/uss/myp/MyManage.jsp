@@ -49,7 +49,7 @@ function fnDeleteUser(checkedIds) {
     }
 }
 function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
+    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserMyPasswordUpdtView.do'/>";
     document.userManageVO.submit();
 }
 function fnUpdate(){

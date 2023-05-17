@@ -95,12 +95,16 @@ public class ApprovalManageController {
 		if(loginId.getAuthorCode().equals("ROLE_HIGH_ADMIN")) {
 			model.addAttribute("resultList", approvalManageService.selectHighApprovalList(approvalSearchVO));
 			int totCnt = approvalManageService.selectHighApprovalListTotCnt(approvalSearchVO);
+			int leftCnt = approvalManageService.selectHighApprovalListTotCntB(approvalSearchVO);
 			paginationInfo.setTotalRecordCount(totCnt);
+			model.addAttribute("leftCnt", leftCnt);
 			model.addAttribute("paginationInfo", paginationInfo);
 		}else {
 			model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
 			int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
+			int leftCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
 			paginationInfo.setTotalRecordCount(totCnt);
+			model.addAttribute("leftCnt", leftCnt);
 			model.addAttribute("paginationInfo", paginationInfo);
 		}
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();

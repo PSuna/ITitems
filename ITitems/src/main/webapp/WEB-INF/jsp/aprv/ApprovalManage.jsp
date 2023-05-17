@@ -124,7 +124,7 @@ function fntrsfExcel(){
                                 	<div class="board_list_top">
                                 		<div class="list_count">
                                 			<span>결재대기중</span>
-                                			<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
+                                			<strong><c:out value="${leftCnt}"/></strong>
                                 			<div style="float: right;display: flex;align-items: center;">
 		                                 		<span>페이지당 항목 수</span>
 		                                 		<label class="item f_select" for="pageUnit">

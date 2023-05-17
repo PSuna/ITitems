@@ -14,6 +14,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -77,7 +78,9 @@
                         <!-- Left menu -->
                         <c:import url="/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
-        
+				        <%
+							LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+						%>
                         <div class="content_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->

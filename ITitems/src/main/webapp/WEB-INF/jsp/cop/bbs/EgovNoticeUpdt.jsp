@@ -142,9 +142,6 @@
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
         
                         <div class="content_wrap">
                             <div id="contents" class="content">

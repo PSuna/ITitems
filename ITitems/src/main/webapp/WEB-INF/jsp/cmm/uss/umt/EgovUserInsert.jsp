@@ -75,6 +75,31 @@ function fnListPage(){
     document.userManageVO.submit();
 }
 function fnInsert(){
+	if(!document.userManageVO.id_view.value){
+		document.getElementById('emplyrIdErr').innerHTML='아이디는 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrIdErr').innerHTML='';
+	}
+	if(!document.userManageVO.emplyrNm.value){
+		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrNmErr').innerHTML='';
+	}
+	if(!document.userManageVO.orgnztId.value){
+		document.getElementById('orgnztIdErr').innerHTML='부서는 필수입력값입니다.';
+	}else{
+		document.getElementById('orgnztIdErr').innerHTML='';
+	}
+	if(!document.userManageVO.grade.value){
+		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
+	}else{
+		document.getElementById('gradeErr').innerHTML='';
+	}
+	if(!document.userManageVO.authorCode.value){
+		document.getElementById('authorCodeErr').innerHTML='권한은 필수입력값입니다.';
+	}else{
+		document.getElementById('authorCodeErr').innerHTML='';
+	}
 	if(validateUserManageVO(document.userManageVO)){
 		document.userManageVO.submit();
     }
@@ -141,7 +166,11 @@ function fn_egov_modal_remove() {
 }
 //-->
 </script>
-
+<style>
+.errSpan{
+	color:red;
+}
+</style>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -200,11 +229,12 @@ function fn_egov_modal_remove() {
                                                     <button type="button" class="btn" onclick="fnIdCheck();">조회</button>
                                                 </span>
                                                 <span class="f_txt_inner ml10">(중복체크)</span>
+                                                <br>
                                                 <form:errors path="emplyrId" />
+                                                <span id="emplyrIdErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
                                                 <label for="moblphonNo">핸드폰번호</label>
-                                                <span class="req">필수</span>
                                             </td>
                                             <td>
                                                 <form:input path="moblphonNo" id="moblphonNo" title="ex)01012345678" class="f_txt w_full" maxlength="15"/>
@@ -236,6 +266,7 @@ function fn_egov_modal_remove() {
                                             <td>
                                                 <input name="emplyrNm" id="emplyrNm" title="사용자이름" type="text" class="f_txt w_full" value="" maxlength="50" />
                                                 <form:errors path="emplyrNm" />
+                                                <span id="emplyrNmErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
                                                 <label for="orgnztId">부서</label>
@@ -249,6 +280,7 @@ function fn_egov_modal_remove() {
                                                     </form:select>
                                                 </label>
                                                 <form:errors path="orgnztId" />
+                                                <span id="orgnztIdErr" class="errSpan"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -263,10 +295,12 @@ function fn_egov_modal_remove() {
 	                                                    <form:options items="${grd_result}" itemValue="code" itemLabel="codeNm"/>
                                                     </form:select>
                                                 </label>
-                                                <form:errors path="grade" /> 
+                                                <form:errors path="grade" />
+												<span id="gradeErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
                                                 <label for="authorCode">권한</label>
+                                                <span class="req">필수</span>
                                             </td>
                                             <td>
                                             	<label class="f_select w_full" for="authorCode">
@@ -275,7 +309,8 @@ function fn_egov_modal_remove() {
                                                         <form:options items="${authorManageList }" itemValue="authorCode" itemLabel="authorNm"/>
                                                     </form:select>
                                                 </label>
-                                                <form:errors path="authorCode" /> 
+                                                <form:errors path="authorCode" />
+                                                <span id="authorCodeErr" class="errSpan"></span> 
                                             </td>
                                         </tr>
                                     </table>
