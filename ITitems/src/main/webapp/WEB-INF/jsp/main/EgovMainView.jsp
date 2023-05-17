@@ -5,10 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.10   천세훈       최초생성
  
-    author   : 실행환경개발팀 JJY
-    since    : 2011.08.31 
+    author   : 영남사업부 천세훈
+    since    : 2023.04.10 
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
@@ -30,7 +30,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
-<title>표준프레임워크 경량환경 내부업무템플릿</title>
+<title>Iteyes 자산관리솔루션</title>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>	
@@ -54,8 +54,8 @@
                         <div class="right_col" style="margin-right:10px;">
                             <div class="box pty_colbox">
                                 <div class="head">
-                                    <h2>신규 <span>결재요청</span></h2>
-                                    <a href="<c:url value='/aprv/ApprovalManage.do'/>"><c:out value="${paginationInfo.totalRecordCount}"/></a>
+                                    <h2>신규 <span>결재요청</span> <span style="color: white; background: #d84c5c; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
+                                    <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a>
                                 </div>
                                 <div class="list">
                                     <table>

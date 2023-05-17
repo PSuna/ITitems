@@ -5,11 +5,10 @@
  
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
-     2009.03.10    박지욱             최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+     2023.04.10    천세훈             최초 생성
  
-    author   : 공통서비스 개발팀  박지욱
-    since    : 2009.03.10
+    author   : 영남사업부 천세훈
+    since    : 2023.04.10
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -45,8 +44,6 @@ function actionLogin() {
         return false;
     } else {
         document.loginForm.action="<c:url value='/uat/uia/actionSecurityLogin.do'/>";
-        //document.loginForm.j_username.value = document.loginForm.userSe.value + document.loginForm.username.value;
-        //document.loginForm.action="<c:url value='/j_spring_security_check'/>";
         document.loginForm.submit();
     }
 }
@@ -88,9 +85,16 @@ function getid(form) {
 }
 
 function fnInit() {
+	var search = searchid + "="
     var message = document.loginForm.message.value;
     if (message != "") {
         alert(message);
+    }
+    if (document.cookie.length > 0) {
+    	offset = document.cookie.indexOf(search)
+    	if (offset != -1) {
+    		form.checkId.checked;
+    	}
     }
     getid(document.loginForm);
 }
