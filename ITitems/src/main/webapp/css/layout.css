@@ -66,21 +66,33 @@ body {
 .gnb {
 	margin-top:44px;
 }
+
+.gnb ul {
+	display:flex;
+	/*  justify-content:space-between;  */
+	
+}
+
+
+
 .gnb ul::after {
-	content:"";
+/* 	content:"";
 	display:block;
-	clear:both;
+	clear:both;  */
 }
 .gnb ul li {
-	float:left;
+	/* float:left; */
 }
+
+
+
 .gnb ul li+li {
-	margin-left:90px;
+margin-left:90px;
 }
 .gnb ul li a {
 	display:block;
 	color:#333;
-	font-size:20px;
+	font-size:18px;
 	font-weight:700;
 }
 .gnb ul li a.manager {

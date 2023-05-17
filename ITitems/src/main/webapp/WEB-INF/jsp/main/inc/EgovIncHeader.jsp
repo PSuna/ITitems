@@ -18,6 +18,8 @@
 
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
@@ -48,6 +50,9 @@ function fn_egov_modal_remove() {
 }
 
 </script>
+
+
+
 
 <!-- Header -->
 <div class="header">
@@ -80,14 +85,62 @@ function fn_egov_modal_remove() {
         <!-- gnb -->
         <div class="gnb">
             <ul>
-                <c:forEach var="result" items="${list_headmenu}" varStatus="status">
-                	<li><a href="#LINK" onclick="javascript:goMenuPage('<c:out value="${result.menuNo}"/>')" class='<c:if test="${result.menuOrdr >= 5}">manager</c:if>'><c:out value="${result.menuNm}"/></a></li>
-                </c:forEach>
-                <c:if test="${fn:length(list_headmenu) == 0 }">
-                	<li>등록된 메뉴가 없습니다.</li>
-                </c:if>
+          		<li><a href="#LINK" >내자산조회</a></li>
+          		<li><a href="#LINK" >전체자산조회</a></li>
+          		<li><a href="#LINK" >신규자산등록</a></li>
+          		<li><a href="#LINK" >반출관리</a></li>
+          		<li><a href="#LINK" >공지사항</a></li>
+          		<li><a href="#LINK" >결재요청</a></li>
+          		
+          		
+               	<li class="gnb_li">
+               	
+                	<a href="#LINK">사이트관리</a>
+                	
+             
+                	<div class="admin pty_dropdown">	              
+			                <!-- <h3>사용자관리</h3> -->
+			                <ul>
+			                    <li><a class="gnb_a" href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
+			                 </ul>
+			                 
+			                 <ul>   
+			                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+			                    	<li><a class="gnb_a" href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
+			                    </c:if>
+			                </ul>
+			                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+							<!-- 	<h3>메뉴관리</h3> -->
+				                <ul>
+				                	<li><a class="gnb_a" href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+				                </ul>
+			                </c:if>
+			               <!--  <h3>카테고리관리</h3> -->
+			                <ul>
+			                	<li><a class="gnb_a" href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
+			                </ul>
+			
+							<!-- <h3>프로젝트관리</h3> -->
+							
+			                <ul>
+			                	<li><a class="gnb_a" href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
+			                </ul>
+            		</div>
+				
+               	</li>
+               	
+                	
+              
+                
             </ul>
+            
         </div>
+        
+        
+        
+        
+        
+        
         <!-- gnb -->
 
 		<!-- util menu -->
@@ -115,6 +168,7 @@ function fn_egov_modal_remove() {
 <!-- 전체메뉴 팝업 -->
 <div class="all_menu" id="">
     <div>
+    
         <div class="inner">
         	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
 	        	<div>
@@ -167,7 +221,10 @@ function fn_egov_modal_remove() {
                 </ul>
             </div>
             </c:if>
+            
         </div>
+        
+        
     </div>
 </div>
 <!--// 전체메뉴 팝업 -->
@@ -227,3 +284,18 @@ function actionLogout()
     </c:forEach>
     </div>
 </form>
+
+
+<!-- gnb 드롭다운 쿼리 -->
+<script>
+$(document).ready(function(){
+    $(".gnb>ul>li").mouseover(function(){
+        $(this).children(".pty_dropdown").stop().slideDown(200);
+    });
+    $(".gnb>ul>li").mouseleave(function(){
+        $(this).children(".pty_dropdown").stop().slideUp(200);
+    });
+});
+
+</script>
+
