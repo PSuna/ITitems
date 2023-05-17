@@ -348,19 +348,21 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetUpdate.do")
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO) throws Exception {
 
-		assetService.UpdateAssetInfo(assetInfoVO);
-		assetService.UpdateAssetHist(assetHistVO);
+//		assetService.UpdateAssetInfo(assetInfoVO);
+//		assetService.UpdateAssetHist(assetHistVO);
 		
 		Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
 		photos.put("photo", multiRequest.getFile("photo"));
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(assetInfoVO.getAssetId());
+		
 		if (!photos.isEmpty()) {
 			fvo.setFileType("PHOTO");
 			fileMngService.updateFileUse(fvo);
 			List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
 			fileMngService.insertFileInfs(result);
 		}
+		
+		fvo.setFileGroup(assetInfoVO.getAssetId());
 		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
 		files.put("file", multiRequest.getFile("file"));
 		if (!files.isEmpty()) {
