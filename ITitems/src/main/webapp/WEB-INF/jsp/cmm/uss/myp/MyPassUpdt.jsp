@@ -35,8 +35,8 @@
 <validator:javascript formName="passwordChgVO" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
-function fnListPage(){
-    history.back();
+function fnListPage(id){
+	location.href="${pageContext.request.contextPath}/uss/myp/MyManage.do?uniqId="+id;
 }
 function fnUpdate(){
     if(validatePasswordChgVO(document.passwordChgVO)){
@@ -78,7 +78,7 @@ function fnUpdate(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/umt/user/EgovMyPasswordUpdt.do" >
+								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/myp/EgovMyPasswordUpdt.do" >
 								<!-- onsubmit="javascript:return FormValidation(document.passwordChgVO);" >  -->
 								<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 								<input name="checkedIdForDel" type="hidden" />
@@ -143,7 +143,7 @@ function fnUpdate(){
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnUpdate(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">이전</a><!-- 목록 -->
+                                        <a href="<c:url value='/cmm/myp/MyManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage('${userManageVO.uniqId}'); return false;">이전</a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
