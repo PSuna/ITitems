@@ -77,9 +77,7 @@ function fnInsert(){
 	}
 	
 	if(!document.userManageVO.orgnztId.value){
-		document.getElementById('orgnztIdErr').innerHTML='부서는 필수입력값입니다.';
-	}else if(document.userManageVO.lowerOrgnzt.value){
-		document.userManageVO.orgnztId.value = document.userManageVO.lowerOrgnzt.value;
+		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
 	}else{
 		document.getElementById('orgnztIdErr').innerHTML='';
 	}
@@ -100,65 +98,14 @@ function fnInsert(){
 		document.userManageVO.submit();
     }
 }
-function fn_egov_inqire_cert() {
-    var url = '/uat/uia/EgovGpkiRegist.do';
-    var popupwidth = '500';
-    var popupheight = '400';
-    var title = '인증서';
 
-    Top = (window.screen.height - popupheight) / 3;
-    Left = (window.screen.width - popupwidth) / 2;
-    if (Top < 0) Top = 0;
-    if (Left < 0) Left = 0;
-    Future = "fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,left=" + Left + ",top=" + Top + ",width=" + popupwidth + ",height=" + popupheight;
-    PopUpWindow = window.open(url, title, Future)
-    PopUpWindow.focus();
-}
-
-function fn_egov_dn_info_setting(dn) {
-    var frm = document.userManageVO;
-    
-    frm.subDn.value = dn;
-}
-
-/*
-if (typeof(opener.fn_egov_dn_info_setting) == 'undefined') {
-    alert('메인 화면이 변경되거나 없습니다');
-    this.close();
-} else {
-    opener.fn_egov_dn_info_setting(dn);
-    this.close();
-}
-*/
-
-function fn_egov_ZipSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sym/cmm/EgovCcmZipSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 1100,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-function fn_egov_returnValue(retVal){
-	
-	if (retVal) {
-		document.getElementById("zip_view").value  = retVal.sAddr;
-	}
-	
-	fn_egov_modal_remove();
-}
 
 /**********************************************************
  * 모달 종료 버튼
  ******************************************************** */
 function fn_egov_modal_remove() {
 	$('#modalPan').remove();
+	
 }
 
 /**********************************************************
@@ -278,23 +225,6 @@ function getMOrgList(MOval) {
                                                 <form:errors path="moblphonNo" />
                                             </td>
                                         </tr>
-                                        <%-- <tr>
-                                            <td class="lb">
-                                                <label for="password">비밀번호</label>
-                                                <span class="req">필수</span>
-                                            </td>
-                                            <td>
-                                                <form:password path="password" id="password" title="연속된 문자나 순차적인 문자 4개이상 사용금지" class="f_txt w_full" maxlength="20" placeholder="8~20자리"/>
-                                                <form:errors path="password" />
-                                            </td>
-                                            <td class="lb">
-                                                <label for="password2">비밀번호확인</label>
-                                                <span class="req">필수</span>
-                                            </td>
-                                            <td>
-                                                <input name="password2" id="password2" title="비밀번호확인" type="password" class="f_txt w_full" maxlength="20" />
-                                            </td>
-                                        </tr> --%>
                                         <tr>
                                             <td class="lb">
                                                 <label for="emplyrNm">이름</label>
@@ -306,8 +236,9 @@ function getMOrgList(MOval) {
                                                 <span id="emplyrNmErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
-                                                <label for="orgnztId">부서</label>
+                                                <label for="orgnztId">본부</label>
                                                 <span class="req">필수</span>
+                                                <label for="orgnztId"> / 부서</label>
                                             </td>
                                             <td>
                                             	<div>
@@ -319,11 +250,11 @@ function getMOrgList(MOval) {
 												</label>
 												</div>
 												<div>
-												<label class="item f_select" for="lowerOrgnzt">
-													<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
-														<form:option value='' label="부서" />
-													</form:select>
-												</label> 
+													<label class="item f_select" for="lowerOrgnzt">
+														<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
+															<form:option value='' label="부서" />
+														</form:select>
+													</label> 
 												</div>
                                                 <form:errors path="orgnztId" />
                                                 <span id="orgnztIdErr" class="errSpan"></span>

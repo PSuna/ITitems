@@ -202,6 +202,11 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		}
 	}
 
+	@Override
+	public String checkUpper(String uniqId) throws Exception {
+		return userManageDAO.checkUpper(uniqId);
+	}
+
 
 
 }

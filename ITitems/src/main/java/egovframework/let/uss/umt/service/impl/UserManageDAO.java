@@ -120,5 +120,9 @@ public class UserManageDAO extends EgovAbstractMapper{
 	public List<EgovMap> xlsxUserList(UserDefaultVO userSearchVO) {
 		return selectList("userManageDAO.xlsxUserList", userSearchVO);
 	}
+	
+	public String checkUpper(String uniqId) {
+		return selectOne("userManageDAO.checkUpper", uniqId);
+	}
 
 }

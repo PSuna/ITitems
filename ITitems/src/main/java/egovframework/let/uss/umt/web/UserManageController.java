@@ -228,7 +228,9 @@ public class UserManageController {
 		
 		userManageVO.setAuthorCode("ROLE_USER_MEMBER");
 		userManageVO.setPassword("iteyes00");
-		
+		if(userManageVO.getLowerOrgnzt() != null) {
+			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
+		}
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -297,6 +299,11 @@ public class UserManageController {
 		
 		UserManageVO userManageVO = new UserManageVO();
 		userManageVO = userManageService.selectUser(uniqId);
+		String UpperOrg = userManageService.checkUpper(uniqId);
+		if( UpperOrg !=null ) {
+			userManageVO.setLowerOrgnzt(userManageVO.getOrgnztId());
+			userManageVO.setOrgnztId(UpperOrg);
+		}
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("userManageVO", userManageVO);
 
@@ -321,8 +328,11 @@ public class UserManageController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
+    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt() != "") {
+			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
+		}
+    	
 		//업무사용자 수정시 히스토리 정보를 등록한다.
-		userManageService.insertUserHistory(userManageVO);
 		userManageService.updateUser(userManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
