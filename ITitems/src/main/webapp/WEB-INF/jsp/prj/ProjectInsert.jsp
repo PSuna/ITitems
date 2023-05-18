@@ -42,6 +42,32 @@ var userCheck = 0;
  * 프로젝트 등록 처리
  ******************************************************** */
 function fnPrjInsert(){
+	var prjStart = document.projectVO.prjStart.value;
+	var prjEnd = document.projectVO.prjEnd.value;
+	if(!document.projectVO.prjName.value){
+		document.getElementById('prjNameErr').innerHTML='프로젝트명은 필수입력값입니다.';
+	}else{
+		document.getElementById('prjNameErr').innerHTML='';
+	}
+	if(!document.projectVO.name.value){
+		document.getElementById('nameErr').innerHTML='PM은 필수입력값입니다.';
+	}else{
+		document.getElementById('nameErr').innerHTML='';
+	}
+	if(!document.projectVO.client.value){
+		document.getElementById('clientErr').innerHTML='고객사는 필수입력값입니다.';
+	}else{
+		document.getElementById('clientErr').innerHTML='';
+	}
+	if(!document.projectVO.prjState.value){
+		document.getElementById('prjStateErr').innerHTML='진행상태는 필수입력값입니다.';
+	}else{
+		document.getElementById('prjStateErr').innerHTML='';
+	}
+	if(prjStart && prjEnd && prjStart > prjEnd){
+		alert("프로젝트 시작일은 종료일보다 이전이어야 합니다.")
+		return;
+	}
 	confirm("저장하시겠습니까?")
     if(validateProjectVO(document.projectVO)){
 		document.projectVO.submit();
@@ -83,6 +109,11 @@ function returnUser(val){
 }
 //-->
 </script>
+<style>
+.errSpan{
+	color:red;
+}
+</style>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -135,6 +166,7 @@ function returnUser(val){
 												<td>
 													<form:input path="prjName" id="prjName" class="f_txt w_full" maxlength="50"/>
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
+													<span id="prjNameErr" class="errSpan"></span>
 												</td>
 												<td class="lb">
 													<!-- 수령자 --> 
@@ -145,6 +177,7 @@ function returnUser(val){
 													<span class="f_search2 w_30%"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readOnly="true" />
 													<form:errors path="name" />
+													<span id="nameErr" class="errSpan"></span>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<form:input path="id" id="id" type="hidden" title="id" />
@@ -169,13 +202,16 @@ function returnUser(val){
 											<tr>
 												<td class="lb">
 	                                                <label for="client">고객사</label>
+	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <form:input path="client" id="client" class="f_txt w_full" maxlength="30" />
 													<form:errors path="client" />
+													<span id="clientErr" class="errSpan"></span>
 	                                            </td>
 												<td class="lb">
 	                                                <label for="prjState">진행여부</label>
+	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="prjState">
@@ -185,6 +221,7 @@ function returnUser(val){
 																itemLabel="codeNm" />
 														</form:select>
 													</label>
+													<span id="prjStateErr" class="errSpan"></span>
 	                                            </td>
 											</tr>
 										</table>
