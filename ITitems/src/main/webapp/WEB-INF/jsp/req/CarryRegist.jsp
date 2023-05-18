@@ -17,6 +17,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -79,7 +81,7 @@ function insertCarryDetail(reqId) {
 					insertApproval(result);
 				},
 				error: function (error) {
-					console.log(error);
+					RegistFail();
 				}
 			}) 
 		}
@@ -91,8 +93,6 @@ function insertCarryDetail(reqId) {
  * 반출신청 등록 처리
  ******************************************************** */
 function insertCarry() {
-	if(validateCarryRegist(document.frm)){
-	
 		let formData = new FormData(document.getElementById('frm'));
 		
 	 	$.ajax({
@@ -106,10 +106,9 @@ function insertCarry() {
 				insertCarryDetail(result);
 			},
 			error: function (error) {
-				console.log(error);
+				RegistFail();
 			}
 		})
-	}
 }
 /* ********************************************************
  * 결재자 등록 처리
@@ -144,11 +143,10 @@ function insertApproval(reqId){
 					contentType: false,
 					data: formdata,
 					success: function (result) {
-						document.SelectCarry.reqId.value = reqId;
-						document.SelectCarry.submit();
+						RegistSuccess();
 					},
 					error: function (error) {
-						console.log(error);
+						RegistFail();
 					}
 				}) 
 			});
@@ -160,6 +158,95 @@ function insertApproval(reqId){
 	
 }
 /* ********************************************************
+ * 등록확인 팝업창
+ ******************************************************** */
+ function RegistConfirm(){
+	
+	 if(validateCarryRegist(document.frm)){
+		 var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 500,
+		        height: 300
+			});
+		    $(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+	 } 
+}
+
+/* ********************************************************
+ * 등록확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 RegistSuccess();
+	 }	  
+}
+
+/* ********************************************************
+ * 등록완료 팝업창
+ ******************************************************** */
+ function RegistSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 등록완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(val){
+	
+	if(val){
+		fn_egov_modal_remove();
+	    $('form').each(function() {
+	        this.reset();
+	    });
+	    removeP();
+	    console.log($('#frm #delTr'));
+	    if($('#frm #delTr').length == 9){
+	    	$('#clonehere').append(addtrClone);
+	    }
+	    $('#frm #delTr').each(function(){
+	    	$(this).closest('tr').remove();
+		})
+		document.frm.prjNm.focus(); 
+	}else{
+		document.CarryRequset.submit();
+	}
+
+}
+
+/* ********************************************************
+ * 등록실패 팝업창
+ ******************************************************** */
+ function RegistFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 400
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
  * 자산 입력 폼 추가
  ******************************************************** */
 function addTr(num) {
@@ -168,7 +255,7 @@ function addTr(num) {
 	 let a = $('<a/>').addClass('btn').text('-').on('click',function(){
 		 delTr(this);
 	 });
-	 let btn = $('<div/>').addClass('btn1').append(a);
+	 let btn = $('<div/>').addClass('btn1').attr("id","delTr").append(a);
 	 $(tr).children('td').last().append(btn);
 	 $('#clonehere tr').last().before(tr);
 	 if($('#clonehere').children('tr').length == 11){
@@ -182,10 +269,11 @@ function addTr(num) {
  * 자산 입력 폼 삭제
  ******************************************************** */
 function delTr(obj) {
-	if($('#clonehere').children('tr').length == 10){
+	 $(obj).closest('tr').remove();
+	 if($('#clonehere').children('tr').length == 9){
 		 $('#clonehere').append(addtrClone);
 	 }
-	 $(obj).closest('tr').remove();
+	 console.log($('#clonehere').children('tr'));
 }
 
 /* ********************************************************
@@ -432,6 +520,18 @@ function alertValid(objList) {
 			}
 		})
 	})
+	$('#frm #middleCategory').each(function(){
+		if($(this).val() == null || $(this).val() == ""){
+			$(this).closest('td').append($('<p/>').addClass('alertV').text("중분류은(는) 필수 입력값입니다."));
+
+		}
+	})
+	$('#frm #reqQty').each(function(){
+		if($(this).val() == null || $(this).val() == 0){
+			$(this).closest('td').append($('<p/>').addClass('alertV').text("수량은(는) 필수 입력값입니다."));
+
+		}
+	})
 }
 
 /* ********************************************************
@@ -488,8 +588,8 @@ window.onload = function(){
 								<!-- Location -->
 								<div class="location">
 									<ul>
-										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
+										<li><a class="home" href="#LINK">Home</a></li>
+										<li><a href="#LINK">자산관리</a></li>
 										<li>반출 신청</li>
 									</ul>
 								</div>
@@ -698,13 +798,16 @@ window.onload = function(){
 								<!-- 등록버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="insertCarry();return false;">신청 <spring:message code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;">신청 <spring:message code="button.create" /></a>
 										<!-- 등록 -->
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  -->
-								<form name="SelectCarry" method="post" action="<c:url value='/req/SelectCarry.do'/>">
-									<input type="hidden" name="reqId" value="" />
+								<form name="CarryRequset" method="post" action="<c:url value='/req/CarryRequset.do'/>">
+									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+									<c:set var="end" value="<%=new java.util.Date()%>" />
+									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
 								</form>
 							</div>
 						</div>

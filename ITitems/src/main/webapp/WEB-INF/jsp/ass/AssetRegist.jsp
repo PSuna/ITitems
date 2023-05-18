@@ -30,8 +30,6 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -522,8 +520,8 @@ window.onload = function(){
 								<!-- Location -->
 								<div class="location">
 									<ul>
-										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
+										<li><a class="home" href="#LINK">Home</a></li>
+										<li><a href="#LINK">자산관리</a></li>
 										<li>신규자산등록</li>
 									</ul>
 								</div>

@@ -167,8 +167,8 @@ function fntrsfExcel(){
 								<!-- Location -->
 								<div class="location">
 									<ul>
-										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
+										<li><a class="home" href="#LINK">Home</a></li>
+										<li><a href="#LINK">자산관리</a></li>
 										<li>반출관리</li>
 									</ul>
 								</div>
@@ -278,7 +278,9 @@ function fntrsfExcel(){
 											</c:forEach>
 										</tbody>
 									</table>
-									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									<div class="excel_btn">
+										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									</div>
 								</div>
 
 								<!-- 페이지 네비게이션 시작 -->

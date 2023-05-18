@@ -235,3 +235,142 @@
     color: #666;
     text-align: center;
 }
+
+.board_list table{
+	width: 100% !important;
+}
+
+.condition2 .j_box01, .condition2 .j_box02 {
+	display: flex;
+    margin-bottom: 10px;
+}
+
+.j_box01 div{
+		width: 32%;
+		margin: 0px auto;
+}
+
+.j_box01 .lb, .j_box02 .lb{
+		margin: 0 10px 0px 5px;
+}
+.j_box01 .date_box{
+	width: 32% !important;
+	margin: 0px auto;
+}
+
+.date_box div{
+	width: 100% !important;
+	display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 0px auto;
+}
+
+.date_box div span{
+    margin: 0px auto;
+}
+.date_box div span:first-child{
+    margin-left: 0px;
+}
+
+.date_box div span:last-child{
+    margin-right: 0px;
+}
+
+.j_box01 .btn_box{
+	width: 32% !important;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.j_box01 .search_box{
+		width: 32%
+}
+
+.btn_box .btn:hover{
+	background: #c9cacb;
+    color: #fff;
+}
+
+.excel_btn{
+	overflow: hidden;
+	margin-top: 10px;	
+}
+
+.excel_btn .btn{
+	float: right;
+	margin-right: 0.2%;
+}
+
+.excel_btn .btn:hover{
+	background: #c9cacb;
+    color: #fff;
+}
+
+form .condition2{
+	    padding: 10px 2%;
+	}
+	
+.board_list+.board_list_bot {
+    margin-top: 10px !important;
+}
+
+.j_box02 div{
+		width: 24%;
+		margin: 0px auto;
+}
+
+.j_box02 .btn_box{
+	width: 34% !important;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.j_box02 .date_box{
+	width: 32% !important;
+	margin: 0px auto;
+}
+
+.j_box02 .search_box{
+	width: 32% !important;
+}
+
+@media screen and (max-width: 767px){
+	.j_box01 div{
+		width: 32%;
+		margin: 0px auto;
+	}
+	.j_box01 .lb{
+		margin: 0 10px 0px 5px;
+	}
+	.j_box01 .date_box,.j_box02 .date_box{
+		width: 45% !important;
+	}
+	.date_box div{
+		width: 100%;
+	}
+	
+	.j_box01 .btn_box,.j_box02 .btn_box{
+		width: 10% !important;
+	}
+	
+	form .condition2{
+	    padding: 10px 2%;
+	}
+	
+	.j_box01 .search_box{
+		width: 35% !important;
+	}
+	
+	.j_box02 .search_box{
+		width: 43% !important;
+	}
+}

@@ -241,7 +241,7 @@ public class AssetController {
 	 * 자산상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/SelectAsset.do")
-	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
+	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO, String listCode) throws Exception {
 		
 		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
 		model.addAttribute("resultVO", result);
@@ -252,6 +252,7 @@ public class AssetController {
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		model.addAttribute("listCode", listCode);
 		
 		return "/ass/SelectAsset";
 	}

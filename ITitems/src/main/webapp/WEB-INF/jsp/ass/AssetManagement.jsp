@@ -114,7 +114,7 @@ function fn_egov_select_noticeList(pageNo) {
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';
 	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
-	document.frm.searchStatus.value = '${searchVO.searchStatus}';
+//	document.frm.searchStatus.value = '${searchVO.searchStatus}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';
 	document.frm.searchWord.value = '${searchVO.searchWord}';
@@ -201,8 +201,8 @@ function fntrsfExcel(){
 								<!-- Location -->
 								<div class="location">
 									<ul>
-										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
+										<li><a class="home" href="#LINK">Home</a></li>
+										<li><a href="#LINK">자산관리</a></li>
 										<li>전체자산조회</li>
 									</ul>
 								</div>
@@ -218,10 +218,10 @@ function fntrsfExcel(){
 								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value=1>
-										<div class="pty_box01">
+										<div class="j_box02">
 											<div>
 												<span class="lb">부서</span>
-												<label class="item f_select" for="sel1"> 
+												<label class="item f_select w_full" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
 															<option value="" >선택하세요</option>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
@@ -233,13 +233,13 @@ function fntrsfExcel(){
 											
 											<div>
 												<span class="lb">프로젝트</span> 
-												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
 											<div>
 												<span class="lb">대분류</span> 
-												<label class="item f_select" for="sel1">
+												<label class="item f_select w_full" for="sel1">
 												<select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
 														<option value='' label="선택하세요" />
 														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
@@ -251,17 +251,17 @@ function fntrsfExcel(){
 											</div>
 																							
 											<div>
-												<span class="lb">중분류</span> <label class="item f_select" for="sel1"> <select id="middleCategory" name="searchdMCat" title="중분류">
+												<span class="lb">중분류</span> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" title="중분류">
 														<option value='' label="선택하세요" />
 												</select>
 												</label> 
 											</div>
 										</div>	
 											
-										<div class="pty_box01">	
-											<div>							
+										<div class="j_box02">	
+											<%-- <div>							
 												<span class="lb">상태</span> 
-												<label class="item f_select" for="sel1"> 
+												<label class="item f_select w_full" for="sel1"> 
 													<select id="searchStatus" name="searchStatus" title="상태">
 															<option value='' label="선택하세요" />
 															<c:forEach var="stat" items="${status_result}" varStatus="status">
@@ -269,25 +269,28 @@ function fntrsfExcel(){
 															</c:forEach>
 													</select>
 												</label> 
-											</div>
+											</div> --%>
 											
-											<div>
-												<span class="lb ml20">등록일자</span> 
+											<div class="date_box">
+												<span class="lb">등록일자</span> 
+												<div>
 												<span class="search_date">
-												<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
+												<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
 												</span>
-												 ― 
+												―
 												 <span class="search_date">
-												 <input class="f_date pty_f_date w_130" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
-												 </span> 
+												 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
+												 </span>
+												 </div>
 											</div>	
-											<div class="pty_search">
+											<div class="search_box">
 												<span class="lb">품명</span>
-												<span class="item f_search">
+												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_250 pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
-												
+											</div>
+											<div class="btn_box">
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
 											</div>
 										</div>
@@ -301,6 +304,16 @@ function fntrsfExcel(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
+											<col style="width: 6%;">
+											<col style="width: 12%;">
+											<col style="width: 12%;">
+											<col style="width: 15%;">
+											<col style="width: 10%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+										</colgroup>
+										<%-- <colgroup>
 											<col style="width: 5%;">
 											<col style="width: 11%;">
 											<col style="width: 11%;">
@@ -310,7 +323,7 @@ function fntrsfExcel(){
 											<col style="width: 13%;">
 											<col style="width: 13%;">
 											<col style="width: 11%;">
-										</colgroup>
+										</colgroup> --%>
 										<thead>
 											<tr>
 												<th scope="col"></th>
@@ -321,7 +334,7 @@ function fntrsfExcel(){
 												<th scope="col">취득일자</th>
 												<th scope="col">취득가액</th>
 												<th scope="col">등록일자</th>
-												<th scope="col">상태</th>
+												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
 										<tbody>
@@ -334,6 +347,8 @@ function fntrsfExcel(){
 															action="<c:url value='/ass/SelectAsset.do'/>">
 															<input type="hidden" name="assetId"
 																value="<c:out value='${result.assetId}'/>" />
+															<input type="hidden" name="listCode"
+																value="AM" />
 														</form>
 													</td>
 													<td><c:out value="${result.largeCategory}" /></td>
@@ -347,12 +362,14 @@ function fntrsfExcel(){
 														</c:if>
 													</td>
 													<td><c:out value="${result.regDate}" /></td>
-													<td><c:out value="${result.usageStatus}" /></td>
+													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									<div class="excel_btn">
+										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									</div>
 									<c:if test="${empty resultList}">
 										<div class="empty" id="noData"><h4><spring:message code="ass.null" /></h4></div>
 									</c:if>
