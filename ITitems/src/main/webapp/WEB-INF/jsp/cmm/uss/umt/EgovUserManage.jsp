@@ -239,7 +239,7 @@ function getMOrgList(MOval) {
 									</div>
 									<div>
 										<label class="item f_select" for="sel1">
-										<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="javascript:fnSearch(); return false;">
+										<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
 											<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 										</select>
 										</label> 

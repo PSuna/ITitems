@@ -343,4 +343,12 @@
          ORDER BY userNm ASC, sbscrbDe DESC
          LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
+    
+    <select id="checkUpper" parameterType="String" resultType="String">
+    	SELECT 			O.ORGNZT_UP
+    	FROM 			LETTNEMPLYRINFO E
+		LEFT OUTER JOIN LETTNORGNZTINFO O
+    	ON 				E.ORGNZT_ID = O.ORGNZT_ID
+    	WHERE 			E.ESNTL_ID = #{uniqId}
+    </select>
 </mapper>

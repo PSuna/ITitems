@@ -47,6 +47,23 @@ function fnPasswordMove(){
     document.userManageVO.submit();
 }
 function fnUpdate(){
+	if(!document.userManageVO.emplyrNm.value){
+		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrNmErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.orgnztId.value){
+		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
+	}else{
+		document.getElementById('orgnztIdErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.grade.value){
+		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
+	}else{
+		document.getElementById('gradeErr').innerHTML='';
+	}
     if(validateUserManageVO(document.userManageVO)){
         document.userManageVO.submit();
     }
@@ -80,8 +97,54 @@ function fn_egov_dn_info_setting(dn) {
 function fn_egov_modal_remove() {
 	$('#modalPan').remove();
 }
+
+/**********************************************************
+ * 본부/부서 선택
+ ******************************************************** */
+function getMOrgList(MOval) {
+	let val = document.getElementById('orgnztId').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(MOval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+		
+	}
+}
 //-->
 </script>
+<style>
+.errSpan{
+	color:red;
+}
+</style>
 </head>
 <body>
 	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -98,10 +161,6 @@ function fn_egov_modal_remove() {
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-						<%-- <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
-						<!--// Left menu --> --%>
-
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
@@ -113,10 +172,7 @@ function fn_egov_modal_remove() {
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="userManageVO"
-									action="${pageContext.request.contextPath}/uss/myp/MyPageUpdt.do"
-									name="userManageVO" method="post">
-
+								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/myp/MyPageUpdt.do" name="userManageVO" method="post">
 									<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
 									<!-- 검색조건 유지 -->
@@ -146,42 +202,54 @@ function fn_egov_modal_remove() {
 												<col style="width: auto;">
 											</colgroup>
 											<tr>
-												<td class="lb"><label for="emplyrId">사용자ID</label></td>
-												<form:input path="authorCode" id="authorCode" type="hidden"/>
-												<td><form:input path="emplyrId" id="emplyrId"
-														class="f_txt w_full" maxlength="100" readonly="true"/>
-													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
+												<td class="lb">
+													<label for="emplyrId">사용자ID</label>
+													<span class="req">필수</span>
 												</td>
-												<td class="lb"><label for="moblphonNo">H.P</label></td>
-												<td><form:input path="moblphonNo" id="moblphonNo"
-														class="f_txt w_full" maxlength="15" placeholder="ex) 010-XXXX-XXXX"/><form:errors
-														path="moblphonNo"/></td>
+												<form:input path="authorCode" id="authorCode" type="hidden"/>
+												<td>
+													<form:input path="emplyrId" id="emplyrId" class="f_txt w_full" maxlength="100" readonly="true"/>
+													<form:errors path="emplyrId" />
+													<form:hidden path="uniqId" />
+												</td>
+												<td class="lb">
+													<label for="moblphonNo">H.P</label>
+												</td>
+												<td>
+													<form:input path="moblphonNo" id="moblphonNo" class="f_txt w_full" maxlength="15" placeholder="ex) 010-XXXX-XXXX"/>
+													<form:errors path="moblphonNo"/>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<label for="emplyrNm">이름</label>
+													<span class="req">필수</span>
 												</td>
 												<td>
 													<form:input path="emplyrNm" id="emplyrNm" class="f_txt w_full" maxlength="60" />
 													<form:errors path="emplyrNm" />
+													<span id="emplyrNmErr" class="errSpan"></span>
 												</td>
 												<td class="lb">
-													<label for="orgnztId">부서</label>
+													<label for="orgnztId">본부</label>
+	                                                <span class="req">필수</span>
+	                                                
 												</td>
 												<td>
 													<label class="f_select w_full" for="orgnztId">
-														<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="부서">
-															<form:option value="" label="선택하세요" />
-															<form:options items="${orgnztId_result}" itemValue="code"
-																itemLabel="codeNm" />
+														<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" onchange="getMOrgList();">
+															<form:option value="" label="본부"/>
+															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
 														</form:select>
 													</label>
 													<form:errors path="orgnztId" />
+													<span id="orgnztIdErr" class="errSpan"></span>
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 	                                                <label for="grade">직급</label>
+	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="grade">
@@ -191,9 +259,18 @@ function fn_egov_modal_remove() {
 	                                                    </form:select>
 	                                                </label>
 	                                                <form:errors path="grade" /> 
+	                                                <span id="gradeErr" class="errSpan"></span>
 	                                            </td>
-	                                            <td></td>
-	                                            <td></td>
+	                                            <td class="lb">
+	                                            	<label for="orgnztId">부서</label>
+	                                            </td>
+	                                            <td>
+	                                            	<label class="f_select w_full" for="lowerOrgnzt">
+														<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
+															<form:option value='' label="부서" />
+														</form:select>
+													</label> 
+	                                            </td>
 											</tr>
 										</table>
 									</div>
@@ -240,5 +317,9 @@ function fn_egov_modal_remove() {
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
+<script>
+var OrgnztUp = '${userManageVO.lowerOrgnzt}';
+getMOrgList(OrgnztUp);
+</script>
 </body>
 </html>

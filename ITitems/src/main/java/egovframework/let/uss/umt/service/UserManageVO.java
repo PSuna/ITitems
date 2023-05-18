@@ -121,7 +121,6 @@ public class UserManageVO extends UserDefaultVO{
 	 * 조직 ID
 	 */
 	private String orgnztId;
-	
 	private String lowerOrgnzt;
 	
 	/**

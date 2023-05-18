@@ -91,6 +91,11 @@ public class MyManageController {
 		
 		UserManageVO userManageVO = new UserManageVO();
 		userManageVO = userManageService.selectUser(uniqId);
+		String UpperOrg = userManageService.checkUpper(uniqId);
+		if( UpperOrg !=null ) {
+			userManageVO.setLowerOrgnzt(userManageVO.getOrgnztId());
+			userManageVO.setOrgnztId(UpperOrg);
+		}
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("userManageVO", userManageVO);
 		
@@ -114,6 +119,11 @@ public class MyManageController {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
         	return "uat/uia/EgovLoginUsr";
     	}
+    	
+    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt() != "") {
+			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
+		}
+    	
 		userManageService.updateUser(userManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");

@@ -102,6 +102,8 @@ public interface UserManageService  {
 
 	public void xlsxTrsfUserList(UserDefaultVO userSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
+	public String checkUpper(String uniqId) throws Exception;
+
 
 
 }
