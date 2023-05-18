@@ -248,10 +248,17 @@
 .paging>ul li a {
 	color:#888;
 }
+
+.paging>ul li a:hover {
+    background-color: #ffdbc3d1;
+    border-radius: 20%;
+}
+
 .paging>ul li strong {
 	border-radius:20%;
 	color:#fff;
 	background:var(--point-color);
+	cursor: default;
 }
 .board_list_top {
 	display:table;

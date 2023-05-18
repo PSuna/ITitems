@@ -97,6 +97,7 @@ function inputFile() {
 		dataTransfer.items.add(file);
 	});
 	$('input[name=photo]')[0].files = dataTransfer.files; 
+	photoFileList = [];
 }
 
 

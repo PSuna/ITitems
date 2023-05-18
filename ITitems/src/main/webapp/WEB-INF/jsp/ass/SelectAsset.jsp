@@ -59,6 +59,16 @@ function AssetUpdt() {
 	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
     document.frm.submit();
 }
+
+function AssetList(code){
+	if(code == "AM"){
+		document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+	    document.frm.submit();
+	}else if (code == "MYAM"){
+		document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+	    document.frm.submit();
+	}
+}
 </script>
 </head>
 
@@ -73,25 +83,21 @@ function AssetUpdt() {
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
 								<div class="location">
 									<ul>
-										<li><a class="home" href="">Home</a></li>
-										<li><a href="">자산관리</a></li>
+										<li><a class="home" href="#LINK">Home</a></li>
+										<li><a href="#LINK">자산관리</a></li>
 										<li>자산정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
-
-
 								<form id="frm" name="frm" autocomplete="off">
 									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
@@ -130,7 +136,6 @@ function AssetUpdt() {
 				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                                    </c:import>
 												</td>
-												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -158,7 +163,6 @@ function AssetUpdt() {
 												<td>
 												</td>
 											</tr>
-											
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> <label for="">제조사</label>
@@ -204,7 +208,6 @@ function AssetUpdt() {
 													${resultVO.prjNm}
 												</td>
 											</tr>
-											
 											<tr>
 												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
@@ -248,19 +251,30 @@ function AssetUpdt() {
 										%>
 										<c:set var="login" value="<%= loginVO.getOrgnztId()%>"/>
 										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
-									<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_ADMIN' || resultVO.useId == login}">
 									<!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
-											<!-- 수정 -->
+										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_ADMIN' || resultVO.useId == login}">
+												<!-- 수정 -->
+												<a href="#LINK" class="btn btn_blue_46 w_100"
+													onclick="AssetUpdt();return false;"> <spring:message
+														code="button.update" />
+												</a>
+										</c:if>
+											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="AssetUpdt();return false;"> <spring:message
-													code="button.update" />
+												onclick="AssetList('${listCode}');return false;"> <spring:message
+													code="button.list" />
 											</a>
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-									</c:if>
+									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+									<c:set var="end" value="<%=new java.util.Date()%>" />
+									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
 								</form>
 							</div>
 						</div>
