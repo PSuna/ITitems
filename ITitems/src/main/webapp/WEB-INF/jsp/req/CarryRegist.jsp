@@ -551,7 +551,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="f_search2 w_30%"> 
-														<input id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
+														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span>
 													<input name="pm" id="pm" type="hidden" title="pm" value="" />

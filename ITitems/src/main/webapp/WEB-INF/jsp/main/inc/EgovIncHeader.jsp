@@ -15,11 +15,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+	<script src="<c:url value='/'/>js/showModalDialog.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
-	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
+	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
@@ -85,12 +84,12 @@ function fn_egov_modal_remove() {
         <!-- gnb -->
         <div class="gnb">
             <ul>
-          		<li><a href="#LINK" >내자산조회</a></li>
-          		<li><a href="#LINK" >전체자산조회</a></li>
-          		<li><a href="#LINK" >신규자산등록</a></li>
-          		<li><a href="#LINK" >반출관리</a></li>
-          		<li><a href="#LINK" >공지사항</a></li>
-          		<li><a href="#LINK" >결재요청</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')">내자산조회</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetManagement.do')">전체자산조회</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetRegist.do')">신규자산등록</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')" style="cursor:pointer">반출관리</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/aprv/ApprovalManage.do')">결재요청</a></li>
           		
           		
                	<li class="gnb_li">
@@ -172,27 +171,27 @@ function fn_egov_modal_remove() {
         <div class="inner">
         	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
 	        	<div>
-	                <h2 onclick="location.href='/ebt_webapp/ass/MyAssetManagement.do'" style="cursor:pointer">내자산조회</h2>
+	                <h2 onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')" style="cursor:pointer">내자산조회</h2>
 	            </div>
             </c:if>
             <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
             <div>
-                <h2 onclick="location.href='/ebt_webapp/ass/AssetManagement.do'" style="cursor:pointer">전체자산조회</h2>
+                <h2 onclick="goMenuPage('/ebt_webapp/ass/AssetManagement.do')" style="cursor:pointer">전체자산조회</h2>
             </div>
             </c:if>
             <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
 	            <div>
-	                <h2 onclick="location.href='/ebt_webapp/ass/AssetRegist.do'" style="cursor:pointer">신규자산등록</h2>
+	                <h2 onclick="goMenuPage('/ebt_webapp/ass/AssetRegist.do')" style="cursor:pointer">신규자산등록</h2>
 	            </div>
             </c:if>
             <div>
-                <h2 onclick="location.href='/ebt_webapp/ass/ReturnRequest.do'" style="cursor:pointer">반출관리</h2>
+                <h2 onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')" style="cursor:pointer">반출관리</h2>
             </div>
             <div>
-                <h2 onclick="location.href='/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'" style="cursor:pointer">공지사항</h2>
+                <h2 onclick="goMenuPage('/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')" style="cursor:pointer">공지사항</h2>
             </div>
             <div>
-                <h2 onclick="location.href='/ebt_webapp/aprv/ApprovalManage.do'" style="cursor:pointer">결재요청</h2>
+                <h2 onclick="goMenuPage('/ebt_webapp/aprv/ApprovalManage.do')" style="cursor:pointer">결재요청</h2>
             </div>
             <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
             <div class="admin" style="margin-left: 28px;">
@@ -249,11 +248,8 @@ function getLastLink(baseMenuNo){
         }
     }
 }
-function goMenuPage(baseMenuNo){
-	document.getElementById("baseMenuNo").value=baseMenuNo;
-	//document.getElementById("link").value=getLastLink(baseMenuNo);
-    //document.menuListForm.chkURL.value=url;
-    document.menuListForm.action = "<c:url value='/'/>"+getLastLink(baseMenuNo).substring(1);
+function goMenuPage(url){
+    document.menuListForm.action = url;
     document.menuListForm.submit();
 }
 function actionLogout()
