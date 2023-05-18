@@ -142,7 +142,7 @@
                                         <input class="f_input w_350" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
                                         <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
-									
+									<button class="btn pty_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button><!-- 조회 -->
                                     </form>
                                 </div>
                                 <!--// 검색조건 -->

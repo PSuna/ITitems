@@ -1,6 +1,5 @@
 package egovframework.let.ass.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface AssetService {
 	
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO);
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
 	
 	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO);
 	

@@ -14,12 +14,11 @@ import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetHistVO;
 import egovframework.let.ass.service.AssetInfoVO;
+import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.com.service.ExcelUtil;
-import egovframework.let.prj.service.impl.ProjectDAO;
 
 /**
  * 자산관리를 위한 서비스 구현 클래스
@@ -57,7 +56,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 조건에 맞는 전체자산을 전부 조회한다.
      */
 	@Override
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO){
+	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resultList", assetInfoDAO.SelectAssetInfoVOList(assetManageVO));
 		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));

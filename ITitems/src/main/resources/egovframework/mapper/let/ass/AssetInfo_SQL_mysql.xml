@@ -55,8 +55,12 @@
 	
 	<sql id="search">
 		<where>
-			<if test="searchOrgnzt != null and searchOrgnzt != ''">
+			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
 				AND B.ORGNZT_ID = #{searchOrgnzt}
+				 OR G.ORGNZT_UP = #{searchOrgnzt}
+			</if>
+			<if test="searchLOrgnzt != null and searchLOrgnzt != ''">
+				AND B.ORGNZT_ID = #{searchLOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
@@ -135,17 +139,19 @@
 					A.ACQUIRED_PRICE, 
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS
-				  FROM ASSETSINFO A
-				  LEFT OUTER JOIN ASSETSHIST B
+				  FROM ASSETSINFO A 
+	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
-				  LEFT OUTER JOIN CATEGORY C
+	   LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
-				  LEFT OUTER JOIN CATEGORY D
+	   LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
 				    ON B.APPROVAL = F.CODE
+	   LEFT OUTER JOIN LETTNORGNZTINFO G
+	   				ON B.ORGNZT_ID = G.ORGNZT_ID
 		        	<include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -154,11 +160,12 @@
 	<select id="CountAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
-		SELECT 
-			COUNT(A.ASSET_ID)
+		SELECT COUNT(A.ASSET_ID)
 		  FROM ASSETSINFO A
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
+		  LEFT OUTER JOIN LETTNORGNZTINFO G
+	   		ON B.ORGNZT_ID = G.ORGNZT_ID
 		<include refid="search" />
 	</select>
 	

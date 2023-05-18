@@ -1,7 +1,6 @@
 package egovframework.let.ass.service;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 자산내역에 대한 데이터 처리 모델 클래스

@@ -32,10 +32,9 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>사이트관리 > 자산전체현황</title>
+<title>ITEYES 자산관리솔루션</title>
 <script type="text/javascript">
 function ProjectSearch(){
-    
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
@@ -95,6 +94,43 @@ function getMCatList(Mval) {
 	}
 	
 }
+function getMOrgList(MOval) {
+	let val = document.getElementById('orgnztId').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '::부서::';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '::부서::';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(MOval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+	}
+	
+}
 
 function SearchAssetList() {
 	event.preventDefault();
@@ -112,13 +148,11 @@ function setPageUnit(){
 function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
+	document.frm.searchLOrgnzt.value = '${searchVO.searchLOrgnzt}';
 	document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';
 	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
-	document.frm.searchStatus.value = '${searchVO.searchStatus}';
-	document.frm.startDate.value = '${searchVO.startDate}';
-	document.frm.endDate.value = '${searchVO.endDate}';
 	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.pageIndex.value = pageNo;
     document.frm.action = "<c:url value='/sec/asm/SecAssetManage.do'/>";
@@ -167,8 +201,9 @@ function make_date(){
 
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
+	getMOrgList('${searchVO.searchLOrgnzt}');
 	make_date();
-	  }
+}
 	  
 function selectAsset(id) {
 	document.getElementById('subForm'+id).submit;
@@ -247,21 +282,23 @@ function fntrsfExcel(){
 											<div>
 												<span class="lb">부서</span>
 												<label class="item f_select" for="sel1"> 
-													<select id="searchOrgnzt" name="searchOrgnzt" title="부서" style=" width: 200px;">
-															<option value="" >선택하세요</option>
+													<select id="orgnztId" name="searchOrgnzt" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+															<option value="" label="::본부::"/>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
 															</c:forEach>
 													</select>
 												</label> 
 											</div>
-											
-											<div style=" width: 378px;">
-												<span class="lb">프로젝트</span> 
-												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" style="width: 283px;" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-													<button type="button" class="btn"style="right: -73px;" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+											<div>
+												<label class="item f_select" for="sel1">
+												<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서">
+													<option value='' label="::부서::" />
+												</select>
+												</label> 
 											</div>
+											
+											
 											<div>
 												<span class="lb">분류</span> 
 												<label class="item f_select" for="sel1">
@@ -285,7 +322,7 @@ function fntrsfExcel(){
 										</div>	
 											
 										<div class="pty_box01">	
-											<div>							
+											<%-- <div>							
 												<span class="lb">상태</span> 
 												<label class="item f_select" for="sel1"> 
 													<select id="searchStatus" name="searchStatus" title="상태" style=" width: 200px;">
@@ -295,9 +332,14 @@ function fntrsfExcel(){
 															</c:forEach>
 													</select>
 												</label> 
+											</div> --%>
+											<div style=" width: 355px;">
+												<span class="lb">프로젝트</span> 
+												<span class="f_search2 w_200"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" style="width: 283px;" readOnly="true" value="<c:out value="${searchVO.prjNm}"/>" />
+													<button type="button" class="btn"style="right: -73px;" onclick="ProjectSearch();">조회</button>
+												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
-											
-											<div>
+											<%-- <div>
 												<span class="lb ml20">취득일자</span> 
 												<span class="search_date">
 												<input class="f_date pty_f_date w_130" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
@@ -306,7 +348,7 @@ function fntrsfExcel(){
 												 <span class="search_date">
 												 <input class="f_date pty_f_date w_130" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
 												 </span> 
-											</div>		
+											</div>	 --%>	
 											<div class="pty_search">
 												<span class="lb" style="margin: 0 8px 0 24px !important;">조회</span>
 												<span class="item f_search">

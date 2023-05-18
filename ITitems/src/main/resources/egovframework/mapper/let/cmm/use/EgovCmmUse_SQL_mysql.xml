@@ -39,6 +39,7 @@
                    ORGNZT_DC CODE_DC
               FROM LETTNORGNZTINFO
              WHERE 1=1
+               AND ORGNZT_UP IS NULL
             <if test="haveDetailCondition == &quot;Y&quot;">
                AND ORGNZT_ID LIKE #{detailConditionValue}
             </if>

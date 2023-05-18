@@ -1,7 +1,6 @@
 package egovframework.let.ass.service;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 자산내역 관리를 위한 VO 클래스
@@ -29,8 +28,11 @@ public class AssetManageVO implements Serializable {
 	/** 자산코드 */
 	private String assetId;
 	
-	/** 검색부서 */
+	/** 검색본부 */
     private String searchOrgnzt = "";
+    
+    /** 검색부서 */
+    private String searchLOrgnzt = "";
     
     /** 기본 검색부서 */
     private String menuOrgnzt = "";
@@ -339,6 +341,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getSearchLOrgnzt() {
+		return searchLOrgnzt;
+	}
+	public void setSearchLOrgnzt(String searchLOrgnzt) {
+		this.searchLOrgnzt = searchLOrgnzt;
 	}
 	
 	
