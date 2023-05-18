@@ -57,13 +57,11 @@ function fn_egov_modal_remove() {
 <!-- Header -->
 <div class="header">
     <div class="inner">
-        <div class="left_col" style="display: flex; align-items: flex-end; font-size:20px;">
+        <div class="left_col" style="display: flex; justify-content:center; align-items: flex-end; font-size:20px;">
             <h1 class="logo"><a href="<c:url value='/'/>cmm/main/mainPage.do"><img src="<c:url value='/'/>images/iteyes_logo.png" alt="표준프레임워크 포털 eGovFrame 샘플 포탈" height="40px"></a></h1>
-            <h4>자산관리 솔루션</h4>
+            <h4>자산관리<span style="font-weight:200; font-size: 18px; margin-right:0;">솔루션</span></h4>
             <%-- <a class="go" href="#LINK" onclick="fn_egov_modal_create(); return false;"><img src="<c:url value='/'/>images/ico_question.png" alt="메뉴구성 설명"></a> --%>
-        </div>
-
-		<%
+        	<%
 			LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 			if(loginVO == null){
 		%>
@@ -77,10 +75,14 @@ function fn_egov_modal_remove() {
 			<c:set var="loginUniqId" value="<%= loginVO.getUniqId()%>"/>
 			<c:set var="loginAuthorNm" value="<%= loginVO.getAuthorNm()%>"/>
 	        <div class="top_menu">
-	            <span class="t"><span style="color:black; cursor:pointer;" onclick="javascript:fnMypage('${loginUniqId}')" >${loginName} 님</span>(${loginAuthorNm})</span>
+	            <span class="t" style="margin-right:0;"><span style="color:black; cursor:pointer; margin-right:0;" onclick="javascript:fnMypage('${loginUniqId}')" >${loginName} 님</span>(${loginAuthorNm})</span>
 	            <a href="<c:url value='/uat/uia/actionLogout.do'/>" class="btn btn_blue_15 w_90">로그아웃</a>
 	        </div>
         <% } %>
+        
+        </div>
+
+		
 
         <!-- gnb -->
         <div class="gnb">
@@ -95,7 +97,7 @@ function fn_egov_modal_remove() {
           		
                	<li class="gnb_li">
                	
-                	<a href="#LINK">사이트관리</a>
+                	<a href="#LINK" style="width:140px; padding-left: 12px; ">사이트관리</a>
                 	
              
                 	<div class="admin pty_dropdown">	              

@@ -628,6 +628,8 @@
 }
 .container.main {
 	background:#f2f2f2;
+	
+	box-shadow:inset -1px 3px 12px -10px #828282;
 }
 .P_MAIN .inner {
 	position:relative;
@@ -664,7 +666,11 @@
 	font-weight:400;
 }
 .P_MAIN .bot {
-	background:#f2f2f2;
+		background:aliceblue;
+	
+	/* background:#f2f2f2;
+	box-shadow: inset -1px 3px 12px -10px #828282; */
+	
 }
 .P_MAIN .col {
 	width:1300px;

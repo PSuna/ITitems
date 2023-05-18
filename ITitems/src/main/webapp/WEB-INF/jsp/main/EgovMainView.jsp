@@ -50,16 +50,45 @@
         <!--// Header -->
 
         <div class="container main">
-            <div class="P_MAIN">
+           
+           <div class="pty_main_img">
+           		<img src="<c:url value="/" />images/pty_main_00.png">
+           </div>
+           
+           
+           <div>
+           	<div>
+           		<div></div>		
+           		<div></div>	
+           	
+           	</div>
+           	
+           	<div></div>
+           	
+           </div>
+           
+           
+           
+            
+        </div>
+		
+		
+		
+		<div class="P_MAIN">
 
                 <div class="bot">
+                	
+                
                     <div class="col">
+                    	
+					<!-- 결제, 공지 -->                    
                         <div class="right_col" style="margin-right:10px;">
                             <div class="box pty_colbox">
                                 <div class="head">
                                     <h2>신규 <span>결재요청</span> <span style="color: white; background: #d84c5c; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
                                     <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a>
                                 </div>
+                                
                                 <div class="list">
                                     <table>
                                         <colgroup>
@@ -118,11 +147,17 @@
                                 </div>
                             </div>
                         </div>
+                      <!-- //결제, 공지 -->        
+                        
                     </div>
+                    
+                    
+                    
                 </div>
             </div>
-        </div>
-
+		
+		
+		
         <!-- Footer -->
         <c:import url="/sym/mms/EgovFooter.do" />
         <!--// Footer -->

@@ -39,7 +39,8 @@ body{
 
 /* gnb 드롭다운 관련 */
 .gnb>ul{
-
+display:flex;
+	justify-content:center; 
 	
 }
 
@@ -64,7 +65,8 @@ body{
   
     position:relative;
      z-index: 999;
-	
+     background:#fff;
+	padding: 0 0 14px 14px;
 }
 
 .pty_dropdown h3{
