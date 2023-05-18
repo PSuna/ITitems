@@ -33,8 +33,9 @@ public class UserDefaultVO implements Serializable {
 	/** 검색조건 */
     private String searchCondition = "";
     
-    /** 부서검색조건 */
+    /** 본부/부서검색조건 */
     private String searchOrgnzt = "";
+    private String searchLOrgnzt = "";
     /** 직급검색조건 */
     private String searchGrade = "";
     
@@ -253,6 +254,14 @@ public class UserDefaultVO implements Serializable {
 
 	public void setUniqId(String uniqId) {
 		this.uniqId = uniqId;
+	}
+
+	public String getSearchLOrgnzt() {
+		return searchLOrgnzt;
+	}
+
+	public void setSearchLOrgnzt(String searchLOrgnzt) {
+		this.searchLOrgnzt = searchLOrgnzt;
 	}
 
 

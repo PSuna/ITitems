@@ -64,12 +64,10 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * 사용자 ID
 	 */
-	@NotEmpty(message="사용자ID는 필수 입력값 입니다.")
 	private String emplyrId;
 	/**
 	 * 사용자 명
 	 */
-	@NotEmpty(message="사용자명은 필수 입력값 입니다.")
 	private String emplyrNm;
 	/**
 	 * 사용자 상태
@@ -122,12 +120,13 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * 조직 ID
 	 */
-	@NotEmpty(message="부서는 필수 입력값 입니다.")
 	private String orgnztId;
+	
+	private String lowerOrgnzt;
+	
 	/**
 	 * 직급 ID
 	 */
-	@NotEmpty(message="직급은 필수 입력값 입니다.")
 	private String grade;
 	/**
 	 * 비밀번호
@@ -166,7 +165,6 @@ public class UserManageVO extends UserDefaultVO{
 	
 	private String mberTyCode;
 	
-	@NotEmpty(message="권한은 필수 입력값 입니다.")
 	private String authorCode;
 	
 	/**
@@ -649,6 +647,12 @@ public class UserManageVO extends UserDefaultVO{
 	}
 	public void setAuthorCode(String authorCode) {
 		this.authorCode = authorCode;
+	}
+	public String getLowerOrgnzt() {
+		return lowerOrgnzt;
+	}
+	public void setLowerOrgnzt(String lowerOrgnzt) {
+		this.lowerOrgnzt = lowerOrgnzt;
 	}
 	
 }

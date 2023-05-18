@@ -29,9 +29,12 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>내부업무 사이트 > 내부시스템관리 > 사용자등록관리</title>
+<title>ITEYES 자산관리솔루션</title>
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+window.onload = function(){
+	getMOrgList('${userSearchVO.searchLOrgnzt}');
+}
 function fnCheckAll() {
     var checkField = document.listForm.checkField;
     if(document.listForm.checkAll.checked) {
@@ -131,6 +134,43 @@ function fntrsfExcel(){
 	}
 }
 
+function getMOrgList(MOval) {
+	let val = document.getElementById('orgnztId').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(MOval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+		
+	}
+}
 //-->
 </script>
 <style>
@@ -187,15 +227,23 @@ function fntrsfExcel(){
                                 
                                 <!-- 검색조건 -->
                                 <div class="condition pty_condition" style="display: flex; justify-content: center;">
-                                    <label class="item f_select" for="searchOrgnzt">
-                                    	<select id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서" onchange="javascript:fnSearch(); return false;">
-	                                        <option value="" label="부서"/>
-	                                        <c:forEach var="orgnztId" items="${orgnztId_result}">
-	                                        	<option value="<c:out value="${orgnztId.code}"/>"<c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>${orgnztId.codeNm}</option>
-	                                        </c:forEach>
-                                    	</select>
-                                    </label>
-                                    
+                                    <div>
+										<label class="item f_select" for="sel1"> 
+											<select id="orgnztId" name="searchOrgnzt" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+													<option value="" label="본부"/>
+													<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+														<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
+													</c:forEach>
+											</select>
+										</label> 
+									</div>
+									<div>
+										<label class="item f_select" for="sel1">
+										<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="javascript:fnSearch(); return false;">
+											<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
+										</select>
+										</label> 
+									</div>
                                     <label class="item f_select" for="searchGrade">
                                     	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="직급"/>

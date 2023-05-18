@@ -1,12 +1,9 @@
 package egovframework.let.ass.service.impl;
 
-import java.util.List;
-
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetHistVO;
-import egovframework.let.ass.service.AssetManageVO;
 
 /**
  * 자산내역 관리를 위한 데이터 접근 클래스

@@ -1,9 +1,6 @@
 package egovframework.let.ass.service;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import egovframework.com.cmm.service.FileVO;
 
 /**
  * 자산정보에 대한 데이터 처리 모델 클래스
@@ -61,8 +58,11 @@ public class AssetInfoVO implements Serializable {
 	/** 사용상태 */
 	private String usageStatus;
 	
-	/** 부서 */
+	/** 본부 */
 	private String orgnztId;
+	
+	/** 부서*/
+	private String lowerOrgnztId;
 	
 	/** 프로젝트 */
 	private String prjId;
@@ -309,6 +309,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setRcptNm(String rcptNm) {
 		this.rcptNm = rcptNm;
+	}
+
+	public String getLowerOrgnztId() {
+		return lowerOrgnztId;
+	}
+
+	public void setLowerOrgnztId(String lowerOrgnztId) {
+		this.lowerOrgnztId = lowerOrgnztId;
 	}
 	
 	

@@ -40,17 +40,6 @@
 <!--
 var userCheck = 0;
 function fnIdCheck(){
-//     var retval;
-//     var url = "<c:url value='/uss/umt/cmm/egoviddplctcnfirmview.do'/>";
-//     var varparam = new object();
-//     varparam.checkid = document.usermanagevo.emplyrid.value;
-//     var openparam = "dialogwidth:303px;dialogheight:250px;scroll:no;status:no;center:yes;resizable:yes;";
-//     retval = window.showmodaldialog(url, varparam, openparam);
-//     if(retval) {
-//         document.usermanagevo.emplyrid.value = retval;
-//         document.usermanagevo.id_view.value = retval;
-//     } 
-     
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>?" + '" width="100%" height="100%"></iframe>')
 	.dialog({
@@ -80,26 +69,33 @@ function fnInsert(){
 	}else{
 		document.getElementById('emplyrIdErr').innerHTML='';
 	}
+	
 	if(!document.userManageVO.emplyrNm.value){
 		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
 	}else{
 		document.getElementById('emplyrNmErr').innerHTML='';
 	}
+	
 	if(!document.userManageVO.orgnztId.value){
 		document.getElementById('orgnztIdErr').innerHTML='부서는 필수입력값입니다.';
+	}else if(document.userManageVO.lowerOrgnzt.value){
+		document.userManageVO.orgnztId.value = document.userManageVO.lowerOrgnzt.value;
 	}else{
 		document.getElementById('orgnztIdErr').innerHTML='';
 	}
+	
 	if(!document.userManageVO.grade.value){
 		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
 	}else{
 		document.getElementById('gradeErr').innerHTML='';
 	}
+	
 	if(!document.userManageVO.authorCode.value){
 		document.getElementById('authorCodeErr').innerHTML='권한은 필수입력값입니다.';
 	}else{
 		document.getElementById('authorCodeErr').innerHTML='';
 	}
+	
 	if(validateUserManageVO(document.userManageVO)){
 		document.userManageVO.submit();
     }
@@ -163,6 +159,47 @@ function fn_egov_returnValue(retVal){
  ******************************************************** */
 function fn_egov_modal_remove() {
 	$('#modalPan').remove();
+}
+
+/**********************************************************
+ * 본부/부서 선택
+ ******************************************************** */
+function getMOrgList(MOval) {
+	let val = document.getElementById('orgnztId').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(MOval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+		
+	}
 }
 //-->
 </script>
@@ -273,12 +310,21 @@ function fn_egov_modal_remove() {
                                                 <span class="req">필수</span>
                                             </td>
                                             <td>
-                                                <label class="f_select w_full" for="orgnztId">
-                                                    <form:select path="orgnztId" id="orgnztId" name="orgnztId" title="부서">
-	                                                    <form:option value="" label="선택하세요"/>
-	                                                    <form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
-                                                    </form:select>
-                                                </label>
+                                            	<div>
+                                                <label class="item f_select" for="orgnztId"> 
+													<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+															<form:option value="" label="본부"/>
+															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
+													</form:select>
+												</label>
+												</div>
+												<div>
+												<label class="item f_select" for="lowerOrgnzt">
+													<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
+														<form:option value='' label="부서" />
+													</form:select>
+												</label> 
+												</div>
                                                 <form:errors path="orgnztId" />
                                                 <span id="orgnztIdErr" class="errSpan"></span>
                                             </td>

@@ -32,14 +32,14 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	/**
 	 * 조건에 맞는 전체자산 전체 조회
 	 */
-	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) {
+	public List<AssetInfoVO> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
 		return selectList("AssetInfoDAO.SelectAssetInfoVOList", assetManageVO);
 	}
 
 	/**
 	 * 조건에 맞는 전체자산 전체 갯수 조회
 	 */
-	public int CountAssetInfoVOList(AssetManageVO assetManageVO) {
+	public int CountAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
 		return selectOne("AssetInfoDAO.CountAssetInfoVOList", assetManageVO);
 	}
 	
