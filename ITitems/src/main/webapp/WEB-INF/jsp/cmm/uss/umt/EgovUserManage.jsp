@@ -26,6 +26,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -181,6 +182,7 @@ function getMOrgList(MOval) {
 .board_list_top+.board_list{
 	margin-top:0;
 }
+
 </style>
 </head>
 <body>
@@ -228,8 +230,8 @@ function getMOrgList(MOval) {
                                 <!-- 검색조건 -->
                                 <div class="condition pty_condition" style="display: flex; justify-content: center;">
                                     <div>
-										<label class="item f_select" for="sel1"> 
-											<select id="orgnztId" name="searchOrgnzt" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+										<label class="item f_select w_150" for="sel1"> 
+											<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
 													<option value="" label="본부"/>
 													<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 														<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
@@ -238,13 +240,13 @@ function getMOrgList(MOval) {
 										</label> 
 									</div>
 									<div>
-										<label class="item f_select" for="sel1">
+										<label class="item f_select w_150" for="sel1">
 										<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
 											<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 										</select>
 										</label> 
 									</div>
-                                    <label class="item f_select" for="searchGrade">
+                                    <label class="item f_select w_150"  for="searchGrade">
                                     	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
 	                                        <option value="" label="직급"/>
 	                                        <c:forEach var="grade" items="${grd_result}">
@@ -253,13 +255,13 @@ function getMOrgList(MOval) {
                                     	</select>
                                     </label>
                                     
-                                    <label class="item f_select" for="searchCondition">
+                                    <label class="item f_select w_150" for="searchCondition">
                                         <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
                                             <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >사용자ID</option>
                                             <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
                                         </select>
                                     </label> 
-									<div class="pty_search" style="margin-left:10px;">
+									<div class="pty_search">
 										<span class="item f_search">
 											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
 										</span>
@@ -290,7 +292,6 @@ function getMOrgList(MOval) {
                                     				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 		                                 		</div>
 	                                 	</div>
-	                                 	<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 	                            	</div>
                                 </div>
 								
@@ -351,7 +352,9 @@ function getMOrgList(MOval) {
                                             
                                         </tbody>
                                     </table>
-                                    
+                                    <div class="excel_btn">
+                                    	<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                    </div>
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->

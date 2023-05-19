@@ -57,10 +57,6 @@
 		<where>
 			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
 				AND B.ORGNZT_ID = #{searchOrgnzt}
-				 OR G.ORGNZT_UP = #{searchOrgnzt}
-			</if>
-			<if test="searchLOrgnzt != null and searchLOrgnzt != ''">
-				AND B.ORGNZT_ID = #{searchLOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}

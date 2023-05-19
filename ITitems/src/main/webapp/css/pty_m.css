@@ -249,7 +249,7 @@
 	}
 	
 	.layout .nav{
-		display:contents!important;
+		display:none!important;
 		padding-top:unset!important;
 	
 	}
@@ -327,6 +327,9 @@
 		flex-wrap: wrap !important;
 		
 	}
+	.pty_condition div{
+		margin-bottom:5px !important;
+	}
 	
 	.condition{
 		display:flex!important;
@@ -358,7 +361,7 @@
 	}
 	
 	.catInnerBox{
-		height:auto!important;
+		/* height:auto!important; */
 	}
 	
 	.upperCat, .lowerCat{
