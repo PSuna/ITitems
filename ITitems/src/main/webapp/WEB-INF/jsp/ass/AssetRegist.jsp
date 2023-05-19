@@ -244,11 +244,15 @@ function UserSearch(ch){
  * 검색 프로젝트 입력
  ******************************************************** */
 function returnProject(val){
-	
+	resetBtnCl = $(resetBtn).clone();
 	if (val) {
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
-		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
+		if($("#prjId").closest("td").children().last().prop('tagName') != 'IMG'){
+			$("#prjId").closest("td").append(resetBtnCl.on("click",function(){
+				resetPrj(this);
+			}));
+		}
 	}
 	
 	fn_egov_modal_remove();
@@ -257,37 +261,34 @@ function returnProject(val){
 /* ********************************************************
  * 프로젝트 입력 리셋
  ******************************************************** */
- function resetPrj(e){
+ function resetPrj(obj){
 	document.getElementById("prjId").value  = "";
 	document.getElementById("prjNm").value  = "";
-	console.log(e)
+	$(obj).remove();
 }
  
-/* ********************************************************
- * 검색 자산 입력
- ******************************************************** */
-function returnAsset(val){
-	
-	if (val) {
-		document.getElementById("useId").value  = val.userId;
-		document.getElementById("useNm").value  = val.userNm;
-	}
-	
-	fn_egov_modal_remove();
-}
-
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
 function returnUser(val){
-
-if (val) {
-	if(userCheck == 0){
-		document.getElementById("rcptId").value  = val.userId;
-		document.getElementById("rcptNm").value  = val.userNm;
-	}else if(userCheck == 1){
-		document.getElementById("useId").value  = val.userId;
-		document.getElementById("useNm").value  = val.userNm;
+	resetBtnCl = $(resetBtn).clone();
+	if (val) {
+		if(userCheck == 0){
+			document.getElementById("rcptId").value  = val.userId;
+			document.getElementById("rcptNm").value  = val.userNm;
+			if($("#rcptId").closest("td").children().last().prop('tagName') != 'IMG'){
+				$("#rcptId").closest("td").append(resetBtnCl.on("click",function(){
+					resetRcpt(this);
+				}));
+			}
+		}else if(userCheck == 1){
+			document.getElementById("useId").value  = val.userId;
+			document.getElementById("useNm").value  = val.userNm;
+			if($("#useId").closest("td").children().last().prop('tagName') != 'IMG'){
+				$("#useId").closest("td").append(resetBtnCl.on("click",function(){
+					resetUse(this);
+				}));
+			}
 	}
 	
 }
@@ -298,17 +299,19 @@ fn_egov_modal_remove();
 /* ********************************************************
  * 수령자 입력 리셋
  ******************************************************** */
- function resetRcpt(){
+ function resetRcpt(obj){
 	document.getElementById("rcptId").value  = "";
 	document.getElementById("rcptNm").value  = "";
+	$(obj).remove();
 }
 
 /* ********************************************************
  * 실사용자 입력 리셋
  ******************************************************** */
-  function resetUse(){
+  function resetUse(obj){
  	document.getElementById("useId").value  = "";
  	document.getElementById("useNm").value  = "";
+ 	$(obj).remove();
  }
  
 /* ********************************************************
@@ -477,27 +480,6 @@ window.onload = function(){
 
 </head>
 
-<style type="text/css">
-.ui-datepicker-trigger {
-	margin-left: 10px;
-	vertical-align: middle;
-}
-
-.board_view_bot {
-	overflow: hidden;
-}
-
-.right_btn {
-	float: right;
-}
-
-.reset_btn{
- width: 20px;
- vertical-align: -webkit-baseline-middle;
- cursor: pointer;
-}
-</style>
-
 <body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
@@ -536,6 +518,7 @@ window.onload = function(){
 									<br>
 									<div class="board_view2">
 										<table>
+										
 											<colgroup>
 												<col style="width: 20%;">
 												<col style="width: 30%;">
@@ -647,29 +630,31 @@ window.onload = function(){
 													<label for="">수령자</label> 
 													<span class="req">필수</span>
 												</td>
-												<td>
+												<td class="search_td">
 													<c:set var="Nm" value="<%= loginVO.getName()%>"/>
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 wp_87"> 
 													<input id="rcptNm" type="text" title="회원" maxlength="100"
 														readonly="false" value="<c:out value="${Nm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> <img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetRcpt(this)">
+													</span> 
 													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
 														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
+													<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetRcpt(this)">
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
+												<td class="search_td">
+													<span class="f_search2 wp_87"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
 															readonly="false" value="<c:out value="${Nm}"></c:out>"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
-													</span> <img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
+													</span>
 													<input name="useId" id="useId" type="hidden" title="프로젝트" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
+													 <img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
 												</td>
 											</tr>
 											<tr>
@@ -695,8 +680,8 @@ window.onload = function(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td>
-													<span class="f_search2 w_30%"> 
+												<td class="search_td">
+													<span class="f_search2 wp_87"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="false" />
 													<button type="button" class="btn"
@@ -711,7 +696,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												</td>
 												<td colspan="4">
 													<div class="filebox">

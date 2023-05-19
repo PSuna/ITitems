@@ -161,8 +161,8 @@ function insertApproval(reqId){
  * 등록확인 팝업창
  ******************************************************** */
  function RegistConfirm(){
-	
-	 if(validateCarryRegist(document.frm)){
+	 removeP();
+	 if(validateCarryRegist(document.frm) && checkValid()){
 		 var $dialog = $('<div id="modalPan"></div>')
 			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
@@ -183,7 +183,7 @@ function insertApproval(reqId){
  
 	fn_egov_modal_remove();
 	 if(val){
-		 RegistSuccess();
+		 insertCarry();
 	 }	  
 }
 
@@ -300,6 +300,7 @@ function getMCatList(Lcat) {
 		select.setAttribute('name', 'middleCategory');
 		let op = document.createElement('option');
 		op.textContent = '중분류';
+		op.value = "";
 		select.appendChild(op);
 		label.appendChild(select);
 		mCat.appendChild(label);
@@ -318,6 +319,7 @@ function getMCatList(Lcat) {
 				select.setAttribute('name', 'middleCategory');
 				let op = document.createElement('option');
 				op.textContent = '중분류';
+				op.value = "";
 				select.appendChild(op);
 				for(res of result){
 					op = document.createElement('option');
@@ -509,7 +511,6 @@ function removeP() {
 }
 
 function alertValid(objList) {
-	removeP();
 	$(typeList).each(function(index, type){
 		$("#frm").find(type).each(function(index, item){
 			let td = $(item).closest("td");
@@ -520,18 +521,62 @@ function alertValid(objList) {
 			}
 		})
 	})
-	$('#frm #middleCategory').each(function(){
+	checkTd();
+}
+
+function checkValid(){
+	let result = checkTd();
+	if(result != null){
+		$(result).focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function checkTd(){
+	let obj = null;
+	$('#frm #middleCategory, #frm #reqQty').each(function(){
 		if($(this).val() == null || $(this).val() == ""){
-			$(this).closest('td').append($('<p/>').addClass('alertV').text("중분류은(는) 필수 입력값입니다."));
-
+			if($(this).attr('id') == 'middleCategory'){
+				$(this).closest('td').append($('<p/>').addClass('alertV').text("중분류은(는) 필수 입력값입니다."));	
+			}else if($(this).attr('id') == 'reqQty'){
+				$(this).closest('td').append($('<p/>').addClass('alertV').text("수량은(는) 필수 입력값입니다."));
+			}
+			if(obj == null){
+				obj = $(this);
+			}
 		}
 	})
-	$('#frm #reqQty').each(function(){
-		if($(this).val() == null || $(this).val() == 0){
-			$(this).closest('td').append($('<p/>').addClass('alertV').text("수량은(는) 필수 입력값입니다."));
-
+	
+	if($('#frm #aprvNm3').val() == null || $('#frm #aprvNm3').val() == 0){
+		$('#frm #aprvNm3').closest('td').append($('<p/>').addClass('alertV').text("결재자4은(는) 필수 입력값입니다."));
+		if(obj == null){
+			obj = $('#frm #aprvNm3');
 		}
-	})
+	}
+	
+	return obj;
+}
+
+/* ********************************************************
+ *  검색 날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#frm #startDate').val();
+	let endDate = $('#frm #endDate').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #startDate').val(endDate);
+		$('#frm #endDate').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#frm #startDate').val();
+	let endDate = $('#frm #endDate').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #endDate').val("");
+	}
 }
 
 /* ********************************************************
@@ -629,13 +674,12 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
-												<td colspan="3"><span class="f_search2 w_60%"> <input
+												<td colspan="3"><span class="f_search2 wp_90"> <input
 														id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly"/>
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
-												</span> <span class="f_txt_inner ml15">(프로젝트 검색)</span> <form:errors
-														path="prjId" /> <input name="prjId" id="prjId"
+												</span> <input name="prjId" id="prjId"
 													type="hidden" title="프로젝트" value="" 
 													/></td>
 											</tr>
@@ -650,7 +694,7 @@ window.onload = function(){
 													class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 wp_90"> 
 														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span>
@@ -664,11 +708,11 @@ window.onload = function(){
 												<td colspan="3">
 													<div>
 														<span class="search_date">
-															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" >
+															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" onchange="checkStartDate()">
 														</span>
 														&nbsp;&nbsp;―&nbsp;&nbsp;
 														<span class="search_date">
-															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" >
+															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" onchange="checkEndDate()">
 														</span>
 													</div>
 												</td>
@@ -709,8 +753,7 @@ window.onload = function(){
 															</c:forEach>
 															<option value="ETC" label="직접입력" />
 													</select>
-												</label> <br>
-												<br>
+												</label>
 													<div id="mCat">
 														<label class="f_select w_full" for="middleCategory"> <select
 															id="middleCategory" name="middleCategory" title="중분류">
@@ -756,7 +799,7 @@ window.onload = function(){
 												<td>결재자1</td>
 												<td>결재자2</td>
 												<td>결재자3</td>
-												<td>결재자4</td>
+												<td>결재자4<span class="req">필수</span></td>
 											</tr>
 										</thead>
 										<tbody>
