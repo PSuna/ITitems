@@ -108,17 +108,10 @@ public class EgovMainController {
 		Map<String, Object> map = bbsMngService.selectBoardArticles(boardVO, "BBSA02");
 		model.addAttribute("notiList", map.get("resultList"));
 
-		if(loginId.getAuthorCode().equals("ROLE_HIGH_ADMIN")) {
-			model.addAttribute("resultList", approvalManageService.selectHighApprovalListB(approvalSearchVO));
-			int totCnt = approvalManageService.selectHighApprovalListTotCntB(approvalSearchVO);
-			paginationInfo.setTotalRecordCount(totCnt);
-			model.addAttribute("paginationInfo", paginationInfo);
-		}else {
-			model.addAttribute("resultList", approvalManageService.selectApprovalListB(approvalSearchVO));
-			int totCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
-			paginationInfo.setTotalRecordCount(totCnt);
-			model.addAttribute("paginationInfo", paginationInfo);
-		}
+		model.addAttribute("resultList", approvalManageService.selectApprovalListB(approvalSearchVO));
+		int totCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
 		// 공지사항 메인컨텐츠 조회 끝 -----------------------------------
 
 		return "main/EgovMainView";

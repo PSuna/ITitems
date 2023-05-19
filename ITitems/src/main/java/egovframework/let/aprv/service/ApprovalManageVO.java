@@ -101,6 +101,11 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 결재자 ID
 	 */
 	private String targetId;
+	/**
+	 * 이전결제자 ID
+	 */
+	private String targetUp;
+	
 	
 	public String getReqId() {
 		return reqId;
@@ -232,6 +237,14 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
+	}
+
+	public String getTargetUp() {
+		return targetUp;
+	}
+
+	public void setTargetUp(String targetUp) {
+		this.targetUp = targetUp;
 	}
 
 

@@ -92,23 +92,15 @@ public class ApprovalManageController {
 		approvalSearchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		approvalSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		approvalSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		if(loginId.getAuthorCode().equals("ROLE_HIGH_ADMIN")) {
-			model.addAttribute("resultList", approvalManageService.selectHighApprovalList(approvalSearchVO));
-			int totCnt = approvalManageService.selectHighApprovalListTotCnt(approvalSearchVO);
-			int leftCnt = approvalManageService.selectHighApprovalListTotCntB(approvalSearchVO);
-			paginationInfo.setTotalRecordCount(totCnt);
-			model.addAttribute("leftCnt", leftCnt);
-			model.addAttribute("paginationInfo", paginationInfo);
-		}else {
-			model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
-			int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
-			int leftCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
-			paginationInfo.setTotalRecordCount(totCnt);
-			model.addAttribute("leftCnt", leftCnt);
-			model.addAttribute("paginationInfo", paginationInfo);
-		}
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		model.addAttribute("resultList", approvalManageService.selectApprovalList(approvalSearchVO));
+		int totCnt = approvalManageService.selectApprovalListTotCnt(approvalSearchVO);
+		int leftCnt = approvalManageService.selectApprovalListTotCntB(approvalSearchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("leftCnt", leftCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
 		
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		//결재상태코드를 코드정보로부터 조회 - COM008
 		vo.setCodeId("COM008");
 		model.addAttribute("aprvStatus_result", cmmUseService.selectCmmCodeDetail(vo));
@@ -118,6 +110,18 @@ public class ApprovalManageController {
 		model.addAttribute("aprvGroup_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		return "aprv/ApprovalManage";
+	}
+	
+	/**
+	 * 반출신청 결재요청자 등록
+	 */
+	@RequestMapping(value = "/aprv/ApprovalInsert.do")
+	@ResponseBody
+	public String ApprovalInsert(ApprovalManageVO approvalManageVO, HttpServletRequest request) {
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		approvalManageVO.setId(loginId.getUniqId());
+		approvalManageService.InsertApproval(approvalManageVO);
+		return approvalManageVO.getReqId();
 	}
 	
 	/**
@@ -156,42 +160,8 @@ public class ApprovalManageController {
 		String targetId = loginVO.getUniqId();
 		approvalManageVO.setReqId(reqId);
 		approvalManageVO.setTargetId(targetId);
-		int r =  approvalManageService.UpdateApproval(approvalManageVO);
-		return r;
+		return approvalManageService.UpdateApproval(approvalManageVO);
 	}
 	
-	/**
-	 * 반출신청 최종승인처리
-	 */
-	@RequestMapping(value = "/aprv/HighApprovalUpdate.do")
-	@ResponseBody
-	public int UpdateHighApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request, @RequestParam String reqId ) {
-		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
-		String targetId = loginVO.getUniqId();
-		approvalManageVO.setReqId(reqId);
-		approvalManageVO.setTargetId(targetId);
-		int r =  approvalManageService.UpdateHighApproval(approvalManageVO);
-		return r;
-	}
-	
-	/**
-	 * 반출신청 결재요청자 등록
-	 */
-	@RequestMapping(value = "/aprv/HighApprovalInsert.do")
-	@ResponseBody
-	public String HighApprovalInsert(ApprovalManageVO approvalManageVO, @RequestParam String reqId, @RequestParam String id) {
-		approvalManageVO.setReqId(reqId);
-		approvalManageVO.setId(id);
-		approvalManageService.HighInsertApproval(approvalManageVO);
-		return approvalManageVO.getReqId();
-	}
-	/**
-	 * 반출신청 결재요청자 등록
-	 */
-	@RequestMapping(value = "/aprv/ApprovalInsert.do")
-	@ResponseBody
-	public String ApprovalInsert(ApprovalManageVO approvalManageVO) {
-		approvalManageService.InsertApproval(approvalManageVO);
-		return approvalManageVO.getReqId();
-	}
+
 }

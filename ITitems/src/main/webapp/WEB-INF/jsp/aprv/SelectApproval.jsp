@@ -72,11 +72,7 @@ function fnAgree(AuthorCode){
 	fn_egov_modal_remove();
 	var a = "ROLE_HIGH_ADMIN";
 	 if(val){
-		 if(loginAuthor==a){
-			 fnHighUpdate();
-		 }else{
-		 	 fnUpdate();
-		 }
+		 fnUpdate();
 	 }
 }
  /* ********************************************************

@@ -78,28 +78,8 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 	
 	@Override
-	public int UpdateHighApproval(ApprovalManageVO approvalManageVO) {
-		approvalManageDAO.UpdateRequest(approvalManageVO);
-		return approvalManageDAO.UpdateApproval(approvalManageVO);
-	}
-	@Override
 	public int InsertApproval(ApprovalManageVO approvalManageVO) {
 		return approvalManageDAO.InsertApproval(approvalManageVO);
-	}
-
-	@Override
-	public void HighInsertApproval(ApprovalManageVO approvalManageVO) {
-		approvalManageDAO.HighInsertApproval(approvalManageVO);
-	}
-
-	@Override
-	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO) {
-		return approvalManageDAO.selectHighApprovalList(approvalSearchVO);
-	}
-
-	@Override
-	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) {
-		return approvalManageDAO.selectHighApprovalListTotCnt(approvalSearchVO);
 	}
 
 	@Override
@@ -115,18 +95,8 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception {
-		return approvalManageDAO.selectHighApprovalListTotCntB(approvalSearchVO);
-	}
-
-	@Override
 	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception {
 		return approvalManageDAO.selectApprovalListTotCntB(approvalSearchVO);
-	}
-
-	@Override
-	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception {
-		return approvalManageDAO.selectHighApprovalListB(approvalSearchVO);
 	}
 
 	@Override
