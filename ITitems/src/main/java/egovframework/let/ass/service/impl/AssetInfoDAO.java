@@ -82,6 +82,9 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	 * 전체자산정보 엑셀 추출
 	 */
 	public List<EgovMap> xlsxTrsfAssetList(AssetManageVO assetManageVO) {
+		int first = assetManageVO.getFirst();
+		int last = assetManageVO.getLast();
+		System.out.println("first>>>>>>>>>>>>>>>>>>>>>>>" + first + "Last>>>>>>>>>>>>>>>>>>>>>"+ last);
 		return selectList("AssetInfoDAO.xlsxTrsfAssetList", assetManageVO);
 	}
 
