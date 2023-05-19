@@ -103,4 +103,9 @@ public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements Eg
 
 		return cmmUseDAO.selectCodeDetail(vo);
 	}
+
+	@Override
+	public List<CmmnDetailCode> selectOgrnztIdUpDetail(ComDefaultCodeVO vo) throws Exception {
+		return cmmUseDAO.selectOgrnztIdUpDetail(vo);
+	}
 }

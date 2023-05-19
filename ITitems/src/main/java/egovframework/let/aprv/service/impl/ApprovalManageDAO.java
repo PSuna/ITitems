@@ -64,18 +64,6 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return insert("approvalManageDAO.InsertApproval", approvalManageVO);
 	}
 
-	public void HighInsertApproval(ApprovalManageVO approvalManageVO) {
-		insert("approvalManageDAO.HighInsertApproval",approvalManageVO);
-	}
-
-	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO) {
-		return selectList("approvalManageDAO.selectHighApprovalList", approvalSearchVO);
-	}
-
-	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO) {
-		return (Integer)selectOne("approvalManageDAO.selectHighApprovalListTotCnt", approvalSearchVO);
-	}
-
 	public void UpdateRequest(ApprovalManageVO approvalManageVO) {
 		update("approvalManageDAO.UpdateRequest", approvalManageVO);
 		
@@ -83,10 +71,6 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 
 	public List<EgovMap> xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO) {
 		return selectList("approvalManageDAO.xlsxTrsfAprvList",approvalSearchVO);
-	}
-
-	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) {
-		return (Integer)selectOne("approvalManageDAO.selectHighApprovalListTotCntB", approvalSearchVO);
 	}
 
 	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) {
@@ -97,7 +81,4 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return selectList("approvalManageDAO.selectApprovalListB", approvalSearchVO);
 	}
 
-	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) {
-		return selectList("approvalManageDAO.selectHighApprovalListB", approvalSearchVO);
-	}
 }

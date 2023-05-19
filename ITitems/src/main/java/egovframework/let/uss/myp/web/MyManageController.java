@@ -79,7 +79,7 @@ public class MyManageController {
 
 		//조직정보를 조회 - ORGNZT_ID정보
 		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 		
 		//직급코드를 코드정보로부터 조회 - COM002 
 		vo.setCodeId("COM002");

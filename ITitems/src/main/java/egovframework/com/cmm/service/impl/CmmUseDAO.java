@@ -70,4 +70,8 @@ public class CmmUseDAO extends EgovComAbstractDAO {
 	public List<CmmnDetailCode> selectGroupIdDetail(ComDefaultCodeVO vo) throws Exception {
 		return (List<CmmnDetailCode>) list("CmmUseDAO.selectGroupIdDetail", vo);
 	}
+
+	public List<CmmnDetailCode> selectOgrnztIdUpDetail(ComDefaultCodeVO vo) {
+		return (List<CmmnDetailCode>) list("CmmUseDAO.selectOgrnztIdUpDetail", vo);
+	}
 }

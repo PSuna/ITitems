@@ -126,6 +126,12 @@ function fn_egov_modal_remove() {
 			                <ul>
 			                	<li><a class="gnb_a" href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
 			                </ul>
+			                
+			               <!-- <h3>자산전체현황</h3> -->
+			                
+			                <!-- <ul>
+			                	<li><a class="gnb_a" href="/ebt_webapp/sec/asm/SecAssetManage.do">자산전체현황</a></li>
+			                </ul> -->
             		</div>
 				
                	</li>
@@ -207,8 +213,6 @@ function fn_egov_modal_remove() {
 			
 		</ul>
 	</div>
-    
-    
 </div>
 <!--// 전체메뉴 팝업 -->
 

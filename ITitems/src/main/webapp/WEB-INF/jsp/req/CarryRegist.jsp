@@ -57,7 +57,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  ******************************************************** */
 function insertCarryDetail(reqId) {
 	let dataList;
-	let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr")
+	let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr");
 	trList.forEach(function(items,index) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
@@ -94,7 +94,6 @@ function insertCarryDetail(reqId) {
  ******************************************************** */
 function insertCarry() {
 		let formData = new FormData(document.getElementById('frm'));
-		
 	 	$.ajax({
 			url: '${pageContext.request.contextPath}/req/insertRequest.do',
 			method: 'POST',
@@ -114,49 +113,44 @@ function insertCarry() {
  * 결재자 등록 처리
  ******************************************************** */
 function insertApproval(reqId){
-	console.log(reqId);
-	let dataList;
-	let id = document.querySelector("#id").value;
-	let trList = document.querySelector('.aprvlist tbody').querySelectorAll("tr");
-	reqId = reqId;
-	$.ajax({
-		url: '${pageContext.request.contextPath}/aprv/HighApprovalInsert.do?reqId='+reqId+'&id='+id,
-		method: 'POST',
-		success: function (result) {
-			trList.forEach(function(items,index) {
-				let formdata = new FormData();
-				formdata.append('reqId', reqId);
-				formdata.append('id', id);
-				let aprv = '#aprv'+index;
-				let targetId = items.querySelector(aprv).value;
-				console.log(aprv);
-				if(!targetId){
-					return;
-				}else{
-					formdata.append('targetId', targetId);
-				}
-				$.ajax({
-					url: '${pageContext.request.contextPath}/aprv/ApprovalInsert.do',
-					method: 'POST',
-					enctype: "multipart/form-data",
-					processData: false,
-					contentType: false,
-					data: formdata,
-					success: function (result) {
-						RegistSuccess();
-					},
-					error: function (error) {
-						RegistFail();
-					}
-				}) 
-			});
-		},
-		error: function (error) {
-			console.log(error);
+	let tdList = document.querySelector('.approvalList tbody').querySelectorAll('td');
+	let i = 0;
+	let targetUp = '';
+	tdList.forEach(function(items,index) {
+		let formdata = new FormData();
+		formdata.append('reqId', reqId);
+		let aprv = '#aprv'+index;
+		let targetId = items.querySelector(aprv).value;
+		
+		if(!targetId && targetId == ''){
+			return;
 		}
-	}) 
-	
+		
+		formdata.append('targetId', targetId);
+		
+		if(targetUp != null && targetUp != ''){
+			console.log(targetUp);
+			formdata.append('targetUp', targetUp);
+		}
+		
+		targetUp = targetId;
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/aprv/ApprovalInsert.do',
+			method: 'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formdata,
+			success: function (result) {
+				RegistSuccess();
+			},error: function (error) {
+				RegistFail();
+			}
+		})
+	});
 }
+
 /* ********************************************************
  * 등록확인 팝업창
  ******************************************************** */
@@ -804,30 +798,30 @@ window.onload = function(){
 										</thead>
 										<tbody>
 											<tr>
-												<td >
+												<td class='apvrTd'>
 													<span class="f_search2 w_100%">
-														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="false" />
+														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
 													<input name="aprv0" id="aprv0" type="hidden" title="결재자1ID" value="" />
 												</td>
-												<td>
+												<td class='apvrTd'>
 													<span class="f_search2 w_100%">
-														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
 													</span>
 													<input name="aprv1" id="aprv1" type="hidden" title="결재자1ID" value="" />
 												</td>
-												<td >
+												<td class='apvrTd'>
 													<span class="f_search2 w_100%">
-														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
 													</span>
 													<input name="aprv2" id="aprv2" type="hidden" title="결재자1ID" value="" />
 												</td>
-												<td >
+												<td class='apvrTd'>
 													<span class="f_search2 w_100%">
-														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="false" />
+														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>
 													</span>
 													<input name="aprv3" id="aprv3" type="hidden" title="결재자1ID" value="" />

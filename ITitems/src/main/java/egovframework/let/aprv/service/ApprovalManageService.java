@@ -44,24 +44,12 @@ public interface ApprovalManageService {
 	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId);
 
 	public int UpdateApproval(ApprovalManageVO approvalManageVO);
-
-	public int UpdateHighApproval(ApprovalManageVO approvalManageVO);
 	
 	public int InsertApproval(ApprovalManageVO approvalManageVO);
 
-	public void HighInsertApproval(ApprovalManageVO approvalManageVO);
-
-	public List<ApprovalManageVO> selectHighApprovalList(ApprovalDefaultVO approvalSearchVO);
-
-	public int selectHighApprovalListTotCnt(ApprovalDefaultVO approvalSearchVO);
-
 	public void xlsxTrsfAprvList(ApprovalDefaultVO approvalSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
-	public int selectHighApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception;
-
 	public int selectApprovalListTotCntB(ApprovalDefaultVO approvalSearchVO) throws Exception;
-
-	public List<ApprovalManageVO> selectHighApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
 
 	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
 

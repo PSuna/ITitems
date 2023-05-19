@@ -257,7 +257,7 @@ window.onload = function(){
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off">
 									<div class="condition2">
-										<input type="hidden" name="pageIndex" value='1'>
+										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<div class="j_box01">
 											<div>
 												<span class="lb">프로젝트</span> 

@@ -261,7 +261,7 @@ window.onload = function(){
 								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
 								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
-										<input type="hidden" name="pageIndex" value=1>
+										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<div class="j_box02">
 											<div>
 												<span class="lb">부서</span>

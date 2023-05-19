@@ -17,18 +17,12 @@
 	<select id="selectApprovalList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
 		 SELECT R.REQ_ID,
 			    E.USER_NM,
+			    C3.CODE_NM GRADE,
+			    C1.CODE_NM REQ_GROUP,
 			    P.PRJ_NAME PRJ_ID,
 			    R.PLACE,
 			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE
+			    C2.CODE_NM REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN APRVTARGET A
 		     ON R.REQ_ID = A.REQ_ID 
@@ -36,7 +30,17 @@
 	         ON R.PRJ_ID = P.PRJ_ID
 	  LEFT JOIN LETTNEMPLYRINFO E
 	  		 ON R.ID = E.ESNTL_ID
+	  LEFT JOIN LETTCCMMNDETAILCODE C1
+	  		 ON C1.CODE = R.REQ_GROUP
+	  LEFT JOIN LETTCCMMNDETAILCODE C2
+	  		 ON C2.CODE = A.REQ_STATUS
+	  LEFT JOIN LETTCCMMNDETAILCODE C3
+	  		 ON C3.CODE = E.GRADE
+	  LEFT JOIN APRVTARGET T
+	  		 ON T.TARGET_ID = A.TARGET_UP
           WHERE A.TARGET_ID = #{uniqId}
+          	AND (T.REQ_STATUS = 'A1'
+          	 OR T.REQ_ID IS NULL)
           <if test='searchKeyword !=""'>
           	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
           	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
@@ -48,107 +52,6 @@
           <if test='searchStatus !=""'>
             AND R.REQ_STATUS = #{searchStatus}
           </if>
-	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
-	</select>
-	<select id="selectApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
-		 SELECT R.REQ_ID,
-			    E.USER_NM,
-			    P.PRJ_NAME PRJ_ID,
-			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE
-		   FROM REQUESTS R 
-	  LEFT JOIN APRVTARGET A
-		     ON R.REQ_ID = A.REQ_ID 
-	  LEFT JOIN PROJECTS P
-	         ON R.PRJ_ID = P.PRJ_ID
-	  LEFT JOIN LETTNEMPLYRINFO E
-	  		 ON R.ID = E.ESNTL_ID
-          WHERE A.TARGET_ID = #{uniqId}
-            AND R.REQ_STATUS = 'A0'
-	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
-	</select>
-	
-	<select id="selectHighApprovalList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
-		 SELECT R.REQ_ID,
-			    E.USER_NM,
-			    P.PRJ_NAME PRJ_ID,
-			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE
-		   FROM REQUESTS R 
-	  LEFT JOIN APRVTARGET A
-		     ON R.REQ_ID = A.REQ_ID 
-	  LEFT JOIN PROJECTS P
-	         ON R.PRJ_ID = P.PRJ_ID
-	  LEFT JOIN LETTNEMPLYRINFO E
-	  		 ON R.ID = E.ESNTL_ID
-          WHERE A.TARGET_ID = #{uniqId}
-	        AND (SELECT AP.REQ_STATUS
-		           FROM APRVTARGET AP
-		          WHERE AP.REQ_ID = R.REQ_ID
-		            AND AP.TARGET_ID NOT LIKE #{uniqId}
-		       ORDER BY REQ_STATUS
-		          LIMIT 1) NOT LIKE 'A0'
-          <if test='searchKeyword !=""'>
-          	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
-          	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
-          	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
-          </if>
-          <if test='searchGroup !=""'>
-            AND R.REQ_GROUP = #{searchGroup}
-          </if>
-          <if test='searchStatus !=""'>
-            AND R.REQ_STATUS = #{searchStatus}
-          </if>
-	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
-	</select>
-	
-	<select id="selectHighApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
-		 SELECT R.REQ_ID,
-			    E.USER_NM,
-			    P.PRJ_NAME PRJ_ID,
-			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = A.REQ_STATUS) AS REQ_STATUS,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE
-		   FROM REQUESTS R 
-	  LEFT JOIN APRVTARGET A
-		     ON R.REQ_ID = A.REQ_ID 
-	  LEFT JOIN PROJECTS P
-	         ON R.PRJ_ID = P.PRJ_ID
-	  LEFT JOIN LETTNEMPLYRINFO E
-	  		 ON R.ID = E.ESNTL_ID
-          WHERE A.TARGET_ID = #{uniqId}
-	        AND (SELECT AP.REQ_STATUS
-		           FROM APRVTARGET AP
-		          WHERE AP.REQ_ID = R.REQ_ID
-		            AND AP.TARGET_ID NOT LIKE #{uniqId}
-		       ORDER BY REQ_STATUS
-		          LIMIT 1) NOT LIKE 'A0'
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
 	</select>
 	
@@ -157,21 +60,55 @@
 		  FROM REQUESTS R 
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
-		 WHERE A.TARGET_ID = #{uniqId} 
+	 LEFT JOIN APRVTARGET T
+	  		ON T.TARGET_ID = A.TARGET_UP
+		 WHERE A.TARGET_ID = #{uniqId}
+           AND (T.REQ_STATUS = 'A1'
+            OR T.REQ_ID IS NULL)
 	</select>
 	
-	<select id="selectHighApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
+	<select id="selectApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
+		 SELECT R.REQ_ID,
+			    E.USER_NM,
+			    P.PRJ_NAME PRJ_ID,
+			    R.PLACE,
+			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
+			    C3.CODE_NM GRADE,
+			    C1.CODE_NM REQ_GROUP,
+			    C2.CODE_NM REQ_STATUS
+		   FROM REQUESTS R 
+	  LEFT JOIN APRVTARGET A
+		     ON R.REQ_ID = A.REQ_ID 
+	  LEFT JOIN PROJECTS P
+	         ON R.PRJ_ID = P.PRJ_ID
+	  LEFT JOIN LETTNEMPLYRINFO E
+	  		 ON R.ID = E.ESNTL_ID
+	  LEFT JOIN LETTCCMMNDETAILCODE C1
+	  		 ON C1.CODE = R.REQ_GROUP
+	  LEFT JOIN LETTCCMMNDETAILCODE C2
+	  		 ON C2.CODE = A.REQ_STATUS
+	  LEFT JOIN LETTCCMMNDETAILCODE C3
+	  		 ON C3.CODE = E.GRADE
+	  LEFT JOIN APRVTARGET T
+	  		 ON T.TARGET_ID = A.TARGET_UP
+          WHERE A.TARGET_ID = #{uniqId}
+            AND R.REQ_STATUS = 'A0'
+		    AND (T.REQ_STATUS = 'A1'
+             OR T.REQ_ID IS NULL)
+	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
+	</select>
+		
+	<select id="selectApprovalListTotCntB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
 		SELECT COUNT(R.REQ_ID) totcnt
 		  FROM REQUESTS R 
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
+	 LEFT JOIN APRVTARGET T
+	  		ON T.TARGET_ID = A.TARGET_UP
 		 WHERE A.TARGET_ID = #{uniqId}
-		   AND (SELECT AP.REQ_STATUS
-		          FROM APRVTARGET AP
-		         WHERE AP.REQ_ID = R.REQ_ID
-		           AND AP.TARGET_ID NOT LIKE #{uniqId}
-		      ORDER BY REQ_STATUS
-		         LIMIT 1) NOT LIKE 'A0'
+           AND R.REQ_STATUS = 'A0'
+		   AND (T.REQ_STATUS = 'A1'
+            OR T.REQ_ID IS NULL)
 	</select>
 
 	<select id="SelectApproval" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalManageVO">
@@ -226,27 +163,29 @@
 	</select>
 	
 	<update id="UpdateApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
-		UPDATE APRVTARGET
-		   SET REQ_STATUS = 'A1'
-		 WHERE REQ_ID = #{reqId}
-		   AND TARGET_ID = #{targetId}
+			UPDATE APRVTARGET
+			   SET REQ_STATUS = 'A1'
+			 WHERE REQ_ID = #{reqId}
+			   AND TARGET_ID = #{targetId};
+			   
+			UPDATE REQUESTS
+	   		   SET REQ_STATUS = 'A1'
+	         WHERE (SELECT REQ_STATUS
+		      		  FROM APRVTARGET 
+		             WHERE REQ_ID = #{reqId}
+		          ORDER BY REQ_STATUS
+		             LIMIT 1) = 'A1';
 	</update>
 	
 	<insert id="InsertApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
 		INSERT INTO APRVTARGET (REQ_ID,
 								USER_ID,
-								TARGET_ID)
+								TARGET_ID,
+								TARGET_UP)
 		VALUES (#{reqId},
 				#{id},
-				#{targetId})
-	</insert>
-	<insert id="HighInsertApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
-		INSERT INTO APRVTARGET (REQ_ID,
-								USER_ID,
-								TARGET_ID)
-		VALUES (#{reqId},
-				#{id},
-				'USRCNFRM_00000000000')
+				#{targetId},
+				#{targetUp})
 	</insert>
 	
 	<update id="UpdateRequest" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
@@ -291,28 +230,5 @@
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
 	   LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
-	
-	<select id="selectHighApprovalListTotCntB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
-		SELECT COUNT(R.REQ_ID) totcnt
-		  FROM REQUESTS R 
-	 LEFT JOIN APRVTARGET A
-		    ON R.REQ_ID = A.REQ_ID
-		 WHERE A.TARGET_ID = #{uniqId}
-		   AND (SELECT AP.REQ_STATUS
-		          FROM APRVTARGET AP
-		         WHERE AP.REQ_ID = R.REQ_ID
-		           AND AP.TARGET_ID NOT LIKE #{uniqId}
-		      ORDER BY REQ_STATUS
-		         LIMIT 1) NOT LIKE 'A0'
-		   AND R.REQ_STATUS = 'A0'
-	</select>
-	
-	<select id="selectApprovalListTotCntB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
-		SELECT COUNT(R.REQ_ID) totcnt
-		  FROM REQUESTS R 
-	 LEFT JOIN APRVTARGET A
-		    ON R.REQ_ID = A.REQ_ID
-		 WHERE A.TARGET_ID = #{uniqId} 
-		   AND R.REQ_STATUS = 'A0'
-	</select>
+
 </mapper>

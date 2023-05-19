@@ -155,9 +155,7 @@ public class RequestController {
 	@RequestMapping(value = "/req/insertRequestDetail.do")
 	@ResponseBody
 	public String insertRequestDetail(RequestVO requestVO, RequestDetailVO requestDetailVO) throws Exception {
-		
 		requestService.InsertRequestDetailVO(requestDetailVO);
-		
 		return requestVO.getReqId();
 	}
 	

@@ -44,6 +44,11 @@
 	}
 	
 </script>
+<style>
+.right_btn{
+	float:inherit;
+}
+</style>
 </head>
 
 <body>
