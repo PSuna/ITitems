@@ -632,6 +632,8 @@
 	box-shadow:inset -1px 3px 12px -10px #828282;
 	
 	display:flex;
+	justify-content:center;
+	padding: 32px 0;
 }
 .P_MAIN .inner {
 	position:relative;
@@ -668,7 +670,7 @@
 	font-weight:400;
 }
 .P_MAIN .bot {
-		background:aliceblue;
+	/* 	background:aliceblue; */
 	
 	/* background:#f2f2f2;
 	box-shadow: inset -1px 3px 12px -10px #828282; */
@@ -677,7 +679,9 @@
 .P_MAIN .col {
 	width:1300px;
 	margin:0 auto;
-	padding: 75px 0 75px 0;
+	padding: 40px 0 0 0;
+	
+	gap:56px;
 	
 	display:flex;
 	justify-content:center;
@@ -692,12 +696,12 @@
 }
 .P_MAIN .col .box {
 	/* height:660px; */
-	position: relative;
+	/* position: relative;
 	border-radius:25px;
 	background:#fff;
 	overflow:hidden;
 	
-	width:50%;
+	width:50%; */
 }
 
 .P_MAIN .col .box div{
@@ -705,22 +709,27 @@
 }
 
 .P_MAIN .col .head {
-	position:relative;
-	padding:38px 0 0 49px;
+/* 	position:relative;
+	padding:38px 0 0 49px; */
 }
 .P_MAIN .col .head h2 {
 	color:#222;
-	font-size:28px;
+	font-size:18px;
 	font-weight:700;
+	
+	margin-bottom: 24px;
+	
 }
 .P_MAIN .col .head h2 span {
-	color:#124387;
+	/* color:#124387; */
 }
 .P_MAIN .col .head .more {
 	display:block;
-	position:absolute;
-	right:40px;
-	top:50px;
+	
+	 position:absolute;
+	right:0px;
+	top:0px;
+	
 	width:28px;
 	height:28px;
 	font-size:0;
@@ -758,32 +767,37 @@
 	font-weight:300;
 }
 .P_MAIN .col .right_col {
-	/* width:840px; */
+	position:relative;
+	
+
+	
 }
 .P_MAIN .col .right_col .list {
-	margin-top:12px;
-	padding:0 49px;
+	/* margin-top:12px;
+	padding:0 49px; */
 }
-.P_MAIN .col .right_col .list table td {
-	padding:11px 0;
-	font-size:18px;
+ .pty_list_d .pld2,  .pty_list_d .date {
+	
+	font-size:12px;
 	font-weight:300;
+	
+	color: var(--font-gray);
 }
 
 .P_MAIN .col .right_col .list table td a {
 	color:#222;
 }
-.P_MAIN .col .right_col .list table td span {
+.P_MAIN .col .right_col .list .pld span {
 	display:inline-block;
-	width:50px;
-	height:24px;
+	width:34px;
+	height:20px;
 	margin-left:3px;
-	border-radius:12px;
+	border-radius:6px;
 	color:#fff;
-	font-size:13px;
-	line-height:24px;
+	font-size:8px;
+	line-height:20px;
 	text-align:center;
-	background:#d84c5c;
+	background:var(--point-color);
 	vertical-align:2px;
 }
 .P_MAIN .col .right_col .list table td img {

@@ -102,23 +102,23 @@ function fn_egov_modal_remove() {
                 	<div class="admin pty_dropdown">	              
 			                <!-- <h3>사용자관리</h3> -->
 			                <ul>
-			                    <li><a class="gnb_a" href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
+			                    <li><a class="gnb_a pg_a" href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
 			                 </ul>
 			                 
 			                 <ul>   
 			                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-			                    	<li><a class="gnb_a" href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
+			                    	<li><a class="gnb_a pg_a" href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
 			                    </c:if>
 			                </ul>
 			                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 							<!-- 	<h3>메뉴관리</h3> -->
 				                <ul>
-				                	<li><a class="gnb_a" href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+				                	<li><a class="gnb_a pg_a" href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
 				                </ul>
 			                </c:if>
 			               <!--  <h3>카테고리관리</h3> -->
 			                <ul>
-			                	<li><a class="gnb_a" href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
+			                	<li><a class="gnb_a pg_a" href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
 			                </ul>
 			
 							<!-- <h3>프로젝트관리</h3> -->
