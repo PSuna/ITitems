@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -117,7 +118,13 @@
                                 <h1 class="tit_1">알림정보</h1>
 
                                 <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>
-                                
+                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                                <div class="board_view_bot">
+										<div class="right_btn btn1">
+                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
+										</div>
+									</div>
+                                </c:if>
                                 <!-- 검색조건 -->
                                 <div class="condition">
                                 
@@ -142,16 +149,13 @@
                                         <input class="f_input w_350" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
                                         <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
-									<button class="btn pty_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button><!-- 조회 -->
+									<button class="btn pty_btn search_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button><!-- 조회 -->
                                     </form>
                                 </div>
                                 <!--// 검색조건 -->
 									
                                 <!-- 게시판 -->
-                                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-                                    <a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
-                                </c:if>
-                                <div class="board_list pty_board_list">
+                                <div class="board_list pty_board_list selete_table">
                                     <table summary="번호, 제목, 게시시작일, 게시종료일, 작성자, 작성일, 조회수  입니다">
                                     	<caption>게시물 목록</caption>
                                         <colgroup>
@@ -205,7 +209,8 @@
                                         	</c:if>
                                         	
                                         	<c:forEach var="result" items="${resultList}" varStatus="status">
-                                            <tr>
+                                        	<c:if test="${result.useAt != 'N'}">
+                                            <tr onclick="childNodes[3].childNodes[1].submit();">
                                                 <td><c:out value="${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}"/></td>
                                                 <td class="al">
                                                 	<form name="subForm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>">
@@ -227,7 +232,7 @@
 									                        <input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
 									                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 									                        
-									                        <a href="javascript:;" class="lnk" onclick="parentNode.submit();"><c:out value="${result.nttSj}"/></a>
+									                        <c:out value="${result.nttSj}"/>
                                                 		</c:otherwise>
 			            							</c:choose>
                                                 	</form>
@@ -242,6 +247,7 @@
                                                 <td><c:out value="${result.frstRegisterPnttm}"/></td>
                                                 <td><c:out value="${result.inqireCo}"/></td>
                                             </tr>
+                                            </c:if>
                                             </c:forEach>
                                             
                                         </tbody>

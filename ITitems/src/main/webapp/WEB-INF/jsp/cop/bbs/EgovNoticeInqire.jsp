@@ -29,6 +29,9 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
@@ -114,10 +117,7 @@
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-				        <%
-							LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-						%>
-                        <div class="content_wrap">
+                        <div class="content_wrap notice_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->
                                 <div class="location">
@@ -130,7 +130,9 @@
                                 <!--// Location -->
 
 								<form name="frm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
-								
+								<%
+									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+								%>
 			                    <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
 			                    <input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
 			                    <input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
@@ -215,19 +217,16 @@
 
 									<!-- 목록/저장버튼  -->
                                     <div class="board_view_bot">
-                                        <div class="left_col btn3">
-                                        	<c:if test="${result.frstRegisterId == sessionUniqId}">
+                                        <div class="right_btn btn3">
+                                        	<c:if test="${result.frstRegisterId == sessionUniqId}"> 
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a><!-- 삭제 -->
                                             </c:if>
-                                            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                                           <%--  <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 	                                            <c:if test="${result.replyPosblAt == 'Y'}">
 	                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
 	                                            </c:if>
-                                            </c:if>
-                                        </div>
-
-                                        <div class="right_col btn1">
+                                            </c:if> --%>
                                             <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList('1'); return false;">목록</a><!-- 목록 -->
                                         </div>
                                     </div>

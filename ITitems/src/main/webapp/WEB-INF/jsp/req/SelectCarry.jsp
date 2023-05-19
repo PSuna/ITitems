@@ -19,6 +19,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,13 +50,16 @@
 <c:if test="${anonymous == 'true'}">
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
-<script type="text/javascript">
-
-
-</script>
 
 <title>ITitems</title>
-
+<script type="text/javaScript" language="javascript" defer="defer">
+<!--
+function CarryList(){
+	document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
+    document.frm.submit();
+}
+//-->
+</script>
 </head>
 
 <style type="text/css">
@@ -106,7 +111,7 @@
 								<!--// Location -->
 
 
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" >
 
 									<h1 class="tit_1">자산관리</h1>
  
@@ -167,26 +172,8 @@
 											</tr>
 										</table>
 									</div>
-									</form>
-									<c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-										<script type="text/javascript">
-											var maxFileNum = document.board.posblAtchFileNumber.value;
-											if (maxFileNum == null
-													|| maxFileNum == "") {
-												maxFileNum = 3;
-											}
-											var multi_selector = new MultiSelector(
-													document
-															.getElementById('egovComFileList'),
-													maxFileNum);
-											multi_selector
-													.addElement(document
-															.getElementById('egovComFileUploader'));
-										</script>
-									</c:if>
 									
-								
-								
+									
 								<br>
 								
 								<div class="board_list assetlist pty_board_list">
@@ -220,16 +207,27 @@
 								</div>
 								<br>
 								<br>
-								 <!-- 지급확인버튼  -->
-								<%-- <div class="board_view_bot">
-									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_100"
-											onclick="return false;">지급확인<spring:message
-												code="button.create" /></a>
-										<!-- 지급확인 -->
+								 <!-- 버튼  -->
+									<div class="board_view_bot">
+										<div class="right_btn btn1">
+											<!-- 목록 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="CarryList();return false;"> <spring:message
+													code="button.list" />
+											</a>
+										</div>
 									</div>
-								</div> --%>
-								<!-- // 등록버튼 끝  --> 
+									<!-- // 버튼 끝  -->
+									<%
+											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+										%>
+									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+									<c:set var="end" value="<%=new java.util.Date()%>" />
+									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+									</form>
 								</div>
 							</div>
 						</div>
