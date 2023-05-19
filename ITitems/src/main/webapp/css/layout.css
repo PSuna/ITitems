@@ -402,10 +402,10 @@ margin-left:60px;
 	display:none;
 	position:absolute;
 	left:0;
-	top:176px;
+	/* top:176px; */
 	width:100%;
 	border-bottom:1px solid #ddd;
-	border-top: 1px solid var(--point-color);
+	border-top: 4px solid var(--point-color);
 		z-index:99;
 }
 .all_menu>div {

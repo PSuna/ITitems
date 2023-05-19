@@ -370,6 +370,60 @@ thead{
 }
 
 
+/* 모바일 메뉴 토글 */
 
 
-/* PTY;; */
+	#pmt_nav ul{ 
+		width:100%; 
+		
+		text-align:left;
+	 }
+	#pmt_nav ul.pmt_menu li{
+		/* position:relative; 
+		float:left; */
+		
+		 width:100%;
+	
+		 font-size:50px;
+		}
+
+
+	#pmt_nav ul.pmt_menu li a{ 
+		display:block; 
+		width:100%; 
+		height:100%;
+		 line-height:100px;
+		  text-indent:30px; 
+		  color:#404040; 
+		  font-weight:bold; 
+		  
+		 /*  border-bottom:1px solid var(--line-color); */
+		  
+		}
+
+	#pmt_nav ul.pmt_menu li a:hover{ 
+		background:#eee;
+	 }
+
+	#pmt_nav ul.pmt_menu li .pmt_sub a{ 
+		
+		display:block; 
+		width:100%; 
+		z-index:999; 
+	/* 	background:#ccc; */
+		
+		font-size:30px;
+		font-weight:400;
+		line-height: 60px;
+	}
+
+	#pmt_nav ul.pmt_menu li .pmt_sub a:hover{ 
+		
+		color:#ff6600; 
+
+	}
+	.pmt_sub li:last-child{
+		margin-bottom: 20px;
+	}
+	
+/* 모바일 메뉴 토글;; */

@@ -168,65 +168,47 @@ function fn_egov_modal_remove() {
 
 <!-- 전체메뉴 팝업 -->
 <div class="all_menu" id="">
-    <div>
-    
-        <div class="inner">
-        	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
-	        	<div>
-	                <h2 onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')" style="cursor:pointer">내자산조회</h2>
-	            </div>
-            </c:if>
-            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-            <div>
-                <h2 onclick="goMenuPage('/ebt_webapp/ass/AssetManagement.do')" style="cursor:pointer">전체자산조회</h2>
-            </div>
-            </c:if>
-            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_USER_MEMBER\")%>">
-	            <div>
-	                <h2 onclick="goMenuPage('/ebt_webapp/ass/AssetRegist.do')" style="cursor:pointer">신규자산등록</h2>
-	            </div>
-            </c:if>
-            <div>
-                <h2 onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')" style="cursor:pointer">반출관리</h2>
-            </div>
-            <div>
-                <h2 onclick="goMenuPage('/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')" style="cursor:pointer">공지사항</h2>
-            </div>
-            <div>
-                <h2 onclick="goMenuPage('/ebt_webapp/aprv/ApprovalManage.do')" style="cursor:pointer">결재요청</h2>
-            </div>
-            <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-            <div class="admin" style="margin-left: 28px;">
-                <h2>사이트관리</h2>
-                <h3>사용자관리</h3>
-                <ul>
-                    <li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
-                    <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-                    	<li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
-                    </c:if>
-                </ul>
-                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-					<h3>메뉴관리</h3>
-	                <ul>
-	                	<li><a href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
-	                </ul>
-                </c:if>
-                <h3>카테고리관리</h3>
-                <ul>
-                	<li><a href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
-                </ul>
 
-				<h3>프로젝트관리</h3>
-                <ul>
-                	<li><a href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
-                </ul>
-            </div>
-            </c:if>
-            
-        </div>
-        
-        
-    </div>
+    <div id="pmt_nav">
+		<ul class="pmt_menu">
+
+
+			<li><a href="#">자산관리</a>
+				<ul class="pmt_sub">
+					<li><a href="#">내 자산조회</a></li>
+					<li><a href="#">전체자산조회</a></li>
+					<li><a href="#">신규자산등록</a></li>
+					
+				</ul>
+			</li>
+
+			<li>
+				<a href="#">반출관리</a>				
+			</li>
+
+			<li>
+				<a href="#">공지사항</a>				
+			</li>
+
+			<li>
+				<a href="#">결재요청</a>				
+			</li>
+
+		
+			<li><a href="#">사이트관리</a>
+				<ul class="pmt_sub">
+					<li><a href="#">사용자목록</a></li>
+					<li><a href="#">사용자별권한관리</a></li>
+					<li><a href="#">메뉴생성관리</a></li>
+					<li><a href="#">카테고리목록관리</a></li>
+					<li><a href="#">프로젝트목록관리</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+    
+    
 </div>
 <!--// 전체메뉴 팝업 -->
 
@@ -296,4 +278,16 @@ $(document).ready(function(){
 });
 
 </script>
+
+
+<!-- gnb 햄버거 쿼리 -->
+<script type="text/javascript">
+		$(document).ready(function(){
+			$("#pmt_nav ul.pmt_sub").hide();
+			$("#pmt_nav ul.pmt_menu li").click(function(){
+				$("ul",this).slideToggle("fast");
+			});
+		});
+	</script>
+
 

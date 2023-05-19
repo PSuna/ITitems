@@ -677,7 +677,7 @@
 	
 }
 .P_MAIN .col {
-	width:1300px;
+	/* width:1300px; */
 	margin:0 auto;
 	padding: 40px 0 0 0;
 	
@@ -734,7 +734,12 @@
 	height:28px;
 	font-size:0;
 	background:url(../images/ico_plus2.png) no-repeat;
+	
+
+	
 }
+
+
 .P_MAIN .col .left_col {
 	width:440px;
 	margin-right:32px;
