@@ -166,6 +166,8 @@ function fntrsfExcel(){
 	background: #ccc;
 	cursor: pointer;
 }
+.j_box03 .date_box{
+}
 </style>
 </head>
 <body>
@@ -209,39 +211,34 @@ function fntrsfExcel(){
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<div class="condition2">
 										<div class="j_box03">
-													<span class="lb">프로젝트명</span> <span class="f_search2 w_300">
-														<input id="prjNm" type="text" title="주소" maxlength="100"
-														readonly="false" />
-														<button type="button" class="btn"
-															onclick="ProjectSearch();">조회</button>
-													</span><input name="searchPrj" id="searchPrj" type="hidden"
-														title="프로젝트" value="" maxlength="8" readonly="readonly" />
-													<span class="lb">요청상태</span> <label class="item f_select w_300"
-														for="sel1"> <select id="searchStatus"
-														name="searchStatus" title="상태">
-															<option value='' label="선택하세요" selected="selected" />
-															<c:forEach var="stat" items="${status_result}"
-																varStatus="status">
-																<option value="${stat.code}"><c:out
-																		value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-													</label>
-												<div class="date_box">
-													<span class="lb">요청일자</span>
-													<div>
-													<span class="search_date ">
-														<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
+											<span class="f_search2 w_300">
+												<input id="prjNm" type="text" title="주소" maxlength="100" value="프로젝트명" readonly="true" />
+												<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+											</span>
+											<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
+											<span class="lb">요청상태</span>
+											<label class="item f_select w_250" for="sel1">
+											<select id="searchStatus" name="searchStatus" title="상태">
+												<option value='' label="선택하세요" selected="selected" />
+												<c:forEach var="stat" items="${status_result}" varStatus="status">
+													<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
+												</c:forEach>
+											</select>
+											</label>
+											<div class="date_box">
+												<div>
+													<span class="lb">요청일자</span> <span class="search_date ">
+														<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
 													</span>
 													<span>―</span>
-													 <span class="search_date">
-													 	<input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
-													 </span> 
-													</div>
-												 </div>
-												 <div class="btn_box">
-													<button class="btn pty_btn" type="submit"  onclick="SearchCarryList();">검색</button>
-												 </div>
+													<span class="search_date">
+														<input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>" readonly="readonly" onchange="checkEndDate()">
+													</span>
+												</div>
+												<div class="btn_box">
+													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();">검색</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</form>
