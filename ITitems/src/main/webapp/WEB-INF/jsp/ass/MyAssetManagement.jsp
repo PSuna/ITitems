@@ -34,8 +34,11 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 <title>ITitems</title>
-
-<script type="text/javascript">
+<script type="text/javaScript" language="javascript" defer="defer">
+<!--
+/* ********************************************************
+ * 프로젝트 검색
+ ******************************************************** */
 function ProjectSearch(){
     
     var $dialog = $('<div id="modalPan"></div>')
@@ -50,6 +53,9 @@ function ProjectSearch(){
 	$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 검색 프로젝트 입력
+ ******************************************************** */
 function returnProject(val){
 	
 	if (val) {
@@ -60,6 +66,9 @@ function returnProject(val){
 	fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * 중분류 조회
+ ******************************************************** */
 function getMCatList(Mval) {
 	let val = document.getElementById('largeCategory').value;
 	if(val == ""){
@@ -98,6 +107,9 @@ function getMCatList(Mval) {
 	
 }
 
+/* ********************************************************
+ * 자산 검색
+ ******************************************************** */
 function SearchAssetList() {
 	event.preventDefault();
 	
@@ -106,6 +118,9 @@ function SearchAssetList() {
     document.frm.submit(); 
 }
 
+/* ********************************************************
+ * 페이지 이동
+ ******************************************************** */
 function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	document.frm.prjNm.value = '${searchVO.prjNm}';
@@ -159,15 +174,16 @@ function make_date(){
 }
 
 
-window.onload = function(){
-	getMCatList('${searchVO.searchdMCat}');
-	make_date();
-	  }
-	  
+/* ********************************************************
+ * 자산상세보기 이동
+ ******************************************************** */
 function selectAsset(id) {
 	document.getElementById('subForm'+id).submit;
 }
 
+/* ********************************************************
+ * Excel
+ ******************************************************** */
 function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
@@ -177,6 +193,34 @@ function fntrsfExcel(){
 	}
 }
 
+/* ********************************************************
+ *  검색 날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#frm #startDate').val();
+	let endDate = $('#frm #endDate').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #startDate').val(endDate);
+		$('#frm #endDate').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#frm #startDate').val();
+	let endDate = $('#frm #endDate').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #endDate').val("");
+	}
+}
+/* ********************************************************
+ * onload
+ ******************************************************** */
+window.onload = function(){
+	getMCatList('${searchVO.searchdMCat}');
+	make_date();
+	  }
+	  
+//-->
 </script>
 </head>
 <body>
@@ -258,11 +302,11 @@ function fntrsfExcel(){
 												<span class="lb">등록일자</span> 
 												<div>
 												<span class="search_date">
-												<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly">
+												<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
 												</span>
 												 ― 
 												 <span class="search_date">
-												 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly">
+												 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
 												 </span>
 												 </div>
 											</div>	

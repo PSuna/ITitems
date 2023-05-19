@@ -59,18 +59,36 @@
            <div class="pty_main_right">
            
 	           	<div class="pty_main_right02">
+	           	
 		           		<div class="pmr_d">
-		           			<img src="<c:url value="/" />images/pty_icon_01.png">
+		           			<a href="#">
+			           			<div class=pmr_dd>
+				           			<img src="<c:url value="/" />images/pty_icon_01.png">
+				           			<p> 내 자산조회 </p>
+				           			<h4> 바로가기 → </h4>
+				           		</div>
+				           	</a>		
 		           		</div>
 		           				
 		           		<div class="pmr_d">
-		           			<img src="<c:url value="/" />images/pty_icon_02.png">
+		           			<a href="#">
+			           			<div class=pmr_dd>
+				           			<img src="<c:url value="/" />images/pty_icon_02.png">
+				           			<p> 반출관리 </p>
+				           			<h4> 바로가기 → </h4>
+				           		</div>	
+			           		</a>
 		           		</div>	
 		           	
 	           	</div>
 	           	
 	           	<div class="pty_main_right03">
+	           		
+	           		<p> 사용자 메뉴얼 가이드 </p>
+	           		
+	           		<a href="#"><h4> 다운로드 → </h4></a>   		
 	           		<img src="<c:url value="/" />images/pty_icon_03.png">
+	           		
 	           	</div>
            	
            </div>
@@ -90,42 +108,47 @@
                     <div class="col">
                     	
 					<!-- 결제, 공지 -->                    
-                        <div class="right_col" style="margin-right:10px;">
+                        <div class="right_col">
                             <div class="box pty_colbox">
                                 <div class="head">
-                                    <h2>신규 <span>결재요청</span> <span style="color: white; background: #d84c5c; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
+                                    <h2>신규 <span>결재요청</span> <span style="font-size:24px; color: #ff6600; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
+                                    <%-- <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a> --%>
                                     <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a>
                                 </div>
                                 
                                 <div class="list">
-                                    <table>
+                                   
                                         <colgroup>
                                             <col style="width: auto;">
                                             <col style="width: 110px">
                                         </colgroup>
                                         <c:forEach var="Appresult" items="${resultList}" varStatus="status" end="2">
-                                        <tr>
-                                            <td>
+                                       
+                                        <div class="pty_list_d">
+                                        
+                                            <div class="pld">
                                             	<a href="<c:url value='/aprv/selectApproval.do?reqId=${Appresult.reqId}'/>">
                                             		<c:out value="${Appresult.reqGroup}" />
                                             	</a>
                                             	<span>NEW</span>
-                                            </td>
-                                            <td class="al_c"><c:out value="${Appresult.reqDate}" /></td>
-                                        </tr>
+                                            </div>
+                                                                                
+                                            <div class="pld2"><c:out value="${Appresult.reqDate}" /></div>
+                                        </div>
+                                        
                                         </c:forEach>
-                                    </table>
+                                   
                                 </div>
                             </div>
                         </div>
                         <div class="right_col">
                             <div class="box pty_colbox">
                                 <div class="head">
-                                    <h2>최신 <span>공지사항</span></h2>
+                                    <h2 style="margin-bottom: 30px">최신 <span>공지사항</span></h2>
                                     <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
                                 </div>
                                 <div class="list">
-                                    <table>
+                                    
                                         <colgroup>
                                             <col style="width: auto;">
                                             <col style="width: 80px">
@@ -133,8 +156,10 @@
                                         </colgroup>
                                         <c:forEach var="result" items="${notiList}" varStatus="status">
                                         <c:if test="${!(result.isExpired=='Y' || result.useAt == 'N')}">
-                                        <tr>
-                                            <td>
+                                        
+                                        <div class="pty_list_d">
+                                        
+                                            <div class="pld">
                                             	<c:if test="${result.replyLc!=0}">
                                         			<c:forEach begin="0" end="${result.replyLc}" step="1">
                                         				&nbsp;
@@ -144,14 +169,17 @@
                                             	<a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>">
                                             		<c:out value="${result.nttSj}" />
                                             	</a>
-                                            	<span>NEW</span>
-                                            </td>
-                                            <td class="al_c"><c:out value="${result.frstRegisterNm}" /></td>
-                                            <td class="al_r date"><c:out value="${result.frstRegisterPnttm}" /></td>
-                                        </tr>
+                                            	
+                                            </div>
+                                            
+                                            <%-- <div class="pld2"><c:out value="${result.frstRegisterNm}" /></div> --%>
+                                            <div class="al_r date"><c:out value="${result.frstRegisterPnttm}" /></div>
+                                       
+                                       </div>
+                                        
                                         </c:if>
                                         </c:forEach>
-                                    </table>
+                                
                                 </div>
                             </div>
                         </div>

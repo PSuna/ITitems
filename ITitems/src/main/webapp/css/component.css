@@ -96,6 +96,7 @@
 	border-radius:10px;
 	font-size:0;
 	text-align:center;
+	margin-top: 15px;
 }
 .condition .item+.item {
 	margin-left:10px;
@@ -108,7 +109,7 @@
 	border-radius:10px;
 	
 	box-shadow:0 0 6px #d1d1d1;
-	
+	margin-top: 15px;
 	/* text-align:center; */
 }
 
@@ -126,7 +127,7 @@
 /* List */
 .board_list {
 	border-top:2px solid #222;
-	margin-top:40px;
+	margin-top: 15px;
 	
 }
 .board_list table {
@@ -148,7 +149,7 @@
 	text-align:center;
 }
 .board_list td.al {
-	padding:16px 10px 19px 10px;
+	padding: 13px 10px 13px 10px;
 	text-align:left;
 }
 .board_list td .lnk {
@@ -526,6 +527,7 @@
 }
 .board_view_bot {
 	position:relative;
+	margin-top: 15px;
 }
 .board_view_bot .left_col {
 	font-size:0;

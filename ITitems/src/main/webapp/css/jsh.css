@@ -130,6 +130,7 @@
     font-weight: 300;
     vertical-align: top;
     cursor: default;
+    width: 100%;
 }
 
 .filebox input[type="text"]:focus {
@@ -208,7 +209,7 @@
 
 .btn_rel .btn1{
 	position: absolute;
-	top: 10px;
+	top: 5px;
 	right: 5%;
 	width: 15%;
 	height: 20%;
@@ -240,7 +241,7 @@
 	width: 100% !important;
 }
 
-.condition2 .j_box01, .condition2 .j_box02 {
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03 {
 	display: flex;
     margin-bottom: 10px;
 }
@@ -250,7 +251,18 @@
 		margin: 0px auto;
 }
 
-.j_box01 .lb, .j_box02 .lb{
+.j_box03 div{
+	width: 50%;
+	display: flex;
+}
+
+.j_box03 div div{
+	width: 49%;
+	margin: 0px auto;
+	display: block;
+}
+
+.j_box01 .lb, .j_box02 .lb, .j_box03 .lb{
 		margin: 0 10px 0px 5px;
 }
 .j_box01 .date_box{
@@ -281,11 +293,6 @@
 
 .j_box01 .btn_box{
 	width: 32% !important;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
 }
 
 .j_box01 .search_box{
@@ -327,7 +334,9 @@ form .condition2{
 
 .j_box02 .btn_box{
 	width: 34% !important;
-    display: flex;
+}
+.btn_box{
+    display: flex !important;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: flex-end;
@@ -341,6 +350,71 @@ form .condition2{
 
 .j_box02 .search_box{
 	width: 32% !important;
+}
+
+.j_box03 .btn_box{
+	width: 10% !important;
+}
+
+.j_box03 .date_box{
+	width: 89% !important;
+	margin: 0px auto;
+}
+
+.wp_87{
+	width: 87%;
+}
+
+.f_14{
+	font-size: 14px;
+}
+
+.search_td{
+	display: flex;
+	align-items: center;
+}
+
+.ui-datepicker-trigger {
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+.board_view_bot {
+	overflow: hidden;
+}
+
+.right_btn {
+	float: right;
+	margin-left: 1%;
+}
+
+.reset_btn{
+	margin-left: 3%;
+	width: 20px;
+	vertical-align: -webkit-baseline-middle;
+	cursor: pointer;
+}
+
+.search_btn{
+	float: right;
+}
+
+.search_btn:hover{
+	background: #c9cacb;
+    color: #fff;
+}
+
+.notice_wrap{
+	display: block !important;
+}
+
+.board_view2 .req {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    font-size: 0;
+    background: url(../images/ico_req.png) no-repeat;
+    vertical-align: 15px;
 }
 
 @media screen and (max-width: 767px){
@@ -373,4 +447,64 @@ form .condition2{
 	.j_box02 .search_box{
 		width: 43% !important;
 	}
+	
+	.filebox {
+		flex-wrap: wrap;
+	}
+	
+	.namebox {
+    	max-width: 100%;
+	}
+	
+	.photoList {
+    	height: 102px;
+	}
+	
+	.board_view2 .lb {
+		position: relative;
+	}
+	
+	.lb .manual_img{
+		width: 20px;
+		position: absolute;
+		top: 50%;
+		right: 1%;
+		opacity: 0.8;
+	    cursor: pointer;
+	    transform: translate(-50%, -50%);
+	}
+	
+	.board_view2 td {
+    	padding: 12px 1%;
+	}
+	
+	.board_view2 .lb {
+    	padding: 12px 1%;
+	}
+	
+	.approvalList .board_view2 td {
+    	padding: 5px 1%;
+	}
+	
+	.reset_btn{
+		margin-left: 1%;
+	}
+	
+	.condition2 .j_box03 {
+		flex-wrap: wrap;
+	}
+	
+	.j_box03 div{
+		width: 100%;
+	}
+	
+	.condition form{
+		width: 100%;
+		justify-content: center;
+	}
+	
+	.search_btn{
+		margin-left: 3%;
+	}
+	
 }
