@@ -209,18 +209,14 @@ function fntrsfExcel(){
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<div class="condition2">
 										<div class="j_box03">
-											<div>
-												<div>
-													<span class="lb">프로젝트명</span> <span class="f_search2 w_full">
+													<span class="lb">프로젝트명</span> <span class="f_search2 w_300">
 														<input id="prjNm" type="text" title="주소" maxlength="100"
 														readonly="false" />
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
 													</span><input name="searchPrj" id="searchPrj" type="hidden"
 														title="프로젝트" value="" maxlength="8" readonly="readonly" />
-												</div>
-												<div>
-													<span class="lb">요청상태</span> <label class="item f_select w_full"
+													<span class="lb">요청상태</span> <label class="item f_select w_300"
 														for="sel1"> <select id="searchStatus"
 														name="searchStatus" title="상태">
 															<option value='' label="선택하세요" selected="selected" />
@@ -231,9 +227,6 @@ function fntrsfExcel(){
 															</c:forEach>
 													</select>
 													</label>
-												</div>
-											</div>
-											<div>
 												<div class="date_box">
 													<span class="lb">요청일자</span>
 													<div>
@@ -249,7 +242,6 @@ function fntrsfExcel(){
 												 <div class="btn_box">
 													<button class="btn pty_btn" type="submit"  onclick="SearchCarryList();">검색</button>
 												 </div>
-											</div>
 										</div>
 									</div>
 								</form>

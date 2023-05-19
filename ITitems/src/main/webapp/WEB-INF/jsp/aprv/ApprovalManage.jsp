@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <title>Ititems</title>
@@ -188,9 +189,11 @@ function fntrsfExcel(){
                                 				</c:forEach>
                                 			</tbody>
                                 		</table>
-                                		<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                		<div class="excel_btn">
+                                			<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                		</div>
                                 	</div>
-                                	<!-- 페이지 네비게이션 시작 -->
+                                <!-- 페이지 네비게이션 시작 -->
 								<c:if test="${!empty approvalSearchVO.pageIndex }">
                                 <div class="board_list_bot">
                                     <div class="paging" id="paging_div">

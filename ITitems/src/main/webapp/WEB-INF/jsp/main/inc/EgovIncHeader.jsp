@@ -89,7 +89,7 @@ function fn_egov_modal_remove() {
           		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')">내자산조회</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetManagement.do')">전체자산조회</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetRegist.do')">신규자산등록</a></li>
-          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')" style="cursor:pointer">반출관리</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')">반출관리</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/aprv/ApprovalManage.do')">결재요청</a></li>
           		
@@ -127,11 +127,6 @@ function fn_egov_modal_remove() {
 			                	<li><a class="gnb_a" href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
 			                </ul>
 			                
-			               <!-- <h3>자산전체현황</h3> -->
-			                
-			                <!-- <ul>
-			                	<li><a class="gnb_a" href="/ebt_webapp/sec/asm/SecAssetManage.do">자산전체현황</a></li>
-			                </ul> -->
             		</div>
 				
                	</li>
@@ -179,35 +174,35 @@ function fn_egov_modal_remove() {
 		<ul class="pmt_menu">
 
 
-			<li><a href="#">자산관리</a>
+			<li><a href="#LINK">자산관리</a>
 				<ul class="pmt_sub">
-					<li><a href="#">내 자산조회</a></li>
-					<li><a href="#">전체자산조회</a></li>
-					<li><a href="#">신규자산등록</a></li>
+					<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')">내 자산조회</a></li>
+					<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetManagement.do')">전체자산조회</a></li>
+					<li><a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/AssetRegist.do')">신규자산등록</a></li>
 					
 				</ul>
 			</li>
 
 			<li>
-				<a href="#">반출관리</a>				
+				<a href="#LINK" onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')">반출관리</a>				
 			</li>
 
 			<li>
-				<a href="#">공지사항</a>				
+				<a href="#LINK" onclick="goMenuPage('/ebt_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a>				
 			</li>
 
 			<li>
-				<a href="#">결재요청</a>				
+				<a href="#LINK" onclick="goMenuPage('/ebt_webapp/aprv/ApprovalManage.do')">결재요청</a>				
 			</li>
 
 		
 			<li><a href="#">사이트관리</a>
 				<ul class="pmt_sub">
-					<li><a href="#">사용자목록</a></li>
-					<li><a href="#">사용자별권한관리</a></li>
-					<li><a href="#">메뉴생성관리</a></li>
-					<li><a href="#">카테고리목록관리</a></li>
-					<li><a href="#">프로젝트목록관리</a></li>
+					<li><a href="/ebt_webapp/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
+					<li><a href="/ebt_webapp/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
+					<li><a href="/ebt_webapp/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+					<li><a href="/ebt_webapp/cat/CategoryManage.do">카테고리목록관리</a></li>
+					<li><a href="/ebt_webapp/prj/ProjectManage.do">프로젝트목록관리</a></li>
 				</ul>
 			</li>
 			
