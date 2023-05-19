@@ -56,14 +56,22 @@
            </div>
            
            
-           <div>
-           	<div>
-           		<div></div>		
-           		<div></div>	
-           	
-           	</div>
-           	
-           	<div></div>
+           <div class="pty_main_right">
+           
+	           	<div class="pty_main_right02">
+		           		<div class="pmr_d">
+		           			<img src="<c:url value="/" />images/pty_icon_01.png">
+		           		</div>
+		           				
+		           		<div class="pmr_d">
+		           			<img src="<c:url value="/" />images/pty_icon_02.png">
+		           		</div>	
+		           	
+	           	</div>
+	           	
+	           	<div class="pty_main_right03">
+	           		<img src="<c:url value="/" />images/pty_icon_03.png">
+	           	</div>
            	
            </div>
            
