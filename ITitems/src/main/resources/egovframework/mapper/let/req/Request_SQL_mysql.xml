@@ -11,6 +11,7 @@
 		<result property="id" column="ID" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="reqDate" column="REQ_DATE" />
+		<result property="place" column="PLACE" />
 		<result property="reqStatus" column="REQ_STATUS" />
 	</resultMap>
 	
@@ -109,6 +110,7 @@
 			ID,
 			PRJ_ID,
 			REQ_DATE,
+			PLACE,
 			REQ_STATUS
 		  FROM (
 				SELECT
@@ -118,6 +120,7 @@
 					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
 					D.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					A.PLACE PLACE,
 					C.CODE_NM AS REQ_STATUS
 				  FROM REQUESTS A
 				  LEFT OUTER JOIN REQUESTDETAIL B
@@ -210,17 +213,17 @@
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
-		SELECT INNULL(REQ_GROUP, '') REQ_GROUP,
-			   IFNULL(ID, '') ID,
+		SELECT IFNULL(REQ_GROUP, '') REQ_GROUP,
 			   IFNULL(PRJ_ID, '') PRJ_ID,
+			   IFNULL(PLACE, '') PLACE,
 			   IFNULL(REQ_DATE, '') REQ_DATE,
 			   IFNULL(REQ_STATUS, '') REQ_STATUS
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
 					   A.REQ_ID,
 					   E.CODE_NM AS REQ_GROUP,
-					   CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
 					   D.PRJ_NAME AS PRJ_ID,
 					   DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					   A.PLACE PLACE,
 					   C.CODE_NM AS REQ_STATUS
 				  FROM REQUESTS A
 	   LEFT OUTER JOIN REQUESTDETAIL B

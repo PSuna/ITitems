@@ -92,6 +92,7 @@ public class EgovLoginController {
 		String userIp = EgovClntInfo.getClntIP(request);
 		
 		// 1. 일반 로그인 처리
+		loginVO.setId(loginVO.getId()+"@iteyes.co.kr");
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
 		boolean loginPolicyYn = true;

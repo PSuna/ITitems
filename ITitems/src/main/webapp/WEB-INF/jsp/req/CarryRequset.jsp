@@ -166,8 +166,6 @@ function fntrsfExcel(){
 	background: #ccc;
 	cursor: pointer;
 }
-.j_box03 .date_box{
-}
 </style>
 </head>
 <body>
@@ -201,7 +199,7 @@ function fntrsfExcel(){
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="CarryRegist();">반출요청</a>
+												onclick="CarryRegist();">반출신청</a>
 										</div>
 									</div>
 								</form>
@@ -211,15 +209,16 @@ function fntrsfExcel(){
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<div class="condition2">
 										<div class="j_box03">
-											<span class="f_search2 w_300">
-												<input id="prjNm" type="text" title="주소" maxlength="100" value="프로젝트명" readonly="true" />
+											<span class="lb">프로젝트명</span>
+											<span class="f_search2 w_200">
+												<input id="prjNm" type="text" title="주소" maxlength="100" readonly="true" />
 												<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 											</span>
 											<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
-											<span class="lb">요청상태</span>
-											<label class="item f_select w_250" for="sel1">
+											<span class="lb">신청상태</span>
+											<label class="item f_select w_200" for="sel1">
 											<select id="searchStatus" name="searchStatus" title="상태">
-												<option value='' label="선택하세요" selected="selected" />
+												<option value='' label="선택" selected="selected" />
 												<c:forEach var="stat" items="${status_result}" varStatus="status">
 													<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
 												</c:forEach>
@@ -227,7 +226,7 @@ function fntrsfExcel(){
 											</label>
 											<div class="date_box">
 												<div>
-													<span class="lb">요청일자</span> <span class="search_date ">
+													<span class="lb">신청일자</span> <span class="search_date ">
 														<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
 													</span>
 													<span>―</span>
@@ -259,11 +258,11 @@ function fntrsfExcel(){
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">요청분류</th>
-												<th scope="col">요청자명</th>
+												<th scope="col">신청분류</th>
 												<th scope="col">프로젝트명</th>
-												<th scope="col">요청일자</th>
-												<th scope="col">요청상태</th>
+												<th scope="col">사용장소</th>
+												<th scope="col">신청일자</th>
+												<th scope="col">상태</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -282,8 +281,8 @@ function fntrsfExcel(){
 																value="<c:out value='${result.reqId}'/>" />
 														</form></td>
 													<td><c:out value="${result.reqGroup}" /></td>
-													<td><c:out value="${result.id}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.place}" /></td>
 													<td><c:out value="${result.reqDate}" /></td>
 													<td><c:out value="${result.reqStatus}" /></td>
 												</tr>

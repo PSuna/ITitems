@@ -346,7 +346,7 @@ function getMOrgList(MOval) {
                                                 <td><c:out value="${result.orgnztId}"/></td>
                                                 <td><c:out value="${result.userId}"/></td>
                                                 <td><c:out value="${result.moblphonNo}"/></td>
-                                                <td><c:out value="${result.authorCode}"/></td>
+                                               	<td><c:out value="${result.authorCode}"/></td>
                                             </tr>
                                             </c:forEach>
                                             
