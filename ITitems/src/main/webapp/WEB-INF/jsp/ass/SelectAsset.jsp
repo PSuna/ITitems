@@ -195,7 +195,7 @@ function AssetList(code){
 											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
-													<label for="orgnztId">부서</label>
+													<label for="orgnztId">본부/부서</label>
 												</td>
 												<td>
 													${resultVO.orgnztId}

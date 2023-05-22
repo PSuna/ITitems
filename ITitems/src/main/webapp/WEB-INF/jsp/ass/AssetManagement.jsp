@@ -405,14 +405,16 @@ window.onload = function(){
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>
+											<c:if test="${empty resultList}">
+												<tr>
+                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+                               					</tr>
+											</c:if>
 										</tbody>
 									</table>
 									<div class="excel_btn">
 										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 									</div>
-									<c:if test="${empty resultList}">
-										<div class="empty" id="noData"><h4><spring:message code="ass.null" /></h4></div>
-									</c:if>
 								</div>
 								<c:if test="${not empty resultList}">
 									<!-- 페이지 네비게이션 시작 -->
