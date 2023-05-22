@@ -61,7 +61,7 @@
 	           	<div class="pty_main_right02">
 	           	
 		           		<div class="pmr_d">
-		           			<a href="#LINK" onclick="goMenuPage('/ebt_webapp/ass/MyAssetManagement.do')">
+		           			<a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">
 			           			<div class=pmr_dd>
 				           			<img src="<c:url value="/" />images/pty_icon_01.png">
 				           			<p> 내 자산조회 </p>
@@ -71,7 +71,7 @@
 		           		</div>
 		           				
 		           		<div class="pmr_d">
-		           			<a href="#LINK" onclick="goMenuPage('/ebt_webapp/req/CarryRequset.do')">
+		           			<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">
 			           			<div class=pmr_dd>
 				           			<img src="<c:url value="/" />images/pty_icon_02.png">
 				           			<p> 반출관리 </p>

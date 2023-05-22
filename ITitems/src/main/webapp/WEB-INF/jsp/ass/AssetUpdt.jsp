@@ -443,7 +443,7 @@ function FileManual(){
 		 const dataTransfer = new DataTransfer();
 		 dataTransfer.items.add(obj.files[0]);
 		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+		 $(obj).closest(".filebox").append($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
 			 delFileName();
 			}));
 		 $(obj).val('');
@@ -596,7 +596,7 @@ window.onload = function(){
 													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
 													    </div>
 													    <c:if test="${not empty FileVO}">
-													    	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="delFileName();">
+													    	<img alt="" src="/images/ico_delete.png" onclick="delFileName();">
 													    </c:if>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
@@ -739,7 +739,7 @@ window.onload = function(){
 														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
 															<div class="photobox">
 																<div class="boxBtn">
-																	<img alt="" src="/ebt_webapp/images/ico_delete.png" onclick="addDelPhoto(this,'${photo.atchFileId}')">
+																	<img alt="" src="/images/ico_delete.png" onclick="addDelPhoto(this,'${photo.atchFileId}')">
 																</div>
 																<div class="boxImg">
 																	<img alt="" src="/uploadFile/${photo.streFileNm}">

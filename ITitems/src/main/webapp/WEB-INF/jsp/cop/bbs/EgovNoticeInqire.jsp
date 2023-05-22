@@ -122,7 +122,7 @@
                                  <!-- Location -->
                                 <div class="location">
                                     <ul>
-                                        <li><a class="home" href="/ebt_webapp/uat/uia/actionMain.do">Home</a></li>
+                                        <li><a class="home" href="/uat/uia/actionMain.do">Home</a></li>
                                         <li><a href="">알림정보</a></li>
                                         <li><c:out value='${result.bbsNm}'/></li>
                                     </ul>
