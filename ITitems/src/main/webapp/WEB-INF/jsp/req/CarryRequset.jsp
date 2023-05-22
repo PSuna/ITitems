@@ -209,7 +209,9 @@ function fntrsfExcel(){
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<div class="condition2">
 										<div class="j_box03">
+
 											<div>
+
 												<div>
 													<span class="lb">프로젝트</span>
 													<span class="f_search2 w_full">
