@@ -179,7 +179,7 @@ function AssetList(code){
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<label for="">소유자</label> 
 												</td>
 												<td>
 													${resultVO.rcptNm}
