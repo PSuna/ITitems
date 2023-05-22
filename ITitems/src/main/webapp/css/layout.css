@@ -404,12 +404,13 @@ margin-left:60px;
 	left:0;
 	/* top:176px; */
 	width:100%;
-	border-bottom:1px solid #ddd;
+	/* ¿border-bottom:1px solid #ddd; */
 	border-top: 4px solid var(--point-color);
 		z-index:99;
 }
 .all_menu>div {
 	background:#fff;
+			height:100vh;
 }
 .all_menu .inner {
 width:1300px;
