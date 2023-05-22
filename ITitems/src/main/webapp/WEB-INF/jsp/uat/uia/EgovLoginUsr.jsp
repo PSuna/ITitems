@@ -43,7 +43,6 @@ function actionLogin() {
         alert("비밀번호를 입력하세요");
         return false;
     } else {
-    	document.loginForm.id.value = document.loginForm.id.value + '@iteyes.co.kr';
         document.loginForm.action="<c:url value='/uat/uia/actionSecurityLogin.do'/>";
         document.loginForm.submit();
     }
