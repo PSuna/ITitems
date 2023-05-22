@@ -218,6 +218,7 @@
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
 		 WHERE B.USE_ID = #{userId}
+		    OR B.RCPT_ID = #{userId}
 		<include refid="mySearch" />
 	</select>
 
