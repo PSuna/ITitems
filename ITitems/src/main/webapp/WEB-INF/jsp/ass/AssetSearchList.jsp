@@ -82,7 +82,7 @@
 					<!-- 검색조건 -->
 					<form id="frm" name="frm" autocomplete="off">
 						<div class="condition2">
-							<span class="lb">부서</span>
+							<span class="lb">본부/부서</span>
 							<label class="item f_select" for="sel1">
 								<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
 									<option value="" label="선택하세요" />
