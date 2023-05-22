@@ -258,7 +258,7 @@ function fntrsfExcel(){
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">신청분류</th>
+												<th scope="col">분류</th>
 												<th scope="col">프로젝트명</th>
 												<th scope="col">사용장소</th>
 												<th scope="col">신청일자</th>

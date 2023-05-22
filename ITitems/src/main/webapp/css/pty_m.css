@@ -75,10 +75,26 @@
 	
 	} */
 	
+	.pty_flex dd{
+		font-size:32px;
+		color:var(--font-gray);
+	}
 	
+	.pty_flex dd input.pdi{
+		width: 60%!important;
+	}
 	
 	.loginbox{
 		width:660px!important;
+	}
+	
+	.f_chk::before{
+		width:40px;
+		height:40px;
+	}
+	
+	.pty_f_chk{
+		font-size:22px;
 	}
 	
 	.P_LOGIN{
@@ -109,7 +125,7 @@
 	text-align:center;
 	background:#ff6600;
 	
-	font-size:22px;
+	font-size:24px;
 	width:100%;
 	height:72px;
 }
@@ -158,6 +174,38 @@
 		all:unset;
 	}
 	
+	.pty_main_img{
+	 	margin-right:0!important;
+	}
+	
+	.pty_main_img img{
+		display:none;
+	}
+	
+	.pmr_d{
+		width:320px!important;
+		height: 320px!important;
+	}
+	
+	
+	.pmr_d p, .pty_main_right03 p{
+		font-size:24px!important;
+	}
+	
+	
+	.pmr_d h4, .pty_main_right03 h4{
+		font-size:16px!important;
+	}
+	
+	.pty_main_right03 h4{
+		margin-top: 0!important;
+	}
+	
+	.pmr_d img{
+		width: 100%!important;
+		height: unset!important;
+	}
+	
 	
 	.footer .inner{
 		width:700px !important;
@@ -204,15 +252,15 @@
 	}
 	
 	.pty_main_right02{
-		width:90%;
+		width:100%;
 	}
 	
-	.pmr_d p, .pty_main_right03 p{
-		font-size: 14px!important;
+	.pmr_d p{
+		
 	}
 	
 	.pty_main_right03{
-		width: 90%!important;
+		width: 100%!important;
 	}
 	
 	.footer h1 {
@@ -314,7 +362,7 @@
 	}
 	
 	.board_list th{
-		padding:23px 10px !important;
+		/* padding:23px 10px !important; */
 	}
 	
 	.pty_search{

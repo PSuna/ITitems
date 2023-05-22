@@ -121,7 +121,7 @@ function fnInit() {
 	                                        <div>
 		                                        <dl>
 		                                         <dt><label for="memid">이메일주소</label></dt> 
-		                                            <dd><input type="text" placeholder="아이디" style="width:185px;" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/>@iteyes.co.kr</dd>
+		                                            <dd><input class="pdi" type="text" placeholder="아이디" style="width:180px; margin-right:10px;" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/>@ iteyes.co.kr</dd>
 		                                        </dl>
 		            
 		                                        <dl>
