@@ -91,13 +91,13 @@ function fntrsfExcel(){
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
                                 	
-                                	<h2 class="tit_2">결재요청목록</h2>
+                                	<h2 class="tit_2">결재신청목록</h2>
                                 	
                                 	<!-- 검색조건 -->
                                 	<div class="condition pty_condition" style="display:flex;justify-content: center;">
                                 		<label class="item f_select" for="searchGroup">
                                 			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-                                				<option value="" label="요청분류"/>
+                                				<option value="" label="분류"/>
                                 				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
                                 					<option value="<c:out value="${aprvGroup.code}"/>" <c:if test="${approvalSearchVO.searchGroup == aprvGroup.code}">selected="selected"</c:if>>${aprvGroup.codeNm}</option>
                                 				</c:forEach>
@@ -106,7 +106,7 @@ function fntrsfExcel(){
                                 		
                                 		<label class="item f_select" for="searchStatus">
                                 			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
-                                				<option value="" label="요청상태"/>
+                                				<option value="" label="상태"/>
                                 				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
                                 					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
                                 				</c:forEach>
@@ -148,24 +148,22 @@ function fntrsfExcel(){
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
 	                                            <col style="width: 5%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 10%;">
+	                                            <col style="width: 15%;">
 	                                            <col style="width: 10%;">
 	                                            <col style="width: 25%;">
-	                                            <col style="width: 15%;">
+	                                            <col style="width: 20%;">
 	                                            <col style="width: 15%;">
 	                                            <col style="width: 10%;">
                                         	</colgroup>
                                         	<thead>
                                         		<tr>
 	                                				<th scope="col">번호</th>
-	                                				<th scope="col">요청자명</th>
-	                                				<th scope="col">요청자직급</th>
+	                                				<th scope="col">신청자</th>
 	                                				<th scope="col">분류</th>
 	                                				<th scope="col">프로젝트명</th>
 	                                				<th scope="col">사용장소</th>
-	                                				<th scope="col">요청일</th>
-	                                				<th scope="col">요청상태</th>
+	                                				<th scope="col">신청일</th>
+	                                				<th scope="col">상태</th>
                                 				</tr>
                                 			</thead>
                                 			<tbody>
@@ -178,8 +176,7 @@ function fntrsfExcel(){
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
                                 					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageSize) - status.index}"/></td>
-                                						<td><c:out value="${result.id}"/></td>
-                                						<td><c:out value="${result.grade}"/></td>
+                                						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>
                                 						<td><c:out value="${result.place}"/></td>

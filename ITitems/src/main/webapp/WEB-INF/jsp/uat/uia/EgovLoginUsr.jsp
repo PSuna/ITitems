@@ -43,6 +43,7 @@ function actionLogin() {
         alert("비밀번호를 입력하세요");
         return false;
     } else {
+    	document.loginForm.id.value = document.loginForm.id.value + '@iteyes.co.kr';
         document.loginForm.action="<c:url value='/uat/uia/actionSecurityLogin.do'/>";
         document.loginForm.submit();
     }
@@ -121,7 +122,7 @@ function fnInit() {
 	                                        <div>
 		                                        <dl>
 		                                         <dt><label for="memid">이메일주소</label></dt> 
-		                                            <dd><input type="text" placeholder="회사 메일 아이디" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/></dd>
+		                                            <dd><input type="text" placeholder="아이디" style="width:185px;" title="사내 메일 주소를 입력하세요." id="id" name="id" maxlength="30"/>@iteyes.co.kr</dd>
 		                                        </dl>
 		            
 		                                        <dl>
