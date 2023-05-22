@@ -135,7 +135,7 @@ function fnInit() {
 						                                        <input type="checkbox" name="checkId" id="chk" title="ID 저장" onClick="javascript:saveid(document.loginForm);" />
 						                                        <span>ID 저장</span>
 						                                    </label>
-		                                    				<!-- <a href="/ebt_webapp/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a> -->
+		                                    				<!-- <a href="/uat/uia/egovSrchPw.do" style="color:#aaa; cursor:pointer">비밀번호 찾기</a> -->
                                    						 </div>		                                            	
 		                                            </dd>
 		                                            

@@ -62,7 +62,7 @@ function MakePhotoList(obj){
 		let file = fileList[i];
 		let fileUrl = URL.createObjectURL(file);
 		photoFileList.push(file);
-		let delBtn = $("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+		let delBtn = $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
 			delfileList(this,file);
 		});
 		let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);

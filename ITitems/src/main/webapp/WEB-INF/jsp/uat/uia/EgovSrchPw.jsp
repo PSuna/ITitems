@@ -65,7 +65,7 @@ function actionSearchPassword() {
 
                                         <a href="#LINK" class="btn_login" onclick="javascript:actionSearchPassword()">발송</a>
 										<div class="bot">
-                                        	<a href="/ebt_webapp/uat/uia/egovLoginUsr.do" style="color:#aaa; cursor:pointer">이전페이지</a>
+                                        	<a href="/uat/uia/egovLoginUsr.do" style="color:#aaa; cursor:pointer">이전페이지</a>
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />

@@ -450,7 +450,7 @@ function alertValid(objList) {
 		 const dataTransfer = new DataTransfer();
 		 dataTransfer.items.add(obj.files[0]);
 		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 $(obj).closest(".filebox").append($("<img/>").attr("src","/ebt_webapp/images/ico_delete.png").on("click",function(){
+		 $(obj).closest(".filebox").append($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
 			 delFileName();
 			}));
 		 $(obj).val('');
