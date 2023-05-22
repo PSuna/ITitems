@@ -43,8 +43,7 @@ function actionLogin() {
         alert("비밀번호를 입력하세요");
         return false;
     } else {
-
-    	document.loginForm.action="<c:url value='/uat/uia/actionSecurityLogin.do'/>";
+        document.loginForm.action="<c:url value='/uat/uia/actionSecurityLogin.do'/>";
         document.loginForm.submit();
     }
 }
