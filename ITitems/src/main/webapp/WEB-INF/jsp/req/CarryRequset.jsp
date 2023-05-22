@@ -210,13 +210,13 @@ function fntrsfExcel(){
 									<div class="condition2">
 										<div class="j_box03">
 											<span class="lb">프로젝트명</span>
-											<span class="f_search2 w_200">
+											<span class="f_search2 w_full">
 												<input id="prjNm" type="text" title="주소" maxlength="100" readonly="true" />
 												<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 											</span>
 											<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
 											<span class="lb">신청상태</span>
-											<label class="item f_select w_200" for="sel1">
+											<label class="item f_select w_full" for="sel1">
 											<select id="searchStatus" name="searchStatus" title="상태">
 												<option value='' label="선택" selected="selected" />
 												<c:forEach var="stat" items="${status_result}" varStatus="status">
