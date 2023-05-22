@@ -264,7 +264,7 @@ window.onload = function(){
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<div class="j_box02">
 											<div>
-												<span class="lb">부서</span>
+												<span class="lb">본부/부서</span>
 												<label class="item f_select w_full" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
 															<option value="" >선택하세요</option>
@@ -375,8 +375,8 @@ window.onload = function(){
 												<th scope="col">중분류</th>
 												<th scope="col">품명</th>
 												<th scope="col">수량</th>
-												<th scope="col">취득일자</th>
-												<th scope="col">취득가액</th>
+												<th scope="col">본부/부서</th>
+												<th scope="col">프로젝트</th>
 												<th scope="col">등록일자</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
@@ -399,12 +399,8 @@ window.onload = function(){
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
-													<td><c:out value="${result.acquiredDate}" /></td>
-													<td>
-														<c:if test="${not empty result.acquiredPrice}">
-															<c:out value="${result.acquiredPrice}" />원
-														</c:if>
-													</td>
+													<td><c:out value="${result.orgnztId}" /></td>
+													<td><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.regDate}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>

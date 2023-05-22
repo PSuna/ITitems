@@ -627,7 +627,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<label for="">소유자</label> 
 													<span class="req">필수</span>
 												</td>
 												<td class="search_td">
