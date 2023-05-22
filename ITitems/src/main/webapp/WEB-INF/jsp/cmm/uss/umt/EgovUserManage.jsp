@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -346,7 +347,15 @@ function getMOrgList(MOval) {
                                                 <td><c:out value="${result.orgnztId}"/></td>
                                                 <td><c:out value="${result.userId}"/></td>
                                                 <td><c:out value="${result.moblphonNo}"/></td>
-                                               	<td><c:out value="${result.authorCode}"/></td>
+                                                <c:if test="${result.authorCode == '사용자'}">
+                                               		<td><c:out value="${result.authorCode}"/></td>
+                                               	</c:if>
+                                                <c:if test="${result.authorCode == '관리자'}">
+                                               		<td id="adminC"><c:out value="${result.authorCode}"/></td>
+                                               	</c:if>
+                                                <c:if test="${result.authorCode == '최고관리자'}">
+                                               		<td id="adminH"><c:out value="${result.authorCode}"/></td>
+                                               	</c:if>
                                             </tr>
                                             </c:forEach>
                                             
