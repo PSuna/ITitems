@@ -29,7 +29,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-	
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <title>Iteyes 자산관리솔루션</title>
 
 
@@ -85,10 +85,15 @@
 	           	<div class="pty_main_right03">
 	           		
 	           		<p> 사용자 메뉴얼 가이드 </p>
-	           		
-	           		<a href="#"><h4> 다운로드 → </h4></a>   		
+	           		<div class="file_G">
+	           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                        <c:param name="param_atchFileId" value="${webG.atchFileId}" />
+                    </c:import>
+                    <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                        <c:param name="param_atchFileId" value="${mobG.atchFileId}" />
+                    </c:import> 		
 	           		<img src="<c:url value="/" />images/pty_icon_03.png">
-	           		
+	           		</div>
 	           	</div>
            	
            </div>

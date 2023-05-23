@@ -417,6 +417,14 @@ form .condition2{
     vertical-align: 15px;
 }
 
+.file_G {
+	display: flex;
+}
+
+.file_G a{
+	margin-right: 7%;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;
@@ -505,6 +513,10 @@ form .condition2{
 	
 	.search_btn{
 		margin-left: 3%;
+	}
+	
+	.file_G {
+    	margin-top: 13px;
 	}
 	
 }
