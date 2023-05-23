@@ -22,6 +22,15 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<script type="text/javascript">
+$(function(){
+	LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+	if(loginVO == null){
+		location.href='/uat/uia/egovLoginUsr.do';
+	}
+});
+</script>
+
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
@@ -63,13 +72,13 @@ function fn_egov_modal_remove() {
         	<%
 			LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 			if(loginVO == null){
-		%>
+			%>
 			<div class="top_menu">
 	            <span class="t"><span>로그인정보 없음</span> &nbsp</span>
 	            <span class="d">로그인후 사용하십시오</span>
 	            <a href="<c:url value='/uat/uia/egovLoginUsr.do'/>" class="btn btn_blue_15 w_90">로그인</a>
 	        </div>
-		<% } else { %>
+			<% } else { %>
 			<c:set var="loginName" value="<%= loginVO.getName()%>"/>
 			<c:set var="loginUniqId" value="<%= loginVO.getUniqId()%>"/>
 			<c:set var="loginAuthorNm" value="<%= loginVO.getAuthorNm()%>"/>
@@ -288,12 +297,13 @@ $(document).ready(function(){
 
 <!-- gnb 햄버거 쿼리 -->
 <script type="text/javascript">
-		$(document).ready(function(){
-			$("#pmt_nav ul.pmt_sub").hide();
-			$("#pmt_nav ul.pmt_menu li").click(function(){
-				$("ul",this).slideToggle("fast");
-			});
+	$(document).ready(function(){
+		$("#pmt_nav ul.pmt_sub").hide();
+		$("#pmt_nav ul.pmt_menu li").click(function(){
+			$("ul",this).slideToggle("fast");
 		});
-	</script>
+		
+	});
+</script>
 
 

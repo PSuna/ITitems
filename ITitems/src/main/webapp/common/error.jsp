@@ -22,6 +22,9 @@
 	function fncGoAfterErrorPage() {
 		history.back(-2);
 	}
+	function fncGoLoginPage() {
+		location.href="/uat/uia/egovLoginUsr.do";
+	}
 </script>
 
 </head>
@@ -43,6 +46,7 @@
 				<p>오류발생알림화면<br>(허용되지 않는 요청을 하셨습니다.)</p>
                 <br>
                 <a href="javascript:fncGoAfterErrorPage();" class="btn btn_blue_46 w_130">이전페이지</a>
+                <a href="javascript:fncGoLoginPage();" class="btn btn_blue_46 w_130">로그인</a>
             </div>
         </div>
     </div>
