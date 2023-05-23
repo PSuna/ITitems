@@ -47,6 +47,7 @@
 			        ON A.PRJ_STATE =  D.CODE
 				<include refid="search"></include>) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}
+	     ORDER BY PRJ_STATE DESC, PRJ_START DESC
 	</select>
 
 	<select id="CountProjectVOList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultType="int">
