@@ -8,7 +8,7 @@
 .search_date img{
 	display: block;
     position: absolute;
-    right: 10px;
+    left: 1%;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
@@ -20,7 +20,7 @@
 
 .search_date input{
 	text-align: left;
-	padding-left: 5%;
+	padding-left: 50px;
 	cursor: default;
 }
 
@@ -521,4 +521,7 @@ form .condition2{
     	margin-top: 13px;
 	}
 	
+	.search_date input{
+		padding-left: 37px;
+	}
 }
