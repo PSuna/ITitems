@@ -22,14 +22,6 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-<script type="text/javascript">
-$(function(){
-	LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-	if(loginVO == null){
-		location.href='/uat/uia/egovLoginUsr.do';
-	}
-});
-</script>
 
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
@@ -303,6 +295,12 @@ $(document).ready(function(){
 			$("ul",this).slideToggle("fast");
 		});
 		
+	});
+	$(function(){
+		LoginVO loginVO = <%=(LoginVO)session.getAttribute("LoginVO")%>;
+		if(loginVO == null){
+			location.href='/uat/uia/egovLoginUsr.do';
+		}
 	});
 </script>
 
