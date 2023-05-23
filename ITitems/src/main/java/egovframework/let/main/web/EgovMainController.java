@@ -4,6 +4,8 @@ import java.util.Map;
 
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.FileVO;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.cop.bbs.service.BoardVO;
@@ -56,6 +58,9 @@ public class EgovMainController {
 	/** EgovMenuManageService */
 	@Resource(name = "meunManageService")
     private EgovMenuManageService menuManageService;
+	
+	@Resource(name = "EgovFileMngService")
+	private EgovFileMngService fileMngService;
 
 	/**
 	 * 메인 페이지에서 각 업무 화면으로 연계하는 기능을 제공한다.
@@ -113,6 +118,14 @@ public class EgovMainController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 		// 공지사항 메인컨텐츠 조회 끝 -----------------------------------
+		
+		// 가이드 추가
+		FileVO fvo = new FileVO();
+		fvo.setFileType("WEBG");
+		model.addAttribute("webG", fileMngService.selectFileVO(fvo));
+
+		fvo.setFileType("MOBG");
+		model.addAttribute("mobG", fileMngService.selectFileVO(fvo));
 
 		return "main/EgovMainView";
 	}

@@ -13,7 +13,8 @@
 		<result property="fileStreCours" column="FILE_STRE_COURS"/>
 		<result property="orignlFileNm" column="ORIGNL_FILE_NM"/>
 		<result property="streFileNm" column="STRE_FILE_NM"/>
-		<result property="creatDt" column="CREAT_DT"/>			
+		<result property="creatDt" column="CREAT_DT"/>
+		<result property="fileType" column="FILE_TYPE"/>		
 	</resultMap>
 
 	<resultMap id="fileDetail" type="egovframework.com.cmm.service.FileVO">
@@ -44,8 +45,16 @@
  	<select id="selectFileList" parameterType="FileVO" resultMap="fileList">
  		
 			SELECT 
-				a.ATCH_FILE_ID, b.FILE_CN, b.FILE_SN, b.FILE_STRE_COURS, b.STRE_FILE_NM,
-				b.FILE_EXTSN, b.ORIGNL_FILE_NM, b.FILE_SIZE, DATE_FORMAT(a.CREAT_DT, '%Y %m %d') as CREAT_DT
+				a.ATCH_FILE_ID,
+				b.FILE_CN, 
+				b.FILE_SN, 
+				b.FILE_STRE_COURS, 
+				b.STRE_FILE_NM,
+				b.FILE_EXTSN, 
+				b.ORIGNL_FILE_NM, 
+				b.FILE_SIZE, 
+				DATE_FORMAT(a.CREAT_DT, '%Y %m %d') as CREAT_DT,
+				b.FILE_TYPE
 			FROM
 				LETTNFILE a, LETTNFILEDETAIL b
 			WHERE

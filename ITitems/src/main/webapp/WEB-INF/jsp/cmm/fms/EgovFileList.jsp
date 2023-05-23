@@ -61,11 +61,21 @@
 			<c:out value="${fileVO.orignlFileNm}"/>&nbsp;<span>[<c:out value="${fileVO.fileMg}"/>&nbsp;byte]</span>
 			<input type="button" value="삭제" onClick="fn_egov_deleteFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>');">
 		</c:when>
+		<c:when test="${fileVO.fileType == 'WEBG'}">
+			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
+				<h4> 웹 버전 → </h4>
+			</a>
+		</c:when>
+		<c:when test="${fileVO.fileType == 'MOBG'}">
+			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
+				<h4> 모바일 버전 → </h4>
+			</a>
+		</c:when>
 		<c:otherwise>
 			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
 				<c:out value="${fileVO.orignlFileNm}"/>
 			</a>
-			&nbsp;[<c:out value="${fileVO.fileMg}"/>&nbsp;byte]
+			<%-- &nbsp;[<c:out value="${fileVO.fileMg}"/>&nbsp;byte] --%>[다운로드]
 		</c:otherwise>
 	</c:choose>
 	<div style="padding: 3px;"></div>
