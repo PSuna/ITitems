@@ -617,7 +617,7 @@ window.onload = function(){
 												</td>
 												<td>
 												<span class="search_date w_full">
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60">
+													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
 												</td>
 											</tr>
