@@ -460,6 +460,13 @@ function FileManual(){
 }
 
 /* ********************************************************
+ * 기존 지급확인서 파일 지우기
+ ******************************************************** */
+function addDelFile(fileId) {
+	$('#delFile').val(fileId);
+}
+
+/* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
@@ -596,10 +603,11 @@ window.onload = function(){
 													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
 													    </div>
 													    <c:if test="${not empty FileVO}">
-													    	<img alt="" src="/images/ico_delete.png" onclick="delFileName();">
+													    	<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
 													    </c:if>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
+													<input name="delFile" id="delFile" type="hidden">
 												</td>
 											</tr>
 											<tr>
