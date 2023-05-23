@@ -419,6 +419,8 @@ form .condition2{
 
 .file_G {
 	display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .file_G a{
