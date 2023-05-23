@@ -264,7 +264,7 @@ function getMOrgList(MOval) {
                                     </label> 
 									<div class="pty_search">
 										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
 									</div>
@@ -346,7 +346,7 @@ function getMOrgList(MOval) {
                                                 <td><c:out value="${result.grade}"/></td>
                                                 <td><c:out value="${result.orgnztId}"/></td>
                                                 <td><c:out value="${result.userId}"/></td>
-                                                <td><c:out value="${result.moblphonNo}"/></td>
+                                                <td class="pty_font-size_12"><c:out value="${result.moblphonNo}"/></td>
                                                 <c:if test="${result.authorCode == '사용자'}">
                                                		<td><c:out value="${result.authorCode}"/></td>
                                                	</c:if>

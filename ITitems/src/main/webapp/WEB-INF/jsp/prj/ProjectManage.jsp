@@ -167,8 +167,8 @@ function setPageUnit(){
 				                                ${resultInfo.prjName}
 				                                </a>
 				                                </td>
-				                                <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
-				                                <td>${resultInfo.name} ${resultInfo.position}</td>
+				                                <td class="pty_font-size_12">${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
+				                                <td class="pty_font-size_12">${resultInfo.name} ${resultInfo.position}</td>
 				                                <td>${resultInfo.client}</td>
 				                                <td>${resultInfo.prjState}</td>
 				                            </tr>
