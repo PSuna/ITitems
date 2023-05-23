@@ -131,10 +131,10 @@ function insert_asset(){
 	    $('form').each(function() {
 	        this.reset();
 	    });
+	    document.assetRegist.largeCategory.focus(); 
 	    $(".photoList").children().remove();
 	    removeP();
 	    $('#fileNm').closest(".filebox").find('img')[0].remove();
-		document.assetRegist.largeCategory.focus(); 
 	}else{
 		document.MyAssetManagement.submit(); 
 	}
