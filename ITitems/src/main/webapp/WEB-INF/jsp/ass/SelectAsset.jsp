@@ -249,7 +249,7 @@ function AssetList(code){
 										<%
 											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 										%>
-										<c:set var="login" value="<%= loginVO.getOrgnztId()%>"/>
+										<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
 										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 									<!-- 버튼  -->
 									<div class="board_view_bot">
