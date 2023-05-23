@@ -697,7 +697,7 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 사용기간 --> <label for="">사용기간</label> <span class="req">필수</span>
+													<!-- 사용기간 --> <label for="">반출기간</label> <span class="req">필수</span>
 												</td>
 												<td colspan="3">
 													<div>
@@ -835,7 +835,7 @@ window.onload = function(){
 								<!-- 등록버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;">신청 <spring:message code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
 										<!-- 등록 -->
 									</div>
 								</div>
