@@ -347,7 +347,7 @@ public class AssetController {
 	 * 자산수정
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
-	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, String fileNm, String delPhoto) throws Exception {
+	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, String delFile, String delPhoto) throws Exception {
 
 		assetService.UpdateAssetInfo(assetInfoVO);
 		assetService.UpdateAssetHist(assetHistVO);
@@ -368,14 +368,12 @@ public class AssetController {
 				fileMngService.insertFileInfs(result);
 			}
 		}
-		if(fileNm == null || fileNm == "") {
-			fvo.setFileGroup(assetInfoVO.getAssetId());
-			fileMngService.updateFileUse(fvo);
+		if(delFile != null && delFile != "") {
+			fvo.setAtchFileId(delFile);
+			fileMngService.updateFileListUse(fvo);
 		}
 		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
 		files.put("file", multiRequest.getFile("file"));
-		System.out.println(">>>>> files >>>>>>  " + files);
-		System.out.println(">>>>> fileNm >>>>>>  " + fileNm);
 		if (!files.isEmpty()) {
 			fvo.setFileGroup(assetInfoVO.getAssetId());
 			fileMngService.updateFileUse(fvo);

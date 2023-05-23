@@ -245,28 +245,28 @@
  	
  	<update id="updateFileUse" parameterType="FileVO">
  		UPDATE 
- 			LETTNFILE A
+ 			LETTNFILE
  		   SET
- 			A.USE_AT = 'N'
+ 			USE_AT = 'N'
  		WHERE 
- 			A.ATCH_FILE_ID IN ( SELECT 
- 									B.ATCH_FILE_ID
+ 			ATCH_FILE_ID IN ( SELECT 
+ 									ATCH_FILE_ID
  								 FROM
- 									LETTNFILEDETAIL B
+ 									LETTNFILEDETAIL 
  							    WHERE
-									B.FILE_GROUP = #{fileGroup}
+									FILE_GROUP = #{fileGroup}
 								  AND
-									B.FILE_TYPE = 'FILE'
+									FILE_TYPE = 'FILE'
  								)
  	</update>
  	
  	<update id="updateFileListUse" parameterType="FileVO">
  		UPDATE 
- 			LETTNFILE A
+ 			LETTNFILE
  		   SET
- 			A.USE_AT = 'N'
+ 			USE_AT = 'N'
  		WHERE 
- 			A.ATCH_FILE_ID = #{atchFileId}
+ 			ATCH_FILE_ID = #{atchFileId}
  	</update>
  	
 </mapper>

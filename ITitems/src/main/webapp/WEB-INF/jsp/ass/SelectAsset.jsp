@@ -160,8 +160,7 @@ function AssetList(code){
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label>
 												</td>
-												<td>
-												</td>
+												<td>${resultVO.assetSn}</td>
 											</tr>
 											<tr>
 												<td class="lb">
