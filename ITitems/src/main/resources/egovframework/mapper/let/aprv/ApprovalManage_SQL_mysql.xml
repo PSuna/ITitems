@@ -21,7 +21,7 @@
 			    C1.CODE_NM REQ_GROUP,
 			    P.PRJ_NAME PRJ_ID,
 			    R.PLACE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
+			    DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d') REQ_DATE,
 			    C2.CODE_NM REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN APRVTARGET A
@@ -196,18 +196,12 @@
 	
 	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
 		 SELECT IFNULL(E.USER_NM, '') USER_NM,
-		 		IFNULL((SELECT CODE_NM
-			              FROM LETTCCMMNDETAILCODE
-			             WHERE CODE = E.GRADE), ''), GRADE,
-			    IFNULL((SELECT CODE_NM
-			              FROM LETTCCMMNDETAILCODE
-			             WHERE CODE = R.REQ_GROUP), ''), REQ_GROUP,
+		 		IFNULL(C3.CODE_NM, '') GRADE,
+			    IFNULL(C1.CODE_NM, '') REQ_GROUP,
 			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
 			    IFNULL(R.PLACE, '') PLACE,
 			    IFNULL(DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d'), '') REQ_DATE,
-			    IFNULL((SELECT CODE_NM
-			              FROM LETTCCMMNDETAILCODE
-			             WHERE CODE = A.REQ_STATUS),'') REQ_STATUS
+			    IFNULL(C2.CODE_NM,'') REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN APRVTARGET A
 		     ON R.REQ_ID = A.REQ_ID 
@@ -215,6 +209,14 @@
 	         ON R.PRJ_ID = P.PRJ_ID
 	  LEFT JOIN LETTNEMPLYRINFO E
 	  		 ON R.ID = E.ESNTL_ID
+	  LEFT JOIN LETTCCMMNDETAILCODE C1
+	  		 ON C1.CODE = R.REQ_GROUP
+	  LEFT JOIN LETTCCMMNDETAILCODE C2
+	  		 ON C2.CODE = A.REQ_STATUS
+	  LEFT JOIN LETTCCMMNDETAILCODE C3
+	  		 ON C3.CODE = E.GRADE
+	  LEFT JOIN APRVTARGET T
+	  		 ON T.TARGET_ID = A.TARGET_UP
           WHERE A.TARGET_ID = #{uniqId}
           <if test='searchKeyword !="" and searchKeaword != null'>
           	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
