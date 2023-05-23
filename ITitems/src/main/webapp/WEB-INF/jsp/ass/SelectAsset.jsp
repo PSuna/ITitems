@@ -254,7 +254,7 @@ function AssetList(code){
 									<!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
-										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_ADMIN' || resultVO.useId == login}">
+										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login}">
 												<!-- 수정 -->
 												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
 													onclick="AssetUpdt();return false;"> <spring:message
