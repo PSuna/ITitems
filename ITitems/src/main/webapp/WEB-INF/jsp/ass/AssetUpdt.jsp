@@ -463,6 +463,9 @@ function FileManual(){
  * 기존 지급확인서 파일 지우기
  ******************************************************** */
 function addDelFile(fileId) {
+	$('#fileNm').val('');
+	$('input[name=file]').val('');
+	$('#fileNm').closest(".filebox").find('img')[0].remove();
 	$('#delFile').val(fileId);
 }
 
