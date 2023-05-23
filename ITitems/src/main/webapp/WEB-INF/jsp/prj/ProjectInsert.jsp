@@ -49,16 +49,6 @@ function fnPrjInsert(){
 	}else{
 		document.getElementById('prjNameErr').innerHTML='';
 	}
-	if(!document.projectVO.name.value){
-		document.getElementById('nameErr').innerHTML='PM은 필수입력값입니다.';
-	}else{
-		document.getElementById('nameErr').innerHTML='';
-	}
-	if(!document.projectVO.client.value){
-		document.getElementById('clientErr').innerHTML='고객사는 필수입력값입니다.';
-	}else{
-		document.getElementById('clientErr').innerHTML='';
-	}
 	if(!document.projectVO.prjState.value){
 		document.getElementById('prjStateErr').innerHTML='진행상태는 필수입력값입니다.';
 	}else{
@@ -171,7 +161,6 @@ function returnUser(val){
 												<td class="lb">
 													<!-- 수령자 --> 
 													<label for="name">PM</label> 
-													<span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_30%"> 
@@ -202,7 +191,6 @@ function returnUser(val){
 											<tr>
 												<td class="lb">
 	                                                <label for="client">고객사</label>
-	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <form:input path="client" id="client" class="f_txt w_full" maxlength="30" />

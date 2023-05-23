@@ -99,7 +99,7 @@ function fn_egov_search_Prj() {
                             <tr>
                                 <th scope="col">프로젝트명</th>
                                 <th scope="col">기간</th>
-                                <th scope="col">PM(대표)</th>
+                                <th scope="col">PM</th>
                                 <th scope="col">고객사</th>
                                 <th scope="col">상태</th>
                             </tr>
