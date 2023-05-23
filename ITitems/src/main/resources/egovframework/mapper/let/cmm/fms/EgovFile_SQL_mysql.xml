@@ -249,7 +249,7 @@
  		   SET
  			A.USE_AT = 'N'
  		WHERE 
- 			A.ATCH_FILE_ID = ( SELECT 
+ 			A.ATCH_FILE_ID IN ( SELECT 
  									B.ATCH_FILE_ID
  								 FROM
  									LETTNFILEDETAIL B
