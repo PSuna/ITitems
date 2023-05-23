@@ -104,7 +104,7 @@ function fntrsfExcel(){
                                 			</select>
                                 		</label>
                                 		
-                                		<label class="item f_select" for="searchStatus">
+                                		<label class="item f_select" for="searchStatus" style="margin-left: 0;">
                                 			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
                                 				<option value="" label="상태"/>
                                 				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
@@ -114,7 +114,7 @@ function fntrsfExcel(){
                                 		</label>
                                 		
 	                                    <div class="pty_search" style="margin-left:10px;">
-											<span class="item f_search">
+											<span class="item f_search" style="margin-right: 8px;">
 												<input class="f_input w_350 pty_f_input" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="사용자명/프로젝트명/사용장소 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>

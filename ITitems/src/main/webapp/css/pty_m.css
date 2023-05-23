@@ -373,6 +373,7 @@
 	.pty_condition{
 		display:flex !important;
 		flex-wrap: wrap !important;
+		gap: 8px;
 		
 	}
 	.pty_condition div{
@@ -440,5 +441,7 @@
 		margin-top:0!important;
 	}
 	
-	
+	.pty_font-size_12{
+		font-size: 12px;
+	}
 }
