@@ -51,9 +51,7 @@ function fnListPage(){
 /* ********************************************************
  * 승인확인 팝업창
  ******************************************************** */
-function fnAgree(AuthorCode){
-	loginAuthor = AuthorCode;
-	console.log(loginAuthor);
+function fnAgree(){
 	var $dialog = $('<div id="modalPan"></div>')
 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
@@ -70,7 +68,6 @@ function fnAgree(AuthorCode){
  ******************************************************** */
  function returnConfirm(val){
 	fn_egov_modal_remove();
-	var a = "ROLE_HIGH_ADMIN";
 	 if(val){
 		 fnUpdate();
 	 }
@@ -89,20 +86,7 @@ function fnUpdate(){
 			}
 	 });
  }
-/* ********************************************************
- * 최고관리자 승인처리
- ******************************************************** */
-function fnHighUpdate(){
-	 var reqId = document.getElementById("reqId").value;
-	 console.log(reqId);
-	 $.ajax({
-		 	url: '${pageContext.request.contextPath}/aprv/HighApprovalUpdate.do?reqId='+reqId,
-			method: 'POST',
-			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/ApprovalManage.do"
-			}
-	 });
-}
+
 //-->
 </script>
 <title>ITitems</title>
@@ -252,8 +236,8 @@ function fnHighUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus == 'A0'}">
-											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree('${AuthorCode}'); return false;">
+										<c:if test="${approvalVO.reqStatus eq 'A0'}">
+											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>
 										</c:if>

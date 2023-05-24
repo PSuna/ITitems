@@ -111,35 +111,38 @@
             OR T.REQ_ID IS NULL)
 	</select>
 
-	<select id="SelectApproval" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalManageVO">
+	<select id="SelectApproval" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovframework.let.aprv.service.ApprovalManageVO">
 		SELECT  R.REQ_ID,
 				E.USER_NM,
-				(SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = E.GRADE) AS GRADE,
+				C1.CODE_NM GRADE,
 			    P.PRJ_NAME PRJ_ID,
-			    (SELECT USER_NM
-			       FROM LETTNEMPLYRINFO
-			      WHERE EMPLYR_ID = P.ID) AS PM_NAME,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE 
-			      WHERE CODE = (SELECT GRADE
-			      				  FROM LETTNEMPLYRINFO
-			      				 WHERE EMPLYR_ID = P.ID)) AS PM_GRADE,
+			    E1.USER_NM PM_NAME,
+			    C2.CODE_NM PM_GRADE,
 			    R.PLACE,
 			    DATE_FORMAT(R.START_DATE,'%Y-%m-%d') START_DATE,
 			    DATE_FORMAT(R.END_DATE,'%Y-%m-%d') END_DATE,
 			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
-			    (SELECT CODE_NM
-			       FROM LETTCCMMNDETAILCODE
-			      WHERE CODE = R.REQ_GROUP) AS REQ_GROUP, 
-			    R.REQ_STATUS
+			    C3.CODE_NM REQ_GROUP, 
+			    AP.REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN PROJECTS P
 	         ON R.PRJ_ID = P.PRJ_ID
 	  LEFT JOIN LETTNEMPLYRINFO E
 	  		 ON R.ID = E.ESNTL_ID
+	  LEFT JOIN LETTCCMMNDETAILCODE C1
+	  		 ON C1.CODE = E.GRADE
+	  LEFT JOIN LETTNEMPLYRINFO E1
+	  		 ON E1.EMPLYR_ID = P.ID 
+	  LEFT JOIN LETTNEMPLYRINFO E2
+	         ON E2.EMPLYR_ID = P.ID
+	  LEFT JOIN LETTCCMMNDETAILCODE C2
+	  		 ON C2.CODE = E2.GRADE
+	  LEFT JOIN LETTCCMMNDETAILCODE C3
+	         ON C3.CODE = R.REQ_GROUP
+	  LEFT JOIN APRVTARGET AP
+	         ON AP.REQ_ID = R.REQ_ID
 	      WHERE R.REQ_ID = #{reqId}
+	        AND AP.TARGET_ID = #{uniqId}
 	</select>
 	
 	<select id="SelectApprovalDetailList" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalDetailVO">
