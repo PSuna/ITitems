@@ -57,6 +57,9 @@ public class ApprovalDefaultVO  implements Serializable{
     /** 권한 */
     private String authorCode;
     
+    /** 해당 결제 요청 고유번호*/
+    private String reqId;
+    
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -143,5 +146,13 @@ public class ApprovalDefaultVO  implements Serializable{
 
 	public void setAuthorCode(String authorCode) {
 		this.authorCode = authorCode;
+	}
+
+	public String getReqId() {
+		return reqId;
+	}
+
+	public void setReqId(String reqId) {
+		this.reqId = reqId;
 	}
 }

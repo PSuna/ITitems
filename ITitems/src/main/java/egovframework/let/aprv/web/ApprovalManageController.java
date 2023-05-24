@@ -134,6 +134,8 @@ public class ApprovalManageController {
 								ModelMap model) throws Exception {
 		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
 		approvalSearchVO.setAuthorCode(loginId.getAuthorCode());
+		approvalSearchVO.setUniqId(loginId.getUniqId());
+		approvalSearchVO.setReqId(reqId);
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -142,7 +144,7 @@ public class ApprovalManageController {
     	}
     	
 		ApprovalManageVO approvalManageVO = new ApprovalManageVO();
-		approvalManageVO = approvalManageService.SelectApproval(reqId);
+		approvalManageVO = approvalManageService.SelectApproval(approvalSearchVO);
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
 		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(reqId));
