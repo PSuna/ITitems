@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 #adminC{
-	color:blue;
+	color:var(--blue-color)!important;
 }
 
 #adminH{
-	color:red;
+	color:var(--point-color)!important;
 }

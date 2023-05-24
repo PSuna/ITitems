@@ -273,27 +273,42 @@ function getMOrgList(MOval) {
 								
 								<div class="board_list_top">
 									<div class="left_col">
-	                                	<div class="list_count">
-			                                 	<span>사용자수</span>
-			                                 	<strong><c:out value="${paginationInfo.totalRecordCount}"/></strong>
-			                                 	
-		                                 		<div style="float: right;display: flex;align-items: center;">
-			                                 		<span>페이지당 항목 수</span>
-			                                 		<label class="item f_select" for="pageUnit">
-				                                 		<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">
-				                                 			<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-				                                 			<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-				                                 			<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-				                                 			<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-				                                 			<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-				                                 			<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
-				                                 		</select>
-			                                 		</label>
-			                                 		<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-                                    				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 w_100" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
-		                                 		</div>
-	                                 	</div>
-	                            	</div>
+											<div class="list_count">
+
+
+												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
+													
+													<div>
+														<span>Totall</span> 
+														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
+																
+													</div>
+														
+													<div style="display: flex; align-items: center;">
+														<span style="margin-right: 16px;">페이지당 항목 수</span> 
+														<label class="item f_select" for="pageUnit"> 
+																
+															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
+																	<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																	<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																	<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																	<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																	<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																	<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+															</select>
+														</label>
+														
+														<div class="excel_btn pty_margin-left_8">
+															<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+																	<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+														</div>
+													</div>
+													
+												</div>
+												
+												
+											</div>
+										</div>
                                 </div>
 								
                                 <!-- 게시판 -->
@@ -361,9 +376,12 @@ function getMOrgList(MOval) {
                                             
                                         </tbody>
                                     </table>
-                                    <div class="excel_btn">
-                                    	<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                    <div class="btn_area">
+                                    	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+                                    				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
                                     </div>
+                                    
+                                  
                                 </div>
 
 								<!-- 페이지 네비게이션 시작 -->

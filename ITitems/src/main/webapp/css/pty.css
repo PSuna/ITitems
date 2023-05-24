@@ -2,10 +2,7 @@
 
 /* PTY */
 
-html{
-	overflow-y:scroll;
-	height:100%;
-}
+
 
 :root {
    
@@ -17,6 +14,20 @@ html{
     --line-color:#dde2e5;
     
     --font-gray:#aaa;
+    
+     --font-gray2:#666;
+     
+     --blue-color:#0465be
+     
+}
+
+html{
+	overflow-y:scroll;
+	height:100%;
+}
+
+td{
+	font-size:14px;
 }
 
 a{
@@ -88,7 +99,7 @@ display:flex;
 }
 
 .gnb_li>a{
-	color:#3db6ec!important;
+	color:var(--blue-color)!important;
 }
 
 /* gnb 드롭다운 관련///// */
@@ -304,12 +315,13 @@ thead{
 }
 
 .pty_btn{
-	height:44px;
-	width:80px;
+	height:34px;
+	/* width:80px; */
 	background:var(--box-color);
 	border-radius:6px;
 	border:1px solid #dde2e5;
-	font-size:16px;
+	font-size:14px;
+	padding: 0 24px;
 }
 
 .pty_f_date{
@@ -339,7 +351,9 @@ thead{
 }
 
 .left_col span{
-	margin-right:16px;
+	/* margin-right:16px; */
+	font-size:14px;
+	color: var(--font-gray2);
 }
 
 .tit_1{
@@ -433,11 +447,25 @@ thead{
 		margin-bottom: 20px;
 	}
 	
+	.btn_area{
+		text-align: right;
+		margin-top:8px;
+	}
+
+
 
 
 .pty_margin-right_8{
 	margin-right:8px;
 	
+}
+
+.pty_margin-left_8{
+	margin-left:8px;
+}
+
+.pty_margin-bottom_8{
+	margin-bottom:8px;
 }
 
 .pty_bottom_fix{

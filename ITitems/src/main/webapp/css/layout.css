@@ -513,6 +513,7 @@ width:1300px;
 }
 .tit_2+.condition {
 	margin-top:23px;
+	gap: 8px;
 }
 .tit_2+.condition2 {
 	margin-top:23px;
