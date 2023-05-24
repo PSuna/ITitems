@@ -250,26 +250,59 @@ function press() {
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
+                                <div class="condition pty_condition" style="display: flex;">
                                     <label class="f_select item" for="searchCondition">
                                         <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
     					                    <option value="1" <c:if test="${userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
                                             <option value="2" <c:if test="${userSearchVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
     					                </select>
                                     </label> 
-									<div class="pty_search" style="margin-left:10px;">
+									
 										<span class="item f_search">
 											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
-									</div>
+									
                                 </div>
                                 <!--// 검색조건 -->
 
                                 <div class="board_list_top">
-                                    <div class="right_col" style="padding-top:26px;">
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
-                                    </div>
+                                	<div class="left_col">
+                                		<div class="list_count">
+												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
+													
+													<div>
+														<span style="margin:0;">Totall</span> 
+														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
+																
+													</div>
+														
+													<div style="display: flex; align-items: center;">
+														<span style="margin-right: 16px;">페이지당 항목 수</span> 
+														<label class="item f_select" for="pageUnit"> 
+																
+															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
+																	<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																	<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																	<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																	<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																	<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																	<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+															</select>
+														</label>
+														
+														<div class="excel_btn pty_margin-left_8">
+															<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+																	<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+														</div>
+													</div>
+													
+												</div>
+												
+												
+											</div>
+                              			</div>
+                                    
                                 </div>
 
                                 <!-- 게시판 -->
@@ -336,7 +369,11 @@ function press() {
                                         </tbody>
                                     </table>
                                 </div>
-
+								
+								<div class="right_col btn_area">
+                                        <a href="#LINK" class="btn btn_blue_46" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
+                                </div>
+								
 								<!-- 페이지 네비게이션 시작 -->
 								<c:if test="${!empty authorGroupVO.pageIndex }">
                                 <div class="board_list_bot">

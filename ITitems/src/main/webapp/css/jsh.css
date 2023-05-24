@@ -312,7 +312,7 @@
 
 .excel_btn .btn{
 	float: right;
-	margin-right: 0.2%;
+/* 	margin-right: 0.2%; */
 }
 
 .excel_btn .btn:hover{
@@ -325,7 +325,7 @@ form .condition2{
 	}
 	
 .board_list+.board_list_bot {
-    margin-top: 10px !important;
+    /* margin-top: 10px !important; */
 }
 
 .j_box02 div{

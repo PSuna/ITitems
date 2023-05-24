@@ -279,7 +279,7 @@ function getMOrgList(MOval) {
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
 													
 													<div>
-														<span>Totall</span> 
+														<span style="margin:0;">Totall</span> 
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
 																
 													</div>

@@ -230,15 +230,15 @@ function fnDeleteCat(e){
 <style>
 .catBox{
 	display:flex;
-	margin-top: 20px;
+	margin-top: 23px;
 }
 .upperCat, .lowerCat{
-	margin : 10px;
+	margin : 0 10px;
 	padding : 10px;
 	border:1px solid #ddd;
 	border-radius: 10px;
 	min-height : 520px;
-	width:470px;
+	width:600px;
 }
 .catInnerBox{
 	height : 400px;
@@ -251,7 +251,7 @@ function fnDeleteCat(e){
     justify-content: space-between;
     font-size:20px;
     border-bottom : 1px solid #eee;
-    padding: 5px;
+    padding: 8px 0;
     align-items: center;
 }
 
@@ -294,7 +294,7 @@ function fnDeleteCat(e){
 						<c:import url="/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 						<div class="content_wrap">
-							<div id="contents" class="content">
+							<div id="contents" class="content" style="width:1070px;">
 								<!-- Location -->
 								<div class="location">
 									<ul>

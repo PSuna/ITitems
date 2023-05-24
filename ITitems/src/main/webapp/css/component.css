@@ -43,7 +43,7 @@
 	color:var(--point-color);
 	font-size:14px;
 	text-align:center;
-	line-height:34px;
+	line-height:32px;
 	border: 1px solid var(--point-color);
 	
 	padding: 0 24px;
@@ -109,7 +109,7 @@
 	margin-top: 15px;
 }
 .condition .item+.item {
-	margin-left:10px;
+	/* margin-left:10px; */
 }
 .condition2 {
 	padding:25px;
@@ -128,8 +128,8 @@
 }
 .condition2 .lb {
 	display:inline-block;
-	height:46px;
-	line-height:46px;
+	height:34px;
+	line-height:34px;
 	vertical-align: top;
 	margin:0 8px 0px 24px;
 	
@@ -137,7 +137,7 @@
 /* List */
 .board_list {
 	border-top:2px solid #222;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 	
 }
 .board_list table {
@@ -153,7 +153,7 @@
 	text-align:center;
 }
 .board_list td {
-	padding:16px 0;
+	padding:8px 0;
 	border-bottom:1px solid #dde2e5;
 	color:#666;
 	text-align:center;
@@ -711,11 +711,12 @@ input:-mos-input-placeholder {
 	right:15px;
 	top:50%;
 	transform:translateY(-50%);
-	width:25px;
-	height:27px;
+	width:20px;
+	height:22px;
 	border:0;
 	font-size:0;
 	background:url(../images/ico_search_b.png) no-repeat;
+	background-size: contain;
 }
 .f_search2 {
 	display:inline-block;

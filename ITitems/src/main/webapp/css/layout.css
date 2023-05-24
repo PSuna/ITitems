@@ -558,7 +558,7 @@ width:1300px;
 	margin-top:30px;
 }
 .board_list+.board_list_bot {
-	margin-top:40px;
+	/* margin-top:40px; */
 }
 .board_list2+.board_list_bot {
 	margin-top:20px;
@@ -601,7 +601,7 @@ width:1300px;
 	margin-top:30px;
 }
 .board_list_top+.board_list {
-	margin-top:20px;
+	/* margin-top:8px; */
 }
 .board_article+.board_view_bot {
 	margin-top:30px;
