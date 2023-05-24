@@ -2,6 +2,10 @@
 
 /* PTY */
 
+html{
+	overflow-y:scroll;
+	
+}
 
 :root {
    
