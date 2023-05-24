@@ -141,6 +141,7 @@ margin-left:60px;
 }
 .container {
 	/* min-height:calc(100vh - 360px); */
+	height: 1000px;
 }
 .content {
 	min-height: 600px;
