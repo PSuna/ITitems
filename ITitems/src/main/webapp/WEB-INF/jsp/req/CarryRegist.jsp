@@ -392,6 +392,8 @@ function returnProject(val){
 	if (val) {
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
+		document.getElementById("pmNm").value  = val.pmNm;
+		document.getElementById("pm").value  = val.pmId;
 	}
 	
 	fn_egov_modal_remove();

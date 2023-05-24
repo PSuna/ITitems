@@ -217,8 +217,9 @@
 				  LEFT OUTER JOIN PROJECTS G
 				    ON B.PRJ_ID = G.PRJ_ID
 				 WHERE B.USE_ID = #{userId}
+				 <include refid="mySearch" />
 				    OR B.RCPT_ID = #{userId}
-		        	<include refid="mySearch" />
+		        	
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>

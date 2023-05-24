@@ -37,10 +37,12 @@ function fn_egov_cancel_popup() {
 	parent.fn_egov_modal_remove();
 }
 
-function fn_egov_return_Prj(prjid, prjNm){
+function fn_egov_return_Prj(prjid, prjNm, pmId, pmNm){
 	var val   = new Object();
 	val.prjId  = prjid;
 	val.prjNm  = prjNm;
+	val.pmId  = pmId;
+	val.pmNm  = pmNm;
 	
 	parent.parent.returnProject(val);
 }
@@ -106,7 +108,7 @@ function fn_egov_search_Prj() {
                         </thead>
                         <tbody>
                         	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
-                            <tr onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}');">
+                            <tr onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}','${resultInfo.id}','${resultInfo.name}');">
                                 <td>${resultInfo.prjName}</td>
                                 <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
                                 <td>${resultInfo.name} ${resultInfo.position}</td>
