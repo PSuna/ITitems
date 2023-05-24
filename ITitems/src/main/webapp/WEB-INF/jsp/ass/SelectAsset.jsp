@@ -268,12 +268,15 @@ function AssetList(code){
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+									<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+										<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+										<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+									</c:if>
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
 									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${listCode}"/>" />
 								</form>
 							</div>
 						</div>

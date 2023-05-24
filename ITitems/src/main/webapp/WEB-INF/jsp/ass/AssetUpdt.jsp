@@ -684,6 +684,9 @@ window.onload = function(){
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+													<c:if test="${not empty resultVO.rcptId}">
+														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetRcpt(this)">
+													</c:if>
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
@@ -697,7 +700,9 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-													<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
+													<c:if test="${not empty resultVO.useId}">
+														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
+													</c:if>
 												</td>
 											</tr>
 											<tr>
@@ -757,7 +762,7 @@ window.onload = function(){
 																</div>
 															</div>
 														</c:forEach>
-													</div>
+													</div> 
 												</td>
 											</tr>
 											<tr>
@@ -766,7 +771,7 @@ window.onload = function(){
 													<label for="note">비고</label>
 												</td>
 												<td colspan="4">
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10" >${resultVO.note}</textarea>
+													<textarea id="note" name="note" class="f_txtar w_full " cols="30" rows="1" >${resultVO.note}</textarea>
 												</td>
 											</tr>
 											<tr>
@@ -777,7 +782,7 @@ window.onload = function(){
 												<td colspan="4">
 												
 													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10">${resultVO.carryReason}</textarea>
+														class="f_txtar w_full" cols="30" rows="1">${resultVO.carryReason}</textarea>
 												</td>
 											</tr>
 										</table>
@@ -799,6 +804,8 @@ window.onload = function(){
 								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
 									<input type="hidden" name="assetId"
 										value="<c:out value='${resultVO.assetId}'/>" />
+									<input type="hidden" name="listCode"
+										value="<c:out value='${listCode}'/>" />
 								</form>
 							</div>
 						</div>
