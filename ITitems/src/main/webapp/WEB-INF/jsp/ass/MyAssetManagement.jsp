@@ -326,7 +326,9 @@ window.onload = function(){
 								<!--// 검색 조건 -->
 								
 							
-								
+								<div class="total_cnt">
+								<p>• 총 <span class="cnt"><c:out value="${paginationInfo.totalRecordCount }" /></span>개</p>
+								</div>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>

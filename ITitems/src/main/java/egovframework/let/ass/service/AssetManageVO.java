@@ -25,6 +25,9 @@ public class AssetManageVO implements Serializable {
 	/** 검색 사용자 */
 	private String userId;
 	
+	/** 검색 사용자 이름 */
+	private String userNm;
+	
 	/** 자산코드 */
 	private String assetId;
 	
@@ -66,6 +69,9 @@ public class AssetManageVO implements Serializable {
     
     /** 검색단어 */
     private String searchWord = "";
+    
+    /** 목록 */
+    private String listCode;
     
     /** 페이징 */
     
@@ -347,6 +353,18 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setSearchLOrgnzt(String searchLOrgnzt) {
 		this.searchLOrgnzt = searchLOrgnzt;
+	}
+	public String getListCode() {
+		return listCode;
+	}
+	public void setListCode(String listCode) {
+		this.listCode = listCode;
+	}
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
 	}
 	
 	

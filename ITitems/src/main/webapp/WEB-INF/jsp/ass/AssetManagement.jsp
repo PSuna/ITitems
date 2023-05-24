@@ -68,6 +68,32 @@ function returnProject(val){
 }
 
 /* ********************************************************
+ * 회원 검색
+ ******************************************************** */
+function UserSearch(){
+    
+    var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 1100,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 검색 회원 입력
+ ******************************************************** */
+function returnUser(val){
+	document.getElementById("userId").value  = val.userId;
+	document.getElementById("userNm").value  = val.userNm;
+	fn_egov_modal_remove();
+}
+
+/* ********************************************************
  * 중분류 조회
  ******************************************************** */
 function getMCatList(Mval) {
@@ -132,7 +158,9 @@ function fn_egov_select_noticeList(pageNo) {
 //	document.frm.searchStatus.value = '${searchVO.searchStatus}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';
-	document.frm.searchWord.value = '${searchVO.searchWord}';
+//	document.frm.searchWord.value = '${searchVO.searchWord}';
+	document.frm.userId.value = '${searchVO.userId}';
+	document.frm.userNm.value = '${searchVO.userNm}';
 	document.frm.pageIndex.value = pageNo;
     document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
     document.frm.submit(); 
@@ -328,12 +356,22 @@ window.onload = function(){
 												 </div>
 											</div>	
 											<div class="search_box">
+												<span class="lb">소유자/실사용자</span>
+												<span class="f_search2 w_full"> 
+													<input id="userNm" name="userNm" type="text" title="회원" maxlength="100"
+														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
+													<button type="button" class="btn" onclick="UserSearch()">조회</button>
+												</span>
+												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
+													maxlength="8" readonly="readonly" />
+											</div>
+											<%-- <div class="search_box">
 												<span class="lb">품명</span>
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
 													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
-											</div>
+											</div> --%>
 											<div class="btn_box">
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
 											</div>
@@ -343,41 +381,28 @@ window.onload = function(){
 								<!--// 검색 조건 -->
 								
 							
-								
+								<div class="total_cnt">
+								<p>• 총 <span class="cnt"><c:out value="${paginationInfo.totalRecordCount }" /></span>개</p>
+								</div>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 6%;">
-											<col style="width: 12%;">
-											<col style="width: 12%;">
-											<col style="width: 15%;">
-											<col style="width: 10%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-										</colgroup>
-										<%-- <colgroup>
 											<col style="width: 5%;">
-											<col style="width: 11%;">
-											<col style="width: 11%;">
+											<col style="width: 17%;">
+											<col style="width: 21%;">
 											<col style="width: 14%;">
-											<col style="width: 9%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-											<col style="width: 11%;">
-										</colgroup> --%>
+											<col style="width: 12%;">
+											<col style="width: 12%;">
+										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">대분류</th>
-												<th scope="col">중분류</th>
-												<th scope="col">품명</th>
-												<th scope="col">수량</th>
 												<th scope="col">본부/부서</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">등록일자</th>
+												<th scope="col">분류</th>
+												<th scope="col">소유자</th>
+												<th scope="col">실사용자</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
@@ -395,13 +420,11 @@ window.onload = function(){
 																value="AM" />
 														</form>
 													</td>
-													<td><c:out value="${result.largeCategory}" /></td>
-													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetName}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.orgnztId}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
-													<td><c:out value="${result.regDate}" /></td>
+													<td><c:out value="${result.largeCategory}" />/<c:out value="${result.middleCategory}" /></td>
+													<td><c:out value="${result.rcptNm}" /></td>
+													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>

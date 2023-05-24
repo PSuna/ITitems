@@ -8,12 +8,12 @@
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
-		<result property="assetName" column="ASSET_NAME" />
-		<result property="assetQty" column="ASSET_QTY" />
 		<result property="orgnztId" column="ORGNZT_ID" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
+		<result property="useNm" column="USE_NM" />
+		<result property="rcptNm" column="RCPT_NM" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -57,6 +57,7 @@
 		<where>
 			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
 				AND B.ORGNZT_ID = #{searchOrgnzt}
+				OR G.ORGNZT_UP = #{searchOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
@@ -81,6 +82,10 @@
 			</if>
 			<if test="searchWord != null and searchWord != ''">
 				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			</if>
+			<if test="userId != null and userId != ''">
+				AND B.RCPT_ID = #{userId}
+				 OR B.USE_ID = #{userId}
 			</if>
 		</where>
 	</sql>
@@ -117,12 +122,12 @@
 	    	   ASSET_ID,
 	    	   LARGE_CATEGORY, 
 	    	   MIDDLE_CATEGORY, 
-	    	   ASSET_NAME, 
-	    	   ASSET_QTY, 
 	    	   ORGNZT_ID,
 	    	   PRJ_ID,
 	    	   REG_DATE,
-	    	   USAGE_STAUTS
+	    	   USAGE_STAUTS,
+	    	   USE_NM,
+	    	   RCPT_NM
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
@@ -134,7 +139,9 @@
 					G.ORGNZT_NM AS ORGNZT_ID,
 	    	   		H.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					E.CODE_NM AS USAGE_STAUTS
+					E.CODE_NM AS USAGE_STAUTS,
+					I.USER_NM AS USE_NM,
+					J.USER_NM AS RCPT_NM
 				  FROM ASSETSINFO A 
 	              LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
@@ -150,6 +157,10 @@
 	   				ON B.ORGNZT_ID = G.ORGNZT_ID
 	   			  LEFT OUTER JOIN PROJECTS H
 	   				ON B.PRJ_ID = H.PRJ_ID
+	   			  LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.USE_ID = I.ESNTL_ID
+	              LEFT OUTER JOIN LETTNEMPLYRINFO J
+	                ON B.RCPT_ID = J.ESNTL_ID  
 		        	<include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}

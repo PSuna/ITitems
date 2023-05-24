@@ -426,6 +426,20 @@ form .condition2{
 	margin-right: 7%;
 }
 
+.total_cnt{
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.total_cnt p{
+	float: right;
+	margin-right: 1%;
+}
+
+.total_cnt .cnt{
+	color: #0465be;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;

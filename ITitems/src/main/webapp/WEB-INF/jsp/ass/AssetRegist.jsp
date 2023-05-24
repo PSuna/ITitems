@@ -714,7 +714,7 @@ window.onload = function(){
 													<label for="note">비고</label>
 												</td>
 												<td colspan="4">
-													<textarea id="note" name="note" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1"></textarea>
 												</td>
 											</tr>
 											<tr>
@@ -724,7 +724,7 @@ window.onload = function(){
 												</td>
 												<td colspan="4">
 													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
+														class="f_txtar w_full" cols="30" rows="1"></textarea>
 												</td>
 											</tr>
 										</table>
