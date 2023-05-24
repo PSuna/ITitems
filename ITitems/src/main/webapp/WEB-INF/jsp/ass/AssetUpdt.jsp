@@ -794,7 +794,7 @@ window.onload = function(){
 													<textarea id="note" name="note" class="f_txtar w_full " cols="30" rows="1" >${resultVO.note}</textarea>
 												</td>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 반출사유 --> 
 													<label for="carryReason">반출사유</label>
@@ -804,7 +804,7 @@ window.onload = function(){
 													<textarea id="carryReason" name="carryReason"
 														class="f_txtar w_full" cols="30" rows="1">${resultVO.carryReason}</textarea>
 												</td>
-											</tr>
+											</tr> --%>
 										</table>
 									</div>
 									

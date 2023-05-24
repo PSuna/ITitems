@@ -225,7 +225,7 @@ function AssetList(code){
 												</td>
 												<td colspan="4">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 반출사유 --> 
 													<label for="carryReason">반출사유</label>
@@ -233,7 +233,7 @@ function AssetList(code){
 												<td colspan="4">
 													${fn:replace(resultVO.carryReason, newLineChar, "<br/>")}
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
 												<td class="lb">
 													<!-- 등록일자 --> 

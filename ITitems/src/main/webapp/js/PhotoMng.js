@@ -66,7 +66,6 @@ function MakePhotoList(obj){
 	for (var i = 0; i < fileList.length; i++) {
 		let file = fileList[i];
 		let fileUrl = URL.createObjectURL(file);
-		console.log(file.name);
 		let val = true;
 		for (let i = 0; i < photoFileList.length; i++) {
 			console.log(photoFileList[i].name);

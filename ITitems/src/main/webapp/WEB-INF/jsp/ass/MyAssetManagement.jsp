@@ -311,7 +311,7 @@ window.onload = function(){
 												 </div>
 											</div>	
 											<div class="search_box">
-												<span class="lb">품명</span>
+												<span class="lb">품명/시리얼넘버</span>
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
 													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
@@ -333,13 +333,12 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 6%;">
-											<col style="width: 14%;">
-											<col style="width: 14%;">
-											<col style="width: 21%;">
+											<col style="width: 5%;">
 											<col style="width: 10%;">
-											<col style="width: 20%;">
-											<col style="width: 15%;">
+											<col style="width: 10%;">
+											<col style="width: 18%;">
+											<col style="width: 18%;">
+											<col style="width: 39%;">
 										</colgroup>
 										<%-- <colgroup>
 											<col style="width: 5%;">
@@ -354,12 +353,11 @@ window.onload = function(){
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">대분류</th>
-												<th scope="col">중분류</th>
-												<th scope="col">품명</th>
+												<th scope="col">분류</th>
 												<th scope="col">수량</th>
+												<th scope="col">품명</th>
+												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">등록일자</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
@@ -377,12 +375,11 @@ window.onload = function(){
 																value="MYAM" />
 														</form>
 													</td>
-													<td><c:out value="${result.largeCategory}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
+													<td><c:out value="${result.assetName}" /></td>
+													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
-													<td><c:out value="${result.regDate}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>

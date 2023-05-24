@@ -24,6 +24,7 @@
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetName" column="ASSET_NAME" />
 		<result property="assetQty" column="ASSET_QTY" />
+		<result property="assetSn" column="ASSET_SN" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
@@ -101,9 +102,6 @@
 				<![CDATA[
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
-			</if>
-			<if test="searchWord != null and searchWord != ''">
-				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
 	</sql>
 
@@ -243,7 +241,8 @@
 	    	   LARGE_CATEGORY, 
 	    	   MIDDLE_CATEGORY, 
 	    	   ASSET_NAME, 
-	    	   ASSET_QTY, 
+	    	   ASSET_QTY,
+	    	   ASSET_SN,
 	    	   PRJ_ID,
 	    	   REG_DATE,
 	    	   USAGE_STAUTS
@@ -255,6 +254,7 @@
 					D.CAT_NAME AS MIDDLE_CATEGORY,
 					A.ASSET_NAME,
 					A.ASSET_QTY,
+					A.ASSET_SN,
 					G.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS
@@ -272,10 +272,31 @@
 				  LEFT OUTER JOIN PROJECTS G
 				    ON B.PRJ_ID = G.PRJ_ID
 				 WHERE B.USE_ID = #{userId}
-				 <include refid="mySearch" />
+				 <choose>
+				 	<when test="searchWord != null and searchWord != ''">
+						AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+						<include refid="mySearch" />
+						 OR B.USE_ID = #{userId}
+						AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
+						<include refid="mySearch" />
+				 	</when>
+				 	<otherwise>
+				 		<include refid="mySearch" />
+				 	</otherwise>
+				 </choose>
 				    OR B.RCPT_ID = #{userId}
-				 <include refid="mySearch" />
-		        	
+				 <choose>
+				 	<when test="searchWord != null and searchWord != ''">
+						AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+						<include refid="mySearch" />
+						 OR B.RCPT_ID = #{userId}
+						AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
+						<include refid="mySearch" />
+				 	</when>
+				 	<otherwise>
+				 		<include refid="mySearch" />
+				 	</otherwise>
+				 </choose>
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
@@ -288,9 +309,31 @@
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
 		 WHERE B.USE_ID = #{userId}
-		 <include refid="mySearch" />
+		 <choose>
+		 	<when test="searchWord != null and searchWord != ''">
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				<include refid="mySearch" />
+				 OR B.USE_ID = #{userId}
+				AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
+				<include refid="mySearch" />
+		 	</when>
+		 	<otherwise>
+		 		<include refid="mySearch" />
+		 	</otherwise>
+		 </choose>
 		    OR B.RCPT_ID = #{userId}
-		 <include refid="mySearch" />
+		 <choose>
+		 	<when test="searchWord != null and searchWord != ''">
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				<include refid="mySearch" />
+				 OR B.RCPT_ID = #{userId}
+				AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
+				<include refid="mySearch" />
+		 	</when>
+		 	<otherwise>
+		 		<include refid="mySearch" />
+		 	</otherwise>
+		 </choose>
 	</select>
 
 	<select id="SelectAssetInfoVO"
