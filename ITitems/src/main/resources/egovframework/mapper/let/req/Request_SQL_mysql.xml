@@ -136,7 +136,9 @@
 				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
 				 WHERE A.REQ_GROUP = #{reqGroup} 
+				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
 				   AND A.ID = #{id}
+				 </if>
 				 <include refid="search" />
 				 GROUP BY 
 				 	A.REQ_ID, 

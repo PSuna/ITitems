@@ -67,6 +67,7 @@ public class RequestController {
 		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
 		
 		manageVO.setId(loginId.getUniqId());
+		manageVO.setAuthorCode(loginId.getAuthorCode());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(manageVO.getPageIndex());

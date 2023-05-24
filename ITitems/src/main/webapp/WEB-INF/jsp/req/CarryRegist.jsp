@@ -552,6 +552,31 @@ function checkTd(){
 		}
 	}
 	
+	if($('#aprvTbl #aprv0').val() == $('#id').val()){
+		$('#aprvTbl #aprv0').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		if(obj == null){
+			obj = $('#aprvTbl #aprv0');
+		}
+	}
+	if($('#aprvTbl #aprv1').val() == $('#id').val()){
+		$('#aprvTbl #aprv1').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		if(obj == null){
+			obj = $('#aprvTbl #aprv1');
+		}
+	}
+	if($('#aprvTbl #aprv2').val() == $('#id').val()){
+		$('#aprvTbl #aprv2').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		if(obj == null){
+			obj = $('#aprvTbl #aprv2');
+		}
+	}
+	if($('#aprvTbl #aprv3').val() == $('#id').val()){
+		$('#aprvTbl #aprv3').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		if(obj == null){
+			obj = $('#aprvTbl #aprv3');
+		}
+	}
+	
 	return obj;
 }
 
@@ -699,16 +724,16 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 사용기간 --> <label for="">반출기간</label> <span class="req">필수</span>
+													<!-- 사용기간 --> <label for="">반출기간</label> (시작일<span class="req">필수</span>)
 												</td>
 												<td colspan="3">
 													<div>
 														<span class="search_date">
-															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" onchange="checkStartDate()">
+															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" readonly="readonly" checkStartDate()">
 														</span>
 														&nbsp;&nbsp;―&nbsp;&nbsp;
 														<span class="search_date">
-															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" onchange="checkEndDate()">
+															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
 														</span>
 													</div>
 												</td>
@@ -783,7 +808,7 @@ window.onload = function(){
 								<br>
 								<div class="approvalList">
 								<h3> ■ 결재정보</h3>
-									<table class="board_view2">
+									<table class="board_view2" id="aprvTbl">
 										<colgroup>
 											<col style="width: 25%;">
 											<col style="width: 25%;">
@@ -805,32 +830,28 @@ window.onload = function(){
 														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
-													<button type="button" class="btn" onclick="UserDelete(1);">X</button>
-													<input name="aprv0" id="aprv0" type="hidden" title="결재자1ID" value="" />
+													<input name="aprv0" id="aprv0" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
 														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
 													</span>
-													<button type="button" class="btn" onclick="UserDelete(2);">X</button>
-													<input name="aprv1" id="aprv1" type="hidden" title="결재자1ID" value="" />
+													<input name="aprv1" id="aprv1" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
 														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
 													</span>
-													<button type="button" class="btn" onclick="UserDelete(3);">X</button>
-													<input name="aprv2" id="aprv2" type="hidden" title="결재자1ID" value="" />
+													<input name="aprv2" id="aprv2" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
 														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>
 													</span>
-													<button type="button" class="btn" onclick="UserDelete(4);">X</button>
-													<input name="aprv3" id="aprv3" type="hidden" title="결재자1ID" value="" />
+													<input name="aprv3" id="aprv3" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 											</tr>
 										</tbody>

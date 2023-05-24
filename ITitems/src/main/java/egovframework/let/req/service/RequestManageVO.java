@@ -68,6 +68,8 @@ public class RequestManageVO implements Serializable {
 	/** 검색단어 */
 	private String searchWord = "";
 
+	/** 권한 */
+	private String AuthorCode = "";
 	/** 페이징 */
 
 	/** 정렬순서(DESC,ASC) */
@@ -262,6 +264,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getAuthorCode() {
+		return AuthorCode;
+	}
+	public void setAuthorCode(String authorCode) {
+		AuthorCode = authorCode;
 	}
 	
 }
