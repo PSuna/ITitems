@@ -88,11 +88,6 @@ function fnInsert(){
 		document.getElementById('gradeErr').innerHTML='';
 	}
 	
-	if(!document.userManageVO.authorCode.value){
-		document.getElementById('authorCodeErr').innerHTML='권한은 필수입력값입니다.';
-	}else{
-		document.getElementById('authorCodeErr').innerHTML='';
-	}
 	
 	if(validateUserManageVO(document.userManageVO)){
 		document.userManageVO.submit();
@@ -246,6 +241,7 @@ function checkTd(){
                                                 <form:errors path="emplyrId" />
                                                 <span id="emplyrIdErr" class="errSpan"></span>
                                             </td>
+                                            
                                             <td class="lb">
                                                 <label for="moblphonNo">핸드폰번호</label>
                                             </td>
@@ -271,7 +267,7 @@ function checkTd(){
                                             </td>
                                             <td>
                                                 <label class="item f_select w_full" for="orgnztId"> 
-													<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+													<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" onchange="getMOrgList();">
 															<form:option value="" label="본부"/>
 															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
 													</form:select>

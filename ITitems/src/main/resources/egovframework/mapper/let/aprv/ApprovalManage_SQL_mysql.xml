@@ -64,7 +64,7 @@
 	  		ON T.TARGET_ID = A.TARGET_UP
 		 WHERE A.TARGET_ID = #{uniqId}
            AND (T.REQ_STATUS = 'A1'
-            OR T.REQ_ID IS NULL)
+          	OR T.REQ_ID IS NULL)
 	</select>
 	
 	<select id="selectApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
@@ -92,7 +92,7 @@
 	  LEFT JOIN APRVTARGET T
 	  		 ON T.TARGET_ID = A.TARGET_UP
           WHERE A.TARGET_ID = #{uniqId}
-            AND R.REQ_STATUS = 'A0'
+            AND A.REQ_STATUS = 'A0'
 		    AND (T.REQ_STATUS = 'A1'
              OR T.REQ_ID IS NULL)
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
@@ -106,7 +106,7 @@
 	 LEFT JOIN APRVTARGET T
 	  		ON T.TARGET_ID = A.TARGET_UP
 		 WHERE A.TARGET_ID = #{uniqId}
-           AND R.REQ_STATUS = 'A0'
+		   AND A.REQ_STATUS = 'A0'
 		   AND (T.REQ_STATUS = 'A1'
             OR T.REQ_ID IS NULL)
 	</select>
@@ -168,6 +168,7 @@
 	<update id="UpdateApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
 			UPDATE APRVTARGET
 			   SET REQ_STATUS = 'A1'
+			   	   APRV_DATE = SYSDATE
 			 WHERE REQ_ID = #{reqId}
 			   AND TARGET_ID = #{targetId};
 			   

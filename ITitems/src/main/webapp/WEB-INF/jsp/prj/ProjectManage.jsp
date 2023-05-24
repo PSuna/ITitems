@@ -117,6 +117,7 @@ function setPageUnit(){
 				                        <input class="f_input" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
 				                        <button class="btn" type="submit" onclick="fnSearchPrj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
 				                    </span>
+				                    <button class="btn pty_btn search_btn" type="submit" onclick="fnSearchPrj(); return false;">검색</button>
 				                </div>
 				                <!--// 검색조건 -->
 				                <!-- 게시판 -->
