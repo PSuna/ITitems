@@ -304,8 +304,8 @@ thead{
 }
 
 .pty_btn{
-	height:46px;
-	width:70px;
+	height:44px;
+	width:80px;
 	background:var(--box-color);
 	border-radius:6px;
 	border:1px solid #dde2e5;
