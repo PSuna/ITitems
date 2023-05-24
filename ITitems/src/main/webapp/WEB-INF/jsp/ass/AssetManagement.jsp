@@ -389,18 +389,20 @@ window.onload = function(){
 									<table>
 										<colgroup>
 											<col style="width: 5%;">
-											<col style="width: 17%;">
-											<col style="width: 21%;">
-											<col style="width: 14%;">
-											<col style="width: 12%;">
-											<col style="width: 12%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 10%;">
+											<col style="width: 10%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">본부/부서</th>
 												<th scope="col">프로젝트</th>
+												<th scope="col">본부/부서</th>
 												<th scope="col">분류</th>
+												<th scope="col">수량</th>
 												<th scope="col">소유자</th>
 												<th scope="col">실사용자</th>
 												<!-- <th scope="col">상태</th> -->
@@ -420,9 +422,14 @@ window.onload = function(){
 																value="AM" />
 														</form>
 													</td>
-													<td><c:out value="${result.orgnztId}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
-													<td><c:out value="${result.largeCategory}" />/<c:out value="${result.middleCategory}" /></td>
+													<td><c:out value="${result.orgnztId}" /></td>
+													<td><c:out value="${result.middleCategory}" /></td>
+													<td>
+														<c:if test="${not empty result.assetQty}">
+															<fmt:formatNumber value="${result.assetQty}" pattern="#,###"/>
+														</c:if>
+													</td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>

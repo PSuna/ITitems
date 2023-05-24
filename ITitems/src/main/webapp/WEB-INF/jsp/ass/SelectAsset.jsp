@@ -147,7 +147,7 @@ function AssetList(code){
 												</td>
 												<td>
 													<c:if test="${not empty resultVO.acquiredPrice}">
-														${resultVO.acquiredPrice}원
+													<fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원
 													</c:if>
 												</td>											
 											</tr>

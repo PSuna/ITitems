@@ -8,6 +8,7 @@
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetQty" column="ASSET_QTY" />
 		<result property="orgnztId" column="ORGNZT_ID" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
@@ -54,10 +55,7 @@
 	</resultMap>
 	
 	<sql id="search">
-		<where>
-			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
-				AND B.ORGNZT_ID = #{searchOrgnzt}
-			</if>
+		 	AND A.USAGE_STAUTS = 'U1'
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
 			</if>
@@ -82,17 +80,10 @@
 			<if test="searchWord != null and searchWord != ''">
 				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
-			<if test="userId != null and userId != ''">
-				AND B.RCPT_ID = #{userId}
-				 OR B.USE_ID = #{userId}
-			</if>
-			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
-				 OR G.ORGNZT_UP = #{searchOrgnzt}
-			</if>
-		</where>
 	</sql>
 
 	<sql id="mySearch">
+			AND A.USAGE_STAUTS = 'U1'
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
 			</if>
@@ -123,7 +114,8 @@
 	    SELECT 
 	    	   ASSET_ID,
 	    	   LARGE_CATEGORY, 
-	    	   MIDDLE_CATEGORY, 
+	    	   MIDDLE_CATEGORY,
+	    	   ASSET_QTY, 
 	    	   ORGNZT_ID,
 	    	   PRJ_ID,
 	    	   REG_DATE,
@@ -136,7 +128,6 @@
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
 					D.CAT_NAME AS MIDDLE_CATEGORY,
-					A.ASSET_NAME,
 					A.ASSET_QTY, 
 					G.ORGNZT_NM AS ORGNZT_ID,
 	    	   		H.PRJ_NAME AS PRJ_ID,
@@ -163,7 +154,39 @@
 	                ON B.USE_ID = I.ESNTL_ID
 	              LEFT OUTER JOIN LETTNEMPLYRINFO J
 	                ON B.RCPT_ID = J.ESNTL_ID  
-		        	<include refid="search" />
+	              <where>
+	                <choose>
+		                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
+							AND B.ORGNZT_ID = #{searchOrgnzt}
+							AND B.RCPT_ID = #{userId}
+							<include refid="search" />
+							 OR B.ORGNZT_ID = #{searchOrgnzt}
+							AND B.USE_ID = #{userId}
+							<include refid="search" />
+							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							AND B.RCPT_ID = #{userId}
+							<include refid="search" />
+							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							AND B.USE_ID = #{userId}
+							<include refid="search" />
+		                </when>
+		                <when test="searchOrgnzt != null and searchOrgnzt != ''">
+		                	AND B.ORGNZT_ID = #{searchOrgnzt}
+							<include refid="search" />
+							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							<include refid="search" />
+		                </when>
+		                <when test="userId != null and userId != ''">
+							AND B.RCPT_ID = #{userId}
+							<include refid="search" />
+							 OR B.USE_ID = #{userId}
+							<include refid="search" />
+		                </when>
+		                <otherwise>
+		                	<include refid="search" />
+		                </otherwise>
+	                </choose>
+				 </where>
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
@@ -177,7 +200,39 @@
 		    ON A.ASSET_ID = B.ASSET_ID
 		  LEFT OUTER JOIN LETTNORGNZTINFO G
 	   		ON B.ORGNZT_ID = G.ORGNZT_ID
-		<include refid="search" />
+		 <where>
+               <choose>
+                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
+					AND B.ORGNZT_ID = #{searchOrgnzt}
+					AND B.RCPT_ID = #{userId}
+					<include refid="search" />
+					 OR B.ORGNZT_ID = #{searchOrgnzt}
+					AND B.USE_ID = #{userId}
+					<include refid="search" />
+					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					AND B.RCPT_ID = #{userId}
+					<include refid="search" />
+					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					AND B.USE_ID = #{userId}
+					<include refid="search" />
+                </when>
+                <when test="searchOrgnzt != null and searchOrgnzt != ''">
+                	AND B.ORGNZT_ID = #{searchOrgnzt}
+					<include refid="search" />
+					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					<include refid="search" />
+                </when>
+                <when test="userId != null and userId != ''">
+					AND B.RCPT_ID = #{userId}
+					<include refid="search" />
+					 OR B.USE_ID = #{userId}
+					<include refid="search" />
+                </when>
+                <otherwise>
+                	<include refid="search" />
+                </otherwise>
+               </choose>
+		 </where>
 	</select>
 	
 	<select id="SelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
@@ -219,6 +274,7 @@
 				 WHERE B.USE_ID = #{userId}
 				 <include refid="mySearch" />
 				    OR B.RCPT_ID = #{userId}
+				 <include refid="mySearch" />
 		        	
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -232,8 +288,9 @@
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
 		 WHERE B.USE_ID = #{userId}
+		 <include refid="mySearch" />
 		    OR B.RCPT_ID = #{userId}
-		<include refid="mySearch" />
+		 <include refid="mySearch" />
 	</select>
 
 	<select id="SelectAssetInfoVO"
