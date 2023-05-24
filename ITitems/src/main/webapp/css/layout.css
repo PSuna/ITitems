@@ -141,11 +141,12 @@ margin-left:60px;
 }
 .container {
 	/* min-height:calc(100vh - 360px); */
-	height: 1000px;
+	/* height: 1000px; */
 }
 .content {
-	min-height: 600px;
+	 min-height: 600px; 
 	padding-bottom: 50px;
+
 }
 .sub_layout {
 	border-top:1px solid #cccccc;
@@ -239,6 +240,8 @@ margin-left:60px;
 	display:table-cell;
 	width:auto;
 	padding-left: 70px;
+	
+		height:810px; 
 }
 /* popup */
 .popup {
