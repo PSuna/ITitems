@@ -18,7 +18,9 @@
 	
 	.pty_footer{
 	
-		
+			  transform: translateY(50vh);
+   		 height: 50px;
+	
 		
 		width:100%;
 		margin:0 auto;
@@ -444,4 +446,6 @@
 	.pty_font-size_12{
 		font-size: 12px;
 	}
+	
+
 }

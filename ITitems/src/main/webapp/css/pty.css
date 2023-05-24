@@ -4,7 +4,7 @@
 
 html{
 	overflow-y:scroll;
-	
+	height:100%;
 }
 
 :root {
@@ -214,6 +214,7 @@ display:flex;
 	
 		
 		position:relative;
+		  
 		/* transform:translateY(100%); */
 		/* width:100%;
 		margin:0 auto; */
@@ -432,4 +433,15 @@ thead{
 		margin-bottom: 20px;
 	}
 	
-/* 모바일 메뉴 토글;; */
+
+
+.pty_margin-right_8{
+	margin-right:8px;
+	
+}
+
+.pty_bottom_fix{
+	height:auto;
+	min-height:100%;
+	
+}

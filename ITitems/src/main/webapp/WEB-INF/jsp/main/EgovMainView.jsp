@@ -49,7 +49,7 @@
         <c:import url="/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
-		<div>
+		<div class="pty_bottom_fix">
 	        <div class="container main">
 	           
 	           <div class="pty_main_img">
