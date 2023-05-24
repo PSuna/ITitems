@@ -57,7 +57,6 @@
 		<where>
 			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
 				AND B.ORGNZT_ID = #{searchOrgnzt}
-				OR G.ORGNZT_UP = #{searchOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
@@ -86,6 +85,9 @@
 			<if test="userId != null and userId != ''">
 				AND B.RCPT_ID = #{userId}
 				 OR B.USE_ID = #{userId}
+			</if>
+			<if test="searchOrgnzt != null and searchOrgnzt != '' and !searchLOrgnzt">
+				 OR G.ORGNZT_UP = #{searchOrgnzt}
 			</if>
 		</where>
 	</sql>
