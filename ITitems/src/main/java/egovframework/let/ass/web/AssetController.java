@@ -246,8 +246,6 @@ public class AssetController {
 		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		
-		System.out.println(">>>>>>>>>>>>>   " + result.getAssetSn());
-		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
@@ -298,6 +296,7 @@ public class AssetController {
 		assetHistVO.setHistGroup("H0");
 		assetHistVO.setApproval("A1");
 		assetService.InsertAssetHist(assetHistVO);
+		
 		
 		if (isAuthenticated) {
 			List<MultipartFile> photoList = multiRequest.getFiles("photo");
@@ -366,6 +365,7 @@ public class AssetController {
 		List<MultipartFile> photoList = multiRequest.getFiles("photo");
 		for(MultipartFile photo : photoList) {
 			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
+			System.out.println(">>>>>>>>>>>>>>>>>   " + photo);
 			photos.put("photo", photo);
 			if (!photos.isEmpty()) {
 				List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");

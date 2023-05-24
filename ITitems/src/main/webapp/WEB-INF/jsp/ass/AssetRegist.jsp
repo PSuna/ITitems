@@ -691,7 +691,7 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" />
 												</td>
-											</tr>
+											</tr>  
 											
 											<tr>
 												<td class="lb">
@@ -717,16 +717,16 @@ window.onload = function(){
 													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1"></textarea>
 												</td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<td class="lb">
-													<!-- 반출사유 --> 
+													반출사유 
 													<label for="carryReason">반출사유</label>
 												</td>
 												<td colspan="4">
 													<textarea id="carryReason" name="carryReason"
 														class="f_txtar w_full" cols="30" rows="1"></textarea>
 												</td>
-											</tr>
+											</tr> -->
 										</table>
 									</div>
 									<!-- 등록버튼  -->
