@@ -241,21 +241,23 @@ function getMOrgList(MOval) {
                                                 <label for="orgnztId"> / 부서</label>
                                             </td>
                                             <td>
-                                            	<div>
+                                            	
                                                 <label class="item f_select" for="orgnztId"> 
 													<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" style=" width: 200px;" onchange="getMOrgList();">
 															<form:option value="" label="본부"/>
 															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
 													</form:select>
 												</label>
-												</div>
-												<div>
+												
+												
+												
+												
 													<label class="item f_select" for="lowerOrgnzt">
 														<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
 															<form:option value='' label="부서" />
 														</form:select>
 													</label> 
-												</div>
+												
                                                 <form:errors path="orgnztId" />
                                                 <span id="orgnztIdErr" class="errSpan"></span>
                                             </td>
@@ -296,12 +298,12 @@ function getMOrgList(MOval) {
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                        <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:document.userManageVO.reset();">초기화</a><!-- 초기화 -->
+                                        <a href="#LINK" class="btn btn_skyblue_h46" onclick="javascript:document.userManageVO.reset();">초기화</a><!-- 초기화 -->
                                     </div>
 
                                     <div class="right_col btn1">
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnInsert(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="#LINK" class="btn btn_blue_46" onclick="JavaScript:fnInsert(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->

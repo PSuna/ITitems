@@ -57,15 +57,15 @@
 }
 
 .btn_skyblue_h46 {
-	height:46px;
+	height:34px;
 	border-radius:5px;
 	color:var(--point-color);
-	font-size:16px;
+	font-size:14px;
 	text-align:center;
-	line-height:46px;
+	line-height:34px;
 	/* background:#f3d4b3; */
 	border:1px solid var(--point-color);
-	
+	padding: 0 24px;
 }
 .btn_search_w {
 	width:46px;
@@ -724,7 +724,7 @@ input:-mos-input-placeholder {
 }
 .f_search2 input[type=text] {
 	width:100%;
-	height:46px;
+	height:34px;
 	padding:0 50px 0 20px;
 	border:1px solid #dde2e5;
 	border-radius:5px;
@@ -738,11 +738,12 @@ input:-mos-input-placeholder {
 	right:15px;
 	top:50%;
 	transform:translateY(-50%);
-	width:25px;
-	height:27px;
+	width:20px;
+	height:22px;
 	border:0;
 	font-size:0;
 	background:url(../images/ico_search_b.png) no-repeat;
+	background-size: contain;
 }
 .f_search3 {
 	display:inline-block;
@@ -811,7 +812,7 @@ label:focus{
 	height:100%;
 	padding:0 45px 0 20px;
 	border:0;
-	color:#222;
+	color:var(--font-gray2);
 	font-size:14px;
 	background:transparent;
 }
@@ -888,12 +889,12 @@ label:focus{
 	width:0;
 }
 .f_txt {
-	height:46px;
+	height:34px;
 	padding:0 19px;
 	border:1px solid #dde2e5;
 	border-radius:5px;
 	color:#222;
-	font-size:16px;
+	font-size:14px;
 	font-weight:300;
 	vertical-align:top;
 }
@@ -909,10 +910,10 @@ label:focus{
 }
 .f_txt_inner {
 	display:inline-block;
-	height:46px;
-	color:#222;
+	height:34px;
+	color:var(--font-gray);
 	font-weight:300;
-	line-height:46px;
+	line-height:34px;
 }
 .f_txtar {
 	padding:19px;
