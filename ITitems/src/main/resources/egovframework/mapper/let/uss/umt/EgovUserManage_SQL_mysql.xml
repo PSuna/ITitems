@@ -42,8 +42,8 @@
             	   AND A.USER_NM LIKE '%' #{searchKeyword} '%'
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
-           		   AND B.ORGNZT_ID = #{searchOrgnzt}
-           		    OR B.ORGNZT_UP = #{searchOrgnzt}
+           		   AND (B.ORGNZT_ID = #{searchOrgnzt}
+           		    OR B.ORGNZT_UP = #{searchOrgnzt})
            	 	</if>
            	 	<if test="searchLOrgnzt != null and searchLOrgnzt != ''">
 				   AND B.ORGNZT_ID = #{searchLOrgnzt}
@@ -86,8 +86,8 @@
             	   AND A.USER_NM LIKE '%' #{searchKeyword} '%'
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
-           		   AND B.ORGNZT_ID = #{searchOrgnzt}
-           		    OR B.ORGNZT_UP = #{searchOrgnzt}
+           		   AND (B.ORGNZT_ID = #{searchOrgnzt}
+           		    OR B.ORGNZT_UP = #{searchOrgnzt})
            	 	</if>
            	 	<if test="searchLOrgnzt != null and searchLOrgnzt != ''">
 				   AND B.ORGNZT_ID = #{searchLOrgnzt}
