@@ -27,6 +27,9 @@ function alertPhoto(obj, val){
 	}else if(val == 1){
 		$(obj).closest(".filebox").append($("<p/>").text("등록하는 파일이 5장을 초과할 수 없습니다").addClass("alertV"));
   	    $(obj).val("");
+	}else if(val == 1){
+		$(obj).closest(".filebox").append($("<p/>").text("같은 이름을 파일은 동시에 등록할 수 없습니다").addClass("alertV"));
+  	    $(obj).val("");
 	}
 }
 
@@ -45,10 +48,12 @@ function alertPhoto(obj, val){
      }
 }
 
+
 // 이미지 갯수 체크
 function checkCount(obj) {
 	let fileCnt = obj.files.length;
-	if (photoFileList.length + fileCnt > 5) {
+	let photobox = $('.photoList').find('.photobox').length
+	if (photoFileList.length + fileCnt > 5 || photobox + fileCnt > 5) {
 		alertPhoto(obj, 1);
 	} else {
 		MakePhotoList(obj);
@@ -61,7 +66,19 @@ function MakePhotoList(obj){
 	for (var i = 0; i < fileList.length; i++) {
 		let file = fileList[i];
 		let fileUrl = URL.createObjectURL(file);
-		photoFileList.push(file);
+		console.log(file.name);
+		let val = true;
+		for (let i = 0; i < photoFileList.length; i++) {
+			console.log(photoFileList[i].name);
+			if (photoFileList[i].name == file.name) {
+				val = false;
+			}
+		}
+		if(val == true){
+			photoFileList.push(file);
+		}else{
+			return;
+		}
 		let delBtn = $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
 			delfileList(this,file);
 		});
