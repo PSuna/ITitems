@@ -148,6 +148,35 @@ function getMOrgList(MOval) {
 		
 	}
 }
+let typeList = ["input", "select"]
+function alertValid(objList) {
+	$(typeList).each(function(index, type){
+		$("#frm").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
+	checkTd();
+}
+
+function checkValid(){
+	let result = checkTd();
+	if(result != null){
+		return false;
+	}else{
+		return true;
+	}
+}
+function checkTd(){
+	let obj = null;
+	
+	return obj;
+}
+
 //-->
 </script>
 <style>
