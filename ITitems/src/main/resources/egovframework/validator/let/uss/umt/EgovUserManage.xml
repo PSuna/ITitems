@@ -47,10 +47,7 @@
             <field property="grade" depends="required">
                 <arg0 key="직위" resource="true"/>
             </field>
-            
-            <field property="authorCode" depends="required">
-                <arg0 key="권한" resource="true"/>
-            </field>
+
         </form>
         
     </formset>
