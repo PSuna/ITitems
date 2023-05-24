@@ -95,7 +95,7 @@ function fntrsfExcel(){
                                 	
                                 	<!-- 검색조건 -->
                                 	<div class="condition pty_condition" style="display:flex;justify-content: center;">
-                                		<label class="item f_select" for="searchGroup">
+                                		<label class="item f_select pty_margin-right_8" for="searchGroup">
                                 			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
                                 				<option value="" label="분류"/>
                                 				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
