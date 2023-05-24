@@ -306,8 +306,8 @@
 }
 
 .excel_btn{
-	overflow: hidden;
-	margin-top: 10px;	
+	/* overflow: hidden; */
+	/* margin-top: 10px;	 */
 }
 
 .excel_btn .btn{
