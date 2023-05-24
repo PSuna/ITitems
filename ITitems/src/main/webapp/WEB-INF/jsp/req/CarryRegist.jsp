@@ -799,31 +799,35 @@ window.onload = function(){
 										<tbody>
 											<tr>
 												<td class='apvrTd'>
-													<span class="f_search2 w_100%">
+													<span class="f_search2 w_80%">
 														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
+													<button type="button" class="btn" onclick="UserDelete(1);">X</button>
 													<input name="aprv0" id="aprv0" type="hidden" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
-													<span class="f_search2 w_100%">
+													<span class="f_search2 w_80%">
 														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
 													</span>
+													<button type="button" class="btn" onclick="UserDelete(2);">X</button>
 													<input name="aprv1" id="aprv1" type="hidden" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
-													<span class="f_search2 w_100%">
+													<span class="f_search2 w_80%">
 														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
 													</span>
+													<button type="button" class="btn" onclick="UserDelete(3);">X</button>
 													<input name="aprv2" id="aprv2" type="hidden" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
-													<span class="f_search2 w_100%">
+													<span class="f_search2 w_80%">
 														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>
 													</span>
+													<button type="button" class="btn" onclick="UserDelete(4);">X</button>
 													<input name="aprv3" id="aprv3" type="hidden" title="결재자1ID" value="" />
 												</td>
 											</tr>
