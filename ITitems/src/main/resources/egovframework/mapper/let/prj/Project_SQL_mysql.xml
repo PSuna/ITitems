@@ -30,6 +30,7 @@
 			   PRJ_END,
 			   CLIENT,
 			   PRJ_STATE,
+			   ID,
 			   USER_NM,
 			   CODE_NM
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
@@ -38,12 +39,16 @@
 				       DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
 				       DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
 				       A.CLIENT,
-				       D.CODE_NM AS PRJ_STATE, 
+				       D.CODE_NM AS PRJ_STATE,
+				       A.ID,
 				       B.USER_NM, 
 				       C.CODE_NM
-			      FROM PROJECTS A LEFT OUTER JOIN LETTNEMPLYRINFO B
-			        ON A.ID = B.EMPLYR_ID LEFT OUTER JOIN LETTCCMMNDETAILCODE C
-			        ON B.GRADE = C.CODE LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+			      FROM PROJECTS A 
+			      LEFT OUTER JOIN LETTNEMPLYRINFO B
+			        ON A.ID = B.EMPLYR_ID 
+			      LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+			        ON B.GRADE = C.CODE 
+			      LEFT OUTER JOIN LETTCCMMNDETAILCODE D
 			        ON A.PRJ_STATE =  D.CODE
 				<include refid="search"></include>) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}

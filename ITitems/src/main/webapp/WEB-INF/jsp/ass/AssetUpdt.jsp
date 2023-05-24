@@ -256,6 +256,11 @@ function returnProject(val){
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
 		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
+		if($("#prjId").closest("td").children().last().prop('tagName') != 'IMG'){
+			$("#prjId").closest("td").append(resetBtnCl.on("click",function(){
+				resetPrj(this);
+			}));
+		}
 	}
 	
 	fn_egov_modal_remove();
@@ -264,25 +269,35 @@ function returnProject(val){
 /* ********************************************************
  * 프로젝트 입력 리셋
  ******************************************************** */
- function resetPrj(e){
+ function resetPrj(obj){
 	document.getElementById("prjId").value  = "";
 	document.getElementById("prjNm").value  = "";
-	console.log(e)
+	$(obj).remove();
 }
 
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
 function returnUser(val){
-
-if (val) {
-	if(userCheck == 0){
-		document.getElementById("rcptId").value  = val.userId;
-		document.getElementById("rcptNm").value  = val.userNm;
-	}else if(userCheck == 1){
-		document.getElementById("useId").value  = val.userId;
-		document.getElementById("useNm").value  = val.userNm;
-	}
+	resetBtnCl = $(resetBtn).clone();
+	if (val) {
+		if(userCheck == 0){
+			document.getElementById("rcptId").value  = val.userId;
+			document.getElementById("rcptNm").value  = val.userNm;
+			if($("#rcptId").closest("td").children().last().prop('tagName') != 'IMG'){
+				$("#rcptId").closest("td").append(resetBtnCl.on("click",function(){
+					resetRcpt(this);
+				}));
+			}
+		}else if(userCheck == 1){
+			document.getElementById("useId").value  = val.userId;
+			document.getElementById("useNm").value  = val.userNm;
+			if($("#useId").closest("td").children().last().prop('tagName') != 'IMG'){
+				$("#useId").closest("td").append(resetBtnCl.on("click",function(){
+					resetUse(this);
+				}));
+			}
+		}
 	
 }
 
@@ -292,17 +307,19 @@ fn_egov_modal_remove();
 /* ********************************************************
  * 수령자 입력 리셋
  ******************************************************** */
- function resetRcpt(){
+ function resetRcpt(obj){
 	document.getElementById("rcptId").value  = "";
 	document.getElementById("rcptNm").value  = "";
+	$(obj).remove();
 }
 
 /* ********************************************************
  * 실사용자 입력 리셋
  ******************************************************** */
-  function resetUse(){
+  function resetUse(obj){
  	document.getElementById("useId").value  = "";
  	document.getElementById("useNm").value  = "";
+ 	$(obj).remove();
  }
 
 /* ********************************************************
@@ -737,6 +754,9 @@ window.onload = function(){
 													<form:errors path="prjId" /> 
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
+													<c:if test="${not empty resultVO.prjId}">
+														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetPrj(this)">
+													</c:if>
 												</td>
 											</tr>
 											
