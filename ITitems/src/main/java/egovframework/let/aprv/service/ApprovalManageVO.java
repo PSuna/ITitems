@@ -46,6 +46,11 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 */
 	private String prjId;
 	
+	/*
+	 * 프로젝트 이름
+	 */
+	private String prjName;
+	
 	/**
 	 * PM
 	 */
@@ -245,6 +250,14 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setTargetUp(String targetUp) {
 		this.targetUp = targetUp;
+	}
+
+	public String getPrjName() {
+		return prjName;
+	}
+
+	public void setPrjName(String prjName) {
+		this.prjName = prjName;
 	}
 
 

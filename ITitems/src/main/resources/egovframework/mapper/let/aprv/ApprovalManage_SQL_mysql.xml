@@ -195,8 +195,7 @@
 	</update>
 	
 	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
-		 SELECT IFNULL(E.USER_NM, '') USER_NM,
-		 		IFNULL(C3.CODE_NM, '') GRADE,
+		 SELECT IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
 			    IFNULL(C1.CODE_NM, '') REQ_GROUP,
 			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
 			    IFNULL(R.PLACE, '') PLACE,

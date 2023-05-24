@@ -113,12 +113,12 @@ function fn_egov_modal_remove() {
 			                    	<li><a class="gnb_a pg_a" href="/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
 			                    </c:if>
 			                </ul>
-			                <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+			                <%-- <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 							<!-- 	<h3>메뉴관리</h3> -->
 				                <ul>
 				                	<li><a class="gnb_a pg_a" href="/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
 				                </ul>
-			                </c:if>
+			                </c:if> --%>
 			               <!--  <h3>카테고리관리</h3> -->
 			                <ul>
 			                	<li><a class="gnb_a pg_a" href="/cat/CategoryManage.do">카테고리목록관리</a></li>
@@ -295,12 +295,6 @@ $(document).ready(function(){
 			$("ul",this).slideToggle("fast");
 		});
 		
-	});
-	$(function(){
-		LoginVO loginVO = <%=(LoginVO)session.getAttribute("LoginVO")%>;
-		if(loginVO == null){
-			location.href='/uat/uia/egovLoginUsr.do';
-		}
 	});
 </script>
 
