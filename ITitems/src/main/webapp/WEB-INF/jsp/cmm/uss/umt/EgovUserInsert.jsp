@@ -267,26 +267,15 @@ function checkTd(){
                                             <td class="lb">
                                                 <label for="orgnztId">본부</label>
                                                 <span class="req">필수</span>
-                                                <label for="orgnztId"> / 부서</label>
+                                                
                                             </td>
                                             <td>
-                                            	
-                                                <label class="item f_select" for="orgnztId"> 
+                                                <label class="item f_select w_full" for="orgnztId"> 
 													<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" style=" width: 200px;" onchange="getMOrgList();">
 															<form:option value="" label="본부"/>
 															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
 													</form:select>
 												</label>
-												
-												
-												
-												
-													<label class="item f_select" for="lowerOrgnzt">
-														<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
-															<form:option value='' label="부서" />
-														</form:select>
-													</label> 
-												
                                                 <form:errors path="orgnztId" />
                                                 <span id="orgnztIdErr" class="errSpan"></span>
                                             </td>
@@ -307,18 +296,15 @@ function checkTd(){
 												<span id="gradeErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
-                                                <label for="authorCode">권한</label>
-                                                <span class="req">필수</span>
+                                            	<label for="orgnztId">부서</label>
                                             </td>
                                             <td>
-                                            	<label class="f_select w_full" for="authorCode">
-                                                	<form:select path="authorCode" id="authorCode" name="authorCode" title="권한">
-                                                		<form:option value="" label="선택하세요"/>
-                                                        <form:options items="${authorManageList }" itemValue="authorCode" itemLabel="authorNm"/>
-                                                    </form:select>
-                                                </label>
+                                            	<label class="item f_select w_full" for="lowerOrgnzt">
+														<form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
+															<form:option value='' label="부서" />
+														</form:select>
+												</label>
                                                 <form:errors path="authorCode" />
-                                                <span id="authorCodeErr" class="errSpan"></span> 
                                             </td>
                                         </tr>
                                     </table>
