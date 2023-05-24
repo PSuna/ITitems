@@ -246,6 +246,8 @@ public class AssetController {
 		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		
+		System.out.println(">>>>>>>>>>>>>   " + result.getAssetSn());
+		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
@@ -253,6 +255,7 @@ public class AssetController {
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		model.addAttribute("listCode", listCode);
+		
 		
 		return "/ass/SelectAsset";
 	}

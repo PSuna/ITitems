@@ -647,8 +647,7 @@ window.onload = function(){
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSN" class="f_txt w_full" name="assetSN" type="text" value="${resultVO.assetSn}" maxlength="60"> 
-													<br />
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
 												</td>
 											</tr>
 											
@@ -674,7 +673,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<label for="">소유자</label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
@@ -698,6 +697,7 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
+													<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
 												</td>
 											</tr>
 											<tr>
@@ -730,7 +730,7 @@ window.onload = function(){
 														onclick="ProjectSearch();">조회</button>
 													</span> 
 													<form:errors path="prjId" /> 
-													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
 											</tr>

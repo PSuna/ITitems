@@ -683,12 +683,12 @@ window.onload = function(){
 												<td class="search_td">
 													<span class="f_search2 wp_87"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="false" />
+														readonly="readonly" />
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
 													<form:errors path="prjId" /> 
-													<input name="prjId" id="prjId" type="hidden" title="프로젝트" value="" maxlength="8"
+													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" />
 												</td>
 											</tr>
