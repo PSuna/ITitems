@@ -153,7 +153,7 @@
 				                <input type="hidden" name="bbsTyCode" value="<c:out value='${bdMstr.bbsTyCode}'/>" />
 				                <input type="hidden" name="replyPosblAt" value="<c:out value='${bdMstr.replyPosblAt}'/>" />
 				                <input type="hidden" name="fileAtchPosblAt" value="<c:out value='${bdMstr.fileAtchPosblAt}'/>" />
-				                <input type="hidden" name="posblAtchFileNumber" value="<c:out value='${bdMstr.posblAtchFileNumber}'/>" />
+				                <input type="hidden" name="posblAtchFileNumber" value=5 />
 				                <input type="hidden" name="posblAtchFileSize" value="<c:out value='${bdMstr.posblAtchFileSize}'/>" />
 				                <input type="hidden" name="tmplatId" value="<c:out value='${bdMstr.tmplatId}'/>" />
 				                
@@ -223,11 +223,11 @@
                                         <c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
 	                                        <tr>
 	                                            <td class="lb">
-	                                            	<label for="egovComFileUploader" ><spring:message code="cop.atchFile" /></label>
+	                                            	<label for="egovComFileUploader" ><spring:message code="cop.atchFile" /><br>(최대 5개)</label>
 	                                            </td>
 	                                            <td>
 	                                                <div class="board_attach2" id="file_upload_posbl">
-	                                                    <input name="file_1" id="egovComFileUploader" type="file" />
+	                                                    <input name="file_1" id="egovComFileUploader" type="file"/>
 	                                                    <div id="egovComFileList"></div>
 	                                                </div>
 	                                                <div class="board_attach2" id="file_upload_imposbl">
@@ -245,7 +245,7 @@
 			                        <script type="text/javascript">
 			                            var maxFileNum = document.board.posblAtchFileNumber.value;
 			                            if(maxFileNum==null || maxFileNum==""){
-			                                maxFileNum = 3;
+			                                maxFileNum = 6;
 			                            } 
 			                            var multi_selector = new MultiSelector( document.getElementById( 'egovComFileList' ), maxFileNum );
 			                            multi_selector.addElement( document.getElementById( 'egovComFileUploader' ) );

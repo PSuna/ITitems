@@ -217,7 +217,7 @@ public class EgovBBSManageController {
 
 		master.setBbsId(boardVO.getBbsId());
 		master.setUniqId(user.getUniqId());
-
+		
 		BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
 
 		if (masterVo.getTmplatCours() == null || masterVo.getTmplatCours().equals("")) {
@@ -250,7 +250,7 @@ public class EgovBBSManageController {
 			BoardMasterVO vo = new BoardMasterVO();
 			vo.setBbsId(boardVO.getBbsId());
 			vo.setUniqId(user.getUniqId());
-
+			vo.setPosblAtchFileNumber(5);
 			bdMstr = bbsAttrbService.selectBBSMasterInf(vo);
 			model.addAttribute("bdMstr", bdMstr);
 		}

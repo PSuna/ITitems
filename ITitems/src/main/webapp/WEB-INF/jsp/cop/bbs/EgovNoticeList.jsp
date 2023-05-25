@@ -117,14 +117,27 @@
 
                                 <h1 class="tit_1">알림정보</h1>
 
-                                <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>
-                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-                                <div class="board_view_bot">
+                                <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>    
+                                 <!--  문의사항과 공지사항 등록버튼 권한 구분 -->
+                                 <c:choose> 
+									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_AAAAAAAAAAAA'}"> <!-- 공지사항일때 등록버튼 여부 -->
+	                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+	                                   <div class="board_view_bot">
+											<div class="right_btn btn1">
+	                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
+											</div>
+										</div>
+	                                 </c:if>
+									</c:when> 
+									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}"> <!-- 문의게시판일떄 등록버튼 여부 -->
+           	                         <div class="board_view_bot">
 										<div class="right_btn btn1">
                                     		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
 										</div>
-									</div>
-                                </c:if>
+									 </div>
+									</c:when> 
+								</c:choose> 
+
                                 <!-- 검색조건 -->
                                 <div class="condition">
                                 
