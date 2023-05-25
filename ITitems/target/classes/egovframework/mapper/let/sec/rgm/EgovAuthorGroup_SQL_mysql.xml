@@ -28,11 +28,15 @@
                    B.AUTHOR_CODE, 
                    (CASE WHEN B.SCRTY_DTRMN_TRGET_ID IS NULL THEN 'N'
                          ELSE 'Y' 
-                     	 END) AS REG_YN,
-                    ESNTL_ID,
-                    (SELECT ORGNZT_NM FROM LETTNORGNZTINFO WHERE ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
-                    (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade
-              FROM (SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID, ORGNZT_ID, GRADE
+                     END) AS REG_YN,
+                    ESNTL_ID
+              FROM (SELECT MBER_ID USER_ID, MBER_NM USER_NM, GROUP_ID, 'USR01' MBER_TY_CODE, ESNTL_ID
+                      FROM LETTNGNRLMBER
+                     UNION ALL
+                    SELECT ENTRPRS_MBER_ID USER_ID, CMPNY_NM USER_NM, GROUP_ID, 'USR02' MBER_TY_CODE, ESNTL_ID 
+                      FROM LETTNENTRPRSMBER
+                     UNION ALL
+                    SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID 
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
              WHERE 1 = 1    
@@ -43,12 +47,10 @@
 	            <if test='searchCondition == "2"'>AND
 	                   A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
 	            </if>
-	            <!-- <if test='searchCondition == "3"'>AND
+	            <if test='searchCondition == "3"'>AND
 	                   A.GROUP_ID = #{searchKeyword}
-	            </if> -->
+	            </if>
             </if>
-            AND	   USER_ID != 'admin'
-            ORDER BY USER_NM ASC
              LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
 
@@ -59,7 +61,7 @@
                   , MBER_TY_CODE
 				  , AUTHOR_CODE)
 		   VALUES ( #{uniqId}
-                  , ''
+                  , #{mberTyCode}
                   , #{authorCode})
 		
 	</insert>
@@ -67,7 +69,7 @@
 	<update id="updateAuthorGroup" parameterType="egovframework.let.sec.rgm.service.AuthorGroup">
 		
 			UPDATE LETTNEMPLYRSCRTYESTBS 
-			   SET MBER_TY_CODE= ''
+			   SET MBER_TY_CODE=#{mberTyCode}
                  , AUTHOR_CODE=#{authorCode}
 		  	 WHERE SCRTY_DTRMN_TRGET_ID=#{uniqId}
 		
@@ -81,23 +83,29 @@
 	</delete>
 
 	<select id="selectAuthorGroupListTotCnt" parameterType="egovframework.let.sec.rgm.service.AuthorGroupVO" resultType="int">
+
             SELECT COUNT(*) AS totcnt
-              FROM (SELECT EMPLYR_ID USER_ID, 
-              			   USER_NM USER_NM, 
-              			   GROUP_ID, 
-              			   'USR03' MBER_TY_CODE 
+              FROM (SELECT MBER_ID USER_ID, MBER_NM USER_NM, GROUP_ID, 'USR01' MBER_TY_CODE 
+                      FROM LETTNGNRLMBER
+                     UNION ALL
+                    SELECT ENTRPRS_MBER_ID USER_ID, CMPNY_NM USER_NM, GROUP_ID, 'USR02' MBER_TY_CODE 
+                      FROM LETTNENTRPRSMBER
+                     UNION ALL
+                    SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE 
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
-                		ON A.USER_ID = B.SCRTY_DTRMN_TRGET_ID
+                ON A.USER_ID = B.SCRTY_DTRMN_TRGET_ID
              WHERE 1 = 1   
             <if test="searchKeyword != null and searchKeyword != ''">
-               <if test='searchCondition == "1"'>
-               AND A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
-               </if>
-               <if test='searchCondition == "2"'>
-               AND A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
-               </if>
+                <if test='searchCondition == "1"'>AND
+                       A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
+                </if>
+                <if test='searchCondition == "2"'>AND
+                       A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
+                </if>
+                <if test='searchCondition == "3"'>AND
+                       A.GROUP_ID = #{searchKeyword}
+                </if>
             </if>
-            AND	   USER_ID != 'admin'
 	</select>
 
 </mapper>
