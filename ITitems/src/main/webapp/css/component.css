@@ -210,15 +210,15 @@
 	margin-top:0;
 }
 .paging .btn a {
-	width:42px;
-	height:42px;
+	width:30px;
+	height:30px;
 	border:1px solid #dde2e5;
 	border-radius:5px;
 	font-size:0;
 }
 .paging .first {
 	background:url(../images/ico_paging_button_db.png) no-repeat center;
-	background-size:14px 15px;
+	background-size:12px 13px;
 }
 .paging .prev {
 	margin-right:20px;
@@ -232,11 +232,13 @@
 .paging .last {
 	background:url(../images/ico_paging_button_db.png) no-repeat center;
 	transform:rotate(180deg);
-	background-size:14px 15px;
+	background-size:12px 13px;
 }
 .paging>ul {
-	display:inline-block;
-	vertical-align:top;
+	display: flex;
+    vertical-align: top;
+    align-items: center;
+    justify-content: center;
 }
 .paging>ul li {
 	display:inline-block;
