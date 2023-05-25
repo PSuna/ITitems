@@ -3,6 +3,7 @@
 .search_date{
 	display: inline-grid;
     position: relative;
+    height: 34px;
 }
 
 .search_date img{
@@ -22,6 +23,9 @@
 	text-align: left;
 	padding-left: 50px;
 	cursor: default;
+	height: 100%;
+	color: var(--font-gray2);
+	font-size: 14px;
 }
 
 .f_search2  input{
@@ -269,6 +273,7 @@
 .j_box01 .date_box{
 	width: 32% !important;
 	margin: 0px auto;
+	height: 34px;
 }
 
 .date_box div{
@@ -279,10 +284,12 @@
     justify-content: flex-start;
     flex-direction: row;
     margin: 0px auto;
+    height: 100%;
 }
 
 .date_box div span{
     margin: 0px auto;
+    height: 100%;
 }
 .date_box div span:first-child{
     margin-left: 0px;
@@ -331,6 +338,7 @@ form .condition2{
 .j_box02 div{
 		width: 24%;
 		margin: 0px auto;
+		height: 100%;
 }
 
 .j_box02 .btn_box{
@@ -347,6 +355,7 @@ form .condition2{
 .j_box02 .date_box{
 	width: 32% !important;
 	margin: 0px auto;
+	height: 34px;
 }
 
 .j_box02 .search_box{
@@ -360,6 +369,7 @@ form .condition2{
 .j_box03 .date_box{
 	width: 89% !important;
 	margin: 0px auto;
+	height: 34px;
 }
 
 .wp_87{
