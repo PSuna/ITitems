@@ -7,7 +7,7 @@
     -------    --------    ---------------------------
      2023.04.17   천세훈              최초 생성
  
-    author   : 영남사업부 천세훈 선임
+    author   : 영남사업부 천세훈
     since    : 2023.04.17
 --%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
@@ -115,13 +115,15 @@ function fnSearch(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
-function fnViewCheck(){ 
+
+/* function fnViewCheck(){ 
     if(insert_msg.style.visibility == 'hidden'){
         insert_msg.style.visibility = 'visible';
     }else{
         insert_msg.style.visibility = 'hidden';
     }
-}
+} */
+
 function setPageUnit(){
 	document.listForm.pageIndex.value = 1;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
@@ -212,191 +214,191 @@ function getMOrgList(MOval) {
                                     <ul>
                                         <li><a class="home" href="">Home</a></li>
                                         <li><a href="">사이트관리</a></li>
-                                        <li><a href="">사용자관리</a></li>
                                         <li>사용자목록</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
 
 								<form name="listForm" action="<c:url value='/uss/umt/user/EgovUserManage.do'/>" method="post">
-								
-								<input name="selectedId" type="hidden" />
-								<input name="checkedIdForDel" type="hidden" />
-								<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
-								<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
-								<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
-
-                                <h2 class="tit_2">사용자목록</h2>
-                                
-                                <!-- 검색조건 -->
-                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
-                                    <div>
-										<label class="item f_select w_150" for="sel1"> 
-											<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
-													<option value="" label="본부"/>
-													<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-														<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-													</c:forEach>
+									
+									<input name="selectedId" type="hidden" />
+									<input name="checkedIdForDel" type="hidden" />
+									<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
+									<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
+									<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
+	
+	                                <h2 class="tit_2">사용자목록</h2>
+	                                
+	                                <!-- 검색조건 -->
+	                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
+	                                    <div>
+											<label class="item f_select w_150" for="sel1"> 
+												<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
+														<option value="" label="본부"/>
+														<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+															<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
+														</c:forEach>
+												</select>
+											</label> 
+										</div>
+										<div>
+											<label class="item f_select w_150" for="sel1">
+											<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
+												<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 											</select>
-										</label> 
-									</div>
-									<div>
-										<label class="item f_select w_150" for="sel1">
-										<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
-											<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
-										</select>
-										</label> 
-									</div>
-                                    <label class="item f_select w_150"  for="searchGrade">
-                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
-	                                        <option value="" label="직급"/>
-	                                        <c:forEach var="grade" items="${grd_result}">
-	                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
-	                                        </c:forEach>
-                                    	</select>
-                                    </label>
-                                    
-                                    <label class="item f_select w_150" for="searchCondition">
-                                        <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
-                                            <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >사용자ID</option>
-                                            <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
-                                        </select>
-                                    </label> 
-									<div class="pty_search">
-										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
-										</span>
-										<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
-									</div>
-                                </div>
-                                <!--// 검색조건 -->
-								
-								<div class="board_list_top">
-									<div class="left_col">
-											<div class="list_count">
-
-
-												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
-													<div>
-														<span style="margin:0;">Totall</span> 
-														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
-													</div>
+											</label> 
+										</div>
+	                                    <label class="item f_select w_150"  for="searchGrade">
+	                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
+		                                        <option value="" label="직급"/>
+		                                        <c:forEach var="grade" items="${grd_result}">
+		                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
+		                                        </c:forEach>
+	                                    	</select>
+	                                    </label>
+	                                    
+	                                    <label class="item f_select w_150" for="searchCondition">
+	                                        <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
+	                                            <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >사용자ID</option>
+	                                            <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
+	                                        </select>
+	                                    </label> 
+										<div class="pty_search">
+											<span class="item f_search">
+												<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+											</span>
+											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+										</div>
+	                                </div>
+	                                <!--// 검색조건 -->
+									
+									<div class="board_list_top">
+										<div class="left_col">
+												<div class="list_count">
+	
+	
+													<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
 														
-													<div style="display: flex; align-items: center;">
-														<span style="margin-right: 16px;">페이지당 항목 수</span> 
-														<label class="item f_select" for="pageUnit"> 
-																
-															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																	<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																	<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																	<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																	<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																	<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																	<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
-															</select>
-														</label>
-														
-														<div class="excel_btn pty_margin-left_8">
-															<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-																	<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+														<div>
+															<span style="margin:0;">Total:</span> 
+															<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
+																	
 														</div>
+															
+														<div style="display: flex; align-items: center;">
+															<span style="margin-right: 16px;">페이지당 항목 수</span> 
+															<label class="item f_select" for="pageUnit"> 
+																	
+																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
+																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																		<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																</select>
+															</label>
+															
+															
+														</div>
+														
 													</div>
+													
 													
 												</div>
-												
-												
 											</div>
-										</div>
-                                </div>
-								
-                                <!-- 게시판 -->
-                                <div class="board_list">
-                                    <table summary="사용자 목록을 제공한다.">
-                                    	<caption>사용자목록</caption>
-                                        <colgroup>
-                                            <col style="width: 5%;">
-                                            <col style="width: 5%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 20%;">
-                                            <col style="width: 25%;">
-                                            <col style="width: 15%;">
-                                            <col style="width: 10%;">
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">
-                                                    <span class="f_chk_only chkAll">
-                                                        <input name="checkAll" type="checkbox" title="Check All" onclick="javascript:fnCheckAll();"/>
-                                                    </span>
-                                                </th>
-                                                <th scope="col">번호</th>
-                                                <th scope="col">사용자명</th>
-                                                <th scope="col">직급</th>
-                                                <th scope="col">부서</th>
-                                                <th scope="col">사용자아이디</th>
-                                                <th scope="col">전화번호</th>
-                                                <th scope="col">권한</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	
-                                        	<c:if test="${fn:length(resultList) == 0}">
-	                                        	<tr>
-	                                        		<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>
-	                                        	</tr>
-                                        	</c:if>
-                                        	<c:forEach var="result" items="${resultList}" varStatus="status">
-                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
-                                                <td onclick='event.cancelBubble=true;'>
-                                                    <span class="f_chk_only">
-                                                        <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
-                                                        <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
-                                                    </span>
-                                                </td>
-                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageSize) - status.index}"/></td>
-                                                <td><c:out value="${result.userNm}"/></td>
-                                                <td><c:out value="${result.grade}"/></td>
-                                                <td><c:out value="${result.orgnztId}"/></td>
-                                                <td><c:out value="${result.userId}"/></td>
-                                                <td class="pty_font-size_12"><c:out value="${result.moblphonNo}"/></td>
-                                                <c:if test="${result.authorCode == '사용자'}">
-                                               		<td><c:out value="${result.authorCode}"/></td>
-                                               	</c:if>
-                                                <c:if test="${result.authorCode == '관리자'}">
-                                               		<td id="adminC"><c:out value="${result.authorCode}"/></td>
-                                               	</c:if>
-                                                <c:if test="${result.authorCode == '최고관리자'}">
-                                               		<td id="adminH"><c:out value="${result.authorCode}"/></td>
-                                               	</c:if>
-                                            </tr>
-                                            </c:forEach>
-                                            
-                                        </tbody>
-                                    </table>
-                                    <div class="btn_area">
-                                    	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-                                    				<a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
-                                    </div>
-                                    
-                                  
-                                </div>
-
-								<!-- 페이지 네비게이션 시작 -->
-								<c:if test="${!empty userSearchVO.pageIndex }">
-                                <div class="board_list_bot">
-                                    <div class="paging" id="paging_div">
-                                        <ul>
-                                            <ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fnLinkPage" />
-                                        </ul>
-                                    </div>
-                                </div>
-                                </c:if>
-                                <!-- //페이지 네비게이션 끝 -->
-                                <!--// 게시판 -->
-                                
+	                                </div>
+									
+	                                <!-- 게시판 -->
+	                                <div class="board_list">
+	                                    <table summary="사용자 목록을 제공한다.">
+	                                    	<caption>사용자목록</caption>
+	                                        <colgroup>
+	                                            <col style="width: 5%;">
+	                                            <col style="width: 5%;">
+	                                            <col style="width: 10%;">
+	                                            <col style="width: 10%;">
+	                                            <col style="width: 20%;">
+	                                            <col style="width: 25%;">
+	                                            <col style="width: 15%;">
+	                                            <col style="width: 10%;">
+	                                        </colgroup>
+	                                        <thead>
+	                                            <tr>
+	                                                <th scope="col">
+	                                                    <span class="f_chk_only chkAll">
+	                                                        <input name="checkAll" type="checkbox" title="Check All" onclick="javascript:fnCheckAll();"/>
+	                                                    </span>
+	                                                </th>
+	                                                <th scope="col">번호</th>
+	                                                <th scope="col">사용자명</th>
+	                                                <th scope="col">직급</th>
+	                                                <th scope="col">부서</th>
+	                                                <th scope="col">사용자아이디</th>
+	                                                <th scope="col">전화번호</th>
+	                                                <th scope="col">권한</th>
+	                                            </tr>
+	                                        </thead>
+	                                        <tbody>
+	                                        	
+	                                        	<c:if test="${fn:length(resultList) == 0}">
+		                                        	<tr>
+		                                        		<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>
+		                                        	</tr>
+	                                        	</c:if>
+	                                        	<c:forEach var="result" items="${resultList}" varStatus="status">
+	                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
+	                                                <td onclick='event.cancelBubble=true;'>
+	                                                    <span class="f_chk_only">
+	                                                        <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
+	                                                        <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
+	                                                    </span>
+	                                                </td>
+	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageSize) - status.index}"/></td>
+	                                                <td><c:out value="${result.userNm}"/></td>
+	                                                <td><c:out value="${result.grade}"/></td>
+	                                                <td><c:out value="${result.orgnztId}"/></td>
+	                                                <td><c:out value="${result.userId}"/></td>
+	                                                <td class="pty_font-size_12"><c:out value="${result.moblphonNo}"/></td>
+	                                                <c:if test="${result.authorCode == '사용자'}">
+	                                               		<td><c:out value="${result.authorCode}"/></td>
+	                                               	</c:if>
+	                                                <c:if test="${result.authorCode == '관리자'}">
+	                                               		<td id="adminC"><c:out value="${result.authorCode}"/></td>
+	                                               	</c:if>
+	                                                <c:if test="${result.authorCode == '최고관리자'}">
+	                                               		<td id="adminH"><c:out value="${result.authorCode}"/></td>
+	                                               	</c:if>
+	                                            </tr>
+	                                            </c:forEach>
+	                                            
+	                                        </tbody>
+	                                    </table>
+	                                    <div class="btn_area">
+		                                    <div class="excel_btn pty_margin-left_8">
+												<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+												<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+											</div>
+		                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+		                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+	                                    </div>
+	                                    
+	                                  
+	                                </div>
+	
+									<!-- 페이지 네비게이션 시작 -->
+									<c:if test="${!empty userSearchVO.pageIndex }">
+	                                <div class="board_list_bot">
+	                                    <div class="paging" id="paging_div">
+	                                        <ul>
+	                                            <ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fnLinkPage" />
+	                                        </ul>
+	                                    </div>
+	                                </div>
+	                                </c:if>
+	                                <!-- //페이지 네비게이션 끝 -->
+	                                <!--// 게시판 -->
+	                                
                                 </form>
                                 
                             </div>

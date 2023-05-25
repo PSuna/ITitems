@@ -48,6 +48,7 @@
 .right_btn{
 	float:inherit;
 }
+
 </style>
 </head>
 
