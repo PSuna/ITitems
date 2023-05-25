@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RequestDAO">
+
+	<resultMap type="egovframework.let.req.service.RequestVO"
+		id="RequestList">
+		<result property="rum" column="RUM" />
+		<result property="reqId" column="REQ_ID" />
+		<result property="reqGroup" column="REQ_GROUP" />
+		<result property="id" column="ID" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="reqDate" column="REQ_DATE" />
+		<result property="place" column="PLACE" />
+		<result property="reqStatus" column="REQ_STATUS" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.req.service.RequestDetailVO"
+		id="RequestDetailList">
+		<result property="redId" column="RED_ID" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="reqQty" column="REQ_QTY" />
+		<result property="maker" column="MAKER" />
+		<result property="user" column="USER" />
+		<result property="assetId" column="ASSET_ID" />
+	</resultMap>
+	
+	<sql id="search">
+		<if test="searchPrj != null and searchPrj != ''">
+			AND A.PRJ_ID = #{searchPrj}
+		</if>
+		<if test="searchLCat != null and searchLCat != ''">
+			AND B.LARGE_CATEGORY = #{searchLCat}
+		</if>
+		<if test="searchdMCat != null and searchdMCat != ''">
+			AND B.MIDDLE_CATEGORY = #{searchdMCat}
+		</if>
+		<if test="searchStatus != null and searchStatus != ''">
+			AND A.REQ_STATUS = #{searchStatus}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND A.REQ_DATE >= STR_TO_DATE(#{startDate},
+			'%Y-%m-%d')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[
+			AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			]]>
+		</if>
+	</sql>
+
+	<insert id="InsertRequestVO">
+
+		INSERT INTO requests(
+			REQ_ID,
+			ID,
+			REQ_DATE,
+			REQ_STATUS,
+			REQ_NOTE,
+			PRJ_ID,
+			PM,
+			START_DATE,
+			END_DATE,
+			PLACE,
+			REQ_GROUP )
+		VALUES (
+			#{reqId},
+			#{id},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{reqStatus},
+			#{reqNote},
+			#{prjId},
+			#{pm},
+			DATE_FORMAT(#{startDate}, '%Y-%m-%d'),
+			DATE_FORMAT(#{endDate}, '%Y-%m-%d'),
+			#{place},
+			#{reqGroup} )
+
+	</insert>
+
+	<insert id="InsertRequestDetailVO">
+
+		INSERT INTO REQUESTDETAIL(
+			RED_ID,
+			REQ_ID,
+			LARGE_CATEGORY,
+			MIDDLE_CATEGORY,
+			ASSET_ID,
+			REQ_QTY,
+			MAKER,
+			USER,
+			REQ_ORDER )
+		VALUES (
+			#{redId},
+			#{reqId},
+			#{largeCategory},
+			#{middleCategory},
+			#{assetId},
+			#{reqQty},
+			#{maker},
+			#{user},
+			#{reqOrder} )
+	</insert>
+
+	<select id="SelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
+		SELECT
+			RUM,
+			REQ_ID,
+			REQ_GROUP,
+			ID,
+			PRJ_ID,
+			REQ_DATE,
+			PLACE,
+			REQ_STATUS
+		  FROM (
+				SELECT
+					ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
+					A.REQ_ID,
+					E.CODE_NM AS REQ_GROUP,
+					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
+					D.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					A.PLACE PLACE,
+					C.CODE_NM AS REQ_STATUS
+				  FROM REQUESTS A
+				  LEFT OUTER JOIN REQUESTDETAIL B
+				    ON A.REQ_ID = B.REQ_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON A.REQ_STATUS = C.CODE
+				  LEFT OUTER JOIN PROJECTS D
+				    ON A.PRJ_ID = D.PRJ_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+				  LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE A.REQ_GROUP = #{reqGroup} 
+				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   AND A.ID = #{id}
+				 </if>
+				 <include refid="search" />
+				 GROUP BY 
+				 	A.REQ_ID, 
+				 	E.CODE_NM, 
+				 	F.USER_NM, 
+				 	G.CODE_NM,
+				 	C.CODE_NM
+			 ) P
+		 WHERE P.RUM BETWEEN #{first} AND #{last}
+		 
+	</select>
+
+	<select id="CountRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="int">
+		SELECT 
+			COUNT(P.REQ_ID)
+		  FROM (
+				SELECT
+					A.REQ_ID
+				  FROM REQUESTS A
+				  LEFT OUTER JOIN REQUESTDETAIL B
+					ON A.REQ_ID = B.REQ_ID
+				 WHERE A.REQ_GROUP = #{reqGroup} 
+				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   AND A.ID = #{id}
+				 </if>
+				 <include refid="search" />
+				 GROUP BY A.REQ_ID
+			 ) P
+	</select>
+	
+	<select id="SelectRequestVO" parameterType="egovframework.let.req.service.RequestManageVO"
+		resultType="egovframework.let.req.service.RequestVO">
+		SELECT 
+			B.USER_NM AS ID, 
+			DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE, 
+			D.CODE_NM AS REQ_STATUS, 
+			A.REQ_NOTE, 
+			C.PRJ_NAME AS PRJ_ID, 
+			CONCAT(F.USER_NM, ' ', G.CODE_NM) PM, 
+			DATE_FORMAT(A.START_DATE,'%Y-%m-%d') AS START_DATE, 
+			DATE_FORMAT(A.END_DATE,'%Y-%m-%d') AS END_DATE, 
+			A.PLACE, 
+			E.CODE_NM AS REQ_GROUP 
+		  FROM REQUESTS A
+		  LEFT OUTER JOIN LETTNEMPLYRINFO B
+		    ON A.ID = B.ESNTL_ID
+		  LEFT OUTER JOIN projects C
+		    ON A.PRJ_ID = C.PRJ_ID
+		  LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+		    ON A.REQ_STATUS = D.CODE
+		  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+		    ON A.REQ_GROUP = E.CODE
+		  LEFT OUTER JOIN LETTNEMPLYRINFO F
+		    ON A.PM = F.ESNTL_ID
+		  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+		    ON F.GRADE = G.CODE
+		 WHERE REQ_ID = #{reqId}
+	</select>
+	
+	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
+		resultMap="RequestDetailList">
+		SELECT 
+			A.RED_ID, 
+			CASE WHEN A.LARGE_CATEGORY = 'ETC' 
+				 THEN A.MIDDLE_CATEGORY 
+				 ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
+			A.REQ_QTY, 
+			A.MAKER, 
+			A.USER, 
+			A.ASSET_ID
+		  FROM REQUESTDETAIL A
+		  LEFT OUTER JOIN category B
+		    ON A.MIDDLE_CATEGORY = B.CAT_ID
+		 WHERE REQ_ID = #{reqId}
+		 ORDER BY A.REQ_ORDER
+	</select>
+	
+	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
+		SELECT IFNULL(REQ_GROUP, '') REQ_GROUP,
+			   IFNULL(PRJ_ID, '') PRJ_ID,
+			   IFNULL(PLACE, '') PLACE,
+			   IFNULL(REQ_DATE, '') REQ_DATE,
+			   IFNULL(REQ_STATUS, '') REQ_STATUS
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
+					   A.REQ_ID,
+					   E.CODE_NM AS REQ_GROUP,
+					   D.PRJ_NAME AS PRJ_ID,
+					   DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					   A.PLACE PLACE,
+					   C.CODE_NM AS REQ_STATUS
+				  FROM REQUESTS A
+	   LEFT OUTER JOIN REQUESTDETAIL B
+				    ON A.REQ_ID = B.REQ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON A.REQ_STATUS = C.CODE
+	   LEFT OUTER JOIN PROJECTS D
+				    ON A.PRJ_ID = D.PRJ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE A.REQ_GROUP = #{reqGroup} 
+				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   AND A.ID = #{id}
+				 </if>
+				 <include refid="search" />
+			  GROUP BY A.REQ_ID,
+				 	   E.CODE_NM,
+				 	   F.USER_NM,
+				 	   G.CODE_NM,
+				 	   C.CODE_NM) P
+		 WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+</mapper>
