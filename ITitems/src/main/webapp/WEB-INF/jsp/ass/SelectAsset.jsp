@@ -54,13 +54,135 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 <title>ITitems</title>
-<script type="text/javascript">
+
+<script type="text/javaScript" language="javascript" defer="defer">
+<!--
+/* ********************************************************
+ * 수정페이지로 이동
+ ******************************************************** */
 function AssetUpdt() {
 	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
     document.frm.submit();
 }
 
-function AssetList(code){
+/* ********************************************************
+ * 자산 삭제
+ ******************************************************** */
+function AssetDel() {
+	let formData = new FormData(document.getElementById('frm'));
+	   $.ajax({
+		url: '${pageContext.request.contextPath}/ass/AssetDel.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			fn_egov_modal_remove();
+			DelSuccess();
+		},
+		error: function (error) {
+			fn_egov_modal_remove();
+			DelFail();
+		}
+	}) 
+}
+
+
+/* ********************************************************
+ * 삭제확인 팝업창
+ ******************************************************** */
+ function DelConfirm(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 500,
+	        height: 300
+	        
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 DelIng();
+		 AssetDel(); 
+	 }	  
+}
+
+/* ********************************************************
+* 삭제진행 팝업창
+******************************************************** */
+function DelIng(){
+
+ var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 500,
+        height: 300
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+
+/* ********************************************************
+ * 삭제완료 팝업창
+ ******************************************************** */
+ function DelSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+	 fn_egov_modal_remove();
+	 AssetList();
+}
+
+/* ********************************************************
+ * 수정실패 팝업창
+ ******************************************************** */
+ function DelFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 400
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 목록 이동
+ ******************************************************** */
+function AssetList(){
+	let code = $('#listCode').val();
 	if(code == "AM"){
 		document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
 	    document.frm.submit();
@@ -69,6 +191,12 @@ function AssetList(code){
 	    document.frm.submit();
 	}
 }
+
+
+//-->
+</script>
+<script type="text/javascript">
+
 </script>
 </head>
 
@@ -260,9 +388,16 @@ function AssetList(code){
 														code="button.update" />
 												</a>
 										</c:if>
+										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
+												<!-- 삭제 -->
+												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
+													onclick="DelConfirm();return false;"> <spring:message
+														code="button.delete" />
+												</a>
+										</c:if>
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="AssetList('${listCode}');return false;"> <spring:message
+												onclick="AssetList();return false;"> <spring:message
 													code="button.list" />
 											</a>
 										</div>

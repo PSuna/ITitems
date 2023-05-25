@@ -75,7 +75,7 @@ function getMCatList(Mval) {
 	if(val == ""){
 		document.getElementById('middleCategory').replaceChildren();
 		let op = document.createElement('option');
-		op.textContent = '선택하세요';
+		op.textContent = '중분류';
 		op.value = "";
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
@@ -87,7 +87,7 @@ function getMCatList(Mval) {
 			success: function (result) {
 				document.getElementById('middleCategory').replaceChildren();
 				let op = document.createElement('option');
-				op.textContent = '선택하세요';
+				op.textContent = '중분류';
 				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
 				for(res of result){
@@ -109,6 +109,18 @@ function getMCatList(Mval) {
 }
 
 /* ********************************************************
+ * 페이지 항목 수 변경
+ ******************************************************** */
+function setPageUnit(obj) {
+	event.preventDefault();
+	inputpush();
+	document.frm.pageIndex.value = '1';
+	document.frm.pageUnit.value = obj.value;
+    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+    document.frm.submit(); 
+}
+
+/* ********************************************************
  * 자산 검색
  ******************************************************** */
 function SearchAssetList() {
@@ -124,15 +136,32 @@ function SearchAssetList() {
  ******************************************************** */
 function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
-	document.frm.prjNm.value = '${searchVO.prjNm}';
+	inputpush();
+	document.frm.pageIndex.value = pageNo;
+    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+    document.frm.submit(); 
+}
+
+/* ********************************************************
+ * input 정리
+ ******************************************************** */
+ function inputpush() {
+	 document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';
 	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';
 	document.frm.searchWord.value = '${searchVO.searchWord}';
-	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+}
+ 
+ 
+/* ********************************************************
+ * 자산 등록 페이지 이동
+ ******************************************************** */
+function AssetRegist() {
+	event.preventDefault();
+    document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
     document.frm.submit(); 
 }
 
@@ -261,16 +290,16 @@ window.onload = function(){
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<div class="j_box01">
 											<div>
-												<span class="lb">프로젝트</span> 
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<!-- <span class="lb">프로젝트</span> --> 
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
 											<div>
-												<span class="lb">대분류</span> 
+												<!-- <span class="lb">대분류</span> --> 
 												<label class="item f_select w_full" for="sel1">
-												<select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
-														<option value='' label="선택하세요" />
+												<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
+														<option value='' label="대분류" />
 														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
 														</c:forEach>
@@ -280,8 +309,8 @@ window.onload = function(){
 											</div>
 																							
 											<div>
-												<span class="lb">중분류</span> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" title="중분류">
-														<option value='' label="선택하세요" />
+												<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
+														<option value='' label="중분류" />
 												</select>
 												</label> 
 											</div>
@@ -291,7 +320,7 @@ window.onload = function(){
 											<%-- <div>							
 												<span class="lb">상태</span> 
 												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" title="상태">
+													<select id="searchStatus" name="searchStatus" >
 															<option value='' label="선택하세요" />
 															<c:forEach var="stat" items="${status_result}" varStatus="status">
 																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
@@ -300,7 +329,7 @@ window.onload = function(){
 												</label> 
 											</div> --%>
 											<div class="date_box">
-												<span class="lb">등록일자</span> 
+												<!-- <span class="lb">등록일자</span>  -->
 												<div>
 												<span class="search_date">
 												<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
@@ -312,10 +341,10 @@ window.onload = function(){
 												 </div>
 											</div>	
 											<div class="search_box">
-												<span class="lb">품명/시리얼넘버</span>
+												<!-- <span class="lb">품명/시리얼넘버</span> -->
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="품명/시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
 											</div>
 											<div class="btn_box">
@@ -325,11 +354,40 @@ window.onload = function(){
 									</div>	
 								</form>
 								<!--// 검색 조건 -->
-								
-							
-								<div class="total_cnt">
-								<p>• 총 <span class="cnt"><c:out value="${paginationInfo.totalRecordCount }" /></span>개</p>
-								</div>
+								<div class="board_list_top">
+									<div class="left_col">
+											<div class="list_count">
+
+
+												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
+													
+													<div>
+														<span style="margin:0;">Total : </span> 
+														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
+																
+													</div>
+														
+													<div style="display: flex; align-items: center;">
+														<span style="margin-right: 16px;">페이지당 항목 수</span> 
+														<label class="item f_select" for="pageUnit"> 
+																
+															<select name="pageUnit" id="pageUnit" onchange="setPageUnit(this); return false;">										
+																	<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																	<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																	<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																	<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																	<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																	<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+															</select>
+														</label>
+													</div>
+													
+												</div>
+												
+												
+											</div>
+										</div>
+                                </div>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>
@@ -353,7 +411,7 @@ window.onload = function(){
 										</colgroup> --%>
 										<thead>
 											<tr>
-												<th scope="col"></th>
+												<th scope="col">번호</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
 												<th scope="col">품명</th>
@@ -391,9 +449,16 @@ window.onload = function(){
 											</c:if>
 										</tbody>
 									</table>
-									<div class="excel_btn">
-										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-									</div>
+									<div>
+								<div class="excel_btn pty_margin-left_8">
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+								</div>
+								<div class="btn_area">
+                                    	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
+                                    	<spring:message code="button.create" /></a><!-- 등록 -->
+                                </div>
+                                </div>
 								</div>
 								<c:if test="${not empty resultList}">
 									<!-- 페이지 네비게이션 시작 -->
