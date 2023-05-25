@@ -26,6 +26,9 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <title>사이트관리 > 프로젝트관리 > 프로젝트목록관리</title>
@@ -111,13 +114,13 @@ function setPageUnit(){
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<h2 class="tit_2">프로젝트목록관리</h2>
 								<!-- 검색조건 -->
-				                <div class="condition2">
-				                    <label for="" class="lb mr10">프로젝트명 : </label>
-				                    <span class="item f_search">
-				                        <input class="f_input" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
-				                        <button class="btn" type="submit" onclick="fnSearchPrj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
-				                    </span>
-				                    <button class="btn pty_btn search_btn" type="submit" onclick="fnSearchPrj(); return false;">검색</button>
+				                <div class="condition pty_condition">
+				                	<div class="pty_search">
+										<span class="item f_search">
+											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명을 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+										</span>
+										<button class="btn pty_btn" onclick="javascript:fnSearchPrj(); return false;">검색</button>
+									</div>
 				                </div>
 				                <!--// 검색조건 -->
 				                <!-- 게시판 -->

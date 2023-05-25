@@ -7,3 +7,9 @@
 #adminH{
 	color:var(--point-color)!important;
 }
+
+@media screen and (max-width: 767px){
+	.excel_btn .btn{
+		display:none !important;
+	}
+}

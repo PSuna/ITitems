@@ -316,14 +316,14 @@ function getMOrgList(MOval) {
                                     <table summary="사용자 목록을 제공한다.">
                                     	<caption>사용자목록</caption>
                                         <colgroup>
-                                            <col style="width: 30px;">
-                                            <col style="width: 30px;">
-                                            <col style="width: 70px;">
-                                            <col style="width: 80px;">
-                                            <col style="width: 120px;">
-                                            <col style="width: 180px;">
-                                            <col style="width: 100px;">
-                                            <col style="width: 80px;">
+                                            <col style="width: 5%;">
+                                            <col style="width: 5%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 25%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 10%;">
                                         </colgroup>
                                         <thead>
                                             <tr>

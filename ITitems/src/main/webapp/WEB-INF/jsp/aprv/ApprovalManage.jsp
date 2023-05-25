@@ -28,6 +28,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <title>Ititems</title>
@@ -150,8 +151,7 @@ function fntrsfExcel(){
 	                                            <col style="width: 5%;">
 	                                            <col style="width: 15%;">
 	                                            <col style="width: 10%;">
-	                                            <col style="width: 25%;">
-	                                            <col style="width: 20%;">
+	                                            <col style="width: auto;">
 	                                            <col style="width: 15%;">
 	                                            <col style="width: 10%;">
                                         	</colgroup>
@@ -161,7 +161,6 @@ function fntrsfExcel(){
 	                                				<th scope="col">신청자</th>
 	                                				<th scope="col">분류</th>
 	                                				<th scope="col">프로젝트명</th>
-	                                				<th scope="col">사용장소</th>
 	                                				<th scope="col">신청일</th>
 	                                				<th scope="col">상태</th>
                                 				</tr>
@@ -179,7 +178,6 @@ function fntrsfExcel(){
                                 						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>
-                                						<td><c:out value="${result.place}"/></td>
                                 						<td><c:out value="${result.reqDate}"/></td>
                                 						<td><c:out value="${result.reqStatus}"/></td>
                                 					</tr>

@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -261,9 +262,9 @@ function fntrsfExcel(){
 										<colgroup>
 											<col style="width: 5%;">
 											<col style="width: 10%;">
-											<col style="width: 25%;">
-											<col style="width: 25%;">
-											<col style="width: 25%;">
+											<col style="width: 40%;">
+											<col style="width: 20%;">
+											<col style="width: 15%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>

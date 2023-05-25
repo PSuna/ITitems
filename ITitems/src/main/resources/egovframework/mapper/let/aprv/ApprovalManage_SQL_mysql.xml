@@ -167,8 +167,8 @@
 	
 	<update id="UpdateApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
 			UPDATE APRVTARGET
-			   SET REQ_STATUS = 'A1'
-			   	   APRV_DATE = SYSDATE
+			   SET REQ_STATUS = 'A1',
+			   	   APRV_DATE = SYSDATE()
 			 WHERE REQ_ID = #{reqId}
 			   AND TARGET_ID = #{targetId};
 			   
@@ -202,7 +202,6 @@
 		 SELECT IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
 			    IFNULL(C1.CODE_NM, '') REQ_GROUP,
 			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
-			    IFNULL(R.PLACE, '') PLACE,
 			    IFNULL(DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d'), '') REQ_DATE,
 			    IFNULL(C2.CODE_NM,'') REQ_STATUS
 		   FROM REQUESTS R 
