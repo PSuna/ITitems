@@ -65,16 +65,20 @@ function fntrsfExcel(){
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-<!-- Skip navigation -->
+	
+	<!-- Skip navigation -->
     <a href="#contents" class="skip_navi">본문 바로가기</a>
+    
     <div class="wrap">
     	<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
+		
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
                     <div class="layout">
+                    
                     	<div class="content_wrap">
                     		<div id="contents" class="content">
                     			<!-- Location -->
@@ -87,6 +91,7 @@ function fntrsfExcel(){
                                 <!--// Location -->
                                 
                                 <form name="listForm" action="<c:url value='/aprv/ApprovalManage.do'/>" method="post">
+                                	
                                 	<input name="targetId" type="hidden" value="<c:out value='${approvalSearchVO.uniqId}'/>"/>
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
@@ -96,54 +101,63 @@ function fntrsfExcel(){
                                 	
                                 	<!-- 검색조건 -->
                                 	<div class="condition pty_condition" style="display:flex;justify-content: center;">
-                                		<label class="item f_select pty_margin-right_8" for="searchGroup">
-                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-                                				<option value="" label="분류"/>
-                                				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
-                                					<option value="<c:out value="${aprvGroup.code}"/>" <c:if test="${approvalSearchVO.searchGroup == aprvGroup.code}">selected="selected"</c:if>>${aprvGroup.codeNm}</option>
-                                				</c:forEach>
-                                			</select>
-                                		</label>
-                                		
-                                		<label class="item f_select" for="searchStatus" style="margin-left: 0;">
-                                			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
-                                				<option value="" label="상태"/>
-                                				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
-                                					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
-                                				</c:forEach>
-                                			</select>
-                                		</label>
-                                		
-	                                    <div class="pty_search" style="margin-left:10px;">
-											<span class="item f_search" style="margin-right: 8px;">
-												<input class="f_input w_350 pty_f_input" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="사용자명/프로젝트명/사용장소 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+                                		<div>
+	                                		<label class="item f_select w_150" for="searchGroup">
+	                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
+	                                				<option value="" label="분류"/>
+	                                				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
+	                                					<option value="<c:out value="${aprvGroup.code}"/>" <c:if test="${approvalSearchVO.searchGroup == aprvGroup.code}">selected="selected"</c:if>>${aprvGroup.codeNm}</option>
+	                                				</c:forEach>
+	                                			</select>
+	                                		</label>
+                                		</div>
+                                		<div>
+	                                		<label class="item f_select w_150" for="searchStatus">
+	                                			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
+	                                				<option value="" label="상태"/>
+	                                				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
+	                                					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
+	                                				</c:forEach>
+	                                			</select>
+	                                		</label>
+                                		</div>
+	                                    <div class="pty_search">
+											<span class="item f_search" >
+												<input class="f_input w_350 pty_f_input" style="margin-right: 8px;" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="사용자명/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>
                                 	</div>
                                 	<!-- //검색조건 -->
-                                	
-                                	<div class="board_list_top">
-                                		<div class="list_count">
-                                			<span>결재대기중</span>
-                                			<strong><c:out value="${leftCnt}"/></strong>
-                                			<div style="float: right;display: flex;align-items: center;">
-		                                 		<span>페이지당 항목 수</span>
-		                                 		<label class="item f_select" for="pageUnit">
-			                                 		<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">
-			                                 			<option value="10" <c:if test="${empty approvalSearchVO.pageUnit || approvalSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-			                                 			<option value="20" <c:if test="${approvalSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-			                                 			<option value="50" <c:if test="${approvalSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-			                                 			<option value="100" <c:if test="${approvalSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-			                                 			<option value="300" <c:if test="${approvalSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-			                                 			<option value="500" <c:if test="${approvalSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
-			                                 		</select>
-		                                 		</label>
-		                                 	</div>
-                                		</div>
-                                	</div>
-                                	
-                                	<!-- 리스트 -->
+
+									<div class="board_list_top">
+										<div class="left_col">
+											<div class="list_count">
+												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
+													<div>
+														<span style="margin: 0;">Total:</span>
+														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong>
+													</div>
+													
+													<div style="display: flex; align-items: center;">
+														<span style="margin-right: 16px;">페이지당 항목 수</span>
+														<label class="item f_select" for="pageUnit">
+															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">
+																<option value="10" <c:if test="${empty approvalSearchVO.pageUnit || approvalSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																<option value="20" <c:if test="${approvalSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																<option value="50" <c:if test="${approvalSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																<option value="100" <c:if test="${approvalSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																<option value="300" <c:if test="${approvalSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																<option value="500" <c:if test="${approvalSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+															</select>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- 리스트 -->
                                 	<div class="board_list">
                                 		<table summary="결재요청 목록을 제공한다.">
                                 			<caption>결재요청목록</caption>
@@ -184,8 +198,10 @@ function fntrsfExcel(){
                                 				</c:forEach>
                                 			</tbody>
                                 		</table>
-                                		<div class="excel_btn">
-                                			<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                                		<div class="btn_area">
+	                                		<div class="excel_btn pty_margin-left_8">
+	                                			<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+	                                		</div>
                                 		</div>
                                 	</div>
                                 <!-- 페이지 네비게이션 시작 -->
