@@ -34,12 +34,17 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	 */
 	public String insertFileInfs(List<?> fileList) throws Exception {
 		
-		String atchFileId = "";
+		//String atchFileId = "";
+		
+		FileVO vo = (FileVO) fileList.get(0); 
+		String atchFileId = vo.getAtchFileId();
+		insert("FileManageDAO.insertFileMaster", vo);
+		
 		for(Object fvo : fileList) {
-			FileVO vo = (FileVO) fvo;
+			vo = (FileVO) fvo;
 			atchFileId = vo.getAtchFileId();
 			System.out.println(">>>>>>" + atchFileId);
-			insert("FileManageDAO.insertFileMaster", vo);
+			//insert("FileManageDAO.insertFileMaster", vo);
 			insert("FileManageDAO.insertFileDetail", vo);
 		}
 		
