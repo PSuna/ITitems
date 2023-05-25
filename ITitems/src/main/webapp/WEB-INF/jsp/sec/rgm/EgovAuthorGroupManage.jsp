@@ -251,19 +251,21 @@ function press() {
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition pty_condition" style="display: flex;">
-                                    <label class="f_select item" for="searchCondition">
-                                        <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
-    					                    <option value="1" <c:if test="${userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
-                                            <option value="2" <c:if test="${userSearchVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
-    					                </select>
-                                    </label> 
+                                <div class="condition pty_condition">
+                                	<div style="display: flex; gap:8px;">
+	                                    <label class="f_select item" for="searchCondition">
+	                                        <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
+	    					                    <option value="1" <c:if test="${userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
+	                                            <option value="2" <c:if test="${userSearchVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
+	    					               
+	    					                </select>
+	                                    </label> 
 									
 										<span class="item f_search">
 											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
-									
+									</div>
                                 </div>
                                 <!--// 검색조건 -->
 
@@ -292,10 +294,7 @@ function press() {
 															</select>
 														</label>
 														
-														<div class="excel_btn pty_margin-left_8">
-															<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-																	<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-														</div>
+														
 													</div>
 													
 												</div>
@@ -371,8 +370,10 @@ function press() {
                                     </table>
                                 </div>
 								
-								<div class="right_col btn_area">
-                                        <a href="#LINK" class="btn btn_blue_46" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
+								<div class="right_col btn_area">                                                                        	
+										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+                               			<a href="#LINK" class="btn btn_blue_46" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
+                               			
                                 </div>
 								
 								<!-- 페이지 네비게이션 시작 -->

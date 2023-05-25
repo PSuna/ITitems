@@ -194,7 +194,8 @@
 }
 
 .right_btn {
-	float: right;
+	/* float: right; */
+	text-align: right;
 }
 
 .board_view_bot {
@@ -394,8 +395,8 @@ form .condition2{
 }
 
 .right_btn {
-	float: right;
-	margin-left: 1%;
+	/* float: right;
+	margin-left: 1%; */
 }
 
 .reset_btn{
@@ -406,7 +407,7 @@ form .condition2{
 }
 
 .search_btn{
-	float: right;
+	/* float: right; */
 }
 
 .search_btn:hover{

@@ -379,8 +379,11 @@ function getMOrgList(MOval) {
 												<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 												<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
 											</div>
-		                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-		                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+											
+											<div>
+			                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+			                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+		                                   	</div>
 	                                    </div>
 	                                    
 	                                  
