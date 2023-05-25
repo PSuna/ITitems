@@ -67,9 +67,11 @@ function UpdateAsset(){
 		contentType: false,
 		data: formData,
 		success: function (result) {
+			fn_egov_modal_remove();
 			UpdtSuccess();
 		},
 		error: function (error) {
+			fn_egov_modal_remove();
 			UpdtFail();
 		}
 	})      
@@ -101,9 +103,28 @@ function UpdateAsset(){
  
 	fn_egov_modal_remove();
 	 if(val){
+		 UpdtIng();
 		 UpdateAsset();
 	 }	  
 }
+
+/* ********************************************************
+* 수정진행 팝업창
+******************************************************** */
+function UpdtIng(){
+
+ var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 500,
+        height: 300
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
 
 /* ********************************************************
  * 수정완료 팝업창

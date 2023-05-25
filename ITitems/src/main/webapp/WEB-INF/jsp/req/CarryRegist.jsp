@@ -143,8 +143,10 @@ function insertApproval(reqId){
 			contentType: false,
 			data: formdata,
 			success: function (result) {
+				fn_egov_modal_remove();
 				RegistSuccess();
 			},error: function (error) {
+				fn_egov_modal_remove();
 				RegistFail();
 			}
 		})
@@ -177,8 +179,26 @@ function insertApproval(reqId){
  
 	fn_egov_modal_remove();
 	 if(val){
+		 RegistIng();
 		 insertCarry();
 	 }	  
+}
+
+/* ********************************************************
+ * 등록진행 팝업창
+ ******************************************************** */
+ function RegistIng(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 600,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
 }
 
 /* ********************************************************
