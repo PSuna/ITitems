@@ -66,6 +66,15 @@ public class CommonController {
 	}
 	
 	/**
+	 * 등록진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/RegistIng.do")
+	public String RegistIng() throws Exception {
+
+		return "/com/RegistIng";
+	}
+	
+	/**
 	 * 등록완료 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/RegistSuccess.do")
@@ -108,6 +117,15 @@ public class CommonController {
 	public String UpdtConfirm() throws Exception {
 
 		return "/com/UpdtConfirm";
+	}
+	
+	/**
+	 * 수정진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtIng.do")
+	public String UpdtIng() throws Exception {
+
+		return "/com/UpdtIng";
 	}
 	
 	/**
