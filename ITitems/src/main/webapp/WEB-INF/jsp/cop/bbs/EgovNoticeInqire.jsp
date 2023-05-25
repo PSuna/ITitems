@@ -222,8 +222,9 @@
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a><!-- 삭제 -->
                                             </c:if>
-                                           <%--  <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-	                                            <c:if test="${result.replyPosblAt == 'Y'}">
+                                           <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+	                                            <c:if test="${result.replyPosblAt == 'Y' && result.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}">  
+
 	                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
 	                                            </c:if>
                                             </c:if> --%>
