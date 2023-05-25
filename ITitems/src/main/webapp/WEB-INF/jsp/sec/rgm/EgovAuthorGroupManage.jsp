@@ -117,7 +117,7 @@ function fncManageChecked() {
             else {
                 returnId = checkId.value;
                 returnAuthor = selectAuthor.value;
-                returnRegYn = booleanRegYn.value;
+               /*  returnRegYn = booleanRegYn.value; */
 
                 resultCheck = true;
             }

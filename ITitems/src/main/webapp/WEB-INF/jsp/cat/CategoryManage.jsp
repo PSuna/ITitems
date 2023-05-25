@@ -276,6 +276,11 @@ function fnDeleteCat(e){
 	padding-bottom: 8px;
 	text-align : center;
 }
+@media screen and (max-width: 767px){
+	.content_wrap #contents{
+	width:100% !important;
+	}
+}
 </style>
 </head>
 <body>
