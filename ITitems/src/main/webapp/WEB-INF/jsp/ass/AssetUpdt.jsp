@@ -90,6 +90,7 @@ function UpdateAsset(){
 		        modal: true,
 		        width: 500,
 		        height: 300
+		        
 			});
 		    $(".ui-dialog-titlebar").hide();
 			$dialog.dialog('open');

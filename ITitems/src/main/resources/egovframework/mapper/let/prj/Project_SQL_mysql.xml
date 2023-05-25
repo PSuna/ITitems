@@ -33,7 +33,7 @@
 			   ID,
 			   USER_NM,
 			   CODE_NM
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.PRJ_ID) AS RUM,
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRJ_STATE ASC, PRJ_START DESC, A.PRJ_ID) AS RUM,
 					   A.PRJ_ID, 
 				       A.PRJ_NAME, 
 				       DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
@@ -52,7 +52,7 @@
 			        ON A.PRJ_STATE =  D.CODE
 				<include refid="search"></include>) P 
 	     WHERE P.RUM BETWEEN #{first} AND #{last}
-	     ORDER BY PRJ_STATE DESC, PRJ_START DESC
+	     
 	</select>
 
 	<select id="CountProjectVOList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultType="int">
