@@ -82,4 +82,8 @@ public class RequestDAO extends EgovAbstractMapper {
 	public List<EgovMap> xlsxTrsfReqList(RequestManageVO requestManageVO) {
 		return selectList("RequestDAO.xlsxTrsfReqList", requestManageVO);
 	}
+
+	public List<EgovMap> SelectAprvList(RequestManageVO manageVO) {
+		return selectList("RequestDAO.SelectAprvList", manageVO);
+	}
 }
