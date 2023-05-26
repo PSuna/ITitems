@@ -253,53 +253,31 @@ function AssetList(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label>
+													<!-- 제조사 --> <label for="">제조사</label>
 												</td>
-												<td> ${resultVO.assetQty}</td>
-												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-												</td>
-												<td>
-													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
-				                                    </c:import>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label>
-												</td>
-												<td>${resultVO.acquiredDate}</td>
-												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
-												</td>
-												<td>
-													<c:if test="${not empty resultVO.acquiredPrice}">
-													<fmt:formatNumber value="${resultVO.acquiredPrice}" pattern="#,###"/>원
-													</c:if>
-												</td>											
-											</tr>
-											<tr>
+												<td>${resultVO.maker}</td>
 												<td class="lb">
 													<!-- 품명 --> <label for="">제품명</label>
 												</td>
 												<td>${resultVO.assetName}</td>
+											</tr>
+											<tr>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label>
 												</td>
 												<td>${resultVO.assetSn}</td>
+												<td class="lb">
+													<!-- 수량 --> <label for="">수량</label>
+												</td>
+												<td> ${resultVO.assetQty}</td>
 											</tr>
 											<tr>
-												<td class="lb">
-													<!-- 제조사 --> <label for="">제조사</label>
-												</td>
-												<td>${resultVO.maker}</td>
 												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td >
+												<td colspan="4" >
 													${resultVO.rcptDate}
 												</td>
 											</tr>
@@ -333,6 +311,30 @@ function AssetList(){
 												</td>
 												<td>
 													${resultVO.prjNm}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 취득일자 --> <label for="">취득일자</label>
+												</td>
+												<td>${resultVO.acquiredDate}</td>
+												<td class="lb">
+													<!-- 취득가액 --> <label for="">취득가액</label>
+												</td>
+												<td>${resultVO.acquiredPrice}
+													<c:if test="${not empty resultVO.acquiredPrice}">
+														원
+													</c:if>
+												</td>											
+											</tr>
+											<tr>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+												</td>
+												<td colspan="4">
+													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
+				                                    </c:import>
 												</td>
 											</tr>
 											<tr>

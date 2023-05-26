@@ -68,7 +68,6 @@ function MakePhotoList(obj){
 		let fileUrl = URL.createObjectURL(file);
 		let val = true;
 		for (let i = 0; i < photoFileList.length; i++) {
-			console.log(photoFileList[i].name);
 			if (photoFileList[i].name == file.name) {
 				val = false;
 			}
@@ -113,6 +112,7 @@ function inputFile() {
 		dataTransfer.items.add(file);
 	});
 	$('input[name=photo]')[0].files = dataTransfer.files; 
+	console.log($('input[name=photo]')[0].files);
 	photoFileList = [];
 }
 

@@ -135,6 +135,49 @@ function getMCatList(Mval) {
 	
 }
 
+
+/* ********************************************************
+ * 부서 조회
+ ******************************************************** */
+function getOrgList(Oval) {
+	console.log(Oval);
+	let val = document.getElementById('searchOrgnzt').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(Oval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+	}
+	
+}
+
 /* ********************************************************
  * 자산 검색
  ******************************************************** */
@@ -277,6 +320,7 @@ function checkStartDate(){
  ******************************************************** */
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
+	getOrgList('${searchVO.lowerOrgnzt}')
 	make_date();
 	  }
 //-->
@@ -324,20 +368,21 @@ window.onload = function(){
 											<div>
 												<!-- <span class="lb">본부/부서</span> -->
 												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchOrgnzt" name="searchOrgnzt" >
-															<option value="" >본부/부서</option>
+													<select id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
+															<option value="" >본부</option>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
 															</c:forEach>
 													</select>
 												</label> 
 											</div>
-											
 											<div>
-												<!-- <span class="lb">프로젝트</span>  -->
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												<!-- <span class="lb">본부/부서</span> -->
+												<label class="item f_select w_full" for="sel1"> 
+													<select id="lowerOrgnzt" name="lowerOrgnzt" >
+															<option value="" >부서</option>
+													</select>
+												</label> 
 											</div>
 											<div>
 												<!-- <span class="lb">대분류</span>  -->
@@ -395,6 +440,12 @@ window.onload = function(){
 												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
 													maxlength="8" readonly="readonly" />
 											</div>
+											<div class="search_box">
+												<!-- <span class="lb">프로젝트</span>  -->
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+											</div>
 											<%-- <div class="search_box">
 												<span class="lb">품명</span>
 												<span class="item f_search w_full">
@@ -448,18 +499,20 @@ window.onload = function(){
 									<table>
 										<colgroup>
 											<col style="width: 5%;">
-											<col style="width: 39%;">
-											<col style="width: 15%;">
-											<col style="width: 14%;">
-											<col style="width: 9%;">
-											<col style="width: 9%;">
-											<col style="width: 9%;">
+											<col style="width: 12%;">
+											<col style="width: 12%;">
+											<col style="width: 37%;">
+											<col style="width: 11%;">
+											<col style="width: 7%;">
+											<col style="width: 8%;">
+											<col style="width: 8%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
+												<th scope="col">본부</th>
+												<th scope="col">부서</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">본부/부서</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
 												<th scope="col">소유자</th>
@@ -481,14 +534,11 @@ window.onload = function(){
 																value="AM" />
 														</form>
 													</td>
-													<td pty_text-align_left pty_padding-left_24><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.orgnztId}" /></td>
+													<td><c:out value="${result.lowerOrgnztId}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td>
-														<c:if test="${not empty result.assetQty}">
-															<fmt:formatNumber value="${result.assetQty}" pattern="#,###"/>
-														</c:if>
-													</td>
+													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
@@ -506,9 +556,9 @@ window.onload = function(){
 								
 								<div class="btn_area">
 										<div class="excel_btn pty_margin-left_8">
-									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+											<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-								</div>
+										</div>
 									
 								
                                     	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">

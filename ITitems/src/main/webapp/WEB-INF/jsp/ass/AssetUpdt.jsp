@@ -277,7 +277,6 @@ function returnProject(val){
 	if (val) {
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
-		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
 	}
 	
 	fn_egov_modal_remove();
@@ -439,9 +438,11 @@ function FileManual(){
 		 const dataTransfer = new DataTransfer();
 		 dataTransfer.items.add(obj.files[0]);
 		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 $(obj).closest(".filebox").append($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-			 delFileName();
-			}));
+		 if($(obj).next().prop('tagName') != 'IMG'){
+			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+				 delFileName();
+				}));
+		 }
 		 $(obj).val('');
 	 }
 }
@@ -582,73 +583,6 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 -->
-													<label for="">수량</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
-														onchange="getNumber(this);" onkeyup="getNumber(this);">
-												</td>
-												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
-												</td>
-												<td>
-													<div class="filebox">
-													    <label for="fileFrm">파일찾기</label > 
-													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
-													    <div class="namebox">
-													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
-													    </div>
-													    <c:if test="${not empty FileVO}">
-													    	<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
-													    </c:if>
-													</div>
-													<input name="file" id="file" type="file" style="display: none">
-													<input name="delFile" id="delFile" type="hidden">
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label>
-												</td>
-												<td>
-													<span class="search_date w_full">
-														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
-													</span>
-												</td>
-												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
-												</td>
-												<td>
-													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">제품명</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
-													<br />
-												</td>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
-												</td>
-												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
-												</td>
-											</tr>
-											
-											<tr>
-												<td class="lb">
 													<!-- 제조사 --> 
 													<label for="">제조사</label>
 												</td>
@@ -657,10 +591,38 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
+													<!-- 품명 --> 
+													<label for="">제품명</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+												</td>
+												<td>
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
+												</td>
+												<td class="lb">
+													<!-- 수량 -->
+													<label for="">수량</label> 
+													<span class="req">필수</span>
+												</td>
+												<td>
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
+														onchange="getNumber(this);" onkeyup="getNumber(this);">
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td>
+												<td colspan="4">
 													<span class="search_date w_full">
 														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
@@ -729,7 +691,46 @@ window.onload = function(){
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
 											</tr>
-											
+											<tr>
+												<td class="lb">
+													<!-- 취득일자 --> 
+													<label for="">취득일자</label>
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
+													</span>
+												</td>
+												<td class="lb">
+													<!-- 취득가액 --> 
+													<label for="">취득가액</label>
+												</td>
+												<td>
+													<input id="acquiredPrice" class="f_txt w_full"
+													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+												</td>
+												<td colspan="4">
+													<div class="filebox">
+													    <label for="fileFrm">파일찾기</label > 
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
+													    <c:if test="${not empty FileVO}">
+													    	<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
+													    </c:if>
+													    <div class="namebox">
+													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
+													    </div>
+													</div>
+													<input name="file" id="file" type="file" style="display: none">
+													<input name="delFile" id="delFile" type="hidden">
+												</td>
+											</tr>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
