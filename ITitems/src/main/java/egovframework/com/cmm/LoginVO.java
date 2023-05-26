@@ -40,10 +40,12 @@ public class LoginVO implements Serializable{
 	private String passwordCnsr;
 	/** 사용자구분 */
 	private String userSe;
-	/** 조직(부서)ID */
+	/** 조직(본부)ID */
 	private String orgnztId;
-	/** 조직(부서)명 */
+	/** 조직(본부)명 */
 	private String orgnztNm;
+	/** 조직(부서)ID */
+	private String lowerOrgnztId;
 	/** 고유아이디 */
 	private String uniqId;
 	/** 로그인 후 이동할 페이지 */
@@ -270,6 +272,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setAuthorNm(String authorNm) {
 		this.authorNm = authorNm;
+	}
+	public String getLowerOrgnztId() {
+		return lowerOrgnztId;
+	}
+	public void setLowerOrgnztId(String lowerOrgnztId) {
+		this.lowerOrgnztId = lowerOrgnztId;
 	}
 	
 }

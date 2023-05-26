@@ -44,6 +44,12 @@ public interface EgovFileMngService {
      * @throws Exception
      */
     public String insertFileInfs(List<?> fvoList) throws Exception;
+    
+    /**
+     * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.(자산용)
+     *
+     */
+    public String insertAssFileInf(FileVO fvo) throws Exception;
 
     /**
      * 여러 개의 파일에 대한 정보(속성 및 상세)를 수정한다.

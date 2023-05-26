@@ -40,8 +40,11 @@ public class AssetManageVO implements Serializable {
     /** 검색부서(임시) */
     private String searchLOrgnzt = "";
     
-    /** 기본 검색부서 */
+    /** 기본 검색본부 */
     private String menuOrgnzt = "";
+    
+    /** 기본 검색부서 */
+    private String menuLowerOrgnzt = "";
     
     /** 검색프로젝트 */
     private String searchPrj = "";
@@ -374,6 +377,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setLowerOrgnzt(String lowerOrgnzt) {
 		this.lowerOrgnzt = lowerOrgnzt;
+	}
+	public String getMenuLowerOrgnzt() {
+		return menuLowerOrgnzt;
+	}
+	public void setMenuLowerOrgnzt(String menuLowerOrgnzt) {
+		this.menuLowerOrgnzt = menuLowerOrgnzt;
 	}
 	
 	

@@ -79,6 +79,23 @@ public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements E
 	}
 
 	/**
+	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.(자산용)
+	 *
+	 */
+	@Override
+	public String insertAssFileInf(FileVO fvo) throws Exception {
+		String atchFileId = "";
+
+		if (fvo != null) {
+			atchFileId = fileMngDAO.insertAssFileInf(fvo);
+		}
+		if (atchFileId == "") {
+			atchFileId = null;
+		}
+		return atchFileId;
+	}
+	
+	/**
 	 * 파일에 대한 목록을 조회한다.
 	 *
 	 * @see egovframework.com.cmm.service.EgovFileMngService#selectFileInfs(egovframework.com.cmm.service.FileVO)
@@ -191,4 +208,6 @@ public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements E
 		
 		return fileMngDAO.updateFileListUse(vo);
 	}
+
+
 }
