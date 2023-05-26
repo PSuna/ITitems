@@ -85,7 +85,7 @@ function fntrsfExcel(){
                                 <div class="location">
                                 	<ul>
                                         <li><a class="home" href="">Home</a></li>
-                                        <li>결재목록</li>
+                                        <li>결재</li>
                                     </ul>
                                 </div>
                                 <!--// Location -->
@@ -97,7 +97,7 @@ function fntrsfExcel(){
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
                                 	
-                                	<h2 class="tit_2">결재신청목록</h2>
+                                	<h2 class="tit_2">결재</h2>
                                 	
                                 	<!-- 검색조건 -->
                                 	<div class="condition pty_condition" style="display:flex;justify-content: center;">
@@ -135,7 +135,7 @@ function fntrsfExcel(){
 											<div class="list_count">
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
 													<div>
-														<span style="margin: 0;">Total:</span>
+														<span style="margin: 0;">Total :</span>
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong>
 													</div>
 													

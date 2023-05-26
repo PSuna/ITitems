@@ -81,4 +81,8 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return selectList("approvalManageDAO.selectApprovalListB", approvalSearchVO);
 	}
 
+	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO) {
+		return update("approvalManageDAO.ApprovalDisUpdate", approvalManageVO);
+	}
+
 }

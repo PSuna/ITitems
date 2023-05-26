@@ -260,7 +260,7 @@ function fntrsfExcel(){
 													<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
 														
 														<div>
-															<span style="margin:0;">Totall</span> 
+															<span style="margin:0;">Total :</span> 
 															<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
 																	
 														</div>

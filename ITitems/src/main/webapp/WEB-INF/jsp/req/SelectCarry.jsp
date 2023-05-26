@@ -128,6 +128,8 @@ function CarryList(){
 																	<c:choose>
 																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
 																		</c:when>
+																		<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
+																		</c:when>
 																		<c:otherwise> ${aprvItem.aprvDate }
 																		</c:otherwise>
 																	</c:choose>

@@ -109,7 +109,13 @@ public class CommonController {
 	public String ApprovalConfirm() throws Exception {
 		return "/com/ApprovalConfirm";
 	}
-	
+	/**
+	 * 반려확인 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/ApprovalDisConfirm.do")
+	public String ApprovalDisConfirm() throws Exception {
+		return "/com/ApprovalDisConfirm";
+	}
 	/**
 	 * 수정확인 팝업창로 이동
 	 */
