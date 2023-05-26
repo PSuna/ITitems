@@ -303,8 +303,7 @@ window.onload = function(){
 														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
 														</c:forEach>
-												</select> 
-												
+												</select>   
 												</label> 
 											</div>
 																							
@@ -450,11 +449,13 @@ window.onload = function(){
 										</tbody>
 									</table>
 									<div>
-								<div class="excel_btn pty_margin-left_8">
+								
+								<div class="btn_area">
+										<div class="excel_btn pty_margin-left_8">
 									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
 								</div>
-								<div class="btn_area">
+								
                                     	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
                                     	<spring:message code="button.create" /></a><!-- 등록 -->
                                 </div>

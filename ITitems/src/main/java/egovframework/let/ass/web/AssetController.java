@@ -118,7 +118,7 @@ public class AssetController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
 		vo.setCodeId("COM006");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
@@ -169,7 +169,7 @@ public class AssetController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
 		vo.setCodeId("COM006");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));

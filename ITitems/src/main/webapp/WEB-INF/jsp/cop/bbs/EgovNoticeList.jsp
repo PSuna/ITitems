@@ -118,7 +118,7 @@
 
 
                                 <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>    
-                                 
+
                                 <!-- 검색조건 -->
 								<div class="condition">
 									<form name="frm"

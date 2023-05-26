@@ -10,6 +10,7 @@
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="lowerOrgnztId" column="LOWER_ORGNZT_ID" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
@@ -56,6 +57,9 @@
 	
 	<sql id="search">
 		 	AND A.USAGE_STAUTS = 'U1'
+        	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
+				AND B.ORGNZT_ID = #{lowerOrgnzt}
+			</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
 			</if>
@@ -83,7 +87,7 @@
 	</sql>
 
 	<sql id="mySearch">
-			AND A.USAGE_STAUTS = 'U1'
+			AND A.USAGE_STAUTS = 'U1' 
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
 			</if>
@@ -114,6 +118,7 @@
 	    	   MIDDLE_CATEGORY,
 	    	   ASSET_QTY, 
 	    	   ORGNZT_ID,
+	    	   LOWER_ORGNZT_ID,
 	    	   PRJ_ID,
 	    	   REG_DATE,
 	    	   USAGE_STAUTS,
@@ -125,8 +130,17 @@
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
 					D.CAT_NAME AS MIDDLE_CATEGORY,
-					A.ASSET_QTY, 
-					G.ORGNZT_NM AS ORGNZT_ID,
+					A.ASSET_QTY,
+					CASE
+						WHEN F.ORGNZT_UP IS NULL
+						THEN F.ORGNZT_NM
+						ELSE G.ORGNZT_NM
+					 END AS ORGNZT_ID,
+					CASE 
+						WHEN F.ORGNZT_UP IS NULL
+						THEN NULL
+						ELSE F.ORGNZT_NM
+					 END AS LOWER_ORGNZT_ID,
 	    	   		H.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS,
@@ -141,18 +155,18 @@
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
 	              LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-	              LEFT OUTER JOIN LETTCCMMNDETAILCODE F
-				    ON B.APPROVAL = F.CODE
-	              LEFT OUTER JOIN LETTNORGNZTINFO G
-	   				ON B.ORGNZT_ID = G.ORGNZT_ID
+	              LEFT OUTER JOIN LETTNORGNZTINFO F
+	   				ON B.ORGNZT_ID = F.ORGNZT_ID
+	   			  LEFT OUTER JOIN LETTNORGNZTINFO G
+	   				ON F.ORGNZT_UP = G.ORGNZT_ID
 	   			  LEFT OUTER JOIN PROJECTS H
 	   				ON B.PRJ_ID = H.PRJ_ID
 	   			  LEFT OUTER JOIN LETTNEMPLYRINFO I
 	                ON B.USE_ID = I.ESNTL_ID
 	              LEFT OUTER JOIN LETTNEMPLYRINFO J
 	                ON B.RCPT_ID = J.ESNTL_ID  
-	              <where>
-	                <choose>
+	             <where>
+		               <choose>
 		                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
 							AND B.ORGNZT_ID = #{searchOrgnzt}
 							AND B.RCPT_ID = #{userId}
@@ -160,17 +174,17 @@
 							 OR B.ORGNZT_ID = #{searchOrgnzt}
 							AND B.USE_ID = #{userId}
 							<include refid="search" />
-							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
 							AND B.RCPT_ID = #{userId}
 							<include refid="search" />
-							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
 							AND B.USE_ID = #{userId}
 							<include refid="search" />
 		                </when>
 		                <when test="searchOrgnzt != null and searchOrgnzt != ''">
 		                	AND B.ORGNZT_ID = #{searchOrgnzt}
 							<include refid="search" />
-							 OR G.ORGNZT_UP = #{searchOrgnzt}
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
 							<include refid="search" />
 		                </when>
 		                <when test="userId != null and userId != ''">
@@ -182,7 +196,7 @@
 		                <otherwise>
 		                	<include refid="search" />
 		                </otherwise>
-	                </choose>
+		               </choose>
 				 </where>
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -195,8 +209,8 @@
 		  FROM ASSETSINFO A
 		  LEFT OUTER JOIN ASSETSHIST B
 		    ON A.ASSET_ID = B.ASSET_ID
-		  LEFT OUTER JOIN LETTNORGNZTINFO G
-	   		ON B.ORGNZT_ID = G.ORGNZT_ID
+		  LEFT OUTER JOIN LETTNORGNZTINFO F
+	   		ON B.ORGNZT_ID = F.ORGNZT_ID
 		 <where>
                <choose>
                 <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
@@ -206,17 +220,17 @@
 					 OR B.ORGNZT_ID = #{searchOrgnzt}
 					AND B.USE_ID = #{userId}
 					<include refid="search" />
-					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					 OR F.ORGNZT_UP = #{searchOrgnzt}
 					AND B.RCPT_ID = #{userId}
 					<include refid="search" />
-					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					 OR F.ORGNZT_UP = #{searchOrgnzt}
 					AND B.USE_ID = #{userId}
 					<include refid="search" />
                 </when>
                 <when test="searchOrgnzt != null and searchOrgnzt != ''">
                 	AND B.ORGNZT_ID = #{searchOrgnzt}
 					<include refid="search" />
-					 OR G.ORGNZT_UP = #{searchOrgnzt}
+					 OR F.ORGNZT_UP = #{searchOrgnzt}
 					<include refid="search" />
                 </when>
                 <when test="userId != null and userId != ''">
