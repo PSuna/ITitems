@@ -197,7 +197,7 @@ function CarryList(){
 									</div>
 									
 									
-								<br>
+								
 								
 								<div class="board_list assetlist pty_board_list">
 									<table>
@@ -228,8 +228,7 @@ function CarryList(){
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
+							
 								 <!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">

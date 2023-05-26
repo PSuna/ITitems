@@ -603,7 +603,7 @@ window.onload = function(){
 														readonly="false" value="<c:out value="${Nm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
-													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
+													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트" 
 														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
 												</td>
 												<td class="lb">
@@ -645,7 +645,7 @@ window.onload = function(){
 												</td>
 												<td class="search_td">
 													<span class="f_search2 w_full"> 
-													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+													<input id="prjNm" type="text" title="프로젝트" placeholder="프로젝트 선택"  maxlength="100"
 														readonly="readonly" />
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
@@ -713,7 +713,7 @@ window.onload = function(){
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_100"
+											<a href="#LINK" class="btn btn_blue_46"
 												onclick="RegistConfirm(); return false;"><spring:message
 													code="button.create" /></a>
 											<!-- 등록 -->

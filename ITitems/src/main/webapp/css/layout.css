@@ -564,7 +564,7 @@ width:1300px;
 	margin-top:20px;
 }
 .board_view2+.board_view_bot {
-	margin-top:40px;
+	/* margin-top:40px; */
 }
 .board_view2+.tit_4 {
 	margin-top:42px;

@@ -211,7 +211,7 @@ function fntrsfExcel(){
 												<div>
 													<span class="lb">프로젝트</span>
 													<span class="f_search2 w_full">
-														<input id="prjNm" type="text" title="주소" maxlength="100" readonly="true" />
+														<input id="prjNm" type="text" title="주소" placeholder="프로젝트 선택" maxlength="100" readonly="true" />
 														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 													</span>
 													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
@@ -242,7 +242,7 @@ function fntrsfExcel(){
 													</div>
 												</div>
 												<div class="btn_box">
-													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();">검색</button>
+													<button class="btn pty_btn" style="margin-left: 8px;" type="submit" onclick="SearchCarryList();">검색</button>
 												</div>
 											</div>
 										</div>

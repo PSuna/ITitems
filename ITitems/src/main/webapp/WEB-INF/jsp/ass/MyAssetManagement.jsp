@@ -283,15 +283,15 @@ window.onload = function(){
 								<h1 class="tit_1">자산관리</h1>
 
 								<h2 class="tit_2">내자산조회</h2>
-								<br>
+							
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off">
-									<div class="condition2">
+									<div class="condition2" style="padding:25px;">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<div class="j_box01">
+										<div class="j_box01" >
 											<div>
 												<!-- <span class="lb">프로젝트</span> --> 
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트 선택" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
@@ -315,7 +315,7 @@ window.onload = function(){
 											</div>
 										</div>	
 											
-										<div class="j_box01">	
+										<div class="j_box01" style="margin-bottom:0">	
 											<%-- <div>							
 												<span class="lb">상태</span> 
 												<label class="item f_select w_full" for="sel1"> 
