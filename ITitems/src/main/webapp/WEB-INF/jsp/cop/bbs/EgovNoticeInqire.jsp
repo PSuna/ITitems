@@ -227,7 +227,7 @@
 
 	                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
 	                                            </c:if>
-                                            </c:if> --%>
+                                            </c:if> 
                                             <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList('1'); return false;">목록</a><!-- 목록 -->
                                         </div>
                                     </div>
