@@ -191,7 +191,12 @@ function AssetList(){
 	    document.frm.submit();
 	}
 }
-
+/* ********************************************************
+ * onload
+ ******************************************************** */
+window.onload = function(){
+	console.log('${PhotoList}');
+	  }
 
 //-->
 </script>

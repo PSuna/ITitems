@@ -36,6 +36,7 @@
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/FormSave.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -450,7 +451,11 @@ function alertValid(objList) {
  ******************************************************** */
 window.onload = function(){
 	make_date();
-	  }
+	pullVal('assetRegist');
+	setInterval(function() {
+		pushVal('assetRegist')
+	}, 1000);
+ }
 
 //-->
 </script>

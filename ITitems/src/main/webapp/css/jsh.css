@@ -459,6 +459,15 @@ form .condition2{
     margin: auto;
 }
 
+p .req {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    font-size: 0;
+    background: url(../images/ico_req.png) no-repeat;
+    vertical-align: 15px;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;
