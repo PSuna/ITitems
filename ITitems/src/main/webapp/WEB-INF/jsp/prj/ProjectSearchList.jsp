@@ -14,7 +14,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,6 +47,16 @@ function fn_egov_return_Prj(prjid, prjNm, pmId, pmNm){
 	parent.parent.returnProject(val);
 }
 
+function reset_Prj(){
+	var val   = new Object();
+	val.prjId  = "";
+	val.prjNm  = "";
+	val.pmId  = "";
+	val.pmNm  = "";
+	
+	parent.parent.returnProject(val);
+}
+
 function fn_egov_pageview(page){
 	document.listForm.searchWord.value = '${searchVO.searchWord}';
 	document.listForm.pageIndex.value = page;
@@ -57,6 +67,8 @@ function fn_egov_search_Prj() {
 	document.listForm.pageIndex.value = 1;
    	document.listForm.submit();
 }
+
+
 </script>
 </head>
 
@@ -86,7 +98,10 @@ function fn_egov_search_Prj() {
                     </span>
                 </div>
                 <!--// 검색조건 -->
-
+				<div class="btn_area">
+                   	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
+                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+                </div>
                 <!-- 게시판 -->
                 <div class="board_list selete_table">
                     <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">

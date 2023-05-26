@@ -278,25 +278,10 @@ function returnProject(val){
 		document.getElementById("prjId").value  = val.prjId;
 		document.getElementById("prjNm").value  = val.prjNm;
 		$("#prjId").closest("td").append(resetBtn.on("click",resetPrj));
-		if($("#prjId").closest("td").children().last().prop('tagName') != 'IMG'){
-			$("#prjId").closest("td").append(resetBtnCl.on("click",function(){
-				resetPrj(this);
-			}));
-		}
 	}
 	
 	fn_egov_modal_remove();
 }
-
-/* ********************************************************
- * 프로젝트 입력 리셋
- ******************************************************** */
- function resetPrj(obj){
-	document.getElementById("prjId").value  = "";
-	document.getElementById("prjNm").value  = "";
-	$(obj).remove();
-}
-
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
@@ -306,43 +291,15 @@ function returnUser(val){
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.userId;
 			document.getElementById("rcptNm").value  = val.userNm;
-			if($("#rcptId").closest("td").children().last().prop('tagName') != 'IMG'){
-				$("#rcptId").closest("td").append(resetBtnCl.on("click",function(){
-					resetRcpt(this);
-				}));
-			}
 		}else if(userCheck == 1){
 			document.getElementById("useId").value  = val.userId;
 			document.getElementById("useNm").value  = val.userNm;
-			if($("#useId").closest("td").children().last().prop('tagName') != 'IMG'){
-				$("#useId").closest("td").append(resetBtnCl.on("click",function(){
-					resetUse(this);
-				}));
-			}
 		}
 	
 }
 
 fn_egov_modal_remove();
 }
-
-/* ********************************************************
- * 수령자 입력 리셋
- ******************************************************** */
- function resetRcpt(obj){
-	document.getElementById("rcptId").value  = "";
-	document.getElementById("rcptNm").value  = "";
-	$(obj).remove();
-}
-
-/* ********************************************************
- * 실사용자 입력 리셋
- ******************************************************** */
-  function resetUse(obj){
- 	document.getElementById("useId").value  = "";
- 	document.getElementById("useNm").value  = "";
- 	$(obj).remove();
- }
 
 /* ********************************************************
  * date input 생성
@@ -716,32 +673,26 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<input id="rcptNm" type="text" title="회원" maxlength="100"
 														readonly="readonly"  value="${resultVO.rcptNm}"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
-													<c:if test="${not empty resultVO.rcptId}">
-														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetRcpt(this)">
-													</c:if>
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
 															readonly="readonly" value="${resultVO.useNm}"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-													<c:if test="${not empty resultVO.useId}">
-														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetUse(this)">
-													</c:if>
 												</td>
 											</tr>
 											<tr>
@@ -767,7 +718,7 @@ window.onload = function(){
 													<label for="">프로젝트</label>
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly" value="${resultVO.prjNm}"/>
 													<button type="button" class="btn"
@@ -776,9 +727,6 @@ window.onload = function(){
 													<form:errors path="prjId" /> 
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
-													<c:if test="${not empty resultVO.prjId}">
-														<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png" onclick="resetPrj(this)">
-													</c:if>
 												</td>
 											</tr>
 											

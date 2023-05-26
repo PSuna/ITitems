@@ -32,7 +32,9 @@ public interface AssetService {
 	public int InsertAssetInfo(AssetInfoVO assetInfoVO);
 	
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO);
-
+	
+	public int deleteAssetInfo(AssetInfoVO assetInfoVO);
+	
 	public int InsertAssetHist(AssetHistVO assetHistVO);
 	
 	public int UpdateAssetHist(AssetHistVO assetHistVO);

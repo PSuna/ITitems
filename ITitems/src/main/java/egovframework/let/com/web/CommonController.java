@@ -66,6 +66,15 @@ public class CommonController {
 	}
 	
 	/**
+	 * 등록진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/RegistIng.do")
+	public String RegistIng() throws Exception {
+
+		return "/com/RegistIng";
+	}
+	
+	/**
 	 * 등록완료 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/RegistSuccess.do")
@@ -108,6 +117,69 @@ public class CommonController {
 	public String UpdtConfirm() throws Exception {
 
 		return "/com/UpdtConfirm";
+	}
+	
+	/**
+	 * 수정진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtIng.do")
+	public String UpdtIng() throws Exception {
+
+		return "/com/UpdtIng";
+	}
+	
+	/**
+	 * 수정완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtSuccess.do")
+	public String UpdtSuccess() throws Exception {
+
+		return "/com/UpdtSuccess";
+	}
+	
+	/**
+	 * 수정실패 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/UpdtFail.do")
+	public String UpdtFail() throws Exception {
+
+		return "/com/UpdtFail";
+	}
+	
+	/**
+	 * 삭제확인 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelConfirm.do")
+	public String DelConfirm() throws Exception {
+
+		return "/com/DelConfirm";
+	}
+	
+	/**
+	 * 삭제완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelSuccess.do")
+	public String DelSuccess() throws Exception {
+
+		return "/com/DelSuccess";
+	}
+	
+	/**
+	 * 삭제실패 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelFail.do")
+	public String DelFail() throws Exception {
+
+		return "/com/DelFail";
+	}
+	
+	/**
+	 * 삭제진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelIng.do")
+	public String DelIng() throws Exception {
+
+		return "/com/DelIng";
 	}
 
 	//사용자목록 엑셀 출력

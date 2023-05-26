@@ -43,7 +43,6 @@
 		<result property="note" column="NOTE" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="assetSn" column="ASSET_SN" />
-		<result property="fileId" column="FILE_ID" />
 		<result property="orgnztId" column="ORGNZT_ID" />
 		<result property="prjId" column="PRJ_ID" />
 		<result property="prjNm" column="PRJ_NM" />
@@ -351,7 +350,6 @@
 			A.NOTE,
 			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
 			A.ASSET_SN,
-			A.FILE_ID,
 			G.ORGNZT_NM AS ORGNZT_ID,
 			B.PRJ_ID,
 			H.PRJ_NAME AS PRJ_NM,
@@ -431,6 +429,16 @@
 		    ACQUIRED_PRICE = #{acquiredPrice}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
+	 
+	<update id="deleteAssetInfo" parameterType="egovframework.let.ass.service.AssetInfoVO">
+		UPDATE 
+			ASSETSINFO
+		   SET 
+		   	USAGE_STAUTS = 'U0'
+		WHERE ASSET_ID = #{assetId}
+	</update>
+	 
+	 
 	 
 	<select id="xlsxTrsfAssetList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"

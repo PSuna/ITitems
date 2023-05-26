@@ -39,6 +39,14 @@
 		parent.fn_egov_modal_remove();
 	}
 
+	function reset_reset() {
+		var val = new Object();
+		val.userId = "";
+		val.userNm = "";
+		val.address = "";
+		parent.parent.returnUser(val);
+	}
+	
 	function fn_egov_return(userId, userNm, address) {
 		var val = new Object();
 		val.userId = userId;
@@ -127,6 +135,10 @@
 						</span>
 					</div>
 					<!--// 검색조건 -->
+					<div class="btn_area">
+	                   	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="reset_reset(); return false;">
+	                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+               	 	</div>
 					<!-- 게시판 -->
 					<div class="board_list selete_table">
 						<table summary="사용자 목록을 제공한다.">
