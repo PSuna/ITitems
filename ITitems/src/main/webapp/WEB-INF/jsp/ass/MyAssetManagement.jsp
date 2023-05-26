@@ -303,8 +303,7 @@ window.onload = function(){
 														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
 														</c:forEach>
-												</select> 
-												
+												</select>   
 												</label> 
 											</div>
 																							

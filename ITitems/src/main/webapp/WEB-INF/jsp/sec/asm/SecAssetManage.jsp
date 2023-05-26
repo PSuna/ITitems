@@ -297,8 +297,6 @@ function fntrsfExcel(){
 												</select>
 												</label> 
 											</div>
-											
-											
 											<div>
 												<span class="lb">분류</span> 
 												<label class="item f_select" for="sel1">

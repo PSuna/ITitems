@@ -35,6 +35,9 @@ public class AssetManageVO implements Serializable {
     private String searchOrgnzt = "";
     
     /** 검색부서 */
+    private String lowerOrgnzt = "";
+    
+    /** 검색부서(임시) */
     private String searchLOrgnzt = "";
     
     /** 기본 검색부서 */
@@ -365,6 +368,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setUserNm(String userNm) {
 		this.userNm = userNm;
+	}
+	public String getLowerOrgnzt() {
+		return lowerOrgnzt;
+	}
+	public void setLowerOrgnzt(String lowerOrgnzt) {
+		this.lowerOrgnzt = lowerOrgnzt;
 	}
 	
 	

@@ -57,7 +57,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  ******************************************************** */
 function insert_asset(){
 		inputFile();
-		let formData = new FormData(document.getElementById('assetRegist'));
+		 let formData = new FormData(document.getElementById('assetRegist'));
 	 	   $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
@@ -427,9 +427,11 @@ function alertValid(objList) {
 		 const dataTransfer = new DataTransfer();
 		 dataTransfer.items.add(obj.files[0]);
 		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 $(obj).closest(".filebox").append($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-			 delFileName();
-			}));
+		 if($(obj).next().prop('tagName') != 'IMG'){
+			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+				 delFileName();
+				}));
+		 }
 		 $(obj).val('');
 	 }
 }
@@ -538,49 +540,6 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수량 -->
-													<label for="assetQty">수량</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" maxlength="20" value="1"
-														onchange="getNumber(this);" onkeyup="getNumber(this);">
-												</td>
-												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
-												</td>
-												<td>
-													<div class="filebox">
-													    <label for="fileFrm">파일찾기</label > 
-													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
-													    <div class="namebox">
-													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
-													    </div>
-													</div>
-													<input name="file" id="file" type="file" style="display: none">
-												</td>
-											</tr>
-											<tr>
-											<td class="lb">
-													<!-- 품명 --> 
-													<label for="">제품명</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
-													<br />
-												</td>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
-												</td>
-												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 제조사 --> 
 													<label for="">제조사</label>
 												</td>
@@ -589,10 +548,39 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
+													<!-- 품명 --> 
+													<label for="">제품명</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<br />
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+												</td>
+												<td>
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
+													<br />
+												</td>
+												<td class="lb">
+													<!-- 수량 -->
+													<label for="assetQty">수량</label> 
+													<span class="req">필수</span>
+												</td>
+												<td>
+													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" maxlength="20" value="1"
+														onchange="getNumber(this);" onkeyup="getNumber(this);">
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td>
+												<td colspan="4">
 												<span class="search_date w_full">
 													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
@@ -667,6 +655,24 @@ window.onload = function(){
 														readonly="readonly" />
 												</td>
 											</tr>  
+											<tr>
+												<td class="lb">
+													<label for="egovComFileUploader">지급확인서</label>
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+												</td>
+												<td colspan="4">
+													<div class="filebox">
+													    <label for="fileFrm">파일찾기</label > 
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
+													    <div class="namebox">
+													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
+													    </div>
+													</div>
+													<input name="file" id="file" type="file" style="display: none">
+												</td>
+												
+											</tr>
+											
 											
 											<tr>
 												<td class="lb">

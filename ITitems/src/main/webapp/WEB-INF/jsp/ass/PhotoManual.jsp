@@ -53,11 +53,15 @@
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
+				
 				<div class="pop_container pop_Manual">
-					<h3>지급받은 제품의 전체 모습을 사진으로 찍어 등록해주세요.</h3>
-					<img alt="" src="<c:url value='/'/>images/PhotoManual.png">
-
-
+					<h3>지급받은 제품의 전체 모습이 담긴 사진과 시리얼넘버(일련번호),제품명을 찍어 등록해주세요.</h3>
+					<h3>(예시)</h3>
+					<div class="PhotoManual">
+					<img alt="" src="<c:url value='/'/>images/PhotoManual1.jpg">
+					<img alt="" src="<c:url value='/'/>images/PhotoManual2.jpg">
+					<img alt="" src="<c:url value='/'/>images/PhotoManual3.jpg">
+					</div>
 				</div>
 			</div>
 		</div>
