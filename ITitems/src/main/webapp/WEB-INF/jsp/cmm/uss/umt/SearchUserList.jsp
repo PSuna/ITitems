@@ -99,8 +99,8 @@
 
 				<div class="pop_container">
 					<!-- 검색조건 -->
-					<div class="condition">
-						<label class="item f_select" for="searchOrgnzt"> <select
+					<div class="condition" style="justify-content: center;">
+						<%-- <label class="item f_select" for="searchOrgnzt"> <select
 							id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서"
 							onchange="javascript:fnSearch(); return false;">
 								<option value="" label="부서" />
@@ -117,28 +117,27 @@
 									<option value="<c:out value="${grade.code}"/>"
 										<c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
 								</c:forEach>
-						</select>
-						</label> <label class="item f_select" for="searchCondition"> <select
+						</select> --%>
+						<%-- </label> <label class="item f_select" for="searchCondition"> <select
 							name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
 								<option value="0"
 									<c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if>>사용자ID</option>
 								<option value="1"
 									<c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if>>사용자명</option>
 						</select>
-						</label> <span class="item f_search"> <input class="f_input w_250"
-							name="searchKeyword" title="검색어" type="text"
-							value="<c:out value="${userSearchVO.searchKeyword}"/>" />
-							<button class="btn" type="submit"
-								onclick="javascript:fnSearch(); return false;">
-								<spring:message code='button.inquire' />
-							</button> <!-- 조회 -->
-						</span>
+						</label> --%> 
+						<div class="pty_search">
+							<span class="item f_search">
+								<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+							</span>
+							<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+						</div>
+						<div class="btn_area"style="margin-top:0px !important;">
+		                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_reset(); return false;">
+		                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+	               	 	</div>
 					</div>
 					<!--// 검색조건 -->
-					<div class="btn_area">
-	                   	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="reset_reset(); return false;">
-	                   	<spring:message code="button.reset" /></a><!-- 등록 -->
-               	 	</div>
 					<!-- 게시판 -->
 					<div class="board_list selete_table">
 						<table summary="사용자 목록을 제공한다.">

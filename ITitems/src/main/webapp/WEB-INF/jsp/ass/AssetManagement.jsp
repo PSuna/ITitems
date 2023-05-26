@@ -48,7 +48,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -78,7 +78,7 @@ function UserSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();

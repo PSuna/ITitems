@@ -101,8 +101,7 @@ function fn_egov_modal_remove() {
                	<li class="gnb_li">
                	
                 	<a href="#LINK" style="width:140px; padding-left: 12px; ">사이트관리</a>
-                	
-             
+
                 	<div class="admin pty_dropdown">	              
 			                <!-- <h3>사용자관리</h3> -->
 			                <ul>

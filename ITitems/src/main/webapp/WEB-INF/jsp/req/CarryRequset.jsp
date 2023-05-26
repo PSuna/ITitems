@@ -41,7 +41,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -203,24 +203,24 @@ function fntrsfExcel(){
 								<form id="searchVO" name="frm" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
-									<div class="condition2">
-										<div class="j_box03">
+									<div class="condition2" style="display: flex;justify-content: center;">
+										<div class="j_box03" style="margin-bottom:0;">
 
-											<div>
+											<div style="margin-bottom:10px;">
 
 												<div>
-													<span class="lb">프로젝트</span>
+													<!-- <span class="lb">프로젝트</span> -->
 													<span class="f_search2 w_full">
-														<input id="prjNm" type="text" title="주소" maxlength="100" readonly="true" />
+														<input id="prjNm" type="text" title="프로젝트" maxlength="100" placeholder="프로젝트" readonly="true" />
 														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 													</span>
-													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
+													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" placeholder="프로젝트"readonly="readonly" />
 												</div>
 												<div>
-													<span class="lb">신청상태</span>
+													<!-- <span class="lb">신청상태</span> -->
 													<label class="item f_select w_full" for="sel1">
 													<select id="searchStatus" name="searchStatus" title="상태">
-														<option value='' label="선택" selected="selected" />
+														<option value='' label="신청상태" selected="selected" />
 														<c:forEach var="stat" items="${status_result}" varStatus="status">
 															<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
 														</c:forEach>
@@ -230,7 +230,7 @@ function fntrsfExcel(){
 											</div>
 											<div>
 												<div class="date_box">
-													<span class="lb">신청일자</span> 
+													<!-- <span class="lb">신청일자</span>  -->
 													<div>
 														<span class="search_date ">
 															<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
@@ -241,7 +241,7 @@ function fntrsfExcel(){
 														</span>
 													</div>
 												</div>
-												<div class="btn_box">
+												<div class="btn_box" style="width:auto !important; align-items: baseline;">
 													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();">검색</button>
 												</div>
 											</div>
