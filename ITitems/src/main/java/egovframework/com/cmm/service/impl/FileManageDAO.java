@@ -63,6 +63,36 @@ public class FileManageDAO extends EgovComAbstractDAO {
 	}
 
 	/**
+	 * 한 개의 파일에 대한 정보(속성 및 상세)를 등록한다. (자산용)
+	 *
+	 */
+	public String insertAssFileInf(FileVO fvo) throws Exception {
+		
+		//String atchFileId = "";
+
+		String atchFileId = fvo.getAtchFileId();
+		insert("FileManageDAO.insertFileMaster", fvo);
+		
+		//atchFileId = vo.getAtchFileId();
+		//System.out.println(">>>>>>" + atchFileId);
+		//insert("FileManageDAO.insertFileMaster", vo);
+		insert("FileManageDAO.insertFileDetail", fvo);
+		
+		/*
+		 * FileVO vo = (FileVO) fileList.get(0); String atchFileId = vo.getAtchFileId();
+		 * 
+		 * insert("FileManageDAO.insertFileMaster", vo);
+		 * 
+		 * Iterator<?> iter = fileList.iterator(); while (iter.hasNext()) { vo =
+		 * (FileVO) iter.next();
+		 * 
+		 * insert("FileManageDAO.insertFileDetail", vo); }
+		 */
+
+		return atchFileId;
+	}
+	
+	/**
 	 * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.
 	 *
 	 * @param vo

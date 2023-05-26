@@ -408,6 +408,8 @@ function AssetList(){
 									<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 										<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
 										<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+										<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+										<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
 									</c:if>
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />

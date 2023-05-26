@@ -217,6 +217,7 @@ function fn_egov_select_noticeList(pageNo) {
  ******************************************************** */
 function inputpush() {
 	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
+	document.frm.lowerOrgnzt.value = '${searchVO.lowerOrgnzt}';
 	document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';

@@ -13,6 +13,7 @@
 		<result property="password" column="password"/>
 		<result property="userSe" column="userSe"/>
 		<result property="orgnztId" column="orgnztId"/>
+		<result property="lowerOrgnztId" column="lowerOrgnztId"/>
 		<result property="grade" column="grade"/>
 		<result property="uniqId" column="uniqId"/>		
 		<result property="authorCode" column="authorCode"/>
@@ -39,7 +40,16 @@
                  , A.IHIDNUM AS ihidNum
                  , A.EMAIL_ADRES AS email
                  , 'USR' AS userSe
-                 , A.ORGNZT_ID AS orgnztId
+	             , CASE
+						WHEN D.ORGNZT_UP IS NULL
+						THEN D.ORGNZT_ID
+						ELSE E.ORGNZT_ID
+				   END AS orgnztId
+				 , CASE 
+						WHEN D.ORGNZT_UP IS NULL
+						THEN NULL
+						ELSE D.ORGNZT_ID
+				   END AS lowerOrgnztId
                  , A.GRADE as grade
                  , A.ESNTL_ID AS uniqId
                  , B.AUTHOR_CODE AS authorCode
@@ -49,6 +59,10 @@
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
    LEFT OUTER JOIN LETTNAUTHORINFO C
                 ON B.AUTHOR_CODE = C.AUTHOR_CODE
+   LEFT OUTER JOIN LETTNORGNZTINFO D
+                ON A.ORGNZT_ID = D.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO E
+                ON D.ORGNZT_UP = E.ORGNZT_ID
              WHERE A.EMPLYR_ID = #{id}
                AND A.PASSWORD = #{password}
                AND A.EMPLYR_STTUS_CODE = 'P'

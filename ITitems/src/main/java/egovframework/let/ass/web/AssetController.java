@@ -157,6 +157,9 @@ public class AssetController {
 		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
 			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
 		}
+		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
+			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
+		}
 		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -301,18 +304,15 @@ public class AssetController {
 		if (isAuthenticated) {
 			List<MultipartFile> photoList = multiRequest.getFiles("photo");
 			for(MultipartFile photo : photoList) {
-				Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
-				photos.put("photo", photo);
-				if (!photos.isEmpty()) {
-					List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
-					fileMngService.insertFileInfs(result);
+				if (!photo.isEmpty()) {
+					FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+					fileMngService.insertAssFileInf(result);
 				}
 			}
-			Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
-			files.put("file", multiRequest.getFile("file"));
-			if (!files.isEmpty()) {
-				List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
-				fileMngService.insertFileInfs(result);
+			MultipartFile file = multiRequest.getFile("file");
+			if (!file.isEmpty()) {
+				FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+				fileMngService.insertAssFileInf(result);
 			}
 		}
 		
@@ -359,31 +359,27 @@ public class AssetController {
 		String[] delPhotoList = delPhoto.split("/");
 		
 		FileVO fvo = new FileVO();
+		fvo.setFileGroup(assetInfoVO.getAssetId());
 		for(String photoId : delPhotoList) {
 			fvo.setAtchFileId(photoId);
 			fileMngService.updateFileListUse(fvo);
 		}
 		List<MultipartFile> photoList = multiRequest.getFiles("photo");
 		for(MultipartFile photo : photoList) {
-			Map<String, MultipartFile> photos = new HashedMap<String, MultipartFile>();
-			System.out.println(">>>>>>>>>>>>>>>>>   " + photo);
-			photos.put("photo", photo);
-			if (!photos.isEmpty()) {
-				List<FileVO> result = fileUtil.parseAssFileInf(photos, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
-				fileMngService.insertFileInfs(result);
+			if (!photo.isEmpty()) {
+				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+				fileMngService.insertAssFileInf(result);
 			}
 		}
 		if(delFile != null && delFile != "") {
 			fvo.setAtchFileId(delFile);
 			fileMngService.updateFileListUse(fvo);
 		}
-		Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
-		files.put("file", multiRequest.getFile("file"));
-		if (!files.isEmpty()) {
-			fvo.setFileGroup(assetInfoVO.getAssetId());
+		MultipartFile file = multiRequest.getFile("file");
+		if (!file.isEmpty()) {
 			fileMngService.updateFileUse(fvo);
-			List<FileVO> result = fileUtil.parseAssFileInf(files, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
-			fileMngService.insertFileInfs(result);
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+			fileMngService.insertAssFileInf(result);
 		}
 		
 		
