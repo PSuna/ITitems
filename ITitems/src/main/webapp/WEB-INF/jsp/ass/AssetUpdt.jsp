@@ -17,6 +17,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -519,7 +520,9 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 
-
+								<%
+									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+								%>
 								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
@@ -527,18 +530,10 @@ window.onload = function(){
 									<h2 class="tit_2">자산수정</h2>
 
 									<br>
-									<!-- 추가/초기화 버튼  -->
-									<!-- <div class="board_view_bot">
-										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="AssetSearch(); return fasle;">기존 자산 등록</a>
-											기존 자산 추가
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="frm_reset(); return fasle;">초기화</a>
-											초기화
-										</div>
-									</div> -->
-									<!-- // 추가/초기화 버튼 끝  -->
+									
+									<c:if test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+									<p><span class="req">필수</span><spring:message code="ass.update.rcpt" /></p>
+									</c:if>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -634,15 +629,25 @@ window.onload = function(){
 													<label for="">소유자</label> 
 													<span class="req">필수</span>
 												</td>
-												<td>
-													<span class="f_search2 w_full"> 
-													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="readonly"  value="${resultVO.rcptNm}"/>
-													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> 
-													<input name="rcptId" id="rcptId" type="hidden"
-														maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
-												</td>
+												<c:choose>
+													<c:when test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+														<td>
+															<input id="rcptNm"  class="f_txt w_full"  type="text" maxlength="100"
+																readonly="readonly"  value="${resultVO.rcptNm}"/>
+														</td>
+													</c:when>
+													<c:otherwise>
+														<td>
+															<span class="f_search2 w_full"> 
+															<input id="rcptNm" type="text" maxlength="100"
+																readonly="readonly"  value="${resultVO.rcptNm}"/>
+															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+															</span> 
+															<input name="rcptId" id="rcptId" type="hidden"
+																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+														</td>
+													</c:otherwise>
+												</c:choose>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
