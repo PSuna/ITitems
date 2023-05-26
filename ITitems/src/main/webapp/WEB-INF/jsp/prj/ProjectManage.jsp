@@ -149,10 +149,7 @@ function setPageUnit(){
 																</select>
 															</label>
 															
-															<div class="excel_btn pty_margin-left_8">
-																<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-																		<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-															</div>
+															
 														</div>
 														
 													</div>
@@ -204,7 +201,13 @@ function setPageUnit(){
 				                </div>
 				                
 				                <div class="btn_area">
+				                	
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+								
+				                
 				                	<a href="<c:url value='/prj/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 " onclick="fnAddProjectView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+	                             	                             
 	                             </div>    		
 				
 								<!-- 페이지 네비게이션 시작 -->
