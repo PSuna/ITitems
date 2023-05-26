@@ -123,19 +123,19 @@
                                  <c:choose> 
 									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_AAAAAAAAAAAA'}"> <!-- 공지사항일때 등록버튼 여부 -->
 	                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-	                                   <div class="board_view_bot">
+	                                   <%-- <div class="board_view_bot">
 											<div class="right_btn btn1">
 	                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
 											</div>
-										</div>
+										</div> --%>
 	                                 </c:if>
 									</c:when> 
 									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}"> <!-- 문의게시판일떄 등록버튼 여부 -->
-           	                         <div class="board_view_bot">
+           	                         <%-- <div class="board_view_bot">
 										<div class="right_btn btn1">
                                     		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
 										</div>
-									 </div>
+									 </div> --%>
 									</c:when> 
 								</c:choose> 
                                 <!-- 검색조건 -->
