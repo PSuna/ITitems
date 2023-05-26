@@ -74,4 +74,8 @@ public class CmmUseDAO extends EgovComAbstractDAO {
 	public List<CmmnDetailCode> selectOgrnztIdUpDetail(ComDefaultCodeVO vo) {
 		return (List<CmmnDetailCode>) list("CmmUseDAO.selectOgrnztIdUpDetail", vo);
 	}
+
+	public List<CmmnDetailCode> selectAuthorCodeDetail(ComDefaultCodeVO vo) {
+		return (List<CmmnDetailCode>) list("CmmUseDAO.selectAuthorCodeDetail", vo);
+	}
 }

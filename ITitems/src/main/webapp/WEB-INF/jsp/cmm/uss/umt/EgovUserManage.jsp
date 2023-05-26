@@ -257,10 +257,12 @@ function getMOrgList(MOval) {
 	                                    	</select>
 	                                    </label>
 	                                    
-	                                    <label class="item f_select w_150" for="searchCondition">
-	                                        <select name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
-	                                            <option value="0" <c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if> >사용자ID</option>
-	                                            <option value="1" <c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자명</option>
+	                                    <label class="item f_select w_150" for="searchAuthor">
+	                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
+	                                        	<option value="" label="권한"/>
+		                                        <c:forEach var="author" items="${auth_result}">
+		                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
+		                                        </c:forEach>
 	                                        </select>
 	                                    </label> 
 										<div class="pty_search">
@@ -379,8 +381,11 @@ function getMOrgList(MOval) {
 												<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 												<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
 											</div>
-		                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-		                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+											
+											<div>
+			                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+			                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+		                                   	</div>
 	                                    </div>
 	                                    
 	                                  

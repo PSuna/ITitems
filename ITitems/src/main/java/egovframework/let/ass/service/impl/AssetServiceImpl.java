@@ -133,6 +133,14 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return assetHistDAO.UpdateAssetHist(assetHistVO);
 	}
 
+	/**
+     * 자산 삭제상태로 변경.
+     */
+	@Override
+	public int deleteAssetInfo(AssetInfoVO assetInfoVO) {
+		
+		return assetInfoDAO.deleteAssetInfo(assetInfoVO);
+	}
 
 	@Override
 	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res)
@@ -163,6 +171,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		}
 		
 	}
+
+
 
 
 

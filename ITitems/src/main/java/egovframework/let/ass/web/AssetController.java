@@ -350,6 +350,7 @@ public class AssetController {
 	 * 자산수정
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
+	@ResponseBody
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, String delFile, String delPhoto) throws Exception {
 
 		assetService.UpdateAssetInfo(assetInfoVO);
@@ -386,7 +387,20 @@ public class AssetController {
 		}
 		
 		
-		return "forward:/ass/SelectAsset.do";
+		return assetInfoVO.getAssetId();
+	}
+	
+	
+	/**
+	 * 자산삭제
+	 */
+	@RequestMapping(value = "/ass/AssetDel.do")
+	@ResponseBody
+	public String AssetDel(AssetInfoVO assetInfoVO) throws Exception {
+		
+		assetService.deleteAssetInfo(assetInfoVO);
+		
+		return assetInfoVO.getAssetId();
 	}
 	
 	/**

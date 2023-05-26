@@ -77,7 +77,14 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO){
 		return update("AssetInfoDAO.UpdateAssetInfo", assetInfoVO);
 	}
-
+	
+	/**
+	 * 자산정보 한건 삭제 처리
+	 */
+	public int deleteAssetInfo(AssetInfoVO assetInfoVO){
+		return update("AssetInfoDAO.deleteAssetInfo", assetInfoVO);
+	}
+	
 	/**
 	 * 전체자산정보 엑셀 추출
 	 */

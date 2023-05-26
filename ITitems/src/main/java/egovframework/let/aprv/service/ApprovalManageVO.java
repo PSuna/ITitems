@@ -35,6 +35,10 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 요청자Id
 	 */
 	private String id;
+	
+	private String userId;
+	
+	private String aprvDate; 
 
 	/**
 	 * 요청자이름
@@ -258,6 +262,22 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setPrjName(String prjName) {
 		this.prjName = prjName;
+	}
+
+	public String getAprvDate() {
+		return aprvDate;
+	}
+
+	public void setAprvDate(String aprvDate) {
+		this.aprvDate = aprvDate;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 

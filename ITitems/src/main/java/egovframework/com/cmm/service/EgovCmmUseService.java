@@ -75,4 +75,13 @@ public interface EgovCmmUseService {
      * @throws Exception
      */
     public List<CmmnDetailCode> selectGroupIdDetail(ComDefaultCodeVO vo) throws Exception;
+
+    /**
+     * 권한정보를 코드형태로 리턴한다.
+     *
+     * @param 조회조건정보 vo
+     * @return 권한정보 List
+     * @throws Exception
+     */
+	public List<CmmnDetailCode> selectAuthorCodeDetail(ComDefaultCodeVO vo);
 }

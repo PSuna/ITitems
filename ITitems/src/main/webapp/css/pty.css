@@ -448,7 +448,9 @@ thead{
 	}
 	
 	.btn_area{
-		text-align: right;
+		/* text-align: right; */
+		display:flex;
+		justify-content: space-between;
 		margin-top:8px;
 	}
 
@@ -456,6 +458,16 @@ thead{
 	margin-top:24px;
 	
 }
+
+.pty_condition{
+	display:flex;
+	justify-content: center;
+	gap: 8px;
+	
+}
+
+
+
 
 
 .pty_margin-right_8{
@@ -465,6 +477,10 @@ thead{
 
 .pty_margin-left_8{
 	margin-left:8px;
+}
+
+.pty_margin-top_8{
+	margin-top: 8px;
 }
 
 .pty_margin-bottom_8{

@@ -7,7 +7,39 @@
 #adminH{
 	color:var(--point-color)!important;
 }
-
+.aprv_top{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+.aprv_table{
+	width:60px;	
+	border-top: 2px solid #666;
+}
+.aprv_table thead tr{
+	min_height:5px;
+}
+.aprv_view{
+	display:flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    border-right:1px solid #666;
+    border-bottom:1px solid #666;
+    
+}
+.aprv_item{
+	border-left:1px solid #666;
+	text-align: center;
+}
+.aprv_col{
+	height:45px;
+	border-bottom:1px solid #666;
+}
+.aprv_nm{
+	font-size:16px !important;
+}
 @media screen and (max-width: 767px){
 	.excel_btn .btn{
 		display:none !important;
