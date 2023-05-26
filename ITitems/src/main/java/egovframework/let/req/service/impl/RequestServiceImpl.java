@@ -112,4 +112,9 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		
 	}
 
+	@Override
+	public List<EgovMap> SelectAprvList(RequestManageVO manageVO) {
+		return requestDAO.SelectAprvList(manageVO);
+	}
+
 }

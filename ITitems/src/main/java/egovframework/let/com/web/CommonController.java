@@ -203,11 +203,18 @@ public class CommonController {
 		requestService.xlsxTrsfReqList(requestManageVO,req,res);
 	}
 	//전체자산목록 엑셀 출력
-		@RequestMapping("/com/xlsxTrsfAssetList.do")
-		public void xlsxTrsfAssetList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
-			LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
-			assetManageVO.setUserId(loginId.getUniqId());
-			assetService.xlsxTrsfAssetList(assetManageVO,req,res);
-		}
-	
+	@RequestMapping("/com/xlsxTrsfAssetList.do")
+	public void xlsxTrsfAssetList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
+		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+		assetManageVO.setUserId(loginId.getUniqId());
+		assetService.xlsxTrsfAssetList(assetManageVO,req,res);
+	}
+
+	//내자산조회 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfMyAssList.do")
+	public void xlsxTrsfMyAssList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
+		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+		assetManageVO.setUserId(loginId.getUniqId());
+		assetService.xlsxTrsfMyAssList(assetManageVO,req,res);
+	}
 }

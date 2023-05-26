@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
+
 /**
  * 신청 관리를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 주소현
@@ -36,4 +38,6 @@ public interface RequestService {
 	public List<RequestDetailVO> SelectRequestDetailVOList (RequestManageVO manageVO);
 
 	public void xlsxTrsfReqList(RequestManageVO requestManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
+
+	public List<EgovMap> SelectAprvList(RequestManageVO manageVO);
 }

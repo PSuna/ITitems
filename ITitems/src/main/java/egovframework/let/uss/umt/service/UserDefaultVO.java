@@ -36,6 +36,10 @@ public class UserDefaultVO implements Serializable {
     /** 본부/부서검색조건 */
     private String searchOrgnzt = "";
     private String searchLOrgnzt = "";
+    
+    /** 권한 */
+    private String searchAuthor = "";
+    		
     /** 직급검색조건 */
     private String searchGrade = "";
     
@@ -262,6 +266,14 @@ public class UserDefaultVO implements Serializable {
 
 	public void setSearchLOrgnzt(String searchLOrgnzt) {
 		this.searchLOrgnzt = searchLOrgnzt;
+	}
+
+	public String getSearchAuthor() {
+		return searchAuthor;
+	}
+
+	public void setSearchAuthor(String searchAuthor) {
+		this.searchAuthor = searchAuthor;
 	}
 
 

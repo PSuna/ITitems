@@ -68,6 +68,14 @@
                AND GROUP_ID LIKE #{detailConditionValue}
             </if>
     </select>
-    
-
+    <select id="selectAuthorCodeDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
+            SELECT #{tableNm} CODE_ID, 
+                   AUTHOR_CODE CODE, 
+                   AUTHOR_NM CODE_NM
+              FROM LETTNAUTHORINFO
+             WHERE 1=1
+            <if test="haveDetailCondition == &quot;Y&quot;">
+               AND AUTHOR_CODE LIKE #{detailConditionValue}
+            </if>
+    </select>
 </mapper>

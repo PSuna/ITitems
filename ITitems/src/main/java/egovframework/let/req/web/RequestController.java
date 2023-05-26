@@ -168,8 +168,8 @@ public class RequestController {
 		request.getSession().setAttribute("baseMenuNo", "100");
 		
 		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
-		  model.addAttribute("resultList",
-		  requestService.SelectRequestDetailVOList(manageVO));
+		  model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
+		  model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		 
 		return "/req/SelectCarry";
 	}

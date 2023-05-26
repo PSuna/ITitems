@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -112,12 +113,30 @@ function CarryList(){
 
 
 								<form id="frm" name="frm" >
-
-									<h1 class="tit_1">자산관리</h1>
- 
-									<h2 class="tit_2">반출요청 정보</h2>
-									
-									<br>
+									<div class="aprv_top">
+										<h2 class="tit_2">반출요청 정보</h2>
+										<div class="aprv_view">
+											<c:forEach var="aprvItem" items="${aprvList_result }">
+												<div class="aprv_item">
+													<table class="aprv_table">
+														<tbody>
+															<tr class="aprv_col">
+																<td class="aprv_nm">${aprvItem.userNm }</td>
+															</tr>
+															<tr>
+																<td>
+																	<c:if test="${aprvItem.reqStatus == 'A0' }"> 
+																	</c:if>
+																	<c:if test="${aprvItem.reqStatus == 'A1' }"> ${aprvItem.aprvDate }
+																	</c:if>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
 									
 									<div class="board_view2">
 										<table>

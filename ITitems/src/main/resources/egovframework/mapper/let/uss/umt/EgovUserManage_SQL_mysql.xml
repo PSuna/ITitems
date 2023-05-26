@@ -35,11 +35,18 @@
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE A.EMPLYR_ID != 'admin'
-		        <if test='searchCondition == "0"'>
+		        <!-- <if test='searchCondition == "0"'>
            		   AND A.EMPLYR_ID LIKE '%' #{searchKeyword} '%'
         		</if>
         		<if test='searchCondition == "1"'>
             	   AND A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		</if> -->
+        		<if test='searchAuthor !=null and searchAuthor !=""'>
+        		   AND D.AUTHOR_CODE = #{searchAuthor}
+        		</if>
+        		<if test='searchKeyword != null and searchKeyword !=""'>
+        		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%')
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
            		   AND (B.ORGNZT_ID = #{searchOrgnzt}
