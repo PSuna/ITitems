@@ -124,11 +124,13 @@ function CarryList(){
 																<td class="aprv_nm">${aprvItem.userNm }</td>
 															</tr>
 															<tr>
-																<td>
-																	<c:if test="${aprvItem.reqStatus == 'A0' }"> 
-																	</c:if>
-																	<c:if test="${aprvItem.reqStatus == 'A1' }"> ${aprvItem.aprvDate }
-																	</c:if>
+																<td class="aprv_td">
+																	<c:choose>
+																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																		</c:when>
+																		<c:otherwise> ${aprvItem.aprvDate }
+																		</c:otherwise>
+																	</c:choose>
 																</td>
 															</tr>
 														</tbody>

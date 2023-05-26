@@ -40,6 +40,7 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	
 	private String aprvDate; 
 
+	private String upreqStatus;
 	/**
 	 * 요청자이름
 	 */
@@ -115,6 +116,7 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 */
 	private String targetUp;
 	
+	private String aprvOrder;
 	
 	public String getReqId() {
 		return reqId;
@@ -278,6 +280,23 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUpreqStatus() {
+		return upreqStatus;
+	}
+
+	public void setUpreqStatus(String upreqStatus) {
+		this.upreqStatus = upreqStatus;
+	}
+
+
+	public String getAprvOrder() {
+		return aprvOrder;
+	}
+
+	public void setAprvOrder(String aprvOrder) {
+		this.aprvOrder = aprvOrder;
 	}
 
 

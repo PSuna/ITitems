@@ -71,8 +71,8 @@
 			#{reqNote},
 			#{prjId},
 			#{pm},
-			DATE_FORMAT(#{startDate}, '%Y-%m-%d'),
-			DATE_FORMAT(#{endDate}, '%Y-%m-%d'),
+			#{startDate},
+			#{endDate},
 			#{place},
 			#{reqGroup} )
 
@@ -256,12 +256,13 @@
 	</select>
 	
 	<select id='SelectAprvList' parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
-		 SELECT E.USER_NM
-			    A.APRV_DATE,
+		 SELECT E.USER_NM,
+			    DATE_FORMAT(A.APRV_DATE,'%m-%d') AS APRV_DATE,
 			    A.REQ_STATUS
 		   FROM APRVTARGET A
 LEFT OUTER JOIN LETTNEMPLYRINFO E
 			 ON E.ESNTL_ID = A.TARGET_ID
 		  WHERE A.REQ_ID = #{reqId}
+	   ORDER BY APRV_ORDER
 	</select>
 </mapper>

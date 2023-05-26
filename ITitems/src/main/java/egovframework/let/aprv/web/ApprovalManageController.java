@@ -20,6 +20,8 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.req.service.RequestManageVO;
+import egovframework.let.req.service.RequestService;
 
 /**
  * 사용자관련 요청을  비지니스 클래스로 전달하고 처리된결과를  해당   웹 화면으로 전달하는  Controller를 정의한다
@@ -57,6 +59,8 @@ public class ApprovalManageController {
 	@Resource(name = "propertiesService")
 	protected EgovPropertyService propertiesService;
 	
+	@Resource(name = "RequestService")
+	private RequestService requestService;
 	/**
 	 * 결재 목록을 조회한다 (paging)
 	 * @param approvalSearchVO 검색조건정보
@@ -129,6 +133,7 @@ public class ApprovalManageController {
 	 */
 	@RequestMapping(value = "/aprv/selectApproval.do")
 	public String SelectApproval(@ModelAttribute("approvalSearchVO") ApprovalDefaultVO approvalSearchVO,
+								RequestManageVO manageVO,
 								@RequestParam("reqId")String reqId,
 								HttpServletRequest request,
 								ModelMap model) throws Exception {
@@ -136,6 +141,7 @@ public class ApprovalManageController {
 		approvalSearchVO.setAuthorCode(loginId.getAuthorCode());
 		approvalSearchVO.setUniqId(loginId.getUniqId());
 		approvalSearchVO.setReqId(reqId);
+		manageVO.setReqId(reqId);
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -148,7 +154,7 @@ public class ApprovalManageController {
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
 		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(reqId));
-		
+		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		return "/aprv/SelectApproval";
 	}
 	
