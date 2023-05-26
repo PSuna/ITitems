@@ -170,6 +170,17 @@ public class ApprovalManageController {
 		approvalManageVO.setTargetId(targetId);
 		return approvalManageService.UpdateApproval(approvalManageVO);
 	}
+	/**
+	 * 반출신청 승인처리
+	 */
+	@RequestMapping(value = "/aprv/ApprovalDisUpdate.do")
+	@ResponseBody
+	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO, HttpServletRequest request, @RequestParam String reqId ) {
+		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
+		String targetId = loginVO.getUniqId();
+		approvalManageVO.setReqId(reqId);
+		approvalManageVO.setTargetId(targetId);
+		return approvalManageService.ApprovalDisUpdate(approvalManageVO);
+	}
 	
-
 }

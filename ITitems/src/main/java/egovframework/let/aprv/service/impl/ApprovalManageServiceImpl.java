@@ -103,4 +103,9 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception {
 		return approvalManageDAO.selectApprovalListB(approvalSearchVO);
 	}
+
+	@Override
+	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO) {
+		return approvalManageDAO.ApprovalDisUpdate(approvalManageVO);
+	}
 }

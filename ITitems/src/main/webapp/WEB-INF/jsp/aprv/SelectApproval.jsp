@@ -64,6 +64,7 @@ function fnAgree(){
 		$(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
 }
+
 /* ********************************************************
  * 승인확인 결과 처리
  ******************************************************** */
@@ -78,16 +79,51 @@ function fnAgree(){
   ******************************************************** */
 function fnUpdate(){
 	 var reqId = document.getElementById("reqId").value;
-	 console.log(reqId);
 	 $.ajax({
 		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do?reqId='+reqId,
 			method: 'POST',
 			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/ApprovalManage.do"
+				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
 			}
 	 });
  }
-
+/* ********************************************************
+ * 반려확인 팝업창
+ ******************************************************** */
+function fnDisAgree(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalDisConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+		    autoOpen: false,
+		    modal: true,
+		    width: 500,
+		    height: 300
+		});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 반려확인 결과 처리
+ ******************************************************** */
+ function returnDisConfirm(val){
+	fn_egov_modal_remove();
+	 if(val){
+		 fnDisUpdate();
+	 }
+}
+ /* ********************************************************
+  * 반려처리
+  ******************************************************** */
+function fnDisUpdate(){
+	 var reqId = document.getElementById("reqId").value;
+	 $.ajax({
+		 	url: '${pageContext.request.contextPath}/aprv/ApprovalDisUpdate.do?reqId='+reqId,
+			method: 'POST',
+			success: function (result) {
+				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+			}
+	 });
+ }
 //-->
 </script>
 <title>ITitems</title>
@@ -151,6 +187,8 @@ function fnUpdate(){
 																<td class="aprv_td">
 																	<c:choose>
 																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																		</c:when>
+																		<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
 																		</c:when>
 																		<c:otherwise> ${aprvItem.aprvDate }
 																		</c:otherwise>
@@ -266,6 +304,10 @@ function fnUpdate(){
 											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>
+											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnDisAgree(); return false;">
+												<spring:message code="button.disagree" />
+											</a>
+											
 										</c:if>
 										<!-- 지급확인 -->
 										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">

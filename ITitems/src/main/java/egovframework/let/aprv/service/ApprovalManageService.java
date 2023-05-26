@@ -53,5 +53,7 @@ public interface ApprovalManageService {
 
 	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
 
+	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO);
+
 
 }

@@ -182,6 +182,18 @@
 		             LIMIT 1) = 'A1';
 	</update>
 	
+	<update id="ApprovalDisUpdate" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
+			UPDATE APRVTARGET
+			   SET REQ_STATUS = 'A2',
+			   	   APRV_DATE = SYSDATE()
+			 WHERE REQ_ID = #{reqId}
+			   AND TARGET_ID = #{targetId};
+			   
+			UPDATE REQUESTS
+	   		   SET REQ_STATUS = 'A2'
+	         WHERE REQ_ID = #{reqId};
+	</update>
+	
 	<insert id="InsertApproval" parameterType="egovframework.let.aprv.service.ApprovalManageVO">
 		INSERT INTO APRVTARGET (REQ_ID,
 								USER_ID,

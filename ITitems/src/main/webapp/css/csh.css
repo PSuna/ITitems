@@ -16,7 +16,7 @@
 }
 .aprv_table{
 	width:60px;	
-	border-top: 2px solid #666;
+	border-top: 1px solid #666;
 }
 .aprv_table thead tr{
 	min_height:5px;
@@ -36,9 +36,6 @@
 .aprv_col{
 	height:45px;
 	border-bottom:1px solid #666;
-}
-.aprv_nm{
-	font-size:16px !important;
 }
 .aprv_td{
 	height:30px;

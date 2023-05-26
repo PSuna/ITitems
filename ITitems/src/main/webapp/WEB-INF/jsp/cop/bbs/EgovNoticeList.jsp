@@ -83,8 +83,7 @@
 </script>
 </c:otherwise>
 </c:choose>
-<title>내부업무 사이트 > 알림정보 > <c:out value="${brdMstrVO.bbsNm}"/></title>
-
+<title>ITEYES-RES</title>
 </head>
 
 <body>
@@ -119,58 +118,43 @@
 
 
                                 <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>    
-                                 <!--  문의사항과 공지사항 등록버튼 권한 구분 -->
-                                 <c:choose> 
-									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_AAAAAAAAAAAA'}"> <!-- 공지사항일때 등록버튼 여부 -->
-	                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
-	                                   <%-- <div class="board_view_bot">
-											<div class="right_btn btn1">
-	                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
-											</div>
-										</div> --%>
-	                                 </c:if>
-									</c:when> 
-									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}"> <!-- 문의게시판일떄 등록버튼 여부 -->
-           	                         <%-- <div class="board_view_bot">
-										<div class="right_btn btn1">
-                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 w_100"><spring:message code="button.create" /></a><!-- 등록 -->
-										</div>
-									 </div> --%>
-									</c:when> 
-								</c:choose> 
+
                                 <!-- 검색조건 -->
-                                <div class="condition">
-                                
-                                	<form name="frm" action ="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" method="post">
-                                	
-                                	<input type="hidden" name="bbsId" value="<c:out value='${boardVO.bbsId}'/>" />
-									<input type="hidden" name="nttId"  value="0" />
-									<input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
-									<input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
-									<input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
-									<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-                                	
-                                	
-                                	<div class="pty_condition">
-                                		
-		                                    <label class="item f_select" for="sel1">
-		                                        <select name="searchCnd" id="searchCnd" title="검색조건 선택">
-		                                            <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >제목</option>
-		                                            <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if> >내용</option>
-		                                            <option value="2" <c:if test="${searchVO.searchCnd == '2'}">selected="selected"</c:if> >작성자</option>
-		                                        </select>
-		                                    </label>
-		
-		                                    <span class="item f_search">
-		                                        <input class="f_input w_350" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
-		                                        <%-- <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 --> --%>
-		                                    </span>
-											<button class="btn pty_btn search_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button><!-- 조회 -->
-		                                    </form>
-		                                </div>
-		                                <!--// 검색조건 -->
-		                            	
-		                            	
+								<div class="condition">
+									<form name="frm"
+										action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>"
+										method="post">
+
+										<input type="hidden" name="bbsId"
+											value="<c:out value='${boardVO.bbsId}'/>" /> <input
+											type="hidden" name="nttId" value="0" /> <input type="hidden"
+											name="bbsTyCode"
+											value="<c:out value='${brdMstrVO.bbsTyCode}'/>" /> <input
+											type="hidden" name="bbsAttrbCode"
+											value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" /> <input
+											type="hidden" name="authFlag"
+											value="<c:out value='${brdMstrVO.authFlag}'/>" /> <input
+											name="pageIndex" type="hidden"
+											value="<c:out value='${searchVO.pageIndex}'/>" />
+
+
+										<div class="pty_condition">
+											<label class="item f_select" for="sel1">
+												<select name="searchCnd" id="searchCnd" title="검색조건 선택">
+													<option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>제목</option>
+													<option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if>>내용</option>
+													<option value="2" <c:if test="${searchVO.searchCnd == '2'}">selected="selected"</c:if>>작성자</option>
+												</select>
+											</label> 
+											<span class="item f_search"> 
+												<input class="f_input w_250" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
+												<%-- <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 --> --%>
+											</span>
+											<button class="btn pty_btn search_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button>
+											<!-- 조회 -->
+										</div>
+									</form>
+								<!--// 검색조건 -->
 								</div>		
                                 <!-- 게시판 -->
                                 
@@ -309,10 +293,26 @@
                                         </tbody>
                                     </table>
                                 </div>
-								
-								<div class="right_btn btn1">
+								<!--  문의사항과 공지사항 등록버튼 권한 구분 -->
+                                 <c:choose> 
+									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_AAAAAAAAAAAA'}"> <!-- 공지사항일때 등록버튼 여부 -->
+	                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+	                                   <div class="board_view_bot">
+											<div class="right_btn btn1">
+	                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
+											</div>
+										</div>
+	                                 </c:if>
+									</c:when> 
+									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}"> <!-- 문의게시판일떄 등록버튼 여부 -->
+           	                         <div class="board_view_bot">
+										<div class="right_btn btn1">
                                     		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
-								</div>
+										</div>
+									 </div>
+									</c:when> 
+								</c:choose> 
+								
 								
 								<!-- 페이지 네비게이션 시작 -->
                                 <div class="board_list_bot">
