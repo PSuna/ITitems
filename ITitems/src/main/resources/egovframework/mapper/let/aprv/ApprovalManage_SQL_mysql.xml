@@ -174,7 +174,8 @@
 			   
 			UPDATE REQUESTS
 	   		   SET REQ_STATUS = 'A1'
-	         WHERE (SELECT REQ_STATUS
+	         WHERE REQ_ID = #{reqId}
+	           AND (SELECT REQ_STATUS
 		      		  FROM APRVTARGET 
 		             WHERE REQ_ID = #{reqId}
 		          ORDER BY REQ_STATUS
@@ -185,11 +186,13 @@
 		INSERT INTO APRVTARGET (REQ_ID,
 								USER_ID,
 								TARGET_ID,
-								TARGET_UP)
+								TARGET_UP,
+								APRV_ORDER)
 		VALUES (#{reqId},
 				#{id},
 				#{targetId},
-				#{targetUp})
+				#{targetUp},
+				#{aprvOrder})
 	</insert>
 	
 	<update id="UpdateRequest" parameterType="egovframework.let.aprv.service.ApprovalManageVO">

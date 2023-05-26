@@ -127,7 +127,7 @@ function insertApproval(reqId){
 		}
 		
 		formdata.append('targetId', targetId);
-		
+		formdata.append('aprvOrder', index);
 		if(targetUp != null && targetUp != ''){
 			console.log(targetUp);
 			formdata.append('targetUp', targetUp);

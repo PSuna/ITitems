@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -136,7 +137,32 @@ function fnUpdate(){
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm">
-									<h2 class="tit_2">결재요청정보</h2>
+									<div class="aprv_top">
+										<h2 class="tit_2">결재요청정보</h2>
+										<div class="aprv_view">
+											<c:forEach var="aprvItem" items="${aprvList_result }">
+												<div class="aprv_item">
+													<table class="aprv_table">
+														<tbody>
+															<tr class="aprv_col">
+																<td class="aprv_nm">${aprvItem.userNm }</td>
+															</tr>
+															<tr>
+																<td class="aprv_td">
+																	<c:choose>
+																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																		</c:when>
+																		<c:otherwise> ${aprvItem.aprvDate }
+																		</c:otherwise>
+																	</c:choose>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
 									<div class="board_view2">
 										<table>
 											<colgroup>
