@@ -364,7 +364,7 @@ function getMOrgList(MOval) {
 	                                                        <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
 	                                                    </span>
 	                                                </td>
-	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageSize) - status.index}"/></td>
+	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageUnit) - status.index}"/></td>
 	                                                <td><c:out value="${result.userNm}"/></td>
 	                                                <td><c:out value="${result.grade}"/></td>
 	                                                <td><c:out value="${result.orgnztId}"/></td>

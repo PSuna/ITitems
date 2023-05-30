@@ -188,7 +188,7 @@ function fntrsfExcel(){
                                 				
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
                                 					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
-                                						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageSize) - status.index}"/></td>
+                                						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageUnit) - status.index}"/></td>
                                 						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>

@@ -358,7 +358,7 @@ function press() {
                                                         <input type="hidden" name="checkId" value="<c:out value="${authorGroup.uniqId}"/>"/>
                                                     </span>
                                                 </td>
-                                                <td><c:out value="${paginationInfo.totalRecordCount - ((authorGroupVO.pageIndex-1) * authorGroupVO.pageSize) - status.index}"/></td>
+                                                <td><c:out value="${paginationInfo.totalRecordCount - ((authorGroupVO.pageIndex-1) * authorGroupVO.pageUnit) - status.index}"/></td>
                                                 <td><c:out value="${authorGroup.userNm}"/></td>
                                                 <td><c:out value="${authorGroup.grade}"/></td>
                                                 <td><c:out value="${authorGroup.orgnztId}"/></td>

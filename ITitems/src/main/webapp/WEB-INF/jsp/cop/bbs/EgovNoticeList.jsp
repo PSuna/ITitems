@@ -143,7 +143,6 @@
 												<select name="searchCnd" id="searchCnd" title="검색조건 선택">
 													<option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>제목</option>
 													<option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if>>내용</option>
-													<option value="2" <c:if test="${searchVO.searchCnd == '2'}">selected="selected"</c:if>>작성자</option>
 												</select>
 											</label> 
 											<span class="item f_search"> 
