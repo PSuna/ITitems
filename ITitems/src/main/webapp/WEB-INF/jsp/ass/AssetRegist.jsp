@@ -59,7 +59,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
 function insert_asset(){
 		inputFile();
 		 let formData = new FormData(document.getElementById('assetRegist'));
-	 	   $.ajax({
+	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
@@ -88,7 +88,7 @@ function insert_asset(){
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
-		        width: 500,
+		        width: 400,
 		        height: 300
 			});
 		    $(".ui-dialog-titlebar").hide();
@@ -118,7 +118,7 @@ function insert_asset(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -134,7 +134,7 @@ function insert_asset(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -171,8 +171,8 @@ function insert_asset(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
-	        height: 400
+	        width: 400,
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');

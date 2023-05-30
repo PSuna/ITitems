@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+:root {
+    --point-color: #ff6600;
+    --main-hover: #0C91E9;
+    --box-color: #fbfbfb;
+    --line-color: #dde2e5;
+    --font-gray: #aaa;
+    --font-gray2: #666;
+    --blue-color: #0465be;
+}
+
 .search_date{
 	display: inline-grid;
     position: relative;
@@ -466,6 +476,10 @@ p .req {
     font-size: 0;
     background: url(../images/ico_req.png) no-repeat;
     vertical-align: 15px;
+}
+
+.check_pop .pop_check h4{
+	
 }
 
 @media screen and (max-width: 767px){
