@@ -138,7 +138,7 @@
 											value="<c:out value='${searchVO.pageIndex}'/>" />
 
 
-										<div class="pty_condition">
+										<div class="j_condition">
 											<label class="item f_select" for="sel1">
 												<select name="searchCnd" id="searchCnd" title="검색조건 선택">
 													<option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>제목</option>
@@ -198,17 +198,11 @@
                                     <table summary="번호, 제목, 게시시작일, 게시종료일, 작성자, 작성일, 조회수  입니다">
                                     	<caption>게시물 목록</caption>
                                         <colgroup>
-                                            <col style="width: 80px;">
-                                            <col style="width: auto;">
-                                            <c:if test="${brdMstrVO.bbsAttrbCode == 'BBSA01'}">
-                                            	<col style="width: 80;">
-                                            	<col style="width: 80;">
-                                            </c:if>
-                                            <c:if test="${anonymous != 'true'}">
-                                            	<col style="width: 100px;">
-                                            </c:if>
-                                            <col style="width: 120px;">
-                                            <col style="width: 100px;">
+                                            <col style="width: 8%;">
+                                            <col style="width: 57%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 10%;">
                                         </colgroup>
                                         <thead>
                                             <tr>
