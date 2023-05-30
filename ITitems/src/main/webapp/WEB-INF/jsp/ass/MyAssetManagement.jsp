@@ -351,7 +351,7 @@ window.onload = function(){
 											</div>  
 										</div>
 									</div>	
-								</form>
+								
 								<!--// 검색 조건 -->
 								<div class="board_list_top">
 									<div class="left_col">
@@ -387,6 +387,7 @@ window.onload = function(){
 											</div>
 										</div>
                                 </div>
+                                </form>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>

@@ -153,6 +153,11 @@ function fntrsfExcel(){
 	    document.frm.submit();
 	}
 }
+function setPageUnit(){
+	document.frm.pageIndex.value = 1;
+    document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
+    document.frm.submit();
+}
 </script>
 <style type="text/css">
 .board_view_bot {
@@ -231,7 +236,7 @@ function fntrsfExcel(){
 											<div>
 												<div class="date_box">
 													<!-- <span class="lb">신청일자</span>  -->
-													<div>
+													<div style="margin-left:2px;">
 														<span class="search_date ">
 															<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
 														</span>
@@ -242,12 +247,11 @@ function fntrsfExcel(){
 													</div>
 												</div>
 												<div class="btn_box" style="width:auto !important; align-items: baseline;">
-													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();">검색</button>
+													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();" style="margin-left:5px;">검색</button>
 												</div>
 											</div>
 										</div>
 									</div>
-								</form>
 
 								<!--// 검색 조건 -->
 
@@ -270,12 +274,12 @@ function fntrsfExcel(){
 															<label class="item f_select" for="pageUnit"> 
 																	
 																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																		<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																		<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																		<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																		<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																		<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																		<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 																</select>
 															</label>
 															
@@ -288,6 +292,7 @@ function fntrsfExcel(){
 												</div>
                               			</div>
 	                                </div>
+								</form>
 								
 								
 								<div class="board_list">

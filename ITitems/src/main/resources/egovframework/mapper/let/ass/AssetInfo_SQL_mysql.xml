@@ -459,40 +459,77 @@
 		resultType="egovMap">
 		
 	    SELECT 
-	    	   IFNULL(LARGE_CATEGORY,'') LARGE_CATEGORY, 
-	    	   IFNULL(MIDDLE_CATEGORY, '') MIDDLE_CATEGORY,
-	    	   IFNULL(ASSET_NAME, '') ASSET_NAME,
-	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
-	    	   IFNULL(ORGNZT_NM, '') ORGNZT_NM,
+	    	   IFNULL(ORGNZT_ID,'') HIGHER_ORGNZT_ID, 
+	    	   IFNULL(LOWER_ORGNZT_ID, '') LOWER_ORGNZT_ID,
 	    	   IFNULL(PRJ_ID, '') PRJ_NM,
-	    	   IFNULL(REG_DATE,'') REG_DATE
-	      FROM (
+	    	   IFNULL(MIDDLE_CATEGORY, '') ASSET_MIDDLE_CATEGORY,
+	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
+	    	   IFNULL(USE_NM, '') USE_NM,
+	    	   IFNULL(RCPT_NM,'') RCPT_NM
+		  FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
 					D.CAT_NAME AS MIDDLE_CATEGORY,
-					A.ASSET_NAME,
-					A.ASSET_QTY, 
-					H.ORGNZT_NM,
-					G.PRJ_NAME AS PRJ_ID,
-					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE
-				  FROM ASSETSINFO A
-				  LEFT OUTER JOIN ASSETSHIST B
+					A.ASSET_QTY,
+					CASE
+						WHEN F.ORGNZT_UP IS NULL
+						THEN F.ORGNZT_NM
+						ELSE G.ORGNZT_NM
+					 END AS ORGNZT_ID,
+					CASE 
+						WHEN F.ORGNZT_UP IS NULL
+						THEN NULL
+						ELSE F.ORGNZT_NM
+					 END AS LOWER_ORGNZT_ID,
+	    	   		H.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					I.USER_NM AS USE_NM,
+					J.USER_NM AS RCPT_NM
+				  FROM ASSETSINFO A 
+	              LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
-				  LEFT OUTER JOIN CATEGORY C
+	              LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
-				  LEFT OUTER JOIN CATEGORY D
+	              LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	              LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
-				    ON B.APPROVAL = F.CODE
-				  LEFT OUTER JOIN PROJECTS G
-				    ON B.PRJ_ID = G.PRJ_ID
-				  LEFT OUTER JOIN LETTNORGNZTINFO H
-				    ON B.ORGNZT_ID = H.ORGNZT_ID
-		        	<include refid="search" />
+	              LEFT OUTER JOIN LETTNORGNZTINFO F
+	   				ON B.ORGNZT_ID = F.ORGNZT_ID
+	   			  LEFT OUTER JOIN LETTNORGNZTINFO G
+	   				ON F.ORGNZT_UP = G.ORGNZT_ID
+	   			  LEFT OUTER JOIN PROJECTS H
+	   				ON B.PRJ_ID = H.PRJ_ID
+	   			  LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.USE_ID = I.ESNTL_ID
+	              LEFT OUTER JOIN LETTNEMPLYRINFO J
+	                ON B.RCPT_ID = J.ESNTL_ID  
+	             <where>
+		               <choose>
+		                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
+							AND B.ORGNZT_ID = #{searchOrgnzt}
+							<include refid="search" />
+							 OR B.ORGNZT_ID = #{searchOrgnzt}
+							<include refid="search" />
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
+							<include refid="search" />
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
+							<include refid="search" />
+		                </when>
+		                <when test="searchOrgnzt != null and searchOrgnzt != ''">
+		                	AND B.ORGNZT_ID = #{searchOrgnzt}
+							<include refid="search" />
+							 OR F.ORGNZT_UP = #{searchOrgnzt}
+							<include refid="search" />
+		                </when>
+		                <otherwise>
+		                	<include refid="search" />
+		                </otherwise>
+		               </choose>
+				 </where>
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>

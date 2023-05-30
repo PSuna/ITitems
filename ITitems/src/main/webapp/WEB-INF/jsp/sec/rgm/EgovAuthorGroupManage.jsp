@@ -139,7 +139,11 @@ function fncSelectAuthorGroupList(pageNo){
     document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
 }
-
+function setPageUnit(){
+	document.listForm.pageIndex.value = 1;
+    document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
+    document.listForm.submit();
+}
 function fncAddAuthorGroupInsert() {
 	
     if(!fncManageChecked()) return;
@@ -211,7 +215,12 @@ function press() {
 }
 //-->
 </script>
-
+<style>
+	.btn_area{
+	justify-content: flex-end !important;
+	}
+	
+</style>
 </head>
 
 <body>
@@ -371,7 +380,7 @@ function press() {
                                 </div>
 								
 								<div class="right_col btn_area">                                                                        	
-										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+										<!-- <button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button> -->
                                			<a href="#LINK" class="btn btn_blue_46" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
                                			
                                 </div>
