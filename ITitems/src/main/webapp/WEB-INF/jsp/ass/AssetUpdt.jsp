@@ -89,7 +89,7 @@ function UpdateAsset(){
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
-		        width: 500,
+		        width: 400,
 		        height: 300
 		        
 			});
@@ -120,7 +120,7 @@ function UpdtIng(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 500,
+        width: 400,
         height: 300
 	});
     $(".ui-dialog-titlebar").hide();
@@ -138,7 +138,7 @@ function UpdtIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -164,8 +164,8 @@ function UpdtIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
-	        height: 400
+	        width: 400,
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');

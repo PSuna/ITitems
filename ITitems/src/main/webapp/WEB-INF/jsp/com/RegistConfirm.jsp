@@ -26,8 +26,6 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -52,7 +50,7 @@
 		기능을 사용하실 수 없습니다.</noscript>
 
 		<!-- 프로젝트 찾기 팝업 -->
-		<div class="popup POP_POST_SEARCH">
+		<div class="popup POP_POST_SEARCH check_pop">
 			<div class="pop_inner">
 				<div class="pop_header">
 					<h1>등록확인</h1>
