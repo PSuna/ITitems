@@ -88,6 +88,14 @@ function fnDeleteUser() {
         }
     }
 }
+/* ********************************************************
+ * 페이지 이동
+ ******************************************************** */
+function fnLinkPage(pageNo){
+    document.listForm.pageIndex.value = pageNo;
+    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+    document.listForm.submit();
+}
 function fnSelectUser(id) {
     document.listForm.selectedId.value = id;
     array = id.split(":");

@@ -58,7 +58,7 @@ function fnAgree(){
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
-		    width: 500,
+		    width: 400,
 		    height: 300
 		});
 		$(".ui-dialog-titlebar").hide();
@@ -96,7 +96,7 @@ function fnDisAgree(){
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
-		    width: 500,
+		    width: 400,
 		    height: 300
 		});
 		$(".ui-dialog-titlebar").hide();
