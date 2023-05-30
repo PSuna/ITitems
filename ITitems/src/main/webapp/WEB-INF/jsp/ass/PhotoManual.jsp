@@ -25,8 +25,6 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -55,8 +53,9 @@
 				</div>
 				
 				<div class="pop_container pop_Manual">
-					<h3>지급받은 제품의 전체 모습이 담긴 사진과 시리얼넘버(일련번호),제품명을 찍어 등록해주세요.</h3>
-					<h3>(예시)</h3>
+					<p>지급받은 제품의 전체 모습이 담긴 사진과</p>
+					<p>시리얼넘버(일련번호),제품명을 찍어 등록해주세요.</p>
+					<p>(예시)</p>
 					<div class="PhotoManual">
 					<img alt="" src="<c:url value='/'/>images/PhotoManual1.jpg">
 					<img alt="" src="<c:url value='/'/>images/PhotoManual2.jpg">

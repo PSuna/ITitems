@@ -8,6 +8,7 @@
     --font-gray: #aaa;
     --font-gray2: #666;
     --blue-color: #0465be;
+    
 }
 
 .search_date{
@@ -74,12 +75,16 @@
 
 .pop_Manual {
 	text-align: center;
-	line-height: 6;
+	line-height: 3;
 }
 
 .pop_Manual_File{
 	text-align: center;
 	line-height: 3;
+}
+
+.pop_Manual_File img{
+	width: 95%
 }
 
 .board_list th{
@@ -465,7 +470,7 @@ form .condition2{
 }
 
 .PhotoManual img{
-    width: 29%;
+    width: 32%;
     margin: auto;
 }
 

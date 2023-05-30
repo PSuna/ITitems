@@ -380,8 +380,8 @@ function PhotoManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 500
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -397,8 +397,8 @@ function AssetSnManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 450
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -414,7 +414,7 @@ function FileManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -634,6 +634,8 @@ window.onload = function(){
 														<td>
 															<input id="rcptNm"  class="f_txt w_full"  type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
+															<input name="rcptId" id="rcptId" type="hidden"
+																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
 														</td>
 													</c:when>
 													<c:otherwise>
@@ -739,7 +741,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												<td colspan="4">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
