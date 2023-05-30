@@ -78,15 +78,17 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					insertApproval(result);
+					
 				},
 				error: function (error) {
 					RegistFail();
+					return;
 				}
 			}) 
 		}
 		
 	});
+	insertApproval(result);
 }
 
 /* ********************************************************

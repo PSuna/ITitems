@@ -68,7 +68,11 @@
 		document.listForm.pageIndex.value = 1;
 		document.listForm.submit();
 	}
-	
+	function fnLinkPage(pageNo){
+	    document.listForm.pageIndex.value = pageNo;
+	    document.listForm.action = "<c:url value='/uss/umt/user/SearchUserList.do'/>";
+	    document.listForm.submit();
+	}
 	function fnSearch(){
 	    document.listForm.pageIndex.value = 1;
 	    document.listForm.action = "<c:url value='/uss/umt/user/SearchUserList.do'/>";
@@ -86,7 +90,10 @@
 		action="<c:url value='/uss/umt/user/SearchUserList.do'/>"
 		method="post">
 		<input name="selectedId" type="hidden" />
+		<input name="checkedIdForDel" type="hidden" />
 		<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
+		<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
+		<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
 
 		<!-- 프로젝트 찾기 팝업 -->
 		<div class="popup POP_POST_SEARCH">
@@ -178,16 +185,15 @@
 					</div>
 
 					<!-- 페이지 네비게이션 시작 -->
-					<div class="board_list_bot">
-						<div class="paging" id="paging_div">
-							<ul>
-							<li>
-								<ui:pagination paginationInfo="${paginationInfo}" type="image"
-									jsFunction="fn_egov_pageview" />
-									</li>
-							</ul>
-						</div>
-					</div>
+					<c:if test="${!empty userSearchVO.pageIndex }">
+	                    <div class="board_list_bot">
+		                    <div class="paging" id="paging_div">
+		                    	<ul>
+		                        	<ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fnLinkPage" />
+		                        </ul>
+		                    </div>
+	                    </div>
+                    </c:if>
 					<!-- // 페이지 네비게이션 끝 -->
 					<!--// 게시판 -->
 				</div>

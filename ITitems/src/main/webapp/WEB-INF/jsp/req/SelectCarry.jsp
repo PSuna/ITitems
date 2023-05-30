@@ -106,7 +106,7 @@ function CarryList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출요청 정보</li>
+										<li>반출신청 정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -114,7 +114,7 @@ function CarryList(){
 
 								<form id="frm" name="frm" >
 									<div class="aprv_top">
-										<h2 class="tit_2">반출요청 정보</h2>
+										<h2 class="tit_2">반출신청 정보</h2>
 										<div class="aprv_view">
 											<c:forEach var="aprvItem" items="${aprvList_result }">
 												<div class="aprv_item">
