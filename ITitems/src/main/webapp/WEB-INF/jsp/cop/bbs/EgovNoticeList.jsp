@@ -170,7 +170,7 @@
 																	
 														</div>
 															
-														<div style="display: flex; align-items: center;">
+														<%-- <div style="display: flex; align-items: center;">
 															<span style="margin-right: 16px;">페이지당 항목 수</span> 
 															<label class="item f_select" for="pageUnit"> 
 																	
@@ -185,7 +185,7 @@
 															</label>
 															
 															
-														</div>
+														</div> --%>
 														
 													</div>
 													
