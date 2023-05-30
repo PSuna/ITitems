@@ -526,7 +526,7 @@ window.onload = function(){
 												varStatus="status">
 												<tr onclick="childNodes[1].childNodes[1].submit();">
 													<td>
-														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 														<form name="subForm" method="post"
 															action="<c:url value='/ass/SelectAsset.do'/>">
 															<input type="hidden" name="assetId"

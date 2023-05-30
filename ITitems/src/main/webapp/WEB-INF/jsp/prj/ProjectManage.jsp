@@ -181,7 +181,7 @@ function setPageUnit(){
 				                        <tbody>
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
 				                            <tr>
-				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td>
+				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}"/></td>
 				                                <td class="pty_text-align_left pty_padding-left_24">
 				                                <a href="<c:url value='/prj/ProjectSelectView.do'/>?selectedId=<c:out value="${resultInfo.prjId}"/>" class="lnk">
 				                                ${resultInfo.prjName}
@@ -201,10 +201,10 @@ function setPageUnit(){
 				                </div>
 				                
 				                <div class="btn_area">
-				                	
+				                	<div class="excel_btn pty_margin-left_8">
 									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-								
+									</div>
 				                
 				                	<a href="<c:url value='/prj/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 " onclick="fnAddProjectView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 	                             	                             

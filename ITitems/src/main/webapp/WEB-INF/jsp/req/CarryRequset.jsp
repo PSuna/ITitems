@@ -301,8 +301,9 @@ function setPageUnit(){
 											<col style="width: 5%;">
 											<col style="width: 10%;">
 											<col style="width: 40%;">
-											<col style="width: 20%;">
 											<col style="width: 15%;">
+											<col style="width: 12%;">
+											<col style="width: 8%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
@@ -311,6 +312,7 @@ function setPageUnit(){
 												<th scope="col">분류</th>
 												<th scope="col">프로젝트명</th>
 												<th scope="col">사용장소</th>
+												<th scope="col">신청자</th>
 												<th scope="col">신청일자</th>
 												<th scope="col">상태</th>
 											</tr>
@@ -324,7 +326,7 @@ function setPageUnit(){
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
 												<tr onclick="childNodes[1].childNodes[1].submit();">
-													<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
+													<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 														<form name="subForm" method="post"
 															action="<c:url value='/req/SelectCarry.do'/>">
 															<input type="hidden" name="reqId"
@@ -333,6 +335,7 @@ function setPageUnit(){
 													<td><c:out value="${result.reqGroup}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.place}" /></td>
+													<td><c:out value="${result.id}" /></td>
 													<td><c:out value="${result.reqDate}" /></td>
 													<td><c:out value="${result.reqStatus}" /></td>
 												</tr>

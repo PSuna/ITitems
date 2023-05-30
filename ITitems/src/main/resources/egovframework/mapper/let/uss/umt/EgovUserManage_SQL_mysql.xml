@@ -24,7 +24,8 @@
 				       A.EMPLYR_STTUS_CODE sttus,
 				       DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
 				       C.CODE_NM grade,
-				       D.AUTHOR_NM authorCode
+				       D.AUTHOR_NM authorCode,
+				       A.EM_ORDER emOrder
 			   	  FROM LETTNEMPLYRINFO A
 	   LEFT OUTER JOIN LETTNORGNZTINFO B
 				    ON B.ORGNZT_ID = A.ORGNZT_ID
@@ -51,8 +52,9 @@
 				</if>
         		<if test='searchGrade != ""'>
        	     	   AND C.CODE = #{searchGrade} 
-        		</if>) A
-      ORDER BY userNm ASC, sbscrbDe DESC
+        		</if>
+        		) A
+      ORDER BY emOrder ASC, userNm ASC, sbscrbDe DESC
          LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
     
@@ -69,7 +71,8 @@
 				       A.EMPLYR_STTUS_CODE sttus,
 				       DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
 				       C.CODE_NM grade,
-				       D.AUTHOR_NM authorCode
+				       D.AUTHOR_NM authorCode,
+				       A.EM_ORDER emOrder
 			   	  FROM LETTNEMPLYRINFO A
 	   LEFT OUTER JOIN LETTNORGNZTINFO B
 				    ON B.ORGNZT_ID = A.ORGNZT_ID
@@ -96,7 +99,9 @@
 				</if>
         		<if test='searchGrade != ""'>
        	     	   AND C.CODE = #{searchGrade} 
-        		</if>) A
+        		</if>
+        		) A
+        		ORDER BY emOrder ASC
     </select>
     
     <insert id="insertUser_S">
@@ -286,8 +291,10 @@
 				          FROM LETTNAUTHORINFO 
 				         WHERE AUTHOR_CODE =(SELECT AUTHOR_CODE 
 				      						   FROM LETTNEMPLYRSCRTYESTBS 
-				      					      WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode
-			   FROM LETTNEMPLYRINFO A) A
+				      					      WHERE SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID)) as authorCode,
+				       A.EM_ORDER emOrder
+			   FROM LETTNEMPLYRINFO A
+			   ) A
          WHERE userId != 'admin'
 		<if test='searchCondition == "0"'>
            AND userId LIKE '%' #{searchKeyword} '%'
@@ -306,7 +313,7 @@
        				     WHERE CODE = #{searchGrade} 
        				       AND CODE_ID = 'COM002')
         </if>
-         ORDER BY userNm ASC, sbscrbDe DESC
+         ORDER BY emOrder ASC, userNm ASC, sbscrbDe DESC
          LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
     
