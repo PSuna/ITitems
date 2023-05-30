@@ -348,8 +348,8 @@ function PhotoManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 500
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -365,8 +365,8 @@ function AssetSnManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 450
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -382,7 +382,7 @@ function FileManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
