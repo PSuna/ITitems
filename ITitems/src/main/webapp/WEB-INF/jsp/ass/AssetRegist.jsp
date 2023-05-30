@@ -600,7 +600,7 @@ window.onload = function(){
 													<label for="">소유자</label> 
 													<span class="req">필수</span>
 												</td>
-												<td class="search_td">
+												<td>
 													<c:set var="Nm" value="<%= loginVO.getName()%>"/>
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_full"> 
@@ -615,7 +615,7 @@ window.onload = function(){
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
-												<td class="search_td">
+												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
 															readonly="false" value="<c:out value="${Nm}"></c:out>"/>
@@ -632,12 +632,21 @@ window.onload = function(){
 												</td>
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
+													<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
 													<label class="f_select w_full" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" title="부서">
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>>
+																<option value="${orgnztId.code}" 
+																<c:choose>
+																	<c:when test="${not empty lowerOrgnztId}">
+																		<c:if test="${orgnztId.code == lowerOrgnztId}">selected="selected"</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>
+																	</c:otherwise>
+																</c:choose>>
 																	<c:out value="${orgnztId.codeNm}" />
 																</option>
 															</c:forEach>
@@ -648,7 +657,7 @@ window.onload = function(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td class="search_td">
+												<td>
 													<span class="f_search2 w_full"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly" />

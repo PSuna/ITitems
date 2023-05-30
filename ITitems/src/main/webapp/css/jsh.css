@@ -482,11 +482,11 @@ p .req {
     background: url(../images/ico_req.png) no-repeat;
     vertical-align: 15px;
 }
-
-.check_pop .pop_check h4{
-	
+.j_condition{
+	display: flex;
+    justify-content: center;
+    gap: 8px;
 }
-
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;
@@ -496,14 +496,14 @@ p .req {
 		margin: 0 10px 0px 5px;
 	}
 	.j_box01 .date_box,.j_box02 .date_box{
-		width: 45% !important;
+		width: 47% !important;
 	}
 	.date_box div{
 		width: 100%;
 	}
 	
 	.j_box01 .btn_box,.j_box02 .btn_box{
-		width: 10% !important;
+		width: 12% !important;
 	}
 	
 	form .condition2{
@@ -511,7 +511,7 @@ p .req {
 	}
 	
 	.j_box01 .search_box{
-		width: 35% !important;
+		width: 37% !important;
 	}
 	
 	.j_box02 .search_box{
