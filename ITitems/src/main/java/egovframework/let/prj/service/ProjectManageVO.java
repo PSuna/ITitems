@@ -57,6 +57,8 @@ public class ProjectManageVO extends ProjectVO implements Serializable {
     /** 전체 마지막페이지 인덱스*/
     private int endPage;
     
+    private int recordCountPerPage;
+    
 
     public int getFirst() {
 		first = (getPageIndex() - 1) * getPageUnit() + 1;
@@ -136,6 +138,12 @@ public class ProjectManageVO extends ProjectVO implements Serializable {
 	}
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
+	}
+	public int getRecordCountPerPage() {
+		return recordCountPerPage;
+	}
+	public void setRecordCountPerPage(int recordCountPerPage) {
+		this.recordCountPerPage = recordCountPerPage;
 	}
 	
 }

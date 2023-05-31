@@ -53,7 +53,10 @@ function UserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-
+function fnListPage(){
+	document.userManageVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+    document.userManageVO.submit();
+}
 function returnUser(val){
 	
 	if (val) {

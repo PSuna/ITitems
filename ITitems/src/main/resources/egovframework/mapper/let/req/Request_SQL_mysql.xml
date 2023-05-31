@@ -173,7 +173,7 @@
 		resultType="egovframework.let.req.service.RequestVO">
 				SELECT 
 					B.USER_NM AS ID, 
-					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE, 
+					DATE_FORMAT(A.REQ_DATE,'%m-%d') AS REQ_DATE, 
 					D.CODE_NM AS REQ_STATUS, 
 					A.REQ_NOTE, 
 					C.PRJ_NAME AS PRJ_ID, 
@@ -261,7 +261,8 @@
 	<select id='SelectAprvList' parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
 		 SELECT E.USER_NM,
 			    DATE_FORMAT(A.APRV_DATE,'%m-%d') AS APRV_DATE,
-			    A.REQ_STATUS
+			    A.REQ_STATUS,
+			    A.APRV_ORDER
 		   FROM APRVTARGET A
 LEFT OUTER JOIN LETTNEMPLYRINFO E
 			 ON E.ESNTL_ID = A.TARGET_ID
