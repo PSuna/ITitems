@@ -185,9 +185,9 @@ function getMCatList() {
 	let val = document.getElementById('largeCategory').value;
 
 	if(val == "cat1"){
-		$('#assetQty').attr("readonly","readonly").val("1");
+		$('#assetQty').attr("readonly","readonly").addClass("readonly").val("1");
 	}else{
-		$('#assetQty').removeAttr("readonly");
+		$('#assetQty').removeAttr("readonly").removeClass("readonly");
 	}
 		
 	$.ajax({
@@ -288,6 +288,10 @@ function returnUser(val){
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.userId;
 			document.getElementById("rcptNm").value  = val.userNm;
+			if(val.userNm == "공용소유"){
+				document.getElementById("useId").value  = val.userId;
+				document.getElementById("useNm").value  = val.userNm;
+			}
 		}else if(userCheck == 1){
 			document.getElementById("useId").value  = val.userId;
 			document.getElementById("useNm").value  = val.userNm;
@@ -593,7 +597,7 @@ window.onload = function(){
 												</td>
 												<td colspan="4">
 												<span class="search_date w_full">
-													<input id="rcptDate" class="f_txt w_full" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
+													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
 												</td>
 											</tr>

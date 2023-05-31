@@ -164,7 +164,7 @@
 													<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
 														
 														<div>
-															<span style="margin:0;">Totall</span> 
+															<span style="margin:0;">Total : </span> 
 															<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
 																	
 														</div>
@@ -264,7 +264,8 @@
 									                        <input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
 									                        <input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
 									                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-									                        
+									                        <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
+			                    							<input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 									                        <c:out value="${result.nttSj}"/>
                                                 		</c:otherwise>
 			            							</c:choose>
