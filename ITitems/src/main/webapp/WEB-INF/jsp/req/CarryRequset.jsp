@@ -313,7 +313,7 @@ function setPageUnit(){
 												<th scope="col">프로젝트명</th>
 												<th scope="col">사용장소</th>
 												<th scope="col">신청자</th>
-												<th scope="col">신청일자</th>
+												<th scope="col">신청일</th>
 												<th scope="col">상태</th>
 											</tr>
 										</thead>

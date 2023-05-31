@@ -176,11 +176,27 @@ function fnDisUpdate(){
 									<div class="aprv_top">
 										<h2 class="tit_2">결재요청정보</h2>
 										<div class="aprv_view">
-											<c:forEach var="aprvItem" items="${aprvList_result }">
+											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
+												<tbody>
+													<tr style="border-bottom:1px solid black;">
+														<td>신청자</td>
+													</tr>
+													<tr class="aprv_col" style="border-bottom:1px solid black;">
+														<td class="aprv_nm">${approvalVO.userNm}</td>
+													</tr>
+													<tr>
+														<td class="aprv_td">${approvalVO.reqDate}</td>
+													</tr>
+												</tbody>
+											</table>
+											<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
 												<div class="aprv_item">
-													<table class="aprv_table">
+													<table class="aprv_table" style="margin:0;border:1px solid black;">
 														<tbody>
-															<tr class="aprv_col">
+															<tr style="border-bottom:1px solid black;">
+																<td>결재자${status.count}</td>
+															</tr>
+															<tr class="aprv_col" style="border-bottom:1px solid black;">
 																<td class="aprv_nm">${aprvItem.userNm }</td>
 															</tr>
 															<tr>

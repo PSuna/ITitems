@@ -163,18 +163,20 @@ function fntrsfExcel(){
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
 	                                            <col style="width: 5%;">
-	                                            <col style="width: 15%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 45%;">
-	                                            <col style="width: 15%;">
-	                                            <col style="width: 10%;">
+												<col style="width: 10%;">
+												<col style="width: 40%;">
+												<col style="width: 15%;">
+												<col style="width: 12%;">
+												<col style="width: 8%;">
+												<col style="width: 10%;">
                                         	</colgroup>
                                         	<thead>
                                         		<tr>
 	                                				<th scope="col">번호</th>
-	                                				<th scope="col">신청자</th>
 	                                				<th scope="col">분류</th>
 	                                				<th scope="col">프로젝트명</th>
+	                                				<th scope="col">사용장소</th>
+	                                				<th scope="col">신청자</th>
 	                                				<th scope="col">신청일</th>
 	                                				<th scope="col">상태</th>
                                 				</tr>
@@ -189,9 +191,10 @@ function fntrsfExcel(){
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
                                 					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageUnit) - status.index}"/></td>
-                                						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>
+                                						<td><c:out value="${result.place}"/></td>
+                                						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqDate}"/></td>
                                 						<td><c:out value="${result.reqStatus}"/></td>
                                 					</tr>
