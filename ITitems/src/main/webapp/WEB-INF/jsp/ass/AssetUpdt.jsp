@@ -632,7 +632,7 @@ window.onload = function(){
 												<c:choose>
 													<c:when test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 														<td>
-															<input id="rcptNm"  class="f_txt w_full"  type="text" maxlength="100"
+															<input id="rcptNm"  class="f_txt w_full readonly"  type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
 															<input name="rcptId" id="rcptId" type="hidden"
 																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>

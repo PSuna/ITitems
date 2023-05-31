@@ -487,6 +487,10 @@ p .req {
     justify-content: center;
     gap: 8px;
 }
+
+.readonly{
+background: #F7F7F7;
+}
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;

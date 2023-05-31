@@ -225,6 +225,7 @@ public class EgovBBSManageController {
 		}
 
 		model.addAttribute("brdMstrVO", masterVo);
+		model.addAttribute("searchVO", boardVO);
 
 		return "cop/bbs/EgovNoticeInqire";
 	}

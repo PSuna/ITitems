@@ -143,8 +143,17 @@ window.onload = function(){
 	  }
 
 function CarryRegist() {
-	 document.regist.submit();
+	document.frm.action = "<c:url value='/req/CarryRegist.do'/>";
+    document.frm.submit(); 
 }
+
+function SelectCarry(reqId) {
+	event.preventDefault();
+	document.frm.reqId.value = reqId;
+    document.frm.action = "<c:url value='/req/SelectCarry.do'/>";
+    document.frm.submit(); 
+}
+
 function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
@@ -200,14 +209,11 @@ function setPageUnit(){
 								</div>
 								<!--// Location -->
 								<h2 class="tit_2">반출관리</h2>
-								<form name="regist" method="post"
-									action="<c:url value='/req/CarryRegist.do'/>" autocomplete="off">
-									
-								</form>
 								<!-- 검색조건 -->
 								<form id="searchVO" name="frm" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
+									<input type="hidden" name="reqId" value="<c:out value='${result.reqId}'/>" />
 									<div class="condition2" style="display: flex;justify-content: center;">
 										<div class="j_box03" style="margin-bottom:0;">
 
@@ -216,7 +222,7 @@ function setPageUnit(){
 												<div>
 													<!-- <span class="lb">프로젝트</span> -->
 													<span class="f_search2 w_full">
-														<input id="prjNm" type="text" title="프로젝트" maxlength="100" placeholder="프로젝트" readonly="true" />
+														<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100" placeholder="프로젝트" readonly="true" />
 														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 													</span>
 													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" placeholder="프로젝트"readonly="readonly" />
@@ -325,13 +331,10 @@ function setPageUnit(){
                                 			</c:if>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
-													<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/req/SelectCarry.do'/>">
-															<input type="hidden" name="reqId"
-																value="<c:out value='${result.reqId}'/>" />
-														</form></td>
+												<tr onclick="SelectCarry('${result.reqId}');">
+													<td>
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
+													</td>
 													<td><c:out value="${result.reqGroup}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.place}" /></td>

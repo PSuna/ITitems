@@ -170,6 +170,7 @@ public class RequestController {
 		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
 		  model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
 		  model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
+		  model.addAttribute("searchVO", manageVO);
 		 
 		return "/req/SelectCarry";
 	}
