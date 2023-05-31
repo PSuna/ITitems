@@ -61,12 +61,12 @@ function insertCarryDetail(reqId) {
 	trList.forEach(function(items,index) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
-		let Mcat = items.querySelector('#middleCategory').value;
-		let qty = items.querySelector('#reqQty').value;
-		if(Mcat != '' && Mcat != null && qty != null && qty != '' && qty != 0){
+		let Mcat = items.querySelector('#middleCategory');
+		let qty = items.querySelector('#reqQty');
+		if(Mcat != null && qty != null){
 			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
-			formdata.append('middleCategory', Mcat);
-			formdata.append('reqQty', qty);
+			formdata.append('middleCategory', Mcat.value);
+			formdata.append('reqQty', qty.value);
 			formdata.append('maker', items.querySelector('#maker').value);
 			formdata.append('user', items.querySelector('#user').value);
 			formdata.append('reqOrder', trList.length - index);
@@ -86,9 +86,8 @@ function insertCarryDetail(reqId) {
 				}
 			}) 
 		}
-		
 	});
-	insertApproval(result);
+	insertApproval(reqId);
 }
 
 /* ********************************************************
@@ -185,7 +184,7 @@ function insertApproval(reqId){
 	fn_egov_modal_remove();
 	 if(val){
 		 RegistIng();
-		 insertCarry();
+		 insertCarry(); 
 	 }	  
 }
 
@@ -700,7 +699,7 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">성명</label> <span class="req">필수</span>
+													<!-- 성명 --> <label for="">소유자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
