@@ -59,6 +59,28 @@ function CarryList(){
 	document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
 }
+window.onload = function(){
+	 var i = document.querySelectorAll('.aprv_item').length;
+	 var p = `<div class="aprv_item">
+					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<tbody>
+							<tr style="border-bottom:1px solid black;">
+								<td>/</td>
+							</tr>
+							<tr class="aprv_col" style="border-bottom:1px solid black;">
+								<td class="aprv_nm">/</td>
+							</tr>
+							<tr>
+								<td class="aprv_td">/
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>`;
+	 for(var j=0;j<4-i;j++){
+		 $(".aprv_item:last-child").before(p);
+	 }
+}
 //-->
 </script>
 </head>
@@ -128,7 +150,8 @@ function CarryList(){
 								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
 								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
 								<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
-									<div class="aprv_view">
+									<div class="aprv_top">
+										<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
 												<tbody>
 													<tr style="border-bottom:1px solid black;">
@@ -142,33 +165,36 @@ function CarryList(){
 													</tr>
 												</tbody>
 											</table>
-											<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
-												<div class="aprv_item">
-													<table class="aprv_table" style="margin:0;border:1px solid black;">
-														<tbody>
-															<tr style="border-bottom:1px solid black;">
-																<td>결재자${status.count}</td>
-															</tr>
-															<tr class="aprv_col" style="border-bottom:1px solid black;">
-																<td class="aprv_nm">${aprvItem.userNm }</td>
-															</tr>
-															<tr>
-																<td class="aprv_td">
-																	<c:choose>
-																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
-																		</c:when>
-																		<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
-																		</c:when>
-																		<c:otherwise> ${aprvItem.aprvDate }
-																		</c:otherwise>
-																	</c:choose>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</c:forEach>
+											<div id="aprv_list" style="display:flex;border-right:1px solid black;">
+												<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
+													<div class="aprv_item">
+														<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+															<tbody>
+																<tr style="border-bottom:1px solid black;">
+																	<td>결재자</td>
+																</tr>
+																<tr class="aprv_col" style="border-bottom:1px solid black;">
+																	<td class="aprv_nm">${aprvItem.userNm }</td>
+																</tr>
+																<tr>
+																	<td class="aprv_td">
+																		<c:choose>
+																			<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																			</c:when>
+																			<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
+																			</c:when>
+																			<c:otherwise> ${aprvItem.aprvDate }
+																			</c:otherwise>
+																		</c:choose>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</c:forEach>
+											</div>
 										</div>
+									</div>
 									</div>
 									<div class="board_view2">
 										<table>
@@ -282,7 +308,6 @@ function CarryList(){
 		<!-- Footer -->
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
-	</div>
 
 </body>
 </html>

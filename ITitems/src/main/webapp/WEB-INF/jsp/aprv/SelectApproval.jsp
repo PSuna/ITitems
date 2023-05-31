@@ -218,7 +218,7 @@ function fnDisUpdate(){
 														<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
 															<tbody>
 																<tr style="border-bottom:1px solid black;">
-																	<td>결재자${status.count}</td>
+																	<td>결재자</td>
 																</tr>
 																<tr class="aprv_col" style="border-bottom:1px solid black;">
 																	<td class="aprv_nm">${aprvItem.userNm }</td>
@@ -341,7 +341,7 @@ function fnDisUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus eq 'A0'}">
+										<c:if test="${approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null}">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>

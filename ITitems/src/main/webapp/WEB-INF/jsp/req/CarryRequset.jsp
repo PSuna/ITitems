@@ -217,19 +217,10 @@ function setPageUnit(){
 										<div class="j_box03" style="margin-bottom:0;">
 
 											<div style="margin-bottom:10px;">
-
-												<div>
-													<!-- <span class="lb">프로젝트</span> -->
-													<span class="f_search2 w_full">
-														<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100" placeholder="프로젝트" readonly="true" />
-														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-													</span>
-													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" placeholder="프로젝트"readonly="readonly" />
-												</div>
 												<div>
 													<!-- <span class="lb">신청상태</span> -->
 													<label class="item f_select w_full" for="sel1">
-													<select id="searchStatus" name="searchStatus" title="상태">
+													<select id="searchStatus" name="searchStatus" title="상태" onchange="SearchCarryList();">
 														<option value='' label="신청상태" selected="selected" />
 														<c:forEach var="stat" items="${status_result}" varStatus="status">
 															<option value="${stat.code}"<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
@@ -237,6 +228,16 @@ function setPageUnit(){
 													</select>
 													</label>
 												</div>
+
+												<div>
+													<!-- <span class="lb">프로젝트</span> -->
+													<span class="f_search2 w_full">
+														<input id="prjNm" name="prjNm" type="text" title="프로젝트" value="<c:out value="${searchVO.prjNm}"/>" maxlength="100" placeholder="프로젝트" readonly="true" />
+														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+													</span>
+													<input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>"/>
+												</div>
+												
 											</div>
 											<div>
 												<div class="date_box">
