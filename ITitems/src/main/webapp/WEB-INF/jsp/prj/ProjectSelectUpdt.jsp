@@ -54,8 +54,8 @@ function UserSearch(ch){
 	$dialog.dialog('open');
 }
 function fnListPage(){
-	document.userManageVO.action = "<c:url value='/prj/ProjectManage.do'/>";
-    document.userManageVO.submit();
+	document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+    document.projectVO.submit();
 }
 function returnUser(val){
 	
@@ -223,8 +223,7 @@ function fnDeletePrj(prjId){
 												onclick="JavaScript:fnUpdate(); return false;"><spring:message
 													code="button.save" /></a>
 											<!-- 저장 -->
-											<a href="<c:url value='/prj/ProjectManage.do'/>"
-												class="btn btn_blue_46 w_100"
+											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="fnListPage(); return false;"><spring:message
 													code="button.list" /></a>
 											<!-- 목록 -->

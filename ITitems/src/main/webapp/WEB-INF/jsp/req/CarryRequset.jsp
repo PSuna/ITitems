@@ -148,7 +148,6 @@ function CarryRegist() {
 }
 
 function SelectCarry(reqId) {
-	event.preventDefault();
 	document.frm.reqId.value = reqId;
     document.frm.action = "<c:url value='/req/SelectCarry.do'/>";
     document.frm.submit(); 
@@ -225,7 +224,7 @@ function setPageUnit(){
 														<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100" placeholder="프로젝트" readonly="true" />
 														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 													</span>
-													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" placeholder="프로젝트"readonly="readonly" />
+													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" placeholder="프로젝트"readonly="readonly" />
 												</div>
 												<div>
 													<!-- <span class="lb">신청상태</span> -->
@@ -233,7 +232,7 @@ function setPageUnit(){
 													<select id="searchStatus" name="searchStatus" title="상태">
 														<option value='' label="신청상태" selected="selected" />
 														<c:forEach var="stat" items="${status_result}" varStatus="status">
-															<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
+															<option value="${stat.code}"<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
 														</c:forEach>
 													</select>
 													</label>
@@ -264,7 +263,7 @@ function setPageUnit(){
 								<!-- 게시판 -->
 								
 								
-								<div class="board_list_top">
+								<div class="board_list_top" style="margin:0;">
 										<div class="left_col">
 	                                		<div class="list_count">
 													<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
@@ -298,7 +297,7 @@ function setPageUnit(){
 												</div>
                               			</div>
 	                                </div>
-								</form>
+								
 								
 								
 								<div class="board_list">
@@ -331,7 +330,7 @@ function setPageUnit(){
                                 			</c:if>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="SelectCarry('${result.reqId}');">
+												<tr onclick="SelectCarry('<c:out value="${result.reqId}" />');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
@@ -373,6 +372,7 @@ function setPageUnit(){
 								</div>
 								<!-- //페이지 네비게이션 끝 -->
 								<!--// 게시판 -->
+								</form>
 							</div>
 						</div>
 					</div>
