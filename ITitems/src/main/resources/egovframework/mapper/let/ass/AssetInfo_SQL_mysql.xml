@@ -29,6 +29,8 @@
 		<result property="prjId" column="PRJ_ID" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="usageStatus" column="USAGE_STAUTS" />
+		<result property="useNm" column="USE_NM" />
+		<result property="rcptNm" column="RCPT_NM" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetInfoVO"
@@ -43,6 +45,7 @@
 		<result property="maker" column="MAKER" />
 		<result property="note" column="NOTE" />
 		<result property="regDate" column="REG_DATE" />
+		<result property="regId" column="REG_ID" />
 		<result property="assetSn" column="ASSET_SN" />
 		<result property="orgnztId" column="ORGNZT_ID" />
 		<result property="prjId" column="PRJ_ID" />
@@ -56,7 +59,16 @@
 	</resultMap>
 	
 	<sql id="search">
+		<where>
 		 	AND A.USAGE_STAUTS = 'U1'
+		 	<if test="searchOrgnzt != null and searchOrgnzt != ''">
+              	AND (	B.ORGNZT_ID = #{searchOrgnzt} 
+              		OR  F.ORGNZT_UP = #{searchOrgnzt})
+            </if>
+            <if test="userId != null and userId != ''">
+				AND (	B.RCPT_ID = #{userId} 
+					OR  B.USE_ID = #{userId})
+            </if>
         	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
 				AND B.ORGNZT_ID = #{lowerOrgnzt}
 			</if>
@@ -84,10 +96,18 @@
 			<if test="searchWord != null and searchWord != ''">
 				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
 			</if>
+		</where>
 	</sql>
 
 	<sql id="mySearch">
+		<where>
 			AND A.USAGE_STAUTS = 'U1' 
+			AND (	B.USE_ID = #{userId} 
+				OR  B.RCPT_ID = #{userId})
+		 	<if test="searchWord != null and searchWord != ''">
+				AND (	A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%') 
+					OR  A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%'))
+		 	</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND B.PRJ_ID = #{searchPrj}
 			</if>
@@ -106,6 +126,7 @@
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
+		</where>
 	</sql>
 
 	<select id="SelectAssetInfoVOList"
@@ -147,57 +168,25 @@
 					I.USER_NM AS USE_NM,
 					J.USER_NM AS RCPT_NM
 				  FROM ASSETSINFO A 
-	              LEFT OUTER JOIN ASSETSHIST B
+	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
-	              LEFT OUTER JOIN CATEGORY C
+	   LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
-	              LEFT OUTER JOIN CATEGORY D
+	   LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
-	              LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-	              LEFT OUTER JOIN LETTNORGNZTINFO F
+	   LEFT OUTER JOIN LETTNORGNZTINFO F
 	   				ON B.ORGNZT_ID = F.ORGNZT_ID
-	   			  LEFT OUTER JOIN LETTNORGNZTINFO G
+	   LEFT OUTER JOIN LETTNORGNZTINFO G
 	   				ON F.ORGNZT_UP = G.ORGNZT_ID
-	   			  LEFT OUTER JOIN PROJECTS H
+	   LEFT OUTER JOIN PROJECTS H
 	   				ON B.PRJ_ID = H.PRJ_ID
-	   			  LEFT OUTER JOIN LETTNEMPLYRINFO I
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
 	                ON B.USE_ID = I.ESNTL_ID
-	              LEFT OUTER JOIN LETTNEMPLYRINFO J
+	   LEFT OUTER JOIN LETTNEMPLYRINFO J
 	                ON B.RCPT_ID = J.ESNTL_ID  
-	             <where>
-		               <choose>
-		                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
-							AND B.ORGNZT_ID = #{searchOrgnzt}
-							AND B.RCPT_ID = #{userId}
-							<include refid="search" />
-							 OR B.ORGNZT_ID = #{searchOrgnzt}
-							AND B.USE_ID = #{userId}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							AND B.RCPT_ID = #{userId}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							AND B.USE_ID = #{userId}
-							<include refid="search" />
-		                </when>
-		                <when test="searchOrgnzt != null and searchOrgnzt != ''">
-		                	AND B.ORGNZT_ID = #{searchOrgnzt}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							<include refid="search" />
-		                </when>
-		                <when test="userId != null and userId != ''">
-							AND B.RCPT_ID = #{userId}
-							<include refid="search" />
-							 OR B.USE_ID = #{userId}
-							<include refid="search" />
-		                </when>
-		                <otherwise>
-		                	<include refid="search" />
-		                </otherwise>
-		               </choose>
-				 </where>
+	             <include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
@@ -205,45 +194,13 @@
 	<select id="CountAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
-		SELECT COUNT(A.ASSET_ID)
-		  FROM ASSETSINFO A
-		  LEFT OUTER JOIN ASSETSHIST B
-		    ON A.ASSET_ID = B.ASSET_ID
-		  LEFT OUTER JOIN LETTNORGNZTINFO F
-	   		ON B.ORGNZT_ID = F.ORGNZT_ID
-		 <where>
-               <choose>
-                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
-					AND B.ORGNZT_ID = #{searchOrgnzt}
-					AND B.RCPT_ID = #{userId}
-					<include refid="search" />
-					 OR B.ORGNZT_ID = #{searchOrgnzt}
-					AND B.USE_ID = #{userId}
-					<include refid="search" />
-					 OR F.ORGNZT_UP = #{searchOrgnzt}
-					AND B.RCPT_ID = #{userId}
-					<include refid="search" />
-					 OR F.ORGNZT_UP = #{searchOrgnzt}
-					AND B.USE_ID = #{userId}
-					<include refid="search" />
-                </when>
-                <when test="searchOrgnzt != null and searchOrgnzt != ''">
-                	AND B.ORGNZT_ID = #{searchOrgnzt}
-					<include refid="search" />
-					 OR F.ORGNZT_UP = #{searchOrgnzt}
-					<include refid="search" />
-                </when>
-                <when test="userId != null and userId != ''">
-					AND B.RCPT_ID = #{userId}
-					<include refid="search" />
-					 OR B.USE_ID = #{userId}
-					<include refid="search" />
-                </when>
-                <otherwise>
-                	<include refid="search" />
-                </otherwise>
-               </choose>
-		 </where>
+				SELECT COUNT(A.ASSET_ID)
+				  FROM ASSETSINFO A
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN LETTNORGNZTINFO F
+			   		ON B.ORGNZT_ID = F.ORGNZT_ID
+				 <include refid="search" />
 	</select>
 	
 	<select id="SelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
@@ -258,7 +215,9 @@
 	    	   ASSET_SN,
 	    	   PRJ_ID,
 	    	   REG_DATE,
-	    	   USAGE_STAUTS
+	    	   USAGE_STAUTS,
+	    	   USE_NM,
+	    	   RCPT_NM
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
@@ -270,125 +229,84 @@
 					A.ASSET_SN,
 					G.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
-					E.CODE_NM AS USAGE_STAUTS
+					E.CODE_NM AS USAGE_STAUTS,
+					H.USER_NM AS USE_NM,
+					I.USER_NM AS RCPT_NM
 				  FROM ASSETSINFO A
-				  LEFT OUTER JOIN ASSETSHIST B
+	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
-				  LEFT OUTER JOIN CATEGORY C
+	   LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
-				  LEFT OUTER JOIN CATEGORY D
+	   LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
 				    ON B.APPROVAL = F.CODE
-				  LEFT OUTER JOIN PROJECTS G
+	   LEFT OUTER JOIN PROJECTS G
 				    ON B.PRJ_ID = G.PRJ_ID
-				 WHERE B.USE_ID = #{userId}
-				 <choose>
-				 	<when test="searchWord != null and searchWord != ''">
-						AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-						<include refid="mySearch" />
-						 OR B.USE_ID = #{userId}
-						AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
-						<include refid="mySearch" />
-				 	</when>
-				 	<otherwise>
-				 		<include refid="mySearch" />
-				 	</otherwise>
-				 </choose>
-				    OR B.RCPT_ID = #{userId}
-				 <choose>
-				 	<when test="searchWord != null and searchWord != ''">
-						AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-						<include refid="mySearch" />
-						 OR B.RCPT_ID = #{userId}
-						AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
-						<include refid="mySearch" />
-				 	</when>
-				 	<otherwise>
-				 		<include refid="mySearch" />
-				 	</otherwise>
-				 </choose>
+	   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	                ON B.USE_ID = H.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.RCPT_ID = I.ESNTL_ID 
+				 	<include refid="mySearch" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
 	<select id="CountMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
-		SELECT 
-			COUNT(A.ASSET_ID)
-		  FROM ASSETSINFO A
-		  LEFT OUTER JOIN ASSETSHIST B
-		    ON A.ASSET_ID = B.ASSET_ID
-		 WHERE B.USE_ID = #{userId}
-		 <choose>
-		 	<when test="searchWord != null and searchWord != ''">
-				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-				<include refid="mySearch" />
-				 OR B.USE_ID = #{userId}
-				AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
-				<include refid="mySearch" />
-		 	</when>
-		 	<otherwise>
+			SELECT 
+				COUNT(A.ASSET_ID)
+			  FROM ASSETSINFO A
+   LEFT OUTER JOIN ASSETSHIST B
+			    ON A.ASSET_ID = B.ASSET_ID
 		 		<include refid="mySearch" />
-		 	</otherwise>
-		 </choose>
-		    OR B.RCPT_ID = #{userId}
-		 <choose>
-		 	<when test="searchWord != null and searchWord != ''">
-				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-				<include refid="mySearch" />
-				 OR B.RCPT_ID = #{userId}
-				AND A.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%')
-				<include refid="mySearch" />
-		 	</when>
-		 	<otherwise>
-		 		<include refid="mySearch" />
-		 	</otherwise>
-		 </choose>
 	</select>
 
 	<select id="SelectAssetInfoVO"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetInfoDetail">
-		SELECT 
-			A.ASSET_ID,
-			C.CAT_NAME AS LARGE_CATEGORY, 
-			D.CAT_NAME AS MIDDLE_CATEGORY,
-			A.ASSET_NAME,
-			A.ASSET_QTY,
-			DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,
-			A.ACQUIRED_PRICE,
-			A.MAKER,
-			A.NOTE,
-			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
-			A.ASSET_SN,
-			G.ORGNZT_NM AS ORGNZT_ID,
-			B.PRJ_ID,
-			H.PRJ_NAME AS PRJ_NM,
-			B.USE_ID,
-			E.USER_NM AS USE_NM,
-			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
-			B.RCPT_ID,
-			F.USER_NM AS RCPT_NM,
-			B.CARRY_REASON
-		  FROM ASSETSINFO A
-		  LEFT OUTER JOIN ASSETSHIST B
-		    ON A.ASSET_ID = B.ASSET_ID
-		  LEFT OUTER JOIN CATEGORY C
-	    	ON A.LARGE_CATEGORY = C.CAT_ID
-		  LEFT OUTER JOIN CATEGORY D
-		    ON A.MIDDLE_CATEGORY = D.CAT_ID
-	      LEFT OUTER JOIN LETTNEMPLYRINFO E
-	        ON B.USE_ID = E.ESNTL_ID
-	      LEFT OUTER JOIN LETTNEMPLYRINFO F
-	        ON B.RCPT_ID = F.ESNTL_ID  
-	      LEFT OUTER JOIN LETTNORGNZTINFO G
-	        ON B.ORGNZT_ID = G.ORGNZT_ID
-	      LEFT OUTER JOIN PROJECTS H
-	        ON B.PRJ_ID = H.PRJ_ID
-		 WHERE A.ASSET_ID = #{assetId}
+			SELECT 
+				A.ASSET_ID,
+				C.CAT_NAME AS LARGE_CATEGORY, 
+				D.CAT_NAME AS MIDDLE_CATEGORY,
+				A.ASSET_NAME,
+				A.ASSET_QTY,
+				DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,
+				A.ACQUIRED_PRICE,
+				A.MAKER,
+				A.NOTE,
+				DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
+				A.ASSET_SN,
+				G.ORGNZT_NM AS ORGNZT_ID,
+				B.PRJ_ID,
+				H.PRJ_NAME AS PRJ_NM,
+				B.USE_ID,
+				E.USER_NM AS USE_NM,
+				DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
+				B.RCPT_ID,
+				I.USER_NM AS REG_ID,
+				F.USER_NM AS RCPT_NM,
+				B.CARRY_REASON
+			  FROM ASSETSINFO A
+   LEFT OUTER JOIN ASSETSHIST B
+			    ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN CATEGORY C
+		    	ON A.LARGE_CATEGORY = C.CAT_ID
+   LEFT OUTER JOIN CATEGORY D
+			    ON A.MIDDLE_CATEGORY = D.CAT_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO E
+		        ON B.USE_ID = E.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO F
+		        ON B.RCPT_ID = F.ESNTL_ID  
+   LEFT OUTER JOIN LETTNORGNZTINFO G
+		        ON B.ORGNZT_ID = G.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS H
+		        ON B.PRJ_ID = H.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO I
+		        ON A.REG_ID = I.ESNTL_ID 
+			 WHERE A.ASSET_ID = #{assetId}
 	</select>
 
 	<insert id="InsertAssetInfo"
@@ -489,23 +407,23 @@
 					I.USER_NM AS USE_NM,
 					J.USER_NM AS RCPT_NM
 				  FROM ASSETSINFO A 
-	              LEFT OUTER JOIN ASSETSHIST B
+       LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
-	              LEFT OUTER JOIN CATEGORY C
+	   LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
-	              LEFT OUTER JOIN CATEGORY D
+	   LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
-	              LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.USAGE_STAUTS = E.CODE
-	              LEFT OUTER JOIN LETTNORGNZTINFO F
+	   LEFT OUTER JOIN LETTNORGNZTINFO F
 	   				ON B.ORGNZT_ID = F.ORGNZT_ID
-	   			  LEFT OUTER JOIN LETTNORGNZTINFO G
+	   LEFT OUTER JOIN LETTNORGNZTINFO G
 	   				ON F.ORGNZT_UP = G.ORGNZT_ID
-	   			  LEFT OUTER JOIN PROJECTS H
+	   LEFT OUTER JOIN PROJECTS H
 	   				ON B.PRJ_ID = H.PRJ_ID
-	   			  LEFT OUTER JOIN LETTNEMPLYRINFO I
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
 	                ON B.USE_ID = I.ESNTL_ID
-	              LEFT OUTER JOIN LETTNEMPLYRINFO J
+	   LEFT OUTER JOIN LETTNEMPLYRINFO J
 	                ON B.RCPT_ID = J.ESNTL_ID  
 	             <where>
 		               <choose>
