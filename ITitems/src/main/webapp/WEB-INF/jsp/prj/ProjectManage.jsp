@@ -78,6 +78,14 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/prj/ProjectManage.do'/>";
     document.listForm.submit();
 }
+/* ********************************************************
+ * 프로젝트상세보기 이동
+ ******************************************************** */
+function fnSelectPrj(id) {
+    document.listForm.selectedId.value = id;
+    document.listForm.action = "<c:url value='/prj/ProjectSelectView.do'/>";
+    document.listForm.submit();
+}
 
 //-->
 </script>
@@ -111,7 +119,12 @@ function setPageUnit(){
 								<!--// Location -->
 								
 								<form name="listForm" action="<c:url value='/prj/ProjectManage.do'/>" method="post">
-								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+								<input name="selectedId" type="hidden" />
+									<input name="checkedIdForDel" type="hidden" />
+									<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+									<input name="first" type="hidden" value="<c:out value='${searchVO.first}'/>"/>
+									<input name="recordCountPerPage" type="hidden" value="<c:out value='${searchVO.recordCountPerPage}'/>"/>
+									
 								<h2 class="tit_2">프로젝트목록관리</h2>
 								<!-- 검색조건 -->
 				                <div class="condition pty_condition">
@@ -140,12 +153,12 @@ function setPageUnit(){
 															<label class="item f_select" for="pageUnit"> 
 																	
 																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																		<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																		<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																		<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																		<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																		<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																		<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 																</select>
 															</label>
 															
@@ -180,7 +193,7 @@ function setPageUnit(){
 				                        </thead>
 				                        <tbody>
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
-				                            <tr>
+				                            <tr onclick="fnSelectPrj('<c:out value="${resultInfo.prjId}"/>');">
 				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}"/></td>
 				                                <td class="pty_text-align_left pty_padding-left_24">
 				                                <a href="<c:url value='/prj/ProjectSelectView.do'/>?selectedId=<c:out value="${resultInfo.prjId}"/>" class="lnk">

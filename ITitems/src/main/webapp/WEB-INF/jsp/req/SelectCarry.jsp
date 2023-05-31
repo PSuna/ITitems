@@ -106,21 +106,37 @@ function CarryList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출신청 정보</li>
+										<li>반출신청정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 
 								<form id="frm" name="frm" >
-									<div class="aprv_top">
-										<h2 class="tit_2">반출신청 정보</h2>
-										<div class="aprv_view">
-											<c:forEach var="aprvItem" items="${aprvList_result }">
+								<div class="aprv_top">
+								<h2 class="tit_2">반출신청정보</h2>
+									<div class="aprv_view">
+											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
+												<tbody>
+													<tr style="border-bottom:1px solid black;">
+														<td>신청자</td>
+													</tr>
+													<tr class="aprv_col" style="border-bottom:1px solid black;">
+														<td class="aprv_nm">${resultVO.id}</td>
+													</tr>
+													<tr>
+														<td class="aprv_td">${resultVO.reqDate}</td>
+													</tr>
+												</tbody>
+											</table>
+											<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
 												<div class="aprv_item">
-													<table class="aprv_table">
+													<table class="aprv_table" style="margin:0;border:1px solid black;">
 														<tbody>
-															<tr class="aprv_col">
+															<tr style="border-bottom:1px solid black;">
+																<td>결재자${status.count}</td>
+															</tr>
+															<tr class="aprv_col" style="border-bottom:1px solid black;">
 																<td class="aprv_nm">${aprvItem.userNm }</td>
 															</tr>
 															<tr>
@@ -141,7 +157,6 @@ function CarryList(){
 											</c:forEach>
 										</div>
 									</div>
-									
 									<div class="board_view2">
 										<table>
 											<colgroup>

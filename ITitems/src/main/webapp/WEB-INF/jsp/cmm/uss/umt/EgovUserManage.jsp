@@ -98,16 +98,8 @@ function fnLinkPage(pageNo){
 }
 function fnSelectUser(id) {
     document.listForm.selectedId.value = id;
-    array = id.split(":");
-    if(array[0] == "") {
-    } else {
-        userTy = array[0];
-        userId = array[1];    
-    }
-    document.listForm.selectedId.value = userId;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
     document.listForm.submit();
-      
 }
 function fnAddUserView() {
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserInsertView.do'/>";
@@ -234,7 +226,7 @@ function getMOrgList(MOval) {
 									<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
 									<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
-	
+									
 	                                <h2 class="tit_2">사용자목록</h2>
 	                                
 	                                <!-- 검색조건 -->
@@ -357,7 +349,7 @@ function getMOrgList(MOval) {
 		                                        	</tr>
 	                                        	</c:if>
 	                                        	<c:forEach var="result" items="${resultList}" varStatus="status">
-	                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
+	                                            <tr onclick="fnSelectUser('<c:out value="${result.uniqId}"/>');">
 	                                                <td onclick='event.cancelBubble=true;'>
 	                                                    <span class="f_chk_only">
 	                                                        <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>

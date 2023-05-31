@@ -42,15 +42,15 @@
           	AND (T.REQ_STATUS = 'A1'
           	 OR T.REQ_ID IS NULL)
           <if test='searchKeyword !=""'>
-          	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	AND (E.USER_NM LIKE '%' #{searchKeyword} '%'
           	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
-          	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
+          	 OR R.PLACE LIKE '%' #{searchKeyword} '%')
           </if>
           <if test='searchGroup !=""'>
             AND R.REQ_GROUP = #{searchGroup}
           </if>
           <if test='searchStatus !=""'>
-            AND R.REQ_STATUS = #{searchStatus}
+            AND A.REQ_STATUS = #{searchStatus}
           </if>
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
 	</select>
@@ -60,11 +60,26 @@
 		  FROM REQUESTS R 
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
+	 LEFT JOIN PROJECTS P
+	        ON R.PRJ_ID = P.PRJ_ID
+	 LEFT JOIN LETTNEMPLYRINFO E
+	  		ON R.ID = E.ESNTL_ID
 	 LEFT JOIN APRVTARGET T
 	  		ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
 		 WHERE A.TARGET_ID = #{uniqId}
            AND (T.REQ_STATUS = 'A1'
           	OR T.REQ_ID IS NULL)
+          <if test='searchKeyword !=""'>
+           AND (E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
+          	OR R.PLACE LIKE '%' #{searchKeyword} '%')
+          </if>
+          <if test='searchGroup !=""'>
+           AND R.REQ_GROUP = #{searchGroup}
+          </if>
+          <if test='searchStatus !=""'>
+           AND A.REQ_STATUS = #{searchStatus}
+          </if>
 	</select>
 	
 	<select id="selectApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">

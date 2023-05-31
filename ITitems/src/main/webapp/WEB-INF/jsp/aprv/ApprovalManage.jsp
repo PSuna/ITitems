@@ -123,7 +123,7 @@ function fntrsfExcel(){
                                 		</div>
 	                                    <div class="pty_search">
 											<span class="item f_search" >
-												<input class="f_input w_350 pty_f_input" style="margin-right: 8px;" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="사용자명/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+												<input class="f_input w_350 pty_f_input" style="margin-right: 8px;" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>

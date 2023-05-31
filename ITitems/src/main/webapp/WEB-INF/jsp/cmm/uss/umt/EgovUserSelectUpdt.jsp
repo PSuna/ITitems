@@ -217,6 +217,14 @@ function getMOrgList(MOval) {
 										value="<c:out value='${userSearchVO.sbscrbSttus}'/>" />
 									<input type="hidden" name="pageIndex"
 										value="<c:out value='${userSearchVO.pageIndex}'/>" />
+									<input type="hidden" name="searchOrgnzt"
+										value="<c:out value='${userSearchVO.searchOrgnzt}'/>" />
+									<input type="hidden" name="searchLOrgnzt"
+										value="<c:out value='${userSearchVO.searchLOrgnzt}'/>" />
+									<input type="hidden" name="searchGrade"
+										value="<c:out value='${userSearchVO.searchGrade}'/>" />
+									<input type="hidden" name="searchAuthor"
+										value="<c:out value='${userSearchVO.searchAuthor}'/>" />
 									<!-- 우편번호검색 -->
 									<input type="hidden" name="zip_url"
 										value="<c:url value='/sym/cmm/EgovCcmZipSearchPopup.do'/>" />
