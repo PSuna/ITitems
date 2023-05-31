@@ -278,10 +278,13 @@ function make_date(){
 }
 
 /* ********************************************************
- * 자산상세보기 이동
+ * 자산 상세 페이지 이동
  ******************************************************** */
-function selectAsset(id) {
-	document.getElementById('subForm'+id).submit;
+function SelectAsset(assetId) {
+	event.preventDefault();
+	document.frm.assetId.value = assetId;
+    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.frm.submit(); 
 }
 
 /* ********************************************************
@@ -365,6 +368,8 @@ window.onload = function(){
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+										<input type="hidden" name="assetId" />
+										<input type="hidden" name="listCode" value="AM" />
 										<div class="j_box02">
 											<div>
 												<!-- <span class="lb">본부/부서</span> -->
@@ -524,16 +529,9 @@ window.onload = function(){
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
+												<tr onclick="SelectAsset('${result.assetId}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
-															<input type="hidden" name="assetId"
-																value="<c:out value='${result.assetId}'/>" />
-															<input type="hidden" name="listCode"
-																value="AM" />
-														</form>
 													</td>
 													<td><c:out value="${result.orgnztId}" /></td>
 													<td><c:out value="${result.lowerOrgnztId}" /></td>

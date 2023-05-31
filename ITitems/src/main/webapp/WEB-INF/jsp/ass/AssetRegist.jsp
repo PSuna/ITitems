@@ -183,7 +183,13 @@ function insert_asset(){
  ******************************************************** */
 function getMCatList() {
 	let val = document.getElementById('largeCategory').value;
-	
+
+	if(val == "cat1"){
+		$('#assetQty').attr("readonly","readonly").val("1");
+	}else{
+		$('#assetQty').removeAttr("readonly");
+	}
+		
 	$.ajax({
 		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
 		method: 'POST',

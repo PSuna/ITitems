@@ -166,6 +166,16 @@ function AssetRegist() {
 }
 
 /* ********************************************************
+ * 자산 상세 페이지 이동
+ ******************************************************** */
+function SelectAsset(assetId) {
+	event.preventDefault();
+	document.frm.assetId.value = assetId;
+    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.frm.submit(); 
+}
+
+/* ********************************************************
  * date input 생성
  ******************************************************** */
 function make_date(){
@@ -201,14 +211,6 @@ function make_date(){
 	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
-}
-
-
-/* ********************************************************
- * 자산상세보기 이동
- ******************************************************** */
-function selectAsset(id) {
-	document.getElementById('subForm'+id).submit;
 }
 
 /* ********************************************************
@@ -288,12 +290,14 @@ window.onload = function(){
 								<form id="frm" name="frm" autocomplete="off">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
+										<input type="hidden" name="assetId" />
+										<input type="hidden" name="listCode" value="MYAM" />
 										<div class="j_box01">
 											<div>
 												<!-- <span class="lb">프로젝트</span> --> 
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="<c:out value="${searchVO.prjNm}"/>" />
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" />
 											</div>
 											<div>
 												<!-- <span class="lb">대분류</span> --> 
@@ -392,23 +396,15 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 5%;">
-											<col style="width: 10%;">
-											<col style="width: 10%;">
-											<col style="width: 18%;">
-											<col style="width: 18%;">
-											<col style="width: 39%;">
+											<col style="width: 3%;">
+											<col style="width: 8%;">
+											<col style="width: 8%;">
+											<col style="width: 16%;">
+											<col style="width: 16%;">
+											<col style="width: 37%;">
+											<col style="width: 6%;">
+											<col style="width: 6%;">
 										</colgroup>
-										<%-- <colgroup>
-											<col style="width: 5%;">
-											<col style="width: 12%;">
-											<col style="width: 12%;">
-											<col style="width: 19%;">
-											<col style="width: 9%;">
-											<col style="width: 18%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-										</colgroup> --%>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
@@ -417,28 +413,24 @@ window.onload = function(){
 												<th scope="col">품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<!-- <th scope="col">상태</th> -->
+												<th scope="col">소유자</th>
+												<th scope="col">실사용자</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
+												<tr onclick="SelectAsset('${result.assetId}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
-															<input type="hidden" name="assetId"
-																value="<c:out value='${result.assetId}'/>" />
-															<input type="hidden" name="listCode"
-																value="MYAM" />
-														</form>
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.rcptNm}" /></td>
+													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>
