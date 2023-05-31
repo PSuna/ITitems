@@ -121,7 +121,7 @@
 			    R.PLACE,
 			    DATE_FORMAT(R.START_DATE,'%Y-%m-%d') START_DATE,
 			    DATE_FORMAT(R.END_DATE,'%Y-%m-%d') END_DATE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
+			    DATE_FORMAT(R.REQ_DATE,'%m-%d') REQ_DATE,
 			    C3.CODE_NM REQ_GROUP, 
 			    AP.REQ_STATUS
 		   FROM REQUESTS R 
@@ -214,9 +214,10 @@
 	</update>
 	
 	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
-		 SELECT IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
-			    IFNULL(C1.CODE_NM, '') REQ_GROUP,
+		 SELECT IFNULL(C1.CODE_NM, '') REQ_GROUP,
 			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
+		 		IFNULL(R.PLACE, '') PLACE,
+		 		IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
 			    IFNULL(DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d'), '') REQ_DATE,
 			    IFNULL(C2.CODE_NM,'') REQ_STATUS
 		   FROM REQUESTS R 
