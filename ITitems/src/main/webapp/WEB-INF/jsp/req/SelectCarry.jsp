@@ -115,6 +115,19 @@ function CarryList(){
 								<form id="frm" name="frm" >
 								<div class="aprv_top">
 								<h2 class="tit_2">반출신청정보</h2>
+								<% LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO"); %>
+								<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+								<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+								<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+								<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+								<c:set var="end" value="<%=new java.util.Date()%>" />
+								<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+								<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+								<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
 									<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
 												<tbody>
@@ -256,21 +269,7 @@ function CarryList(){
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-									<%
-											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-										%>
-									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
-									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
-									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
-									<c:set var="end" value="<%=new java.util.Date()%>" />
-									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
-									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
-									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
-									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
-									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
-									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
-									<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
+
 									</form>
 								</div>
 							</div>

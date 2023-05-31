@@ -119,12 +119,9 @@ function fnSelectPrj(id) {
 								<!--// Location -->
 								
 								<form name="listForm" action="<c:url value='/prj/ProjectManage.do'/>" method="post">
-								<input name="selectedId" type="hidden" />
+									<input name="selectedId" type="hidden" />
 									<input name="checkedIdForDel" type="hidden" />
 									<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-									<input name="first" type="hidden" value="<c:out value='${searchVO.first}'/>"/>
-									<input name="recordCountPerPage" type="hidden" value="<c:out value='${searchVO.recordCountPerPage}'/>"/>
-									
 								<h2 class="tit_2">프로젝트목록관리</h2>
 								<!-- 검색조건 -->
 				                <div class="condition pty_condition">
