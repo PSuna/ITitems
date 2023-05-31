@@ -280,7 +280,7 @@ function getMOrgList(MOval) {
 										<div class="left_col btn3">
 											<a
 												href="<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>"
-												class="btn btn_skyblue_h46 w_100"
+												class="btn btn_skyblue_h46 w_120"
 												onclick="fnPasswordMove(); return false;"><spring:message
 													code="button.passwordUpdate" /></a>
 											<!-- 비밀번호변경 -->

@@ -163,7 +163,7 @@ function returnUser(val){
 													<label for="name">PM</label> 
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readOnly="true" />
 													<form:errors path="name" />
 													<span id="nameErr" class="errSpan"></span>

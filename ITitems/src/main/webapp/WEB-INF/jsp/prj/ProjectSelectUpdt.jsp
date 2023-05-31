@@ -153,7 +153,7 @@ function fnDeletePrj(prjId){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
 													<form:errors path="name" />
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>

@@ -108,6 +108,7 @@ function insertCarry() {
 			},
 			error: function (error) {
 				RegistFail();
+				return;
 			}
 		})
 }
@@ -145,14 +146,16 @@ function insertApproval(reqId){
 			contentType: false,
 			data: formdata,
 			success: function (result) {
-				fn_egov_modal_remove();
-				RegistSuccess();
+				
 			},error: function (error) {
 				fn_egov_modal_remove();
 				RegistFail();
+				return;
 			}
 		})
 	});
+	fn_egov_modal_remove();
+	RegistSuccess();
 }
 
 /* ********************************************************
@@ -800,7 +803,7 @@ window.onload = function(){
 													<div id="mCat">
 														<label class="f_select w_full" for="middleCategory"> <select
 															id="middleCategory" name="middleCategory" title="중분류">
-																<option value='' label="중분류" selected="selected" />
+																<option value="" label="중분류" selected="selected" />
 														</select>
 														</label>
 													</div></td>
