@@ -1,7 +1,10 @@
-package egovframework.let.ass.web;
+package egovframework.let.ass.mb;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -79,13 +82,17 @@ public class MAssetController {
 	 */
 	@RequestMapping(value="/ass/MbMyAssetManagement.do")
 	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
-			 AssetManageVO assetManageVO, @RequestBody AssetManageVO avo) throws Exception {
+			 AssetManageVO assetManageVO, AssetManageVO avo) throws Exception {
+	    //여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
+		//System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetManageVO.setUserId(avo.getAssetId());
+		assetManageVO.setUserId(avo.getUserId());
+		
+		
+		
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
-		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
 		paginationInfo.setPageSize(assetManageVO.getPageSize());
@@ -101,16 +108,19 @@ public class MAssetController {
 			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
 		}
 		
+		System.out.println(assetManageVO.getPageUnit()+ "ddddddddddddddd");
+		System.out.println(assetManageVO.getLastPage()+ "ddddddddddddddd");
+		//map타입을 다시 list로 넣기
 		Map<String, Object> map = assetService.SelectMyAssetInfoList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+	
+		//int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 		
-		paginationInfo.setTotalRecordCount(totCnt);
+		//paginationInfo.setTotalRecordCount(totCnt);
 		appMap.put("resultList", map.get("resultList"));
 		appMap.put("resultCnt", map.get("resultCnt"));
-		appMap.put("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		//appMap.put("paginationInfo", paginationInfo);
+        System.out.println(map.get("resultList")+"모바일>>>>>>>>>>>>>>>>>");
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();  
 
 		vo.setTableNm("LETTNORGNZTINFO");
 		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
