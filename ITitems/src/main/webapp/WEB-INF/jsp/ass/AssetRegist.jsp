@@ -523,7 +523,6 @@ window.onload = function(){
 
 									<h2 class="tit_2">신규자산등록</h2>
 
-									<br>
 									<div class="board_view2">
 										<table>
 										
@@ -578,7 +577,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for="">제품명</label>
+													<label for="">제품명(모델명)</label>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
@@ -749,7 +748,7 @@ window.onload = function(){
 										</table>
 									</div>
 									<!-- 등록버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<!-- 등록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

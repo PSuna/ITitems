@@ -240,6 +240,12 @@ function insertApproval(reqId){
 	    $('#frm #delTr').each(function(){
 	    	$(this).closest('tr').remove();
 		})
+		document.getElementById("prjNm").value  = "";
+	    document.getElementById("pm").value  = "";
+	    document.getElementById("aprv0").value  = "";
+	    document.getElementById("aprv1").value  = "";
+	    document.getElementById("aprv2").value  = "";
+	    document.getElementById("aprv3").value  = "";
 		document.frm.prjNm.focus(); 
 	}else{
 		document.CarryRequset.submit();
@@ -882,9 +888,8 @@ window.onload = function(){
 									</table>
 								</div>
 								</form>
-								<br>
 								<!-- 등록버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
 										<!-- 등록 -->

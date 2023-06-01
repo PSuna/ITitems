@@ -102,6 +102,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 반출사유 */
 	private String carryReason;
+	
+	/** 자산관리번호 */
+	private String mngNum;
 
 	public String getAssetId() {
 		return assetId;
@@ -317,6 +320,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setLowerOrgnztId(String lowerOrgnztId) {
 		this.lowerOrgnztId = lowerOrgnztId;
+	}
+
+	public String getMngNum() {
+		return mngNum;
+	}
+
+	public void setMngNum(String mngNum) {
+		this.mngNum = mngNum;
 	}
 	
 	
