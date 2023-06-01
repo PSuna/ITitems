@@ -104,6 +104,10 @@ public interface UserManageService  {
 
 	public String checkUpper(String uniqId) throws Exception;
 
+	public List<?> selectUserListS(UserDefaultVO userSearchVO);
+
+	public int selectUserListTotCntS(UserDefaultVO userSearchVO);
+
 
 
 }

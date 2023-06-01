@@ -35,7 +35,7 @@
               FROM (SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID, ORGNZT_ID, GRADE
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
-             WHERE 1 = 1    
+             WHERE A.USER_ID != 'empty@iteyes.co.kr'
             <if test="searchKeyword != null and searchKeyword != ''">
                 <if test='searchCondition == "1"'>AND
                        A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
@@ -88,7 +88,7 @@
               			   'USR03' MBER_TY_CODE 
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 		ON A.USER_ID = B.SCRTY_DTRMN_TRGET_ID
-             WHERE 1 = 1   
+             WHERE A.USER_ID != 'empty@iteyes.co.kr'
             <if test="searchKeyword != null and searchKeyword != ''">
                <if test='searchCondition == "1"'>
                AND A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')

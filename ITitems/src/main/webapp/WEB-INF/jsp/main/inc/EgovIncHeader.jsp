@@ -211,7 +211,7 @@ function fn_egov_modal_remove() {
 						<li><a href="/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
 						<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 						<li><a href="/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
-						<li><a href="/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+						<!-- <li><a href="/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li> -->
 						</c:if>
 						<li><a href="/cat/CategoryManage.do">카테고리목록관리</a></li>
 						<li><a href="/prj/ProjectManage.do">프로젝트목록관리</a></li>

@@ -128,8 +128,7 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 */
 	@Override
 	public List<?> selectUserList(UserDefaultVO userSearchVO) {
-		List<?> result = userManageDAO.selectUserList(userSearchVO);
-		return result;
+		return userManageDAO.selectUserList(userSearchVO);
 	}
 
 	/**
@@ -205,6 +204,16 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	@Override
 	public String checkUpper(String uniqId) throws Exception {
 		return userManageDAO.checkUpper(uniqId);
+	}
+
+	@Override
+	public List<?> selectUserListS(UserDefaultVO userSearchVO) {
+		return userManageDAO.selectUserListS(userSearchVO);
+	}
+
+	@Override
+	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
+		return userManageDAO.selectUserListTotCntS(userSearchVO);
 	}
 
 
