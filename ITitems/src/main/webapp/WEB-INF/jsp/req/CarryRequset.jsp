@@ -209,7 +209,7 @@ function setPageUnit(){
 								<!--// Location -->
 								<h2 class="tit_2">반출관리</h2>
 								<!-- 검색조건 -->
-								<form id="searchVO" name="frm" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
+								<form id="searchVO" name="frm" method="post" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<input type="hidden" name="reqId" value="<c:out value='${result.reqId}'/>" />

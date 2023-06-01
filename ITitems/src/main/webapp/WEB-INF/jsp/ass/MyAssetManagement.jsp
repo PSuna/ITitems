@@ -287,7 +287,7 @@ window.onload = function(){
 								<h2 class="tit_2">내자산조회</h2>
 								<br>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" autocomplete="off" method="post">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="assetId" />

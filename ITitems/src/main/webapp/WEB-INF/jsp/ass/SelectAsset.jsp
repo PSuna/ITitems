@@ -231,7 +231,7 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" autocomplete="off" method="post">
 									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
