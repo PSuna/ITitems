@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -103,14 +104,14 @@ public class MyManageController {
 	}
 	
 	/**
-	 * 내정보 수정 후 메인 화면으로 이동한다.
+	 * 내정보 수정
 	 * @param userManageVO 사용자수정정보
 	 * @param bindingResult 입력값검증용 bindingResult
 	 * @param model 화면모델
-	 * @return forward:/cmm/main/mainPage.do
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/myp/MyPageUpdt.do")
+	@ResponseBody
 	public String updateUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, BindingResult bindingResult, Model model) throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
@@ -124,10 +125,11 @@ public class MyManageController {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
     	
-		userManageService.updateUser(userManageVO);
+		int r = userManageService.updateUser(userManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/cmm/main/mainPage.do";
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + r);
+		return String.valueOf(r);
 	}
 	
 	/**

@@ -36,6 +36,7 @@
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
              WHERE A.USER_ID != 'empty@iteyes.co.kr'
+               AND (B.AUTHOR_CODE != 'ROLE_HIGH_ADMIN' OR A.ESNTL_ID = #{uniqId})
             <if test="searchKeyword != null and searchKeyword != ''">
                 <if test='searchCondition == "1"'>AND
                        A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
