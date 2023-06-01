@@ -125,4 +125,12 @@ public class UserManageDAO extends EgovAbstractMapper{
 		return selectOne("userManageDAO.checkUpper", uniqId);
 	}
 
+	public List<?> selectUserListS(UserDefaultVO userSearchVO) {
+		return selectList("userManageDAO.selectUserList_Search", userSearchVO);
+	}
+
+	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
+		return (Integer)selectOne("userManageDAO.selectUserListTotCnt_Search", userSearchVO);
+	}
+
 }

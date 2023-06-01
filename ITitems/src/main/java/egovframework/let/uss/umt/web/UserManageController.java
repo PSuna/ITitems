@@ -158,9 +158,9 @@ public class UserManageController {
 		userSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		userSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
-		model.addAttribute("resultList", userManageService.selectUserList(userSearchVO));
+		model.addAttribute("resultList", userManageService.selectUserListS(userSearchVO));
 
-		int totCnt = userManageService.selectUserListTotCnt(userSearchVO);
+		int totCnt = userManageService.selectUserListTotCntS(userSearchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
