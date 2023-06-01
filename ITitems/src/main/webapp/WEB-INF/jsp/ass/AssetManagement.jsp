@@ -358,7 +358,7 @@ window.onload = function(){
 								<!--// Location -->
 								<h2 class="tit_2">전체자산조회</h2>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" autocomplete="off" method="post">
 								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
 								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">

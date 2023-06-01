@@ -19,7 +19,6 @@ function pushVal(frm) {
 		let val = $(item).val();
 		valList[name] = val;
 	})
-	
 	window.localStorage.setItem(frm,JSON.stringify(valList));
 }
 
