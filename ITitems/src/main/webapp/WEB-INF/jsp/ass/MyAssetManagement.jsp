@@ -281,11 +281,7 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-
-								<h1 class="tit_1">자산관리</h1>
-
 								<h2 class="tit_2">내자산조회</h2>
-								<br>
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off">
 									<div class="condition2">
