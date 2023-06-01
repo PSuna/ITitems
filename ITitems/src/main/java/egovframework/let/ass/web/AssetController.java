@@ -267,8 +267,9 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
 	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
-	
-
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		model.addAttribute("loginId", user.getUniqId());
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
@@ -276,6 +277,8 @@ public class AssetController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		
 	
 		return "/ass/AssetRegist";
 	}

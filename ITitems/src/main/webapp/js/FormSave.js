@@ -10,27 +10,39 @@
  *
  */
 
-/*let type = "input,select";
+let type = "input,select";
 
-function pushVal(frm) {
-	let valList = [];
+function pushVal(frm, id) {
+	let setName = id + "_" + frm;
+	let valList = {};
 	$("#"+frm).find(type).each(function(index, item){
 		let name = $(item).attr("name");
 		let val = $(item).val();
-		valList[name] = val;
+		if(val != null && val != ""){
+			valList[name] = val;			
+		}
 	})
-	window.localStorage.setItem(frm,JSON.stringify(valList));
+	window.localStorage.setItem(setName,JSON.stringify(valList));
 }
 
-function pullVal(frm) {
-	let valList = localStorage.getItem(frm);
-	console.log(valList);
+function pullVal(frm, id) {
+	let setName = id + "_" + frm;
+	let valList = localStorage.getItem(setName);
 	if(valList != null && valList !=""){
 		valList = JSON.parse(valList);
 		$("#"+frm).find(type).each(function(index, item){
 			let name = $(item).attr("name");
-			$(item).val(valList[name]);
-		})		
+			let val = valList[name];
+			if(val != null && val != ""){
+				$(item).val(val);			
+			}
+		})
+		getMCatList(valList['middleCategory']);
 	}
-}*/
+}
+
+function removeVal(frm, id){
+	let setName = id + "_" + frm;
+	window.localStorage.removeItem(setName);
+}
 
