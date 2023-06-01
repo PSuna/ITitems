@@ -180,6 +180,19 @@ function setPageUnit(){
 	background: #ccc;
 	cursor: pointer;
 }
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03{
+	align-items: center;
+}
+.req_box{
+	margin-bottom:10px;
+	margin-top: 10px;
+}
+@media screen and (max-width: 767px){
+	.req_box{
+		margin-bottom:10px;
+		margin-top: 0;
+	}
+}
 </style>
 </head>
 <body>
@@ -216,7 +229,7 @@ function setPageUnit(){
 									<div class="condition2" style="display: flex;justify-content: center;">
 										<div class="j_box03" style="margin-bottom:0;">
 
-											<div style="margin-bottom:10px;">
+											<div class="req_box" >
 												<div>
 													<!-- <span class="lb">신청상태</span> -->
 													<label class="item f_select w_full" for="sel1">

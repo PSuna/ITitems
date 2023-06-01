@@ -47,7 +47,8 @@
 <!--
 var loginAuthor= "";
 function fnListPage(){
-    history.back();
+	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+	document.frm.submit();
 }
 /* ********************************************************
  * 승인확인 팝업창
@@ -341,7 +342,7 @@ function fnDisUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null}">
+										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>
@@ -351,7 +352,7 @@ function fnDisUpdate(){
 											
 										</c:if>
 										<!-- 지급확인 -->
-										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
+										<a class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
 											<spring:message code="button.list" />
 										</a>
 										<!-- 목록 -->

@@ -98,6 +98,7 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 * 요청상태
 	 */
 	private String reqStatus;
+	private String rreqStatus;
 	
 	/**
 	 * 요청자직급
@@ -297,6 +298,14 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setAprvOrder(String aprvOrder) {
 		this.aprvOrder = aprvOrder;
+	}
+
+	public String getRreqStatus() {
+		return rreqStatus;
+	}
+
+	public void setRreqStatus(String rreqStatus) {
+		this.rreqStatus = rreqStatus;
 	}
 
 
