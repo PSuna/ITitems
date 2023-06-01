@@ -112,7 +112,6 @@ function inputFile() {
 		dataTransfer.items.add(file);
 	});
 	$('input[name=photo]')[0].files = dataTransfer.files; 
-	console.log($('input[name=photo]')[0].files);
 	photoFileList = [];
 }
 

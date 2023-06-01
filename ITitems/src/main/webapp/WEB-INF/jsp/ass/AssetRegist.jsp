@@ -53,6 +53,7 @@
 <!--
 var userCheck = 0;
 var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
+let loginId = '${loginId}';
 /* ********************************************************
  * 자산 등록 처리
  ******************************************************** */
@@ -81,8 +82,7 @@ function insert_asset(){
  * 등록확인 팝업창
  ******************************************************** */
  function RegistConfirm(){
-	
-	  if(validateAssetRegist(document.assetRegist)){
+	   if(validateAssetRegist(document.assetRegist)){
 		 var $dialog = $('<div id="modalPan"></div>')
 			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
@@ -93,7 +93,7 @@ function insert_asset(){
 			});
 		    $(".ui-dialog-titlebar").hide();
 			$dialog.dialog('open');
-	 } 
+	 }  
 }
 
 /* ********************************************************
@@ -145,12 +145,15 @@ function insert_asset(){
  * 등록완료 결과 처리
  ******************************************************** */
  function returnSuccess(val){
-	
+	removeVal('assetRegist');
 	if(val){
 		fn_egov_modal_remove();
 	    $('form').each(function() {
 	        this.reset();
 	    });
+		document.getElementById("rcptId").value  = loginId;
+		document.getElementById("useId").value  = loginId;
+		document.getElementById("prjId").value  = "";
 	    document.assetRegist.largeCategory.focus(); 
 	    $(".photoList").children().remove();
 	    removeP();
@@ -158,7 +161,7 @@ function insert_asset(){
 	}else{
 		document.MyAssetManagement.submit(); 
 	}
-
+	
 }
 
 /* ********************************************************
@@ -181,7 +184,7 @@ function insert_asset(){
 /* ********************************************************
  * 중분류 조회
  ******************************************************** */
-function getMCatList() {
+function getMCatList(Mval) {
 	let val = document.getElementById('largeCategory').value;
 
 	if(val == "cat1"){
@@ -190,28 +193,39 @@ function getMCatList() {
 		$('#assetQty').removeAttr("readonly").removeClass("readonly");
 	}
 		
-	$.ajax({
-		url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-		method: 'POST',
-		contentType: 'application/x-www-form-urlencoded',
-		data: {'searchUpper' : val},
-		success: function (result) {
-			document.getElementById('middleCategory').replaceChildren();
-			let op = document.createElement('option');
-			op.textContent = '선택하세요';
-			op.value = '';
-			document.getElementById('middleCategory').appendChild(op);
-			for(res of result){
-				op = document.createElement('option');
-				op.setAttribute('value', res.catId);
-				op.textContent = res.catName;
+	if(val == ""){
+		document.getElementById('middleCategory').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '중분류';
+		op.value = "";
+		document.getElementById('middleCategory').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				document.getElementById('middleCategory').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '중분류';
+				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
+					if(Mval == res.catId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('middleCategory').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
 			}
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	})
+		})
+	}
 }
 
 /* ********************************************************
@@ -461,9 +475,9 @@ function alertValid(objList) {
  ******************************************************** */
 window.onload = function(){
 	make_date();
-	pullVal('assetRegist');
+	pullVal('assetRegist',loginId);
 	setInterval(function() {
-		pushVal('assetRegist')
+		pushVal('assetRegist',loginId)
 	}, 1000);
  }
 
@@ -614,8 +628,8 @@ window.onload = function(){
 													<c:set var="Nm" value="<%= loginVO.getName()%>"/>
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_full"> 
-													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="false" value="<c:out value="${Nm}"></c:out>"/>
+													<input id="rcptNm" name="rcptNm" type="text" title="회원" maxlength="100"
+														readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트"
@@ -627,8 +641,8 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="false" value="<c:out value="${Nm}"></c:out>"/>
+														<input id="useNm" name="useNm" type="text" title="회원" maxlength="100"
+															readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
 													<input name="useId" id="useId" type="hidden" title="프로젝트" value="<c:out value="${Id}"></c:out>"
@@ -669,7 +683,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+													<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly" />
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
@@ -737,10 +751,10 @@ window.onload = function(){
 									<!-- 등록버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">
+											<!-- 등록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="RegistConfirm(); return false;"><spring:message
 													code="button.create" /></a>
-											<!-- 등록 -->
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
