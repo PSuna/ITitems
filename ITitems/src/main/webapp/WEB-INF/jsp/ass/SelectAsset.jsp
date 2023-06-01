@@ -262,7 +262,7 @@ window.onload = function(){
 												</td>
 												<td>${resultVO.maker}</td>
 												<td class="lb">
-													<!-- 품명 --> <label for="">제품명</label>
+													<!-- 품명 --> <label for="">제품명(모델명)</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 											</tr>
@@ -393,7 +393,7 @@ window.onload = function(){
 										<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
 										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 									<!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login || resultVO.rcptId == login}">
 												<!-- 수정 -->

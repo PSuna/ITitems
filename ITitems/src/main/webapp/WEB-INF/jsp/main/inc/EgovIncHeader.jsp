@@ -95,7 +95,7 @@ function fn_egov_modal_remove() {
           		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
-          		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li>
+          		<!-- <li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
           		
           		<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
                	<li class="gnb_li">
@@ -201,9 +201,9 @@ function fn_egov_modal_remove() {
 				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a>				
 			</li>
 			
-			<li>
+			<!-- <li>
 				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a>
-			</li>
+			</li> -->
 			
 			<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 				<li><a href="#">사이트관리</a>

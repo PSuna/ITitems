@@ -32,7 +32,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
-
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <title>Iteyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="javascript" defer="defer">
@@ -315,7 +315,7 @@ function press() {
                                 </div>
 
                                 <!-- 게시판 -->
-                                <div class="board_list">
+                                <div class="board_list authorGroupList">
                                     <table summary="권한 그룹을 관리하는 테이블입니다.사용자 ID,사용자 명,사용자 유형,권한,등록 여부의 정보를 담고 있습니다.">
                                     	<caption>권한그룹관리</caption>
                                         <colgroup>

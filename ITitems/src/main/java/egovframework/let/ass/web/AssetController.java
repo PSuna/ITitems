@@ -344,7 +344,7 @@ public class AssetController {
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
-		model.addAttribute("listCode", assetManageVO.getListCode());
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetUpdt";
 	}

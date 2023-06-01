@@ -325,7 +325,8 @@
 		    ACQUIRED_PRICE, 
 		    REG_ID, 
 		    REG_DATE, 
-		    USAGE_STAUTS
+		    USAGE_STAUTS,
+		    MNG_NUM
 		    )
 		VALUES (
 		    #{assetId},
@@ -340,7 +341,8 @@
 		    '',
 		    #{regId},
 		    DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
-		    #{usageStatus} 
+		    #{usageStatus},
+		    #{mngNum} 
 		     )
 	</insert>
 
@@ -358,7 +360,8 @@
 		    <if test="acquiredDate != null and acquiredDate != ''">
 		    ACQUIRED_DATE = STR_TO_DATE(#{acquiredDate}, '%Y-%m-%d'), 
 		    </if>
-		    ACQUIRED_PRICE = #{acquiredPrice}
+		    ACQUIRED_PRICE = #{acquiredPrice},
+		    MNG_NUM = #{mngNum}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
 	 

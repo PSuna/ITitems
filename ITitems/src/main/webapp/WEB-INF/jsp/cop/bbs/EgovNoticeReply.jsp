@@ -33,6 +33,7 @@
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <!-- script type="text/javascript" src="<c:url value='/html/egovframework/cmm/utl/htmlarea/EgovWebEditor.js'/>" ></script-->
@@ -130,10 +131,6 @@
             <div class="sub_layout">
                 <div class="sub_in">
                     <div class="layout">
-                        <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
-                        <!--// Left menu -->
-        
                         <div class="content_wrap">
                             <div id="contents" class="content">
                                  <!-- Location -->
@@ -260,11 +257,8 @@
                                 </div>
 
 								<!-- 목록/저장버튼  -->
-                                <div class="board_view_bot">
-                                    <div class="left_col btn3">
-                                    </div>
-
-                                    <div class="right_col btn1">
+                                <div class="board_view_bot btn_bot">
+                                    <div class="btn1">
                                     	<c:if test="${bdMstr.authFlag == 'Y'}">
                                         	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message code="button.save" /></a><!-- 저장 -->
                                         </c:if>

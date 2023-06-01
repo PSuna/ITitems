@@ -529,8 +529,6 @@ window.onload = function(){
 
 									<h2 class="tit_2">자산수정</h2>
 
-									<br>
-									
 									<c:if test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 									<p><span class="req">필수</span><spring:message code="ass.update.rcpt" /></p>
 									</c:if>
@@ -587,7 +585,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for="">제품명</label>
+													<label for="">제품명(모델명)</label>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
@@ -785,11 +783,8 @@ window.onload = function(){
 											</tr> --%>
 										</table>
 									</div>
-									
-									<br>
-									
 									<!-- 등록버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="UpdtConfirm(); return false;"><spring:message
@@ -802,8 +797,19 @@ window.onload = function(){
 								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
 									<input type="hidden" name="assetId"
 										value="<c:out value='${resultVO.assetId}'/>" />
-									<input type="hidden" name="listCode"
-										value="<c:out value='${listCode}'/>" />
+									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+									<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+									<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+									<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+									<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+									<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 								</form>
 							</div>
 						</div>

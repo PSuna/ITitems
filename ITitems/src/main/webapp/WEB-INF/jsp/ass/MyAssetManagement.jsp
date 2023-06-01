@@ -343,7 +343,7 @@ window.onload = function(){
 												<!-- <span class="lb">품명/시리얼넘버</span> -->
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="품명/시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="제품명 / 시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
 											</div>
 											<div class="btn_box">
@@ -406,7 +406,7 @@ window.onload = function(){
 												<th scope="col">번호</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
-												<th scope="col">품명</th>
+												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
 												<th scope="col">소유자</th>

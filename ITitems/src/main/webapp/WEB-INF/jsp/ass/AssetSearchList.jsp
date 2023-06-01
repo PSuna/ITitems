@@ -170,7 +170,7 @@
 								<tr>
 									<th scope="col">대분류</th>
 									<th scope="col">중분류</th>
-									<th scope="col">품명</th>
+									<th scope="col">제품명(모델명)</th>
 									<th scope="col">수량</th>
 									<th scope="col">취득일자</th>
 									<th scope="col">취득가액</th>
