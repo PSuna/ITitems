@@ -17,6 +17,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib prefix="validator"
 	uri="http://www.springmodules.org/tags/commons-validator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -88,7 +89,7 @@ function UpdateAsset(){
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
-		        width: 500,
+		        width: 400,
 		        height: 300
 		        
 			});
@@ -119,7 +120,7 @@ function UpdtIng(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 500,
+        width: 400,
         height: 300
 	});
     $(".ui-dialog-titlebar").hide();
@@ -137,7 +138,7 @@ function UpdtIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -163,8 +164,8 @@ function UpdtIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
-	        height: 400
+	        width: 400,
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -191,16 +192,22 @@ function getMCatList(Mval) {
 				document.getElementById('middleCategory').replaceChildren();
 				let op = document.createElement('option');
 				op.textContent = '선택하세요';
+				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
 				for(res of result){
 					op = document.createElement('option');
 					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					if(Mval == res.catName){
+					if(res.catName == '기타'){
+						op.textContent = res.catName + "(직접입력)";
+					}else{
+						op.textContent = res.catName;	
+					}
+					if(Mval == res.catId){
 						op.setAttribute('selected', 'selected');
 					}
 					document.getElementById('middleCategory').appendChild(op);
 				}
+				checkMcatEtc();
 			},
 			error: function (error) {
 				console.log(error);
@@ -208,6 +215,31 @@ function getMCatList(Mval) {
 		})
 	}
 }
+
+/* ********************************************************
+ * 중분류 직접입력
+ ******************************************************** */
+ function checkMcatEtc(){
+	 let val = $("#middleCategory option:selected").text();
+	 if(val.indexOf('기타') == -1){
+		 $("#mcatEtc").attr("type","hidden").val("");
+	 }else{
+		 $("#mcatEtc").attr("type","text");
+	 }
+}
+ 
+/* ********************************************************
+ * 제조사 직접입력
+ ******************************************************** */
+ function checkMakerEtc(){
+	 let val = $("#makerCode option:selected").text();
+	 
+	 if(val.indexOf('기타') == -1){
+		 $("#maker").attr("type","hidden").val("");
+	 }else{
+		 $("#maker").attr("type","text");
+	 }
+ }
 
 /* ********************************************************
  * 숫자 콤마 입력
@@ -244,7 +276,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -262,7 +294,7 @@ function UserSearch(ch){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -379,8 +411,8 @@ function PhotoManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 500
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -396,8 +428,8 @@ function AssetSnManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
-        height: 700
+        width: 660,
+        height: 450
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
@@ -413,7 +445,7 @@ function FileManual(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -473,11 +505,12 @@ window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
 	getNumber(document.AssetUpdt.acquiredPrice);
 	make_date();
+	checkMakerEtc();
 	  }
 //-->
 </script>
 
-<title>ITitems</title>
+
 
 </head>
 
@@ -519,26 +552,18 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 
-
+								<%
+									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+								%>
 								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">자산수정</h2>
 
-									<br>
-									<!-- 추가/초기화 버튼  -->
-									<!-- <div class="board_view_bot">
-										<div class="right_btn btn1">
-											<a href="#LINK" class="btn btn_blue_46 w_130"
-												onclick="AssetSearch(); return fasle;">기존 자산 등록</a>
-											기존 자산 추가
-											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="frm_reset(); return fasle;">초기화</a>
-											초기화
-										</div>
-									</div> -->
-									<!-- // 추가/초기화 버튼 끝  -->
+									<c:if test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+									<p><span class="req">필수</span><spring:message code="ass.update.rcpt" /></p>
+									</c:if>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -569,45 +594,6 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
-													<!-- 중분류 --> 
-													<label for="">중분류</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<label class="f_select w_full" for="middleCategory">
-														<select id="middleCategory" name="middleCategory">
-														</select>
-													</label> 
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 제조사 --> 
-													<label for="">제조사</label>
-												</td>
-												<td>
-													<input id="maker" class="f_txt w_full" name="maker" type="text" value="${resultVO.maker}" maxlength="60"> 
-													<br />
-												</td>
-												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">제품명</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
-												</td>
-												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
-												</td>
-												<td class="lb">
 													<!-- 수량 -->
 													<label for="">수량</label> 
 													<span class="req">필수</span>
@@ -619,30 +605,93 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<!-- 중분류 --> 
+													<label for="">중분류</label> 
+													<span class="req">필수</span>
 												</td>
-												<td colspan="4">
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
+												<td>
+													<label class="f_select w_full" for="middleCategory">
+														<select id="middleCategory" name="middleCategory" onchange="checkMcatEtc();">
+														</select>
+													</label> 
+												</td>
+												<td colspan="2">
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" value="${resultVO.mcatEtc}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
+												</td>
+												<td>
+													<label class="f_select w_full" for="largeCategory">
+															<select id="makerCode" name="makerCode" onchange="checkMakerEtc();">
+																<option value="" label="선택하세요" />
+																<c:forEach var="result" items="${maker_result}" varStatus="status">
+																<c:choose>
+																	<c:when test="${result.codeNm == '기타'}">
+																		<option value="${result.code}" <c:if test="${result.code == resultVO.makerCode}">selected="selected"</c:if>>
+																			<c:out value="${result.codeNm}(직접입력)" />
+																		</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${result.code}" <c:if test="${result.code == resultVO.makerCode}">selected="selected"</c:if>>
+																			<c:out value="${result.codeNm}" />
+																		</option>
+																	</c:otherwise>
+																</c:choose>
+																</c:forEach>
+															</select>
+													</label>
+												</td>
+												<td colspan="2">
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" value="${resultVO.maker}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 품명 --> 
+													<label for="">제품명(모델명)</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
+												</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+												</td>
+												<td>
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">소유자</label> 
+													<label for="">수령자</label> 
 													<span class="req">필수</span>
 												</td>
-												<td>
-													<span class="f_search2 w_full"> 
-													<input id="rcptNm" type="text" title="회원" maxlength="100"
-														readonly="readonly"  value="${resultVO.rcptNm}"/>
-													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
-													</span> 
-													<input name="rcptId" id="rcptId" type="hidden"
-														maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
-												</td>
+												<c:choose>
+													<c:when test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+														<td>
+															<input id="rcptNm"  class="f_txt w_full readonly"  type="text" maxlength="100"
+																readonly="readonly"  value="${resultVO.rcptNm}"/>
+															<input name="rcptId" id="rcptId" type="hidden"
+																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+														</td>
+													</c:when>
+													<c:otherwise>
+														<td>
+															<span class="f_search2 w_full"> 
+															<input id="rcptNm" type="text" maxlength="100"
+																readonly="readonly"  value="${resultVO.rcptNm}"/>
+															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+															</span> 
+															<input name="rcptId" id="rcptId" type="hidden"
+																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+														</td>
+													</c:otherwise>
+												</c:choose>
 												<td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
@@ -693,12 +742,30 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
+												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label>
+												</td>
+												<td>
+													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 취득일자 --> 
 													<label for="">취득일자</label>
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
+														<input id="acquiredDate" class="f_txt w_full readonly" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">
@@ -734,7 +801,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> (최대 5장)
+													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												<td colspan="4">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
@@ -778,11 +845,8 @@ window.onload = function(){
 											</tr> --%>
 										</table>
 									</div>
-									
-									<br>
-									
 									<!-- 등록버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="UpdtConfirm(); return false;"><spring:message
@@ -795,8 +859,20 @@ window.onload = function(){
 								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
 									<input type="hidden" name="assetId"
 										value="<c:out value='${resultVO.assetId}'/>" />
-									<input type="hidden" name="listCode"
-										value="<c:out value='${listCode}'/>" />
+									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+									<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+									<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+									<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+									<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+									<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

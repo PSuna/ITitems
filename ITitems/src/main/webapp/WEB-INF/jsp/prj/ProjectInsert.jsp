@@ -31,7 +31,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 등록</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
@@ -75,7 +75,7 @@ function UserSearch(ch){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -163,7 +163,7 @@ function returnUser(val){
 													<label for="name">PM</label> 
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readOnly="true" />
 													<form:errors path="name" />
 													<span id="nameErr" class="errSpan"></span>

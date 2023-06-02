@@ -31,7 +31,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 function fn_egov_cancel_popup() {
 	parent.fn_egov_modal_remove();
@@ -90,32 +90,33 @@ function fn_egov_search_Prj() {
 
             <div class="pop_container">
                 <!-- 검색조건 -->
-                <div class="condition2">
-                    <label for="" class="lb mr10">프로젝트명 : </label>
+                <div class="condition2" style="display: flex;justify-content: center;margin-top:0;">
                     <span class="item f_search">
-                        <input class="f_input w_500 pty_f_input" name="searchWord" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
+                        <input class="f_input w_300 pty_f_input" name="searchWord" placeholder="프로젝트명 검색" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
                         <button class="btn" type="submit" onclick="fn_egov_search_Prj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
                     </span>
+                    <button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fn_egov_search_Prj(); return false;">검색</button>
+                    <div class="btn_area"style="margin-top:0px !important;">
+	                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
+	                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+               	 	</div>
                 </div>
                 <!--// 검색조건 -->
-				<div class="btn_area">
-                   	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
-                   	<spring:message code="button.reset" /></a><!-- 등록 -->
-                </div>
+				
                 <!-- 게시판 -->
                 <div class="board_list selete_table">
                     <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
                         <colgroup>
-                            <col style="width: 27%;">
-                            <col style="width: 27%;">
-                            <col style="width: 27%;">
-                            <col style="width: 27%;">
-                            <col style="width: 17%;">
+                            <col style="width: 40%;">
+                            <%-- <col style="width: 27%;"> --%>
+                            <col style="width: 20%;">
+                            <col style="width: 30%;">
+                            <col style="width: 10%;">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col">프로젝트명</th>
-                                <th scope="col">기간</th>
+                                <!-- <th scope="col">기간</th> -->
                                 <th scope="col">PM</th>
                                 <th scope="col">고객사</th>
                                 <th scope="col">상태</th>
@@ -125,7 +126,7 @@ function fn_egov_search_Prj() {
                         	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
                             <tr onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}','${resultInfo.id}','${resultInfo.name}');">
                                 <td>${resultInfo.prjName}</td>
-                                <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
+                                <%-- <td>${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td> --%>
                                 <td>${resultInfo.name} ${resultInfo.position}</td>
                                 <td>${resultInfo.client}</td>
                                 <td>${resultInfo.prjState}</td>

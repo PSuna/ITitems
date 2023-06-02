@@ -47,7 +47,8 @@
 <!--
 var loginAuthor= "";
 function fnListPage(){
-    history.back();
+	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+	document.frm.submit();
 }
 /* ********************************************************
  * 승인확인 팝업창
@@ -58,7 +59,7 @@ function fnAgree(){
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
-		    width: 500,
+		    width: 400,
 		    height: 300
 		});
 		$(".ui-dialog-titlebar").hide();
@@ -96,7 +97,7 @@ function fnDisAgree(){
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
-		    width: 500,
+		    width: 400,
 		    height: 300
 		});
 		$(".ui-dialog-titlebar").hide();
@@ -124,9 +125,32 @@ function fnDisUpdate(){
 			}
 	 });
  }
+ 
+ window.onload = function(){
+	 var i = document.querySelectorAll('.aprv_item').length;
+	 var p = `<div class="aprv_item">
+					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<tbody>
+							<tr style="border-bottom:1px solid black;">
+								<td>/</td>
+							</tr>
+							<tr class="aprv_col" style="border-bottom:1px solid black;">
+								<td class="aprv_nm">/</td>
+							</tr>
+							<tr>
+								<td class="aprv_td">/
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>`;
+	 for(var j=0;j<4-i;j++){
+		 $(".aprv_item:last-child").before(p);
+	 }
+ }
 //-->
 </script>
-<title>ITitems</title>
+
 </head>
 <style type="text/css">
 .ui-datepicker-trigger {
@@ -173,32 +197,55 @@ function fnDisUpdate(){
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm">
+								<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
+								<input name="pageUnit" type="hidden" value="<c:out value='${approvalSearchVO.pageUnit}'/>"/>
+								<input name="searchGroup" type="hidden" value="<c:out value='${approvalSearchVO.searchGroup}'/>"/>
+								<input name="searchStatus" type="hidden" value="<c:out value='${approvalSearchVO.searchStatus}'/>"/>
+								<input name="searchKeyword" type="hidden" value="<c:out value='${approvalSearchVO.searchKeyword}'/>"/>
 									<div class="aprv_top">
 										<h2 class="tit_2">결재요청정보</h2>
 										<div class="aprv_view">
-											<c:forEach var="aprvItem" items="${aprvList_result }">
-												<div class="aprv_item">
-													<table class="aprv_table">
-														<tbody>
-															<tr class="aprv_col">
-																<td class="aprv_nm">${aprvItem.userNm }</td>
-															</tr>
-															<tr>
-																<td class="aprv_td">
-																	<c:choose>
-																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
-																		</c:when>
-																		<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
-																		</c:when>
-																		<c:otherwise> ${aprvItem.aprvDate }
-																		</c:otherwise>
-																	</c:choose>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</c:forEach>
+											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
+												<tbody>
+													<tr style="border-bottom:1px solid black;">
+														<td>신청자</td>
+													</tr>
+													<tr class="aprv_col" style="border-bottom:1px solid black;">
+														<td class="aprv_nm">${approvalVO.userNm}</td>
+													</tr>
+													<tr>
+														<td class="aprv_td">${approvalVO.reqDate}</td>
+													</tr>
+												</tbody>
+											</table>
+											<div id="aprv_list" style="display:flex;border-right:1px solid black;">
+												<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
+													<div class="aprv_item">
+														<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+															<tbody>
+																<tr style="border-bottom:1px solid black;">
+																	<td>결재자</td>
+																</tr>
+																<tr class="aprv_col" style="border-bottom:1px solid black;">
+																	<td class="aprv_nm">${aprvItem.userNm }</td>
+																</tr>
+																<tr>
+																	<td class="aprv_td">
+																		<c:choose>
+																			<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																			</c:when>
+																			<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
+																			</c:when>
+																			<c:otherwise> ${aprvItem.aprvDate }
+																			</c:otherwise>
+																		</c:choose>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</c:forEach>
+											</div>
 										</div>
 									</div>
 									<div class="board_view2">
@@ -300,17 +347,17 @@ function fnDisUpdate(){
 								 <!-- 지급확인버튼  -->
 								<div class="board_view_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus eq 'A0'}">
-											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnAgree(); return false;">
+										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
+											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>
-											<a href="#LINK" class="btn btn_blue_46 w_150" onclick="JavaScript:fnDisAgree(); return false;">
+											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnDisAgree(); return false;">
 												<spring:message code="button.disagree" />
 											</a>
 											
 										</c:if>
 										<!-- 지급확인 -->
-										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
+										<a class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
 											<spring:message code="button.list" />
 										</a>
 										<!-- 목록 -->

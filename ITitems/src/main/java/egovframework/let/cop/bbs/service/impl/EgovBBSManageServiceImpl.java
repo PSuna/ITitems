@@ -110,7 +110,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
 	    boardVO.setInqireCo(iniqireCo);
 	    bbsMngDAO.updateInqireCo(boardVO);
 	}
-
+	boardVO.setBbsId("BBSMSTR_AAAAAAAAAAAA");
 	return bbsMngDAO.selectBoardArticle(boardVO);
     }
 

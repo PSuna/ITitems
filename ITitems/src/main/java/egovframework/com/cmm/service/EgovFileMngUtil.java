@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Map.Entry;
 
 import javax.annotation.Resource;
@@ -188,7 +189,7 @@ public class EgovFileMngUtil {
     int index = orginFileName.lastIndexOf(".");
     //String fileName = orginFileName.substring(0, index);
     String fileExt = orginFileName.substring(index + 1);
-    String newName = KeyStr + EgovStringUtil.getTimeStamp() + fileKey;
+    String newName = KeyStr + UUID.randomUUID().toString() + fileKey;
     long _size = file.getSize();
 
     if (!"".equals(orginFileName)) {

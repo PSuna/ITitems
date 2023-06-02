@@ -50,7 +50,7 @@
     
 </script>
 
-<title>게시판 사용정보 상세조회 및 수정</title>
+
 
 </head>
 

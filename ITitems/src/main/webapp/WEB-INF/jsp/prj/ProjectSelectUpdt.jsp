@@ -31,7 +31,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 상세정보 및 수정</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
@@ -47,13 +47,16 @@ function UserSearch(ch){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-
+function fnListPage(){
+	document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+    document.projectVO.submit();
+}
 function returnUser(val){
 	
 	if (val) {
@@ -85,6 +88,11 @@ function fnDeletePrj(prjId){
 
 //-->
 </script>
+<style>
+.board_view_bot {
+	margin-top:8px;
+}
+</style>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -127,6 +135,8 @@ function fnDeletePrj(prjId){
 										value="<c:out value='${searchVO.searchWord}'/>" />
 									<input type="hidden" name="pageIndex"
 										value="<c:out value='${searchVO.pageIndex}'/>" />
+									<input type="hidden" name="pageUnit"
+										value="<c:out value='${searchVO.pageUnit}'/>" />
 
 									<h2 class="tit_2">프로젝트 상세조회 및 수정</h2>
 
@@ -143,23 +153,31 @@ function fnDeletePrj(prjId){
 													<label for="prjName">프로젝트명</label>
 													<span class="req">필수</span>
 												</td>
-												<td>
+												<td colspan="3">
 													<form:input path="prjName" id="prjName" class="f_txt w_full" maxlength="50"/>
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
 												</td>
+											</tr>
+											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
 													<label for="name">PM</label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 w_30%"> 
+													<span class="f_search2 w_full"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
 													<form:errors path="name" />
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<form:input path="id" id="id" type="hidden" title="id" />
 												</td>
+												<td class="lb">
+													<label for="prjCode">프로젝트번호</label> 
+												</td>
+												<td>
+	                                                <form:input path="prjCode" id="prjCode" class="f_txt w_full" maxlength="30" />
+													<form:errors path="prjCode" />
+	                                            </td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -217,11 +235,9 @@ function fnDeletePrj(prjId){
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;"><spring:message
-													code="button.save" /></a>
+												onclick="JavaScript:fnUpdate(); return false;">수정</a>
 											<!-- 저장 -->
-											<a href="<c:url value='/prj/ProjectManage.do'/>"
-												class="btn btn_blue_46 w_100"
+											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="fnListPage(); return false;"><spring:message
 													code="button.list" /></a>
 											<!-- 목록 -->

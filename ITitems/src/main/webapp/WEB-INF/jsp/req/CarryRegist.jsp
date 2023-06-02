@@ -61,12 +61,12 @@ function insertCarryDetail(reqId) {
 	trList.forEach(function(items,index) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
-		let Mcat = items.querySelector('#middleCategory').value;
-		let qty = items.querySelector('#reqQty').value;
-		if(Mcat != '' && Mcat != null && qty != null && qty != '' && qty != 0){
+		let Mcat = items.querySelector('#middleCategory');
+		let qty = items.querySelector('#reqQty');
+		if(Mcat != null && qty != null){
 			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
-			formdata.append('middleCategory', Mcat);
-			formdata.append('reqQty', qty);
+			formdata.append('middleCategory', Mcat.value);
+			formdata.append('reqQty', qty.value);
 			formdata.append('maker', items.querySelector('#maker').value);
 			formdata.append('user', items.querySelector('#user').value);
 			formdata.append('reqOrder', trList.length - index);
@@ -78,15 +78,16 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					insertApproval(result);
+					
 				},
 				error: function (error) {
 					RegistFail();
+					return;
 				}
 			}) 
 		}
-		
 	});
+	insertApproval(reqId);
 }
 
 /* ********************************************************
@@ -106,6 +107,7 @@ function insertCarry() {
 			},
 			error: function (error) {
 				RegistFail();
+				return;
 			}
 		})
 }
@@ -143,14 +145,16 @@ function insertApproval(reqId){
 			contentType: false,
 			data: formdata,
 			success: function (result) {
-				fn_egov_modal_remove();
-				RegistSuccess();
+				
 			},error: function (error) {
 				fn_egov_modal_remove();
 				RegistFail();
+				return;
 			}
 		})
 	});
+	fn_egov_modal_remove();
+	RegistSuccess();
 }
 
 /* ********************************************************
@@ -164,7 +168,7 @@ function insertApproval(reqId){
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
-		        width: 500,
+		        width: 400,
 		        height: 300
 			});
 		    $(".ui-dialog-titlebar").hide();
@@ -180,7 +184,7 @@ function insertApproval(reqId){
 	fn_egov_modal_remove();
 	 if(val){
 		 RegistIng();
-		 insertCarry();
+		 insertCarry(); 
 	 }	  
 }
 
@@ -194,7 +198,7 @@ function insertApproval(reqId){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -211,7 +215,7 @@ function insertApproval(reqId){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -236,6 +240,12 @@ function insertApproval(reqId){
 	    $('#frm #delTr').each(function(){
 	    	$(this).closest('tr').remove();
 		})
+		document.getElementById("prjNm").value  = "";
+	    document.getElementById("pm").value  = "";
+	    document.getElementById("aprv0").value  = "";
+	    document.getElementById("aprv1").value  = "";
+	    document.getElementById("aprv2").value  = "";
+	    document.getElementById("aprv3").value  = "";
 		document.frm.prjNm.focus(); 
 	}else{
 		document.CarryRequset.submit();
@@ -253,8 +263,8 @@ function insertApproval(reqId){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
-	        height: 400
+	        width: 400,
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -362,7 +372,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -396,7 +406,7 @@ function UserSearch(ch){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -632,7 +642,7 @@ window.onload = function(){
 //-->
 </script>
 
-<title>ITitems</title>
+
 
 </head>
 
@@ -695,7 +705,7 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">성명</label> <span class="req">필수</span>
+													<!-- 성명 --> <label for="">수령자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
@@ -798,7 +808,7 @@ window.onload = function(){
 													<div id="mCat">
 														<label class="f_select w_full" for="middleCategory"> <select
 															id="middleCategory" name="middleCategory" title="중분류">
-																<option value='' label="중분류" selected="selected" />
+																<option value="" label="중분류" selected="selected" />
 														</select>
 														</label>
 													</div></td>
@@ -878,9 +888,8 @@ window.onload = function(){
 									</table>
 								</div>
 								</form>
-								<br>
 								<!-- 등록버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
 										<!-- 등록 -->

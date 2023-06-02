@@ -30,7 +30,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
@@ -170,7 +170,7 @@
 								<tr>
 									<th scope="col">대분류</th>
 									<th scope="col">중분류</th>
-									<th scope="col">품명</th>
+									<th scope="col">제품명(모델명)</th>
 									<th scope="col">수량</th>
 									<th scope="col">취득일자</th>
 									<th scope="col">취득가액</th>

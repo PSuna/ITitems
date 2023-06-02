@@ -16,7 +16,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
-<title>eGovFrame 템플릿</title>
+
 
 <script type="text/javascript">
 	function fncGoAfterErrorPage() {

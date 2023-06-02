@@ -139,7 +139,8 @@ public class UserManageController {
 	 * 사용자목록 조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/uss/umt/user/SearchUserList.do")
-	public String SearchUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, ModelMap model, HttpServletRequest request) throws Exception {
+	public String SearchUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO,
+								ModelMap model, HttpServletRequest request) throws Exception {
 
 		/** EgovPropertyService */
 		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
@@ -157,9 +158,9 @@ public class UserManageController {
 		userSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		userSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
-		model.addAttribute("resultList", userManageService.selectUserList(userSearchVO));
+		model.addAttribute("resultList", userManageService.selectUserListS(userSearchVO));
 
-		int totCnt = userManageService.selectUserListTotCnt(userSearchVO);
+		int totCnt = userManageService.selectUserListTotCntS(userSearchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 

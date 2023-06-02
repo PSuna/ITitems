@@ -9,7 +9,9 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
@@ -104,6 +106,9 @@ public class RequestController {
 		
 		vo.setCodeId("COM008");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		//결재요청분류코드를 코드정보로부터 조회 - COM011
+		vo.setCodeId("COM011");
+		model.addAttribute("group_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
@@ -164,12 +169,13 @@ public class RequestController {
 	 * 반출/반입상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/SelectCarry.do")
-	public String SelectCarry(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
+	public String SelectCarry(HttpServletRequest request, ModelMap model,@ModelAttribute("searchVO") RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
 		
 		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
 		  model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
 		  model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
+		  model.addAttribute("searchVO", manageVO);
 		 
 		return "/req/SelectCarry";
 	}

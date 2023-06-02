@@ -30,7 +30,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>메뉴생성</title>
+
 
 <script type="text/javaScript">
 <!--

@@ -37,7 +37,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>사이트관리 > 메뉴관리 > 메뉴생성관리</title>
+
 
 <script type="text/javaScript">
 <!--

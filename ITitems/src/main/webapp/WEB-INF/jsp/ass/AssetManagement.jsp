@@ -10,8 +10,8 @@
     author   : 영남사업부 주소현
     since    : 2023.04.13
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -35,7 +35,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITitems</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
@@ -48,7 +48,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -78,7 +78,7 @@ function UserSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -278,10 +278,13 @@ function make_date(){
 }
 
 /* ********************************************************
- * 자산상세보기 이동
+ * 자산 상세 페이지 이동
  ******************************************************** */
-function selectAsset(id) {
-	document.getElementById('subForm'+id).submit;
+function SelectAsset(assetId) {
+	event.preventDefault();
+	document.frm.assetId.value = assetId;
+    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.frm.submit(); 
 }
 
 /* ********************************************************
@@ -328,7 +331,7 @@ window.onload = function(){
 </script>
 </head>
 <body>
-	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
@@ -353,18 +356,16 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-
-								<h1 class="tit_1">자산관리</h1>
-
 								<h2 class="tit_2">전체자산조회</h2>
-								<br>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" autocomplete="off" method="post">
 								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
 								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+										<input type="hidden" name="assetId" />
+										<input type="hidden" name="listCode" value="AM" />
 										<div class="j_box02">
 											<div>
 												<!-- <span class="lb">본부/부서</span> -->
@@ -432,9 +433,9 @@ window.onload = function(){
 												 </div>
 											</div>	
 											<div class="search_box">
-												<!-- <span class="lb">소유자/실사용자</span> -->
+												<!-- <span class="lb">수령자/실사용자</span> -->
 												<span class="f_search2 w_full"> 
-													<input id="userNm" name="userNm" type="text" placeholder="소유자/실사용자" maxlength="100"
+													<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
 														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch()">조회</button>
 												</span>
@@ -516,7 +517,7 @@ window.onload = function(){
 												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
-												<th scope="col">소유자</th>
+												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
@@ -524,16 +525,9 @@ window.onload = function(){
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
+												<tr onclick="SelectAsset('${result.assetId}');">
 													<td>
-														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
-															<input type="hidden" name="assetId"
-																value="<c:out value='${result.assetId}'/>" />
-															<input type="hidden" name="listCode"
-																value="AM" />
-														</form>
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.orgnztId}" /></td>
 													<td><c:out value="${result.lowerOrgnztId}" /></td>

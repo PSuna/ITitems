@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-<title>사이트관리 > 프로젝트관리 > 프로젝트목록관리</title>
+
 
 <script language="javascript1.2" type="text/javaScript">
 <!--
@@ -78,6 +78,14 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/prj/ProjectManage.do'/>";
     document.listForm.submit();
 }
+/* ********************************************************
+ * 프로젝트상세보기 이동
+ ******************************************************** */
+function fnSelectPrj(id) {
+    document.listForm.selectedId.value = id;
+    document.listForm.action = "<c:url value='/prj/ProjectSelectView.do'/>";
+    document.listForm.submit();
+}
 
 //-->
 </script>
@@ -111,13 +119,15 @@ function setPageUnit(){
 								<!--// Location -->
 								
 								<form name="listForm" action="<c:url value='/prj/ProjectManage.do'/>" method="post">
-								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+									<input name="selectedId" type="hidden" />
+									<input name="checkedIdForDel" type="hidden" />
+									<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<h2 class="tit_2">프로젝트목록관리</h2>
 								<!-- 검색조건 -->
 				                <div class="condition pty_condition">
 				                	<div class="pty_search">
 										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명을 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명/코드 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fnSearchPrj(); return false;">검색</button>
 									</div>
@@ -140,12 +150,12 @@ function setPageUnit(){
 															<label class="item f_select" for="pageUnit"> 
 																	
 																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																		<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																		<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																		<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																		<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																		<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																		<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 																</select>
 															</label>
 															
@@ -162,15 +172,16 @@ function setPageUnit(){
 				                    <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
 				                        <colgroup>
 				                            <col style="width: 5%;">
+				                            <col style="width: 12%;">
 				                            <col style="width: auto;">
 				                            <col style="width: 20%;">
 				                            <col style="width: 15%;">
-				                            <%-- <col style="width: 12%;">  --%>
 				                            <col style="width: 10%;">
 				                        </colgroup>
 				                        <thead>
 				                            <tr>
-				                                <th scope="col">번호</th>
+				                                <th scope="col">번호</th>				                                
+				                                <th scope="col">코드</th>
 				                                <th scope="col">프로젝트명</th>
 				                              <!-- <th scope="col">기간</th> -->
 				                                <th scope="col">PM</th> 
@@ -180,13 +191,10 @@ function setPageUnit(){
 				                        </thead>
 				                        <tbody>
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
-				                            <tr>
-				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}"/></td>
-				                                <td class="pty_text-align_left pty_padding-left_24">
-				                                <a href="<c:url value='/prj/ProjectSelectView.do'/>?selectedId=<c:out value="${resultInfo.prjId}"/>" class="lnk">
-				                                ${resultInfo.prjName}
-				                                </a>
-				                                </td>
+				                            <tr onclick="fnSelectPrj('<c:out value="${resultInfo.prjId}"/>');">
+				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}"/></td>
+				                                <td>${resultInfo.prjCode}</td>
+				                                <td class="pty_text-align_left pty_padding-left_24">${resultInfo.prjName}</td>
 				                                
 				                                <%-- <td class="pty_font-size_12">${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
 				                                 --%>
@@ -201,10 +209,10 @@ function setPageUnit(){
 				                </div>
 				                
 				                <div class="btn_area">
-				                	
+				                	<div class="excel_btn pty_margin-left_8">
 									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-								
+									</div>
 				                
 				                	<a href="<c:url value='/prj/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46 " onclick="fnAddProjectView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 	                             	                             
