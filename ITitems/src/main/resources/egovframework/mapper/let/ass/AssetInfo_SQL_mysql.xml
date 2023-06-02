@@ -43,6 +43,7 @@
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
+		<result property="makerCode" column="MAKER_CODE" />
 		<result property="note" column="NOTE" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="regId" column="REG_ID" />
