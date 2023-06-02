@@ -55,7 +55,7 @@ function fntrsfExcel(){
 	}
 }
 function fnSelectAprv(reqId){
-	document.listForm.reqId = reqId;
+	document.listForm.reqId.value = reqId;
 	document.listForm.action = "<c:url value='/aprv/selectApproval.do'/>";
 	document.listForm.submit();
 }
@@ -101,7 +101,7 @@ function fnSelectAprv(reqId){
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
-                                	
+                                	<input name="reqId" type="hidden"/>
                                 	<h2 class="tit_2">결재</h2>
                                 	
                                 	<!-- 검색조건 -->

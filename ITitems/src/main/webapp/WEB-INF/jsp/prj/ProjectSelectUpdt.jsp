@@ -130,6 +130,8 @@ function fnDeletePrj(prjId){
 										value="<c:out value='${searchVO.searchWord}'/>" />
 									<input type="hidden" name="pageIndex"
 										value="<c:out value='${searchVO.pageIndex}'/>" />
+									<input type="hidden" name="pageUnit"
+										value="<c:out value='${searchVO.pageUnit}'/>" />
 
 									<h2 class="tit_2">프로젝트 상세조회 및 수정</h2>
 
