@@ -83,7 +83,9 @@
 </script>
 </c:otherwise>
 </c:choose>
-<title>ITEYES-RES</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
 </head>
 
 <body>

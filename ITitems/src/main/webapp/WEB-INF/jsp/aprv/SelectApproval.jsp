@@ -126,7 +126,9 @@ function fnDisUpdate(){
  }
 //-->
 </script>
-<title>ITitems</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
 </head>
 <style type="text/css">
 .ui-datepicker-trigger {

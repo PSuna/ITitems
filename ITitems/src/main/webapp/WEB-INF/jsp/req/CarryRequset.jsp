@@ -31,7 +31,9 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITitems</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javascript">
 function ProjectSearch(){
