@@ -24,6 +24,9 @@ public class LoginVO implements Serializable{
 	 */
 	private static final long serialVersionUID = -8274004534207618049L;
 	
+	//❤️ 모바일 구분자
+	private String isMob;
+	
 	/** 아이디 */
 	private String id;
 	/** 이름 */
@@ -278,6 +281,20 @@ public class LoginVO implements Serializable{
 	}
 	public void setLowerOrgnztId(String lowerOrgnztId) {
 		this.lowerOrgnztId = lowerOrgnztId;
+	}
+	@Override
+	public String toString() {
+		return "LoginVO [id=" + id + ", name=" + name + ", ihidNum=" + ihidNum + ", email=" + email + ", password="
+				+ password + ", passwordHint=" + passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe
+				+ ", orgnztId=" + orgnztId + ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId="
+				+ uniqId + ", url=" + url + ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode="
+				+ authorCode + ", authorNm=" + authorNm + "]";
+	}
+	public String getIsMob() {
+		return isMob;
+	}
+	public void setIsMob(String isMob) {
+		this.isMob = isMob;
 	}
 	
 }

@@ -1,5 +1,6 @@
-package egovframework.let.uat.uia.web;
+package egovframework.let.uat.uia.mob;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import egovframework.com.cmm.EgovMessageSource;
@@ -24,6 +26,8 @@ import egovframework.let.uat.uap.service.EgovLoginPolicyService;
 import egovframework.let.uat.uap.service.LoginPolicyVO;
 import egovframework.let.uat.uia.service.EgovLoginService;
 import egovframework.let.utl.sim.service.EgovClntInfo;
+
+import org.apache.commons.vfs2.util.DelegatingFileSystemOptionsBuilder;
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
@@ -42,12 +46,14 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *  2009.03.06  박지욱          최초 생성
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *  2011.08.31  JJY          경량환경 템플릿 커스터마이징버전 생성
+ *  2023.06.02  김채은          모바일 로그인 컨트롤러 등록
+ * 
  *
  *      </pre>
  */
-@Controller
-public class EgovLoginController {
+@RestController
+public class MobEgovLoginController {
 
 	/** EgovLoginService */
 	@Resource(name = "loginService")
@@ -70,19 +76,6 @@ public class EgovLoginController {
 	LeaveaTrace leaveaTrace;
 
 	/**
-	 * 로그인 화면으로 들어간다
-	 * 
-	 * @param vo - 로그인후 이동할 URL이 담긴 LoginVO
-	 * @return 로그인 페이지
-	 * @exception Exception
-	 */
-	@RequestMapping(value = "/uat/uia/egovLoginUsr.do")
-	public String loginUsrView(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) throws Exception {
-		return "uat/uia/EgovLoginUsr";
-	}
-
-	/**
 	 * 일반(스프링 시큐리티) 로그인을 처리한다
 	 * 
 	 * @param vo      - 아이디, 비밀번호가 담긴 LoginVO
@@ -90,23 +83,27 @@ public class EgovLoginController {
 	 * @return result - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/uat/uia/web/actionSecurityLogin.do")
-	public String actionSecurityLogin(@ModelAttribute LoginVO loginVO, HttpServletResponse response,
+	// ❤️ 로그인
+	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")
+	public String actionSecurityLogin(@RequestBody LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
-		System.out.println(loginVO);
+		System.out.println("넘어온VO" + loginVO);
 
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
 
 		// 1. 일반 로그인 처리
+
 		loginVO.setId(loginVO.getId() + "@iteyes.co.kr");
 		LoginVO resultVO = loginService.actionLogin(loginVO);
+		System.out.println("1 ========================== resultVO" + resultVO);
 
 		boolean loginPolicyYn = true;
 
 		LoginPolicyVO loginPolicyVO = new LoginPolicyVO();
 		loginPolicyVO.setEmplyrId(resultVO.getId());
 		loginPolicyVO = egovLoginPolicyService.selectLoginPolicy(loginPolicyVO);
+		System.out.println("2 ========================== loginPolicyVO" + loginPolicyVO);
 
 		if (loginPolicyVO == null) {
 			loginPolicyYn = true;
@@ -117,9 +114,16 @@ public class EgovLoginController {
 				}
 			}
 		}
-		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("") && loginPolicyYn) {
+		System.out.println("3 ========================== loginPolicyYn" + loginPolicyYn);
 
-			// 2. spring security 연동
+		// spring security 시작
+		// 인증 시
+		// ▶ return 값 설정
+		String result = null;
+		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("") && loginPolicyYn) {
+			System.out.println("4 ========================== resultVO" + resultVO);
+
+			// spring security 연동
 			request.getSession().setAttribute("LoginVO", resultVO);
 
 			UsernamePasswordAuthenticationFilter springSecurity = null;
@@ -142,53 +146,35 @@ public class EgovLoginController {
 				throw new IllegalStateException("No AuthenticationProcessingFilter");
 			}
 
+			System.out.println("5)성공 ==========================");
+			result = "success";
+			resultVO.setIsMob(result);
+
 			springSecurity.doFilter(new RequestWrapperForSecurity(request, resultVO.getUserSe() + resultVO.getId(),
 					resultVO.getUniqId()), response, null);
 
-			return "forward:/cmm/main/mainPage.do"; // 성공 시 페이지.. (redirect 불가)
-
 		} else {
-
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
-		}
-	}
-
-	/**
-	 * 로그인 후 메인화면으로 들어간다
-	 * 
-	 * @param
-	 * @return 로그인 페이지
-	 * @exception Exception
-	 */
-	@RequestMapping(value = "/uat/uia/actionMain.do")
-	public String actionMain(HttpServletResponse response, HttpServletRequest request, ModelMap model)
-			throws Exception {
-		
-		// 1. Spring Security 사용자권한 처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		// 실패 시
-		if (!isAuthenticated) {
+			result = "fail";
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
 			return "uat/uia/EgovLoginUsr";
 		}
 
-		// 성공 시
-		// 2. 메인 페이지 이동
-		return "forward:/cmm/main/mainPage.do";
+		return result;
 	}
 
-	/**
-	 * 로그아웃한다.
-	 * 
-	 * @return String
-	 * @exception Exception
-	 */
-	@RequestMapping(value = "/uat/uia/actionLogout.do")
-	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("LoginVO", null);
+	@RequestMapping(value = "/uat/uia/mob/goMobile.do")
+	public Map<String, Object> actionLogout(HttpServletRequest request) throws Exception {
+		LoginVO loginVO = (LoginVO) request.getSession().getAttribute("LoginVO");
+		System.out.println("고모바일 loginVO ==============================================");
+		System.out.println(loginVO);
 
-		return "redirect:/egov_security_logout";
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("result", loginVO);
+
+		System.out.println("고모바일 returnMap ==============================================");
+		System.out.println(returnMap.get("result"));
+
+		return returnMap;
 	}
 }
 
