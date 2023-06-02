@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-<title>Iteyes 자산관리솔루션</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--

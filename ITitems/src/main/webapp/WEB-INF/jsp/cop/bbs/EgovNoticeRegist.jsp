@@ -108,7 +108,7 @@
     
 </script>
 
-<title>사내업무 > 알림정보 > <c:out value='${bdMstr.bbsNm}'/></title>
+
 
 </head>
 

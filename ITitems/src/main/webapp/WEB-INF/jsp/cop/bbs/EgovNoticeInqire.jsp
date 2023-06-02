@@ -98,7 +98,7 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
-<title>내부업무 사이트 > 알림정보 > <c:out value='${result.bbsNm}'/></title>
+
 
 </head>
 <body onload="onloading();">

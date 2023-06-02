@@ -30,7 +30,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>내부업무 사이트 > 내부시스템관리 > 사용자등록관리</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="passwordChgVO" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript" defer="defer">

@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-<title>사이트관리 > 프로젝트관리 > 프로젝트목록관리</title>
+
 
 <script language="javascript1.2" type="text/javaScript">
 <!--
@@ -127,7 +127,7 @@ function fnSelectPrj(id) {
 				                <div class="condition pty_condition">
 				                	<div class="pty_search">
 										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명을 입력해주세요" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명/코드 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fnSearchPrj(); return false;">검색</button>
 									</div>
@@ -172,15 +172,16 @@ function fnSelectPrj(id) {
 				                    <table summary="프로젝트 건색 결과를 알려주는 테이블입니다.">
 				                        <colgroup>
 				                            <col style="width: 5%;">
+				                            <col style="width: 12%;">
 				                            <col style="width: auto;">
 				                            <col style="width: 20%;">
 				                            <col style="width: 15%;">
-				                            <%-- <col style="width: 12%;">  --%>
 				                            <col style="width: 10%;">
 				                        </colgroup>
 				                        <thead>
 				                            <tr>
-				                                <th scope="col">번호</th>
+				                                <th scope="col">번호</th>				                                
+				                                <th scope="col">코드</th>
 				                                <th scope="col">프로젝트명</th>
 				                              <!-- <th scope="col">기간</th> -->
 				                                <th scope="col">PM</th> 
@@ -192,11 +193,8 @@ function fnSelectPrj(id) {
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
 				                            <tr onclick="fnSelectPrj('<c:out value="${resultInfo.prjId}"/>');">
 				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}"/></td>
-				                                <td class="pty_text-align_left pty_padding-left_24">
-				                                <a href="<c:url value='/prj/ProjectSelectView.do'/>?selectedId=<c:out value="${resultInfo.prjId}"/>" class="lnk">
-				                                ${resultInfo.prjName}
-				                                </a>
-				                                </td>
+				                                <td>${resultInfo.prjCode}</td>
+				                                <td class="pty_text-align_left pty_padding-left_24">${resultInfo.prjName}</td>
 				                                
 				                                <%-- <td class="pty_font-size_12">${resultInfo.prjStart} ― ${resultInfo.prjEnd}</td>
 				                                 --%>

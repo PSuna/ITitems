@@ -51,7 +51,7 @@
 <c:if test="${anonymous == 'true'}">
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
-<title>ITitems</title>
+
 <script type="text/javascript">
 function AssetUpdt() {
 	document.frm.action = "<c:url value='/sec/asm/SecAssetUpdt.do'/>";

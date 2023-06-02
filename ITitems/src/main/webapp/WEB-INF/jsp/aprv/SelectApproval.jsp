@@ -150,7 +150,7 @@ function fnDisUpdate(){
  }
 //-->
 </script>
-<title>ITitems</title>
+
 </head>
 <style type="text/css">
 .ui-datepicker-trigger {

@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-<title>Ititems</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
