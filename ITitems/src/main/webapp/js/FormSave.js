@@ -34,7 +34,7 @@ function pullVal(frm, id) {
 			let name = $(item).attr("name");
 			let val = valList[name];
 			if(val != null && val != ""){
-				$(item).val(val);			
+				$(item).val(val);
 			}
 		})
 		getMCatList(valList['middleCategory']);

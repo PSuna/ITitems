@@ -571,7 +571,6 @@ window.onload = function(){
 														<select id="middleCategory" name="middleCategory">
 														</select>
 													</label> 
-													<br />
 												</td>
 											</tr>
 											<tr>
@@ -581,7 +580,6 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="maker" class="f_txt w_full" name="maker" type="text" value="${resultVO.maker}" maxlength="60"> 
-													<br />
 												</td>
 												<td class="lb">
 													<!-- 품명 --> 
@@ -589,7 +587,6 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
-													<br />
 												</td>
 											</tr>
 											<tr>
@@ -608,17 +605,6 @@ window.onload = function(){
 												<td>
 													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="4">
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
 												</td>
 											</tr>
 											<tr>
@@ -694,6 +680,24 @@ window.onload = function(){
 													<form:errors path="prjId" /> 
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
+												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label>
+												</td>
+												<td>
+													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60"> 
 												</td>
 											</tr>
 											<tr>
@@ -810,6 +814,7 @@ window.onload = function(){
 									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
 									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

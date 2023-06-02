@@ -148,7 +148,10 @@
 
 								<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" >
                 				
-				                <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+				                <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+			                    <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+			                    <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
+			                    <input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 				                <input type="hidden" name="bbsId" value="<c:out value='${bdMstr.bbsId}'/>" />
 				                <input type="hidden" name="bbsAttrbCode" value="<c:out value='${bdMstr.bbsAttrbCode}'/>" />
 				                <input type="hidden" name="bbsTyCode" value="<c:out value='${bdMstr.bbsTyCode}'/>" />

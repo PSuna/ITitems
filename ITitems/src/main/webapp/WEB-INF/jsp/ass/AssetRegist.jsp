@@ -229,6 +229,32 @@ function getMCatList(Mval) {
 }
 
 /* ********************************************************
+ * 중분류 직접입력
+ ******************************************************** */
+ function checkMcatEtc(){
+	 let val = $("#middleCategory option:checked").text();
+	 
+	 if(val.indexOf('직접입력') == -1){
+		 $("#mcatEtc").attr("type","hidden").val("");
+	 }else{
+		 $("#mcatEtc").attr("type","text");
+	 }
+}
+ 
+/* ********************************************************
+ * 제조사 직접입력
+ ******************************************************** */
+ function checkMakerEtc(){
+	 let val = $("#makerCode option:checked").text();
+	 
+	 if(val.indexOf('직접입력') == -1){
+		 $("#maker").attr("type","hidden").val("");
+	 }else{
+		 $("#maker").attr("type","text");
+	 }
+ }
+ 
+/* ********************************************************
  * 프로젝트 검색
  ******************************************************** */
 function ProjectSearch(){
@@ -476,6 +502,8 @@ function alertValid(objList) {
 window.onload = function(){
 	make_date();
 	pullVal('assetRegist',loginId);
+	checkMakerEtc();
+	checkMcatEtc();
 	setInterval(function() {
 		pushVal('assetRegist',loginId)
 	}, 1000);
@@ -550,48 +578,6 @@ window.onload = function(){
 																</c:forEach>
 															</select>
 													</label> 
-													<br />
-												</td>
-												<td class="lb">
-													<!-- 중분류 --> 
-													<label for="">중분류</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<label class="f_select w_full" for="middleCategory">
-														<select id="middleCategory" name="middleCategory">
-															<option value='' label="선택하세요" selected="selected" />
-														</select>
-													</label> 
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 제조사 --> 
-													<label for="">제조사</label>
-												</td>
-												<td>
-													<input id="maker" class="f_txt w_full" name="maker" type="text" maxlength="60"> 
-													<br />
-												</td>
-												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">제품명(모델명)</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
-													<br />
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
-												</td>
-												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
-													<br />
 												</td>
 												<td class="lb">
 													<!-- 수량 -->
@@ -604,14 +590,59 @@ window.onload = function(){
 												</td>
 											</tr>
 											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+											<td class="lb">
+													<!-- 중분류 --> 
+													<label for="">중분류</label> 
+													<span class="req">필수</span>
 												</td>
-												<td colspan="4">
-												<span class="search_date w_full">
-													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
-												</span>
+												<td>
+													<label class="f_select w_full" for="middleCategory">
+														<select id="middleCategory" name="middleCategory" onchange="checkMcatEtc();">
+															<option value='' label="선택하세요" selected="selected" />
+														</select>
+													</label> 
+												</td>
+												<td colspan="2">
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60" readonly="readonly"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
+												</td>
+												<td>
+													<label class="f_select w_full" for="largeCategory">
+															<select id="makerCode" name="makerCode" onchange="checkMakerEtc();">
+																<option value="" label="선택하세요" />
+																<c:forEach var="result" items="${maker_result}" varStatus="status">
+																	<option value="${result.code}">
+																		<c:out value="${result.codeNm}" />
+																	</option>
+																</c:forEach>
+															</select>
+													</label>
+												</td>
+												<td colspan="2">
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 품명 --> 
+													<label for="">제품명(모델명)</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<br />
+												</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+												</td>
+												<td>
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
+													<br />
 												</td>
 											</tr>
 											<%
@@ -691,7 +722,18 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" />
 												</td>
-											</tr>  
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="4">
+												<span class="search_date w_full">
+													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
+												</span>
+												</td>
+											</tr>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
