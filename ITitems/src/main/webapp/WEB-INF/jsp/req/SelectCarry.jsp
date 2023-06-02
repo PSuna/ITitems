@@ -254,7 +254,7 @@ window.onload = function(){
 									</div>
 									
 									
-								<br>
+								
 								
 								<div class="board_list assetlist pty_board_list">
 									<table>
@@ -285,8 +285,7 @@ window.onload = function(){
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
+							
 								 <!-- 버튼  -->
 									<div class="board_view_bot">
 										<div class="right_btn btn1">

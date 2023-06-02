@@ -739,7 +739,7 @@ input:-mos-input-placeholder {
 	border:1px solid #dde2e5;
 	border-radius:5px;
 	color:#222;
-	font-size:16px;
+	font-size:14px;
 	background:#F7F7F7;
 }
 .f_search2 .btn {
@@ -823,7 +823,7 @@ label:focus{
 	padding:0 45px 0 20px;
 	border:0;
 	color:var(--font-gray2);
-	font-size:14px;
+	/* font-size:14px; */
 	background:transparent;
 }
 .f_chk {

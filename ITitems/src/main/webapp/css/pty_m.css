@@ -18,7 +18,7 @@
 	
 	.pty_footer{
 	
-			  transform: translateY(50vh);
+			/*   transform: translateY(50vh); */
    		 height: 50px;
 	
 		
@@ -374,7 +374,7 @@
 	
 	.pty_condition{
 		display:flex !important;
-		flex-wrap: wrap !important;
+		/* ¿flex-wrap: wrap !important; */
 		gap: 8px;
 		
 	}

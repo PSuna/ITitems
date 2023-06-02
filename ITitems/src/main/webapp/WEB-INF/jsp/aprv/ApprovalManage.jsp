@@ -170,12 +170,14 @@ function fnSelectAprv(reqId){
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
 	                                            <col style="width: 5%;">
+
 												<col style="width: 10%;">
 												<col style="width: 40%;">
 												<col style="width: 15%;">
 												<col style="width: 12%;">
 												<col style="width: 8%;">
 												<col style="width: 10%;">
+
                                         	</colgroup>
                                         	<thead>
                                         		<tr>

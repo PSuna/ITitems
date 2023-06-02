@@ -229,6 +229,7 @@ function setPageUnit(){
 									<div class="condition2">
 											<div class="j_box01">
 												<div>
+
 													<label class="item f_select w_full" for="searchGroup">
 														<select id="searchGroup" name="searchGroup" title="분류"
 														onchange="SearchCarryList(); return false;">
@@ -239,6 +240,7 @@ function setPageUnit(){
 															</c:forEach>
 													</select>
 													</label>
+
 												</div>
 												<div>
 													<label class="item f_select w_full" for="sel1"> <select
@@ -286,7 +288,9 @@ function setPageUnit(){
 													</span>
 												</div>
 												<div class="btn_box">
+
 													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();" style="margin-left:5px;">검색</button>
+
 												</div>
 											</div>
 										</div>

@@ -500,4 +500,13 @@ thead{
 	text-align:left!important;
 }
 
+.btn_blue_46:hover{
+	background:var(--point-color);
+	color: #fff;
+}
+
+
+
+
+
 

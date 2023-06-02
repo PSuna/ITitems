@@ -282,6 +282,7 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 								<h2 class="tit_2">내자산조회</h2>
+
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
 									<div class="condition2">
@@ -292,6 +293,7 @@ window.onload = function(){
 											<div>
 												<!-- <span class="lb">프로젝트</span> --> 
 												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="<c:out value="${searchVO.prjNm}"/>" />
+
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" />
 											</div>
@@ -315,7 +317,7 @@ window.onload = function(){
 											</div>
 										</div>	
 											
-										<div class="j_box01">	
+										<div class="j_box01" style="margin-bottom:0">	
 											<%-- <div>							
 												<span class="lb">상태</span> 
 												<label class="item f_select w_full" for="sel1"> 
