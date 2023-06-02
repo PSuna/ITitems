@@ -75,6 +75,16 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	}
 	
 	/**
+	 * 조건에 맞는 내자산을 전부 조회한다.(모바일용)
+	 */
+	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetInfoDAO.MobSelectMyAssetInfoList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetInfoDAO.CountMyAssetInfoList(assetManageVO)));
+		return map;
+	}
+	
+	/**
      * 조건에 맞는 자산 단일 조회한다.
      */
 	@Override

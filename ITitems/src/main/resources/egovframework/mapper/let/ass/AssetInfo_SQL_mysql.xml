@@ -254,6 +254,57 @@
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
+	<!-- 모바일 내자산조회 리스트 매퍼 -->
+		<select id="MobSelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="myAssetList">
+		
+	    SELECT 
+	    	   ASSET_ID,
+	    	   LARGE_CATEGORY, 
+	    	   MIDDLE_CATEGORY, 
+	    	   ASSET_NAME, 
+	    	   ASSET_QTY,
+	    	   ASSET_SN,
+	    	   PRJ_ID,
+	    	   REG_DATE,
+	    	   USAGE_STAUTS,
+	    	   USE_NM,
+	    	   RCPT_NM
+	      FROM (
+		        SELECT 
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					D.CAT_NAME AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY,
+					A.ASSET_SN,
+					G.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					H.USER_NM AS USE_NM,
+					I.USER_NM AS RCPT_NM
+				  FROM ASSETSINFO A
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+	   LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+	   LEFT OUTER JOIN PROJECTS G
+				    ON B.PRJ_ID = G.PRJ_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	                ON B.USE_ID = H.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.RCPT_ID = I.ESNTL_ID 
+				 	<include refid="mySearch" />
+		    ) P
+	</select>
+	<!-- 모바일 내자산조회 리스트 매퍼 끝 -->
+	
 	<select id="CountMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultType="int">
 			SELECT 

@@ -29,6 +29,9 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectMyAssetInfoList(AssetManageVO assetManageVO);
 	
+	//모바일용 내자산조회리스트 
+	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO);
+	
 	public int InsertAssetInfo(AssetInfoVO assetInfoVO);
 	
 	public int UpdateAssetInfo(AssetInfoVO assetInfoVO);

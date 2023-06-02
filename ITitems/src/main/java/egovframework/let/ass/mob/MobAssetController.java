@@ -1,4 +1,4 @@
-package egovframework.let.ass.mb;
+package egovframework.let.ass.mob;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ import egovframework.let.uss.umt.service.UserManageService;
  */
 
 @RestController
-public class MAssetController {
+public class MobAssetController {
 	@Resource(name = "AssetService")
 	private AssetService assetService;
 
@@ -80,26 +80,15 @@ public class MAssetController {
 	/**
 	 * 내자산조회 페이지로 이동
 	 */
-	@RequestMapping(value="/ass/MbMyAssetManagement.do")
+	@RequestMapping(value="/ass/MobMyAssetManagement.do")
 	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
-			 AssetManageVO assetManageVO, AssetManageVO avo) throws Exception {
-	    //여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
-		//System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
+			 AssetManageVO assetManageVO, @RequestBody AssetManageVO avo ) throws Exception {
+		System.out.println(avo+"모바일/아이디 받기 >>>>>>>>>>>>>>>>");
+	    /*여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
+		System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");*/
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetManageVO.setUserId(avo.getUserId());
-		
-		
-		
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		assetManageVO.setUserId(avo.getAssetId());
 		
 		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
 			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
@@ -108,18 +97,11 @@ public class MAssetController {
 			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
 		}
 		
-		System.out.println(assetManageVO.getPageUnit()+ "ddddddddddddddd");
-		System.out.println(assetManageVO.getLastPage()+ "ddddddddddddddd");
-		//map타입을 다시 list로 넣기
-		Map<String, Object> map = assetService.SelectMyAssetInfoList(assetManageVO);
-	
-		//int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
-		//paginationInfo.setTotalRecordCount(totCnt);
+		Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
+
 		appMap.put("resultList", map.get("resultList"));
 		appMap.put("resultCnt", map.get("resultCnt"));
-		//appMap.put("paginationInfo", paginationInfo);
-        System.out.println(map.get("resultList")+"모바일>>>>>>>>>>>>>>>>>");
+
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();  
 
 		vo.setTableNm("LETTNORGNZTINFO");

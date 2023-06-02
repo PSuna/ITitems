@@ -51,6 +51,13 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	}
 
 	/**
+	 * 조건에 맞는 내자산 전체 조회(모바일용)
+	 */
+	public List<AssetInfoVO> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
+		return selectList("AssetInfoDAO.MobSelectMyAssetInfoList", assetManageVO);
+	}
+	
+	/**
 	 * 조건에 맞는 내자산 전체 갯수 조회
 	 */
 	public int CountMyAssetInfoList(AssetManageVO assetManageVO) {
