@@ -230,26 +230,22 @@ function checkTd(){
                                                 <label for="emplyrId">사용자아이디</label>
                                                 <span class="req">필수</span>
                                             </td>
-                                            <td>
-                                                <span class="f_search2 w_150">
+                                            <td colspan="2">
+                                                <span class="f_search2 w_full">
                                                     <input type="text" maxlength="40" disabled="disabled" id="id_view" name="id_view" readonly="readonly">
                                                     <form:input path="emplyrId" id="emplyrId" title="사용자아이디" maxlength="40" type="hidden" />
                                                     <button type="button" class="btn" onclick="fnIdCheck();">조회</button>
                                                 </span>
-                                                <span class="f_txt_inner ml10">(중복체크)</span>
-                                                <br>
-                                                <form:errors path="emplyrId" />
+                                                
+                                            </td>
+                                            <td>
+                                           		<span class="f_txt_inner ml10" style="align:left;">(중복체크)</span>
+                                           		<form:errors path="emplyrId" />
                                                 <span id="emplyrIdErr" class="errSpan"></span>
                                             </td>
                                             
-                                            <td class="lb">
-                                                <label for="moblphonNo">핸드폰번호</label>
-                                            </td>
-                                            <td>
-                                                <form:input path="moblphonNo" id="moblphonNo" title="ex)01012345678" class="f_txt w_full" maxlength="15"/>
-                                                <form:errors path="moblphonNo" />
-                                            </td>
                                         </tr>
+                                        
                                         <tr>
                                             <td class="lb">
                                                 <label for="emplyrNm">이름</label>
@@ -301,6 +297,22 @@ function checkTd(){
 														</form:select>
 												</label>
                                                 <form:errors path="authorCode" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="empUniqNum">사번</label>
+                                            </td>
+                                            <td>
+                                                <form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="15"/>
+                                                <form:errors path="empUniqNum" />
+                                            </td>
+                                            <td class="lb">
+                                                <label for="moblphonNo">핸드폰번호</label>
+                                            </td>
+                                            <td>
+                                                <form:input path="moblphonNo" id="moblphonNo" title="ex)01012345678" class="f_txt w_full" maxlength="15"/>
+                                                <form:errors path="moblphonNo" />
                                             </td>
                                         </tr>
                                     </table>

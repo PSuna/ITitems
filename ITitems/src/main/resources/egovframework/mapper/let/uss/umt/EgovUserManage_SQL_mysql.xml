@@ -208,8 +208,8 @@
 						            USER_NM,
 	            					PASSWORD,
 						            MBTLNUM,
-						            GROUP_ID,
 						            ORGNZT_ID,
+						            EMP_UNIQ_NUM,
 						            EMPLYR_STTUS_CODE,
 						            SBSCRB_DE,
 						            GRADE)
@@ -218,8 +218,8 @@
 	            #{emplyrNm},
 	            #{password},
 	            #{moblphonNo},
-	            #{groupId},
 	            #{orgnztId},
+	            #{empUniqNum},
 	            'P',
 	            sysdate(),
 	            #{grade})
