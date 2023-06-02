@@ -217,6 +217,8 @@ function getMOrgList(MOval) {
 										value="<c:out value='${userSearchVO.sbscrbSttus}'/>" />
 									<input type="hidden" name="pageIndex"
 										value="<c:out value='${userSearchVO.pageIndex}'/>" />
+									<input type="hidden" name="pageUnit"
+										value="<c:out value='${userSearchVO.pageUnit}'/>" />
 									<input type="hidden" name="searchOrgnzt"
 										value="<c:out value='${userSearchVO.searchOrgnzt}'/>" />
 									<input type="hidden" name="searchLOrgnzt"
