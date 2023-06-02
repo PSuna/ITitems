@@ -1,7 +1,5 @@
 package egovframework.let.uss.umt.service;
 
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
-
 /**
  * 업무사용자VO클래스로서 업무사용자관리 비지니스로직 처리용 항목을 구성한다.
  * @author 영남사업부 천세훈
@@ -33,6 +31,10 @@ public class UserManageVO extends UserDefaultVO{
 	 * 가입일
 	 */
 	private String sbscrbDe;
+	/**
+	 * 사번
+	 */
+	private String empUniqNum;
 	/**
 	 * 사용자고유아이디
 	 */
@@ -652,6 +654,12 @@ public class UserManageVO extends UserDefaultVO{
 	}
 	public void setLowerOrgnzt(String lowerOrgnzt) {
 		this.lowerOrgnzt = lowerOrgnzt;
+	}
+	public String getEmpUniqNum() {
+		return empUniqNum;
+	}
+	public void setEmpUniqNum(String empUniqNum) {
+		this.empUniqNum = empUniqNum;
 	}
 	
 }
