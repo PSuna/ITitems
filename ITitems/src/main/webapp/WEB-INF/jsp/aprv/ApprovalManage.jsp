@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 

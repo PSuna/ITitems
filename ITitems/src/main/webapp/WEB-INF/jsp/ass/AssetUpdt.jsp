@@ -192,16 +192,22 @@ function getMCatList(Mval) {
 				document.getElementById('middleCategory').replaceChildren();
 				let op = document.createElement('option');
 				op.textContent = '선택하세요';
+				op.value = "";
 				document.getElementById('middleCategory').appendChild(op);
 				for(res of result){
 					op = document.createElement('option');
 					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					if(Mval == res.catName){
+					if(res.catName == '기타'){
+						op.textContent = res.catName + "(직접입력)";
+					}else{
+						op.textContent = res.catName;	
+					}
+					if(Mval == res.catId){
 						op.setAttribute('selected', 'selected');
 					}
 					document.getElementById('middleCategory').appendChild(op);
 				}
+				checkMcatEtc();
 			},
 			error: function (error) {
 				console.log(error);
@@ -209,6 +215,31 @@ function getMCatList(Mval) {
 		})
 	}
 }
+
+/* ********************************************************
+ * 중분류 직접입력
+ ******************************************************** */
+ function checkMcatEtc(){
+	 let val = $("#middleCategory option:selected").text();
+	 if(val.indexOf('기타') == -1){
+		 $("#mcatEtc").attr("type","hidden").val("");
+	 }else{
+		 $("#mcatEtc").attr("type","text");
+	 }
+}
+ 
+/* ********************************************************
+ * 제조사 직접입력
+ ******************************************************** */
+ function checkMakerEtc(){
+	 let val = $("#makerCode option:selected").text();
+	 
+	 if(val.indexOf('기타') == -1){
+		 $("#maker").attr("type","hidden").val("");
+	 }else{
+		 $("#maker").attr("type","text");
+	 }
+ }
 
 /* ********************************************************
  * 숫자 콤마 입력
@@ -474,6 +505,7 @@ window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
 	getNumber(document.AssetUpdt.acquiredPrice);
 	make_date();
+	checkMakerEtc();
 	  }
 //-->
 </script>
@@ -562,42 +594,6 @@ window.onload = function(){
 													<br />
 												</td>
 												<td class="lb">
-													<!-- 중분류 --> 
-													<label for="">중분류</label> 
-													<span class="req">필수</span>
-												</td>
-												<td>
-													<label class="f_select w_full" for="middleCategory">
-														<select id="middleCategory" name="middleCategory">
-														</select>
-													</label> 
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 제조사 --> 
-													<label for="">제조사</label>
-												</td>
-												<td>
-													<input id="maker" class="f_txt w_full" name="maker" type="text" value="${resultVO.maker}" maxlength="60"> 
-												</td>
-												<td class="lb">
-													<!-- 품명 --> 
-													<label for="">제품명(모델명)</label>
-												</td>
-												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
-												</td>
-												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
-												</td>
-												<td class="lb">
 													<!-- 수량 -->
 													<label for="">수량</label> 
 													<span class="req">필수</span>
@@ -609,8 +605,70 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
+													<!-- 중분류 --> 
+													<label for="">중분류</label> 
+													<span class="req">필수</span>
+												</td>
+												<td>
+													<label class="f_select w_full" for="middleCategory">
+														<select id="middleCategory" name="middleCategory" onchange="checkMcatEtc();">
+														</select>
+													</label> 
+												</td>
+												<td colspan="2">
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" value="${resultVO.mcatEtc}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 제조사 --> 
+													<label for="">제조사</label>
+												</td>
+												<td>
+													<label class="f_select w_full" for="largeCategory">
+															<select id="makerCode" name="makerCode" onchange="checkMakerEtc();">
+																<option value="" label="선택하세요" />
+																<c:forEach var="result" items="${maker_result}" varStatus="status">
+																<c:choose>
+																	<c:when test="${result.codeNm == '기타'}">
+																		<option value="${result.code}" <c:if test="${result.code == resultVO.makerCode}">selected="selected"</c:if>>
+																			<c:out value="${result.codeNm}(직접입력)" />
+																		</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${result.code}" <c:if test="${result.code == resultVO.makerCode}">selected="selected"</c:if>>
+																			<c:out value="${result.codeNm}" />
+																		</option>
+																	</c:otherwise>
+																</c:choose>
+																</c:forEach>
+															</select>
+													</label>
+												</td>
+												<td colspan="2">
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" value="${resultVO.maker}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 품명 --> 
+													<label for="">제품명(모델명)</label>
+												</td>
+												<td>
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
+												</td>
+												<td class="lb">
+													<!-- 시리얼넘버 --> 
+													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+												</td>
+												<td>
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">소유자</label> 
+													<label for="">수령자</label> 
 													<span class="req">필수</span>
 												</td>
 												<c:choose>
@@ -689,7 +747,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">
@@ -707,7 +765,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="acquiredDate" class="f_txt w_full" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
+														<input id="acquiredDate" class="f_txt w_full readonly" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">
