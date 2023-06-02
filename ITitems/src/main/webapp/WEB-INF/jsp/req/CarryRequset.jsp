@@ -230,6 +230,16 @@ function setPageUnit(){
 										<div class="j_box03" style="margin-bottom:0;">
 
 											<div class="req_box" >
+											    <div>
+			                                		<label class="item f_select w_150" for="searchGroup">
+			                                			<select id="searchGroup" name="searchGroup" title="분류" onchange="SearchCarryList(); return false;">
+			                                				<option value="" label="분류"/>
+			                                				<c:forEach var="group" items="${group_result }">
+			                                					<option value="<c:out value="${group.code}"/>" <c:if test="${searchVO.searchGroup == group.code}">selected="selected"</c:if>>${group.codeNm}</option>
+			                                				</c:forEach>
+			                                			</select>
+			                                		</label>
+		                                		</div>
 												<div>
 													<!-- <span class="lb">신청상태</span> -->
 													<label class="item f_select w_full" for="sel1">
@@ -257,13 +267,18 @@ function setPageUnit(){
 													<!-- <span class="lb">신청일자</span>  -->
 													<div style="margin-left:2px;">
 														<span class="search_date ">
-															<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
+															<input class="f_date pty_f_date" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
 														</span>
 														<span>―</span>
 														<span class="search_date">
-															<input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>" readonly="readonly" onchange="checkEndDate()">
+															<input class="f_date pty_f_date" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>" readonly="readonly" onchange="checkEndDate()">
 														</span>
 													</div>
+												</div>
+												<div class="pty_search">
+													<span class="item f_search" >
+														<input class="f_input w_full pty_f_input" style="margin-right: 8px;" type="text" name="searchWord" onchange="SearchCarryList(); return false;" placeholder="사용장소/신청자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													</span>
 												</div>
 												<div class="btn_box" style="width:auto !important; align-items: baseline;">
 													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();" style="margin-left:5px;">검색</button>

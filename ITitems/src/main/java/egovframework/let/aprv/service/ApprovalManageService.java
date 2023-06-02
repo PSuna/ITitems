@@ -41,7 +41,7 @@ public interface ApprovalManageService {
 
 	public ApprovalManageVO SelectApproval(ApprovalDefaultVO approvalSearchVO);
 
-	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId);
+	public List<ApprovalDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO);
 
 	public int UpdateApproval(ApprovalManageVO approvalManageVO);
 	

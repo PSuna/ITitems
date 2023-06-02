@@ -128,7 +128,6 @@ public class MyManageController {
 		int r = userManageService.updateUser(userManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + r);
 		return String.valueOf(r);
 	}
 	

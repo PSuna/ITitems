@@ -47,6 +47,7 @@ public class AuthorManage extends ComDefaultVO {
 	 */
 	private String authorNm;
 	
+	private String uniqId;
 	/**
 	 * authorManage attribute 를 리턴한다.
 	 * @return AuthorManage
@@ -116,6 +117,12 @@ public class AuthorManage extends ComDefaultVO {
 	 */
 	public void setAuthorNm(String authorNm) {
 		this.authorNm = authorNm;
+	}
+	public String getUniqId() {
+		return uniqId;
+	}
+	public void setUniqId(String uniqId) {
+		this.uniqId = uniqId;
 	}
 	
 

@@ -68,8 +68,8 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId) {
-		return  approvalManageDAO.SelectApprovalDetailList(reqId);
+	public List<ApprovalDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
+		return  approvalManageDAO.SelectApprovalDetailList(approvalSearchVO);
 	}
 
 	@Override

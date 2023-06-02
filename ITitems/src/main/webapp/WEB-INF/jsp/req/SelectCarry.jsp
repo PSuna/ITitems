@@ -150,6 +150,8 @@ window.onload = function(){
 								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
 								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
 								<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
+								<input name="searchGroup" id="searchGroup" type="hidden"  value="<c:out value="${searchVO.searchGroup}"/>" />
+								<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
 									<div class="aprv_top">
 										<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
