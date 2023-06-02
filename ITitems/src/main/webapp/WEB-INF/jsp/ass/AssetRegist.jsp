@@ -214,7 +214,11 @@ function getMCatList(Mval) {
 				for(res of result){
 					op = document.createElement('option');
 					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
+					if(res.catName == '기타'){
+						op.textContent = res.catName + "(직접입력)";
+					}else{
+						op.textContent = res.catName;	
+					}
 					if(Mval == res.catId){
 						op.setAttribute('selected', 'selected');
 					}
@@ -234,7 +238,7 @@ function getMCatList(Mval) {
  ******************************************************** */
  function checkMcatEtc(){
 	 let val = $("#middleCategory option:selected").text();
-	 if(val.indexOf('직접입력') == -1){
+	 if(val.indexOf('기타') == -1){
 		 $("#mcatEtc").attr("type","hidden").val("");
 	 }else{
 		 $("#mcatEtc").attr("type","text");
@@ -247,7 +251,7 @@ function getMCatList(Mval) {
  function checkMakerEtc(){
 	 let val = $("#makerCode option:selected").text();
 	 
-	 if(val.indexOf('직접입력') == -1){
+	 if(val.indexOf('기타') == -1){
 		 $("#maker").attr("type","hidden").val("");
 	 }else{
 		 $("#maker").attr("type","text");
@@ -495,6 +499,20 @@ function alertValid(objList) {
 	 $('input[name=file]').val('');
 	 $('#fileNm').closest(".filebox").find('img')[0].remove();
 }
+
+/* ********************************************************
+ * 목록 이동
+ ******************************************************** */
+function AssetList(){
+	let code = $('#listCode').val();
+	if(code == "AM"){
+		document.MyAssetManagement.action = "<c:url value='/ass/AssetManagement.do'/>";
+	    document.MyAssetManagement.submit();
+	}else if (code == "MYAM"){
+		document.MyAssetManagement.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+	    document.MyAssetManagement.submit();
+	}
+}
  
 /* ********************************************************
  * onload
@@ -602,7 +620,7 @@ window.onload = function(){
 													</label> 
 												</td>
 												<td colspan="2">
-													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60" readonly="readonly"> 
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60"> 
 												</td>
 											</tr>
 											<tr>
@@ -615,9 +633,18 @@ window.onload = function(){
 															<select id="makerCode" name="makerCode" onchange="checkMakerEtc();">
 																<option value="" label="선택하세요" />
 																<c:forEach var="result" items="${maker_result}" varStatus="status">
-																	<option value="${result.code}">
-																		<c:out value="${result.codeNm}" />
-																	</option>
+																<c:choose>
+																	<c:when test="${result.codeNm == '기타'}">
+																		<option value="${result.code}">
+																			<c:out value="${result.codeNm}(직접입력)" />
+																		</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${result.code}">
+																			<c:out value="${result.codeNm}" />
+																		</option>
+																	</c:otherwise>
+																</c:choose>
 																</c:forEach>
 															</select>
 													</label>
@@ -650,7 +677,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">소유자</label> 
+													<label for="">수령자</label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
@@ -795,6 +822,11 @@ window.onload = function(){
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="RegistConfirm(); return false;"><spring:message
 													code="button.create" /></a>
+											<!-- 목록 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="AssetList();return false;"> <spring:message
+													code="button.list" />
+											</a>
 										</div>
 									</div>
 									<!-- // 등록버튼 끝  -->
@@ -805,6 +837,26 @@ window.onload = function(){
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
 									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+								<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+									<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+									<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
+								</c:if>
+								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+								<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+								<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+								<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+								<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+								<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+								<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+								<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+								<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+								<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

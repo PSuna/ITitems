@@ -38,6 +38,7 @@
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="mcatNm" column="MCAT_NM" />
 		<result property="assetName" column="ASSET_NAME" />
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
@@ -151,7 +152,11 @@
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
-					D.CAT_NAME AS MIDDLE_CATEGORY,
+					CASE 
+						WHEN D.CAT_NAME = '기타'
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
 					A.ASSET_QTY,
 					CASE
 						WHEN F.ORGNZT_UP IS NULL
@@ -224,7 +229,11 @@
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
-					D.CAT_NAME AS MIDDLE_CATEGORY,
+					CASE 
+						WHEN D.CAT_NAME = '기타'
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
 					A.ASSET_NAME,
 					A.ASSET_QTY,
 					A.ASSET_SN,
@@ -271,12 +280,23 @@
 			SELECT 
 				A.ASSET_ID,
 				C.CAT_NAME AS LARGE_CATEGORY, 
-				D.CAT_NAME AS MIDDLE_CATEGORY,
+				A.MIDDLE_CATEGORY,
+				CASE 
+					WHEN D.CAT_NAME = '기타'
+					THEN A.MCAT_ETC
+					ELSE D.CAT_NAME
+				END AS MCAT_NM,
+				A.MCAT_ETC,
 				A.ASSET_NAME,
 				A.ASSET_QTY,
 				DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,
 				A.ACQUIRED_PRICE,
-				A.MAKER,
+				A.MAKER_CODE,
+				CASE 
+					WHEN J.CODE_NM = '기타'
+					THEN A.MAKER
+					ELSE J.CODE_NM  
+				END AS MAKER,
 				A.NOTE,
 				DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
 				A.ASSET_SN,
@@ -307,6 +327,8 @@
 		        ON B.PRJ_ID = H.PRJ_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO I
 		        ON A.REG_ID = I.ESNTL_ID 
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE J
+		        ON A.MAKER_CODE = J.CODE 
 			 WHERE A.ASSET_ID = #{assetId}
 	</select>
 
@@ -316,10 +338,12 @@
 		INSERT INTO ASSETSINFO (
 		    ASSET_ID, 
 		    LARGE_CATEGORY, 
-		    MIDDLE_CATEGORY, 
+		    MIDDLE_CATEGORY,
+		    MCAT_ETC, 
 		    ASSET_QTY,
 		    ASSET_NAME,
 		    ASSET_SN,
+		    MAKER_CODE,
 		    MAKER, 
 		    NOTE,
 		    ACQUIRED_DATE, 
@@ -332,9 +356,11 @@
 		    #{assetId},
 		    #{largeCategory},
 		    #{middleCategory}, 
+		    #{mcatEtc},
 		    #{assetQty},
 		    #{assetName},
 		    #{assetSn},
+		    #{makerCode},
 		    #{maker},
 		    #{note},
 		    NULL,
@@ -351,9 +377,11 @@
 		   SET 
 		    LARGE_CATEGORY = #{largeCategory}, 
 		    MIDDLE_CATEGORY = #{middleCategory}, 
+		    MCAT_ETC = #{mcatEtc}, 
 		    ASSET_QTY = #{assetQty}, 
 		    ASSET_NAME = #{assetName},
 		    ASSET_SN = #{assetSn},
+		    MAKER_CODE = #{makerCode},
 		    MAKER = #{maker},  
 		    NOTE = #{note},
 		    <if test="acquiredDate != null and acquiredDate != ''">

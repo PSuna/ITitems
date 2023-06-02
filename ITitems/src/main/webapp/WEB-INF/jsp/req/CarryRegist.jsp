@@ -705,7 +705,7 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">소유자</label> <span class="req">필수</span>
+													<!-- 성명 --> <label for="">수령자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
