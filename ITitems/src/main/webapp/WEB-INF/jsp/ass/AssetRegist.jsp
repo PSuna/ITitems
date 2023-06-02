@@ -220,6 +220,7 @@ function getMCatList(Mval) {
 					}
 					document.getElementById('middleCategory').appendChild(op);
 				}
+				checkMcatEtc();
 			},
 			error: function (error) {
 				console.log(error);
@@ -232,8 +233,7 @@ function getMCatList(Mval) {
  * 중분류 직접입력
  ******************************************************** */
  function checkMcatEtc(){
-	 let val = $("#middleCategory option:checked").text();
-	 
+	 let val = $("#middleCategory option:selected").text();
 	 if(val.indexOf('직접입력') == -1){
 		 $("#mcatEtc").attr("type","hidden").val("");
 	 }else{
@@ -245,7 +245,7 @@ function getMCatList(Mval) {
  * 제조사 직접입력
  ******************************************************** */
  function checkMakerEtc(){
-	 let val = $("#makerCode option:checked").text();
+	 let val = $("#makerCode option:selected").text();
 	 
 	 if(val.indexOf('직접입력') == -1){
 		 $("#maker").attr("type","hidden").val("");
@@ -503,7 +503,6 @@ window.onload = function(){
 	make_date();
 	pullVal('assetRegist',loginId);
 	checkMakerEtc();
-	checkMcatEtc();
 	setInterval(function() {
 		pushVal('assetRegist',loginId)
 	}, 1000);

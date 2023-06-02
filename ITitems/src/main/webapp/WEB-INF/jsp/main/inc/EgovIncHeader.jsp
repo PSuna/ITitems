@@ -22,6 +22,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+ 
 
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
@@ -53,7 +54,7 @@ function fn_egov_modal_remove() {
 
 
 
-
+<title>ititems</title>
 <!-- Header -->
 <div class="header">
     <div class="inner">
