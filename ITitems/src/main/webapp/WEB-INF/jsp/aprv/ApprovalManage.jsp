@@ -54,6 +54,11 @@ function fntrsfExcel(){
 	    document.listForm.submit();
 	}
 }
+function fnSelectAprv(reqId){
+	document.listForm.reqId = reqId;
+	document.listForm.action = "<c:url value='/aprv/selectApproval.do'/>";
+	document.listForm.submit();
+}
 //-->
 </script>
 <style>
@@ -189,7 +194,7 @@ function fntrsfExcel(){
                                 				</c:if>
                                 				
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
-                                					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
+                                					<tr onclick="fnSelectAprv('<c:out value="${result.reqId}"/>');">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageUnit) - status.index}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>

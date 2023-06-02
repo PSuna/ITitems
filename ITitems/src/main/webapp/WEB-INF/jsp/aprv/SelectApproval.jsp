@@ -197,6 +197,11 @@ function fnDisUpdate(){
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm">
+								<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
+								<input name="pageUnit" type="hidden" value="<c:out value='${approvalSearchVO.pageUnit}'/>"/>
+								<input name="searchGroup" type="hidden" value="<c:out value='${approvalSearchVO.searchGroup}'/>"/>
+								<input name="searchStatus" type="hidden" value="<c:out value='${approvalSearchVO.searchStatus}'/>"/>
+								<input name="searchKeyword" type="hidden" value="<c:out value='${approvalSearchVO.searchKeyword}'/>"/>
 									<div class="aprv_top">
 										<h2 class="tit_2">결재요청정보</h2>
 										<div class="aprv_view">
