@@ -20,6 +20,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	
+	
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
@@ -30,6 +33,8 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>Iteyes 자산관리솔루션</title>
 
 

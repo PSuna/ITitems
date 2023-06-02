@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-
+	  <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>	
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
