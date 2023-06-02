@@ -277,7 +277,9 @@ public class AssetController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 	
 		return "/ass/AssetRegist";

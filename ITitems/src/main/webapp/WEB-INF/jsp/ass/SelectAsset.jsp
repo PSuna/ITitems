@@ -279,15 +279,6 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="4" >
-													${resultVO.rcptDate}
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수령자 --> 
 													<label for="">소유자</label> 
 												</td>
@@ -316,6 +307,22 @@ window.onload = function(){
 												</td>
 												<td>
 													${resultVO.prjNm}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
+												</td>
+												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label> 
+												</td>
+												<td >
+													${resultVO.mngNum}
 												</td>
 											</tr>
 											<tr>
@@ -440,6 +447,7 @@ window.onload = function(){
 									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
 									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

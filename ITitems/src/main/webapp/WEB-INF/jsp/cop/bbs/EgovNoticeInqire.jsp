@@ -133,6 +133,7 @@
 									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 								%>
 			                    <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+			                    <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 			                    <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
 			                    <input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 			                    <input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >

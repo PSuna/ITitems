@@ -55,7 +55,7 @@
 		<result property="rcptDate" column="RCPT_DATE" />
 		<result property="rcptId" column="RCPT_ID" />
 		<result property="rcptNm" column="RCPT_NM" />
-		<result property="carryReason" column="CARRY_REASON" />
+		<result property="mngNum" column="MNG_NUM" />
 	</resultMap>
 	
 	<sql id="search">
@@ -288,7 +288,7 @@
 				B.RCPT_ID,
 				I.USER_NM AS REG_ID,
 				F.USER_NM AS RCPT_NM,
-				B.CARRY_REASON
+				A.MNG_NUM
 			  FROM ASSETSINFO A
    LEFT OUTER JOIN ASSETSHIST B
 			    ON A.ASSET_ID = B.ASSET_ID
@@ -325,8 +325,7 @@
 		    ACQUIRED_PRICE, 
 		    REG_ID, 
 		    REG_DATE, 
-		    USAGE_STAUTS,
-		    MNG_NUM
+		    USAGE_STAUTS
 		    )
 		VALUES (
 		    #{assetId},
@@ -341,8 +340,7 @@
 		    '',
 		    #{regId},
 		    DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
-		    #{usageStatus},
-		    #{mngNum} 
+		    #{usageStatus}
 		     )
 	</insert>
 
