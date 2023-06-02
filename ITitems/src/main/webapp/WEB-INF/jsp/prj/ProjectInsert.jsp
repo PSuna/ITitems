@@ -31,7 +31,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 등록</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
 	xhtml="true" cdata="false" />

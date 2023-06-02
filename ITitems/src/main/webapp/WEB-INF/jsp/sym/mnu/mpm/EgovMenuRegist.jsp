@@ -36,7 +36,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>사이트 관리 > 메뉴관리 > 메뉴목록관리</title>
+
 
 <script type="text/javascript" src="<c:url value="/validator.do" />"></script>
 <validator:javascript formName="menuManageVO" staticJavascript="false" xhtml="true" cdata="false"/>

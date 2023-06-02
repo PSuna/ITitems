@@ -33,7 +33,7 @@
 	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-<title>Ititems</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--

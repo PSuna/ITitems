@@ -105,7 +105,7 @@
     }
 </script>
 
-<title>내부업무 사이트 > 알림정보 > <c:out value='${bdMstr.bbsNm}'/></title>
+
 
 </head>
 

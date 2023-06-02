@@ -31,7 +31,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>사용자 상세 및 수정</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="userManageVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
@@ -171,6 +171,9 @@ function getMOrgList(MOval) {
 .errSpan{
 	color:red;
 }
+.board_view_bot {
+	margin-top:8px;
+}
 </style>
 </head>
 <body>
@@ -252,6 +255,17 @@ function getMOrgList(MOval) {
 												<td>
 													<form:input path="emplyrId" id="emplyrId" class="f_txt w_full" maxlength="100" readonly="true" />
 													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
+												</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<label for="empUniqNum">사번</label>
+												</td>
+												<td>
+													<form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="15" />
+													<form:errors path="empUniqNum" />
 												</td>
 												<td class="lb">
 													<label for="moblphonNo">H.P</label>
@@ -336,8 +350,7 @@ function getMOrgList(MOval) {
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;"><spring:message
-													code="button.save" /></a>
+												onclick="JavaScript:fnUpdate(); return false;">수정</a>
 											<!-- 저장 -->
 											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>"
 												class="btn btn_blue_46 w_100"

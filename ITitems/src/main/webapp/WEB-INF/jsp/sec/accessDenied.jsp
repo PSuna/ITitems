@@ -47,7 +47,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
-<title>Access is denied</title>
+
 <script type="text/javascript">
 function fncGoAfterErrorPage(){
 	if('<%=authenticateFail%>' == 'true' ){

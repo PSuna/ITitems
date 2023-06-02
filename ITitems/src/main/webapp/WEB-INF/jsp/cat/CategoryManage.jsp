@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-<title>ITITEMS 자산관리솔루션</title>
+
 <script type="text/javaScript">
 <!-- 
 var imgpath = "<c:url value='/'/>images/";

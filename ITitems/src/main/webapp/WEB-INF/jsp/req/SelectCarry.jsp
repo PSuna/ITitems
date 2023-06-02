@@ -52,7 +52,7 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 
-<title>ITitems</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function CarryList(){

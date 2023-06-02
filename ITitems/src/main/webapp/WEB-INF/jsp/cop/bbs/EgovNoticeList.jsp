@@ -91,7 +91,7 @@
 </script>
 </c:otherwise>
 </c:choose>
-<title>ITEYES-RES</title>
+
 </head>
 
 <body>

@@ -55,7 +55,7 @@
     }
 </script>
 
-<title>내부업무 사이트 > 내부서비스관리 > 게시판템플릿목록</title>
+
 </head>
 
 <body>

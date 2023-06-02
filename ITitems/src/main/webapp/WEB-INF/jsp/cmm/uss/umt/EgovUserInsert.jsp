@@ -33,7 +33,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
-<title>내부업무 사이트 > 내부서비스관리 > 사용자관리</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="userManageVO" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript" defer="defer">
