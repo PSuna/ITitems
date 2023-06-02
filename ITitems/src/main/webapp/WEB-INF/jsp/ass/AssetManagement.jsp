@@ -10,8 +10,8 @@
     author   : 영남사업부 주소현
     since    : 2023.04.13
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -331,7 +331,7 @@ window.onload = function(){
 </script>
 </head>
 <body>
-	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
@@ -433,9 +433,9 @@ window.onload = function(){
 												 </div>
 											</div>	
 											<div class="search_box">
-												<!-- <span class="lb">소유자/실사용자</span> -->
+												<!-- <span class="lb">수령자/실사용자</span> -->
 												<span class="f_search2 w_full"> 
-													<input id="userNm" name="userNm" type="text" placeholder="소유자/실사용자" maxlength="100"
+													<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
 														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch()">조회</button>
 												</span>
@@ -517,7 +517,7 @@ window.onload = function(){
 												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
-												<th scope="col">소유자</th>
+												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>

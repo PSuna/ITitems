@@ -266,7 +266,7 @@ public class AssetController {
 	 * 자산등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
-	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
+	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO, AssetManageVO assetManageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		model.addAttribute("loginId", user.getUniqId());
 		
@@ -281,6 +281,7 @@ public class AssetController {
 		vo.setCodeId("COM015");
 		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetRegist";
 	}
@@ -339,6 +340,9 @@ public class AssetController {
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
 		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());

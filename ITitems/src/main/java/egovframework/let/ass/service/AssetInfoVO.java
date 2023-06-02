@@ -31,6 +31,9 @@ public class AssetInfoVO implements Serializable {
 	/** 중분류 */
 	private String middleCategory;
 	
+	/** 중분류 이름*/
+	private String mcatNm;
+	
 	/** 중분류 기타*/
 	private String mcatEtc;
 	
@@ -350,6 +353,14 @@ public class AssetInfoVO implements Serializable {
 
 	public void setMakerCode(String makerCode) {
 		this.makerCode = makerCode;
+	}
+
+	public String getMcatNm() {
+		return mcatNm;
+	}
+
+	public void setMcatNm(String mcatNm) {
+		this.mcatNm = mcatNm;
 	}
 	
 	

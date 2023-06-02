@@ -409,7 +409,7 @@ window.onload = function(){
 												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">소유자</th>
+												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 											</tr>
 										</thead>
