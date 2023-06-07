@@ -128,8 +128,7 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 */
 	@Override
 	public List<?> selectUserList(UserDefaultVO userSearchVO) {
-		List<?> result = userManageDAO.selectUserList(userSearchVO);
-		return result;
+		return userManageDAO.selectUserList(userSearchVO);
 	}
 
 	/**
@@ -149,12 +148,13 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 * @throws Exception
 	 */
 	@Override
-	public void updateUser(UserManageVO userManageVO) throws Exception {
+	public int updateUser(UserManageVO userManageVO) throws Exception {
 		//패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(userManageVO.getPassword(), userManageVO.getEmplyrId());
 		userManageVO.setPassword(pass);
 
-		userManageDAO.updateUser(userManageVO);
+		int r =userManageDAO.updateUser(userManageVO);
+		return r;
 	}
 
 	/**
@@ -205,6 +205,16 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	@Override
 	public String checkUpper(String uniqId) throws Exception {
 		return userManageDAO.checkUpper(uniqId);
+	}
+
+	@Override
+	public List<?> selectUserListS(UserDefaultVO userSearchVO) {
+		return userManageDAO.selectUserListS(userSearchVO);
+	}
+
+	@Override
+	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
+		return userManageDAO.selectUserListTotCntS(userSearchVO);
 	}
 
 

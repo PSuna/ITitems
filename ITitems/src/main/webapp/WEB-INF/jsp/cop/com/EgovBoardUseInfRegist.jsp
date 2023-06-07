@@ -34,7 +34,7 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	
-<title>내부업무 사이트 > 내부서비스관리 > 게시판사용관리</title>
+
 <script type="text/javascript" src="<c:url value='/js/showModalDialog.js'/>" ></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="boardUseInf" staticJavascript="true" xhtml="true" cdata="false"/>

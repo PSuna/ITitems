@@ -23,7 +23,10 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+
 		    <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+    <title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
@@ -96,14 +99,13 @@ function fn_egov_modal_remove() {
           		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
-          		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li>
+          		<!-- <li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
           		
           		<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
                	<li class="gnb_li">
                	
                 	<a href="#LINK" style="width:140px; padding-left: 12px; ">사이트관리</a>
-                	
-             
+
                 	<div class="admin pty_dropdown">	              
 			                <!-- <h3>사용자관리</h3> -->
 			                <ul>
@@ -203,9 +205,9 @@ function fn_egov_modal_remove() {
 				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a>				
 			</li>
 			
-			<li>
+			<!-- <li>
 				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a>
-			</li>
+			</li> -->
 			
 			<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 				<li><a href="#">사이트관리</a>
@@ -213,7 +215,7 @@ function fn_egov_modal_remove() {
 						<li><a href="/uss/umt/user/EgovUserManage.do">사용자목록</a></li>
 						<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 						<li><a href="/sec/rgm/EgovAuthorGroupListView.do">사용자별권한관리</a></li>
-						<li><a href="/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li>
+						<!-- <li><a href="/sym/mnu/mcm/EgovMenuCreatManageSelect.do">메뉴생성관리</a></li> -->
 						</c:if>
 						<li><a href="/cat/CategoryManage.do">카테고리목록관리</a></li>
 						<li><a href="/prj/ProjectManage.do">프로젝트목록관리</a></li>

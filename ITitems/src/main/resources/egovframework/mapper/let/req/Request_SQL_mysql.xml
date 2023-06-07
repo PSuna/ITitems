@@ -38,9 +38,14 @@
 		<if test="searchStatus != null and searchStatus != ''">
 			AND A.REQ_STATUS = #{searchStatus}
 		</if>
+		<if test='searchGroup !=""'>
+            AND A.REQ_GROUP = #{searchGroup}
+          </if>
 		<if test="startDate != null and startDate != ''">
-			AND A.REQ_DATE >= STR_TO_DATE(#{startDate},
-			'%Y-%m-%d')
+			AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test="searchWord != null and searchWord != ''">
+			AND (A.PLACE LIKE '%' #{searchWord} '%' OR A.ID LIKE '%' #{searchWord} '%')
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
@@ -104,14 +109,14 @@
 
 	<select id="SelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
 		SELECT
-			RUM,
-			REQ_ID,
-			REQ_GROUP,
-			ID,
-			PRJ_ID,
-			REQ_DATE,
-			PLACE,
-			REQ_STATUS
+				RUM,
+				REQ_ID,
+				REQ_GROUP,
+				ID,
+				PRJ_ID,
+				REQ_DATE,
+				PLACE,
+				REQ_STATUS
 		  FROM (
 				SELECT
 					ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
@@ -123,23 +128,48 @@
 					A.PLACE PLACE,
 					C.CODE_NM AS REQ_STATUS
 				  FROM REQUESTS A
-				  LEFT OUTER JOIN REQUESTDETAIL B
+	   LEFT OUTER JOIN REQUESTDETAIL B
 				    ON A.REQ_ID = B.REQ_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE C
 				    ON A.REQ_STATUS = C.CODE
-				  LEFT OUTER JOIN PROJECTS D
+	   LEFT OUTER JOIN PROJECTS D
 				    ON A.PRJ_ID = D.PRJ_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
 				    ON A.REQ_GROUP = E.CODE
-				  LEFT OUTER JOIN LETTNEMPLYRINFO F
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
 				    ON A.ID = F.ESNTL_ID
-				  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
 				 WHERE A.REQ_GROUP = #{reqGroup} 
-				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
-				   AND A.ID = #{id}
-				 </if>
-				 <include refid="search" />
+				<if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   	AND A.ID = #{id}
+				</if>
+				<if test="searchPrj != null and searchPrj != ''">
+					AND A.PRJ_ID = #{searchPrj}
+				</if>
+				<if test="searchLCat != null and searchLCat != ''">
+					AND B.LARGE_CATEGORY = #{searchLCat}
+				</if>
+				<if test="searchdMCat != null and searchdMCat != ''">
+					AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				</if>
+				<if test="searchStatus != null and searchStatus != ''">
+					AND A.REQ_STATUS = #{searchStatus}
+				</if>
+				<if test='searchGroup !=""'>
+		            AND A.REQ_GROUP = #{searchGroup}
+		          </if>
+				<if test="startDate != null and startDate != ''">
+					AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND (A.PLACE LIKE '%' #{searchWord} '%' OR F.USER_NM LIKE '%' #{searchWord} '%')
+				</if>
+				<if test="endDate != null and endDate != ''">
+					<![CDATA[
+					AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+					]]>
+				</if>
 				 GROUP BY 
 				 	A.REQ_ID, 
 				 	E.CODE_NM, 
@@ -158,7 +188,7 @@
 				SELECT
 					A.REQ_ID
 				  FROM REQUESTS A
-				  LEFT OUTER JOIN REQUESTDETAIL B
+	   LEFT OUTER JOIN REQUESTDETAIL B
 					ON A.REQ_ID = B.REQ_ID
 				 WHERE A.REQ_GROUP = #{reqGroup} 
 				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
@@ -171,64 +201,67 @@
 	
 	<select id="SelectRequestVO" parameterType="egovframework.let.req.service.RequestManageVO"
 		resultType="egovframework.let.req.service.RequestVO">
-		SELECT 
-			B.USER_NM AS ID, 
-			DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE, 
-			D.CODE_NM AS REQ_STATUS, 
-			A.REQ_NOTE, 
-			C.PRJ_NAME AS PRJ_ID, 
-			CONCAT(F.USER_NM, ' ', G.CODE_NM) PM, 
-			DATE_FORMAT(A.START_DATE,'%Y-%m-%d') AS START_DATE, 
-			DATE_FORMAT(A.END_DATE,'%Y-%m-%d') AS END_DATE, 
-			A.PLACE, 
-			E.CODE_NM AS REQ_GROUP 
-		  FROM REQUESTS A
-		  LEFT OUTER JOIN LETTNEMPLYRINFO B
-		    ON A.ID = B.ESNTL_ID
-		  LEFT OUTER JOIN projects C
-		    ON A.PRJ_ID = C.PRJ_ID
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE D
-		    ON A.REQ_STATUS = D.CODE
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE E
-		    ON A.REQ_GROUP = E.CODE
-		  LEFT OUTER JOIN LETTNEMPLYRINFO F
-		    ON A.PM = F.ESNTL_ID
-		  LEFT OUTER JOIN LETTCCMMNDETAILCODE G
-		    ON F.GRADE = G.CODE
-		 WHERE REQ_ID = #{reqId}
+				SELECT 
+					B.USER_NM AS ID, 
+					DATE_FORMAT(A.REQ_DATE,'%m-%d') AS REQ_DATE, 
+					D.CODE_NM AS REQ_STATUS, 
+					A.REQ_NOTE, 
+					C.PRJ_NAME AS PRJ_ID, 
+					CONCAT(F.USER_NM, ' ', G.CODE_NM) PM, 
+					DATE_FORMAT(A.START_DATE,'%Y-%m-%d') AS START_DATE, 
+					DATE_FORMAT(A.END_DATE,'%Y-%m-%d') AS END_DATE, 
+					A.PLACE, 
+					E.CODE_NM AS REQ_GROUP 
+				  FROM REQUESTS A
+	   LEFT OUTER JOIN LETTNEMPLYRINFO B
+				    ON A.ID = B.ESNTL_ID
+	   LEFT OUTER JOIN projects C
+				    ON A.PRJ_ID = C.PRJ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+				    ON A.REQ_STATUS = D.CODE
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.PM = F.ESNTL_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE REQ_ID = #{reqId}
 	</select>
 	
 	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
 		resultMap="RequestDetailList">
-		SELECT 
-			A.RED_ID, 
-			CASE WHEN A.LARGE_CATEGORY = 'ETC' 
-				 THEN A.MIDDLE_CATEGORY 
-				 ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
-			A.REQ_QTY, 
-			A.MAKER, 
-			A.USER, 
-			A.ASSET_ID
-		  FROM REQUESTDETAIL A
-		  LEFT OUTER JOIN category B
-		    ON A.MIDDLE_CATEGORY = B.CAT_ID
-		 WHERE REQ_ID = #{reqId}
-		 ORDER BY A.REQ_ORDER
+			SELECT 
+				A.RED_ID, 
+				CASE WHEN A.LARGE_CATEGORY = 'ETC' 
+					 THEN A.MIDDLE_CATEGORY 
+					 ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
+				A.REQ_QTY, 
+				A.MAKER, 
+				A.USER, 
+				A.ASSET_ID
+			  FROM REQUESTDETAIL A
+   LEFT OUTER JOIN category B
+			    ON A.MIDDLE_CATEGORY = B.CAT_ID
+			 WHERE REQ_ID = #{reqId}
+			 ORDER BY A.REQ_ORDER
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
 		SELECT IFNULL(REQ_GROUP, '') REQ_GROUP,
 			   IFNULL(PRJ_ID, '') PRJ_ID,
 			   IFNULL(PLACE, '') PLACE,
+			   IFNULL(ID, '') ID,
 			   IFNULL(REQ_DATE, '') REQ_DATE,
 			   IFNULL(REQ_STATUS, '') REQ_STATUS
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
-					   A.REQ_ID,
-					   E.CODE_NM AS REQ_GROUP,
-					   D.PRJ_NAME AS PRJ_ID,
-					   DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
-					   A.PLACE PLACE,
-					   C.CODE_NM AS REQ_STATUS
+		  FROM (SELECT
+					ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
+					A.REQ_ID,
+					E.CODE_NM AS REQ_GROUP,
+					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
+					D.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					A.PLACE PLACE,
+					C.CODE_NM AS REQ_STATUS
 				  FROM REQUESTS A
 	   LEFT OUTER JOIN REQUESTDETAIL B
 				    ON A.REQ_ID = B.REQ_ID
@@ -258,7 +291,8 @@
 	<select id='SelectAprvList' parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
 		 SELECT E.USER_NM,
 			    DATE_FORMAT(A.APRV_DATE,'%m-%d') AS APRV_DATE,
-			    A.REQ_STATUS
+			    A.REQ_STATUS,
+			    A.APRV_ORDER
 		   FROM APRVTARGET A
 LEFT OUTER JOIN LETTNEMPLYRINFO E
 			 ON E.ESNTL_ID = A.TARGET_ID

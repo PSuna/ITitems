@@ -455,8 +455,8 @@ thead{
 	}
 
 .board_list_bot{
-	margin-top:24px;
-	
+	/* margin-top:24px; */
+	/* margin-top: 15px; */
 }
 
 .pty_condition{

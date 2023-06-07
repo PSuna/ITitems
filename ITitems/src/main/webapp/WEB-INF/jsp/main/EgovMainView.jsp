@@ -20,6 +20,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	
+	
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
@@ -33,6 +36,8 @@
 	
 		<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
+
 
 
 
@@ -119,7 +124,7 @@
 	                        <div class="right_col">
 	                            <div class="box pty_colbox">
 	                                <div class="head">
-	                                    <h2>신규 <span>결재요청</span> <span style="font-size:24px; color: #ff6600; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
+	                                    <h2>신규 <span>결재요청</span> <span style="font-size:19px; color: #ff6600; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
 	                                    <%-- <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a> --%>
 	                                    <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a>
 	                                </div>
@@ -156,7 +161,6 @@
 	                                    <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
 	                                </div>
 	                                <div class="list">
-	                                    
 	                                        <colgroup>
 	                                            <col style="width: auto;">
 	                                            <col style="width: 80px">
@@ -174,7 +178,7 @@
 	                                        			</c:forEach>
 	                                        			<img src="<c:url value='/'/>images/ico_reply.png" alt="reply arrow">
 	                                        		</c:if>
-	                                            	<a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>">
+	                                            	<a href="<c:url value='/cop/bbs/selectBoardArticle.do?nttId=${result.nttId}'/>">
 	                                            		<c:out value="${result.nttSj}" />
 	                                            	</a>
 	                                            	

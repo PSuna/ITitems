@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+:root {
+    --point-color: #ff6600;
+    --main-hover: #0C91E9;
+    --box-color: #fbfbfb;
+    --line-color: #dde2e5;
+    --font-gray: #aaa;
+    --font-gray2: #666;
+    --blue-color: #0465be;
+    
+}
+
 .search_date{
 	display: inline-grid;
     position: relative;
@@ -42,7 +53,7 @@
 }
 
 .pop_check h4{
-	margin-bottom: 25px;
+	margin-bottom: 13px;
 }
 
 .pop_check .btn_blue_46{
@@ -64,12 +75,16 @@
 
 .pop_Manual {
 	text-align: center;
-	line-height: 6;
+	line-height: 3;
 }
 
 .pop_Manual_File{
 	text-align: center;
 	line-height: 3;
+}
+
+.pop_Manual_File img{
+	width: 95%
 }
 
 .board_list th{
@@ -165,7 +180,8 @@
 
 .boxBtn{
 	width: 100%;
-	height: 22px;
+	height: 12%;
+    min-height: 21px;
 }
 
 .boxBtn img{
@@ -179,7 +195,7 @@
 .boxImg {
 	width: 100%;
 	position: relative;
-	height: 90%;
+	height: 89%;
 }
 .boxImg img{
 	width: 95%;
@@ -196,7 +212,7 @@
 }
 
 .board_view_bot {
-	overflow: hidden;
+	height: 50px;
 }
 
 .f_s_21 {
@@ -232,6 +248,18 @@
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+.btn_rel .btn:hover{
+	color: var(--point-color);
+	border: 1px solid var(--point-color);
+	background: none;
+}
+
+.btn_blue_15:hover{
+	color: var(--point-color);
+	border: 1px solid var(--point-color);
+	background: none;
 }
 
 .approvalList .board_view2 td{
@@ -455,8 +483,40 @@ form .condition2{
 }
 
 .PhotoManual img{
-    width: 29%;
+    width: 32%;
     margin: auto;
+}
+
+p .req {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    font-size: 0;
+    background: url(../images/ico_req.png) no-repeat;
+    vertical-align: 15px;
+}
+.j_condition{
+	display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.readonly{
+background: #F7F7F7;
+}
+
+.btn_bot {
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.authorGroupList td{
+	padding: 3px 0;
+}
+
+.popup .paging{
+	margin-top: 10px;	
 }
 
 @media screen and (max-width: 767px){
@@ -468,14 +528,14 @@ form .condition2{
 		margin: 0 10px 0px 5px;
 	}
 	.j_box01 .date_box,.j_box02 .date_box{
-		width: 45% !important;
+		width: 47% !important;
 	}
 	.date_box div{
 		width: 100%;
 	}
 	
 	.j_box01 .btn_box,.j_box02 .btn_box{
-		width: 10% !important;
+		width: 12% !important;
 	}
 	
 	form .condition2{
@@ -483,7 +543,7 @@ form .condition2{
 	}
 	
 	.j_box01 .search_box{
-		width: 35% !important;
+		width: 37% !important;
 	}
 	
 	.j_box02 .search_box{

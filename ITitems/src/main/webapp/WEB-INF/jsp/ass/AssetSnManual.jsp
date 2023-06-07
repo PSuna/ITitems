@@ -25,13 +25,13 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
+
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
@@ -54,7 +54,7 @@
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
 				<div class="pop_containerv pop_Manual">
-						<h3>제품에 붙어있는 시리얼넘버 또는 일련번호를 등록해주세요</h3>
+						<p>제품에 붙어있는 시리얼넘버 또는 일련번호를 등록해주세요</p>
 						<img alt="" src="<c:url value='/'/>images/AssetSnManual.png">
 				</div>
 			</div>

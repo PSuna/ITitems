@@ -32,8 +32,10 @@
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -139,7 +141,11 @@ function fncSelectAuthorGroupList(pageNo){
     document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
 }
-
+function setPageUnit(){
+	document.listForm.pageIndex.value = 1;
+    document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
+    document.listForm.submit();
+}
 function fncAddAuthorGroupInsert() {
 	
     if(!fncManageChecked()) return;
@@ -211,7 +217,12 @@ function press() {
 }
 //-->
 </script>
-
+<style>
+	.btn_area{
+	justify-content: flex-end !important;
+	}
+	
+</style>
 </head>
 
 <body>
@@ -306,7 +317,7 @@ function press() {
                                 </div>
 
                                 <!-- 게시판 -->
-                                <div class="board_list">
+                                <div class="board_list authorGroupList">
                                     <table summary="권한 그룹을 관리하는 테이블입니다.사용자 ID,사용자 명,사용자 유형,권한,등록 여부의 정보를 담고 있습니다.">
                                     	<caption>권한그룹관리</caption>
                                         <colgroup>
@@ -349,7 +360,7 @@ function press() {
                                                         <input type="hidden" name="checkId" value="<c:out value="${authorGroup.uniqId}"/>"/>
                                                     </span>
                                                 </td>
-                                                <td><c:out value="${paginationInfo.totalRecordCount - ((authorGroupVO.pageIndex-1) * authorGroupVO.pageSize) - status.index}"/></td>
+                                                <td><c:out value="${paginationInfo.totalRecordCount - ((authorGroupVO.pageIndex-1) * authorGroupVO.pageUnit) - status.index}"/></td>
                                                 <td><c:out value="${authorGroup.userNm}"/></td>
                                                 <td><c:out value="${authorGroup.grade}"/></td>
                                                 <td><c:out value="${authorGroup.orgnztId}"/></td>
@@ -371,7 +382,7 @@ function press() {
                                 </div>
 								
 								<div class="right_col btn_area">                                                                        	
-										<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+										<!-- <button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button> -->
                                			<a href="#LINK" class="btn btn_blue_46" onclick="javascript:fncAddAuthorGroupInsert()">권한변경</a><!-- 권한등록 -->
                                			
                                 </div>

@@ -86,9 +86,10 @@ public class UserManageDAO extends EgovAbstractMapper{
     /**
      * 화면에 조회된 사용자의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
      * @param userManageVO 업무사용자 수정정보
+     * @return 
      */
-    public void updateUser(UserManageVO userManageVO){
-        update("userManageDAO.updateUser_S",userManageVO);
+    public int updateUser(UserManageVO userManageVO){
+        return update("userManageDAO.updateUser_S",userManageVO);
     }
 
     /**
@@ -123,6 +124,14 @@ public class UserManageDAO extends EgovAbstractMapper{
 	
 	public String checkUpper(String uniqId) {
 		return selectOne("userManageDAO.checkUpper", uniqId);
+	}
+
+	public List<?> selectUserListS(UserDefaultVO userSearchVO) {
+		return selectList("userManageDAO.selectUserList_Search", userSearchVO);
+	}
+
+	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
+		return (Integer)selectOne("userManageDAO.selectUserListTotCnt_Search", userSearchVO);
 	}
 
 }

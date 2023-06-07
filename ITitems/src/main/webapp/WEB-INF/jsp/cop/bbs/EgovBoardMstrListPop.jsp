@@ -54,7 +54,7 @@
     	parent.fn_egov_modal_remove();
     }
 </script>
-<title>게시판 정보</title>
+
 
 </head>
 <body>

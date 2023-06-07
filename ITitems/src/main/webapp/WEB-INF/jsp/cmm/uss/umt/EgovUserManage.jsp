@@ -31,7 +31,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITEYES 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 window.onload = function(){
@@ -88,18 +88,18 @@ function fnDeleteUser() {
         }
     }
 }
+/* ********************************************************
+ * 페이지 이동
+ ******************************************************** */
+function fnLinkPage(pageNo){
+    document.listForm.pageIndex.value = pageNo;
+    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+    document.listForm.submit();
+}
 function fnSelectUser(id) {
     document.listForm.selectedId.value = id;
-    array = id.split(":");
-    if(array[0] == "") {
-    } else {
-        userTy = array[0];
-        userId = array[1];    
-    }
-    document.listForm.selectedId.value = userId;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
     document.listForm.submit();
-      
 }
 function fnAddUserView() {
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserInsertView.do'/>";
@@ -232,7 +232,7 @@ function getMOrgList(MOval) {
 									<input name="pageIndex" type="hidden" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
 									<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
-	
+									
 	                                <h2 class="tit_2">사용자목록</h2>
 	                                
 	                                <!-- 검색조건 -->
@@ -273,7 +273,7 @@ function getMOrgList(MOval) {
 	                                    </label> 
 										<div class="pty_search">
 											<span class="item f_search">
-												<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+												<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="사번/사용자명/아이디" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
 											</span>
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>
@@ -322,13 +322,13 @@ function getMOrgList(MOval) {
 	                                    <table summary="사용자 목록을 제공한다.">
 	                                    	<caption>사용자목록</caption>
 	                                        <colgroup>
+	                                            <col style="width: 3%;">
 	                                            <col style="width: 5%;">
-	                                            <col style="width: 5%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 20%;">
-	                                            <col style="width: 25%;">
 	                                            <col style="width: 15%;">
+	                                            <col style="width: 18%;">
+	                                            <col style="width: 24%;">
+	                                            <col style="width: 11%;">
+	                                            <col style="width: 14%;">
 	                                            <col style="width: 10%;">
 	                                        </colgroup>
 	                                        <thead>
@@ -340,9 +340,9 @@ function getMOrgList(MOval) {
 	                                                </th>
 	                                                <th scope="col">번호</th>
 	                                                <th scope="col">사용자명</th>
-	                                                <th scope="col">직급</th>
 	                                                <th scope="col">부서</th>
 	                                                <th scope="col">사용자아이디</th>
+	                                                <th scope="col">사번</th>
 	                                                <th scope="col">전화번호</th>
 	                                                <th scope="col">권한</th>
 	                                            </tr>
@@ -355,18 +355,18 @@ function getMOrgList(MOval) {
 		                                        	</tr>
 	                                        	</c:if>
 	                                        	<c:forEach var="result" items="${resultList}" varStatus="status">
-	                                            <tr onclick="location.href='${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=<c:out value="${result.uniqId}"/>'">
+	                                            <tr onclick="fnSelectUser('<c:out value="${result.uniqId}"/>');">
 	                                                <td onclick='event.cancelBubble=true;'>
 	                                                    <span class="f_chk_only">
 	                                                        <input name="checkField" title="Check <c:out value="${status.count}"/>" type="checkbox"/>
 	                                                        <input name="checkId" type="hidden" value="<c:out value='${result.userTy}'/>:<c:out value='${result.uniqId}'/>"/>
 	                                                    </span>
 	                                                </td>
-	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageSize) - status.index}"/></td>
-	                                                <td><c:out value="${result.userNm}"/></td>
-	                                                <td><c:out value="${result.grade}"/></td>
+	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageUnit) - status.index}"/></td>
+	                                                <td><c:out value="${result.userNm} ${result.grade}"/></td>
 	                                                <td><c:out value="${result.orgnztId}"/></td>
 	                                                <td><c:out value="${result.userId}"/></td>
+	                                                <td><c:out value="${result.empUniqNum}"/></td>
 	                                                <td class="pty_font-size_12"><c:out value="${result.moblphonNo}"/></td>
 	                                                <c:if test="${result.authorCode == '사용자'}">
 	                                               		<td><c:out value="${result.authorCode}"/></td>

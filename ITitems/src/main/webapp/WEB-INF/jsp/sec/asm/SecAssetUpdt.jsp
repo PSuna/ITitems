@@ -171,7 +171,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -206,7 +206,7 @@ function UserSearch(ch){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -352,8 +352,10 @@ window.onload = function(){
 //-->
 </script>
 
+
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
 
 </head>
 

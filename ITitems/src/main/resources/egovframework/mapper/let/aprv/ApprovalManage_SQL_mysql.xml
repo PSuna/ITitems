@@ -37,20 +37,20 @@
 	  LEFT JOIN LETTCCMMNDETAILCODE C3
 	  		 ON C3.CODE = E.GRADE
 	  LEFT JOIN APRVTARGET T
-	  		 ON T.TARGET_ID = A.TARGET_UP
+	  		 ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
           WHERE A.TARGET_ID = #{uniqId}
-          	AND (T.REQ_STATUS = 'A1'
-          	 OR T.REQ_ID IS NULL)
+          	<!-- AND (T.REQ_STATUS = 'A1'
+          	 OR T.REQ_ID IS NULL) -->
           <if test='searchKeyword !=""'>
-          	AND E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	AND (E.USER_NM LIKE '%' #{searchKeyword} '%'
           	 OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
-          	 OR R.PLACE LIKE '%' #{searchKeyword} '%'
+          	 OR R.PLACE LIKE '%' #{searchKeyword} '%')
           </if>
           <if test='searchGroup !=""'>
             AND R.REQ_GROUP = #{searchGroup}
           </if>
           <if test='searchStatus !=""'>
-            AND R.REQ_STATUS = #{searchStatus}
+            AND A.REQ_STATUS = #{searchStatus}
           </if>
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
 	</select>
@@ -60,11 +60,26 @@
 		  FROM REQUESTS R 
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
+	 LEFT JOIN PROJECTS P
+	        ON R.PRJ_ID = P.PRJ_ID
+	 LEFT JOIN LETTNEMPLYRINFO E
+	  		ON R.ID = E.ESNTL_ID
 	 LEFT JOIN APRVTARGET T
-	  		ON T.TARGET_ID = A.TARGET_UP
+	  		ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
 		 WHERE A.TARGET_ID = #{uniqId}
-           AND (T.REQ_STATUS = 'A1'
-          	OR T.REQ_ID IS NULL)
+           <!-- AND (T.REQ_STATUS = 'A1'
+          	OR T.REQ_ID IS NULL) -->
+          <if test='searchKeyword !=""'>
+           AND (E.USER_NM LIKE '%' #{searchKeyword} '%'
+          	OR P.PRJ_NAME LIKE '%' #{searchKeyword} '%'
+          	OR R.PLACE LIKE '%' #{searchKeyword} '%')
+          </if>
+          <if test='searchGroup !=""'>
+           AND R.REQ_GROUP = #{searchGroup}
+          </if>
+          <if test='searchStatus !=""'>
+           AND A.REQ_STATUS = #{searchStatus}
+          </if>
 	</select>
 	
 	<select id="selectApprovalListB" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultMap="ApprovalList">
@@ -90,7 +105,7 @@
 	  LEFT JOIN LETTCCMMNDETAILCODE C3
 	  		 ON C3.CODE = E.GRADE
 	  LEFT JOIN APRVTARGET T
-	  		 ON T.TARGET_ID = A.TARGET_UP
+	  		 ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
           WHERE A.TARGET_ID = #{uniqId}
             AND A.REQ_STATUS = 'A0'
 		    AND (T.REQ_STATUS = 'A1'
@@ -104,7 +119,7 @@
 	 LEFT JOIN APRVTARGET A
 		    ON R.REQ_ID = A.REQ_ID
 	 LEFT JOIN APRVTARGET T
-	  		ON T.TARGET_ID = A.TARGET_UP
+	  		ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
 		 WHERE A.TARGET_ID = #{uniqId}
 		   AND A.REQ_STATUS = 'A0'
 		   AND (T.REQ_STATUS = 'A1'
@@ -121,9 +136,10 @@
 			    R.PLACE,
 			    DATE_FORMAT(R.START_DATE,'%Y-%m-%d') START_DATE,
 			    DATE_FORMAT(R.END_DATE,'%Y-%m-%d') END_DATE,
-			    DATE_FORMAT(R.REQ_DATE,'%Y %m %d') REQ_DATE,
+			    DATE_FORMAT(R.REQ_DATE,'%m-%d') REQ_DATE,
 			    C3.CODE_NM REQ_GROUP, 
-			    AP.REQ_STATUS
+			    R.REQ_STATUS RREQ_STATUS,
+			    T.REQ_STATUS REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN PROJECTS P
 	         ON R.PRJ_ID = P.PRJ_ID
@@ -140,9 +156,10 @@
 	  LEFT JOIN LETTCCMMNDETAILCODE C3
 	         ON C3.CODE = R.REQ_GROUP
 	  LEFT JOIN APRVTARGET AP
-	         ON AP.REQ_ID = R.REQ_ID
+	         ON AP.REQ_ID = R.REQ_ID AND AP.TARGET_ID = #{uniqId}
+	  LEFT JOIN APRVTARGET T
+	  		 ON T.TARGET_ID = AP.TARGET_UP AND AP.REQ_ID = T.REQ_ID 
 	      WHERE R.REQ_ID = #{reqId}
-	        AND AP.TARGET_ID = #{uniqId}
 	</select>
 	
 	<select id="SelectApprovalDetailList" parameterType="String" resultType="egovframework.let.aprv.service.ApprovalDetailVO">
@@ -214,9 +231,10 @@
 	</update>
 	
 	<select id="xlsxTrsfAprvList" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovMap">
-		 SELECT IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
-			    IFNULL(C1.CODE_NM, '') REQ_GROUP,
+		 SELECT IFNULL(C1.CODE_NM, '') REQ_GROUP,
 			    IFNULL(P.PRJ_NAME, '') PRJ_NAME,
+		 		IFNULL(R.PLACE, '') PLACE,
+		 		IFNULL(CONCAT(E.USER_NM, ' ', C3.CODE_NM), '') ID,
 			    IFNULL(DATE_FORMAT(R.REQ_DATE,'%Y-%m-%d'), '') REQ_DATE,
 			    IFNULL(C2.CODE_NM,'') REQ_STATUS
 		   FROM REQUESTS R 
@@ -233,7 +251,7 @@
 	  LEFT JOIN LETTCCMMNDETAILCODE C3
 	  		 ON C3.CODE = E.GRADE
 	  LEFT JOIN APRVTARGET T
-	  		 ON T.TARGET_ID = A.TARGET_UP
+	  		 ON T.TARGET_ID = A.TARGET_UP AND A.REQ_ID = T.REQ_ID
           WHERE A.TARGET_ID = #{uniqId}
           <if test='searchKeyword !="" and searchKeaword != null'>
           	AND E.USER_NM LIKE '%' #{searchKeyword} '%'

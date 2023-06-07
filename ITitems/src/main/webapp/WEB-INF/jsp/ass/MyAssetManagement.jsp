@@ -33,9 +33,11 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
+
  
  <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
@@ -48,7 +50,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -167,6 +169,16 @@ function AssetRegist() {
 }
 
 /* ********************************************************
+ * 자산 상세 페이지 이동
+ ******************************************************** */
+function SelectAsset(assetId) {
+	event.preventDefault();
+	document.frm.assetId.value = assetId;
+    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.frm.submit(); 
+}
+
+/* ********************************************************
  * date input 생성
  ******************************************************** */
 function make_date(){
@@ -202,14 +214,6 @@ function make_date(){
 	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
-}
-
-
-/* ********************************************************
- * 자산상세보기 이동
- ******************************************************** */
-function selectAsset(id) {
-	document.getElementById('subForm'+id).submit;
 }
 
 /* ********************************************************
@@ -280,21 +284,21 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-
-								<h1 class="tit_1">자산관리</h1>
-
 								<h2 class="tit_2">내자산조회</h2>
-							
+
 								<!-- 검색조건 -->
-								<form id="frm" name="frm" autocomplete="off">
-									<div class="condition2" style="padding:25px;">
+								<form id="frm" name="frm" autocomplete="off" method="post">
+									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<div class="j_box01" >
+										<input type="hidden" name="assetId" />
+										<input type="hidden" name="listCode" value="MYAM" />
+										<div class="j_box01">
 											<div>
 												<!-- <span class="lb">프로젝트</span> --> 
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트 선택" maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="<c:out value="${searchVO.prjNm}"/>" />
+
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" />
 											</div>
 											<div>
 												<!-- <span class="lb">대분류</span> --> 
@@ -344,7 +348,7 @@ window.onload = function(){
 												<!-- <span class="lb">품명/시리얼넘버</span> -->
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="품명/시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="제품명 / 시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
 											</div>
 											<div class="btn_box">
@@ -352,7 +356,7 @@ window.onload = function(){
 											</div>  
 										</div>
 									</div>	
-								</form>
+								
 								<!--// 검색 조건 -->
 								<div class="board_list_top">
 									<div class="left_col">
@@ -388,57 +392,46 @@ window.onload = function(){
 											</div>
 										</div>
                                 </div>
+                                </form>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 5%;">
-											<col style="width: 10%;">
-											<col style="width: 10%;">
-											<col style="width: 18%;">
-											<col style="width: 18%;">
-											<col style="width: 39%;">
+											<col style="width: 3%;">
+											<col style="width: 8%;">
+											<col style="width: 8%;">
+											<col style="width: 16%;">
+											<col style="width: 16%;">
+											<col style="width: 37%;">
+											<col style="width: 6%;">
+											<col style="width: 6%;">
 										</colgroup>
-										<%-- <colgroup>
-											<col style="width: 5%;">
-											<col style="width: 12%;">
-											<col style="width: 12%;">
-											<col style="width: 19%;">
-											<col style="width: 9%;">
-											<col style="width: 18%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-										</colgroup> --%>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">분류</th>
 												<th scope="col">수량</th>
-												<th scope="col">품명</th>
+												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<!-- <th scope="col">상태</th> -->
+												<th scope="col">수령자</th>
+												<th scope="col">실사용자</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
+												<tr onclick="SelectAsset('${result.assetId}');">
 													<td>
-														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/ass/SelectAsset.do'/>">
-															<input type="hidden" name="assetId"
-																value="<c:out value='${result.assetId}'/>" />
-															<input type="hidden" name="listCode"
-																value="MYAM" />
-														</form>
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.rcptNm}" /></td>
+													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>

@@ -134,14 +134,11 @@ public class ApprovalManageController {
 	@RequestMapping(value = "/aprv/selectApproval.do")
 	public String SelectApproval(@ModelAttribute("approvalSearchVO") ApprovalDefaultVO approvalSearchVO,
 								RequestManageVO manageVO,
-								@RequestParam("reqId")String reqId,
 								HttpServletRequest request,
 								ModelMap model) throws Exception {
 		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
 		approvalSearchVO.setAuthorCode(loginId.getAuthorCode());
 		approvalSearchVO.setUniqId(loginId.getUniqId());
-		approvalSearchVO.setReqId(reqId);
-		manageVO.setReqId(reqId);
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
@@ -153,7 +150,7 @@ public class ApprovalManageController {
 		approvalManageVO = approvalManageService.SelectApproval(approvalSearchVO);
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
-		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(reqId));
+		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(approvalSearchVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		return "/aprv/SelectApproval";
 	}

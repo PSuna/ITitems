@@ -255,7 +255,7 @@ public class AssetController {
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
-		model.addAttribute("listCode", assetManageVO.getListCode());
+		model.addAttribute("searchVO", assetManageVO);
 		
 		
 		return "/ass/SelectAsset";
@@ -266,9 +266,10 @@ public class AssetController {
 	 * 자산등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
-	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
-	
-
+	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO, AssetManageVO assetManageVO) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		model.addAttribute("loginId", user.getUniqId());
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
@@ -276,6 +277,11 @@ public class AssetController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetRegist";
 	}
@@ -334,6 +340,9 @@ public class AssetController {
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
 		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
@@ -341,7 +350,7 @@ public class AssetController {
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
-		model.addAttribute("listCode", assetManageVO.getListCode());
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetUpdt";
 	}

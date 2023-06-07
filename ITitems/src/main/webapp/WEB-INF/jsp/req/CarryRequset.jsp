@@ -43,7 +43,7 @@ function ProjectSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -145,8 +145,16 @@ window.onload = function(){
 	  }
 
 function CarryRegist() {
-	 document.regist.submit();
+	document.frm.action = "<c:url value='/req/CarryRegist.do'/>";
+    document.frm.submit(); 
 }
+
+function SelectCarry(reqId) {
+	document.frm.reqId.value = reqId;
+    document.frm.action = "<c:url value='/req/SelectCarry.do'/>";
+    document.frm.submit(); 
+}
+
 function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
@@ -154,6 +162,11 @@ function fntrsfExcel(){
 	    document.frm.action = "<c:url value='/com/xlsxTrsfReqList.do'/>";
 	    document.frm.submit();
 	}
+}
+function setPageUnit(){
+	document.frm.pageIndex.value = 1;
+    document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
+    document.frm.submit();
 }
 </script>
 <style type="text/css">
@@ -168,6 +181,19 @@ function fntrsfExcel(){
 .board_list tbody tr:hover {
 	background: #ccc;
 	cursor: pointer;
+}
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03{
+	align-items: center;
+}
+.req_box{
+	margin-bottom:10px;
+	margin-top: 10px;
+}
+@media screen and (max-width: 767px){
+	.req_box{
+		margin-bottom:10px;
+		margin-top: 0;
+	}
 }
 </style>
 </head>
@@ -197,42 +223,57 @@ function fntrsfExcel(){
 								</div>
 								<!--// Location -->
 								<h2 class="tit_2">반출관리</h2>
-								<form name="regist" method="post"
-									action="<c:url value='/req/CarryRegist.do'/>" autocomplete="off">
-									
-								</form>
 								<!-- 검색조건 -->
-								<form id="searchVO" name="frm" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
+								<form id="searchVO" name="frm" method="post" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
+									<input type="hidden" name="reqId" value="<c:out value='${result.reqId}'/>" />
 									<div class="condition2">
-										<div class="j_box03">
-
-											<div>
-
+											<div class="j_box01">
 												<div>
-													<span class="lb">프로젝트</span>
-													<span class="f_search2 w_full">
-														<input id="prjNm" type="text" title="주소" placeholder="프로젝트 선택" maxlength="100" readonly="true" />
-														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-													</span>
-													<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" value="" maxlength="8" readonly="readonly" />
+
+													<label class="item f_select w_full" for="searchGroup">
+														<select id="searchGroup" name="searchGroup" title="분류"
+														onchange="SearchCarryList(); return false;">
+															<option value="" label="분류" />
+															<c:forEach var="group" items="${group_result }">
+																<option value="<c:out value="${group.code}"/>"
+																	<c:if test="${searchVO.searchGroup == group.code}">selected="selected"</c:if>>${group.codeNm}</option>
+															</c:forEach>
+													</select>
+													</label>
+
 												</div>
 												<div>
-													<span class="lb">신청상태</span>
-													<label class="item f_select w_full" for="sel1">
-													<select id="searchStatus" name="searchStatus" title="상태">
-														<option value='' label="선택" selected="selected" />
-														<c:forEach var="stat" items="${status_result}" varStatus="status">
-															<option value="${stat.code}"><c:out value="${stat.codeNm}" /></option>
-														</c:forEach>
+													<label class="item f_select w_full" for="sel1"> <select
+														id="searchStatus" name="searchStatus" title="상태"
+														onchange="SearchCarryList();">
+															<option value='' label="신청상태" selected="selected" />
+															<c:forEach var="stat" items="${status_result}"
+																varStatus="status">
+																<option value="${stat.code}"
+																	<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out
+																		value="${stat.codeNm}" /></option>
+															</c:forEach>
 													</select>
 													</label>
 												</div>
+
+												<div>
+													<!-- <span class="lb">프로젝트</span> -->
+													<span class="f_search2 w_full"> <input id="prjNm"
+														name="prjNm" type="text" title="프로젝트"
+														value="<c:out value="${searchVO.prjNm}"/>" maxlength="100"
+														placeholder="프로젝트" readonly="true" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
+													</span> <input name="searchPrj" id="searchPrj" type="hidden"
+														value="<c:out value="${searchVO.searchPrj}"/>" />
+												</div>
 											</div>
-											<div>
+											<div class="j_box01">
 												<div class="date_box">
-													<span class="lb">신청일자</span> 
+													<!-- <span class="lb">신청일자</span>  -->
 													<div>
 														<span class="search_date ">
 															<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
@@ -243,20 +284,24 @@ function fntrsfExcel(){
 														</span>
 													</div>
 												</div>
+												<div class="search_box">
+													<span class="item f_search w_full" >
+														<input class="f_input w_full pty_f_input" type="text" name="searchWord" onchange="SearchCarryList(); return false;" placeholder="사용장소/신청자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													</span>
+												</div>
 												<div class="btn_box">
-													<button class="btn pty_btn" style="margin-left: 8px;" type="submit" onclick="SearchCarryList();">검색</button>
+
+													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();" style="margin-left:5px;">검색</button>
+
 												</div>
 											</div>
 										</div>
-									</div>
-								</form>
-
 								<!--// 검색 조건 -->
 
 								<!-- 게시판 -->
 								
 								
-								<div class="board_list_top">
+								<div class="board_list_top" style="margin:0;">
 										<div class="left_col">
 	                                		<div class="list_count">
 													<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
@@ -272,12 +317,12 @@ function fntrsfExcel(){
 															<label class="item f_select" for="pageUnit"> 
 																	
 																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																		<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																		<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																		<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																		<option value="100" <c:if test="${searchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																		<option value="300" <c:if test="${searchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																		<option value="500" <c:if test="${searchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 																</select>
 															</label>
 															
@@ -292,14 +337,16 @@ function fntrsfExcel(){
 	                                </div>
 								
 								
+								
 								<div class="board_list">
 									<table>
 										<colgroup>
 											<col style="width: 5%;">
 											<col style="width: 10%;">
 											<col style="width: 40%;">
-											<col style="width: 20%;">
 											<col style="width: 15%;">
+											<col style="width: 12%;">
+											<col style="width: 8%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
@@ -308,7 +355,8 @@ function fntrsfExcel(){
 												<th scope="col">분류</th>
 												<th scope="col">프로젝트명</th>
 												<th scope="col">사용장소</th>
-												<th scope="col">신청일자</th>
+												<th scope="col">신청자</th>
+												<th scope="col">신청일</th>
 												<th scope="col">상태</th>
 											</tr>
 										</thead>
@@ -320,16 +368,14 @@ function fntrsfExcel(){
                                 			</c:if>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="childNodes[1].childNodes[1].submit();">
-													<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageSize) - status.index}" />
-														<form name="subForm" method="post"
-															action="<c:url value='/req/SelectCarry.do'/>">
-															<input type="hidden" name="reqId"
-																value="<c:out value='${result.reqId}'/>" />
-														</form></td>
+												<tr onclick="SelectCarry('<c:out value="${result.reqId}" />');">
+													<td>
+														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
+													</td>
 													<td><c:out value="${result.reqGroup}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.place}" /></td>
+													<td><c:out value="${result.id}" /></td>
 													<td><c:out value="${result.reqDate}" /></td>
 													<td><c:out value="${result.reqStatus}" /></td>
 												</tr>
@@ -364,6 +410,7 @@ function fntrsfExcel(){
 								</div>
 								<!-- //페이지 네비게이션 끝 -->
 								<!--// 게시판 -->
+								</form>
 							</div>
 						</div>
 					</div>

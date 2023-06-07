@@ -26,13 +26,11 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
@@ -41,7 +39,7 @@
 </script>
 </head>
 
-<body>
+<body class="com_m">
 	<!-- 자바스크립트 경고 태그  -->
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>

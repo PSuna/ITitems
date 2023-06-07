@@ -29,6 +29,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -225,10 +226,56 @@ public class EgovBBSManageController {
 		}
 
 		model.addAttribute("brdMstrVO", masterVo);
+		model.addAttribute("searchVO", boardVO);
 
 		return "cop/bbs/EgovNoticeInqire";
 	}
+	/**
+	 * 게시물에 대한 상세 정보를 조회한다.
+	 *
+	 * @param boardVO
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/cop/bbs/selectBoardArticleMain.do")
+	public String selectBoardArticleMain(@RequestParam("nttId") int nttId, @ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		boardVO.setNttId(nttId);
+		// 조회수 증가 여부 지정
+		boardVO.setPlusCount(true);
 
+		if (!boardVO.getSubPageIndex().equals("")) {
+			boardVO.setPlusCount(false);
+		}
+		////-------------------------------
+
+		boardVO.setLastUpdusrId(user.getUniqId());
+		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
+
+		model.addAttribute("result", vo);
+		model.addAttribute("sessionUniqId", user.getUniqId());
+
+		//----------------------------
+		// template 처리 (기본 BBS template 지정  포함)
+		//----------------------------
+		BoardMasterVO master = new BoardMasterVO();
+
+		master.setBbsId(boardVO.getBbsId());
+		master.setUniqId(user.getUniqId());
+		
+		BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
+
+		if (masterVo.getTmplatCours() == null || masterVo.getTmplatCours().equals("")) {
+			masterVo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
+		}
+
+		model.addAttribute("brdMstrVO", masterVo);
+		model.addAttribute("searchVO", boardVO);
+
+		return "cop/bbs/EgovNoticeInqire";
+	}
 	/**
 	 * 게시물 등록을 위한 등록페이지로 이동한다.
 	 *

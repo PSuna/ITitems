@@ -54,8 +54,10 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 
+
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -100,7 +102,7 @@ function AssetDel() {
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 500,
+	        width: 400,
 	        height: 300
 	        
 		});
@@ -130,7 +132,7 @@ function DelIng(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 500,
+        width: 400,
         height: 300
 	});
     $(".ui-dialog-titlebar").hide();
@@ -148,7 +150,7 @@ function DelIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
+	        width: 400,
 	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
@@ -173,8 +175,8 @@ function DelIng(){
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
-	        width: 600,
-	        height: 400
+	        width: 400,
+	        height: 300
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
@@ -193,7 +195,12 @@ function AssetList(){
 	    document.frm.submit();
 	}
 }
-
+/* ********************************************************
+ * onload
+ ******************************************************** */
+window.onload = function(){
+	console.log('${PhotoList}');
+	  }
 
 //-->
 </script>
@@ -228,7 +235,7 @@ function AssetList(){
 									</ul>
 								</div>
 								<!--// Location -->
-								<form id="frm" name="frm" autocomplete="off">
+								<form id="frm" name="frm" autocomplete="off" method="post">
 									<input name="assetId" type="hidden" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
@@ -251,7 +258,7 @@ function AssetList(){
 												<td class="lb">
 													<!-- 중분류 --> <label for="">중분류</label>
 												</td>
-												<td>${resultVO.middleCategory}</td>
+												<td>${resultVO.mcatNm}</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -259,7 +266,7 @@ function AssetList(){
 												</td>
 												<td>${resultVO.maker}</td>
 												<td class="lb">
-													<!-- 품명 --> <label for="">제품명</label>
+													<!-- 품명 --> <label for="">제품명(모델명)</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 											</tr>
@@ -276,17 +283,8 @@ function AssetList(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="4" >
-													${resultVO.rcptDate}
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">소유자</label> 
+													<label for="">수령자</label> 
 												</td>
 												<td>
 													${resultVO.rcptNm}
@@ -313,6 +311,22 @@ function AssetList(){
 												</td>
 												<td>
 													${resultVO.prjNm}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
+												</td>
+												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label> 
+												</td>
+												<td >
+													${resultVO.mngNum}
 												</td>
 											</tr>
 											<tr>
@@ -371,8 +385,15 @@ function AssetList(){
 													<!-- 등록일자 --> 
 													<label for="">등록일자</label> 
 												</td>
-												<td colspan="4">
+												<td>
 													${resultVO.regDate}
+												</td>
+												<td class="lb">
+													<!-- 등록자 --> 
+													<label for="">등록자</label> 
+												</td>
+												<td>
+													${resultVO.regId}
 												</td>
 											</tr>
 										</table>
@@ -383,7 +404,7 @@ function AssetList(){
 										<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
 										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 									<!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login || resultVO.rcptId == login}">
 												<!-- 수정 -->
@@ -417,7 +438,20 @@ function AssetList(){
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
 									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
-									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${listCode}"/>" />
+									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+									<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+									<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+									<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+									<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+									<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

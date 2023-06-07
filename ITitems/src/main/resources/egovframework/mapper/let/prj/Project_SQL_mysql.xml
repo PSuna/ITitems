@@ -18,7 +18,7 @@
 	<sql id="search">
 		<where>
 			<if test="searchWord != null and searchWord != ''">
-				A.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				(A.PRJ_NAME LIKE CONCAT ('%', #{searchWord},'%') OR A.PRJ_CODE LIKE CONCAT ('%', #{searchWord},'%'))
 			</if>
 		</where>
 	</sql>
@@ -32,7 +32,8 @@
 			   PRJ_STATE,
 			   ID,
 			   USER_NM,
-			   CODE_NM
+			   CODE_NM,
+			   PRJ_CODE
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRJ_STATE ASC, PRJ_START DESC, A.PRJ_ID) AS RUM,
 					   A.PRJ_ID, 
 				       A.PRJ_NAME, 
@@ -42,7 +43,8 @@
 				       D.CODE_NM AS PRJ_STATE,
 				       B.ESNTL_ID AS ID,
 				       B.USER_NM, 
-				       C.CODE_NM
+				       C.CODE_NM,
+				       A.PRJ_CODE
 			      FROM PROJECTS A 
 			      LEFT OUTER JOIN LETTNEMPLYRINFO B
 			        ON A.ID = B.EMPLYR_ID 
@@ -69,7 +71,8 @@
 			   A.ID,
 			   A.CLIENT,
 			   A.PRJ_STATE,
-			   B.USER_NM
+			   B.USER_NM,
+			   A.PRJ_CODE
 		  FROM PROJECTS A LEFT JOIN LETTNEMPLYRINFO B
 		    ON A.ID = B.EMPLYR_ID
 		 WHERE A.PRJ_ID = #{prjId}
@@ -108,7 +111,8 @@
 				PRJ_END		= #{prjEnd},
 				ID			= #{id},
 				CLIENT		= #{client},
-				PRJ_STATE	= #{prjState}
+				PRJ_STATE	= #{prjState},
+				PRJ_CODE    = #{prjCode}
 		WHERE	PRJ_ID 	= #{prjId}
 	</update>
 	

@@ -52,13 +52,37 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 
+
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function CarryList(){
 	document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
+}
+window.onload = function(){
+	 var i = document.querySelectorAll('.aprv_item').length;
+	 var p = `<div class="aprv_item">
+					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<tbody>
+							<tr style="border-bottom:1px solid black;">
+								<td>/</td>
+							</tr>
+							<tr class="aprv_col" style="border-bottom:1px solid black;">
+								<td class="aprv_nm">/</td>
+							</tr>
+							<tr>
+								<td class="aprv_td">/
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>`;
+	 for(var j=0;j<4-i;j++){
+		 $(".aprv_item:last-child").before(p);
+	 }
 }
 //-->
 </script>
@@ -107,42 +131,77 @@ function CarryList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출요청 정보</li>
+										<li>반출신청정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 
 								<form id="frm" name="frm" >
+								<div class="aprv_top">
+								<h2 class="tit_2">반출신청정보</h2>
+								<% LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO"); %>
+								<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+								<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+								<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+								<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+								<c:set var="end" value="<%=new java.util.Date()%>" />
+								<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+								<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+								<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+								<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
+								<input name="searchGroup" id="searchGroup" type="hidden"  value="<c:out value="${searchVO.searchGroup}"/>" />
+								<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
 									<div class="aprv_top">
-										<h2 class="tit_2">반출요청 정보</h2>
 										<div class="aprv_view">
-											<c:forEach var="aprvItem" items="${aprvList_result }">
-												<div class="aprv_item">
-													<table class="aprv_table">
-														<tbody>
-															<tr class="aprv_col">
-																<td class="aprv_nm">${aprvItem.userNm }</td>
-															</tr>
-															<tr>
-																<td class="aprv_td">
-																	<c:choose>
-																		<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
-																		</c:when>
-																		<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
-																		</c:when>
-																		<c:otherwise> ${aprvItem.aprvDate }
-																		</c:otherwise>
-																	</c:choose>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</c:forEach>
+											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
+												<tbody>
+													<tr style="border-bottom:1px solid black;">
+														<td>신청자</td>
+													</tr>
+													<tr class="aprv_col" style="border-bottom:1px solid black;">
+														<td class="aprv_nm">${resultVO.id}</td>
+													</tr>
+													<tr>
+														<td class="aprv_td">${resultVO.reqDate}</td>
+													</tr>
+												</tbody>
+											</table>
+											<div id="aprv_list" style="display:flex;border-right:1px solid black;">
+												<c:forEach var="aprvItem" items="${aprvList_result }" varStatus="status">
+													<div class="aprv_item">
+														<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+															<tbody>
+																<tr style="border-bottom:1px solid black;">
+																	<td>결재자</td>
+																</tr>
+																<tr class="aprv_col" style="border-bottom:1px solid black;">
+																	<td class="aprv_nm">${aprvItem.userNm }</td>
+																</tr>
+																<tr>
+																	<td class="aprv_td">
+																		<c:choose>
+																			<c:when test="${aprvItem.reqStatus eq 'A0' }"> 
+																			</c:when>
+																			<c:when test="${aprvItem.reqStatus eq 'A2' }">반려 
+																			</c:when>
+																			<c:otherwise> ${aprvItem.aprvDate }
+																			</c:otherwise>
+																		</c:choose>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</c:forEach>
+											</div>
 										</div>
 									</div>
-									
+									</div>
 									<div class="board_view2">
 										<table>
 											<colgroup>
@@ -241,15 +300,7 @@ function CarryList(){
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-									<%
-											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-										%>
-									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
-									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
-									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
-									<c:set var="end" value="<%=new java.util.Date()%>" />
-									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+
 									</form>
 								</div>
 							</div>
@@ -262,7 +313,6 @@ function CarryList(){
 		<!-- Footer -->
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
-	</div>
 
 </body>
 </html>

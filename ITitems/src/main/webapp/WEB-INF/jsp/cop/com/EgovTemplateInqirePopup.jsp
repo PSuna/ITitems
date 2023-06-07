@@ -55,7 +55,7 @@
     }
 
 </script>
-<title>템플릿 목록</title>
+
 
 </head>
 <body>

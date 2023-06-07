@@ -31,6 +31,12 @@ public class AssetInfoVO implements Serializable {
 	/** 중분류 */
 	private String middleCategory;
 	
+	/** 중분류 이름*/
+	private String mcatNm;
+	
+	/** 중분류 기타*/
+	private String mcatEtc;
+	
 	/** 품명 */
 	private String assetName;
 	
@@ -42,6 +48,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 취득가액 */
 	private String acquiredPrice;
+	
+	/** 제조사 코드 */
+	private String makerCode;
 	
 	/** 제조사 */
 	private String maker;
@@ -102,6 +111,9 @@ public class AssetInfoVO implements Serializable {
 	
 	/** 반출사유 */
 	private String carryReason;
+	
+	/** 자산관리번호 */
+	private String mngNum;
 
 	public String getAssetId() {
 		return assetId;
@@ -317,6 +329,38 @@ public class AssetInfoVO implements Serializable {
 
 	public void setLowerOrgnztId(String lowerOrgnztId) {
 		this.lowerOrgnztId = lowerOrgnztId;
+	}
+
+	public String getMngNum() {
+		return mngNum;
+	}
+
+	public void setMngNum(String mngNum) {
+		this.mngNum = mngNum;
+	}
+
+	public String getMcatEtc() {
+		return mcatEtc;
+	}
+
+	public void setMcatEtc(String mcatEtc) {
+		this.mcatEtc = mcatEtc;
+	}
+
+	public String getMakerCode() {
+		return makerCode;
+	}
+
+	public void setMakerCode(String makerCode) {
+		this.makerCode = makerCode;
+	}
+
+	public String getMcatNm() {
+		return mcatNm;
+	}
+
+	public void setMcatNm(String mcatNm) {
+		this.mcatNm = mcatNm;
 	}
 	
 	
