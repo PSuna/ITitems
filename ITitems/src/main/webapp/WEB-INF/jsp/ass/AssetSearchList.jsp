@@ -31,6 +31,9 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
