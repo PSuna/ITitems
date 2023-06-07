@@ -90,7 +90,9 @@ display:flex;
     position:relative;
      z-index: 999;
      background:#fff;
-	padding: 0 0 14px 14px;
+	/* padding: 0 0 14px 14px; */
+	padding-left: 10px;
+	padding-bottom: 1px;
 }
 
 .pty_dropdown h3{
