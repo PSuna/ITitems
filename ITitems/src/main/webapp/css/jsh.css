@@ -20,7 +20,6 @@
 .search_date img{
 	display: block;
     position: absolute;
-    left: 1%;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
@@ -519,6 +518,17 @@ background: #F7F7F7;
 	margin-top: 10px;	
 }
 
+.gnb li{
+	width : 130px;
+}
+.pty_dropdown{
+	height: auto !important;
+}
+
+.wp_date{
+	width: 48.2%;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;
@@ -615,5 +625,9 @@ background: #F7F7F7;
 	
 	.search_date input{
 		padding-left: 37px;
+	}
+	
+	.wp_date{
+		width: 46.7%;
 	}
 }
