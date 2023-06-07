@@ -93,6 +93,8 @@ function fnInit() {
 }
 //-->
 </script>
+ <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>   
+
 </head>
 <body onload="fnInit();">
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
