@@ -317,18 +317,7 @@ window.onload = function(){
 											</div>
 										</div>	
 											
-										<div class="j_box01" style="margin-bottom:0">	
-											<%-- <div>							
-												<span class="lb">상태</span> 
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" >
-															<option value='' label="선택하세요" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div> --%>
+										<div class="j_box01">	
 											<div class="date_box">
 												<!-- <span class="lb">등록일자</span>  -->
 												<div>
@@ -358,16 +347,11 @@ window.onload = function(){
 								<div class="board_list_top">
 									<div class="left_col">
 											<div class="list_count">
-
-
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
 													<div>
 														<span style="margin:0;">Total : </span> 
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
 													</div>
-														
 													<div style="display: flex; align-items: center;">
 														<span style="margin-right: 16px;">페이지당 항목 수</span> 
 														<label class="item f_select" for="pageUnit"> 
@@ -382,10 +366,7 @@ window.onload = function(){
 															</select>
 														</label>
 													</div>
-													
 												</div>
-												
-												
 											</div>
 										</div>
                                 </div>
@@ -394,23 +375,23 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 3%;">
-											<col style="width: 8%;">
+											<col style="width: 5%;">
 											<col style="width: 8%;">
 											<col style="width: 16%;">
 											<col style="width: 16%;">
-											<col style="width: 37%;">
-											<col style="width: 6%;">
-											<col style="width: 6%;">
+											<col style="width: 30%;">
+											<col style="width: 8%;">
+											<col style="width: 7%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">분류</th>
-												<th scope="col">수량</th>
 												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
+												<th scope="col">수량</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 											</tr>
@@ -423,10 +404,10 @@ window.onload = function(){
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>

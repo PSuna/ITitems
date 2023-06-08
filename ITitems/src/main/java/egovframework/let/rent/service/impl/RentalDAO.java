@@ -4,6 +4,7 @@ import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetHistVO;
+import egovframework.let.rent.service.RentalVO;
 
 /**
  * 자산내역 관리를 위한 데이터 접근 클래스
@@ -25,5 +26,15 @@ import egovframework.let.ass.service.AssetHistVO;
 @Repository("RentalDAO")
 public class RentalDAO extends EgovAbstractMapper {
 
+	public int InsertRental(RentalVO RentalVO) {
+		return insert("RentalDAO.InsertRental",RentalVO);
+	};
 	
+	public int InsertRentaldetail(RentalVO RentalVO) {
+		return insert("RentalDAO.InsertRentaldetail",RentalVO);
+	};
+	
+	public int InsertRentalhist(RentalVO RentalVO) {
+		return insert("RentalDAO.InsertRentalhist",RentalVO);
+	};
 }

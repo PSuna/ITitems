@@ -34,7 +34,7 @@ import egovframework.let.rent.service.RentalVO;
 import egovframework.let.uss.umt.service.UserManageService;
 
 /**
- * 자산관리를 위한 컨트롤러 클래스
+ * 렌탈관리를 위한 컨트롤러 클래스
  * 
  * @author 영남사업부 주소현
  * @since 2023.04.13
@@ -79,7 +79,7 @@ public class RentalController {
 	private UserManageService userManageService;
 
 	/**
-	 * 내자산조회 페이지로 이동
+	 * 내렌탈조회 페이지로 이동
 	 */
 	@RequestMapping(value = "/rent/MyRentalManagement.do")
 	public String MyRentalManagement(HttpServletRequest request, ModelMap model,
@@ -131,7 +131,7 @@ public class RentalController {
 	}
 	
 	/**
-	 * 전체자산조회 페이지로 이동
+	 * 전체렌탈조회 페이지로 이동
 	 */
 	@RequestMapping(value = "/rent/RentalManagement.do")
 	public String RentalManagement(HttpServletRequest request, ModelMap model,
@@ -185,7 +185,7 @@ public class RentalController {
 	}
 	
 	/**
-	 * 자산상세정보 페이지로 이동
+	 * 렌탈상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/rent/SelectRental.do")
 	public String SelectRental(HttpServletRequest request, ModelMap model, RentalManageVO manageVO) throws Exception {
@@ -207,7 +207,7 @@ public class RentalController {
 	
 
 	/**
-	 * 자산등록 페이지로 이동
+	 * 렌탈등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/rent/RentalRegist.do")
 	public String RentalRegist(HttpServletRequest request, ModelMap model, RentalVO rentalVO, RentalManageVO manageVO) throws Exception {
@@ -231,7 +231,7 @@ public class RentalController {
 	}
 	
 	/**
-	 * 자산등록 
+	 * 렌탈등록 
 	 */
 	@RequestMapping(value = "/rent/RentalInsert.do")
 	@ResponseBody
@@ -262,7 +262,7 @@ public class RentalController {
 	}
 	
 	/**
-	 * 자산수정 페이지로 이동
+	 * 렌탈수정 페이지로 이동
 	 */
 	@RequestMapping(value = "/rent/RentalUpdt.do")
 	public String RentalUpdt(HttpServletRequest request, ModelMap model, RentalManageVO manageVO) throws Exception {
@@ -292,7 +292,7 @@ public class RentalController {
 	}
 	
 	/**
-	 * 자산수정
+	 * 렌탈수정
 	 */
 	@RequestMapping(value = "/rent/AssetUpdate.do")
 	@ResponseBody
@@ -332,7 +332,7 @@ public class RentalController {
 	
 	
 	/**
-	 * 자산삭제
+	 * 렌탈삭제
 	 */
 	@RequestMapping(value = "/rent/AssetDel.do")
 	@ResponseBody
