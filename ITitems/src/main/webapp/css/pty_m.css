@@ -384,6 +384,7 @@
 	
 	.condition{
 		display:flex!important;
+		flex-wrap: wrap;
 	}
 	
 	.condition form{
