@@ -150,7 +150,7 @@ public class ApprovalManageController {
 		approvalManageVO = approvalManageService.SelectApproval(approvalSearchVO);
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
-		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(approvalSearchVO));
+		model.addAttribute("approvalDetailList", requestService.SelectRequestDetailVOList(manageVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		return "/aprv/SelectApproval";
 	}

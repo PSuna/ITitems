@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -35,43 +36,143 @@
 <title>프로젝트 찾기</title>
 
 <script type="text/javaScript" language="JavaScript">
-	function fn_egov_cancel_popup() {
-		parent.fn_egov_modal_remove();
+/* ********************************************************
+ * onload
+ ******************************************************** */
+window.onload = function(){
+	getMCatList('${searchVO.searchdMCat}');
+	getOrgList('${searchVO.lowerOrgnzt}')
+}
+/* ********************************************************
+ * 중분류 조회
+ ******************************************************** */
+function getMCatList(Mval) {
+	let val = document.getElementById('largeCategory').value;
+	if(val == ""){
+		document.getElementById('middleCategory').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '중분류';
+		op.value = "";
+		document.getElementById('middleCategory').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpper' : val},
+			success: function (result) {
+				document.getElementById('middleCategory').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '중분류';
+				op.value = "";
+				document.getElementById('middleCategory').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.catId);
+					op.textContent = res.catName;
+					if(Mval == res.catId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('middleCategory').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
 	}
+}
 
-	function fn_egov_return_Prj(prjid, prjNm) {
-		var val = new Object();
-		val.prjid = prjid;
-		val.prjNm = prjNm;
 
-		parent.parent.fn_egov_returnValue(val);
+/* ********************************************************
+ * 부서 조회
+ ******************************************************** */
+function getOrgList(Oval) {
+	let val = document.getElementById('searchOrgnzt').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(Oval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
 	}
+}
 
-	function fn_egov_pageview(page) {
-		document.listForm.searchWord.value = '${searchVO.searchWord}';
-		document.listForm.pageIndex.value = page;
-		document.listForm.submit();
-	}
-
-	function fn_egov_search_Prj() {
-		document.listForm.pageIndex.value = 1;
-		document.listForm.submit();
-	}
+/* ********************************************************
+ * 자산 검색
+ ******************************************************** */
+function SearchAssetList() {
+	event.preventDefault();
 	
-	
+	document.listForm.pageIndex.value = '1';
+    document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
+    document.listForm.submit(); 
+}
+
+function fn_egov_cancel_popup() {
+	parent.fn_egov_modal_remove();
+}
+
+function fn_egov_return_Ass(assetId, middleCategory, assetQty, assetSn, maker, rcptNm, useNm) {
+	var val = new Object();
+	val.assetId = assetId;
+	val.middleCategory = middleCategory;
+	val.assetQty = assetQty;
+	val.assetSn = assetSn;
+	val.maker = maker;
+	val.rcptNm = rcptNm;
+	val.useNm = useNm;
+	parent.parent.returnAss(val);
+}
+
+function fn_egov_pageview(page) {
+	document.listForm.searchWord.value = '${searchVO.searchWord}';
+	document.listForm.pageIndex.value = page;
+	document.listForm.submit();
+}
+
+function fn_egov_search_Prj() {
+	document.listForm.pageIndex.value = 1;
+	document.listForm.submit();
+}
 </script>
 </head>
-
 <body>
 	<!-- 자바스크립트 경고 태그  -->
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
 
 	<form name="listForm"
-		action="<c:url value='/prj/ProjectSearchList.do'/>" method="post" autocomplete="off">
+		action="<c:url value='/ass/AssetSearchList.do'/>" method="post">
 
 		<input name="searchCondition" type="hidden" size="35" value="4" />
-
+		<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 		<!-- 프로젝트 찾기 팝업 -->
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
@@ -81,124 +182,97 @@
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
 				<div class="pop_container">
-			
+
 					<!-- 검색조건 -->
-					<form id="frm" name="frm" autocomplete="off">
-						<div class="condition2">
-							<span class="lb">본부/부서</span>
-							<label class="item f_select" for="sel1">
-								<select id="searchOrgnzt" name="searchOrgnzt" title="부서">
-									<option value="" label="선택하세요" />
-									<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-										<option value="${orgnztId.code}"
-											<c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>
-											<c:out value="${orgnztId.codeNm}" />
-										</option>
-									</c:forEach>
-								</select> 
-							</label> 
-							<span class="lb">프로젝트</span> 
-							<span class="f_search2 w_200">
-								<input id="prjNm" name="prjNm" type="text" title="주소" maxlength="100" readonly="false"
-									value="<c:out value="${searchVO.prjNm}"/>" />
-								<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-							</span>
-							<input name="searchPrj" id="searchPrj" type="hidden" title="프로젝트" 
-								value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
-							<br> 
-							<span class="lb">대분류</span> 
-							<label class="item f_select" for="sel1">
-								<select id="largeCategory" name="searchLCat" title="대분류" onchange="getMCatList();">
-									<option value='' label="선택하세요" />
-									<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-										<option value="${LCat.catId}" 
-											<c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>>
-											<c:out value="${LCat.catName}"/>
-										</option>
-									</c:forEach>
-								</select> 
-							</label> 
-							<span class="lb">중분류</span> 
-							<label class="item f_select" for="sel1"> 
-								<select id="middleCategory" name="searchdMCat" title="중분류">
-									<option value='' label="선택하세요" />
+					<div class="condition2">
+						<div class="j_box02">
+							<div>
+								<!-- <span class="lb">본부/부서</span> -->
+								<label class="item f_select w_full" for="sel1"> <select
+									id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
+										<option value="">본부</option>
+										<c:forEach var="orgnztId" items="${orgnztId_result}"
+											varStatus="status">
+											<option value="${orgnztId.code}"
+												<c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out
+													value="${orgnztId.codeNm}" /></option>
+										</c:forEach>
 								</select>
-							</label> 
-							<br> 
-							<span class="lb">상태</span> 
-							<label class="item f_select" for="sel1"> 
-								<select id="searchStatus" name="searchStatus" title="상태">
-									<option value='' label="선택하세요" />
-									<c:forEach var="stat" items="${status_result}" varStatus="status">
-										<option value="${stat.code}"
-											<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>>
-											<c:out value="${stat.codeNm}" />
-										</option>
-									</c:forEach>
+								</label>
+							</div>
+							<div>
+								<!-- <span class="lb">본부/부서</span> -->
+								<label class="item f_select w_full" for="sel1"> <select
+									id="lowerOrgnzt" name="lowerOrgnzt">
+										<option value="">부서</option>
 								</select>
-							</label> 
-							<span class="lb ml20">취득일자</span> 
-							<input class="f_date" type="date" name="startDate"
-								value="<c:out value="${searchVO.startDate}"/>">
-							 ― 
-							<input class="f_date" type="date" name="endDate"
-								value="<c:out value="${searchVO.endDate}"/>"> 
-							<span class="item f_search">
-								검색 
-								<input class="f_input w_130" type="text" name="searchWord" id="usernm" title="검색어"
-									value="<c:out value="${searchVO.searchWord}"/>">
-							</span>
-							<button class="btn" onclick="SearchAssetList();">검색</button>
+								</label>
+							</div>
+							<div>
+								<!-- <span class="lb">대분류</span>  -->
+								<label class="item f_select w_full" for="sel1"> <select
+									id="largeCategory" name="searchLCat" onchange="getMCatList();">
+										<option value='' label="대분류" />
+										<c:forEach var="LCat" items="${LCat_result}"
+											varStatus="status">
+											<option value="${LCat.catId}"
+												<c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out
+													value="${LCat.catName}" /></option>
+										</c:forEach>
+								</select>
+
+								</label>
+							</div>
+
+							<div>
+								<!-- <span class="lb">중분류</span> -->
+								<label class="item f_select w_full" for="sel1"> <select
+									id="middleCategory" name="searchdMCat">
+										<option value='' label="중분류" />
+								</select>
+								</label>
+							</div>
 						</div>
-						<input id="pageIndex" name="pageIndex" type="hidden"
-							value="${searchVO.pageIndex}" />
-					</form>
+						<div class="j_box02">
+							<div class="search_box" style="margin-left: 2px;margin-right: 3px;width: 74% !important;">
+								<span class="item f_search w_full" >
+									<input class="f_input w_full pty_f_input" type="text" name="searchWord" onchange="SearchAssetList(); return false;" placeholder="수령자/실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+								</span>
+							</div>
+							<div class="btn_box" style="margin-right:2px;">
+								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="margin-left: 5px; padding: 0 44px;">검색</button>
+							</div>
+						</div>
+					</div>
 					<!--// 검색 조건 -->
 
 					<!-- 게시판 -->
-					<div class="board_list">
+					<div class="board_list selete_table">
 						<table>
 							<colgroup>
-								<col style="width: 80px;">
-								<col style="width: 80px;">
-								<col style="width: 150px;">
-								<col style="width: 50px;">
-								<col style="width: 150px;">
-								<col style="width: 100px;">
-								<col style="width: 130px;">
-								<col style="width: 80px;">
-								<col style="width: 100px;">
+								<col style="width: 30%;">
+								<col style="width: 15%;">
+								<col style="width: 30%;">
+								<col style="width: 25%;">
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col">대분류</th>
+									<th scope="col">본부/부서</th>
 									<th scope="col">중분류</th>
-									<th scope="col">제품명(모델명)</th>
-									<th scope="col">수량</th>
-									<th scope="col">취득일자</th>
-									<th scope="col">취득가액</th>
-									<th scope="col">제조사</th>
-									<th scope="col">상태</th>
-									<th scope="col"></th>
+									<th scope="col">S/N</th>
+									<th scope="col">수령자/실사용자</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="result" items="${resultList}" varStatus="status">
-									<tr>
-										<td><c:out value="${result.largeCategory}" /></td>
+									<tr onclick="fn_egov_return_Ass( '${result.assetId}', '${result.middleCategory}', '${result.assetQty}', '${result.assetSn}', '${result.maker}', '${result.rcptNm}', '${result.useNm}');">
+										<td><c:out value="${result.orgnztId} / ${result.lowerOrgnztId}" /></td>
 										<td><c:out value="${result.middleCategory}" /></td>
-										<td><c:out value="${result.assetName}" /></td>
-										<td><c:out value="${result.histQty}" /></td>
-										<td><c:out value="${result.acquiredDate}" /></td>
-										<td><c:out value="${result.acquiredPrice}" /></td>
-										<td><c:out value="${result.maker}" /></td>
-										<td><c:out value="${result.histStatus}" /></td>
-										<td>
-											<a href="#LINK" class="btn btn_blue_30 w_80"
-												onclick="fn_egov_return_Prj( '${resultInfo.prjId}', '${resultInfo.prjName}');">
-												선택 
-											</a>
-										</td>
+										<td><c:out value="${result.assetSn}" /></td>
+										<td><c:out value="${result.rcptNm} / ${result.useNm}" /></td>
+										<%-- <td><a href="#LINK" class="btn btn_blue_30 w_80"
+											onclick="fn_egov_return_Prj( '${result.middleCategory}', '${result.assetSn}', '${result.rcptNm}', '${result.useNm}');">
+												선택 </a></td> --%>
 									</tr>
 								</c:forEach>
 							</tbody>

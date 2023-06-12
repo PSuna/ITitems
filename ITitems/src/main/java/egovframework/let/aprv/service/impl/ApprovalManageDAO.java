@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.req.service.RequestDetailVO;
 
 /**
  * 결재게시판에 관한 데이터 접근 클래스를 정의한다.
@@ -52,7 +53,7 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return selectOne("approvalManageDAO.SelectApproval", approvalSearchVO);
 	}
 
-	public List<ApprovalDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
+	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
 		return selectList("approvalManageDAO.SelectApprovalDetailList", approvalSearchVO);
 	}
 

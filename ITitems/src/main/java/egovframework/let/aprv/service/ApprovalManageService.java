@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import egovframework.let.req.service.RequestDetailVO;
+
 /**
  * 결재게시판에 관한 인터페이스클래스를 정의한다.
  * @author 영남사업부 천세훈
@@ -41,7 +43,7 @@ public interface ApprovalManageService {
 
 	public ApprovalManageVO SelectApproval(ApprovalDefaultVO approvalSearchVO);
 
-	public List<ApprovalDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO);
+	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO);
 
 	public int UpdateApproval(ApprovalManageVO approvalManageVO);
 	
