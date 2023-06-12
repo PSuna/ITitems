@@ -519,11 +519,11 @@ function AssetList(){
  ******************************************************** */
 window.onload = function(){
 	make_date();
-	pullVal('assetRegist',loginId);
+	/* pullVal('assetRegist',loginId);
 	checkMakerEtc();
 	setInterval(function() {
 		pushVal('assetRegist',loginId)
-	}, 1000);
+	}, 1000); */
  }
 
 //-->

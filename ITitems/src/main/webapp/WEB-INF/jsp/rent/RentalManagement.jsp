@@ -523,7 +523,7 @@ window.onload = function(){
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="result" items="${resultList}"
+											<%-- <c:forEach var="result" items="${resultList}"
 												varStatus="status">
 												<tr onclick="SelectAsset('${result.assetId}');">
 													<td>
@@ -536,14 +536,14 @@ window.onload = function(){
 													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
-													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
+													<td><c:out value="${result.usageStatus}" /></td>
 												</tr>
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
                                						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
                                					</tr>
-											</c:if>
+											</c:if> --%>
 										</tbody>
 									</table>
 								</div>

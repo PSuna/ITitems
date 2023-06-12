@@ -47,7 +47,7 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="assetRegist" staticJavascript="false"
+<validator:javascript formName="rentalRegist" staticJavascript="false"
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -57,9 +57,9 @@ let loginId = '${loginId}';
 /* ********************************************************
  * 자산 등록 처리
  ******************************************************** */
-function insert_asset(){
+function RentalInsert(){
 		inputFile();
-		 let formData = new FormData(document.getElementById('assetRegist'));
+		 let formData = new FormData(document.getElementById('rentalRegist'));
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/rent/RentalInsert.do',
 			method: 'POST',
@@ -82,7 +82,7 @@ function insert_asset(){
  * 등록확인 팝업창
  ******************************************************** */
  function RegistConfirm(){
-	   if(validateAssetRegist(document.assetRegist)){
+	   if(validateRentalRegist(document.rentalRegist)){
 		 var $dialog = $('<div id="modalPan"></div>')
 			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
@@ -104,7 +104,7 @@ function insert_asset(){
 	fn_egov_modal_remove();
 	 if(val){
 		 RegistIng();
-		 insert_asset();
+		 RentalInsert();
 	 }	  
 }
 
@@ -188,9 +188,9 @@ function getMCatList(Mval) {
 	let val = document.getElementById('largeCategory').value;
 
 	if(val == "cat1"){
-		$('#assetQty').attr("readonly","readonly").addClass("readonly").val("1");
+		$('#rentalQty').attr("readonly","readonly").addClass("readonly").val("1");
 	}else{
-		$('#assetQty').removeAttr("readonly").removeClass("readonly");
+		$('#rentalQty').removeAttr("readonly").removeClass("readonly");
 	}
 		
 	if(val == ""){
@@ -350,8 +350,7 @@ fn_egov_modal_remove();
  * date input 생성
  ******************************************************** */
 function make_date(){
-	
-	$("#rcptDate, #rentalStart, #rentalEnd").datepicker(
+	$("#histDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -450,7 +449,7 @@ let typeList = ["input", "select"]
 
 function removeP() {
 	$(typeList).each(function(index, type){
-		$("#assetRegist").find(type).each(function(index, item){
+		$("#rentalRegist").find(type).each(function(index, item){
 			let td = $(item).closest("td");
 			if($(td).children().last().prop('tagName') == 'P'){
 				$(td).children().last().remove();
@@ -462,7 +461,7 @@ function removeP() {
 function alertValid(objList) {
 	removeP();
 	$(typeList).each(function(index, type){
-		$("#assetRegist").find(type).each(function(index, item){
+		$("#rentalRegist").find(type).each(function(index, item){
 			let td = $(item).closest("td");
 			for(key in objList){
 				if($(item).attr("name") == key){
@@ -519,11 +518,11 @@ function AssetList(){
  ******************************************************** */
 window.onload = function(){
 	make_date();
-	pullVal('rentalRegist',loginId);
+	/* pullVal('rentalRegist',loginId);
 	checkMakerEtc();
 	setInterval(function() {
 		pushVal('rentalRegist',loginId)
-	}, 1000);
+	}, 1000); */
  }
 
 //-->
@@ -602,7 +601,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" maxlength="20" value="1"
+													<input id="rentalQty" class="f_txt w_full" name="rentalQty" type="text" maxlength="20" value="1"
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 											</tr>
@@ -669,9 +668,9 @@ window.onload = function(){
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
 												</td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<td class="lb">
-													<!-- 렌탈기간 --> 
+													렌탈기간 
 													<label for="">렌탈기간</label>
 												</td>
 												<td colspan="3">
@@ -685,14 +684,14 @@ window.onload = function(){
 														</span>
 													</div>
 												</td>
-											</tr>	
+											</tr>	 -->
 											<tr>
 												<td class="lb">
 													<!-- 렌탈기간 --> 
 													<label for="">렌탈업체</label>
 												</td>
 												<td colspan="3">
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<input id="rentalCompany" class="f_txt w_full" name="rentalCompany" type="text"  maxlength="60" >
 												</td>
 											</tr>
 											<%
@@ -774,7 +773,18 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" />
 												</td>
-											</tr>				
+											</tr>	
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="4">
+												<span class="search_date w_full">
+													<input id="histDate" class="f_txt w_full readonly" name="histDate" type="text"  maxlength="60" readonly="readonly">
+												</span>
+												</td>
+											</tr>			
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>

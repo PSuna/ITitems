@@ -222,7 +222,7 @@
                                     </c:if>
 
 									<!-- 목록/저장버튼  -->
-                                    <div class="board_view_bot">
+                                    <div class="board_view_bot btn_bot">
                                         <div class="right_btn btn3">
                                         	<c:if test="${result.frstRegisterId == sessionUniqId}"> 
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->

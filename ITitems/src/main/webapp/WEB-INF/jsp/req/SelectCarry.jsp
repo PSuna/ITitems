@@ -296,7 +296,7 @@ window.onload = function(){
 							<br>
 							
 								 <!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

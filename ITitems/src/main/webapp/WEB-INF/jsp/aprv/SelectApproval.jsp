@@ -350,10 +350,8 @@ function fnDisUpdate(){
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
 								 <!-- 지급확인버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">

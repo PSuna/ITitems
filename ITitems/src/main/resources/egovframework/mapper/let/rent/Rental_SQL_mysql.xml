@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RentalDAO">
+	
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="rentalList">
+		
+	</resultMap>
+	
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="myRentalList">
+		
+	</resultMap>
+	
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="rentalDetail">
+		
+	</resultMap>
+
+	<insert id="InsertRental" parameterType="egovframework.let.rent.service.RentalVO">
+		INSERT INTO RENTALASSET (
+			RENTAL_ID, 
+			REG_DATE, 
+			REG_ID, 
+			RENTAL_QTY, 
+			USAGE_STAUTS
+			)
+		VALUES (
+			#{rentalId},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{regId},
+			#{rentalQty},
+			'Y'
+		)
+	</insert>
+	
+	<insert id="InsertRentaldetail" parameterType="egovframework.let.rent.service.RentalVO">
+		INSERT INTO RENTALDETAIL (
+			R_ID, 
+			RENTAL_ID, 
+			LARGE_CATEGORY, 
+			MIDDLE_CATEGORY, 
+			MCAT_ETC, 
+			ASSET_NAME,  
+			RENTAL_COMPANY, 
+			MAKER, 
+			MAKER_CODE, 
+			NOTE, 
+			ASSET_SN, 
+			MNG_NUM, 
+			USAGE_STAUTS,
+			RCPT_ID
+			)
+		VALUES (
+			#{rId},
+			#{rentalId},
+			#{largeCategory},
+			#{middleCategory},
+			#{mcatEtc},
+			#{assetName},
+			#{rentalCompany},
+			#{maker},
+			#{makerCode},
+			#{note},
+			#{assetSn},
+			#{mngNum},
+			'Y',
+			#{rcptId}
+		)
+	</insert>
+	
+	<insert id="InsertRentalhist" parameterType="egovframework.let.rent.service.RentalVO">
+		 INSERT INTO RENTALHIST (
+			HIST_ID, 
+			R_ID, 
+			ORGNZT_ID, 
+			PRJ_ID, 
+			USE_ID, 
+			HIST_STATUS, 
+			HIST_DATE, 
+			CREAT_DT,
+			HIST_USER,
+			HIST_GROUP
+			)
+		VALUES (
+			#{histId},
+			#{rId},
+			#{orgnztId},
+			#{prjId},
+			#{useId},
+			'Y',
+			DATE_FORMAT(#{histDate}, '%Y-%m-%d %H:%i:%s'),
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
+	</insert>
+	
+	
+</mapper>
