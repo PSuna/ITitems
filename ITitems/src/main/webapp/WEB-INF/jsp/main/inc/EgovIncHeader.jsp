@@ -106,7 +106,7 @@ function fn_egov_modal_remove() {
 		                </ul>
             		</div>
           		</li>
-          		 <%-- <li>
+          		 <%--  <li>
           			<a href="#LINK" onclick="return false;">렌탈관리</a>
           			<div class="pty_dropdown">	    
 		                <ul>

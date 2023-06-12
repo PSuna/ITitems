@@ -37,7 +37,10 @@ function pullVal(frm, id) {
 				$(item).val(val);
 			}
 		})
-		getMCatList(valList['middleCategory']);
+		if(valList['middleCategory'] != null && valList['middleCategory'] != ""){
+			getMCatList(valList['middleCategory']);
+		}
+		
 	}
 }
 

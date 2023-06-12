@@ -14,10 +14,7 @@ import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.ass.service.AssetHistVO;
-import egovframework.let.ass.service.AssetInfoVO;
-import egovframework.let.ass.service.AssetManageVO;
-import egovframework.let.ass.service.AssetService;
+import egovframework.let.ass.service.impl.AssetInfoDAO;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.rent.service.RentalManageVO;
 import egovframework.let.rent.service.RentalService;
@@ -43,6 +40,18 @@ import egovframework.let.rent.service.RentalVO;
 @Service("RentalService")
 public class RentalServiceImpl extends EgovAbstractServiceImpl implements RentalService {
 
+	@Resource(name = "RentalDAO")
+	private RentalDAO rentalDAO;
+	
+	@Resource(name = "RentalIdGnrService")
+	private EgovIdGnrService rentalIdGnrService;
+	
+	@Resource(name = "RIdGnrService")
+	private EgovIdGnrService rIdGnrService;
+	
+	@Resource(name = "RhistIdGnrService")
+	private EgovIdGnrService rhistIdGnrService;
+	
 	@Override
 	public Map<String, Object> SelectRentalVOList(RentalManageVO rentalManageVO) throws Exception {
 		// TODO Auto-generated method stub
@@ -63,7 +72,22 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 
 	@Override
 	public int InsertRentalInfo(RentalVO RentalVO) {
-		
+		try {
+			RentalVO.setRentalId(rentalIdGnrService.getNextStringId());
+			
+			rentalDAO.InsertRental(RentalVO);
+			
+			int qty = Integer.parseInt(RentalVO.getRentalQty());
+			for(int i=0; i<qty; i++) {
+				RentalVO.setrId(rIdGnrService.getNextStringId());
+				rentalDAO.InsertRentaldetail(RentalVO);
+				RentalVO.setHistId(rhistIdGnrService.getNextStringId());
+				rentalDAO.InsertRentalhist(RentalVO);
+			}
+		} catch (FdlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

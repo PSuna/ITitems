@@ -42,17 +42,15 @@
 			LARGE_CATEGORY, 
 			MIDDLE_CATEGORY, 
 			MCAT_ETC, 
-			ASSET_NAME, 
-			RENTAL_START, 
-			RENTAL_END, 
-			RENTAL_PRICE, 
+			ASSET_NAME,  
 			RENTAL_COMPANY, 
 			MAKER, 
 			MAKER_CODE, 
 			NOTE, 
 			ASSET_SN, 
 			MNG_NUM, 
-			USAGE_STAUTS
+			USAGE_STAUTS,
+			RCPT_ID
 			)
 		VALUES (
 			#{rId},
@@ -61,21 +59,19 @@
 			#{middleCategory},
 			#{mcatEtc},
 			#{assetName},
-			DATE_FORMAT(#{rentalStart}, '%Y-%m-%d %H:%i:%s'),
-			DATE_FORMAT(#{rentalEnd}, '%Y-%m-%d %H:%i:%s'),
-			#{rentalPrice},
 			#{rentalCompany},
 			#{maker},
 			#{makerCode},
 			#{note},
 			#{assetSn},
 			#{mngNum},
-			'Y'
+			'Y',
+			#{rcptId}
 		)
 	</insert>
 	
 	<insert id="InsertRentalhist" parameterType="egovframework.let.rent.service.RentalVO">
-		<!-- INSERT INTO RENTALHIST (
+		 INSERT INTO RENTALHIST (
 			HIST_ID, 
 			R_ID, 
 			ORGNZT_ID, 
@@ -83,8 +79,8 @@
 			USE_ID, 
 			HIST_STATUS, 
 			HIST_DATE, 
-			RCPT_DATE, 
-			RCPT_ID, 
+			CREAT_DT,
+			HIST_USER,
 			HIST_GROUP
 			)
 		VALUES (
@@ -95,9 +91,10 @@
 			#{useId},
 			'Y',
 			DATE_FORMAT(#{histDate}, '%Y-%m-%d %H:%i:%s'),
-			#{},
-			#{}
-		) -->
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
 	</insert>
 	
 	

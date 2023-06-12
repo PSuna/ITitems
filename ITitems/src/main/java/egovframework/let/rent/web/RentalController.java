@@ -240,7 +240,8 @@ public class RentalController {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		rentalVO.setRegId(user.getUniqId());
-
+		rentalVO.setHistUser(user.getUniqId());
+		
 		rentalService.InsertRentalInfo(rentalVO);
 		
 		if (isAuthenticated) {
