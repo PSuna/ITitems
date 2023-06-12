@@ -384,7 +384,7 @@ window.onload = function(){
 											<col style="width: 16%;">
 											<col style="width: 30%;">
 											<col style="width: 8%;">
-											<col style="width: 7%;">
+											<col style="width: 8%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
