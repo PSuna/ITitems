@@ -79,6 +79,7 @@ function fn_egov_search_Prj() {
 	<form name="listForm" action="<c:url value='/prj/ProjectSearchList.do'/>" method="post">
     
     <input name="searchCondition" type="hidden" size="35" value="4" />
+    <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 
 	<!-- 프로젝트 찾기 팝업 -->
     <div class="popup POP_POST_SEARCH">

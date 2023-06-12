@@ -96,9 +96,12 @@
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
-				AND (A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-				OR I.USER_NM LIKE CONCAT ('%', #{searchWord},'%')
-				OR J.USER_NM LIKE CONCAT ('%', #{searchWord},'%'))
+				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			
+			</if>
+			<if test="searchName != null and searchName !=''">
+				AND (I.USER_NM LIKE CONCAT ('%', #{searchName},'%')
+				OR J.USER_NM LIKE CONCAT ('%', #{searchName},'%'))
 			</if>
 		</where>
 	</sql>

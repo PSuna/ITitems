@@ -58,6 +58,9 @@ public class AssetManageVO implements Serializable {
     /** 검색중분류 */
     private String searchdMCat = "";
     
+    /** 자산 소유 이름 검색*/
+    private String searchName = "";
+    
     /** 검색상태 */
     private String searchStatus = "";
 	
@@ -383,6 +386,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setMenuLowerOrgnzt(String menuLowerOrgnzt) {
 		this.menuLowerOrgnzt = menuLowerOrgnzt;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
 	}
 	
 	
