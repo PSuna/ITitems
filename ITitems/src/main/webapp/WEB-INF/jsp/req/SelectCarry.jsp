@@ -66,6 +66,9 @@ window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
 					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<colgroup>
+							<col style="width: 39px;">
+						</colgroup>
 						<tbody>
 							<tr style="border-bottom:1px solid black;">
 								<td>/</td>

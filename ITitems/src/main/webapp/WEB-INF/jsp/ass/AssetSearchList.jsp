@@ -177,7 +177,7 @@ function fn_egov_search_Prj() {
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
 				<div class="pop_header">
-					<h1>프로젝트 찾기</h1>
+					<h1>자산 찾기</h1>
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
