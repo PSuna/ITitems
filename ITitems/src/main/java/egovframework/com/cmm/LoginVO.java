@@ -27,6 +27,15 @@ public class LoginVO implements Serializable{
 	//❤️ 모바일 구분자
 	private String isMob;
 	
+	@Override
+	public String toString() {
+		return "LoginVO [id=" + id + ", name=" + name + ", ihidNum=" + ihidNum + ", email=" + email + ", password="
+				+ password + ", passwordHint=" + passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe
+				+ ", orgnztId=" + orgnztId + ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId="
+				+ uniqId + ", url=" + url + ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode="
+				+ authorCode + ", authorNm=" + authorNm + "]";
+	}
+	
 	/** 아이디 */
 	private String id;
 	/** 이름 */
@@ -282,14 +291,7 @@ public class LoginVO implements Serializable{
 	public void setLowerOrgnztId(String lowerOrgnztId) {
 		this.lowerOrgnztId = lowerOrgnztId;
 	}
-	@Override
-	public String toString() {
-		return "LoginVO [id=" + id + ", name=" + name + ", ihidNum=" + ihidNum + ", email=" + email + ", password="
-				+ password + ", passwordHint=" + passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe
-				+ ", orgnztId=" + orgnztId + ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId="
-				+ uniqId + ", url=" + url + ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode="
-				+ authorCode + ", authorNm=" + authorNm + "]";
-	}
+
 	public String getIsMob() {
 		return isMob;
 	}

@@ -83,11 +83,10 @@ public class MobEgovLoginController {
 	 * @return result - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	// ❤️ 로그인
+	// ❤️ 모바일 로그인
 	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")
 	public String actionSecurityLogin(@RequestBody LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
-		System.out.println("넘어온VO" + loginVO);
 
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
@@ -96,14 +95,12 @@ public class MobEgovLoginController {
 
 		loginVO.setId(loginVO.getId() + "@iteyes.co.kr");
 		LoginVO resultVO = loginService.actionLogin(loginVO);
-		System.out.println("1 ========================== resultVO" + resultVO);
 
 		boolean loginPolicyYn = true;
 
 		LoginPolicyVO loginPolicyVO = new LoginPolicyVO();
 		loginPolicyVO.setEmplyrId(resultVO.getId());
 		loginPolicyVO = egovLoginPolicyService.selectLoginPolicy(loginPolicyVO);
-		System.out.println("2 ========================== loginPolicyVO" + loginPolicyVO);
 
 		if (loginPolicyVO == null) {
 			loginPolicyYn = true;
@@ -114,14 +111,12 @@ public class MobEgovLoginController {
 				}
 			}
 		}
-		System.out.println("3 ========================== loginPolicyYn" + loginPolicyYn);
 
 		// spring security 시작
 		// 인증 시
 		// ▶ return 값 설정
 		String result = null;
 		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("") && loginPolicyYn) {
-			System.out.println("4 ========================== resultVO" + resultVO);
 
 			// spring security 연동
 			request.getSession().setAttribute("LoginVO", resultVO);
@@ -145,8 +140,6 @@ public class MobEgovLoginController {
 			} else {
 				throw new IllegalStateException("No AuthenticationProcessingFilter");
 			}
-
-			System.out.println("5)성공 ==========================");
 			result = "success";
 			resultVO.setIsMob(result);
 
@@ -165,14 +158,10 @@ public class MobEgovLoginController {
 	@RequestMapping(value = "/uat/uia/mob/goMobile.do")
 	public Map<String, Object> actionLogout(HttpServletRequest request) throws Exception {
 		LoginVO loginVO = (LoginVO) request.getSession().getAttribute("LoginVO");
-		System.out.println("고모바일 loginVO ==============================================");
 		System.out.println(loginVO);
 
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("result", loginVO);
-
-		System.out.println("고모바일 returnMap ==============================================");
-		System.out.println(returnMap.get("result"));
 
 		return returnMap;
 	}

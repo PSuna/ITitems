@@ -20,7 +20,21 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty
  */
 
 public class UserManageVO extends UserDefaultVO{
-
+	
+	@Override
+	public String toString() {
+		return "UserManageVO [oldPassword=" + oldPassword + ", sbscrbDe=" + sbscrbDe + ", uniqId=" + uniqId
+				+ ", userTy=" + userTy + ", areaNo=" + areaNo + ", brth=" + brth + ", detailAdres=" + detailAdres
+				+ ", emailAdres=" + emailAdres + ", emplNo=" + emplNo + ", emplyrId=" + emplyrId + ", emplyrNm="
+				+ emplyrNm + ", emplyrSttusCode=" + emplyrSttusCode + ", fxnum=" + fxnum + ", groupId=" + groupId
+				+ ", homeadres=" + homeadres + ", homeendTelno=" + homeendTelno + ", homemiddleTelno=" + homemiddleTelno
+				+ ", ihidnum=" + ihidnum + ", insttCode=" + insttCode + ", mberTy=" + mberTy + ", moblphonNo="
+				+ moblphonNo + ", ofcpsNm=" + ofcpsNm + ", offmTelno=" + offmTelno + ", orgnztId=" + orgnztId
+				+ ", lowerOrgnzt=" + lowerOrgnzt + ", grade=" + grade + ", password=" + password + ", passwordCnsr="
+				+ passwordCnsr + ", passwordHint=" + passwordHint + ", sbscrbDeBegin=" + sbscrbDeBegin
+				+ ", sbscrbDeEnd=" + sbscrbDeEnd + ", sexdstnCode=" + sexdstnCode + ", zip=" + zip + ", subDn=" + subDn
+				+ ", role=" + role + ", mberTyCode=" + mberTyCode + ", authorCode=" + authorCode + "]";
+	}
 	/**
 	 * serialVersionUID
 	 */
