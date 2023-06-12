@@ -36,9 +36,6 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
-<title>ITeyes 자산관리솔루션</title>
-
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************

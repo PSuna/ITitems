@@ -98,6 +98,10 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
+=
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+
+<title>내부업무 사이트 > 알림정보 > <c:out value='${result.bbsNm}'/></title>
 
 
 </head>

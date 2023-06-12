@@ -52,6 +52,10 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javascript">
 function AssetUpdt() {
 	document.frm.action = "<c:url value='/sec/asm/SecAssetUpdt.do'/>";
