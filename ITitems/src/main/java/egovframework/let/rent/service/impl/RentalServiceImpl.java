@@ -54,20 +54,24 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 	
 	@Override
 	public Map<String, Object> SelectRentalVOList(RentalManageVO rentalManageVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", rentalDAO.SelectRentalVOList(rentalManageVO));
+		map.put("resultCnt", Integer.toString(rentalDAO.CountRentalVOList(rentalManageVO)));
+		return map;
 	}
 
 	@Override
 	public RentalVO SelectRentalVO(RentalManageVO rentalManageVO) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return rentalDAO.SelectRentalVO(rentalManageVO);
 	}
 
 	@Override
 	public Map<String, Object> SelectMyRentalInfoList(RentalManageVO rentalManageVO) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", rentalDAO.SelectMyRentalVOList(rentalManageVO));
+		map.put("resultCnt", Integer.toString(rentalDAO.CountMyRentalVOList(rentalManageVO)));
+		return map;
 	}
 
 	@Override
@@ -78,9 +82,10 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 			rentalDAO.InsertRental(RentalVO);
 			
 			int qty = Integer.parseInt(RentalVO.getRentalQty());
+			rentalDAO.InsertRentaldetail(RentalVO);
 			for(int i=0; i<qty; i++) {
 				RentalVO.setrId(rIdGnrService.getNextStringId());
-				rentalDAO.InsertRentaldetail(RentalVO);
+				rentalDAO.InsertRentalIndiv(RentalVO);
 				RentalVO.setHistId(rhistIdGnrService.getNextStringId());
 				rentalDAO.InsertRentalhist(RentalVO);
 			}

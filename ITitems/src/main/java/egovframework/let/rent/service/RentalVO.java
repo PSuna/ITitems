@@ -76,18 +76,36 @@ public class RentalVO {
 	
 	/** 수령자 */
 	private String rcptId;
+	
+	/** 수령자 이름 */
+	private String rcptNm;
 
 	/** 렌탈내역 ID */
 	private String histId;
 
-	/** 부서 */
+	/** 본부 */
 	private String orgnztId;
+	
+	/** 본부 이름 */
+	private String orgnztNm;
+	
+	/** 부서 */
+	private String lowerOrgnztId;
+	
+	/** 부서 이름 */
+	private String lowerOrgnztNm;
 
-	/** 프로젝트*/
+	/** 프로젝트 */
 	private String prjId;
+	
+	/** 프로젝트 이름 */
+	private String prjNm;
 
 	/** 사용자 */
 	private String useId;
+	
+	/** 사용자 이름*/
+	private String useNm;
 
 	/** 내역 상태 */
 	private String histStatus;
@@ -326,6 +344,54 @@ public class RentalVO {
 
 	public void setCreatDt(String creatDt) {
 		this.creatDt = creatDt;
+	}
+
+	public String getRcptNm() {
+		return rcptNm;
+	}
+
+	public void setRcptNm(String rcptNm) {
+		this.rcptNm = rcptNm;
+	}
+
+	public String getPrjNm() {
+		return prjNm;
+	}
+
+	public void setPrjNm(String prjNm) {
+		this.prjNm = prjNm;
+	}
+
+	public String getUseNm() {
+		return useNm;
+	}
+
+	public void setUseNm(String useNm) {
+		this.useNm = useNm;
+	}
+
+	public String getOrgnztNm() {
+		return orgnztNm;
+	}
+
+	public void setOrgnztNm(String orgnztNm) {
+		this.orgnztNm = orgnztNm;
+	}
+
+	public String getLowerOrgnztId() {
+		return lowerOrgnztId;
+	}
+
+	public void setLowerOrgnztId(String lowerOrgnztId) {
+		this.lowerOrgnztId = lowerOrgnztId;
+	}
+
+	public String getLowerOrgnztNm() {
+		return lowerOrgnztNm;
+	}
+
+	public void setLowerOrgnztNm(String lowerOrgnztNm) {
+		this.lowerOrgnztNm = lowerOrgnztNm;
 	}
 	
 	
