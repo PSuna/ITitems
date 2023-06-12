@@ -105,7 +105,7 @@ public class MobAssetController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();  
 
 		vo.setTableNm("LETTNORGNZTINFO");
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
 	
 		vo.setCodeId("COM006");
 		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
