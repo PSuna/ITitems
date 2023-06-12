@@ -1,9 +1,12 @@
 package egovframework.let.rent.service.impl;
 
+import java.util.List;
+
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetHistVO;
+import egovframework.let.rent.service.RentalManageVO;
 import egovframework.let.rent.service.RentalVO;
 
 /**
@@ -25,13 +28,38 @@ import egovframework.let.rent.service.RentalVO;
  */
 @Repository("RentalDAO")
 public class RentalDAO extends EgovAbstractMapper {
-
+	
+	public List<RentalVO> SelectMyRentalVOList(RentalManageVO rentalManageVO) {
+		return selectList("RentalDAO.SelectMyRentalVOList",rentalManageVO);
+	};
+	
+	public int CountMyRentalVOList(RentalManageVO rentalManageVO) {
+		return selectOne("RentalDAO.CountMyRentalVOList",rentalManageVO);
+	};
+	
+	public List<RentalVO> SelectRentalVOList(RentalManageVO rentalManageVO) {
+		return selectList("RentalDAO.SelectRentalVOList",rentalManageVO);
+	};
+	
+	public int CountRentalVOList(RentalManageVO rentalManageVO) {
+		return selectOne("RentalDAO.CountRentalVOList",rentalManageVO);
+	};
+	
+	public RentalVO SelectRentalVO(RentalManageVO rentalManageVO) {
+		
+		return selectOne("RentalDAO.SelectRentalVO",rentalManageVO);
+	}
+	
 	public int InsertRental(RentalVO RentalVO) {
 		return insert("RentalDAO.InsertRental",RentalVO);
 	};
 	
 	public int InsertRentaldetail(RentalVO RentalVO) {
 		return insert("RentalDAO.InsertRentaldetail",RentalVO);
+	};
+	
+	public int InsertRentalIndiv(RentalVO RentalVO) {
+		return insert("RentalDAO.InsertRentalIndiv",RentalVO);
 	};
 	
 	public int InsertRentalhist(RentalVO RentalVO) {

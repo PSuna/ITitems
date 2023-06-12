@@ -418,7 +418,7 @@ window.onload = function(){
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
-                               						<td colspan="7" id="noData"><spring:message code="ass.null" /></td>
+                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
                                					</tr>
 											</c:if>
 										</tbody>

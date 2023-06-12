@@ -145,7 +145,7 @@ function RentalInsert(){
  * 등록완료 결과 처리
  ******************************************************** */
  function returnSuccess(val){
-	removeVal('assetRegist');
+	removeVal('rentalRegist');
 	if(val){
 		fn_egov_modal_remove();
 	    $('form').each(function() {
@@ -154,12 +154,12 @@ function RentalInsert(){
 		document.getElementById("rcptId").value  = loginId;
 		document.getElementById("useId").value  = loginId;
 		document.getElementById("prjId").value  = "";
-	    document.assetRegist.largeCategory.focus(); 
+	    document.rentalRegist.largeCategory.focus(); 
 	    $(".photoList").children().remove();
 	    removeP();
 	    $('#fileNm').closest(".filebox").find('img')[0].remove();
 	}else{
-		document.MyAssetManagement.submit(); 
+		document.management.submit(); 
 	}
 	
 }
@@ -505,11 +505,11 @@ function alertValid(objList) {
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/AssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.management.action = "<c:url value='/rent/RentalManagement.do'/>";
+	    document.management.submit();
 	}else if (code == "MYAM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/MyAssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.management.action = "<c:url value='/rent/MyRentalManagement.do'/>";
+	    document.management.submit();
 	}
 }
  
@@ -848,8 +848,8 @@ window.onload = function(){
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form>
-								<form name="MyAssetManagement" method="post"
-									action="<c:url value='/ass/MyAssetManagement.do'/>">
+								<form name="management" method="post"
+									action="<c:url value='/ass/MyRentalManagement.do'/>">
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />

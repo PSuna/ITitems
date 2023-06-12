@@ -36,6 +36,9 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
@@ -140,7 +143,6 @@ function getMCatList(Mval) {
  * 부서 조회
  ******************************************************** */
 function getOrgList(Oval) {
-	console.log(Oval);
 	let val = document.getElementById('searchOrgnzt').value;
 	if(val == ""){
 		document.getElementById('lowerOrgnzt').replaceChildren();
@@ -185,7 +187,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/RentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -197,7 +199,7 @@ function setPageUnit(obj) {
 	inputpush();
 	document.frm.pageIndex.value = '1';
 	document.frm.pageUnit.value = obj.value;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/RentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -208,7 +210,7 @@ function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	inputpush();
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/RentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -235,7 +237,7 @@ function inputpush() {
  ******************************************************** */
 function AssetRegist() {
 	event.preventDefault();
-    document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
+    document.frm.action = "<c:url value='/rent/RentalRegist.do'/>";
     document.frm.submit(); 
 }
 
@@ -280,10 +282,10 @@ function make_date(){
 /* ********************************************************
  * 자산 상세 페이지 이동
  ******************************************************** */
-function SelectAsset(assetId) {
+function SelectRental(rentalId) {
 	event.preventDefault();
-	document.frm.assetId.value = assetId;
-    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+	document.frm.rentalId.value = rentalId;
+    document.frm.action = "<c:url value='/rent/SelectRental.do'/>";
     document.frm.submit(); 
 }
 
@@ -351,12 +353,12 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>전체자산조회</li>
+										<li><a href="#LINK">렌탈관리</a></li>
+										<li>전체렌탈조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<h2 class="tit_2">전체자산조회</h2>
+								<h2 class="tit_2">전체렌탈조회</h2>
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
 								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
@@ -364,99 +366,87 @@ window.onload = function(){
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
-										<input type="hidden" name="assetId" />
+										<input type="hidden" name="rentalId" />
 										<input type="hidden" name="listCode" value="AM" />
 										<div class="j_box02">
 											<div>
-												<!-- <span class="lb">본부/부서</span> -->
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
-															<option value="" >본부</option>
-															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div>
-											<div>
-												<!-- <span class="lb">본부/부서</span> -->
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="lowerOrgnzt" name="lowerOrgnzt" >
-															<option value="" >부서</option>
-													</select>
-												</label> 
-											</div>
-											<div>
-												<!-- <span class="lb">대분류</span>  -->
-												<label class="item f_select w_full" for="sel1">
-												<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
-														<option value='' label="대분류" />
-														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
-														</c:forEach>
-												</select> 
-												
-												</label> 
-											</div>
-																							
-											<div>
-												<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
-														<option value='' label="중분류" />
-												</select>
-												</label> 
-											</div>
-										</div>	
-											
-										<div class="j_box02">	
-											<%-- <div>							
-												<span class="lb">상태</span> 
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" >
-															<option value='' label="선택하세요" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div> --%>
-											
-											<div class="date_box">
-												<!-- <span class="lb">등록일자</span>  -->
 												<div>
-												<span class="search_date">
-												<input class="f_date pty_f_date w_full" type="text" placeholder="등록일자" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
-												</span>
-												―
-												 <span class="search_date">
-												 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
-												 </span>
-												 </div>
-											</div>	
-											<div class="search_box">
-												<!-- <span class="lb">수령자/실사용자</span> -->
-												<span class="f_search2 w_full"> 
-													<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
-														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
-													<button type="button" class="btn" onclick="UserSearch()">조회</button>
-												</span>
-												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
-													maxlength="8" readonly="readonly" />
+													<!-- <span class="lb">본부/부서</span> -->
+													<label class="item f_select w_full" for="sel1"> 
+														<select id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
+																<option value="" >본부</option>
+																<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+																	<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
+																</c:forEach>
+														</select>
+													</label> 
+												</div>
+												<div>
+													<!-- <span class="lb">본부/부서</span> -->
+													<label class="item f_select w_full" for="sel1"> 
+														<select id="lowerOrgnzt" name="lowerOrgnzt" >
+																<option value="" >부서</option>
+														</select>
+													</label> 
+												</div>
 											</div>
-											<div class="search_box">
-												<!-- <span class="lb">프로젝트</span>  -->
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+											<div>
+												<div>
+													<!-- <span class="lb">대분류</span>  -->
+													<label class="item f_select w_full" for="sel1">
+													<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
+															<option value='' label="대분류" />
+															<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+																<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
+															</c:forEach>
+													</select> 
+													
+													</label> 
+												</div>
+																								
+												<div>
+													<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
+															<option value='' label="중분류" />
+													</select>
+													</label> 
+												</div>
 											</div>
-											<%-- <div class="search_box">
-												<span class="lb">품명</span>
-												<span class="item f_search w_full">
-														<!-- <span>검색</span>  -->
-													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="검색어를 입력해주세요"  value="<c:out value="${searchVO.searchWord}"/>">
-												</span>
-											</div> --%>
-											<div class="btn_box">
-												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
+										</div>
+										<div class="j_box02">	
+											<div>
+												<div class="date_box">
+													<!-- <span class="lb">등록일자</span>  -->
+													<div>
+													<span class="search_date">
+													<input class="f_date pty_f_date w_full" type="text" placeholder="등록일자" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
+													</span>
+													―
+													 <span class="search_date">
+													 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
+													 </span>
+													 </div>
+												</div>	
+												<div class="search_box">
+													<!-- <span class="lb">수령자/실사용자</span> -->
+													<span class="f_search2 w_full"> 
+														<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
+															readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
+														<button type="button" class="btn" onclick="UserSearch()">조회</button>
+													</span>
+													<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
+														maxlength="8" readonly="readonly" />
+												</div>
+											</div>
+											<div>
+												<div class="search_box">
+													<!-- <span class="lb">프로젝트</span>  -->
+													<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+													</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</div>
+												<div class="btn_box">
+													<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
+												</div>
 											</div>
 										</div>
 									</div>	
@@ -519,31 +509,30 @@ window.onload = function(){
 												<th scope="col">수량</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
-												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
 										<tbody>
-											<%-- <c:forEach var="result" items="${resultList}"
+											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="SelectAsset('${result.assetId}');">
+												<tr onclick="SelectAsset('${result.rentalId}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
-													<td><c:out value="${result.orgnztId}" /></td>
-													<td><c:out value="${result.lowerOrgnztId}" /></td>
+													<td><c:out value="${result.orgnztNm}" /></td>
+													<td><c:out value="${result.lowerOrgnztNm}" /></td>
 													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
+													<td><c:out value="${result.rentalQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
-													<td><c:out value="${result.usageStatus}" /></td>
+													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
                                						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
                                					</tr>
-											</c:if> --%>
+											</c:if>
 										</tbody>
 									</table>
 								</div>
