@@ -849,7 +849,7 @@ window.onload = function(){
 									<!-- // 등록버튼 끝  -->
 								</form>
 								<form name="management" method="post"
-									action="<c:url value='/ass/MyRentalManagement.do'/>">
+									action="<c:url value='/rent/MyRentalManagement.do'/>">
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
