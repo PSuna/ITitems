@@ -30,7 +30,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>로그인 로그 상세</title>
+
 </head>
 
 <script type="text/javascript">

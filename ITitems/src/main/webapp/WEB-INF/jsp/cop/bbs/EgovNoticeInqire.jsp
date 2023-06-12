@@ -98,7 +98,11 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
+=
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+
 <title>내부업무 사이트 > 알림정보 > <c:out value='${result.bbsNm}'/></title>
+
 
 </head>
 <body onload="onloading();">
@@ -133,6 +137,7 @@
 									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 								%>
 			                    <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+			                    <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 			                    <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
 			                    <input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 			                    <input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
@@ -217,7 +222,7 @@
                                     </c:if>
 
 									<!-- 목록/저장버튼  -->
-                                    <div class="board_view_bot">
+                                    <div class="board_view_bot btn_bot">
                                         <div class="right_btn btn3">
                                         	<c:if test="${result.frstRegisterId == sessionUniqId}"> 
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->

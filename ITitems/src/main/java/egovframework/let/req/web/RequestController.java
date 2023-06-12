@@ -106,6 +106,9 @@ public class RequestController {
 		
 		vo.setCodeId("COM008");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		//결재요청분류코드를 코드정보로부터 조회 - COM011
+		vo.setCodeId("COM011");
+		model.addAttribute("group_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));

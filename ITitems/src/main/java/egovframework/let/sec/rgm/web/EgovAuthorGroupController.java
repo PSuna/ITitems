@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.sec.ram.service.AuthorManageVO;
 import egovframework.let.sec.ram.service.EgovAuthorManageService;
@@ -73,7 +74,8 @@ public class EgovAuthorGroupController {
     	
     	// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
     	request.getSession().setAttribute("baseMenuNo", "6000000");
-    	
+    	LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		
     	/** paging */
     	PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(authorGroupVO.getPageIndex());
@@ -83,7 +85,7 @@ public class EgovAuthorGroupController {
 		authorGroupVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		authorGroupVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		authorGroupVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		
+		authorGroupVO.setUniqId(loginId.getUniqId());
 		authorGroupVO.setAuthorGroupList(egovAuthorGroupService.selectAuthorGroupList(authorGroupVO));
 		
         model.addAttribute("authorGroupList", authorGroupVO.getAuthorGroupList());

@@ -34,7 +34,10 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>내부업무 사이트 > 내부시스템관리 > 분류코드관리</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="cmmnClCode" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript">

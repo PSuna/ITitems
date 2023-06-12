@@ -95,7 +95,7 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
-<title>내부업무 사이트 > 내부서비스관리 > 내부업무게시판관리 > <c:out value='${result.bbsNm}'/>관리</title>
+
 
 </head>
 <body onload="onloading();">

@@ -20,7 +20,6 @@
 .search_date img{
 	display: block;
     position: absolute;
-    left: 1%;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
@@ -180,7 +179,8 @@
 
 .boxBtn{
 	width: 100%;
-	height: 22px;
+	height: 12%;
+    min-height: 21px;
 }
 
 .boxBtn img{
@@ -194,7 +194,7 @@
 .boxImg {
 	width: 100%;
 	position: relative;
-	height: 90%;
+	height: 89%;
 }
 .boxImg img{
 	width: 95%;
@@ -211,7 +211,7 @@
 }
 
 .board_view_bot {
-	overflow: hidden;
+	height: 50px;
 }
 
 .f_s_21 {
@@ -247,6 +247,18 @@
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+.btn_rel .btn:hover{
+	color: var(--point-color);
+	border: 1px solid var(--point-color);
+	background: none;
+}
+
+.btn_blue_15:hover{
+	color: var(--point-color);
+	border: 1px solid var(--point-color);
+	background: none;
 }
 
 .approvalList .board_view2 td{
@@ -302,7 +314,7 @@
 
 .date_box div span{
     margin: 0px auto;
-    height: 100%;
+   /*  height: 100%; */
 }
 .date_box div span:first-child{
     margin-left: 0px;
@@ -348,13 +360,20 @@ form .condition2{
 }
 
 .j_box02 div{
-		width: 24%;
-		margin: 0px auto;
-		height: 100%;
+	width: 50%;
+    margin: 0px auto;
+    height: 100%;
+    display: flex;
 }
 
+.j_box02 div div{
+	width: 49%;
+    margin: auto;
+}
+
+
 .j_box02 .btn_box{
-	width: 8% !important;
+	width: 49% !important;
 }
 .btn_box{
     display: flex !important;
@@ -365,13 +384,13 @@ form .condition2{
 }
 
 .j_box02 .date_box{
-	width: 32% !important;
+	width: 49% !important;
 	margin: 0px auto;
 	height: 34px;
 }
 
 .j_box02 .search_box{
-	width:  28% !important;
+	width:  49% !important;
 }
 
 .j_box03 .btn_box{
@@ -491,6 +510,32 @@ p .req {
 .readonly{
 background: #F7F7F7;
 }
+
+.btn_bot {
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.authorGroupList td{
+	padding: 3px 0;
+}
+
+.popup .paging{
+	margin-top: 10px;	
+}
+
+.gnb li{
+	width : 130px;
+}
+.pty_dropdown{
+	height: auto !important;
+}
+
+.wp_date{
+	width: 48.2%;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;
@@ -499,14 +544,14 @@ background: #F7F7F7;
 	.j_box01 .lb{
 		margin: 0 10px 0px 5px;
 	}
-	.j_box01 .date_box,.j_box02 .date_box{
+	.j_box01 .date_box{
 		width: 47% !important;
 	}
 	.date_box div{
 		width: 100%;
 	}
 	
-	.j_box01 .btn_box,.j_box02 .btn_box{
+	.j_box01 .btn_box{
 		width: 12% !important;
 	}
 	
@@ -518,8 +563,30 @@ background: #F7F7F7;
 		width: 37% !important;
 	}
 	
+	.j_box02 .date_box{
+		width: 49% !important;
+	}
+	
 	.j_box02 .search_box{
-		width: 43% !important;
+		width: 49% !important;
+	}
+	
+	.j_box02 .btn_box{
+		width: 49% !important;
+	}
+	
+	.j_box02 div {
+    	width: 100%;
+    	margin-bottom: 5px;
+    }
+	
+	.condition2 .j_box02 {
+	    flex-wrap: wrap;
+	    margin-bottom: 0px;
+	}
+	
+	.condition2 .j_box01{
+	    margin-bottom: 5px;
 	}
 	
 	.filebox {
@@ -578,7 +645,7 @@ background: #F7F7F7;
 	}
 	
 	.search_btn{
-		margin-left: 3%;
+		/* margin-left: 3%; */
 	}
 	
 	.file_G {
@@ -587,5 +654,9 @@ background: #F7F7F7;
 	
 	.search_date input{
 		padding-left: 37px;
+	}
+	
+	.wp_date{
+		width: 46.7%;
 	}
 }

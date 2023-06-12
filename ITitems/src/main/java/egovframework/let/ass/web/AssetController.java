@@ -32,6 +32,7 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
+import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageService;
 
 /**
@@ -213,7 +214,7 @@ public class AssetController {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
 		vo.setCodeId("COM006");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
@@ -265,7 +266,7 @@ public class AssetController {
 	 * 자산등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
-	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO) throws Exception {
+	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO, AssetManageVO assetManageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		model.addAttribute("loginId", user.getUniqId());
 		
@@ -276,8 +277,11 @@ public class AssetController {
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
-		
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetRegist";
 	}
@@ -336,6 +340,9 @@ public class AssetController {
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
 		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+	
+		vo.setCodeId("COM015");
+		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
@@ -343,7 +350,7 @@ public class AssetController {
 		model.addAttribute("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
-		model.addAttribute("listCode", assetManageVO.getListCode());
+		model.addAttribute("searchVO", assetManageVO);
 	
 		return "/ass/AssetUpdt";
 	}
@@ -420,16 +427,57 @@ public class AssetController {
 	}
 	
 	/**
-	 * 지급확인서 안내 팝업창로 이동
+	 * 사용자목록 조회 팝업창으로 이동
 	 */
-	@RequestMapping(value = "/ass/FileManual.do")
-	public String FileManual(ModelMap model) throws Exception {
+	@RequestMapping(value = "/ass/SearchAsset.do")
+	public String searchAsset(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
 		
-		FileVO fvo = new FileVO();
-		fvo.setFileType("CONF");
-		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 		
-		return "/ass/FileManual";
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
+			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
+		}
+		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
+			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
+		}
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/searchAsset";
 	}
 	
 }

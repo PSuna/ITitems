@@ -52,7 +52,10 @@
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
 
-<title>ITitems</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function CarryList(){
@@ -63,6 +66,9 @@ window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
 					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<colgroup>
+							<col style="width: 39px;">
+						</colgroup>
 						<tbody>
 							<tr style="border-bottom:1px solid black;">
 								<td>/</td>
@@ -145,11 +151,14 @@ window.onload = function(){
 								<c:set var="end" value="<%=new java.util.Date()%>" />
 								<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
 								<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+								<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
 								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
 								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
 								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
 								<input name="searchStatus" id="searchStatus" type="hidden"  value="<c:out value="${searchVO.searchStatus}"/>" />
+								<input name="searchGroup" id="searchGroup" type="hidden"  value="<c:out value="${searchVO.searchGroup}"/>" />
+								<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
 									<div class="aprv_top">
 										<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
@@ -250,23 +259,25 @@ window.onload = function(){
 										</table>
 									</div>
 									
-									
-								<br>
+									<br>
+								
 								
 								<div class="board_list assetlist pty_board_list">
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 34%;">
-											<col style="width: 24%;">
-											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -275,17 +286,20 @@ window.onload = function(){
 												<tr>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.maker}"></c:out></td>
+													<td><c:out value="${result.assetSn } | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
+								
+							<br>
+							<br>
+							
 								 <!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

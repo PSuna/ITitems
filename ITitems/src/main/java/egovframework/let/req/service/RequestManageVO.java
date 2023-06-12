@@ -41,6 +41,8 @@ public class RequestManageVO implements Serializable {
 	/** 검색부서 */
 	private String searchOrgnzt = "";
 	
+	private String searchGroup = "";
+	
 	/** 기본 검색부서 */
     private String menuOrgnzt = "";
 
@@ -282,6 +284,12 @@ public class RequestManageVO implements Serializable {
 	}
 	public void setAuthorCode(String authorCode) {
 		AuthorCode = authorCode;
+	}
+	public String getSearchGroup() {
+		return searchGroup;
+	}
+	public void setSearchGroup(String searchGroup) {
+		this.searchGroup = searchGroup;
 	}
 	
 }

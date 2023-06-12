@@ -90,7 +90,9 @@ display:flex;
     position:relative;
      z-index: 999;
      background:#fff;
-	padding: 0 0 14px 14px;
+	/* padding: 0 0 14px 14px; */
+	padding-left: 10px;
+	padding-bottom: 1px;
 }
 
 .pty_dropdown h3{
@@ -455,8 +457,8 @@ thead{
 	}
 
 .board_list_bot{
-	margin-top:24px;
-	
+	/* margin-top:24px; */
+	/* margin-top: 15px; */
 }
 
 .pty_condition{
@@ -499,5 +501,14 @@ thead{
 .pty_text-align_left{
 	text-align:left!important;
 }
+
+.btn_blue_46:hover{
+	background:var(--point-color);
+	color: #fff;
+}
+
+
+
+
 
 

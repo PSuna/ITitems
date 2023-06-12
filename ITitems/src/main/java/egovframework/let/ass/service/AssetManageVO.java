@@ -77,7 +77,7 @@ public class AssetManageVO implements Serializable {
     private String searchWord = "";
     
     /** 목록 */
-    private String listCode;
+    private String listCode = "MYAM";
     
     /** 페이징 */
     

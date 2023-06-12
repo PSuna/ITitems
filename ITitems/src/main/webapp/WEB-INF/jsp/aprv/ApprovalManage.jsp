@@ -29,9 +29,15 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-<title>Ititems</title>
+
+		   <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+		
+<title>ITeyes 자산관리솔루션</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -53,6 +59,11 @@ function fntrsfExcel(){
 	    document.listForm.action = "<c:url value='/com/xlsxTrsfAprvList.do'/>";
 	    document.listForm.submit();
 	}
+}
+function fnSelectAprv(reqId){
+	document.listForm.reqId.value = reqId;
+	document.listForm.action = "<c:url value='/aprv/selectApproval.do'/>";
+	document.listForm.submit();
 }
 //-->
 </script>
@@ -96,7 +107,7 @@ function fntrsfExcel(){
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
                                 	<input name="firstIndex" type="hidden" value="<c:out value='${approvalSearchVO.firstIndex}'/>"/>
 									<input name="recordCountPerPage" type="hidden" value="<c:out value='${approvalSearchVO.recordCountPerPage}'/>"/>
-                                	
+                                	<input name="reqId" type="hidden"/>
                                 	<h2 class="tit_2">결재</h2>
                                 	
                                 	<!-- 검색조건 -->
@@ -123,9 +134,9 @@ function fntrsfExcel(){
                                 		</div>
 	                                    <div class="pty_search">
 											<span class="item f_search" >
-												<input class="f_input w_350 pty_f_input" style="margin-right: 8px;" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+												<input class="f_input pty_f_input" style="margin-right: 8px; padding:0" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
-											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+											<button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>
                                 	</div>
                                 	<!-- //검색조건 -->
@@ -163,12 +174,14 @@ function fntrsfExcel(){
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
 	                                            <col style="width: 5%;">
+
 												<col style="width: 10%;">
 												<col style="width: 40%;">
 												<col style="width: 15%;">
 												<col style="width: 12%;">
 												<col style="width: 8%;">
 												<col style="width: 10%;">
+
                                         	</colgroup>
                                         	<thead>
                                         		<tr>
@@ -189,7 +202,7 @@ function fntrsfExcel(){
                                 				</c:if>
                                 				
                                 				<c:forEach var = "result" items="${resultList}" varStatus="status">
-                                					<tr onclick="location.href='${pageContext.request.contextPath}/aprv/selectApproval.do?reqId=<c:out value="${result.reqId}"/>'">
+                                					<tr onclick="fnSelectAprv('<c:out value="${result.reqId}"/>');">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageUnit) - status.index}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
                                 						<td><c:out value="${result.prjId}"/></td>

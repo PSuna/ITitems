@@ -53,7 +53,11 @@
 <c:if test="${anonymous == 'true'}">
 	<c:set var="prefix" value="/anonymous" />
 </c:if>
-<title>ITitems</title>
+
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -254,7 +258,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 중분류 --> <label for="">중분류</label>
 												</td>
-												<td>${resultVO.middleCategory}</td>
+												<td>${resultVO.mcatNm}</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -262,7 +266,7 @@ window.onload = function(){
 												</td>
 												<td>${resultVO.maker}</td>
 												<td class="lb">
-													<!-- 품명 --> <label for="">제품명</label>
+													<!-- 품명 --> <label for="">제품명(모델명)</label>
 												</td>
 												<td>${resultVO.assetName}</td>
 											</tr>
@@ -279,17 +283,8 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="4" >
-													${resultVO.rcptDate}
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">소유자</label> 
+													<label for="">수령자</label> 
 												</td>
 												<td>
 													${resultVO.rcptNm}
@@ -316,6 +311,22 @@ window.onload = function(){
 												</td>
 												<td>
 													${resultVO.prjNm}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
+												</td>
+												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label> 
+												</td>
+												<td >
+													${resultVO.mngNum}
 												</td>
 											</tr>
 											<tr>
@@ -393,7 +404,7 @@ window.onload = function(){
 										<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
 										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 									<!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login || resultVO.rcptId == login}">
 												<!-- 수정 -->
@@ -440,6 +451,7 @@ window.onload = function(){
 									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
 									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
 						</div>

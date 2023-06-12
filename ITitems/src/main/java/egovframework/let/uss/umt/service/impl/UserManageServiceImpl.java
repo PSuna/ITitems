@@ -148,12 +148,13 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 * @throws Exception
 	 */
 	@Override
-	public void updateUser(UserManageVO userManageVO) throws Exception {
+	public int updateUser(UserManageVO userManageVO) throws Exception {
 		//패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(userManageVO.getPassword(), userManageVO.getEmplyrId());
 		userManageVO.setPassword(pass);
 
-		userManageDAO.updateUser(userManageVO);
+		int r =userManageDAO.updateUser(userManageVO);
+		return r;
 	}
 
 	/**

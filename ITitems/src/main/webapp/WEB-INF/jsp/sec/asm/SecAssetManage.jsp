@@ -32,7 +32,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITEYES 자산관리솔루션</title>
+
 <script type="text/javascript">
 function ProjectSearch(){
     var $dialog = $('<div id="modalPan"></div>')

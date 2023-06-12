@@ -31,7 +31,10 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>마이페이지</title>
+
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="userManageVO" staticJavascript="false"
 	xhtml="true" cdata="false" />
@@ -46,7 +49,11 @@ function fnPasswordMove(){
     document.userManageVO.action = "<c:url value='/uss/myp/EgovUserMyPasswordUpdtView.do'/>";
     document.userManageVO.submit();
 }
-function fnUpdate(){
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+ function UpdtConfirm(){
+	
 	if(!document.userManageVO.emplyrNm.value){
 		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
 	}else{
@@ -65,22 +72,114 @@ function fnUpdate(){
 		document.getElementById('gradeErr').innerHTML='';
 	}
     if(validateUserManageVO(document.userManageVO)){
-        document.userManageVO.submit();
-    }
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+		        
+			});
+		    $(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+	 } 
 }
-function fn_egov_inqire_cert() {
-    var url = '/uat/uia/EgovGpkiRegist.do';
-    var popupwidth = '500';
-    var popupheight = '400';
-    var title = '인증서';
 
-    Top = (window.screen.height - popupheight) / 3;
-    Left = (window.screen.width - popupwidth) / 2;
-    if (Top < 0) Top = 0;
-    if (Left < 0) Left = 0;
-    Future = "fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,left=" + Left + ",top=" + Top + ",width=" + popupwidth + ",height=" + popupheight;
-    PopUpWindow = window.open(url, title, Future)
-    PopUpWindow.focus();
+/* ********************************************************
+ * 수정확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 UpdtIng();
+		 UpdateMyPage();
+	 }	  
+}
+
+/* ********************************************************
+* 수정진행 팝업창
+******************************************************** */
+function UpdtIng(){
+
+ var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 400,
+        height: 300
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 내정보 수정 처리
+ ******************************************************** */
+function UpdateMyPage(){
+    let formData = new FormData(document.getElementById('userManageVO'));
+	   $.ajax({
+		url: '${pageContext.request.contextPath}/uss/myp/MyPageUpdt.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			console.log(result);
+			fn_egov_modal_remove();
+			UpdtSuccess();
+		},
+		error: function (error) {
+			fn_egov_modal_remove();
+			UpdtFail();
+		}
+	})      
+}
+
+/* ********************************************************
+ * 수정완료 팝업창
+ ******************************************************** */
+ function UpdtSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+	 fn_egov_modal_remove();
+	 document.userManageVO.submit();
+
+}
+
+/* ********************************************************
+ * 수정실패 팝업창
+ ******************************************************** */
+ function UpdtFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
 }
 
 function fn_egov_dn_info_setting(dn) {
@@ -88,7 +187,6 @@ function fn_egov_dn_info_setting(dn) {
     
     frm.subDn.value = dn;
 }
-
 
 
 /**********************************************************
@@ -144,6 +242,9 @@ function getMOrgList(MOval) {
 .errSpan{
 	color:red;
 }
+.board_view_bot {
+	margin-top:8px;
+}
 </style>
 </head>
 <body>
@@ -172,7 +273,7 @@ function getMOrgList(MOval) {
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/myp/MyPageUpdt.do" name="userManageVO" method="post">
+								<form:form modelAttribute="userManageVO" id="userManageVO" action="${pageContext.request.contextPath}/uss/myp/MyManage.do" name="userManageVO" method="post">
 									<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
 									<!-- 검색조건 유지 -->
@@ -211,6 +312,17 @@ function getMOrgList(MOval) {
 													<form:input path="emplyrId" id="emplyrId" class="f_txt w_full" maxlength="100" readonly="true"/>
 													<form:errors path="emplyrId" />
 													<form:hidden path="uniqId" />
+												</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<label for="empUniqNum">사번</label>
+												</td>
+												<td>
+													<form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="15" readonly="true"/>
+													<form:errors path="empUniqNum"/>
 												</td>
 												<td class="lb">
 													<label for="moblphonNo">H.P</label>
@@ -291,8 +403,7 @@ function getMOrgList(MOval) {
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;"><spring:message
-													code="button.save" /></a>
+												onclick="JavaScript:UpdtConfirm(); return false;">수정</a>
 											<!-- 저장 -->
 											<a href="<c:url value='/cmm/main/mainPage.do'/>"
 												class="btn btn_blue_46 w_100"
