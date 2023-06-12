@@ -260,16 +260,18 @@ window.onload = function(){
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 34%;">
-											<col style="width: 24%;">
-											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -278,7 +280,8 @@ window.onload = function(){
 												<tr>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.maker}"></c:out></td>
+													<td><c:out value="${result.assetSn } | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>
 											</c:forEach>

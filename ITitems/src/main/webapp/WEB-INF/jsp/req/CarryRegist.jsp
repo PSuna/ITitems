@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -56,7 +58,6 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  * 반출신청상세 등록 처리
  ******************************************************** */
 function insertCarryDetail(reqId) {
-	debugger;
 	let dataList;
 	let trList = document.querySelectorAll('#assetTbody tr');
 	if(trList.length > 0){
@@ -64,8 +65,10 @@ function insertCarryDetail(reqId) {
 			let formdata = new FormData();
 			formdata.append('reqId', reqId);
 			let assetId = items.querySelector('input').value;
+			let reqQty = items.querySelector('.reqQty').value;
 			console.log(assetId);
-			formdata.append('assetId', assetId.value);
+			formdata.append('assetId', assetId);
+			formdata.append('reqQty', reqQty);
 			formdata.append('reqOrder', trList.length - index);
 			$.ajax({
 				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
@@ -75,7 +78,6 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					
 				},
 				error: function (error) {
 					RegistFail();
@@ -248,6 +250,8 @@ function insertApproval(reqId){
 	    document.getElementById("aprv1").value  = "";
 	    document.getElementById("aprv2").value  = "";
 	    document.getElementById("aprv3").value  = "";
+	    $("#assetTbody tr").remove();
+	    
 		document.frm.prjNm.focus(); 
 	}else{
 		document.CarryRequset.submit();
@@ -478,7 +482,7 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td>`+assetQty+`</td>
+					<td><input type="number"  class="reqQty" value="`+assetQty+`" min="1" max="`+assetQty+`"/></td>
 					<td>`+assetSn+` / `+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>

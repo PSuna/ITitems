@@ -46,6 +46,12 @@ public class RequestDetailVO implements Serializable {
 	/** 사용자 */
 	private String user;
 	
+	/** 수령자 */
+	private String rcptId;
+	
+	/** 시리얼넘버 */
+	private String assetSn;
+	
 	/** 신청상세 순서 */
 	private Integer reqOrder;
 
@@ -119,6 +125,22 @@ public class RequestDetailVO implements Serializable {
 
 	public void setReqOrder(Integer reqOrder) {
 		this.reqOrder = reqOrder;
+	}
+
+	public String getRcptId() {
+		return rcptId;
+	}
+
+	public void setRcptId(String rcptId) {
+		this.rcptId = rcptId;
+	}
+
+	public String getAssetSn() {
+		return assetSn;
+	}
+
+	public void setAssetSn(String assetSn) {
+		this.assetSn = assetSn;
 	}
 	
 	
