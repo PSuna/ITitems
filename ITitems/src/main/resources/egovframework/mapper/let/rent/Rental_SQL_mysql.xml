@@ -35,20 +35,21 @@
 		<where>
 			AND A.USAGE_STAUTS = 'Y'
 			AND B.USAGE_STAUTS = 'Y'
-			AND C.HIST_STATUS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
 			<if test="searchOrgnzt != null and searchOrgnzt != ''">
-              	AND (	C.ORGNZT_ID = #{searchOrgnzt} 
-              		OR  H.ORGNZT_UP = #{searchOrgnzt})
+              	AND (	D.ORGNZT_ID = #{searchOrgnzt} 
+              		OR  I.ORGNZT_UP = #{searchOrgnzt})
             </if>
             <if test="userId != null and userId != ''">
 				AND (	B.RCPT_ID = #{userId} 
-					OR  C.USE_ID = #{userId})
+					OR  D.USE_ID = #{userId})
             </if>
         	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
-				AND C.ORGNZT_ID = #{lowerOrgnzt}
+				AND D.ORGNZT_ID = #{lowerOrgnzt}
 			</if>
 			<if test="searchPrj != null and searchPrj != ''">
-				AND C.PRJ_ID = #{searchPrj}
+				AND D.PRJ_ID = #{searchPrj}
 			</if>
 			<if test="searchLCat != null and searchLCat != ''">
 				AND B.LARGE_CATEGORY = #{searchLCat}
@@ -75,15 +76,16 @@
 		<where>
 			AND A.USAGE_STAUTS = 'Y'
 			AND B.USAGE_STAUTS = 'Y'
-			AND C.HIST_STATUS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
 			AND (	B.RCPT_ID = #{userId} 
-				OR  C.USE_ID = #{userId})
+				OR  D.USE_ID = #{userId})
 			<if test="searchWord != null and searchWord != ''">
 				AND (	B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%') 
 					OR  B.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%'))
 		 	</if>
 			<if test="searchPrj != null and searchPrj != ''">
-				AND C.PRJ_ID = #{searchPrj}
+				AND D.PRJ_ID = #{searchPrj}
 			</if>
 			<if test="searchLCat != null and searchLCat != ''">
 				AND B.LARGE_CATEGORY = #{searchLCat}
@@ -118,39 +120,41 @@
 				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 				A.RENTAL_ID, 
 				CASE 
-					WHEN D.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 					THEN B.MCAT_ETC
-					ELSE D.CAT_NAME
+					ELSE E.CAT_NAME
 				END AS MIDDLE_CATEGORY, 
 				B.ASSET_NAME, 
 				B.ASSET_SN,
-				E.PRJ_NAME AS PRJ_NM,
-				COUNT(B.R_ID) AS RENTAL_QTY,
-				F.USER_NM AS RCPT_NM,
-				G.USER_NM AS USE_NM
+				F.PRJ_NAME AS PRJ_NM,
+				COUNT(C.R_ID) AS RENTAL_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
 			  FROM RENTALASSET A
    LEFT OUTER JOIN RENTALDETAIL B
 				ON A.RENTAL_ID = B.RENTAL_ID
-   LEFT OUTER JOIN RENTALHIST C
-				ON B.R_ID = C.R_ID
-   LEFT OUTER JOIN CATEGORY D
-				ON B.MIDDLE_CATEGORY = D.CAT_ID
-   LEFT OUTER JOIN PROJECTS E
-	   			ON C.PRJ_ID = E.PRJ_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO F
-	            ON B.RCPT_ID = F.ESNTL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID			
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO G
-	            ON C.USE_ID = G.ESNTL_ID
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.RENTAL_ID, 
-				D.CAT_NAME,
+				E.CAT_NAME,
 				B.MCAT_ETC,
 				B.ASSET_NAME,
 				B.ASSET_SN,
-				E.PRJ_NAME,
-				F.USER_NM,
+				F.PRJ_NAME,
 				G.USER_NM,
+				H.USER_NM,
 				A.REG_DATE
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -162,12 +166,14 @@
 	      FROM (
 			SELECT 
 				A.RENTAL_ID, 
-				COUNT(B.R_ID) AS ASSET_QTY
+				COUNT(C.R_ID) AS ASSET_QTY
 			  FROM RENTALASSET A
    LEFT OUTER JOIN RENTALDETAIL B
 				ON A.RENTAL_ID = B.RENTAL_ID
-   LEFT OUTER JOIN RENTALHIST C
-				ON B.R_ID = C.R_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID			
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.RENTAL_ID
@@ -189,52 +195,54 @@
 				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 				A.RENTAL_ID,
 				CASE
-					WHEN H.ORGNZT_UP IS NULL
-					THEN H.ORGNZT_NM
-					ELSE I.ORGNZT_NM
+					WHEN I.ORGNZT_UP IS NULL
+					THEN I.ORGNZT_NM
+					ELSE J.ORGNZT_NM
 				 END AS ORGNZT_NM,
 				CASE 
-					WHEN H.ORGNZT_UP IS NULL
+					WHEN I.ORGNZT_UP IS NULL
 					THEN NULL
-					ELSE H.ORGNZT_NM
+					ELSE I.ORGNZT_NM
 				 END AS LOWER_ORGNZT_NM,
-				E.PRJ_NAME AS PRJ_NM,
+				F.PRJ_NAME AS PRJ_NM,
 				CASE 
-					WHEN D.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 					THEN B.MCAT_ETC
-					ELSE D.CAT_NAME
+					ELSE E.CAT_NAME
 				END AS MIDDLE_CATEGORY, 
-				COUNT(B.R_ID) AS RENTAL_QTY,
-				F.USER_NM AS RCPT_NM,
-				G.USER_NM AS USE_NM
+				COUNT(C.R_ID) AS RENTAL_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
 			  FROM RENTALASSET A
    LEFT OUTER JOIN RENTALDETAIL B
 				ON A.RENTAL_ID = B.RENTAL_ID
-   LEFT OUTER JOIN RENTALHIST C
-				ON B.R_ID = C.R_ID
-   LEFT OUTER JOIN CATEGORY D
-				ON B.MIDDLE_CATEGORY = D.CAT_ID
-   LEFT OUTER JOIN PROJECTS E
-	   			ON C.PRJ_ID = E.PRJ_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO F
-	            ON B.RCPT_ID = F.ESNTL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO G
-	            ON C.USE_ID = G.ESNTL_ID
-   LEFT OUTER JOIN LETTNORGNZTINFO H
-				ON C.ORGNZT_ID = H.ORGNZT_ID
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
    LEFT OUTER JOIN LETTNORGNZTINFO I
-				ON H.ORGNZT_UP = I.ORGNZT_ID
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
 				 <include refid="search" />
 		  GROUP BY  
 				A.RENTAL_ID, 
-				D.CAT_NAME,
+				E.CAT_NAME,
 				B.MCAT_ETC,
-				E.PRJ_NAME,
-				F.USER_NM,
+				F.PRJ_NAME,
 				G.USER_NM,
+				H.USER_NM,
 				A.REG_DATE,
-				H.ORGNZT_UP,
-				H.ORGNZT_NM
+				I.ORGNZT_UP,
+				I.ORGNZT_NM
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
@@ -245,12 +253,14 @@
 	      FROM (
 			SELECT 
 				A.RENTAL_ID, 
-				COUNT(B.R_ID) AS ASSET_QTY
+				COUNT(C.R_ID) AS ASSET_QTY
 			  FROM RENTALASSET A
    LEFT OUTER JOIN RENTALDETAIL B
 				ON A.RENTAL_ID = B.RENTAL_ID
-   LEFT OUTER JOIN RENTALHIST C
-				ON B.R_ID = C.R_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
 				 <include refid="search" />
 		  GROUP BY  
 				A.RENTAL_ID
@@ -259,10 +269,10 @@
 
 	<select id="SelectRentalVO" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="rentalDetail">
 		SELECT 
-			RENTAL_ID, 
-			REG_DATE, 
+			A.RENTAL_ID, 
+			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 			REG_ID, 
-			RENTAL_QTY, 
+			COUNT(C.R_ID) AS RENTAL_QTY, 
 			LARGE_CATEGORY, 
 			MIDDLE_CATEGORY, 
 			MCAT_ETC, 
@@ -277,26 +287,14 @@
 			ASSET_SN, 
 			MNG_NUM, 
 			RCPT_ID
-			  FROM ASSETSINFO A
-   LEFT OUTER JOIN ASSETSHIST B
-			    ON A.ASSET_ID = B.ASSET_ID
-   LEFT OUTER JOIN CATEGORY C
-		    	ON A.LARGE_CATEGORY = C.CAT_ID
-   LEFT OUTER JOIN CATEGORY D
-			    ON A.MIDDLE_CATEGORY = D.CAT_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO E
-		        ON B.USE_ID = E.ESNTL_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO F
-		        ON B.RCPT_ID = F.ESNTL_ID  
-   LEFT OUTER JOIN LETTNORGNZTINFO G
-		        ON B.ORGNZT_ID = G.ORGNZT_ID
-   LEFT OUTER JOIN PROJECTS H
-		        ON B.PRJ_ID = H.PRJ_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO I
-		        ON A.REG_ID = I.ESNTL_ID 
-   LEFT OUTER JOIN LETTCCMMNDETAILCODE J
-		        ON A.MAKER_CODE = J.CODE 
-			 WHERE A.ASSET_ID = #{assetId}
+		   FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+			 WHERE A.RENTAL_ID = #{rentalId}
 	</select>
 
 	<insert id="InsertRental" parameterType="egovframework.let.rent.service.RentalVO">
@@ -318,7 +316,6 @@
 	
 	<insert id="InsertRentaldetail" parameterType="egovframework.let.rent.service.RentalVO">
 		INSERT INTO RENTALDETAIL (
-			R_ID, 
 			RENTAL_ID, 
 			LARGE_CATEGORY, 
 			MIDDLE_CATEGORY, 
@@ -334,7 +331,6 @@
 			RCPT_ID
 			)
 		VALUES (
-			#{rId},
 			#{rentalId},
 			#{largeCategory},
 			#{middleCategory},
@@ -352,7 +348,7 @@
 	</insert>
 	
 	<insert id="InsertRentalIndiv" parameterType="egovframework.let.rent.service.RentalVO">
-		INSERT INTO RENTALDETAIL (
+		INSERT INTO RENTALINDIV (
 			R_ID, 
 			RENTAL_ID,
 			USAGE_STAUTS
