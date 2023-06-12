@@ -10,6 +10,7 @@
     author   : 영남사업부 천세훈
     since    : 2023.04.10
 --%>
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,9 +24,8 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-    <title>ITeyes 자산관리솔루션</title>
-	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>	
-
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+  <title>ITeyes 자산관리솔루션</title>
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
