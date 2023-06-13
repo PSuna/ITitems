@@ -370,17 +370,20 @@ function make_date(){
 /* ********************************************************
  * 숫자 콤마 입력
  ******************************************************** */
-  function getNumber(obj){
-	     var num01;
-	     var num02;
-	     num01 = obj.value;
-	     num02 = num01.replace(/(^0+)/, "");
-	     num03 = num02.replace(/\D/g,"");
-	     num01 = setComma(num03);
-	     obj.value =  num01;
-
-	     $('#test').text(num01);
-	  }
+ function getNumber(obj){
+     var num01;
+     var num02;
+     num01 = $(obj).val();
+     if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = setComma(num03);
+	    obj.value =  num01;
+	
+	    $('#test').text(num01); 
+     }
+     
+  }
 
 	  function setComma(n) {
 	     var reg = /(^[+-]?\d+)(\d{3})/;
@@ -668,23 +671,6 @@ window.onload = function(){
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
 												</td>
 											</tr>
-											<!-- <tr>
-												<td class="lb">
-													렌탈기간 
-													<label for="">렌탈기간</label>
-												</td>
-												<td colspan="3">
-													<div>
-														<span class="search_date wp_date">
-															<input id="rentalStart" class="f_txt w_full readonly" name="rentalStart" type="text" maxlength="60" readonly="readonly" checkStartDate()">
-														</span>
-														&nbsp;&nbsp;―&nbsp;&nbsp;
-														<span class="search_date wp_date">
-															<input id="rentalEnd" class="f_txt w_full readonly" name="rentalEnd" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
-														</span>
-													</div>
-												</td>
-											</tr>	 -->
 											<tr>
 												<td class="lb">
 													<!-- 렌탈기간 --> 
