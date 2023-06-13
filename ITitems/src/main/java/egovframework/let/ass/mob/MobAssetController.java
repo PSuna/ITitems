@@ -26,6 +26,8 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.cmm.service.FileVO;
+import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
@@ -83,7 +85,6 @@ public class MobAssetController {
 	@RequestMapping(value="/ass/MobMyAssetManagement.do")
 	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
 			 AssetManageVO assetManageVO, @RequestBody AssetManageVO avo ) throws Exception {
-		System.out.println(avo+"모바일/아이디 받기 >>>>>>>>>>>>>>>>");
 	    /*여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
 		System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");*/
 		Map<String, Object> appMap = new HashMap<String, Object>();
@@ -118,6 +119,27 @@ public class MobAssetController {
 		return appMap;
 	}
 	
+	/**
+	 * 자산상세정보 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/MobSelectAsset.do")
+	public Map<String, Object> SelectAsset(HttpServletRequest request, 
+			AssetManageVO assetManageVO, @RequestBody AssetManageVO avo) throws Exception {
+		Map<String, Object> appMap = new HashMap<String, Object>();
+		
+		AssetInfoVO result = assetService.SelectAssetInfoVO(avo);
+		appMap.put("resultVO", result);
+		FileVO fvo = new FileVO();
+		fvo.setFileGroup(avo.getAssetId());
+		fvo.setFileType("PHOTO");
+		appMap.put("PhotoList", fileMngService.selectFileList(fvo));
+		fvo.setFileType("FILE");
+		appMap.put("FileVO", fileMngService.selectFileVO(fvo));
+		appMap.put("searchVO", assetManageVO);
+		
+		
+		return appMap;
+	}
 	
 	
 }
