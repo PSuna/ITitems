@@ -428,6 +428,19 @@ public class AssetController {
 	}
 	
 	/**
+	 * 지급확인서 안내 팝업창로 이동
+	 */
+	@RequestMapping(value = "/ass/FileManual.do")
+	public String FileManual(ModelMap model) throws Exception {
+
+		FileVO fvo = new FileVO();
+		fvo.setFileType("CONF");
+		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		
+		return "/ass/FileManual";
+	}
+	
+	/**
 	 * 사용자목록 조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/SearchAsset.do")

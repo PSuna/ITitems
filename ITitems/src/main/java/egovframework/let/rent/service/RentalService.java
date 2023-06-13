@@ -31,13 +31,13 @@ public interface RentalService {
 	
 	public int InsertRentalInfo(RentalVO RentalVO);
 	
-	public int UpdateRentalInfo(RentalVO RentalVO);
-	
-	public int deleteRentalInfo(RentalVO RentalVO);
-	
 	public int UpdateRentalDetail(RentalVO RentalVO);
 	
-	public int InsertRentalHist(RentalVO RentalVO);
+	public int UpdateRentalHist(RentalVO RentalVO);
+	
+	public int deleteRental(RentalVO RentalVO);
+	
+	public int deleteRentalIndiv(RentalVO RentalVO);
 
 	public void xlsxTrsfRentalList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 

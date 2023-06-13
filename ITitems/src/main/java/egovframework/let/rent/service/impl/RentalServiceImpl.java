@@ -49,9 +49,6 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 	@Resource(name = "RIdGnrService")
 	private EgovIdGnrService rIdGnrService;
 	
-	@Resource(name = "RhistIdGnrService")
-	private EgovIdGnrService rhistIdGnrService;
-	
 	@Override
 	public Map<String, Object> SelectRentalVOList(RentalManageVO rentalManageVO) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -85,8 +82,8 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 			rentalDAO.InsertRentaldetail(RentalVO);
 			for(int i=0; i<qty; i++) {
 				RentalVO.setrId(rIdGnrService.getNextStringId());
-				rentalDAO.InsertRentalIndiv(RentalVO);
-				RentalVO.setHistId(rhistIdGnrService.getNextStringId());
+				rentalDAO.InsertRentalIndiv(RentalVO);  
+				RentalVO.setHistGroup("C2");
 				rentalDAO.InsertRentalhist(RentalVO);
 			}
 		} catch (FdlException e) {
@@ -97,25 +94,48 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 	}
 
 	@Override
-	public int UpdateRentalInfo(RentalVO RentalVO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteRentalInfo(RentalVO RentalVO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int UpdateRentalDetail(RentalVO RentalVO) {
+		
+		RentalManageVO manageVO =  new RentalManageVO();
+		RentalVO.setRentalId(RentalVO.getRentalId());
+		
+		rentalDAO.UpdateRentaldetail(RentalVO);
+		rentalDAO.InsertRentaldetail(RentalVO);
+		
+		List<String> rIdList = rentalDAO.SelectRIdList(manageVO);
+		RentalVO.setHistGroup("C3");
+		for(String rId : rIdList) {
+			RentalVO.setrId(rId);
+			rentalDAO.UpdateRentalhist(RentalVO);
+			rentalDAO.InsertRentalhist(RentalVO);
+		}
+		return 0;
+	}
+
+	@Override
+	public int UpdateRentalHist(RentalVO RentalVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int InsertRentalHist(RentalVO RentalVO) {
+	public int deleteRental(RentalVO RentalVO) {
+		RentalManageVO manageVO =  new RentalManageVO();
+		RentalVO.setRentalId(RentalVO.getRentalId());
+		
+		rentalDAO.UpdateRentalDel(RentalVO);
+		
+		List<String> rIdList = rentalDAO.SelectRIdList(manageVO);
+		RentalVO.setHistGroup("C4");
+		for(String rId : rIdList) {
+			RentalVO.setrId(rId);
+			rentalDAO.InsertRentalDelhist(RentalVO);
+		}
+		return 0;
+	}
+
+	@Override
+	public int deleteRentalIndiv(RentalVO RentalVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -133,5 +153,7 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 		// TODO Auto-generated method stub
 		
 	}
+
+
 	
 }
