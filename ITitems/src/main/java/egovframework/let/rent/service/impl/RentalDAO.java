@@ -65,4 +65,25 @@ public class RentalDAO extends EgovAbstractMapper {
 	public int InsertRentalhist(RentalVO RentalVO) {
 		return insert("RentalDAO.InsertRentalhist",RentalVO);
 	};
+	
+	public int UpdateRentaldetail(RentalVO RentalVO) {
+		return update("RentalDAO.UpdateRentaldetail",RentalVO);
+	};
+	
+	public int UpdateRentalhist(RentalVO RentalVO) {
+		return update("RentalDAO.UpdateRentalhist",RentalVO);
+	};
+	
+	public List<String> SelectRIdList(RentalManageVO rentalManageVO) {
+		return selectList("RentalDAO.SelectRIdList",rentalManageVO);
+	};
+	
+	public int UpdateRentalDel(RentalVO RentalVO) {
+		return update("RentalDAO.UpdateRentalDel",RentalVO);
+	};
+	
+	public int InsertRentalDelhist(RentalVO RentalVO) {
+		return insert("RentalDAO.InsertRentalDelhist",RentalVO);
+	};
+	
 }

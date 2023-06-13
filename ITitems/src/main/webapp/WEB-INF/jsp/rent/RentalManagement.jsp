@@ -514,13 +514,13 @@ window.onload = function(){
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="SelectAsset('${result.rentalId}');">
+												<tr onclick="SelectRental('${result.rentalId}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.orgnztNm}" /></td>
 													<td><c:out value="${result.lowerOrgnztNm}" /></td>
-													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.rentalQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>

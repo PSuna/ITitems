@@ -40,6 +40,9 @@ public class RentalVO {
 
 	/** 중분류 */
 	private String middleCategory;
+	
+	/** 중분류 이름*/
+	private String mcatNm;
 
 	/** 중분류 기타 */
 	private String mcatEtc;
@@ -53,7 +56,7 @@ public class RentalVO {
 	/** 렌탈 종료일 */
 	private String rentalEnd;
 
-	/** 렌탈 가격 */
+	/** 렌탈 비용 */
 	private String rentalPrice;
 
 	/** 렌탈 업체명 */
@@ -79,9 +82,6 @@ public class RentalVO {
 	
 	/** 수령자 이름 */
 	private String rcptNm;
-
-	/** 렌탈내역 ID */
-	private String histId;
 
 	/** 본부 */
 	private String orgnztId;
@@ -265,15 +265,7 @@ public class RentalVO {
 	public void setMngNum(String mngNum) {
 		this.mngNum = mngNum;
 	}
-
-	public String getHistId() {
-		return histId;
-	}
-
-	public void setHistId(String histId) {
-		this.histId = histId;
-	}
-
+	
 	public String getOrgnztId() {
 		return orgnztId;
 	}
@@ -392,6 +384,14 @@ public class RentalVO {
 
 	public void setLowerOrgnztNm(String lowerOrgnztNm) {
 		this.lowerOrgnztNm = lowerOrgnztNm;
+	}
+
+	public String getMcatNm() {
+		return mcatNm;
+	}
+
+	public void setMcatNm(String mcatNm) {
+		this.mcatNm = mcatNm;
 	}
 	
 	
