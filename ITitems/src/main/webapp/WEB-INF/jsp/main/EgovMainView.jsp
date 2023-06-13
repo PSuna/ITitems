@@ -82,7 +82,7 @@
 			           			<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">
 				           			<div class=pmr_dd>
 					           			<img src="<c:url value="/" />images/pty_icon_02.png">
-					           			<p> 반출관리 </p>
+					           			<p> 반출입 </p>
 					           			<h4> 바로가기 → </h4>
 					           		</div>	
 				           		</a>
