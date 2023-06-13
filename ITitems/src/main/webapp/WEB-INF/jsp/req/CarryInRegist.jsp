@@ -1,14 +1,14 @@
 <%--
-  Class Name : AssetInsert.jsp
-  Description : 자산등록 화면
+  Class Name : CarryInRegist.jsp
+  Description : 반입신청 화면
   Modification Information
  
       수정일         수정자                   수정내용
     -------      --------    ---------------------------
-     2023.04.13    주소현              최초 생성
+     2023.06.13    천세훈              최초 생성
  
-    author   : 영남사업부 주소현
-    since    : 2023.04.13
+    author   : 영남사업부 천세훈
+    since    : 2023.06.13
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -46,7 +46,7 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="carryRegist" staticJavascript="false"
+<validator:javascript formName="carryInRegist" staticJavascript="false"
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -55,7 +55,7 @@ let addtrClone;
 var userCheck = 0;
 var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 /* ********************************************************
- * 반출신청상세 등록 처리
+ * 반입신청상세 등록 처리
  ******************************************************** */
 function insertCarryDetail(reqId) {
 	let dataList;
@@ -88,7 +88,7 @@ function insertCarryDetail(reqId) {
 }
 
 /* ********************************************************
- * 반출신청 등록 처리
+ * 반입신청 등록 처리
  ******************************************************** */
 function insertCarry() {
 	let formData = new FormData(document.getElementById('frm'));
@@ -161,7 +161,7 @@ function RegistConfirm(){
 	removeP();
 	let trList = document.querySelectorAll('#assetTbody tr');
 	if(trList.length > 0){
-		if(validateCarryRegist(document.frm) && checkValid()){
+		if(validateCarryInRegist(document.frm) && checkValid()){
 			var $dialog = $('<div id="modalPan"></div>')
 				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 				.dialog({
@@ -174,9 +174,7 @@ function RegistConfirm(){
 			$dialog.dialog('open');
 		}
 	}else{
-		alert('반출신청할 자산이 없습니다.');
-		fn_egov_modal_remove();
-		RegistFail();
+		alert('반입신청할 자산이 없습니다.');
 		return;
 	}
 }
@@ -278,36 +276,6 @@ function RegistConfirm(){
 }
 
 /* ********************************************************
- * 자산 입력 폼 추가
- ******************************************************** */
-function addTr(num) {
-	for(let i=0; i<num; i++){
-	 let tr = $(trClone).clone(true);
-	 let a = $('<a/>').addClass('btn').text('-').on('click',function(){
-		 delTr(this);
-	 });
-	 let btn = $('<div/>').addClass('btn1').attr("id","delTr").append(a);
-	 $(tr).children('td').last().append(btn);
-	 $('#clonehere tr').last().before(tr);
-	 if($('#clonehere').children('tr').length == 11){
-		 $('#clonehere tr').last().remove();
-		 return;
-	 }
-	}
-}
-
-/* ********************************************************
- * 자산 입력 폼 삭제
- ******************************************************** */
-function delTr(obj) {
-	 $(obj).closest('tr').remove();
-	 if($('#clonehere').children('tr').length == 9){
-		 $('#clonehere').append(addtrClone);
-	 }
-	 console.log($('#clonehere').children('tr'));
-}
-
-/* ********************************************************
  * 중분류 조회
  ******************************************************** */
 function getMCatList(Lcat) {
@@ -392,7 +360,7 @@ function ProjectSearch(){
 function AssetSearch(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/InAssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -439,28 +407,27 @@ function returnProject(val){
  * 검색 회원 입력
  ******************************************************** */
 function returnUser(val){
-if (val) {
-	if(userCheck == 0){
-		document.getElementById("pm").value  = val.userId;
-		document.getElementById("pmNm").value  = val.userNm;
-	}else if(userCheck == 1){
-		document.getElementById("aprv0").value  = val.userId;
-		document.getElementById("aprvNm0").value  = val.userNm;
-	}else if(userCheck == 2){
-		document.getElementById("aprv1").value  = val.userId;
-		document.getElementById("aprvNm1").value  = val.userNm;
-	}else if(userCheck == 3){
-		document.getElementById("aprv2").value  = val.userId;
-		document.getElementById("aprvNm2").value  = val.userNm;
-	}else if(userCheck == 4){
-		document.getElementById("aprv3").value  = val.userId;
-		document.getElementById("aprvNm3").value  = val.userNm;
+	if (val) {
+		if(userCheck == 0){
+			document.getElementById("pm").value  = val.userId;
+			document.getElementById("pmNm").value  = val.userNm;
+		}else if(userCheck == 1){
+			document.getElementById("aprv0").value  = val.userId;
+			document.getElementById("aprvNm0").value  = val.userNm;
+		}else if(userCheck == 2){
+			document.getElementById("aprv1").value  = val.userId;
+			document.getElementById("aprvNm1").value  = val.userNm;
+		}else if(userCheck == 3){
+			document.getElementById("aprv2").value  = val.userId;
+			document.getElementById("aprvNm2").value  = val.userNm;
+		}else if(userCheck == 4){
+			document.getElementById("aprv3").value  = val.userId;
+			document.getElementById("aprvNm3").value  = val.userNm;
+		}
 	}
-	
-}
-
 fn_egov_modal_remove();
 }
+
 /* ********************************************************
  * 검색 자산 입력
  ******************************************************** */
@@ -491,15 +458,16 @@ function returnAss(val){
 				 </tr>`;
 		$("#assetTbody").append(p);
 	}
-	
 	fn_egov_modal_remove();
 }
+
 /* ********************************************************
  * 자산 tr 삭제
  ******************************************************** */
  function deleteTr(e){
 	 $(e).closest('tr').remove();
 }
+
 /* ********************************************************
  * 숫자 유효성 검사
  ******************************************************** */
@@ -518,74 +486,11 @@ function checkNum(e, assetQty){
  		e.value = assetQty;
  	}
 }
-/* ********************************************************
- * date input 생성
- ******************************************************** */
-function make_date(){
-	
-	$("#startDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
 
-	$("#endDate").datepicker( 
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-}
-
-
-/* ********************************************************
- * 숫자 콤마 입력
- ******************************************************** */
-  function getNumber(obj){
-	     var num01;
-	     var num02;
-	     num01 = obj.value;
-	     num02 = num01.replace(/(^0+)/, "");
-	     num03 = num02.replace(/\D/g,"");
-	     num01 = setComma(num03);
-	     obj.value =  num01;
-
-	     $('#test').text(num01);
-	  }
-
-	  function setComma(n) {
-	     var reg = /(^[+-]?\d+)(\d{3})/;
-	     n += '';         
-	     while (reg.test(n)) {
-	        n = n.replace(reg, '$1' + ',' + '$2');
-	     }         
-	     return n;
-	  }
-	  
 /* ********************************************************
  * 유효성 체크
  ******************************************************** */
 let typeList = ["input", "select"]
-
 function removeP() {
 	$(typeList).each(function(index, type){
 		$("#frm").find(type).each(function(index, item){
@@ -667,28 +572,7 @@ function checkTd(){
 			obj = $('#aprvTbl #aprv3');
 		}
 	}
-	
 	return obj;
-}
-
-/* ********************************************************
- *  검색 날짜 체크
- ******************************************************** */
-function checkEndDate() {
-	let startDate = $('#frm #startDate').val();
-	let endDate = $('#frm #endDate').val();
-	if(startDate != null && startDate > endDate){
-		$('#frm #startDate').val(endDate);
-		$('#frm #endDate').val("");
-	}
-}
-
-function checkStartDate(){
-	let startDate = $('#frm #startDate').val();
-	let endDate = $('#frm #endDate').val();
-	if(startDate != null && startDate > endDate){
-		$('#frm #endDate').val("");
-	}
 }
 
 /* ********************************************************
@@ -699,31 +583,17 @@ window.onload = function(){
 	trClone = $('#clonehere tr').last().prev().clone(true);
 	make_date();
 	  }
-
 //-->
 </script>
-
-
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
-
-
-</head>
-
 <style type="text/css">
-.ui-datepicker-trigger {
-	margin-left: 10px;
-	vertical-align: middle;
-}
-
 .board_view_bot {
 	overflow: hidden;
 }
-
 .right_btn {
 	float: right;
 }
-
 .board_view2 thead .lb{
 	text-align: center;
 }
@@ -732,7 +602,7 @@ window.onload = function(){
     justify-content: space-between;
 }
 </style>
-
+</head>
 <body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
@@ -754,12 +624,12 @@ window.onload = function(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출 신청</li>
+										<li>반입 신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm" autocomplete="off">
-									<h2 class="tit_2">반출 신청</h2>
+									<h2 class="tit_2">반입 신청</h2>
 									<input name="reqGroup" value="C1" type="hidden"> <input
 										name="reqStatus" value="A0" type="hidden"> <br>
 									<h3> ■ 신청자정보</h3>
@@ -813,30 +683,6 @@ window.onload = function(){
 													<input name="pm" id="pm" type="hidden" title="pm" value="" />
 												</td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
-												</td>
-												<td colspan='3'><input type="text" class="f_txt w_full" id="place"
-													name="place"></td>
-												
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용기간 --> <label for="">반출기간</label> (시작일<span class="req">필수</span>)
-												</td>
-												<td colspan="3">
-													<div>
-														<span class="search_date">
-															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" readonly="readonly" checkStartDate()">
-														</span>
-														&nbsp;&nbsp;―&nbsp;&nbsp;
-														<span class="search_date">
-															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
-														</span>
-													</div>
-												</td>
-											</tr>
 										</table>
 									</div>
 								<br>
@@ -865,47 +711,7 @@ window.onload = function(){
 											</tr>
 										</thead>
 										<tbody id='assetTbody'>
-											<%-- <tr>
-												<td><label class="f_select w_full" for="largeCategory">
-														<select id="largeCategory" name="largeCategory"
-														title="대분류" onchange="getMCatList(this);">
-															<option value="" label="대분류" />
-															<c:forEach var="LCat" items="${LCat_result}"
-																varStatus="status">
-																<option value="${LCat.catId}">
-																	<c:out value="${LCat.catName}" />
-																</option>
-															</c:forEach>
-															<option value="ETC" label="직접입력" />
-													</select>
-												</label>
-													<div id="mCat">
-														<label class="f_select w_full" for="middleCategory"> <select
-															id="middleCategory" name="middleCategory" title="중분류">
-																<option value="" label="중분류" selected="selected" />
-														</select>
-														</label>
-													</div></td>
-												<td><input id="reqQty" name="reqQty" type="text"
-													class="f_txt w_full" onchange="getNumber(this);" onkeyup="getNumber(this);"></td>
-												<td><input id="maker" name="maker" type="text"
-													class="f_txt w_full"></td>
-												<td class="btn_rel"><input id="user" name="user" type="text"
-													class="f_txt w_full">	
-												</td>
-											</tr>
-											<tr>
-											<td colspan="4">
-												<div class="right_btn btn1">
-													<!-- 입력칸 1개 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
-														onclick="addTr(1);">+</a>
-													<!-- 입력칸 5개 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
-														onclick="addTr(5);">+ 5</a>
-												</div>
-											</td>
-										</tr> --%>
+											
 										</tbody>
 									</table>
 								</div>
@@ -970,12 +776,7 @@ window.onload = function(){
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  -->
-								<form name="CarryRequset" method="post" action="<c:url value='/req/CarryRequset.do'/>">
-									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
-									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
-									<c:set var="end" value="<%=new java.util.Date()%>" />
-									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
-								</form>
+
 							</div>
 						</div>
 					</div>

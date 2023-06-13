@@ -36,8 +36,14 @@
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javascript">
+window.onload = function(){
+	make_date();
+}
+
+/* ********************************************************
+ * 프로젝트검색
+ ******************************************************** */
 function ProjectSearch(){
-    
     var $dialog = $('<div id="modalPan"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
@@ -50,6 +56,9 @@ function ProjectSearch(){
 	$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 프로젝트 반환
+ ******************************************************** */
 function returnProject(val){
 	
 	if (val) {
@@ -60,6 +69,9 @@ function returnProject(val){
 	fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * 검색
+ ******************************************************** */
 function SearchCarryList() {
 	event.preventDefault();
 
@@ -68,7 +80,9 @@ function SearchCarryList() {
     document.frm.submit(); 
 }
 
-
+/* ********************************************************
+ *  페이지 이동
+ ******************************************************** */
 function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	document.frm.prjNm.value = '${searchVO.prjNm}';
@@ -130,7 +144,6 @@ function checkEndDate() {
 		$('#searchVO #endDate').val("");
 	}
 }
-
 function checkStartDate(){
 	let startDate = $('#searchVO #startDate').val();
 	let endDate = $('#searchVO #endDate').val();
@@ -139,22 +152,35 @@ function checkStartDate(){
 	}
 }
 
-
-window.onload = function(){
-	make_date();
-	  }
-
+/* ********************************************************
+ *  반출신청 폼 이동
+ ******************************************************** */
 function CarryRegist() {
 	document.frm.action = "<c:url value='/req/CarryRegist.do'/>";
     document.frm.submit(); 
 }
 
+/* ********************************************************
+ *  반입신청 폼 이동
+ ******************************************************** */
+function CarryInRegist() {
+	alert("준비중입니다.")
+	/* document.frm.action = "<c:url value='/req/CarryInRegist.do'/>";
+    document.frm.submit();  */
+}
+
+/* ********************************************************
+ *  반출입상세보기 화면 이동
+ ******************************************************** */
 function SelectCarry(reqId) {
 	document.frm.reqId.value = reqId;
     document.frm.action = "<c:url value='/req/SelectCarry.do'/>";
     document.frm.submit(); 
 }
 
+/* ********************************************************
+ *  현재 리스트 엑셀 추출
+ ******************************************************** */
 function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
@@ -163,11 +189,16 @@ function fntrsfExcel(){
 	    document.frm.submit();
 	}
 }
+
+/* ********************************************************
+ *  페이지당 리스트 수 설정
+ ******************************************************** */
 function setPageUnit(){
 	document.frm.pageIndex.value = 1;
     document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
 }
+
 </script>
 <style type="text/css">
 .board_view_bot {
@@ -218,11 +249,11 @@ function setPageUnit(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출관리</li>
+										<li>반출입</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<h2 class="tit_2">반출관리</h2>
+								<h2 class="tit_2">반출입</h2>
 								<!-- 검색조건 -->
 								<form id="searchVO" name="frm" method="post" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
@@ -233,13 +264,10 @@ function setPageUnit(){
 												<div>
 
 													<label class="item f_select w_full" for="searchGroup">
-														<select id="searchGroup" name="searchGroup" title="분류"
-														onchange="SearchCarryList(); return false;">
+														<select id="searchGroup" name="searchGroup" title="분류" onchange="SearchCarryList(); return false;">
 															<option value="" label="분류" />
-															<c:forEach var="group" items="${group_result }">
-																<option value="<c:out value="${group.code}"/>"
-																	<c:if test="${searchVO.searchGroup == group.code}">selected="selected"</c:if>>${group.codeNm}</option>
-															</c:forEach>
+															<option value="C0" <c:if test="${searchVO.searchGroup == 'C0'}">selected="selected"</c:if> label="반입신청" />
+															<option value="C1" <c:if test="${searchVO.searchGroup == 'C1'}">selected="selected"</c:if>label="반출신청" />
 													</select>
 													</label>
 
@@ -393,6 +421,8 @@ function setPageUnit(){
 												<div class="right_btn btn1">
 													<a href="#LINK" class="btn btn_blue_46"
 														onclick="CarryRegist();">반출신청</a>
+													<a href="#LINK" class="btn btn_blue_46"
+														onclick="CarryInRegist();">반입신청</a>
 												</div>
 											
 									</div>

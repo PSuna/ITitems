@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections4.map.HashedMap;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -32,7 +31,6 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
-import egovframework.let.uss.umt.service.UserDefaultVO;
 import egovframework.let.uss.umt.service.UserManageService;
 
 /**
@@ -227,7 +225,45 @@ public class AssetController {
 		
 		return "/ass/AssetSearchList";
 	}
+	/**
+	 * 반입신청 자산조회 팝업창으로 이동
+	 */
+	@RequestMapping(value = "/ass/InAssetSearchList.do")
+	public String InAssetSearchList(HttpServletRequest request, ModelMap model,
+									AssetManageVO assetManageVO) throws Exception {
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		assetManageVO.setCarryInOutSet("in");
+		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/AssetSearchList";
+	}
 	/**
 	 * 자산내역 검색
 	 */

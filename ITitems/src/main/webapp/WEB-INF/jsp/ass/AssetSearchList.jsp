@@ -247,7 +247,7 @@ function fn_egov_search_Prj() {
 								</span>
 							</div>
 							<div class="btn_box" >
-								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="padding: 0 49px;">검색</button>
+								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="padding: 0; width:100%">검색</button>
 							</div>
 						</div>
 					</div>
