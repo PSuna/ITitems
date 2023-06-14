@@ -122,7 +122,7 @@ public class RequestController {
 	 * 반출신청 등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRegist.do")
-	public String CarryRegist(HttpServletRequest request, ModelMap model) throws Exception {
+	public String CarryRegist(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		request.getSession().setAttribute("baseMenuNo", "100");
 
@@ -139,6 +139,7 @@ public class RequestController {
 		vo.setCode(userManageVO.getGrade());
 		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
+		model.addAttribute("searchVO", manageVO);
 		
 		return "/req/CarryRegist";
 	}
@@ -147,7 +148,7 @@ public class RequestController {
 	 * 반입신청 등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryInRegist.do")
-	public String CarryInRegist(HttpServletRequest request, ModelMap model) throws Exception {
+	public String CarryInRegist(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		request.getSession().setAttribute("baseMenuNo", "100");
 
@@ -164,6 +165,7 @@ public class RequestController {
 		vo.setCode(userManageVO.getGrade());
 		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
+		model.addAttribute("searchVO", manageVO);
 		
 		return "/req/CarryInRegist";
 	}

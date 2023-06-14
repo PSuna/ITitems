@@ -122,7 +122,7 @@ function fn_egov_modal_remove() {
 		                </ul>
             		</div>
 
-          		</li> --%>
+          		</li>
           		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a></li>
 
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>

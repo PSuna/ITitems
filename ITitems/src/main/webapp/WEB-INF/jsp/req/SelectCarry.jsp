@@ -134,7 +134,12 @@ window.onload = function(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
+										<c:if test="${resultVO.reqGroup == '반출신청'}">
 										<li>반출신청정보</li>
+										</c:if>
+										<c:if test="${resultVO.reqGroup == '반입신청'}">
+										<li>반입신청정보</li>
+										</c:if>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -142,7 +147,12 @@ window.onload = function(){
 
 								<form id="frm" name="frm" >
 								<div class="aprv_top">
+								<c:if test="${resultVO.reqGroup == '반출신청'}">
 								<h2 class="tit_2">반출신청정보</h2>
+								</c:if>
+								<c:if test="${resultVO.reqGroup == '반입신청'}">
+								<h2 class="tit_2">반입신청정보</h2>
+								</c:if>
 								<% LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO"); %>
 								<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
 								<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
@@ -227,17 +237,8 @@ window.onload = function(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td colspan="3">
-													<c:out value="${resultVO.prjId}"></c:out>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> 
-													<label for="">사용장소</label> 
-												</td>
 												<td>
-													<c:out value="${resultVO.place}"></c:out>
+													<c:out value="${resultVO.prjId}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
@@ -245,6 +246,18 @@ window.onload = function(){
 												</td>
 												<td>
 													<c:out value="${resultVO.pm}"></c:out>
+													
+												</td>
+											</tr>
+											<c:if test="${resultVO.reqGroup == '반출신청'}">
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> 
+													<label for="">사용장소</label> 
+												</td>
+												<td colspan="3">
+													<c:out value="${resultVO.place}"></c:out>
+													
 												</td>
 											</tr>
 											<tr>
@@ -256,6 +269,7 @@ window.onload = function(){
 													<c:out value="${resultVO.startDate}"></c:out> — <c:out value="${resultVO.endDate}"></c:out>
 												</td>
 											</tr>
+											</c:if>
 										</table>
 									</div>
 									

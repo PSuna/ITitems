@@ -40,7 +40,6 @@
 		concurrentExpiredUrl="/uat/uia/actionMain.do"
 
 		defaultTargetUrl="/uat/uia/actionMain.do"
-		errorIfMaximumExceeded="false"
     />
 
     <egov-security:secured-object-config id="securedObjectConfig"
