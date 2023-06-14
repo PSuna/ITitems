@@ -3,73 +3,54 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AssetHistDAO">
 
-	<resultMap type="egovframework.let.ass.service.AssetHistVO"
-		id="AssetHistList">
-		<result property="rum" column="RUM" />
-		<result property="largeCategory" column="LARGE_CATEGORY" />
-		<result property="middleCategory" column="MIDDLE_CATEGORY" />
-		<result property="assetName" column="ASSET_NAME" />
-		<result property="histQty" column="HIST_QTY" />
-		<result property="acquiredDate" column="ACQUIRED_DATE" />
-		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
-		<result property="maker" column="MAKER" />
-		<result property="histStatus" column="HIST_STATUS" />
-	</resultMap>
-
-	<resultMap type="egovframework.let.ass.service.AssetHistVO"
-		id="AssetHistDetail">
-		<result property="" column="" />
-	</resultMap>
-
-	<sql id="search">
-		<if test="searchDept != null and searchDept != ''">
-			and a.DEPT_ID = #{searchDept}
-		</if>
-		<if test="searchPrj != null and searchPrj != ''">
-			and a.PRJ_ID = #{searchPrj}
-		</if>
-		<if test="searchLCat != null and searchLCat != ''">
-			and b.LARGE_CATEGORY = #{searchLCat}
-		</if>
-		<if test="searchdMCat != null and searchdMCat != ''">
-			and b.MIDDLE_CATEGORY = #{searchdMCat}
-		</if>
-		<if test="searchStatus != null and searchStatus != ''">
-			and a.HIST_STATUS = #{searchStatus}
-		</if>
-		<if test="startDate != null">
-			and b.REG_DATE >= #{startDate}
-		</if>
-		<if test="endDate != null">
-			<![CDATA[
-			and b.REG_DATE <= #{startDate}
-			]]>
-		</if>
-		<if test="searchWord != null and searchWord != ''">
-			b.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
-		</if>
-	</sql>
+	<insert id="InsertAssetHist"
+		parameterType="egovframework.let.ass.service.AssetHistVO">
+		
+		INSERT INTO ASSETSHIST(   
+				  HIST_ID, 
+		          ASSET_ID, 
+		          ORGNZT_ID, 
+		          PRJ_ID, 
+		          USE_ID,  
+		          HIST_STATUS, 
+		          HIST_DATE, 
+		          <if test="rcptDate != null and rcptDate != ''">
+		          RCPT_DATE, 
+		          </if>
+		          RCPT_ID, 
+		          CARRY_REASON,
+		          HIST_GROUP
+		      )
+		VALUES (
+		          #{histId}, 
+		          #{assetId}, 
+		          #{orgnztId}, 
+		          #{prjId}, 
+		          #{useId},  
+		          #{histStatus},
+		          DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), 
+		          <if test="rcptDate != null and rcptDate != ''">
+		          DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'), 
+		          </if>
+		          #{rcptId}, 
+		          #{carryReason},
+		          #{histGroup}
+		       )
+	</insert>
 	
-	<select id="SelectAssetHistVOList"
-		parameterType="egovframework.let.ass.service.AssetManageVO"
-		resultMap="AssetHistList">
-		SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY a.HIST_DATE DESC)
-		AS RUM,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.LARGE_CATEGORY)AS LARGE_CATEGORY,(SELECT CAT_NAME FROM category WHERE CAT_ID = b.MIDDLE_CATEGORY)AS MIDDLE_CATEGORY,b.ASSET_NAME,a.HIST_QTY,DATE_FORMAT(b.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,b.ACQUIRED_PRICE,b.MAKER,a.HIST_STATUS
-		FROM ASSETSHIST a 
-		LEFT OUTER JOIN ASSETSINFO b 
-		ON a.ASSET_ID = b.ASSET_ID
-		WHERE b.USAGE_STAUTS = '사용중'
-		<include refid="search" />
-		) P WHERE P.RUM BETWEEN #{first} AND #{last}
-	</select>
+	<update id="UpdateAssetHist" parameterType="egovframework.let.ass.service.AssetHistVO">
+		UPDATE 
+			ASSETSHIST
+		   SET
+			ORGNZT_ID = #{orgnztId}, 
+			PRJ_ID = #{prjId}, 
+			USE_ID = #{useId},
+			<if test="rcptDate != null and rcptDate != ''">
+			RCPT_DATE = #{rcptDate},
+			</if>
+			RCPT_ID = #{rcptId}, 
+			CARRY_REASON = #{carryReason}
+		 WHERE ASSET_ID = #{assetId}
+	</update>
 
-	<select id="CountAssetHistVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
-		SELECT COUNT(a.HIST_ID)
-		FROM ASSETSHIST a
-		LEFT OUTER JOIN ASSETSINFO b
-		ON a.ASSET_ID = b.ASSET_ID
-		WHERE b.USAGE_STAUTS = '사용중'
-		<include refid="search" />
-	</select>
-	
 </mapper>
