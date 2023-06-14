@@ -210,7 +210,9 @@ function fnDisUpdate(){
 								<input name="searchStatus" type="hidden" value="<c:out value='${approvalSearchVO.searchStatus}'/>"/>
 								<input name="searchKeyword" type="hidden" value="<c:out value='${approvalSearchVO.searchKeyword}'/>"/>
 									<div class="aprv_top">
-										<h2 class="tit_2">결재요청정보</h2>
+										<h2 class="tit_2">결재요청정보 (
+										<c:if test="${approvalVO.reqGroup == '반출신청'}"><span>반출신청</span></c:if>
+										<c:if test="${approvalVO.reqGroup == '반입신청'}"><span>반입신청</span></c:if> )</h2>
 										<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
 												<tbody>
@@ -278,17 +280,8 @@ function fnDisUpdate(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td colspan="3">
-													<c:out value="${approvalVO.prjId}"></c:out>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> 
-													<label for="">사용장소</label> 
-												</td>
 												<td>
-													<c:out value="${approvalVO.place}"></c:out>
+													<c:out value="${approvalVO.prjId}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
@@ -296,6 +289,16 @@ function fnDisUpdate(){
 												</td>
 												<td>
 													<c:out value="${approvalVO.pmName} ${approvalVO.pmGrade}"></c:out>
+												</td>
+											</tr>
+											<c:if test="${approvalVO.reqGroup == '반출신청'}">
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> 
+													<label for="">사용장소</label> 
+												</td>
+												<td  colspan="3">
+													<c:out value="${approvalVO.place}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -307,6 +310,7 @@ function fnDisUpdate(){
 													<c:out value="${approvalVO.startDate}"></c:out> — <c:out value="${approvalVO.endDate}"></c:out>
 												</td>
 											</tr>
+											</c:if>
 										</table>
 									</div>
 									</form>

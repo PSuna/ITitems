@@ -48,7 +48,6 @@
 		var mainMenuTag = "";
 		
 		menuList.forEach(function(item,index){
-			console.log(item,index);
 			var itemList = item.split('|');
 			switch(leftStartMenuValue) {
 			case itemList[0]:

@@ -295,12 +295,13 @@ public class RentalController {
 	/**
 	 * 렌탈수정
 	 */
-	@RequestMapping(value = "/rent/AssetUpdate.do")
+	@RequestMapping(value = "/rent/RentalUpdate.do")
 	@ResponseBody
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, RentalVO rentalVO, String delFile, String delPhoto) throws Exception {
-
-		rentalService.UpdateRentalInfo(rentalVO);
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		rentalVO.setHistUser(user.getUniqId());
 		rentalService.UpdateRentalDetail(rentalVO);
+		
 		String[] delPhotoList = delPhoto.split("/");
 		
 		FileVO fvo = new FileVO();
@@ -335,12 +336,13 @@ public class RentalController {
 	/**
 	 * 렌탈삭제
 	 */
-	@RequestMapping(value = "/rent/AssetDel.do")
+	@RequestMapping(value = "/rent/RentalDel.do")
 	@ResponseBody
-	public String AssetDel(RentalVO rentalVO) throws Exception {
-		
-		rentalService.deleteRentalInfo(rentalVO);
-		
+	public String RentalDel(RentalVO rentalVO) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		rentalVO.setHistUser(user.getUniqId());
+		rentalService.deleteRental(rentalVO);
+		 
 		return rentalVO.getRentalId();
 	}
 	

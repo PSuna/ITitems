@@ -106,7 +106,7 @@ function fn_egov_modal_remove() {
 		                </ul>
             		</div>
           		</li>
-          		 <%--  <li>
+          		<li>
           			<a href="#LINK" onclick="return false;">렌탈관리</a>
           			<div class="pty_dropdown">	    
 		                <ul>
@@ -121,8 +121,10 @@ function fn_egov_modal_remove() {
 		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
 		                </ul>
             		</div>
-          		</li>  --%>
-          		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a></li>
+
+          		</li>
+          		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a></li>
+
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
           		<!-- <li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
@@ -219,9 +221,19 @@ function fn_egov_modal_remove() {
 			</li>
 
 			<li>
-				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a>				
+				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a>				
 			</li>
-
+			
+			<li><a href="#LINK" onclick="return false;">렌탈관리</a>
+				<ul class="pmt_sub">
+					<li><a href="#LINK"  onclick="goMenuPage('/rent/MyRentalManagement.do')">내렌탈조회</a></li>
+					<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+						<li><a href="#LINK" onclick="goMenuPage('/rent/RentalManagement.do')">전체렌탈조회</a></li>
+					</c:if>
+					<li><a  href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
+					
+				</ul>
+			</li>
 
 			<li>
 				<a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a>				

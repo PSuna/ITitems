@@ -34,6 +34,9 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
+ 
+ <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -116,7 +119,7 @@ function setPageUnit(obj) {
 	inputpush();
 	document.frm.pageIndex.value = '1';
 	document.frm.pageUnit.value = obj.value;
-    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/MyRentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -127,7 +130,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/MyRentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -138,7 +141,7 @@ function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	inputpush();
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+    document.frm.action = "<c:url value='/rent/MyRentalManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -161,17 +164,17 @@ function fn_egov_select_noticeList(pageNo) {
  ******************************************************** */
 function AssetRegist() {
 	event.preventDefault();
-    document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
+    document.frm.action = "<c:url value='/rent/RentalRegist.do'/>";
     document.frm.submit(); 
 }
 
 /* ********************************************************
  * 자산 상세 페이지 이동
  ******************************************************** */
-function SelectAsset(assetId) {
+function SelectRental(rentalId) {
 	event.preventDefault();
-	document.frm.assetId.value = assetId;
-    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+	document.frm.rentalId.value = rentalId;
+    document.frm.action = "<c:url value='/rent/SelectRental.do'/>";
     document.frm.submit(); 
 }
 
@@ -276,18 +279,18 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>내자산조회</li>
+										<li><a href="#LINK">렌탈관리</a></li>
+										<li>내렌탈조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<h2 class="tit_2">내자산조회</h2>
+								<h2 class="tit_2">내렌탈조회</h2>
 
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<input type="hidden" name="assetId" />
+										<input type="hidden" name="rentalId" />
 										<input type="hidden" name="listCode" value="MYAM" />
 										<div class="j_box01">
 											<div>
@@ -307,8 +310,7 @@ window.onload = function(){
 														</c:forEach>
 												</select>   
 												</label> 
-											</div>
-																							
+											</div>										
 											<div>
 												<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
 														<option value='' label="중분류" />
@@ -317,18 +319,7 @@ window.onload = function(){
 											</div>
 										</div>	
 											
-										<div class="j_box01" style="margin-bottom:0">	
-											<%-- <div>							
-												<span class="lb">상태</span> 
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" >
-															<option value='' label="선택하세요" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div> --%>
+										<div class="j_box01">	
 											<div class="date_box">
 												<!-- <span class="lb">등록일자</span>  -->
 												<div>
@@ -358,16 +349,11 @@ window.onload = function(){
 								<div class="board_list_top">
 									<div class="left_col">
 											<div class="list_count">
-
-
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
 													<div>
 														<span style="margin:0;">Total : </span> 
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
 													</div>
-														
 													<div style="display: flex; align-items: center;">
 														<span style="margin-right: 16px;">페이지당 항목 수</span> 
 														<label class="item f_select" for="pageUnit"> 
@@ -382,10 +368,7 @@ window.onload = function(){
 															</select>
 														</label>
 													</div>
-													
 												</div>
-												
-												
 											</div>
 										</div>
                                 </div>
@@ -394,53 +377,51 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 3%;">
-											<col style="width: 8%;">
+											<col style="width: 5%;">
 											<col style="width: 8%;">
 											<col style="width: 16%;">
 											<col style="width: 16%;">
-											<col style="width: 37%;">
-											<col style="width: 6%;">
-											<col style="width: 6%;">
+											<col style="width: 30%;">
+											<col style="width: 8%;">
+											<col style="width: 7%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">분류</th>
-												<th scope="col">수량</th>
 												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
+												<th scope="col">수량</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 											</tr>
 										</thead>
 										<tbody>
-											<%-- <c:forEach var="result" items="${resultList}"
+											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="SelectAsset('${result.assetId}');">
+												<tr onclick="SelectRental('${result.rentalId}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
-													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.prjNm}" /></td>
+													<td><c:out value="${result.rentalQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
-													<td><c:out value="${result.usageStatus}" /></td>
 												</tr>
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
-                               						<td colspan="7" id="noData"><spring:message code="ass.null" /></td>
+                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
                                					</tr>
-											</c:if> --%>
+											</c:if>
 										</tbody>
 									</table>
 									<div>
-								
 								<div class="btn_area">
 										<div class="excel_btn pty_margin-left_8">
 									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
