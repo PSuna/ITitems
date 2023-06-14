@@ -53,6 +53,7 @@
             AND A.REQ_STATUS = #{searchStatus}
           </if>
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
+	   LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
 	<select id="selectApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
