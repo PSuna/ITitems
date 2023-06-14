@@ -36,7 +36,7 @@
         hash="plaintext"
         hashBase64="false"
 
-		concurrentMaxSessons="1"
+		concurrentMaxSessons="999"
 		concurrentExpiredUrl="/uat/uia/actionMain.do"
 
 		defaultTargetUrl="/uat/uia/actionMain.do"
