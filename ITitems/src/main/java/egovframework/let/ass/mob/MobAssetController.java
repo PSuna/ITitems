@@ -83,12 +83,13 @@ public class MobAssetController {
 	 * 내자산조회 페이지로 이동
 	 */
 
-	@RequestMapping(value="/ass/MobMyAssetManagement.do")
-	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
-			 AssetManageVO assetManageVO, @RequestBody AssetManageVO avo ) throws Exception {
-	    /*여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
-		System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");*/
-
+	@RequestMapping(value = "/ass/MobMyAssetManagement.do")
+	public Map<String, Object> MyAssetManagement(HttpServletRequest request, AssetManageVO assetManageVO,
+			@RequestBody AssetManageVO avo) throws Exception {
+		/*
+		 * 여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
+		 * System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
+		 */
 
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		// LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
@@ -122,15 +123,14 @@ public class MobAssetController {
 		return appMap;
 	}
 
-	
 	/**
 	 * 자산상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/MobSelectAsset.do")
-	public Map<String, Object> SelectAsset(HttpServletRequest request, 
-			AssetManageVO assetManageVO, @RequestBody AssetManageVO avo) throws Exception {
+	public Map<String, Object> SelectAsset(HttpServletRequest request, AssetManageVO assetManageVO,
+			@RequestBody AssetManageVO avo) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-		
+
 		AssetInfoVO result = assetService.SelectAssetInfoVO(avo);
 		appMap.put("resultVO", result);
 		FileVO fvo = new FileVO();
@@ -140,11 +140,10 @@ public class MobAssetController {
 		fvo.setFileType("FILE");
 		appMap.put("FileVO", fileMngService.selectFileVO(fvo));
 		appMap.put("searchVO", assetManageVO);
-		
-		
+
 		return appMap;
 	}
-	
+
 	/**
 	 * 전체자산조회 페이지로 이동
 	 */
@@ -152,16 +151,6 @@ public class MobAssetController {
 	public Map<String, Object> AssetManagement(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO)
 			throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-
-//		PaginationInfo paginationInfo = new PaginationInfo();
-
-//		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-//		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-//		paginationInfo.setPageSize(assetManageVO.getPageSize());
-//
-//		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-//		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-//		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
 
 		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
 			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
@@ -179,10 +168,8 @@ public class MobAssetController {
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 
-//		paginationInfo.setTotalRecordCount(totCnt);
 		appMap.put("resultList", map.get("resultList"));
 		appMap.put("resultCnt", map.get("resultCnt"));
-//		model.addAttribute("paginationInfo", paginationInfo);
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 

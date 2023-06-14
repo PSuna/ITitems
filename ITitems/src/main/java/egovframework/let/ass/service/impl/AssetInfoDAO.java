@@ -112,4 +112,5 @@ public class AssetInfoDAO extends EgovAbstractMapper {
 	public List<EgovMap> xlsxTrsfMyAssList(AssetManageVO assetManageVO) {
 		return selectList("AssetInfoDAO.xlsxTrsfMyAssList", assetManageVO);
 	}
+
 }
