@@ -18,7 +18,7 @@
         logoutSuccessUrl="/uat/uia/egovLoginUsr.do"
         loginFailureUrl="/uat/uia/actionSecurityLogin.do?login_error=1"
         accessDeniedUrl="/sec/ram/accessDenied.do"
-
+		
         dataSource="egov.dataSource"
 
         jdbcUsersByUsernameQuery="SELECT USER_ID, ESNTL_ID AS PASSWORD, 1 ENABLED, USER_NM, USER_ZIP,
@@ -40,7 +40,7 @@
 		concurrentExpiredUrl="/uat/uia/actionMain.do"
 
 		defaultTargetUrl="/uat/uia/actionMain.do"
-
+		errorIfMaximumExceeded="false"
     />
 
     <egov-security:secured-object-config id="securedObjectConfig"
