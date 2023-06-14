@@ -14,7 +14,6 @@ import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.ass.service.impl.AssetInfoDAO;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.rent.service.RentalManageVO;
 import egovframework.let.rent.service.RentalService;
@@ -136,21 +135,32 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 
 	@Override
 	public int deleteRentalIndiv(RentalVO RentalVO) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void xlsxTrsfRentalList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public void xlsxTrsfRentList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception{
+		String title = "자산관리솔루션 - 전체렌탈조회";
+		try {
+			List<EgovMap> tmpList = rentalDAO.xlsxTrsfRentList(rentalManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
 		
 	}
 
 	@Override
-	public void xlsxTrsfMyRentalList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public void xlsxTrsfMyRentList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception{
+		String title = "자산관리솔루션 - 내렌탈조회";
+		try {
+			List<EgovMap> tmpList = rentalDAO.xlsxTrsfMyRentList(rentalManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
 		
 	}
 

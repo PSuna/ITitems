@@ -223,7 +223,7 @@ function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
-	    document.frm.action = "<c:url value='/com/xlsxTrsfMyAssList.do'/>";
+	    document.frm.action = "<c:url value='/com/xlsxTrsfMyRentList.do'/>";
 	    document.frm.submit();
 	}
 }

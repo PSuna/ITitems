@@ -126,6 +126,9 @@ function fnDisUpdate(){
 	 });
  }
  
+/* ********************************************************
+ * onload 함수
+ ******************************************************** */
  window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
