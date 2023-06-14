@@ -94,6 +94,7 @@
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
+			
 		</where>
 	</sql>
 	
@@ -108,6 +109,10 @@
 			<if test="searchWord != null and searchWord != ''">
 				AND (	B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%') 
 					OR  B.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%'))
+		 	</if>
+			<if test="searchName != null and searchName != ''">
+				AND (	G.USER_NM LIKE CONCAT ('%', #{searchName},'%') 
+					OR  H.USER_NM LIKE CONCAT ('%', #{searchName},'%'))
 		 	</if>
 			<if test="searchPrj != null and searchPrj != ''">
 				AND D.PRJ_ID = #{searchPrj}

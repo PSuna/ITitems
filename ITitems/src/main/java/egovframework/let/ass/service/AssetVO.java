@@ -114,6 +114,8 @@ public class AssetVO implements Serializable {
 
 	/** 내역 분류 */
 	private String histGroup;
+	
+	private int reqQty;
 
 	public String getAssetId() {
 		return assetId;
@@ -361,6 +363,14 @@ public class AssetVO implements Serializable {
 
 	public void setHistGroup(String histGroup) {
 		this.histGroup = histGroup;
+	}
+
+	public int getReqQty() {
+		return reqQty;
+	}
+
+	public void setReqQty(int reqQty) {
+		this.reqQty = reqQty;
 	}
 	
 	
