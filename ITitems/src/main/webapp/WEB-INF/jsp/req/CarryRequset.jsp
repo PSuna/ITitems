@@ -31,7 +31,9 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITitems</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javascript">
 function ProjectSearch(){
@@ -180,6 +182,19 @@ function setPageUnit(){
 	background: #ccc;
 	cursor: pointer;
 }
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03{
+	align-items: center;
+}
+.req_box{
+	margin-bottom:10px;
+	margin-top: 10px;
+}
+@media screen and (max-width: 767px){
+	.req_box{
+		margin-bottom:10px;
+		margin-top: 0;
+	}
+}
 </style>
 </head>
 <body>
@@ -213,36 +228,53 @@ function setPageUnit(){
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
 									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
 									<input type="hidden" name="reqId" value="<c:out value='${result.reqId}'/>" />
-									<div class="condition2" style="display: flex;justify-content: center;">
-										<div class="j_box03" style="margin-bottom:0;">
-
-											<div style="margin-bottom:10px;">
+									<div class="condition2">
+											<div class="j_box01">
 												<div>
-													<!-- <span class="lb">신청상태</span> -->
-													<label class="item f_select w_full" for="sel1">
-													<select id="searchStatus" name="searchStatus" title="상태" onchange="SearchCarryList();">
-														<option value='' label="신청상태" selected="selected" />
-														<c:forEach var="stat" items="${status_result}" varStatus="status">
-															<option value="${stat.code}"<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-														</c:forEach>
+
+													<label class="item f_select w_full" for="searchGroup">
+														<select id="searchGroup" name="searchGroup" title="분류"
+														onchange="SearchCarryList(); return false;">
+															<option value="" label="분류" />
+															<c:forEach var="group" items="${group_result }">
+																<option value="<c:out value="${group.code}"/>"
+																	<c:if test="${searchVO.searchGroup == group.code}">selected="selected"</c:if>>${group.codeNm}</option>
+															</c:forEach>
+													</select>
+													</label>
+
+												</div>
+												<div>
+													<label class="item f_select w_full" for="sel1"> <select
+														id="searchStatus" name="searchStatus" title="상태"
+														onchange="SearchCarryList();">
+															<option value='' label="신청상태" selected="selected" />
+															<c:forEach var="stat" items="${status_result}"
+																varStatus="status">
+																<option value="${stat.code}"
+																	<c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out
+																		value="${stat.codeNm}" /></option>
+															</c:forEach>
 													</select>
 													</label>
 												</div>
 
 												<div>
 													<!-- <span class="lb">프로젝트</span> -->
-													<span class="f_search2 w_full">
-														<input id="prjNm" name="prjNm" type="text" title="프로젝트" value="<c:out value="${searchVO.prjNm}"/>" maxlength="100" placeholder="프로젝트" readonly="true" />
-														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-													</span>
-													<input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>"/>
+													<span class="f_search2 w_full"> <input id="prjNm"
+														name="prjNm" type="text" title="프로젝트"
+														value="<c:out value="${searchVO.prjNm}"/>" maxlength="100"
+														placeholder="프로젝트" readonly="true" />
+														<button type="button" class="btn"
+															onclick="ProjectSearch();">조회</button>
+													</span> <input name="searchPrj" id="searchPrj" type="hidden"
+														value="<c:out value="${searchVO.searchPrj}"/>" />
 												</div>
-												
 											</div>
-											<div>
+											<div class="j_box01">
 												<div class="date_box">
 													<!-- <span class="lb">신청일자</span>  -->
-													<div style="margin-left:2px;">
+													<div>
 														<span class="search_date ">
 															<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>" readonly="readonly" onchange="checkStartDate()">
 														</span>
@@ -252,13 +284,18 @@ function setPageUnit(){
 														</span>
 													</div>
 												</div>
-												<div class="btn_box" style="width:auto !important; align-items: baseline;">
+												<div class="search_box">
+													<span class="item f_search w_full" >
+														<input class="f_input w_full pty_f_input" type="text" name="searchWord" onchange="SearchCarryList(); return false;" placeholder="사용장소/신청자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+													</span>
+												</div>
+												<div class="btn_box">
+
 													<button class="btn pty_btn" type="submit" onclick="SearchCarryList();" style="margin-left:5px;">검색</button>
+
 												</div>
 											</div>
 										</div>
-									</div>
-
 								<!--// 검색 조건 -->
 
 								<!-- 게시판 -->

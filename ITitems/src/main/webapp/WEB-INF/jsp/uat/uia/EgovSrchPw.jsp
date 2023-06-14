@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Language" content="ko" >
-<title>비밀번호찾기</title>
+
 <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">

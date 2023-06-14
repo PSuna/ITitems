@@ -66,7 +66,6 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		try {
 			requestDetailVO.setRedId(redIdGnrService.getNextStringId());
 		} catch (FdlException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return requestDAO.InsertRequestDetailVO(requestDetailVO);

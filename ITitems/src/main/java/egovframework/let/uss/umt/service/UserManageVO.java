@@ -1,7 +1,5 @@
 package egovframework.let.uss.umt.service;
 
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
-
 /**
  * 업무사용자VO클래스로서 업무사용자관리 비지니스로직 처리용 항목을 구성한다.
  * @author 영남사업부 천세훈
@@ -20,7 +18,21 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty
  */
 
 public class UserManageVO extends UserDefaultVO{
-
+	
+	@Override
+	public String toString() {
+		return "UserManageVO [oldPassword=" + oldPassword + ", sbscrbDe=" + sbscrbDe + ", uniqId=" + uniqId
+				+ ", userTy=" + userTy + ", areaNo=" + areaNo + ", brth=" + brth + ", detailAdres=" + detailAdres
+				+ ", emailAdres=" + emailAdres + ", emplNo=" + emplNo + ", emplyrId=" + emplyrId + ", emplyrNm="
+				+ emplyrNm + ", emplyrSttusCode=" + emplyrSttusCode + ", fxnum=" + fxnum + ", groupId=" + groupId
+				+ ", homeadres=" + homeadres + ", homeendTelno=" + homeendTelno + ", homemiddleTelno=" + homemiddleTelno
+				+ ", ihidnum=" + ihidnum + ", insttCode=" + insttCode + ", mberTy=" + mberTy + ", moblphonNo="
+				+ moblphonNo + ", ofcpsNm=" + ofcpsNm + ", offmTelno=" + offmTelno + ", orgnztId=" + orgnztId
+				+ ", lowerOrgnzt=" + lowerOrgnzt + ", grade=" + grade + ", password=" + password + ", passwordCnsr="
+				+ passwordCnsr + ", passwordHint=" + passwordHint + ", sbscrbDeBegin=" + sbscrbDeBegin
+				+ ", sbscrbDeEnd=" + sbscrbDeEnd + ", sexdstnCode=" + sexdstnCode + ", zip=" + zip + ", subDn=" + subDn
+				+ ", role=" + role + ", mberTyCode=" + mberTyCode + ", authorCode=" + authorCode + "]";
+	}
 	/**
 	 * serialVersionUID
 	 */
@@ -33,6 +45,10 @@ public class UserManageVO extends UserDefaultVO{
 	 * 가입일
 	 */
 	private String sbscrbDe;
+	/**
+	 * 사번
+	 */
+	private String empUniqNum;
 	/**
 	 * 사용자고유아이디
 	 */
@@ -652,6 +668,12 @@ public class UserManageVO extends UserDefaultVO{
 	}
 	public void setLowerOrgnzt(String lowerOrgnzt) {
 		this.lowerOrgnzt = lowerOrgnzt;
+	}
+	public String getEmpUniqNum() {
+		return empUniqNum;
+	}
+	public void setEmpUniqNum(String empUniqNum) {
+		this.empUniqNum = empUniqNum;
 	}
 	
 }

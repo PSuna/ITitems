@@ -48,12 +48,19 @@
 	
 	padding: 0 20px;
 	/* background:#ff6600; */
+	
+	width: 95px;
+
 }
 
 .btn_area a:hover{
 	background: var(--point-color);
 	color:#fff;
-	
+}
+
+.btn1 a:hover{
+	background: var(--point-color);
+	color:#fff;
 }
 
 .btn_skyblue_h46 {
@@ -159,7 +166,7 @@
 	text-align:center;
 }
 .board_list td.al {
-	padding: 13px 10px 13px 10px;
+	/* padding: 13px 10px 13px 10px; */
 	text-align:left;
 }
 .board_list td .lnk {
@@ -539,7 +546,7 @@
 }
 .board_view_bot {
 	position:relative;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 }
 .board_view_bot .left_col {
 	font-size:0;
@@ -560,7 +567,7 @@
 	border-top:2px solid #222;
 }
 .board_view2 td {
-	padding:12px 20px;
+	padding:5px 20px;
 	border-bottom:1px solid #dde2e5;
 	color:#666;
 }
@@ -732,7 +739,7 @@ input:-mos-input-placeholder {
 	border:1px solid #dde2e5;
 	border-radius:5px;
 	color:#222;
-	font-size:16px;
+	font-size:14px;
 	background:#F7F7F7;
 }
 .f_search2 .btn {
@@ -816,7 +823,7 @@ label:focus{
 	padding:0 45px 0 20px;
 	border:0;
 	color:var(--font-gray2);
-	font-size:14px;
+	/* font-size:14px; */
 	background:transparent;
 }
 .f_chk {
@@ -919,13 +926,16 @@ label:focus{
 	line-height:34px;
 }
 .f_txtar {
-	padding:19px;
-	border:1px solid #dde2e5;
-	border-radius:5px;
-	color:#222;
-	font-size:16px;
-	font-weight:300;
-	resize:none;
+	padding: 5px 19px;
+    border: 1px solid #dde2e5;
+    border-radius: 5px;
+    color: #222;
+    font-size: 14px;
+    font-weight: 300;
+    resize: none;
+    height: 54px;
+    display: flex;
+
 }
 .f_date {
 	width:117px;

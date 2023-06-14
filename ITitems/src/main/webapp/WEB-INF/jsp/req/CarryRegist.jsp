@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -57,18 +59,16 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  ******************************************************** */
 function insertCarryDetail(reqId) {
 	let dataList;
-	let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr");
-	trList.forEach(function(items,index) {
-		let formdata = new FormData();
-		formdata.append('reqId', reqId);
-		let Mcat = items.querySelector('#middleCategory');
-		let qty = items.querySelector('#reqQty');
-		if(Mcat != null && qty != null){
-			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
-			formdata.append('middleCategory', Mcat.value);
-			formdata.append('reqQty', qty.value);
-			formdata.append('maker', items.querySelector('#maker').value);
-			formdata.append('user', items.querySelector('#user').value);
+	let trList = document.querySelectorAll('#assetTbody tr');
+	if(trList.length > 0){
+		trList.forEach(function(items,index) {
+			let formdata = new FormData();
+			formdata.append('reqId', reqId);
+			let assetId = items.querySelector('input').value;
+			let reqQty = items.querySelector('.reqQty').value;
+			console.log(assetId);
+			formdata.append('assetId', assetId);
+			formdata.append('reqQty', reqQty);
 			formdata.append('reqOrder', trList.length - index);
 			$.ajax({
 				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
@@ -78,15 +78,19 @@ function insertCarryDetail(reqId) {
 				contentType: false,
 				data: formdata,
 				success: function (result) {
-					
 				},
 				error: function (error) {
 					RegistFail();
 					return;
 				}
 			}) 
-		}
-	});
+		});
+	}else{
+		alert('반출신청할 자산이 없습니다.');
+		fn_egov_modal_remove();
+		RegistFail();
+		return;
+	}
 	insertApproval(reqId);
 }
 
@@ -240,6 +244,14 @@ function insertApproval(reqId){
 	    $('#frm #delTr').each(function(){
 	    	$(this).closest('tr').remove();
 		})
+		document.getElementById("prjNm").value  = "";
+	    document.getElementById("pm").value  = "";
+	    document.getElementById("aprv0").value  = "";
+	    document.getElementById("aprv1").value  = "";
+	    document.getElementById("aprv2").value  = "";
+	    document.getElementById("aprv3").value  = "";
+	    $("#assetTbody tr").remove();
+	    
 		document.frm.prjNm.focus(); 
 	}else{
 		document.CarryRequset.submit();
@@ -383,7 +395,7 @@ function AssetSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -406,7 +418,6 @@ function UserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-
 
 /* ********************************************************
  * 검색 프로젝트 입력
@@ -449,8 +460,45 @@ if (val) {
 
 fn_egov_modal_remove();
 }
-
-
+/* ********************************************************
+ * 검색 자산 입력
+ ******************************************************** */
+function returnAss(val){
+	var assetIds = document.querySelectorAll(".assetIds");
+	for (let i=0; i<assetIds.length; i++){
+		if(val.assetId == assetIds[i].value){
+			alert("이미 추가된 자산입니다.");
+			return;
+		}
+	}
+	if (val) {
+		var assetId = val.assetId;
+		var middleCategory = val.middleCategory;
+		var assetQty = val.assetQty;
+		var assetSn = val.assetSn;
+		var maker = val.maker;
+		var rcptNm = val.rcptNm;
+		var useNm = val.useNm;
+		var p = `<tr style="text-align:center;">
+					<input type='hidden' value='`+assetId+`' class='assetIds'>
+					<td>`+middleCategory+`</td>
+					<td><input type="number"  class="reqQty" value="`+assetQty+`" min="1" max="`+assetQty+`"/></td>
+					<td>`+assetSn+` / `+maker+`</td>
+					<td>`+rcptNm+`</td>
+					<td>`+useNm+`</td>
+					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
+				 </tr>`;
+		$("#assetTbody").append(p);
+	}
+	
+	fn_egov_modal_remove();
+}
+/* ********************************************************
+ * 자산 tr 삭제
+ ******************************************************** */
+ function deleteTr(e){
+	 $(e).closest('tr').remove();
+}
 /* ********************************************************
  * date input 생성
  ******************************************************** */
@@ -636,7 +684,10 @@ window.onload = function(){
 //-->
 </script>
 
-<title>ITitems</title>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 
 </head>
 
@@ -654,8 +705,12 @@ window.onload = function(){
 	float: right;
 }
 
-.board_view2 thead .lb {
+.board_view2 thead .lb{
 	text-align: center;
+}
+.addAsset{
+	display: flex;
+    justify-content: space-between;
 }
 </style>
 
@@ -699,7 +754,7 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">소유자</label> <span class="req">필수</span>
+													<!-- 성명 --> <label for="">수령자</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
@@ -719,7 +774,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
-												<td colspan="3"><span class="f_search2 wp_90"> <input
+												<td><span class="f_search2 w_full"> <input
 														id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly"/>
 														<button type="button" class="btn"
@@ -727,24 +782,25 @@ window.onload = function(){
 												</span> <input name="prjId" id="prjId"
 													type="hidden" title="프로젝트" value="" 
 													/></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
-												</td>
-												<td><input type="text" class="f_txt w_full" id="place"
-													name="place"></td>
-												<td class="lb">
+													<td class="lb">
 													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
 													class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 wp_90"> 
+													<span class="f_search2 w_full"> 
 														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span>
 													<input name="pm" id="pm" type="hidden" title="pm" value="" />
 												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
+												</td>
+												<td colspan='3'><input type="text" class="f_txt w_full" id="place"
+													name="place"></td>
+												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -765,27 +821,32 @@ window.onload = function(){
 										</table>
 									</div>
 								<br>
-								<h3> ■ 자산정보 <span class="f_s_15">(최대 10칸)</span></h3>
+								<div class="addAsset">
+									<h3> ■ 자산정보 <span class="f_s_15">(최대 10칸)</span></h3>
+									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
+								</div>
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
-											<col style="width: 22%;">
 											<col style="width: 15%;">
-											<col style="width: 29%;">
-											<col style="width: 34%;">
+											<col style="width: 10%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">분류</label><span
-													class="req">필수</span></td>
-												<td class="lb"><label for="">수량</label><span
-													class="req">필수</span></td>
+												<td class="lb"><label for="">분류</label></td>
+												<td class="lb"><label for="">수량</label></td>
 												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
+												<td class="lb"></td>
 											</tr>
 										</thead>
-										<tbody id='clonehere'>
-											<tr>
+										<tbody id='assetTbody'>
+											<%-- <tr>
 												<td><label class="f_select w_full" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
 														title="대분류" onchange="getMCatList(this);">
@@ -825,7 +886,7 @@ window.onload = function(){
 														onclick="addTr(5);">+ 5</a>
 												</div>
 											</td>
-										</tr>
+										</tr> --%>
 										</tbody>
 									</table>
 								</div>
@@ -882,9 +943,8 @@ window.onload = function(){
 									</table>
 								</div>
 								</form>
-								<br>
 								<!-- 등록버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
 										<!-- 등록 -->

@@ -106,6 +106,9 @@ public class RequestController {
 		
 		vo.setCodeId("COM008");
 		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		//결재요청분류코드를 코드정보로부터 조회 - COM011
+		vo.setCodeId("COM011");
+		model.addAttribute("group_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
@@ -122,20 +125,22 @@ public class RequestController {
 	public String CarryRegist(HttpServletRequest request, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		request.getSession().setAttribute("baseMenuNo", "100");
-
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		System.out.println("orgnztId_result ====================== "+cmmUseService.selectOgrnztIdDetail(vo));
 		
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		System.out.println("LCat_result ====================== "+ categoryService.SelectCategoryVOList(cvo));
 		
 		UserManageVO userManageVO = new UserManageVO();
 		userManageVO = userManageService.selectUser(user.getUniqId());
 		vo.setCode(userManageVO.getGrade());
 		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
+		System.out.println("userManageVO ====================== "+ userManageVO);
 		
 		return "/req/CarryRegist";
 	}

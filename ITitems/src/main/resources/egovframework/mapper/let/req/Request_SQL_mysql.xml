@@ -20,8 +20,10 @@
 		<result property="redId" column="RED_ID" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="reqQty" column="REQ_QTY" />
+		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
 		<result property="user" column="USER" />
+		<result property="rcptId" column="RCPT_ID" />
 		<result property="assetId" column="ASSET_ID" />
 	</resultMap>
 	
@@ -38,9 +40,14 @@
 		<if test="searchStatus != null and searchStatus != ''">
 			AND A.REQ_STATUS = #{searchStatus}
 		</if>
+		<if test='searchGroup !=""'>
+            AND A.REQ_GROUP = #{searchGroup}
+          </if>
 		<if test="startDate != null and startDate != ''">
-			AND A.REQ_DATE >= STR_TO_DATE(#{startDate},
-			'%Y-%m-%d')
+			AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test="searchWord != null and searchWord != ''">
+			AND (A.PLACE LIKE '%' #{searchWord} '%' OR A.ID LIKE '%' #{searchWord} '%')
 		</if>
 		<if test="endDate != null and endDate != ''">
 			<![CDATA[
@@ -104,14 +111,14 @@
 
 	<select id="SelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
 		SELECT
-			RUM,
-			REQ_ID,
-			REQ_GROUP,
-			ID,
-			PRJ_ID,
-			REQ_DATE,
-			PLACE,
-			REQ_STATUS
+				RUM,
+				REQ_ID,
+				REQ_GROUP,
+				ID,
+				PRJ_ID,
+				REQ_DATE,
+				PLACE,
+				REQ_STATUS
 		  FROM (
 				SELECT
 					ROW_NUMBER() OVER(ORDER BY A.REQ_STATUS ASC, A.REQ_DATE DESC) AS RUM,
@@ -136,10 +143,35 @@
 	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
 				 WHERE A.REQ_GROUP = #{reqGroup} 
-				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
-				   AND A.ID = #{id}
-				 </if>
-				 <include refid="search" />
+				<if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   	AND A.ID = #{id}
+				</if>
+				<if test="searchPrj != null and searchPrj != ''">
+					AND A.PRJ_ID = #{searchPrj}
+				</if>
+				<if test="searchLCat != null and searchLCat != ''">
+					AND B.LARGE_CATEGORY = #{searchLCat}
+				</if>
+				<if test="searchdMCat != null and searchdMCat != ''">
+					AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				</if>
+				<if test="searchStatus != null and searchStatus != ''">
+					AND A.REQ_STATUS = #{searchStatus}
+				</if>
+				<if test='searchGroup !=""'>
+		            AND A.REQ_GROUP = #{searchGroup}
+		          </if>
+				<if test="startDate != null and startDate != ''">
+					AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND (A.PLACE LIKE '%' #{searchWord} '%' OR F.USER_NM LIKE '%' #{searchWord} '%')
+				</if>
+				<if test="endDate != null and endDate != ''">
+					<![CDATA[
+					AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+					]]>
+				</if>
 				 GROUP BY 
 				 	A.REQ_ID, 
 				 	E.CODE_NM, 
@@ -200,7 +232,30 @@
 	
 	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
 		resultMap="RequestDetailList">
-			SELECT 
+		SELECT A.RED_ID, 
+			   CASE WHEN I.LARGE_CATEGORY = 'ETC'
+			   THEN I.MIDDLE_CATEGORY 
+			   ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
+			   A.REQ_QTY,
+			   I.ASSET_SN AS ASSET_SN,
+			   I.MAKER AS MAKER, 
+			   C.USER_NM AS USER, 
+			   D.USER_NM AS RCPT_ID,
+			   A.ASSET_ID
+		  FROM REQUESTDETAIL A
+		  LEFT OUTER JOIN ASSETSINFO I
+			ON A.ASSET_ID = I.ASSET_ID
+		  LEFT OUTER JOIN ASSETSHIST H
+			ON A.ASSET_ID = H.ASSET_ID
+		  LEFT OUTER JOIN category B
+			ON I.MIDDLE_CATEGORY = B.CAT_ID
+		  LEFT OUTER JOIN lettnemplyrinfo C
+		        ON H.USE_ID = C.ESNTL_ID
+		  LEFT OUTER JOIN lettnemplyrinfo D
+		        ON H.RCPT_ID = D.ESNTL_ID
+		 WHERE REQ_ID = #{reqId}
+	  ORDER BY A.REQ_ORDER
+<!-- 			SELECT 
 				A.RED_ID, 
 				CASE WHEN A.LARGE_CATEGORY = 'ETC' 
 					 THEN A.MIDDLE_CATEGORY 
@@ -213,7 +268,7 @@
    LEFT OUTER JOIN category B
 			    ON A.MIDDLE_CATEGORY = B.CAT_ID
 			 WHERE REQ_ID = #{reqId}
-			 ORDER BY A.REQ_ORDER
+			 ORDER BY A.REQ_ORDER -->
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">

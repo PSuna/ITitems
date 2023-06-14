@@ -31,7 +31,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>내부업무 사이트 > 내부시스템관리 > 사용자그룹관리</title>
+
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--

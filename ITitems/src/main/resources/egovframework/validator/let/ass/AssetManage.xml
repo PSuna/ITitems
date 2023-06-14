@@ -17,7 +17,7 @@
         		<arg0 key="수량" resource="false"/>
 			</field>
 			<field property="rcptNm" depends="required">
-        		<arg0 key="소유자" resource="false"/>
+        		<arg0 key="수령자" resource="false"/>
 			</field>
 		</form>
     </formset>

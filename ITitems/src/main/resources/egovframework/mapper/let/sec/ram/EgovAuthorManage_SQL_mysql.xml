@@ -74,5 +74,6 @@
             SELECT
                    AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, AUTHOR_CREAT_DE
               FROM LETTNAUTHORINFO
+             WHERE AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
     </select>
 </mapper>

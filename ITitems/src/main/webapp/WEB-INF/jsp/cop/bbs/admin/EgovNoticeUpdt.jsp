@@ -116,7 +116,7 @@
     
 </script>
 
-<title>내부업무 사이트 > 내부서비스관리 > 내부업무게시판관리 > <c:out value='${bdMstr.bbsNm}'/>관리</title>
+
 
 </head>
 

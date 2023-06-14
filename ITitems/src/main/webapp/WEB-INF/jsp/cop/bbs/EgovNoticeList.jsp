@@ -73,6 +73,14 @@
         document.frm.submit();  
     }
     
+    function setPageUnit(obj) {
+    	console.log("확인");
+    	document.frm.pageIndex.value = '1';
+    	document.frm.pageUnit.value = obj.value;
+        document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.frm.submit();
+    }
+    
     function fn_egov_inqire_notice(nttId, bbsId) {
         document.subForm.nttId.value = nttId;
         document.subForm.bbsId.value = bbsId;
@@ -83,7 +91,11 @@
 </script>
 </c:otherwise>
 </c:choose>
-<title>ITEYES-RES</title>
+
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 </head>
 
 <body>
@@ -169,12 +181,13 @@
 																	
 														</div>
 															
-														<%-- <div style="display: flex; align-items: center;">
+														<%--  <div style="display: flex; align-items: center;">
 															<span style="margin-right: 16px;">페이지당 항목 수</span> 
 															<label class="item f_select" for="pageUnit"> 
 																	
-																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
+																<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(this); return false;">										
 																		<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																		<option value="2" <c:if test="${userSearchVO.pageUnit == '2'}">selected="selected"</c:if>>2</option>
 																		<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
 																		<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
 																		<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
@@ -182,9 +195,7 @@
 																		<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 																</select>
 															</label>
-															
-															
-														</div> --%>
+														</div>  --%>
 														
 													</div>
 													
@@ -264,6 +275,7 @@
 									                        <input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
 									                        <input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
 									                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+									                        <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 									                        <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
 			                    							<input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 									                        <c:out value="${result.nttSj}"/>

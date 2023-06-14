@@ -47,7 +47,8 @@
 <!--
 var loginAuthor= "";
 function fnListPage(){
-    history.back();
+	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+	document.frm.submit();
 }
 /* ********************************************************
  * 승인확인 팝업창
@@ -129,8 +130,11 @@ function fnDisUpdate(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
 					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<colgroup>
+							<col style="width: 39px;">
+						</colgroup>
 						<tbody>
-							<tr style="border-bottom:1px solid black;">
+							<tr style="border-bottom:1px solid black; ">
 								<td>/</td>
 							</tr>
 							<tr class="aprv_col" style="border-bottom:1px solid black;">
@@ -149,7 +153,11 @@ function fnDisUpdate(){
  }
 //-->
 </script>
-<title>ITitems</title>
+
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 </head>
 <style type="text/css">
 .ui-datepicker-trigger {
@@ -196,6 +204,11 @@ function fnDisUpdate(){
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm">
+								<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
+								<input name="pageUnit" type="hidden" value="<c:out value='${approvalSearchVO.pageUnit}'/>"/>
+								<input name="searchGroup" type="hidden" value="<c:out value='${approvalSearchVO.searchGroup}'/>"/>
+								<input name="searchStatus" type="hidden" value="<c:out value='${approvalSearchVO.searchStatus}'/>"/>
+								<input name="searchKeyword" type="hidden" value="<c:out value='${approvalSearchVO.searchKeyword}'/>"/>
 									<div class="aprv_top">
 										<h2 class="tit_2">결재요청정보</h2>
 										<div class="aprv_view">
@@ -312,36 +325,38 @@ function fnDisUpdate(){
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 34%;">
-											<col style="width: 24%;">
-											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="result" items="${approvalDetailList}" varStatus="status" >
+											<c:forEach var="result" items="${approvalDetailList}"
+												varStatus="status" >
 												<tr>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.maker}"></c:out></td>
+													<td><c:out value="${result.assetSn } | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
 								 <!-- 지급확인버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
-										<c:if test="${approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null}">
+										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">
 												<spring:message code="button.agree" />
 											</a>
@@ -351,7 +366,7 @@ function fnDisUpdate(){
 											
 										</c:if>
 										<!-- 지급확인 -->
-										<a href="<c:url value='/aprv/ApprovalManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
+										<a class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">
 											<spring:message code="button.list" />
 										</a>
 										<!-- 목록 -->

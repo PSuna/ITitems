@@ -34,7 +34,10 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITitems</title>
+ 
+ <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<title>ITeyes 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
@@ -282,6 +285,7 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 								<h2 class="tit_2">내자산조회</h2>
+
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
 									<div class="condition2">
@@ -292,6 +296,7 @@ window.onload = function(){
 											<div>
 												<!-- <span class="lb">프로젝트</span> --> 
 												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="<c:out value="${searchVO.prjNm}"/>" />
+
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" />
 											</div>
@@ -316,17 +321,6 @@ window.onload = function(){
 										</div>	
 											
 										<div class="j_box01">	
-											<%-- <div>							
-												<span class="lb">상태</span> 
-												<label class="item f_select w_full" for="sel1"> 
-													<select id="searchStatus" name="searchStatus" >
-															<option value='' label="선택하세요" />
-															<c:forEach var="stat" items="${status_result}" varStatus="status">
-																<option value="${stat.code}" <c:if test="${searchVO.searchStatus == stat.code}">selected="selected"</c:if>><c:out value="${stat.codeNm}" /></option>
-															</c:forEach>
-													</select>
-												</label> 
-											</div> --%>
 											<div class="date_box">
 												<!-- <span class="lb">등록일자</span>  -->
 												<div>
@@ -343,7 +337,7 @@ window.onload = function(){
 												<!-- <span class="lb">품명/시리얼넘버</span> -->
 												<span class="item f_search w_full">
 														<!-- <span>검색</span>  -->
-													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="품명/시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="제품명 / 시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
 												</span>
 											</div>
 											<div class="btn_box">
@@ -356,16 +350,11 @@ window.onload = function(){
 								<div class="board_list_top">
 									<div class="left_col">
 											<div class="list_count">
-
-
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
 													<div>
 														<span style="margin:0;">Total : </span> 
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
 													</div>
-														
 													<div style="display: flex; align-items: center;">
 														<span style="margin-right: 16px;">페이지당 항목 수</span> 
 														<label class="item f_select" for="pageUnit"> 
@@ -380,10 +369,7 @@ window.onload = function(){
 															</select>
 														</label>
 													</div>
-													
 												</div>
-												
-												
 											</div>
 										</div>
                                 </div>
@@ -392,24 +378,24 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 3%;">
-											<col style="width: 8%;">
+											<col style="width: 5%;">
 											<col style="width: 8%;">
 											<col style="width: 16%;">
 											<col style="width: 16%;">
-											<col style="width: 37%;">
-											<col style="width: 6%;">
-											<col style="width: 6%;">
+											<col style="width: 30%;">
+											<col style="width: 8%;">
+											<col style="width: 7%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">분류</th>
-												<th scope="col">수량</th>
-												<th scope="col">품명</th>
+												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">소유자</th>
+												<th scope="col">수량</th>
+												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 											</tr>
 										</thead>
@@ -421,10 +407,10 @@ window.onload = function(){
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjId}" /></td>
+													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>

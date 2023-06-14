@@ -32,7 +32,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>회원 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 <!--
 	function fn_egov_cancel_popup() {

@@ -33,6 +33,7 @@
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
@@ -107,7 +108,7 @@
     
 </script>
 
-<title>사내업무 > 알림정보 > <c:out value='${bdMstr.bbsNm}'/></title>
+
 
 </head>
 
@@ -147,7 +148,10 @@
 
 								<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" >
                 				
-				                <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+				                <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+			                    <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+			                    <input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
+			                    <input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 				                <input type="hidden" name="bbsId" value="<c:out value='${bdMstr.bbsId}'/>" />
 				                <input type="hidden" name="bbsAttrbCode" value="<c:out value='${bdMstr.bbsAttrbCode}'/>" />
 				                <input type="hidden" name="bbsTyCode" value="<c:out value='${bdMstr.bbsTyCode}'/>" />
@@ -255,11 +259,8 @@
                                 </div>
 
 								<!-- 목록/저장버튼  -->
-                                <div class="board_view_bot">
-                                    <div class="left_col btn3">
-                                    </div>
-
-                                    <div class="right_col btn1">
+                                <div class="board_view_bot btn_bot">
+                                    <div class="btn1">
                                     	<c:if test="${bdMstr.authFlag == 'Y'}">
                                         	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message code="button.save" /></a><!-- 저장 -->
                                         </c:if>

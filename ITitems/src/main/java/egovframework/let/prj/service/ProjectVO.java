@@ -35,6 +35,9 @@ public class ProjectVO  implements Serializable {
     /** 프로젝트 종료일 */
 	private String prjEnd;
 	
+	/** 프로젝트 코드 */
+	private String prjCode;
+	
     /** 대표자 */
 	private String id;
 	
@@ -120,6 +123,14 @@ public class ProjectVO  implements Serializable {
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public String getPrjCode() {
+		return prjCode;
+	}
+
+	public void setPrjCode(String prjCode) {
+		this.prjCode = prjCode;
 	}
   
 }

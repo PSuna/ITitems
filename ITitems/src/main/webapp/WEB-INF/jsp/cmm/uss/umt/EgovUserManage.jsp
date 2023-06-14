@@ -31,7 +31,7 @@
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>ITEYES 자산관리솔루션</title>
+
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 window.onload = function(){
@@ -187,7 +187,13 @@ function getMOrgList(MOval) {
 }
 
 </style>
+
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+
 </head>
+
+
+
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
@@ -230,48 +236,68 @@ function getMOrgList(MOval) {
 	                                <h2 class="tit_2">사용자목록</h2>
 	                                
 	                                <!-- 검색조건 -->
-	                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
-	                                    <div>
-											<label class="item f_select w_150" for="sel1"> 
-												<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
-														<option value="" label="본부"/>
-														<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-															<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-														</c:forEach>
+	                                <div class="condition">
+	                                
+	                                	<div class="pty_condition">
+	                                	
+		                                    <div>
+												<label class="item f_select w_180" for="sel1"> 
+													<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
+															<option value="" label="본부"/>
+															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+																<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
+															</c:forEach>
+													</select>
+												</label> 
+											</div>
+											<div>
+												<label class="item f_select w_180" for="sel1">
+												<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
+													<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 												</select>
-											</label> 
-										</div>
-										<div>
-											<label class="item f_select w_150" for="sel1">
-											<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
-												<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
-											</select>
-											</label> 
-										</div>
-	                                    <label class="item f_select w_150"  for="searchGrade">
-	                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
-		                                        <option value="" label="직급"/>
-		                                        <c:forEach var="grade" items="${grd_result}">
-		                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
-		                                        </c:forEach>
-	                                    	</select>
-	                                    </label>
-	                                    
-	                                    <label class="item f_select w_150" for="searchAuthor">
-	                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
-	                                        	<option value="" label="권한"/>
-		                                        <c:forEach var="author" items="${auth_result}">
-		                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
-		                                        </c:forEach>
-	                                        </select>
-	                                    </label> 
-										<div class="pty_search">
-											<span class="item f_search">
-												<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
-											</span>
+												</label> 
+											</div>
+											
+											<div>
+			                                    <label class="item f_select w_150"  for="searchGrade">
+			                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
+				                                        <option value="" label="직급"/>
+				                                        <c:forEach var="grade" items="${grd_result}">
+				                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
+				                                        </c:forEach>
+			                                    	</select>
+			                                    </label>
+			                                  </div>  
+			                                    
+			                                <div>    
+			                                  <label class="item f_select w_150" for="searchAuthor">
+		                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
+		                                        	<option value="" label="권한"/>
+			                                        <c:forEach var="author" items="${auth_result}">
+			                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
+			                                        </c:forEach>
+		                                        </select>
+		                                    </label> 
+			                                    
+			                                    
+			                                 </div>   
+		                                    
+		                             
+											<div class="pty_search">
+												<span class="item f_search">
+													<input class="f_input pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="사번/사용자명/아이디" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+												</span>
+												
+											</div>
+											
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
-										</div>
+											
+		                                </div>
 	                                </div>
+	                                
+	                                
+	                                
+	                                
 	                                <!--// 검색조건 -->
 									
 									<div class="board_list_top">
@@ -316,13 +342,13 @@ function getMOrgList(MOval) {
 	                                    <table summary="사용자 목록을 제공한다.">
 	                                    	<caption>사용자목록</caption>
 	                                        <colgroup>
+	                                            <col style="width: 3%;">
 	                                            <col style="width: 5%;">
-	                                            <col style="width: 5%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 10%;">
-	                                            <col style="width: 20%;">
-	                                            <col style="width: 25%;">
 	                                            <col style="width: 15%;">
+	                                            <col style="width: 18%;">
+	                                            <col style="width: 24%;">
+	                                            <col style="width: 11%;">
+	                                            <col style="width: 14%;">
 	                                            <col style="width: 10%;">
 	                                        </colgroup>
 	                                        <thead>
@@ -334,9 +360,9 @@ function getMOrgList(MOval) {
 	                                                </th>
 	                                                <th scope="col">번호</th>
 	                                                <th scope="col">사용자명</th>
-	                                                <th scope="col">직급</th>
 	                                                <th scope="col">부서</th>
 	                                                <th scope="col">사용자아이디</th>
+	                                                <th scope="col">사번</th>
 	                                                <th scope="col">전화번호</th>
 	                                                <th scope="col">권한</th>
 	                                            </tr>
@@ -357,10 +383,10 @@ function getMOrgList(MOval) {
 	                                                    </span>
 	                                                </td>
 	                                                <td><c:out value="${paginationInfo.totalRecordCount - ((userSearchVO.pageIndex-1) * userSearchVO.pageUnit) - status.index}"/></td>
-	                                                <td><c:out value="${result.userNm}"/></td>
-	                                                <td><c:out value="${result.grade}"/></td>
+	                                                <td><c:out value="${result.userNm} ${result.grade}"/></td>
 	                                                <td><c:out value="${result.orgnztId}"/></td>
 	                                                <td><c:out value="${result.userId}"/></td>
+	                                                <td><c:out value="${result.empUniqNum}"/></td>
 	                                                <td class="pty_font-size_12"><c:out value="${result.moblphonNo}"/></td>
 	                                                <c:if test="${result.authorCode == '사용자'}">
 	                                               		<td><c:out value="${result.authorCode}"/></td>

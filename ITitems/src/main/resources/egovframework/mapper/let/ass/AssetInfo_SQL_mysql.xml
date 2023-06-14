@@ -38,11 +38,13 @@
 		<result property="assetId" column="ASSET_ID" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="mcatNm" column="MCAT_NM" />
 		<result property="assetName" column="ASSET_NAME" />
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="acquiredDate" column="ACQUIRED_DATE" />
 		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
 		<result property="maker" column="MAKER" />
+		<result property="makerCode" column="MAKER_CODE" />
 		<result property="note" column="NOTE" />
 		<result property="regDate" column="REG_DATE" />
 		<result property="regId" column="REG_ID" />
@@ -55,7 +57,7 @@
 		<result property="rcptDate" column="RCPT_DATE" />
 		<result property="rcptId" column="RCPT_ID" />
 		<result property="rcptNm" column="RCPT_NM" />
-		<result property="carryReason" column="CARRY_REASON" />
+		<result property="mngNum" column="MNG_NUM" />
 	</resultMap>
 	
 	<sql id="search">
@@ -94,7 +96,9 @@
 				]]>
 			</if>
 			<if test="searchWord != null and searchWord != ''">
-				AND A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				AND (A.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%')
+				OR I.USER_NM LIKE CONCAT ('%', #{searchWord},'%')
+				OR J.USER_NM LIKE CONCAT ('%', #{searchWord},'%'))
 			</if>
 		</where>
 	</sql>
@@ -143,14 +147,20 @@
 	    	   PRJ_ID,
 	    	   REG_DATE,
 	    	   USAGE_STAUTS,
+	    	   MAKER,
 	    	   USE_NM,
-	    	   RCPT_NM
+	    	   RCPT_NM,
+	    	   ASSET_SN
 	      FROM (
 		        SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
-					D.CAT_NAME AS MIDDLE_CATEGORY,
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
 					A.ASSET_QTY,
 					CASE
 						WHEN F.ORGNZT_UP IS NULL
@@ -165,8 +175,10 @@
 	    	   		H.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS,
+					A.MAKER AS MAKER,
 					I.USER_NM AS USE_NM,
-					J.USER_NM AS RCPT_NM
+					J.USER_NM AS RCPT_NM,
+					A.ASSET_SN AS ASSET_SN
 				  FROM ASSETSINFO A 
 	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
@@ -200,7 +212,80 @@
 				    ON A.ASSET_ID = B.ASSET_ID
 	   LEFT OUTER JOIN LETTNORGNZTINFO F
 			   		ON B.ORGNZT_ID = F.ORGNZT_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.USE_ID = I.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO J
+	                ON B.RCPT_ID = J.ESNTL_ID  
 				 <include refid="search" />
+	</select>
+	
+	<select id="MobSelectAssetInfoVOList"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="assetInfoList">
+		
+	    SELECT 
+	    	   ASSET_ID,
+	    	   LARGE_CATEGORY, 
+	    	   MIDDLE_CATEGORY,
+	    	   ASSET_QTY, 
+	    	   ORGNZT_ID,
+	    	   LOWER_ORGNZT_ID,
+	    	   PRJ_ID,
+	    	   REG_DATE,
+	    	   USAGE_STAUTS,
+	    	   MAKER,
+	    	   USE_NM,
+	    	   RCPT_NM,
+	    	   ASSET_SN
+	      FROM (
+		        SELECT 
+					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
+					A.ASSET_QTY,
+					CASE
+						WHEN F.ORGNZT_UP IS NULL
+						THEN F.ORGNZT_NM
+						ELSE G.ORGNZT_NM
+					 END AS ORGNZT_ID,
+					CASE 
+						WHEN F.ORGNZT_UP IS NULL
+						THEN NULL
+						ELSE F.ORGNZT_NM
+					 END AS LOWER_ORGNZT_ID,
+	    	   		H.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					A.MAKER AS MAKER,
+					I.USER_NM AS USE_NM,
+					J.USER_NM AS RCPT_NM,
+					A.ASSET_SN AS ASSET_SN
+				  FROM ASSETSINFO A 
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+	   LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTNORGNZTINFO F
+	   				ON B.ORGNZT_ID = F.ORGNZT_ID
+	   LEFT OUTER JOIN LETTNORGNZTINFO G
+	   				ON F.ORGNZT_UP = G.ORGNZT_ID
+	   LEFT OUTER JOIN PROJECTS H
+	   				ON B.PRJ_ID = H.PRJ_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.USE_ID = I.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO J
+	                ON B.RCPT_ID = J.ESNTL_ID  
+	             <include refid="search" />
+		    ) P 
 	</select>
 	
 	<select id="SelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
@@ -223,7 +308,11 @@
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
-					D.CAT_NAME AS MIDDLE_CATEGORY,
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
 					A.ASSET_NAME,
 					A.ASSET_QTY,
 					A.ASSET_SN,
@@ -321,12 +410,23 @@
 			SELECT 
 				A.ASSET_ID,
 				C.CAT_NAME AS LARGE_CATEGORY, 
-				D.CAT_NAME AS MIDDLE_CATEGORY,
+				A.MIDDLE_CATEGORY,
+				CASE 
+					WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+					THEN A.MCAT_ETC
+					ELSE D.CAT_NAME
+				END AS MCAT_NM,
+				A.MCAT_ETC,
 				A.ASSET_NAME,
 				A.ASSET_QTY,
 				DATE_FORMAT(A.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE,
 				A.ACQUIRED_PRICE,
-				A.MAKER,
+				A.MAKER_CODE,
+				CASE 
+					WHEN J.CODE_NM = '기타'
+					THEN A.MAKER
+					ELSE J.CODE_NM  
+				END AS MAKER,
 				A.NOTE,
 				DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE,
 				A.ASSET_SN,
@@ -339,7 +439,7 @@
 				B.RCPT_ID,
 				I.USER_NM AS REG_ID,
 				F.USER_NM AS RCPT_NM,
-				B.CARRY_REASON
+				A.MNG_NUM
 			  FROM ASSETSINFO A
    LEFT OUTER JOIN ASSETSHIST B
 			    ON A.ASSET_ID = B.ASSET_ID
@@ -357,6 +457,8 @@
 		        ON B.PRJ_ID = H.PRJ_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO I
 		        ON A.REG_ID = I.ESNTL_ID 
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE J
+		        ON A.MAKER_CODE = J.CODE 
 			 WHERE A.ASSET_ID = #{assetId}
 	</select>
 
@@ -366,10 +468,12 @@
 		INSERT INTO ASSETSINFO (
 		    ASSET_ID, 
 		    LARGE_CATEGORY, 
-		    MIDDLE_CATEGORY, 
+		    MIDDLE_CATEGORY,
+		    MCAT_ETC, 
 		    ASSET_QTY,
 		    ASSET_NAME,
 		    ASSET_SN,
+		    MAKER_CODE,
 		    MAKER, 
 		    NOTE,
 		    ACQUIRED_DATE, 
@@ -382,16 +486,18 @@
 		    #{assetId},
 		    #{largeCategory},
 		    #{middleCategory}, 
+		    #{mcatEtc},
 		    #{assetQty},
 		    #{assetName},
 		    #{assetSn},
+		    #{makerCode},
 		    #{maker},
 		    #{note},
 		    NULL,
 		    '',
 		    #{regId},
 		    DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
-		    #{usageStatus} 
+		    #{usageStatus}
 		     )
 	</insert>
 
@@ -401,15 +507,18 @@
 		   SET 
 		    LARGE_CATEGORY = #{largeCategory}, 
 		    MIDDLE_CATEGORY = #{middleCategory}, 
+		    MCAT_ETC = #{mcatEtc}, 
 		    ASSET_QTY = #{assetQty}, 
 		    ASSET_NAME = #{assetName},
 		    ASSET_SN = #{assetSn},
+		    MAKER_CODE = #{makerCode},
 		    MAKER = #{maker},  
 		    NOTE = #{note},
 		    <if test="acquiredDate != null and acquiredDate != ''">
 		    ACQUIRED_DATE = STR_TO_DATE(#{acquiredDate}, '%Y-%m-%d'), 
 		    </if>
-		    ACQUIRED_PRICE = #{acquiredPrice}
+		    ACQUIRED_PRICE = #{acquiredPrice},
+		    MNG_NUM = #{mngNum}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
 	 

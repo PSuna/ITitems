@@ -15,6 +15,7 @@ import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
 import egovframework.let.com.service.ExcelUtil;
+import egovframework.let.req.service.RequestDetailVO;
 
 /**
  * 결재게시판에 관한 비지니스 클래스를 정의한다.
@@ -68,8 +69,8 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public List<ApprovalDetailVO> SelectApprovalDetailList(String reqId) {
-		return  approvalManageDAO.SelectApprovalDetailList(reqId);
+	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
+		return  approvalManageDAO.SelectApprovalDetailList(approvalSearchVO);
 	}
 
 	@Override

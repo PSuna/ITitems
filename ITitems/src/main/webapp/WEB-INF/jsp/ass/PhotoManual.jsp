@@ -29,7 +29,7 @@
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<title>프로젝트 찾기</title>
+
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
@@ -54,7 +54,7 @@
 				
 				<div class="pop_container pop_Manual">
 					<p>지급받은 제품의 전체 모습이 담긴 사진과</p>
-					<p>시리얼넘버(일련번호),제품명을 찍어 등록해주세요.</p>
+					<p>시리얼넘버(일련번호),제품명(모델명)을 찍어 등록해주세요.</p>
 					<p>(예시)</p>
 					<div class="PhotoManual">
 					<img alt="" src="<c:url value='/'/>images/PhotoManual1.jpg">

@@ -11,6 +11,7 @@
 		       userNm, 
 		       moblphonNo, 
 		       orgnztId, 
+		       empUniqNum,
 		       sttus, 
 		       sbscrbDe, 
 		       grade, 
@@ -21,6 +22,7 @@
 				       A.USER_NM userNm,
 				       A.MBTLNUM moblphonNo,
 				       B.ORGNZT_NM orgnztId,
+				       A.EMP_UNIQ_NUM empUniqNum,
 				       A.EMPLYR_STTUS_CODE sttus,
 				       DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
 				       C.CODE_NM grade,
@@ -42,7 +44,8 @@
         		</if>
         		<if test='searchKeyword != null and searchKeyword !=""'>
         		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
-        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		       OR A.EMP_UNIQ_NUM LIKE '%' #{searchKeyword} '%')
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
            		   AND (B.ORGNZT_ID = #{searchOrgnzt}
@@ -96,7 +99,8 @@
         		</if>
         		<if test='searchKeyword != null and searchKeyword !=""'>
         		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
-        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		       OR A.EMP_UNIQ_NUM LIKE '%' #{searchKeyword} '%')
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
            		   AND (B.ORGNZT_ID = #{searchOrgnzt}
@@ -142,7 +146,8 @@
         		</if>
         		<if test='searchKeyword != null and searchKeyword !=""'>
         		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
-        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		       OR A.EMP_UNIQ_NUM LIKE '%' #{searchKeyword} '%')
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
            		   AND (B.ORGNZT_ID = #{searchOrgnzt}
@@ -186,7 +191,8 @@
         		</if>
         		<if test='searchKeyword != null and searchKeyword !=""'>
         		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
-        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		       OR A.EMP_UNIQ_NUM LIKE '%' #{searchKeyword} '%')
         		</if>
         		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
            		   AND (B.ORGNZT_ID = #{searchOrgnzt}
@@ -208,8 +214,8 @@
 						            USER_NM,
 	            					PASSWORD,
 						            MBTLNUM,
-						            GROUP_ID,
 						            ORGNZT_ID,
+						            EMP_UNIQ_NUM,
 						            EMPLYR_STTUS_CODE,
 						            SBSCRB_DE,
 						            GRADE)
@@ -218,8 +224,8 @@
 	            #{emplyrNm},
 	            #{password},
 	            #{moblphonNo},
-	            #{groupId},
 	            #{orgnztId},
+	            #{empUniqNum},
 	            'P',
 	            sysdate(),
 	            #{grade})
@@ -237,6 +243,7 @@
                'USR03' userTy,
                A.EMPLYR_ID emplyrId,
                A.USER_NM emplyrNm,
+               A.EMP_UNIQ_NUM empUniqNum,
 	           A.PASSWORD password,
 	           A.PASSWORD_HINT passwordHint,
 	           A.PASSWORD_CNSR passwordCnsr,
@@ -273,6 +280,7 @@
                SET EMPLYR_ID = #{emplyrId}, 
                    USER_NM = #{emplyrNm},
                    MBTLNUM = #{moblphonNo},
+                   EMP_UNIQ_NUM = #{empUniqNum},
                    GROUP_ID = 'GROUP_00000000000000',
                    ORGNZT_ID = #{orgnztId},
                    EMPLYR_STTUS_CODE = 'P',
