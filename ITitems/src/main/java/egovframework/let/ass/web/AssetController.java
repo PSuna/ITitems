@@ -24,10 +24,9 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.FileVO;
-import egovframework.let.ass.service.AssetHistVO;
-import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
@@ -105,7 +104,7 @@ public class AssetController {
 			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
 		}
 		
-		Map<String, Object> map = assetService.SelectMyAssetInfoList(assetManageVO);
+		Map<String, Object> map = assetService.SelectMyAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 		
@@ -159,7 +158,7 @@ public class AssetController {
 		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
 			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
 		}
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 		
@@ -184,86 +183,7 @@ public class AssetController {
 		return "/ass/AssetManagement";
 	}
 	
-	/**
-	 * 자산조회 팝업창로 이동
-	 */
-	@RequestMapping(value = "/ass/AssetSearchList.do")
-	public String AssetSearchList(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
-
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		
-		return "/ass/AssetSearchList";
-	}
-	/**
-	 * 반입신청 자산조회 팝업창으로 이동
-	 */
-	@RequestMapping(value = "/ass/InAssetSearchList.do")
-	public String InAssetSearchList(HttpServletRequest request, ModelMap model,
-									AssetManageVO assetManageVO) throws Exception {
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		assetManageVO.setCarryInOutSet("in");
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		
-		return "/ass/AssetSearchList";
-	}
 	/**
 	 * 자산내역 검색
 	 */
@@ -272,7 +192,7 @@ public class AssetController {
 	@ResponseBody
 	public Object SearchAsserList(AssetManageVO assetManageVO) throws Exception {
 
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 		
 		return map.get("resultList");
 	}
@@ -283,7 +203,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/SelectAsset.do")
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
 		
-		AssetInfoVO result = assetService.SelectAssetInfoVO(assetManageVO);
+		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		
 		FileVO fvo = new FileVO();
@@ -303,7 +223,7 @@ public class AssetController {
 	 * 자산등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetRegist.do")
-	public String AssetRegist(HttpServletRequest request, ModelMap model, @ModelAttribute("AssetInfoVO") AssetInfoVO assetInfoVO, AssetManageVO assetManageVO) throws Exception {
+	public String AssetRegist(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		model.addAttribute("loginId", user.getUniqId());
 		
@@ -328,38 +248,31 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetInsert.do")
 	@ResponseBody
-	public String AssetInsert(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, BindingResult bindingResult) throws Exception {
+	public String AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO, BindingResult bindingResult) throws Exception {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		assetInfoVO.setRegId(user.getUniqId());
-		assetInfoVO.setUsageStatus("U1");
+		assetVO.setRegId(user.getUniqId());
+		assetVO.setHistUser(user.getUniqId());
 
-		assetService.InsertAssetInfo(assetInfoVO);
-		
-		assetHistVO.setAssetId(assetInfoVO.getAssetId());
-		assetHistVO.setHistStatus("P0");
-		assetHistVO.setHistGroup("H0");
-		assetHistVO.setApproval("A1");
-		assetService.InsertAssetHist(assetHistVO);
-		
+		assetService.InsertAssetInfo(assetVO);
 		
 		if (isAuthenticated) {
 			List<MultipartFile> photoList = multiRequest.getFiles("photo");
 			for(MultipartFile photo : photoList) {
 				if (!photo.isEmpty()) {
-					FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+					FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
 					fileMngService.insertAssFileInf(result);
 				}
 			}
 			MultipartFile file = multiRequest.getFile("file");
 			if (!file.isEmpty()) {
-				FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+				FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
 				fileMngService.insertAssFileInf(result);
 			}
 		}
 		
-		return assetInfoVO.getAssetId();
+		return assetVO.getAssetId();
 	}
 	
 	/**
@@ -376,7 +289,7 @@ public class AssetController {
 		CategoryManageVO cvo = new CategoryManageVO();
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
-		model.addAttribute("resultVO", assetService.SelectAssetInfoVO(assetManageVO));
+		model.addAttribute("resultVO", assetService.SelectAssetVO(assetManageVO));
 	
 		vo.setCodeId("COM015");
 		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
@@ -397,15 +310,15 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
 	@ResponseBody
-	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetInfoVO assetInfoVO, AssetHistVO assetHistVO, String delFile, String delPhoto) throws Exception {
-
-		assetService.UpdateAssetInfo(assetInfoVO);
-		assetService.UpdateAssetHist(assetHistVO);
+	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetVO.setHistUser(user.getUniqId());
+		assetService.UpdateAssetDetail(assetVO);
 		
 		String[] delPhotoList = delPhoto.split("/");
 		
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(assetInfoVO.getAssetId());
+		fvo.setFileGroup(assetVO.getAssetId());
 		for(String photoId : delPhotoList) {
 			fvo.setAtchFileId(photoId);
 			fileMngService.updateFileListUse(fvo);
@@ -413,7 +326,7 @@ public class AssetController {
 		List<MultipartFile> photoList = multiRequest.getFiles("photo");
 		for(MultipartFile photo : photoList) {
 			if (!photo.isEmpty()) {
-				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "PHOTO");
+				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
 				fileMngService.insertAssFileInf(result);
 			}
 		}
@@ -424,12 +337,12 @@ public class AssetController {
 		MultipartFile file = multiRequest.getFile("file");
 		if (!file.isEmpty()) {
 			fileMngService.updateFileUse(fvo);
-			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetInfoVO.getAssetId(), "FILE");
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
 			fileMngService.insertAssFileInf(result);
 		}
 		
 		
-		return assetInfoVO.getAssetId();
+		return assetVO.getAssetId();
 	}
 	
 	
@@ -438,11 +351,12 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetDel.do")
 	@ResponseBody
-	public String AssetDel(AssetInfoVO assetInfoVO) throws Exception {
+	public String AssetDel(AssetVO assetVO) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetVO.setHistUser(user.getUniqId());
+		assetService.deleteAsset(assetVO);
 		
-		assetService.deleteAssetInfo(assetInfoVO);
-		
-		return assetInfoVO.getAssetId();
+		return assetVO.getAssetId();
 	}
 	
 	/**
@@ -477,10 +391,10 @@ public class AssetController {
 	}
 	
 	/**
-	 * 사용자목록 조회 팝업창으로 이동
+	 * 자산조회 팝업창로 이동
 	 */
-	@RequestMapping(value = "/ass/SearchAsset.do")
-	public String searchAsset(HttpServletRequest request, ModelMap model,
+	@RequestMapping(value = "/ass/AssetSearchList.do")
+	public String AssetSearchList(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
 
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -492,23 +406,11 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		
-		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
-		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
-			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
-		}
-		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
-			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
-		}
-		Map<String, Object> map = assetService.SelectAssetInfoVOList(assetManageVO);
+
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
+
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("resultCnt", map.get("resultCnt"));
@@ -527,7 +429,47 @@ public class AssetController {
 		
 		model.addAttribute("searchVO", assetManageVO);
 		
-		return "/ass/searchAsset";
+		return "/ass/AssetSearchList";
+	}
+	
+	/**
+	 * 반입신청 자산조회 팝업창으로 이동
+	 */
+	@RequestMapping(value = "/ass/InAssetSearchList.do")
+	public String InAssetSearchList(HttpServletRequest request, ModelMap model,
+									AssetManageVO assetManageVO) throws Exception {
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		assetManageVO.setCarryInOutSet("in");
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/AssetSearchList";
 	}
 	
 }

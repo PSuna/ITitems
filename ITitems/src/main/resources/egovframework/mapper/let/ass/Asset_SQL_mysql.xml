@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetDAO">
+	
+	<resultMap type="egovframework.let.ass.service.AssetVO"
+		id="assetList">
+		<result property="assetId" column="ASSET_ID" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="orgnztNm" column="ORGNZT_NM" />
+		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="useNm" column="USE_NM" />
+	</resultMap>
+	<resultMap type="egovframework.let.ass.service.AssetVO"
+		id="myAssetList">
+		<result property="assetId" column="ASSET_ID" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="assetSn" column="ASSET_SN" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="useNm" column="USE_NM" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.ass.service.AssetVO"
+		id="assetDetail">
+		<result property="assetId" column="ASSET_ID" />
+		<result property="regDate" column="REG_DATE" />
+		<result property="regId" column="REG_ID" />
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="largeCategory" column="LARGE_CATEGORY" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="mcatNm" column="MCAT_NM" />
+		<result property="mcatEtc" column="MCAT_ETC" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="acquiredDate" column="ACQUIRED_DATE" />
+		<result property="acquiredPrice" column="ACQUIRED_PRICE" />
+		<result property="maker" column="MAKER" />
+		<result property="makerCode" column="MAKER_CODE" />
+		<result property="note" column="NOTE" />
+		<result property="assetSn" column="ASSET_SN" />
+		<result property="mngNum" column="MNG_NUM" />
+		<result property="rcptId" column="RCPT_ID" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="useId" column="USE_ID" />
+		<result property="useNm" column="USE_NM" />
+		<result property="histDate" column="HIST_DATE" />
+	</resultMap>
+	
+	<sql id="search">
+		<where>
+			AND A.USAGE_STAUTS = 'Y'
+			AND B.USAGE_STAUTS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
+			<if test="searchOrgnzt != null and searchOrgnzt != ''">
+              	AND (	D.ORGNZT_ID = #{searchOrgnzt} 
+              		OR  I.ORGNZT_UP = #{searchOrgnzt})
+            </if>
+            <if test="userId != null and userId != ''">
+				AND (	B.RCPT_ID = #{userId} 
+					OR  D.USE_ID = #{userId})
+            </if>
+        	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
+				AND D.ORGNZT_ID = #{lowerOrgnzt}
+			</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND D.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND B.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="searchStatus != null and searchStatus != ''">
+				AND B.HIST_GROUP = #{searchStatus}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="mySearch">
+		<where>
+			AND A.USAGE_STAUTS = 'Y'
+			AND B.USAGE_STAUTS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
+			AND (	B.RCPT_ID = #{userId} 
+				OR  D.USE_ID = #{userId})
+			<if test="searchWord != null and searchWord != ''">
+				AND (	B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%') 
+					OR  B.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%'))
+		 	</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND D.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND B.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND A.REG_DATE >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="SelectMyAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="myAssetList">
+		SELECT 
+    		ASSET_ID, 
+			MIDDLE_CATEGORY, 
+			ASSET_NAME, 
+			ASSET_SN,
+			PRJ_NM,
+			ASSET_QTY,
+			RCPT_NM,
+			USE_NM
+	      FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+				A.ASSET_ID, 
+				CASE 
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					THEN B.MCAT_ETC
+					ELSE E.CAT_NAME
+				END AS MIDDLE_CATEGORY, 
+				B.ASSET_NAME, 
+				B.ASSET_SN,
+				F.PRJ_NAME AS PRJ_NM,
+				COUNT(C.A_ID) AS ASSET_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
+			  FROM ASSETS A
+   LEFT OUTER JOIN ASSETDETAIL B
+				ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN ASSETINDIV C
+				ON A.ASSET_ID = C.ASSET_ID			
+   LEFT OUTER JOIN ASSETHIST D
+				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
+				 <include refid="mySearch" />
+		  GROUP BY  
+				A.ASSET_ID, 
+				E.CAT_NAME,
+				B.MCAT_ETC,
+				B.ASSET_NAME,
+				B.ASSET_SN,
+				F.PRJ_NAME,
+				G.USER_NM,
+				H.USER_NM,
+				A.REG_DATE
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountMyAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+		SELECT 
+    		COUNT(P.ASSET_ID)
+	      FROM (
+			SELECT 
+				A.ASSET_ID, 
+				COUNT(C.A_ID) AS ASSET_QTY
+			  FROM ASSETS A
+   LEFT OUTER JOIN ASSETDETAIL B
+				ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN ASSETINDIV C
+				ON A.ASSET_ID = C.ASSET_ID			
+   LEFT OUTER JOIN ASSETHIST D
+				ON C.A_ID = D.A_ID
+				 <include refid="mySearch" />
+		  GROUP BY  
+				A.ASSET_ID
+		    ) P 
+	</select>
+
+	<select id="SelectAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="assetList">
+		SELECT 
+    		ASSET_ID, 
+			ORGNZT_NM,
+	    	LOWER_ORGNZT_NM, 
+			PRJ_NM,
+			MIDDLE_CATEGORY,
+			ASSET_QTY,
+			RCPT_NM,
+			USE_NM
+	      FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+				A.ASSET_ID,
+				CASE
+					WHEN I.ORGNZT_UP IS NULL
+					THEN I.ORGNZT_NM
+					ELSE J.ORGNZT_NM
+				 END AS ORGNZT_NM,
+				CASE 
+					WHEN I.ORGNZT_UP IS NULL
+					THEN NULL
+					ELSE I.ORGNZT_NM
+				 END AS LOWER_ORGNZT_NM,
+				F.PRJ_NAME AS PRJ_NM,
+				CASE 
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					THEN B.MCAT_ETC
+					ELSE E.CAT_NAME
+				END AS MIDDLE_CATEGORY, 
+				COUNT(C.A_ID) AS ASSET_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
+			  FROM ASSETS A
+   LEFT OUTER JOIN ASSETDETAIL B
+				ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN ASSETINDIV C
+				ON A.ASSET_ID = C.ASSET_ID
+   LEFT OUTER JOIN ASSETHIST D
+				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
+				 <include refid="search" />
+		  GROUP BY  
+				A.ASSET_ID, 
+				E.CAT_NAME,
+				B.MCAT_ETC,
+				F.PRJ_NAME,
+				G.USER_NM,
+				H.USER_NM,
+				A.REG_DATE,
+				I.ORGNZT_UP,
+				I.ORGNZT_NM
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+		SELECT 
+    		COUNT(P.ASSET_ID)
+	      FROM (
+			SELECT 
+				A.ASSET_ID, 
+				COUNT(C.A_ID) AS ASSET_QTY
+			  FROM ASSETS A
+   LEFT OUTER JOIN ASSETDETAIL B
+				ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN ASSETINDIV C
+				ON A.ASSET_ID = C.ASSET_ID
+   LEFT OUTER JOIN ASSETHIST D
+				ON C.A_ID = D.A_ID
+				 <include refid="search" />
+		  GROUP BY  
+				A.ASSET_ID
+		    ) P
+	</select>
+
+	<select id="SelectAssetVO" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="assetDetail">
+		SELECT 
+			A.ASSET_ID, 
+			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+			E.USER_NM AS REG_ID, 
+			COUNT(C.A_ID) AS ASSET_QTY, 
+			F.CAT_NAME AS LARGE_CATEGORY, 
+			B.MIDDLE_CATEGORY, 
+			CASE 
+				WHEN G.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+				THEN B.MCAT_ETC
+				ELSE G.CAT_NAME
+			END AS MCAT_NM,
+			B.MCAT_ETC, 
+			B.ASSET_NAME, 
+			DATE_FORMAT(B.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
+			B.ACQUIRED_PRICE, 
+			CASE 
+				WHEN H.CODE_NM = '기타'
+				THEN B.MAKER
+				ELSE H.CODE_NM  
+			END AS MAKER, 
+			B.MAKER_CODE, 
+			B.NOTE, 
+			B.ASSET_SN, 
+			B.MNG_NUM, 
+			B.RCPT_ID,
+			I.USER_NM AS RCPT_NM,
+			J.ORGNZT_NM AS ORGNZT_ID, 
+			D.PRJ_ID,
+			K.PRJ_NAME AS PRJ_NM,
+			D.USE_ID,
+			L.USER_NM AS USE_NM, 
+			DATE_FORMAT(D.HIST_DATE,'%Y-%m-%d') AS HIST_DATE
+		   FROM ASSETS A
+   LEFT OUTER JOIN ASSETDETAIL B
+				ON A.ASSET_ID = B.ASSET_ID
+   LEFT OUTER JOIN ASSETINDIV C
+				ON A.ASSET_ID = C.ASSET_ID
+   LEFT OUTER JOIN ASSETHIST D
+				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO E
+	       		ON A.REG_ID = E.ESNTL_ID
+   LEFT OUTER JOIN CATEGORY F
+		    	ON B.LARGE_CATEGORY = F.CAT_ID
+   LEFT OUTER JOIN CATEGORY G
+			    ON B.MIDDLE_CATEGORY = G.CAT_ID
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE H
+		        ON B.MAKER_CODE = H.CODE
+   LEFT OUTER JOIN LETTNEMPLYRINFO I
+		        ON B.RCPT_ID = I.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+		        ON D.ORGNZT_ID = J.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS K
+		        ON D.PRJ_ID = K.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO L
+		        ON D.USE_ID = L.ESNTL_ID
+	        <where>
+	           AND A.USAGE_STAUTS = 'Y'
+			   AND B.USAGE_STAUTS = 'Y'
+			   AND C.USAGE_STAUTS = 'Y'
+			   AND D.HIST_STATUS = 'Y'
+			   AND A.ASSET_ID = #{assetId}
+	        </where>
+		  GROUP BY A.REG_DATE,
+					E.USER_NM, 
+				  	F.CAT_NAME,
+				  	B.MIDDLE_CATEGORY,
+					B.MCAT_ETC,
+					B.ASSET_NAME,
+					B.ACQUIRED_DATE,
+					B.ACQUIRED_PRICE,
+					H.CODE_NM,B.MAKER,
+					B.MAKER_CODE,B.NOTE,
+					B.ASSET_SN,
+					B.MNG_NUM,
+					B.RCPT_ID,
+					J.ORGNZT_NM,
+					D.PRJ_ID,
+					D.USE_ID,
+					D.HIST_DATE
+	</select>
+
+	<insert id="InsertAsset" parameterType="egovframework.let.ass.service.AssetVO">
+		INSERT INTO ASSETS (
+			ASSET_ID, 
+			REG_DATE, 
+			REG_ID, 
+			ASSET_QTY, 
+			USAGE_STAUTS
+			)
+		VALUES (
+			#{assetId},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{regId},
+			#{assetQty},
+			'Y'
+		)
+	</insert>
+	
+	<insert id="InsertAssetdetail" parameterType="egovframework.let.ass.service.AssetVO">
+		INSERT INTO ASSETDETAIL (
+			ASSET_ID, 
+			LARGE_CATEGORY, 
+			MIDDLE_CATEGORY, 
+			MCAT_ETC, 
+			ASSET_NAME,
+			<if test="acquiredDate != null and acquiredDate != ''">
+			ACQUIRED_DATE,
+			</if>
+			ACQUIRED_PRICE, 
+			MAKER, 
+			MAKER_CODE, 
+			NOTE, 
+			ASSET_SN, 
+			MNG_NUM, 
+			USAGE_STAUTS,
+			RCPT_ID,
+			CREAT_DT
+			)
+		VALUES (
+			#{assetId},
+			#{largeCategory},
+			#{middleCategory},
+			#{mcatEtc},
+			#{assetName},
+			<if test="acquiredDate != null and acquiredDate != ''">
+			DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'),
+			</if>
+			#{acquiredPrice},
+			#{maker},
+			#{makerCode},
+			#{note},
+			#{assetSn},
+			#{mngNum},
+			'Y',
+			#{rcptId},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
+	
+	<insert id="InsertAssetIndiv" parameterType="egovframework.let.ass.service.AssetVO">
+		INSERT INTO ASSETINDIV (
+			A_ID, 
+			ASSET_ID,
+			USAGE_STAUTS,
+			REG_DATE
+			)
+		VALUES (
+			#{aId},
+			#{assetId},
+			'Y',
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
+	
+	<insert id="InsertAssethist" parameterType="egovframework.let.ass.service.AssetVO">
+		 INSERT INTO ASSETHIST (
+			A_ID, 
+			ORGNZT_ID, 
+			PRJ_ID, 
+			USE_ID, 
+			HIST_STATUS,
+			<if test="histDate != null and histDate != ''">
+			HIST_DATE, 
+			</if> 
+			CREAT_DT,
+			HIST_USER,
+			HIST_GROUP
+			)
+		VALUES (
+			#{aId},
+			#{orgnztId},
+			#{prjId},
+			#{useId},
+			'Y',
+			<if test="histDate != null and histDate != ''">
+			DATE_FORMAT(#{histDate}, '%Y-%m-%d'),
+			</if>
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
+	</insert>
+	
+	<update id="UpdateAssetdetail" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSETDETAIL
+		   SET USAGE_STAUTS = 'N'
+		 WHERE ASSET_ID = #{assetId}
+		   AND USAGE_STAUTS = 'Y'
+	</update>
+	
+	<update id="UpdateAssethist" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSETHIST
+		   SET HIST_STATUS = 'N'
+		 WHERE A_ID = #{aId}
+		   AND HIST_STATUS = 'Y'
+	</update>
+	
+	<select id="SelectaIdList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="String">
+		SELECT 
+			A_ID 
+		  FROM ASSETINDIV 
+		 WHERE ASSET_ID = #{assetId}
+	</select>
+	
+	<update id="UpdateAssetDel" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSETS
+		   SET USAGE_STAUTS = 'N'
+		 WHERE ASSET_ID = #{assetId}
+	</update>
+	
+	<insert id="InsertAssetDelhist" parameterType="egovframework.let.ass.service.AssetVO">
+		 INSERT INTO ASSETHIST (
+			A_ID,  
+			HIST_STATUS,
+			CREAT_DT,
+			HIST_USER,
+			HIST_GROUP
+			)
+		VALUES (
+			#{aId},
+			'N',
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
+	</insert>
+	
+</mapper>
