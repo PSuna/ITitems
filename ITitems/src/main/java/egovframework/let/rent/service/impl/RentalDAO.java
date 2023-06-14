@@ -6,7 +6,6 @@ import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
-import egovframework.let.ass.service.AssetHistVO;
 import egovframework.let.rent.service.RentalManageVO;
 import egovframework.let.rent.service.RentalVO;
 

@@ -105,7 +105,7 @@ public class RentalController {
 			manageVO.setEndDate(manageVO.getMenuEndDate());
 		}
 		
-		Map<String, Object> map = rentalService.SelectMyRentalInfoList(manageVO);
+		Map<String, Object> map = rentalService.SelectMyRentalVOList(manageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
 		

@@ -23,22 +23,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface AssetService {
 	
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
+	public Map<String, Object> SelectAssetVOList(AssetManageVO assetManageVO) throws Exception;
 	
-	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO);
+	public AssetVO SelectAssetVO(AssetManageVO assetManageVO);
 	
-	public Map<String, Object> SelectMyAssetInfoList(AssetManageVO assetManageVO);
+	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO);
 	
-	public int InsertAssetInfo(AssetInfoVO assetInfoVO);
+	public int InsertAssetInfo(AssetVO assetVO);
 	
-	public int UpdateAssetInfo(AssetInfoVO assetInfoVO);
+	public int UpdateAssetDetail(AssetVO assetVO);
 	
-	public int deleteAssetInfo(AssetInfoVO assetInfoVO);
+	public int UpdateAssetHist(AssetVO assetVO);
 	
-	public int InsertAssetHist(AssetHistVO assetHistVO);
+	public int deleteAsset(AssetVO assetVO);
 	
-	public int UpdateAssetHist(AssetHistVO assetHistVO);
-
+	public int deleteAssetIndiv(AssetVO assetVO);
+	
 	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 	public void xlsxTrsfMyAssList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;

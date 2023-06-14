@@ -27,7 +27,7 @@ public interface RentalService {
 	
 	public RentalVO SelectRentalVO(RentalManageVO rentalManageVO);
 	
-	public Map<String, Object> SelectMyRentalInfoList(RentalManageVO rentalManageVO);
+	public Map<String, Object> SelectMyRentalVOList(RentalManageVO rentalManageVO);
 	
 	public int InsertRentalInfo(RentalVO RentalVO);
 	

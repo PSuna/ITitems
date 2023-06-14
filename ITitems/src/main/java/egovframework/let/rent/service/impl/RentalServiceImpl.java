@@ -48,6 +48,9 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 	@Resource(name = "RIdGnrService")
 	private EgovIdGnrService rIdGnrService;
 	
+	/**
+     * 조건에 맞는 전체자산을 전부 조회한다.
+     */
 	@Override
 	public Map<String, Object> SelectRentalVOList(RentalManageVO rentalManageVO) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -56,29 +59,38 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 		return map;
 	}
 
+	/**
+     * 조건에 맞는 자산 단일 조회한다.
+     */
 	@Override
 	public RentalVO SelectRentalVO(RentalManageVO rentalManageVO) {
 		
 		return rentalDAO.SelectRentalVO(rentalManageVO);
 	}
 
+	/**
+     * 조건에 맞는 내자산을 전부 조회한다.
+     */
 	@Override
-	public Map<String, Object> SelectMyRentalInfoList(RentalManageVO rentalManageVO) {
+	public Map<String, Object> SelectMyRentalVOList(RentalManageVO rentalManageVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resultList", rentalDAO.SelectMyRentalVOList(rentalManageVO));
 		map.put("resultCnt", Integer.toString(rentalDAO.CountMyRentalVOList(rentalManageVO)));
 		return map;
 	}
 
+	/**
+     * 자산 등록.
+     */
 	@Override
 	public int InsertRentalInfo(RentalVO RentalVO) {
 		try {
 			RentalVO.setRentalId(rentalIdGnrService.getNextStringId());
 			
 			rentalDAO.InsertRental(RentalVO);
+			rentalDAO.InsertRentaldetail(RentalVO);
 			
 			int qty = Integer.parseInt(RentalVO.getRentalQty());
-			rentalDAO.InsertRentaldetail(RentalVO);
 			for(int i=0; i<qty; i++) {
 				RentalVO.setrId(rIdGnrService.getNextStringId());
 				rentalDAO.InsertRentalIndiv(RentalVO);  
@@ -91,12 +103,15 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 		}
 		return 0;
 	}
-
+	
+	/**
+     * 자산 수정.
+     */
 	@Override
 	public int UpdateRentalDetail(RentalVO RentalVO) {
 		
 		RentalManageVO manageVO =  new RentalManageVO();
-		RentalVO.setRentalId(RentalVO.getRentalId());
+		manageVO.setRentalId(RentalVO.getRentalId());
 		
 		rentalDAO.UpdateRentaldetail(RentalVO);
 		rentalDAO.InsertRentaldetail(RentalVO);
@@ -110,17 +125,23 @@ public class RentalServiceImpl extends EgovAbstractServiceImpl implements Rental
 		}
 		return 0;
 	}
-
+	
+	/**
+     * 렌탈 개별 수정.
+     */
 	@Override
 	public int UpdateRentalHist(RentalVO RentalVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+     * 자산 삭제상태로 변경.
+     */
 	@Override
 	public int deleteRental(RentalVO RentalVO) {
 		RentalManageVO manageVO =  new RentalManageVO();
-		RentalVO.setRentalId(RentalVO.getRentalId());
+		manageVO.setRentalId(RentalVO.getRentalId());
 		
 		rentalDAO.UpdateRentalDel(RentalVO);
 		
