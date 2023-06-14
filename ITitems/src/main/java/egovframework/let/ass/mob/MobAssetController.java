@@ -27,9 +27,9 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.FileVO;
-import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
 import egovframework.let.prj.service.ProjectService;
@@ -60,7 +60,7 @@ public class MobAssetController {
 
 	@Resource(name = "ProjectService")
 	protected ProjectService projectService;
-
+	
 	@Resource(name = "CategoryService")
 	protected CategoryService categoryService;
 
@@ -69,16 +69,20 @@ public class MobAssetController {
 
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
-
+	
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileMngService;
 
 	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
-
+	
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 
+	/*
+	 * select => assetManageVo, /insert,upload => assetVo
+	 * */
+	
 	/**
 	 * 내자산조회 페이지로 이동
 	 */
@@ -131,7 +135,7 @@ public class MobAssetController {
 			AssetManageVO assetManageVO, @RequestBody AssetManageVO avo) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		
-		AssetInfoVO result = assetService.SelectAssetInfoVO(avo);
+		AssetVO result = assetService.SelectAssetVO(avo);
 		appMap.put("resultVO", result);
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(avo.getAssetId());

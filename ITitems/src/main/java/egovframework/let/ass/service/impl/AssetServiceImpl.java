@@ -67,8 +67,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Override
 	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resultList", assetInfoDAO.MobSelectAssetInfoVOList(assetManageVO));
-		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
+		map.put("resultList", assetDAO.MobSelectAssetInfoVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetVOList(assetManageVO)));
 		return map;
 	}
 	
@@ -88,8 +88,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	 */
 	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resultList", assetInfoDAO.MobSelectMyAssetInfoList(assetManageVO));
-		map.put("resultCnt", Integer.toString(assetInfoDAO.CountMyAssetInfoList(assetManageVO)));
+		map.put("resultList", assetDAO.MobSelectMyAssetInfoList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountMyAssetVOList(assetManageVO)));
 		return map;
 	}
 	

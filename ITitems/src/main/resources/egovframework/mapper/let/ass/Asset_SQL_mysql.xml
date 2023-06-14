@@ -700,7 +700,7 @@
 
 	<select id="MobSelectAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
-		resultMap="assetInfoList">
+		resultMap="assetList">
 		
 	    SELECT 
 	    	   ASSET_ID,
