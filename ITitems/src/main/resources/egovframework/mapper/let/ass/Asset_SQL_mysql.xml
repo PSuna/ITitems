@@ -651,4 +651,124 @@
 			    ) P 
 		WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
+	
+	<!-- 모바일용 -->
+		<!-- 모바일 내자산조회 리스트 매퍼 -->
+		<select id="MobSelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="myAssetList">
+		
+	    SELECT 
+	    	   ASSET_ID,
+	    	   LARGE_CATEGORY, 
+	    	   MIDDLE_CATEGORY, 
+	    	   ASSET_NAME, 
+	    	   ASSET_QTY,
+	    	   ASSET_SN,
+	    	   PRJ_ID,
+	    	   REG_DATE,
+	    	   USAGE_STAUTS,
+	    	   USE_NM,
+	    	   RCPT_NM
+	      FROM (
+		        SELECT 
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					D.CAT_NAME AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY,
+					A.ASSET_SN,
+					G.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					H.USER_NM AS USE_NM,
+					I.USER_NM AS RCPT_NM
+				  FROM ASSETSINFO A
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+	   LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
+	   LEFT OUTER JOIN PROJECTS G
+				    ON B.PRJ_ID = G.PRJ_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	                ON B.USE_ID = H.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.RCPT_ID = I.ESNTL_ID 
+				 	<include refid="mySearch" />
+		    ) P
+	</select>
+
+	<select id="MobSelectAssetInfoVOList"
+		parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="assetList">
+		
+	    SELECT 
+	    	   ASSET_ID,
+	    	   LARGE_CATEGORY, 
+	    	   MIDDLE_CATEGORY,
+	    	   ASSET_QTY, 
+	    	   ORGNZT_ID,
+	    	   LOWER_ORGNZT_ID,
+	    	   PRJ_ID,
+	    	   REG_DATE,
+	    	   USAGE_STAUTS,
+	    	   MAKER,
+	    	   USE_NM,
+	    	   RCPT_NM,
+	    	   ASSET_SN
+	      FROM (
+		        SELECT 
+					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
+					A.ASSET_QTY,
+					CASE
+						WHEN F.ORGNZT_UP IS NULL
+						THEN F.ORGNZT_NM
+						ELSE G.ORGNZT_NM
+					 END AS ORGNZT_ID,
+					CASE 
+						WHEN F.ORGNZT_UP IS NULL
+						THEN NULL
+						ELSE F.ORGNZT_NM
+					 END AS LOWER_ORGNZT_ID,
+	    	   		H.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					A.MAKER AS MAKER,
+					I.USER_NM AS USE_NM,
+					J.USER_NM AS RCPT_NM,
+					A.ASSET_SN AS ASSET_SN
+				  FROM ASSETSINFO A 
+	   LEFT OUTER JOIN ASSETSHIST B
+				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
+	   LEFT OUTER JOIN CATEGORY D
+				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTNORGNZTINFO F
+	   				ON B.ORGNZT_ID = F.ORGNZT_ID
+	   LEFT OUTER JOIN LETTNORGNZTINFO G
+	   				ON F.ORGNZT_UP = G.ORGNZT_ID
+	   LEFT OUTER JOIN PROJECTS H
+	   				ON B.PRJ_ID = H.PRJ_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.USE_ID = I.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO J
+	                ON B.RCPT_ID = J.ESNTL_ID  
+	             <include refid="search" />
+		    ) P 
+	</select>
 </mapper>

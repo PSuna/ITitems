@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * << 개정이력(Modification Information) >>
  * 
  *   수정일      수정자          수정내용
- *  -------    --------    ---------------------------
+ *  -------    --------    --------------------------
  *  2023.04.13  주소현          최초 생성
  *  
  *  </pre>
@@ -29,7 +29,14 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO);
 	
+	//모바일용 내자산조회리스트 
+	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO);
+	
+	//모바일용 전체자산조회리스트
+	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
+	
 	public int InsertAssetInfo(AssetVO assetVO);
+
 	
 	public int UpdateAssetDetail(AssetVO assetVO);
 	
