@@ -128,7 +128,7 @@
 		</where>
 	</sql>
 
-	<select id="SelectMyAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="myAssetList">
+	<select id="SelectMyAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="myAssetList">
 		SELECT 
     		ASSET_ID, 
 			MIDDLE_CATEGORY, 
@@ -146,7 +146,7 @@
 					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 					THEN B.MCAT_ETC
 					ELSE E.CAT_NAME
-				END AS MIDDLE_CATEGORY, 
+			  END AS MIDDLE_CATEGORY, 
 				B.ASSET_NAME, 
 				B.ASSET_SN,
 				F.PRJ_NAME AS PRJ_NM,
@@ -183,7 +183,7 @@
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
-	<select id="CountMyAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+	<select id="CountMyAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
 		SELECT 
     		COUNT(P.ASSET_ID)
 	      FROM (
@@ -203,7 +203,7 @@
 		    ) P 
 	</select>
 
-	<select id="SelectAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="assetList">
+	<select id="SelectAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">
 		SELECT 
     		ASSET_ID, 
 			ORGNZT_NM,
@@ -221,18 +221,18 @@
 					WHEN I.ORGNZT_UP IS NULL
 					THEN I.ORGNZT_NM
 					ELSE J.ORGNZT_NM
-				 END AS ORGNZT_NM,
+			  END AS ORGNZT_NM,
 				CASE 
 					WHEN I.ORGNZT_UP IS NULL
 					THEN NULL
 					ELSE I.ORGNZT_NM
-				 END AS LOWER_ORGNZT_NM,
+			  END AS LOWER_ORGNZT_NM,
 				F.PRJ_NAME AS PRJ_NM,
 				CASE 
 					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 					THEN B.MCAT_ETC
 					ELSE E.CAT_NAME
-				END AS MIDDLE_CATEGORY, 
+			  END AS MIDDLE_CATEGORY, 
 				COUNT(C.A_ID) AS ASSET_QTY,
 				G.USER_NM AS RCPT_NM,
 				H.USER_NM AS USE_NM
@@ -270,7 +270,7 @@
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
-	<select id="CountAssetVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+	<select id="CountAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
 		SELECT 
     		COUNT(P.ASSET_ID)
 	      FROM (
@@ -290,7 +290,7 @@
 		    ) P
 	</select>
 
-	<select id="SelectAssetVO" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="assetDetail">
+	<select id="SelectAssetVO" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetDetail">
 		SELECT 
 			A.ASSET_ID, 
 			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
@@ -302,7 +302,7 @@
 				WHEN G.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 				THEN B.MCAT_ETC
 				ELSE G.CAT_NAME
-			END AS MCAT_NM,
+		  END AS MCAT_NM,
 			B.MCAT_ETC, 
 			B.ASSET_NAME, 
 			DATE_FORMAT(B.ACQUIRED_DATE,'%Y-%m-%d') AS ACQUIRED_DATE, 
@@ -311,7 +311,7 @@
 				WHEN H.CODE_NM = '기타'
 				THEN B.MAKER
 				ELSE H.CODE_NM  
-			END AS MAKER, 
+		  END AS MAKER, 
 			B.MAKER_CODE, 
 			B.NOTE, 
 			B.ASSET_SN, 
@@ -489,7 +489,7 @@
 		   AND HIST_STATUS = 'Y'
 	</update>
 	
-	<select id="SelectaIdList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="String">
+	<select id="SelectaIdList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="String">
 		SELECT 
 			A_ID 
 		  FROM ASSETINDIV 
