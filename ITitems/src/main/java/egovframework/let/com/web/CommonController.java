@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -223,6 +224,8 @@ public class CommonController {
 	//내자산조회 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfMyAssList.do")
 	public void xlsxTrsfMyAssList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
+		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
+		assetManageVO.setUserId(loginId.getUniqId());
 		assetService.xlsxTrsfMyAssList(assetManageVO,req,res);
 	}
 	

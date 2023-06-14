@@ -175,8 +175,6 @@ function RegistConfirm(){
 		}
 	}else{
 		alert('반출신청할 자산이 없습니다.');
-		fn_egov_modal_remove();
-		RegistFail();
 		return;
 	}
 }
