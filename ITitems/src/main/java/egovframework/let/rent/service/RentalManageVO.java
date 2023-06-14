@@ -31,6 +31,9 @@ public class RentalManageVO implements Serializable {
 	/** 렌탈 ID */
 	private String rentalId;
 	
+	/** 렌탈상세 ID */
+	private String rId;
+	
 	/** 검색본부 */
     private String searchOrgnzt = "";
     
@@ -375,6 +378,12 @@ public class RentalManageVO implements Serializable {
 	}
 	public void setRentalId(String rentalId) {
 		this.rentalId = rentalId;
+	}
+	public String getrId() {
+		return rId;
+	}
+	public void setrId(String rId) {
+		this.rId = rId;
 	}
 	
 	

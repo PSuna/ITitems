@@ -115,10 +115,9 @@ function fnSelectAprv(reqId){
                                 		<div>
 	                                		<label class="item f_select w_150" for="searchGroup">
 	                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-	                                				<option value="" label="분류"/>
-	                                				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
-	                                					<option value="<c:out value="${aprvGroup.code}"/>" <c:if test="${approvalSearchVO.searchGroup == aprvGroup.code}">selected="selected"</c:if>>${aprvGroup.codeNm}</option>
-	                                				</c:forEach>
+	                                				<option value="" label="분류" />
+															<option value="C0" <c:if test="${approvalSearchVO.searchGroup == 'C0'}">selected="selected"</c:if> label="반입신청" />
+															<option value="C1" <c:if test="${approvalSearchVO.searchGroup == 'C1'}">selected="selected"</c:if>label="반출신청" />
 	                                			</select>
 	                                		</label>
                                 		</div>

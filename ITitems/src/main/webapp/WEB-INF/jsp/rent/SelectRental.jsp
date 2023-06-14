@@ -60,18 +60,18 @@
 /* ********************************************************
  * 수정페이지로 이동
  ******************************************************** */
-function AssetUpdt() {
-	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
+function RentalUpdt() {
+	document.frm.action = "<c:url value='/rent/RentalUpdt.do'/>";
     document.frm.submit();
 }
 
 /* ********************************************************
  * 자산 삭제
  ******************************************************** */
-function AssetDel() {
+function RentalDel() {
 	let formData = new FormData(document.getElementById('frm'));
 	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetDel.do',
+		url: '${pageContext.request.contextPath}/rent/RentalDel.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -114,7 +114,7 @@ function AssetDel() {
 	fn_egov_modal_remove();
 	 if(val){
 		 DelIng();
-		 AssetDel(); 
+		 RentalDel(); 
 	 }	  
 }
 
@@ -154,11 +154,11 @@ function DelIng(){
 }
 
 /* ********************************************************
- * 수정완료 결과 처리
+ * 삭제완료 결과 처리
  ******************************************************** */
  function returnSuccess(){
 	 fn_egov_modal_remove();
-	 AssetList();
+	 RentalList();
 }
 
 /* ********************************************************
@@ -181,22 +181,16 @@ function DelIng(){
 /* ********************************************************
  * 목록 이동
  ******************************************************** */
-function AssetList(){
+function RentalList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+		document.frm.action = "<c:url value='/rent/RentalManagement.do'/>";
 	    document.frm.submit();
 	}else if (code == "MYAM"){
-		document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+		document.frm.action = "<c:url value='/rent/MyRentalManagement.do'/>";
 	    document.frm.submit();
 	}
 }
-/* ********************************************************
- * onload
- ******************************************************** */
-window.onload = function(){
-	console.log('${PhotoList}');
-	  }
 
 //-->
 </script>
@@ -226,16 +220,16 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>자산정보</li>
+										<li><a href="#LINK">렌탈관리</a></li>
+										<li>렌탈정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<form id="frm" name="frm" autocomplete="off" method="post">
-									<input name="assetId" type="hidden" value="${resultVO.assetId}">
-									<h1 class="tit_1">자산관리</h1>
+								<form id="frm" name="frm" method="post">
+									<input name="rentalId" type="hidden" value="${resultVO.rentalId}">
+									<h1 class="tit_1">렌탈관리</h1>
 
-									<h2 class="tit_2">자산정보</h2>
+									<h2 class="tit_2">렌탈정보</h2>
 
 									<br>
 									<div class="board_view2">
@@ -275,7 +269,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 수량 --> <label for="">수량</label>
 												</td>
-												<td> ${resultVO.assetQty}</td>
+												<td> ${resultVO.rentalQty}</td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -315,7 +309,7 @@ window.onload = function(){
 													<label for="">수령일자</label> 
 												</td>
 												<td>
-													${resultVO.rcptDate}
+													${resultVO.histDate}
 												</td>
 												<td class="lb">
 													<!-- 자산관리번호 --> 
@@ -327,23 +321,31 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label>
+													<!-- 렌탈기간 --> 
+													<label for="">렌탈기간</label> 
 												</td>
-												<td>${resultVO.acquiredDate}</td>
+												<td colspan="3">
+												<c:if test="${not empty resultVO.rentalStart}">
+												${resultVO.rentalStart}&nbsp;&nbsp;―&nbsp;&nbsp;${resultVO.rentalEnd}
+												</c:if>
+												</td>
+											</tr>
+											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
+													<!-- 렌탈비용 --> 
+													<label for="">렌탈비용</label> 
 												</td>
-												<td>${resultVO.acquiredPrice}
-													<c:if test="${not empty resultVO.acquiredPrice}">
-														원
-													</c:if>
-												</td>											
+												<td colspan="3">
+												<c:if test="${not empty resultVO.rentalPrice}">
+												${resultVO.rentalPrice} 원
+												</c:if>
+												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                                    </c:import>
@@ -367,15 +369,6 @@ window.onload = function(){
 												</td>
 												<td colspan="4">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
 											</tr>
-											<%-- <tr>
-												<td class="lb">
-													<!-- 반출사유 --> 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td colspan="4">
-													${fn:replace(resultVO.carryReason, newLineChar, "<br/>")}
-												</td>
-											</tr> --%>
 											<tr>
 												<td class="lb">
 													<!-- 등록일자 --> 
@@ -405,20 +398,20 @@ window.onload = function(){
 										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login || resultVO.rcptId == login}">
 												<!-- 수정 -->
 												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-													onclick="AssetUpdt();return false;"> <spring:message
+													onclick="RentalUpdt();return false;"> <spring:message
 														code="button.update" />
 												</a>
 										</c:if>
 										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
-												<!-- 삭제 -->
-												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-													onclick="DelConfirm();return false;"> <spring:message
-														code="button.delete" />
-												</a>
+											<!-- 삭제 -->
+											<a href="#LINK" class="btn btn_skyblue_h46 w_100"
+												onclick="DelConfirm();return false;"> <spring:message
+													code="button.delete" />
+											</a>
 										</c:if>
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="AssetList();return false;"> <spring:message
+												onclick="RentalList();return false;"> <spring:message
 													code="button.list" />
 											</a>
 										</div>

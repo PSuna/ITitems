@@ -46,7 +46,7 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="assetUpdt" staticJavascript="false"
+<validator:javascript formName="rentalUpdt" staticJavascript="false"
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
@@ -56,12 +56,12 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
 /* ********************************************************
  * 자산 수정 처리
  ******************************************************** */
-function UpdateAsset(){
+function UpdateRental(){
 	inputFile();
 	getDelPhotoList();
-    let formData = new FormData(document.getElementById('AssetUpdt'));
+    let formData = new FormData(document.getElementById('RentalUpdt'));
 	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetUpdate.do',
+		url: '${pageContext.request.contextPath}/rent/RentalUpdate.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -83,7 +83,7 @@ function UpdateAsset(){
  ******************************************************** */
  function UpdtConfirm(){
 	
-	  if(validateAssetUpdt(document.AssetUpdt)){
+	  if(validateRentalUpdt(document.RentalUpdt)){
 		 var $dialog = $('<div id="modalPan"></div>')
 			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
@@ -106,7 +106,7 @@ function UpdateAsset(){
 	fn_egov_modal_remove();
 	 if(val){
 		 UpdtIng();
-		 UpdateAsset();
+		 UpdateRental();
 	 }	  
 }
 
@@ -150,7 +150,7 @@ function UpdtIng(){
  ******************************************************** */
  function returnSuccess(){
 	 fn_egov_modal_remove();
-	 document.subForm.submit();
+	 SelectRental();
 
 }
 
@@ -169,6 +169,28 @@ function UpdtIng(){
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 자산 상세 페이지 이동
+ ******************************************************** */
+function SelectRental() {
+    document.subForm.action = "<c:url value='/rent/SelectRental.do'/>";
+    document.subForm.submit(); 
+}
+
+/* ********************************************************
+ * 목록 이동
+ ******************************************************** */
+function RentalList(){
+	let code = $('#listCode').val();
+	if(code == "AM"){
+		document.subForm.action = "<c:url value='/rent/RentalManagement.do'/>";
+	    document.subForm.submit();
+	}else if (code == "MYAM"){
+		document.subForm.action = "<c:url value='/rent/MyRentalManagement.do'/>";
+	    document.subForm.submit();
+	}
 }
 
 /* ********************************************************
@@ -247,13 +269,16 @@ function getMCatList(Mval) {
   function getNumber(obj){
      var num01;
      var num02;
-     num01 = obj.value;
-     num02 = num01.replace(/(^0+)/, "");
-     num03 = num02.replace(/\D/g,"");
-     num01 = setComma(num03);
-     obj.value =  num01;
-
-     $('#test').text(num01);
+     num01 = $(obj).val();
+     if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = setComma(num03);
+	    obj.value =  num01;
+	
+	    $('#test').text(num01); 
+     }
+     
   }
 
   function setComma(n) {
@@ -337,23 +362,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#acquiredDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-	
-	$("#rcptDate").datepicker(
+	$("#histDate,#rentalStart,#rentalEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -372,13 +381,33 @@ function make_date(){
 }
 
 /* ********************************************************
+ *  날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#frm #rentalStart').val();
+	let endDate = $('#frm #rentalEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #rentalStart').val(endDate);
+		$('#frm #rentalEnd').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#frm #rentalStart').val();
+	let endDate = $('#frm #rentalEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#frm #rentalEnd').val("");
+	}
+}
+
+/* ********************************************************
  * 유효성 체크
  ******************************************************** */
 let typeList = ["input", "select"]
 
 function removeP(objList) {
 	$(typeList).each(function(index, type){
-		$("#assetRegist").find(type).each(function(index, item){
+		$("#RentalUpdt").find(type).each(function(index, item){
 			let td = $(item).closest("td");
 			if($(td).children().last().prop('tagName') == 'P'){
 				$(td).children().last().remove();
@@ -390,7 +419,7 @@ function removeP(objList) {
 function alertValid(objList) {
 	removeP(objList);
 	$(typeList).each(function(index, type){
-		$("#AssetUpdt").find(type).each(function(index, item){
+		$("#RentalUpdt").find(type).each(function(index, item){
 			let td = $(item).closest("td");
 			for(key in objList){
 				if($(item).attr("name") == key){
@@ -503,13 +532,16 @@ function addDelFile(fileId) {
  ******************************************************** */
 window.onload = function(){
 	getMCatList('${resultVO.middleCategory}');
-	getNumber(document.AssetUpdt.acquiredPrice);
+	getNumber(document.RentalUpdt.acquiredPrice);
 	make_date();
 	checkMakerEtc();
 	  }
 //-->
 </script>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 
+
+<title>ITeyes 자산관리솔루션</title>
 
 
 </head>
@@ -546,8 +578,8 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>자산수정</li>
+										<li><a href="#LINK">렌탈관리</a></li>
+										<li>렌탈수정</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -555,11 +587,11 @@ window.onload = function(){
 								<%
 									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 								%>
-								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
-									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
-									<h1 class="tit_1">자산관리</h1>
+								<form id="RentalUpdt" name="RentalUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
+									<input type="hidden" id="rentalId" name="rentalId" value="${resultVO.rentalId}">
+									<h1 class="tit_1">렌탈관리</h1>
 
-									<h2 class="tit_2">자산수정</h2>
+									<h2 class="tit_2">렌탈수정</h2>
 
 									<c:if test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 									<p><span class="req">필수</span><spring:message code="ass.update.rcpt" /></p>
@@ -599,8 +631,8 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
-														onchange="getNumber(this);" onkeyup="getNumber(this);">
+													<input id="rentalQty" class="f_txt w_full readonly" name="rentalQty" type="text" value="${resultVO.rentalQty}"  maxlength="20"
+														onchange="getNumber(this);" onkeyup="getNumber(this);" readonly="readonly">
 												</td>
 											</tr>
 											<tr>
@@ -747,7 +779,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+														<input id="histDate" class="f_txt w_full readonly" value="${resultVO.histDate}" name="histDate" type="text" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">
@@ -760,22 +792,28 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label>
+													<!-- 렌탈기간 --> 
+													<label for="">렌탈기간</label>
 												</td>
-												<td>
-													<span class="search_date w_full">
-														<input id="acquiredDate" class="f_txt w_full readonly" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
-													</span>
+												<td colspan="3">
+													<div>
+														<span class="search_date wp_date">
+															<input id="rentalStart" class="f_txt w_full readonly" name="rentalStart" type="text" value="${resultVO.rentalStart}" maxlength="60" readonly="readonly" onchange="checkStartDate()">
+														</span>
+														&nbsp;&nbsp;―&nbsp;&nbsp;
+														<span class="search_date wp_date">
+															<input id="rentalEnd" class="f_txt w_full readonly" name="rentalEnd" type="text" value="${resultVO.rentalEnd}" maxlength="60" readonly="readonly" onchange="checkEndDate()">
+														</span>
+													</div>
 												</td>
+											</tr>
+											<tr>
 												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
+													<!-- 렌탈비용 --> 
+													<label for="">렌탈비용</label> 
 												</td>
-												<td>
-													<input id="acquiredPrice" class="f_txt w_full"
-													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
-													<br />
+												<td colspan="3">
+													<input id="rentalPrice" class="f_txt w_full" name="rentalPrice" type="text" value="${resultVO.rentalPrice}" maxlength="60"  onchange="getNumber(this);" onkeyup="getNumber(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -832,33 +870,30 @@ window.onload = function(){
 													<textarea id="note" name="note" class="f_txtar w_full " cols="30" rows="1" >${resultVO.note}</textarea>
 												</td>
 											</tr>
-											<%-- <tr>
-												<td class="lb">
-													<!-- 반출사유 --> 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td colspan="4">
-												
-													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full" cols="30" rows="1">${resultVO.carryReason}</textarea>
-												</td>
-											</tr> --%>
 										</table>
 									</div>
-									<!-- 등록버튼  -->
+									<!-- 버튼  -->
 									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
+											<!-- 수정 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="UpdtConfirm(); return false;"><spring:message
 													code="button.update" /></a>
-											<!-- 등록 -->
+											<!-- 취소 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="SelectRental(); return false;"><spring:message
+													code="button.cancel" /></a>
+											<!-- 목록 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="RentalList(); return false;"><spring:message
+													code="button.list" /></a>
 										</div>
 									</div>
-									<!-- // 등록버튼 끝  -->
-								</form:form>
-								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
-									<input type="hidden" name="assetId"
-										value="<c:out value='${resultVO.assetId}'/>" />
+									<!-- // 버튼 끝  -->
+								</form>
+								<form name="subForm" method="post" action="<c:url value='/rent/SelectRental.do'/>">
+									<input type="hidden" name="rentalId"
+										value="<c:out value='${resultVO.rentalId}'/>" />
 									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
 									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
@@ -875,7 +910,7 @@ window.onload = function(){
 									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 								</form>
 							</div>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>

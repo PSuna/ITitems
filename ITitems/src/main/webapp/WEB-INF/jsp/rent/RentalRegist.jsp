@@ -145,7 +145,7 @@ function RentalInsert(){
  * 등록완료 결과 처리
  ******************************************************** */
  function returnSuccess(val){
-	removeVal('assetRegist');
+	removeVal('rentalRegist');
 	if(val){
 		fn_egov_modal_remove();
 	    $('form').each(function() {
@@ -154,12 +154,12 @@ function RentalInsert(){
 		document.getElementById("rcptId").value  = loginId;
 		document.getElementById("useId").value  = loginId;
 		document.getElementById("prjId").value  = "";
-	    document.assetRegist.largeCategory.focus(); 
+	    document.rentalRegist.largeCategory.focus(); 
 	    $(".photoList").children().remove();
 	    removeP();
 	    $('#fileNm').closest(".filebox").find('img')[0].remove();
 	}else{
-		document.MyAssetManagement.submit(); 
+		document.management.submit(); 
 	}
 	
 }
@@ -370,17 +370,20 @@ function make_date(){
 /* ********************************************************
  * 숫자 콤마 입력
  ******************************************************** */
-  function getNumber(obj){
-	     var num01;
-	     var num02;
-	     num01 = obj.value;
-	     num02 = num01.replace(/(^0+)/, "");
-	     num03 = num02.replace(/\D/g,"");
-	     num01 = setComma(num03);
-	     obj.value =  num01;
-
-	     $('#test').text(num01);
-	  }
+ function getNumber(obj){
+     var num01;
+     var num02;
+     num01 = $(obj).val();
+     if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = setComma(num03);
+	    obj.value =  num01;
+	
+	    $('#test').text(num01); 
+     }
+     
+  }
 
 	  function setComma(n) {
 	     var reg = /(^[+-]?\d+)(\d{3})/;
@@ -505,11 +508,11 @@ function alertValid(objList) {
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/AssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.management.action = "<c:url value='/rent/RentalManagement.do'/>";
+	    document.management.submit();
 	}else if (code == "MYAM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/MyAssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.management.action = "<c:url value='/rent/MyRentalManagement.do'/>";
+	    document.management.submit();
 	}
 }
  
@@ -668,23 +671,6 @@ window.onload = function(){
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
 												</td>
 											</tr>
-											<!-- <tr>
-												<td class="lb">
-													렌탈기간 
-													<label for="">렌탈기간</label>
-												</td>
-												<td colspan="3">
-													<div>
-														<span class="search_date wp_date">
-															<input id="rentalStart" class="f_txt w_full readonly" name="rentalStart" type="text" maxlength="60" readonly="readonly" checkStartDate()">
-														</span>
-														&nbsp;&nbsp;―&nbsp;&nbsp;
-														<span class="search_date wp_date">
-															<input id="rentalEnd" class="f_txt w_full readonly" name="rentalEnd" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
-														</span>
-													</div>
-												</td>
-											</tr>	 -->
 											<tr>
 												<td class="lb">
 													<!-- 렌탈기간 --> 
@@ -848,8 +834,8 @@ window.onload = function(){
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form>
-								<form name="MyAssetManagement" method="post"
-									action="<c:url value='/ass/MyAssetManagement.do'/>">
+								<form name="management" method="post"
+									action="<c:url value='/rent/MyRentalManagement.do'/>">
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />

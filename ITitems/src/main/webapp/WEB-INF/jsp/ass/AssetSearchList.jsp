@@ -129,7 +129,6 @@ function getOrgList(Oval) {
  ******************************************************** */
 function SearchAssetList() {
 	event.preventDefault();
-	
 	document.listForm.pageIndex.value = '1';
     document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
     document.listForm.submit(); 
@@ -152,16 +151,25 @@ function fn_egov_return_Ass(assetId, middleCategory, assetQty, assetSn, maker, r
 }
 
 function fn_egov_pageview(page) {
-	document.listForm.searchWord.value = '${searchVO.searchWord}';
 	document.listForm.pageIndex.value = page;
+	document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
 	document.listForm.submit();
 }
 
 function fn_egov_search_Prj() {
 	document.listForm.pageIndex.value = 1;
+	document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
 	document.listForm.submit();
 }
 </script>
+<style>
+.condition2 .j_box02 {
+	flex-wrap: nowrap;
+}
+.j_box02 div {
+	margin-right:3px;
+}
+</style>
 </head>
 <body>
 	<!-- 자바스크립트 경고 태그  -->
@@ -171,7 +179,6 @@ function fn_egov_search_Prj() {
 	<form name="listForm"
 		action="<c:url value='/ass/AssetSearchList.do'/>" method="post">
 
-		<input name="searchCondition" type="hidden" size="35" value="4" />
 		<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 		<!-- 프로젝트 찾기 팝업 -->
 		<div class="popup POP_POST_SEARCH">
@@ -234,13 +241,13 @@ function fn_egov_search_Prj() {
 							</div>
 						</div>
 						<div class="j_box02">
-							<div class="search_box" style="margin-left: 2px;margin-right: 3px;width: 74% !important;">
+							<div class="search_box" style="width: 150% !important;">
 								<span class="item f_search w_full" >
-									<input class="f_input w_full pty_f_input" type="text" name="searchWord" onchange="SearchAssetList(); return false;" placeholder="수령자/실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="수령자/실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
 								</span>
 							</div>
-							<div class="btn_box" style="margin-right:2px;">
-								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="margin-left: 5px; padding: 0 44px;">검색</button>
+							<div class="btn_box" >
+								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="padding: 0; width:100%">검색</button>
 							</div>
 						</div>
 					</div>
@@ -284,7 +291,7 @@ function fn_egov_search_Prj() {
 						<div class="paging" id="paging_div">
 							<ul>
 								<ui:pagination paginationInfo="${paginationInfo}" type="image"
-									jsFunction="fn_egov_select_noticeList" />
+									jsFunction="fn_egov_pageview" />
 							</ul>
 						</div>
 					</div>
