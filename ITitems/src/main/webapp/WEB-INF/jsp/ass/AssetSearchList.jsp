@@ -273,7 +273,7 @@ function fn_egov_search_Prj() {
 							<tbody>
 								<c:forEach var="result" items="${resultList}" varStatus="status">
 									<tr onclick="fn_egov_return_Ass( '${result.assetId}', '${result.middleCategory}', '${result.assetQty}', '${result.assetSn}', '${result.maker}', '${result.rcptNm}', '${result.useNm}');">
-										<td><c:out value="${result.orgnztId} / ${result.lowerOrgnztId}" /></td>
+										<td><c:out value="${result.orgnztNm} / ${result.lowerOrgnztNm}" /></td>
 										<td><c:out value="${result.middleCategory}" /></td>
 										<td><c:out value="${result.assetSn}" /></td>
 										<td><c:out value="${result.rcptNm} / ${result.useNm}" /></td>
