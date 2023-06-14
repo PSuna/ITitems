@@ -24,18 +24,19 @@ public class LoginVO implements Serializable{
 	 */
 	private static final long serialVersionUID = -8274004534207618049L;
 	
-	//❤️ 모바일 구분자
-	private String isMob;
-	
+
+	private String isMob;//모바일구분자
+	private String parsingGrade; //grade변환
+
 	@Override
 	public String toString() {
-		return "LoginVO [id=" + id + ", name=" + name + ", ihidNum=" + ihidNum + ", email=" + email + ", password="
-				+ password + ", passwordHint=" + passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe
-				+ ", orgnztId=" + orgnztId + ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId="
-				+ uniqId + ", url=" + url + ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode="
-				+ authorCode + ", authorNm=" + authorNm + "]";
+		return "LoginVO [isMob=" + isMob + ", parsingGrade=" + parsingGrade + ", id=" + id + ", name=" + name
+				+ ", ihidNum=" + ihidNum + ", email=" + email + ", password=" + password + ", passwordHint="
+				+ passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe + ", orgnztId=" + orgnztId
+				+ ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId=" + uniqId + ", url=" + url
+				+ ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode=" + authorCode + ", authorNm="
+				+ authorNm + "]";
 	}
-	
 	/** 아이디 */
 	private String id;
 	/** 이름 */
@@ -72,6 +73,8 @@ public class LoginVO implements Serializable{
 	private String authorCode;
 	
 	private String authorNm;
+	
+	
 	
 	/**
 	 * id attribute 를 리턴한다.
@@ -298,5 +301,13 @@ public class LoginVO implements Serializable{
 	public void setIsMob(String isMob) {
 		this.isMob = isMob;
 	}
+	
+	public String getParsingGrade() {
+		return parsingGrade;
+	}
+	public void setParsingGrade(String parsingGrade) {
+		this.parsingGrade = parsingGrade;
+	}
+
 	
 }

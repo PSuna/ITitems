@@ -52,6 +52,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Resource(name = "HistIdGnrService")
 	private EgovIdGnrService histIdGnrService;
 
+	
+	
 	/**
      * 조건에 맞는 전체자산을 전부 조회한다.
      */
@@ -59,6 +61,17 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resultList", assetInfoDAO.SelectAssetInfoVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
+		return map;
+	}
+	
+	/**
+     * 조건에 맞는 전체자산을 전부 조회한다.(모바일)
+     */
+	@Override
+	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetInfoDAO.MobSelectAssetInfoVOList(assetManageVO));
 		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
 		return map;
 	}
