@@ -31,5 +31,7 @@ public class EgovComExcepHndlr implements ExceptionHandler {
 	public void occur(Exception ex, String packageName) {
 		LOGGER.debug("[HANDLER][PACKAGE]::: {}", packageName);
 		LOGGER.debug("[HANDLER][Exception]:::", ex);
+		
+		
 	}
 }
