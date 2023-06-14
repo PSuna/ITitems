@@ -140,7 +140,7 @@ public class RequestController {
 		vo.setCode(userManageVO.getGrade());
 		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
-		System.out.println("userManageVO ====================== "+ userManageVO);
+
 		model.addAttribute("searchVO", manageVO);
 
 		
