@@ -41,6 +41,13 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	private String aprvDate; 
 
 	private String upreqStatus;
+	
+	private int reqQty;
+	/** 자산 Id */
+	private String assetId;
+	
+	/** 최종결재자 구분 */
+	private String lastUserName;
 	/**
 	 * 요청자이름
 	 */
@@ -306,6 +313,30 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setRreqStatus(String rreqStatus) {
 		this.rreqStatus = rreqStatus;
+	}
+
+	public String getLastUserName() {
+		return lastUserName;
+	}
+
+	public void setLastUserName(String lastUserName) {
+		this.lastUserName = lastUserName;
+	}
+
+	public String getAssetId() {
+		return assetId;
+	}
+
+	public void setAssetId(String assetId) {
+		this.assetId = assetId;
+	}
+
+	public int getReqQty() {
+		return reqQty;
+	}
+
+	public void setReqQty(int reqQty) {
+		this.reqQty = reqQty;
 	}
 
 

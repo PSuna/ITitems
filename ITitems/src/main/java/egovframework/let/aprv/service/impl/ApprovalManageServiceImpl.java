@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
-import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.req.service.RequestDetailVO;
 
@@ -40,6 +42,9 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	/** approvalManageDAO */
 	@Resource(name="approvalManageDAO")
 	private ApprovalManageDAO approvalManageDAO;
+	
+	@Resource(name = "AIdGnrService")
+	private EgovIdGnrService aIdGnrService;
 
 	/**
 	 * 로그인한 유저에게 해당하는 결재요청정보를 데이터베이스에서 읽어와 화면에 출력
@@ -74,7 +79,21 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public int UpdateApproval(ApprovalManageVO approvalManageVO) {
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, String loginId, List<RequestDetailVO> assetList) {
+		String LastUserName = approvalManageVO.getLastUserName();
+		AssetVO assetVO = new AssetVO();
+		if(LastUserName.equals(loginId)) {
+			for(int i=0; i<assetList.size();i++) {
+			try {
+				assetVO.setaId(aIdGnrService.getNextStringId());
+			assetVO.setAssetId(assetList.get(i).getAssetId());
+			assetVO.setReqQty(assetList.get(i).getReqQty());
+			approvalManageDAO.InsertAssetHist(approvalManageVO);
+			} catch (FdlException e) {
+				e.printStackTrace();
+			}
+			}
+		}
 		return approvalManageDAO.UpdateApproval(approvalManageVO);
 	}
 	

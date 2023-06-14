@@ -319,7 +319,7 @@ window.onload = function(){
 													<label for="">수령일자</label> 
 												</td>
 												<td>
-													${resultVO.rcptDate}
+													${resultVO.histDate}
 												</td>
 												<td class="lb">
 													<!-- 자산관리번호 --> 

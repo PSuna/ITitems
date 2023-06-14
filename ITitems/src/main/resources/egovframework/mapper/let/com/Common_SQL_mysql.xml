@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommonDAO">
+
+	<insert id="InsertXcptInfo" parameterType="HashMap">
+		INSERT INTO EXCEPTIONS (
+			XCPT_ID,
+			EXCEPTION,
+			PACKAGE_NAME,
+			CREAT_DT
+			)
+		VALUES (
+			#{user},
+			#{exception},
+			#{packageName},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
+
+</mapper>

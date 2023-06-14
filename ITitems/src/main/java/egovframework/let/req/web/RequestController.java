@@ -142,6 +142,7 @@ public class RequestController {
 		model.addAttribute("userManageVO", userManageVO);
 
 		model.addAttribute("searchVO", manageVO);
+
 		
 		return "/req/CarryRegist";
 	}

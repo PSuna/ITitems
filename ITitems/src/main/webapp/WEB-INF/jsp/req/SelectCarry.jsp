@@ -58,10 +58,18 @@
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+
+/* ********************************************************
+ * 목록
+ ******************************************************** */
 function CarryList(){
 	document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
 }
+
+/* ********************************************************
+ * onload 함수
+ ******************************************************** */
 window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">

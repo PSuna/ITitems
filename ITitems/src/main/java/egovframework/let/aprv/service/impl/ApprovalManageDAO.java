@@ -86,4 +86,8 @@ public class ApprovalManageDAO extends EgovAbstractMapper{
 		return update("approvalManageDAO.ApprovalDisUpdate", approvalManageVO);
 	}
 
+	public void InsertAssetHist(ApprovalManageVO approvalManageVO) {
+		
+	}
+
 }

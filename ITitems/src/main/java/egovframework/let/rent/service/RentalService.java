@@ -27,7 +27,7 @@ public interface RentalService {
 	
 	public RentalVO SelectRentalVO(RentalManageVO rentalManageVO);
 	
-	public Map<String, Object> SelectMyRentalInfoList(RentalManageVO rentalManageVO);
+	public Map<String, Object> SelectMyRentalVOList(RentalManageVO rentalManageVO);
 	
 	public int InsertRentalInfo(RentalVO RentalVO);
 	
@@ -39,7 +39,7 @@ public interface RentalService {
 	
 	public int deleteRentalIndiv(RentalVO RentalVO);
 
-	public void xlsxTrsfRentalList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
+	public void xlsxTrsfRentList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
-	public void xlsxTrsfMyRentalList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
+	public void xlsxTrsfMyRentList(RentalManageVO rentalManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 }
