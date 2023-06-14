@@ -701,8 +701,15 @@ window.onload = function(){
 	addtrClone =  $('#clonehere tr').last().clone(true);
 	trClone = $('#clonehere tr').last().prev().clone(true);
 	make_date();
-	  }
+}
 
+/* ********************************************************
+ * 목록 버튼
+ ******************************************************** */
+function ReqList(){
+	document.CarryRequset.action="<c:url value='/req/CarryRequset.do'/>";
+	document.CarryRequset.submit();
+}
 //-->
 </script>
 
@@ -763,8 +770,8 @@ window.onload = function(){
 								<!--// Location -->
 								<form id="frm" name="frm" autocomplete="off">
 									<h2 class="tit_2">반출 신청</h2>
-									<input name="reqGroup" value="C1" type="hidden"> <input
-										name="reqStatus" value="A0" type="hidden"> <br>
+									<input name="reqGroup" value="C1" type="hidden">
+									<br>
 									<h3> ■ 신청자정보</h3>
 									<div class="board_view2">
 										<table>
@@ -969,6 +976,7 @@ window.onload = function(){
 								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="ReqList();return false;"><spring:message code="button.list" /></a>
 										<!-- 등록 -->
 									</div>
 								</div>
@@ -978,6 +986,12 @@ window.onload = function(){
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
 									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
+									<input type="hidden" name="searchGroup" value="<c:out value='${searchVO.searchGroup}'/>">
+									<input type="hidden" name="searchStatus" value="<c:out value='${searchVO.searchStatus}'/>" />
+									<input type="hidden" name="prjNm" value="<c:out value='${searchVO.prjNm}'/>" />
+									<input type="hidden" name="searchPrj" value="<c:out value='${searchVO.searchPrj}'/>" />
+									<input type="hidden" name="searchWord" value="<c:out value='${searchVO.searchWord}'/>" />
 								</form>
 							</div>
 						</div>

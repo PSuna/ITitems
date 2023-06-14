@@ -164,9 +164,8 @@ function CarryRegist() {
  *  반입신청 폼 이동
  ******************************************************** */
 function CarryInRegist() {
-	alert("준비중입니다.")
-	/* document.frm.action = "<c:url value='/req/CarryInRegist.do'/>";
-    document.frm.submit();  */
+	document.frm.action = "<c:url value='/req/CarryInRegist.do'/>";
+    document.frm.submit();
 }
 
 /* ********************************************************
@@ -257,8 +256,7 @@ function setPageUnit(){
 								<!-- 검색조건 -->
 								<form id="searchVO" name="frm" method="post" action="<c:url value='/req/CarryRequest.do'/>" autocomplete="off">
 									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
-									<input type="hidden" name="reqGroup" value="<c:out value='${searchVO.reqGroup}'/>">
-									<input type="hidden" name="reqId" value="<c:out value='${result.reqId}'/>" />
+									<input name="reqId" type="hidden"/>
 									<div class="condition2">
 											<div class="j_box01">
 												<div>
