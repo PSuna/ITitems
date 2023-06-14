@@ -3,6 +3,7 @@ package egovframework.let.rent.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetHistVO;
@@ -84,6 +85,14 @@ public class RentalDAO extends EgovAbstractMapper {
 	
 	public int InsertRentalDelhist(RentalVO RentalVO) {
 		return insert("RentalDAO.InsertRentalDelhist",RentalVO);
+	}
+
+	public List<EgovMap> xlsxTrsfRentList(RentalManageVO rentalManageVO) {
+		return selectList("RentalDAO.xlsxTrsfRentList",rentalManageVO);
+	}
+
+	public List<EgovMap> xlsxTrsfMyRentList(RentalManageVO rentalManageVO) {
+		return selectList("RentalDAO.xlsxTrsfMyRentList",rentalManageVO);
 	};
 	
 }

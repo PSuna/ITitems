@@ -425,14 +425,17 @@
 	    	   IFNULL(PRJ_ID, '') PRJ_NM,
 	    	   IFNULL(MIDDLE_CATEGORY, '') ASSET_MIDDLE_CATEGORY,
 	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
-	    	   IFNULL(USE_NM, '') USE_NM,
-	    	   IFNULL(RCPT_NM,'') RCPT_NM
-		  FROM (
-		        SELECT 
+	    	   IFNULL(RCPT_NM,'') RCPT_NM,
+	    	   IFNULL(USE_NM, '') USE_NM
+		  FROM (SELECT 
 					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
 					A.ASSET_ID,
 					C.CAT_NAME AS LARGE_CATEGORY, 
-					D.CAT_NAME AS MIDDLE_CATEGORY,
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
 					A.ASSET_QTY,
 					CASE
 						WHEN F.ORGNZT_UP IS NULL
@@ -447,10 +450,12 @@
 	    	   		H.PRJ_NAME AS PRJ_ID,
 					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 					E.CODE_NM AS USAGE_STAUTS,
+					A.MAKER AS MAKER,
 					I.USER_NM AS USE_NM,
-					J.USER_NM AS RCPT_NM
+					J.USER_NM AS RCPT_NM,
+					A.ASSET_SN AS ASSET_SN
 				  FROM ASSETSINFO A 
-       LEFT OUTER JOIN ASSETSHIST B
+	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
 	   LEFT OUTER JOIN CATEGORY C
 				    ON A.LARGE_CATEGORY = C.CAT_ID
@@ -468,54 +473,55 @@
 	                ON B.USE_ID = I.ESNTL_ID
 	   LEFT OUTER JOIN LETTNEMPLYRINFO J
 	                ON B.RCPT_ID = J.ESNTL_ID  
-	             <where>
-		               <choose>
-		                <when test="searchOrgnzt != null and searchOrgnzt != '' and userId != null and userId != ''">
-							AND B.ORGNZT_ID = #{searchOrgnzt}
-							<include refid="search" />
-							 OR B.ORGNZT_ID = #{searchOrgnzt}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							<include refid="search" />
-		                </when>
-		                <when test="searchOrgnzt != null and searchOrgnzt != ''">
-		                	AND B.ORGNZT_ID = #{searchOrgnzt}
-							<include refid="search" />
-							 OR F.ORGNZT_UP = #{searchOrgnzt}
-							<include refid="search" />
-		                </when>
-		                <otherwise>
-		                	<include refid="search" />
-		                </otherwise>
-		               </choose>
-				 </where>
+	             <include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
 	<select id="xlsxTrsfMyAssList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">
 	    SELECT IFNULL(MIDDLE_CATEGORY, '') CATEGORY,
-	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
 	    	   IFNULL(ASSET_NAME, '') ASSET_NAME,
 	    	   IFNULL(ASSET_SN, '') ASSET_SN,
-	    	   IFNULL(PRJ_ID, '') PRJ_ID
-	      FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
-					   D.CAT_NAME AS MIDDLE_CATEGORY,
-					   A.ASSET_QTY,
-					   A.ASSET_NAME,
-					   A.ASSET_SN,
-					   G.PRJ_NAME AS PRJ_ID
+	    	   IFNULL(PRJ_ID, '') PRJ_ID,
+	    	   IFNULL(ASSET_QTY, '') ASSET_QTY,
+	    	   IFNULL(RCPT_NM, '') RCPT_NM,
+	    	   IFNULL(USE_NM, '') USE_NM
+	      FROM (SELECT 
+					ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+					A.ASSET_ID,
+					C.CAT_NAME AS LARGE_CATEGORY, 
+					CASE 
+						WHEN D.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+						THEN A.MCAT_ETC
+						ELSE D.CAT_NAME
+					END AS MIDDLE_CATEGORY,
+					A.ASSET_NAME,
+					A.ASSET_QTY,
+					A.ASSET_SN,
+					G.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+					E.CODE_NM AS USAGE_STAUTS,
+					I.USER_NM AS RCPT_NM,
+					H.USER_NM AS USE_NM
 				  FROM ASSETSINFO A
 	   LEFT OUTER JOIN ASSETSHIST B
 				    ON A.ASSET_ID = B.ASSET_ID
+	   LEFT OUTER JOIN CATEGORY C
+				    ON A.LARGE_CATEGORY = C.CAT_ID
 	   LEFT OUTER JOIN CATEGORY D
 				    ON A.MIDDLE_CATEGORY = D.CAT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.USAGE_STAUTS = E.CODE
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE F
+				    ON B.APPROVAL = F.CODE
 	   LEFT OUTER JOIN PROJECTS G
 				    ON B.PRJ_ID = G.PRJ_ID
-				 WHERE B.USE_ID = #{userId}
-		        <include refid="mySearch" />) P 
+	   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	                ON B.USE_ID = H.ESNTL_ID
+	   LEFT OUTER JOIN LETTNEMPLYRINFO I
+	                ON B.RCPT_ID = I.ESNTL_ID 
+				 	<include refid="mySearch" />
+		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 </mapper>
