@@ -11,10 +11,10 @@ import egovframework.let.com.service.CommonService;
 
 @Service("CommonService")
 public class CommonServiceImpl extends EgovAbstractServiceImpl implements CommonService  {
-	
+	 
 	@Resource(name = "CommonDAO")
 	private CommonDAO commonDAO;
-	
+	   
 	@Override
 	public int InsertXcptInfo(HashMap<String, String> xcpt) {
 		
@@ -22,3 +22,4 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	}
 	
 }
+

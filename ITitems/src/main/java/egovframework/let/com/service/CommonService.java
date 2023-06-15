@@ -7,3 +7,4 @@ public interface CommonService {
 	public int InsertXcptInfo(HashMap<String, String> xcpt);
 	 
 }
+

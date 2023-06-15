@@ -7,7 +7,6 @@ import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
-import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageVO;
 import egovframework.let.req.service.RequestDetailVO;
 

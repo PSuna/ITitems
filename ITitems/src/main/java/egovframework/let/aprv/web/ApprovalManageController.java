@@ -1,7 +1,5 @@
 package egovframework.let.aprv.web;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +20,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
-import egovframework.let.req.service.RequestDetailVO;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 
@@ -153,6 +151,7 @@ public class ApprovalManageController {
 		approvalManageVO = approvalManageService.SelectApproval(approvalSearchVO);
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
+		model.addAttribute("loginId", approvalSearchVO.getUniqId());
 		model.addAttribute("approvalDetailList", requestService.SelectRequestDetailVOList(manageVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		return "/aprv/SelectApproval";
@@ -163,12 +162,20 @@ public class ApprovalManageController {
 	 */
 	@RequestMapping(value = "/aprv/ApprovalUpdate.do")
 	@ResponseBody
-	public int UpdateApproval(ApprovalManageVO approvalManageVO, @RequestParam("assetLists") List<RequestDetailVO> assetList, HttpServletRequest request) {
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request) {
 		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
-		String loginId = loginVO.getUniqId();
 		String targetId = loginVO.getUniqId();
 		approvalManageVO.setTargetId(targetId);
-		return approvalManageService.UpdateApproval(approvalManageVO, loginId, assetList);
+		System.out.println(approvalManageVO.getReqId());
+		return approvalManageService.UpdateApproval(approvalManageVO);
+	}
+	/**
+	 * 반출입신청 자산내역 등록
+	 */
+	@RequestMapping(value = "/aprv/ApprovalInsertHist.do")
+	@ResponseBody
+	public int ApprovalInsertHist(AssetVO assetVO) {
+		return approvalManageService.ApprovalInsertHist(assetVO);
 	}
 	/**
 	 * 반출입신청 반려처리

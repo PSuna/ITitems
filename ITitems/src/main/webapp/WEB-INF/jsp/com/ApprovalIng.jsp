@@ -1,5 +1,5 @@
 <%--
-  Class Name : ApprovalConfirm.jsp
+  Class Name : ApprovalIng.jsp
   Description : 등록확인 모달
   Modification Information
  
@@ -29,27 +29,14 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 
-
-<title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="JavaScript">
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
 	}
-
-	function return_val(val) {
-		parent.parent.returnConfirm(val);
-	}
 	
 </script>
-<style>
-.right_btn{
-	float:inherit;
-}
-
-</style>
 </head>
 
 <body>
@@ -61,25 +48,12 @@
 		<div class="popup POP_POST_SEARCH">
 			<div class="pop_inner">
 				<div class="pop_header">
-					<h1>승인확인</h1>
+					<h1>결재진행</h1>
 				</div>
 				<div class="pop_container">
 					<div class="pop_check">
-						<h4><spring:message code="common.acknowledgement.msg" /></h4>
-						<!-- 버튼  -->
-						<div class="board_view_bot">
-							<div class="right_btn btn1">
-								<!-- 예  -->
-								<a href="#LINK" class="btn btn_blue_46 w_100"
-									onclick="return_val(true);return false;"><spring:message
-										code="button.yes" /></a>
-								<!-- 아니오  -->
-								<a href="#LINK" class="btn btn_blue_46 w_100"
-									onclick="return_val(false);return false;"><spring:message
-										code="button.no" /></a>
-							</div>
-						</div>
-						<!-- // 버튼 끝  -->
+						<h4><spring:message code="common.approve.ing" /></h4>
+						<h4><spring:message code="common.ing" /></h4>
 					</div>
 				</div>
 			</div>

@@ -65,7 +65,6 @@ function insertCarryDetail(reqId) {
 		formdata.append('reqId', reqId);
 		let assetId = items.querySelector('input').value;
 		let reqQty = items.querySelector('.reqQty').value;
-		console.log(assetId);
 		formdata.append('assetId', assetId);
 		formdata.append('reqQty', reqQty);
 		formdata.append('reqOrder', trList.length - index);
@@ -632,7 +631,7 @@ function ReqList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반입 신청</li>
+										<li>반입신청</li>
 									</ul>
 								</div>
 								<!--// Location -->

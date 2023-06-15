@@ -1,6 +1,6 @@
 <%--
-  Class Name : AssetInsert.jsp
-  Description : 자산등록 화면
+  Class Name : CarryRegist.jsp
+  Description : 반출신청 화면
   Modification Information
  
       수정일         수정자                   수정내용
@@ -762,7 +762,7 @@ function ReqList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출 신청</li>
+										<li>반출신청</li>
 									</ul>
 								</div>
 								<!--// Location -->

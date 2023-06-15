@@ -58,6 +58,8 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 	 */
 	private String prjId;
 	
+	private String prjCode;
+	
 	/*
 	 * 프로젝트 이름
 	 */
@@ -337,6 +339,14 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	public void setReqQty(int reqQty) {
 		this.reqQty = reqQty;
+	}
+
+	public String getPrjCode() {
+		return prjCode;
+	}
+
+	public void setPrjCode(String prjCode) {
+		this.prjCode = prjCode;
 	}
 
 
