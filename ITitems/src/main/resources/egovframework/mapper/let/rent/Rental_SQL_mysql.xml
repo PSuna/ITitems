@@ -53,7 +53,7 @@
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="useId" column="USE_ID" />
 		<result property="useNm" column="USE_NM" />
-		<result property="histDate" column="HIST_DATE" />
+		<result property="rcptDate" column="RCPT_DATE" />
 	</resultMap>
 	
 	<sql id="search">
@@ -327,7 +327,7 @@
 			K.PRJ_NAME AS PRJ_NM,
 			D.USE_ID,
 			L.USER_NM AS USE_NM, 
-			DATE_FORMAT(D.HIST_DATE,'%Y-%m-%d') AS HIST_DATE
+			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
 		   FROM RENTALASSET A
    LEFT OUTER JOIN RENTALDETAIL B
 				ON A.RENTAL_ID = B.RENTAL_ID
@@ -376,7 +376,7 @@
 					J.ORGNZT_NM,
 					D.PRJ_ID,
 					D.USE_ID,
-					D.HIST_DATE
+					B.RCPT_DATE
 	</select>
 
 	<insert id="InsertRental" parameterType="egovframework.let.rent.service.RentalVO">
@@ -418,6 +418,9 @@
 			MNG_NUM, 
 			USAGE_STAUTS,
 			RCPT_ID,
+			<if test="rcptDate != null and rcptDate != ''">
+			RCPT_DATE, 
+			</if> 
 			CREAT_DT
 			)
 		VALUES (
@@ -441,6 +444,9 @@
 			#{mngNum},
 			'Y',
 			#{rcptId},
+			<if test="rcptDate != null and rcptDate != ''">
+			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
+			</if>
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
 		)
 	</insert>
@@ -450,7 +456,7 @@
 			R_ID, 
 			RENTAL_ID,
 			USAGE_STAUTS,
-			REG_ID
+			REG_DATE
 			)
 		VALUES (
 			#{rId},
@@ -467,9 +473,6 @@
 			PRJ_ID, 
 			USE_ID, 
 			HIST_STATUS,
-			<if test="histDate != null and histDate != ''">
-			HIST_DATE, 
-			</if> 
 			CREAT_DT,
 			HIST_USER,
 			HIST_GROUP
@@ -480,9 +483,6 @@
 			#{prjId},
 			#{useId},
 			'Y',
-			<if test="histDate != null and histDate != ''">
-			DATE_FORMAT(#{histDate}, '%Y-%m-%d'),
-			</if>
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 			#{histUser},
 			#{histGroup}
