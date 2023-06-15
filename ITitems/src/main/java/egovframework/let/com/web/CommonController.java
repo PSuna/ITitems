@@ -109,11 +109,35 @@ public class CommonController {
 		return "/com/AlertModal";
 	}
 	/**
-	 * 승인확인 팝업창로 이동
+	 * 결재승인확인 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/ApprovalConfirm.do")
 	public String ApprovalConfirm() throws Exception {
 		return "/com/ApprovalConfirm";
+	}
+	/**
+	 * 결재승인완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/AprvSuccess.do")
+	public String AprvSuccess() throws Exception {
+
+		return "/com/ApprovalSuccess";
+	}
+	/**
+	 * 결재승인실패 팝업창으로 이동
+	 */
+	@RequestMapping(value = "/com/AprvFail.do")
+	public String AprvFail() throws Exception {
+
+		return "/com/ApprovalFail";
+	}
+	/**
+	 * 결재승인진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/AprvIng.do")
+	public String AprvIng() throws Exception {
+
+		return "/com/ApprovalIng";
 	}
 	/**
 	 * 반려확인 팝업창로 이동

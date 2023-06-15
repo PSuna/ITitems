@@ -11,6 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -50,6 +51,13 @@ function fnListPage(){
 	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
 	document.frm.submit();
 }
+
+function fnCheck(){
+	let loginId = '${approvalSearchVO.uniqId}';
+	var lastUserName = $("#lastUserName").val();
+	console.log(loginId + '==' + lastUserName);
+}
+
 /* ********************************************************
  * 승인확인 팝업창
  ******************************************************** */
@@ -72,33 +80,137 @@ function fnAgree(){
  function returnConfirm(val){
 	fn_egov_modal_remove();
 	 if(val){
+		 AprvIng();
 		 fnUpdate();
 	 }
 }
  /* ********************************************************
+  * 결재진행 팝업창
+  ******************************************************** */
+  function AprvIng(){
+ 	
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+ }
+ /* ********************************************************
   * 승인처리
   ******************************************************** */
 function fnUpdate(){
-	 var reqId = document.getElementById("reqId").value;
-	 var formdata = new FormData(document.getElementById('frm'));
-	 var assetLists = new Array();
-	 var assetList = new Array();
-	 var assetIds = new Array();
-	 assetIds = document.querySelectorAll("#assetDList tr");
-	 for(let i=0; i<assetIds.length; i++){
-		 assetList.push('assetId', assetIds[i].querySelector(".assetId").value);
-		 assetList.push('assetId', assetIds[i].querySelector(".reqQty").innerHTML);
-		 assetLists.push(assetList);
-	 }
-	 $.ajax({
-		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
-			method: 'POST',
-			data : {formData, assetLists},
-			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
-			}
-	 });
+	var reqId = document.getElementById("reqId").value;
+	let formdata = new FormData();
+	formdata.append('reqId', reqId);
+	$.ajax({
+	 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
+		method: 'POST',
+		processData: false,
+		contentType: false,
+		data : formdata,
+		success: function (result) {
+			fn_egov_modal_remove();
+			fnInsertHist();
+		}
+	})
  }
+/* ********************************************************
+ * 승인처리 후 자산 내역 입력
+ ******************************************************** */
+function fnInsertHist(){
+	var reqId = document.getElementById("reqId").value;
+	let loginId = "${approvalSearchVO.uniqId}";
+	var lastUserName = $("#lastUserName").val();
+	if(lastUserName == loginId){
+		var assetIds = new Array();
+		assetIds = document.querySelectorAll("#assetDList tr");
+		for(let i=0; i<assetIds.length; i++){
+			let formdata = new FormData();
+			var assetId = assetIds[i].querySelector(".assetId").value;
+			var useId = assetIds[i].querySelector(".useId").value;
+			var reqQty = assetIds[i].querySelector(".reqQty").innerHTML;
+			var prjId = "${approvalVO.prjCode}";
+			
+			formdata.append('assetId', assetId);
+			formdata.append('reqQty', reqQty);
+			formdata.append('prjId', prjId);
+			formdata.append('histUser', loginId);
+			formdata.append('useId', useId);
+			if(${approvalVO.reqGroup == '반출신청'}){
+				formdata.append('histGroup', 'C1');
+			}else{
+				formdata.append('histGroup', 'C0');
+			}
+			
+			$.ajax({
+				url:'${pageContext.request.contextPath}/aprv/ApprovalInsertHist.do',
+				method: 'POST',
+				enctype: "multipart/form-data",
+				processData: false,
+				contentType: false,
+				data : formdata,
+				success: function (result) {
+					fn_egov_modal_remove();
+					AprvSuccess();
+				},
+				error: function (error) {
+					fn_egov_modal_remove();
+					AprvFail();
+				}
+			})
+		}
+	}else{
+		fn_egov_modal_remove();
+		AprvSuccess();
+	}
+}
+/* ********************************************************
+ * 승인완료 팝업창
+ ******************************************************** */
+ function AprvSuccess(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+ /* ********************************************************
+  * 승인완료 결과 처리
+  ******************************************************** */
+function returnSuccess(val){
+	var reqId = document.getElementById("reqId").value;
+	if(val){
+		fn_egov_modal_remove();
+ 	} 	
+ 	location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+ }
+ 
+/* ********************************************************
+ * 승인실패 팝업창
+ ******************************************************** */
+ function AprvFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
 /* ********************************************************
  * 반려확인 팝업창
  ******************************************************** */
@@ -132,7 +244,8 @@ function fnDisUpdate(){
 		 	url: '${pageContext.request.contextPath}/aprv/ApprovalDisUpdate.do?reqId='+reqId,
 			method: 'POST',
 			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+				fn_egov_modal_remove();
+				AprvSuccess();
 			}
 	 });
  }
@@ -165,18 +278,6 @@ function fnDisUpdate(){
 		 $(".aprv_item:last-child").before(p);
 	 }
 	 
-	 var assetLists = new Array();
-	 var assetList = new Array();
-	 var assetIds = new Array();
-	 assetIds = document.querySelectorAll("#assetDList tr");
-	 console.log(assetIds);
-	 for(let i=0; i<assetIds.length; i++){
-		 assetList.push('assetId', assetIds[i].querySelector(".assetId").value);
-		 assetList.push('assetId', assetIds[i].querySelector(".reqQty").innerHTML);
-		 assetLists.push(assetList);
-	 }
-
-	 console.log(assetLists);
  }
 //-->
 </script>
@@ -376,6 +477,7 @@ function fnDisUpdate(){
 												varStatus="status" >
 												<tr>
 													<input type="hidden" name="assetId" class="assetId" value="<c:out value="${result.assetId}"/>"/>
+													<input type="hidden" name="useId" class="useId" value="<c:out value="${result.useId}"/>"/>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td class="reqQty"><c:out value="${result.reqQty}"></c:out></td>
 													<td><c:out value="${result.assetSn} | ${result.maker}"></c:out></td>

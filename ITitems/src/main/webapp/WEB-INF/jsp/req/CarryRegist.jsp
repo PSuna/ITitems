@@ -762,7 +762,7 @@ function ReqList(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출 신청</li>
+										<li>반출신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
