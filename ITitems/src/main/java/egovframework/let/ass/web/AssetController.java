@@ -182,20 +182,6 @@ public class AssetController {
 		return "/ass/AssetManagement";
 	}
 	
-	
-	/**
-	 * 자산내역 검색
-	 */
-	
-	@RequestMapping(value = "/ass/SearchAsserList.do")
-	@ResponseBody
-	public Object SearchAsserList(AssetManageVO assetManageVO) throws Exception {
-
-		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
-		
-		return map.get("resultList");
-	}
-	
 	/**
 	 * 자산상세정보 페이지로 이동
 	 */
@@ -359,7 +345,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 제품사진 안내 팝업창로 이동
+	 * 제품사진 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/PhotoManual.do")
 	public String PhotoManual() throws Exception {
@@ -368,7 +354,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 시리얼넘버 안내 팝업창로 이동
+	 * 시리얼넘버 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetSnManual.do")
 	public String AssetSnManual() throws Exception {
@@ -377,7 +363,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 지급확인서 안내 팝업창로 이동
+	 * 지급확인서 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/FileManual.do")
 	public String FileManual(ModelMap model) throws Exception {
@@ -390,7 +376,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 자산조회 팝업창로 이동
+	 * 자산조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetSearchList.do")
 	public String AssetSearchList(HttpServletRequest request, ModelMap model,

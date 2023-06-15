@@ -1,6 +1,6 @@
 <%--
-  Class Name : AssetInsert.jsp
-  Description : 자산등록 화면
+  Class Name : CarryRegist.jsp
+  Description : 반출신청 화면
   Modification Information
  
       수정일         수정자                   수정내용

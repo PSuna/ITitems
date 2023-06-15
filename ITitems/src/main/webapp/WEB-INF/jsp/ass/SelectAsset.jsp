@@ -195,13 +195,6 @@ function AssetList(){
 	    document.frm.submit();
 	}
 }
-/* ********************************************************
- * onload
- ******************************************************** */
-window.onload = function(){
-	console.log('${PhotoList}');
-	  }
-
 //-->
 </script>
 <script type="text/javascript">
@@ -289,15 +282,15 @@ window.onload = function(){
 												<td>
 													${resultVO.rcptNm}
 												</td>
-												<td class="lb">
+												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
 												<td>
 													${resultVO.useNm}
-												</td>
+												</td> --%>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -312,7 +305,7 @@ window.onload = function(){
 												<td>
 													${resultVO.prjNm}
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 

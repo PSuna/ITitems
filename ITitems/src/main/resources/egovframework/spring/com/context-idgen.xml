@@ -70,7 +70,7 @@
 	<!-- 자산내역 ID Generation Strategy Config -->
 	<bean name="AIdStrategy"
 		class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
-		<property name="prefix" value="ASH_" />
+		<property name="prefix" value="A_" />
 		<property name="cipers" value="13" />
 		<property name="fillChar" value="0" />
 	</bean>
