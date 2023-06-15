@@ -48,6 +48,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Resource(name = "AIdGnrService")
 	private EgovIdGnrService aIdGnrService;
 
+	
+	
 	/**
      * 조건에 맞는 전체자산을 전부 조회한다.
      */
@@ -59,6 +61,17 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return map;
 	}
 	
+	/**
+     * 조건에 맞는 전체자산을 전부 조회한다.(모바일)
+     */
+	@Override
+	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.MobSelectAssetInfoVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetVOList(assetManageVO)));
+		return map;
+	}
+	
 
 	/**
      * 조건에 맞는 내자산을 전부 조회한다.
@@ -66,6 +79,16 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resultList", assetDAO.SelectMyAssetVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountMyAssetVOList(assetManageVO)));
+		return map;
+	}
+	
+	/**
+	 * 조건에 맞는 내자산을 전부 조회한다.(모바일용)
+	 */
+	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.MobSelectMyAssetInfoList(assetManageVO));
 		map.put("resultCnt", Integer.toString(assetDAO.CountMyAssetVOList(assetManageVO)));
 		return map;
 	}

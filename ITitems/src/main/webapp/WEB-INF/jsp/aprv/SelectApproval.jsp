@@ -80,9 +80,20 @@ function fnAgree(){
   ******************************************************** */
 function fnUpdate(){
 	 var reqId = document.getElementById("reqId").value;
+	 var formdata = new FormData(document.getElementById('frm'));
+	 var assetLists = new Array();
+	 var assetList = new Array();
+	 var assetIds = new Array();
+	 assetIds = document.querySelectorAll("#assetDList tr");
+	 for(let i=0; i<assetIds.length; i++){
+		 assetList.push('assetId', assetIds[i].querySelector(".assetId").value);
+		 assetList.push('assetId', assetIds[i].querySelector(".reqQty").innerHTML);
+		 assetLists.push(assetList);
+	 }
 	 $.ajax({
-		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do?reqId='+reqId,
+		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
 			method: 'POST',
+			data : {formData, assetLists},
 			success: function (result) {
 				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
 			}
@@ -153,6 +164,19 @@ function fnDisUpdate(){
 	 for(var j=0;j<4-i;j++){
 		 $(".aprv_item:last-child").before(p);
 	 }
+	 
+	 var assetLists = new Array();
+	 var assetList = new Array();
+	 var assetIds = new Array();
+	 assetIds = document.querySelectorAll("#assetDList tr");
+	 console.log(assetIds);
+	 for(let i=0; i<assetIds.length; i++){
+		 assetList.push('assetId', assetIds[i].querySelector(".assetId").value);
+		 assetList.push('assetId', assetIds[i].querySelector(".reqQty").innerHTML);
+		 assetLists.push(assetList);
+	 }
+
+	 console.log(assetLists);
  }
 //-->
 </script>
@@ -240,6 +264,7 @@ function fnDisUpdate(){
 																</tr>
 																<tr class="aprv_col" style="border-bottom:1px solid black;">
 																	<td class="aprv_nm">${aprvItem.userNm }</td>
+																	<c:if test="${status.last}"><input type="hidden" id="lastUserName" name="lastUserName" value="<c:out value="${aprvItem.esntlId}"/>"/></c:if>
 																</tr>
 																<tr>
 																	<td class="aprv_td">
@@ -346,13 +371,14 @@ function fnDisUpdate(){
 												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="assetDList">
 											<c:forEach var="result" items="${approvalDetailList}"
 												varStatus="status" >
 												<tr>
+													<input type="hidden" name="assetId" class="assetId" value="<c:out value="${result.assetId}"/>"/>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
-													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.assetSn } | ${result.maker}"></c:out></td>
+													<td class="reqQty"><c:out value="${result.reqQty}"></c:out></td>
+													<td><c:out value="${result.assetSn} | ${result.maker}"></c:out></td>
 													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>

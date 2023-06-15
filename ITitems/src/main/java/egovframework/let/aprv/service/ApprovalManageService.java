@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
+
 import egovframework.let.req.service.RequestDetailVO;
 
 /**
@@ -45,7 +47,7 @@ public interface ApprovalManageService {
 
 	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO);
 
-	public int UpdateApproval(ApprovalManageVO approvalManageVO);
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, String loginId, List<RequestDetailVO> assetList);
 	
 	public int InsertApproval(ApprovalManageVO approvalManageVO);
 

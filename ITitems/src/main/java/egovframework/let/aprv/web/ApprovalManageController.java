@@ -1,5 +1,7 @@
 package egovframework.let.aprv.web;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +22,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.req.service.RequestDetailVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 
@@ -117,7 +120,7 @@ public class ApprovalManageController {
 	}
 	
 	/**
-	 * 반출신청 결재요청자 등록
+	 * 반출입신청 결재요청자 등록
 	 */
 	@RequestMapping(value = "/aprv/ApprovalInsert.do")
 	@ResponseBody
@@ -129,7 +132,7 @@ public class ApprovalManageController {
 	}
 	
 	/**
-	 * 반출신청상세정보 페이지로 이동
+	 * 반출입신청상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/aprv/selectApproval.do")
 	public String SelectApproval(@ModelAttribute("approvalSearchVO") ApprovalDefaultVO approvalSearchVO,
@@ -156,19 +159,19 @@ public class ApprovalManageController {
 	}
 	
 	/**
-	 * 반출신청 승인처리
+	 * 반출입신청 승인처리
 	 */
 	@RequestMapping(value = "/aprv/ApprovalUpdate.do")
 	@ResponseBody
-	public int UpdateApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request, @RequestParam String reqId ) {
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, @RequestParam("assetLists") List<RequestDetailVO> assetList, HttpServletRequest request) {
 		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
+		String loginId = loginVO.getUniqId();
 		String targetId = loginVO.getUniqId();
-		approvalManageVO.setReqId(reqId);
 		approvalManageVO.setTargetId(targetId);
-		return approvalManageService.UpdateApproval(approvalManageVO);
+		return approvalManageService.UpdateApproval(approvalManageVO, loginId, assetList);
 	}
 	/**
-	 * 반출신청 승인처리
+	 * 반출입신청 반려처리
 	 */
 	@RequestMapping(value = "/aprv/ApprovalDisUpdate.do")
 	@ResponseBody

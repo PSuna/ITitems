@@ -112,7 +112,6 @@ public class AssetController {
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
-
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");

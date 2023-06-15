@@ -369,6 +369,7 @@
 	
 	<select id='SelectAprvList' parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
 		 SELECT E.USER_NM,
+		 		E.ESNTL_ID,
 			    DATE_FORMAT(A.APRV_DATE,'%m-%d') AS APRV_DATE,
 			    A.REQ_STATUS,
 			    A.APRV_ORDER
