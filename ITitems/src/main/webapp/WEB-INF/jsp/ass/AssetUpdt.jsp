@@ -705,7 +705,7 @@ window.onload = function(){
 														</td>
 													</c:otherwise>
 												</c:choose>
-												<td class="lb">
+												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
@@ -717,9 +717,9 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-												</td>
+												</td> --%>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -752,7 +752,7 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 

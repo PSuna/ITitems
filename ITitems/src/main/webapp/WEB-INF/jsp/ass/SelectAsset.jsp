@@ -391,6 +391,51 @@ function AssetList(){
 											</tr>
 										</table>
 									</div>
+									<br>
+									<!-- 게시판 -->
+								<div class="board_list selete_table">
+									<table>
+										<colgroup>
+											<col style="width: 10%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">번호</th>
+												<th scope="col">본부</th>
+												<th scope="col">부서</th>
+												<th scope="col">프로젝트</th>
+												<th scope="col">수량</th>
+												<th scope="col">실사용자</th>
+												<th scope="col">상태</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="result" items="${resultList}"
+												varStatus="status">
+												<tr>
+													<td><c:out value="${resultCnt - status.index}" /></td>
+													<td><c:out value="${result.orgnztNm}" /></td>
+													<td><c:out value="${result.lowerOrgnztNm}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
+													<td><c:out value="${result.assetQty}" /></td>
+													<td><c:out value="${result.useNm}" /></td>
+													<td><c:out value="${result.histGroup}" /></td>
+												</tr>
+											</c:forEach>
+											<c:if test="${empty resultList}">
+												<tr>
+                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+                               					</tr>
+											</c:if>
+										</tbody>
+									</table>
+								</div>
 										<%
 											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 										%>

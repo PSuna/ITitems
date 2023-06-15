@@ -191,6 +191,10 @@ public class AssetController {
 		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		
+		Map<String, Object> map = assetService.SelectAssetHistList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
