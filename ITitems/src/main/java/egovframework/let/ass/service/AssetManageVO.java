@@ -46,6 +46,9 @@ public class AssetManageVO implements Serializable {
     /** 기본 검색부서 */
     private String menuLowerOrgnzt = "";
     
+    /** 반출입구분 */
+    private String searchKind = "";
+    
     /** 검색프로젝트 */
     private String searchPrj = "";
     
@@ -82,8 +85,6 @@ public class AssetManageVO implements Serializable {
     /** 목록 */
     private String listCode = "MYAM";
     
-    /** 반출입 구분*/
-    private String carryInOutSet = "";
     /** 페이징 */
     
     /** 정렬순서(DESC,ASC) */
@@ -395,11 +396,11 @@ public class AssetManageVO implements Serializable {
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
 	}
-	public String getCarryInOutSet() {
-		return carryInOutSet;
+	public String getSearchKind() {
+		return searchKind;
 	}
-	public void setCarryInOutSet(String carryInOutSet) {
-		this.carryInOutSet = carryInOutSet;
+	public void setSearchKind(String searchKind) {
+		this.searchKind = searchKind;
 	}
 	
 	

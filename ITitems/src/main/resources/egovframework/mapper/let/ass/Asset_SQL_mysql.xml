@@ -98,7 +98,12 @@
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
-			
+			<if test="searchKind == 'out'">
+				AND D.HIST_GROUP != 'C1'
+			</if>
+			<if test="searchKind == 'in'">
+				AND D.HIST_GROUP = 'C1'
+			</if>
 		</where>
 	</sql>
 	
