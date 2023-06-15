@@ -66,6 +66,10 @@
               	AND (	D.ORGNZT_ID = #{searchOrgnzt} 
               		OR  I.ORGNZT_UP = #{searchOrgnzt})
             </if>
+			<if test="searchName != null and searchName != ''">
+				AND (	G.USER_NM LIKE CONCAT ('%', #{searchName},'%') 
+					OR  H.USER_NM LIKE CONCAT ('%', #{searchName},'%'))
+		 	</if>
             <if test="userId != null and userId != ''">
 				AND (	B.RCPT_ID = #{userId} 
 					OR  D.USE_ID = #{userId})
@@ -204,6 +208,10 @@
 				ON A.ASSET_ID = C.ASSET_ID			
    LEFT OUTER JOIN ASSETHIST D
 				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.ASSET_ID
@@ -297,6 +305,10 @@
 				ON A.ASSET_ID = C.ASSET_ID
    LEFT OUTER JOIN ASSETHIST D
 				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="search" />
 		  GROUP BY  
 				A.ASSET_ID
@@ -770,5 +782,17 @@
 	                ON B.RCPT_ID = J.ESNTL_ID  
 	             <include refid="search" />
 		    ) P 
+	</select>
+	
+	<select id="getAId" parameterType="egovframework.let.ass.service.AssetVO" resultType="String">
+		 SELECT A.A_ID
+		   FROM ASSETINDIV A
+LEFT OUTER JOIN ASSETHIST B
+		     ON A.A_ID = B.A_ID
+		  WHERE ASSET_ID = #{assetId}
+			AND B.HIST_STATUS = 'Y'
+			AND B.HIST_GROUP != 'C1'
+	   ORDER BY REG_DATE DESC
+		  LIMIT #{reqQty};
 	</select>
 </mapper>

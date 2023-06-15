@@ -316,9 +316,6 @@ window.onload = function(){
 										</tbody>
 									</table>
 								</div>
-								
-							<br>
-							<br>
 							
 								 <!-- 버튼  -->
 									<div class="board_view_bot btn_bot">

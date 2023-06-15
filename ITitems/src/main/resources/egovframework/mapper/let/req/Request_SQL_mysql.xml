@@ -25,6 +25,8 @@
 		<result property="user" column="USER" />
 		<result property="rcptId" column="RCPT_ID" />
 		<result property="assetId" column="ASSET_ID" />
+		<result property="useId" column="USE_ID" />
+		
 	</resultMap>
 	
 	<sql id="search">
@@ -259,43 +261,38 @@
 	
 	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
 		resultMap="RequestDetailList">
-		SELECT A.RED_ID, 
-			   CASE WHEN I.LARGE_CATEGORY = 'ETC'
-			   THEN I.MIDDLE_CATEGORY 
-			   ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
-			   A.REQ_QTY,
-			   I.ASSET_SN AS ASSET_SN,
-			   I.MAKER AS MAKER, 
-			   C.USER_NM AS USER, 
-			   D.USER_NM AS RCPT_ID,
-			   A.ASSET_ID
-		  FROM REQUESTDETAIL A
-		  LEFT OUTER JOIN ASSETSINFO I
-			ON A.ASSET_ID = I.ASSET_ID
-		  LEFT OUTER JOIN ASSETSHIST H
-			ON A.ASSET_ID = H.ASSET_ID
-		  LEFT OUTER JOIN category B
-			ON I.MIDDLE_CATEGORY = B.CAT_ID
-		  LEFT OUTER JOIN lettnemplyrinfo C
-		        ON H.USE_ID = C.ESNTL_ID
-		  LEFT OUTER JOIN lettnemplyrinfo D
-		        ON H.RCPT_ID = D.ESNTL_ID
-		 WHERE REQ_ID = #{reqId}
-	  ORDER BY A.REQ_ORDER
-<!-- 			SELECT 
-				A.RED_ID, 
-				CASE WHEN A.LARGE_CATEGORY = 'ETC' 
-					 THEN A.MIDDLE_CATEGORY 
-					 ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
-				A.REQ_QTY, 
-				A.MAKER, 
-				A.USER, 
-				A.ASSET_ID
-			  FROM REQUESTDETAIL A
-   LEFT OUTER JOIN category B
-			    ON A.MIDDLE_CATEGORY = B.CAT_ID
-			 WHERE REQ_ID = #{reqId}
-			 ORDER BY A.REQ_ORDER -->
+		 SELECT REQ.RED_ID, 
+			    CASE WHEN AD.LARGE_CATEGORY = 'ETC'
+			    THEN AD.MIDDLE_CATEGORY 
+			    ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
+			    REQ.REQ_QTY,
+			    AD.ASSET_SN AS ASSET_SN,
+			    AD.MAKER AS MAKER, 
+			    C.USER_NM AS USER, 
+			    D.USER_NM AS RCPT_ID,
+			    REQ.ASSET_ID,
+			    AH.USE_ID
+		   FROM REQUESTDETAIL REQ
+LEFT OUTER JOIN ASSETS A
+			 ON REQ.ASSET_ID = A.ASSET_ID
+LEFT OUTER JOIN ASSETDETAIL AD
+			 ON REQ.ASSET_ID = AD.ASSET_ID
+LEFT OUTER JOIN ASSETINDIV AI
+			 ON REQ.ASSET_ID = AI.ASSET_ID
+LEFT OUTER JOIN ASSETHIST AH
+			 ON AI.A_ID = AH.A_ID
+LEFT OUTER JOIN category B
+			 ON AD.MIDDLE_CATEGORY = B.CAT_ID
+LEFT OUTER JOIN LETTNEMPLYRINFO C
+		     ON AH.USE_ID = C.ESNTL_ID
+LEFT OUTER JOIN LETTNEMPLYRINFO D
+		     ON AD.RCPT_ID = D.ESNTL_ID
+		  WHERE REQ.REQ_ID = #{reqId}
+		    AND A.USAGE_STAUTS = 'Y'
+			AND AD.USAGE_STAUTS = 'Y'
+			AND AI.USAGE_STAUTS = 'Y'
+			AND AH.HIST_STATUS = 'Y'
+	   ORDER BY REQ.REQ_ORDER
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">

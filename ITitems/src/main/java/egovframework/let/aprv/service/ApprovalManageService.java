@@ -5,8 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.egovframe.rte.psl.dataaccess.util.EgovMap;
-
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.req.service.RequestDetailVO;
 
 /**
@@ -47,7 +46,7 @@ public interface ApprovalManageService {
 
 	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO);
 
-	public int UpdateApproval(ApprovalManageVO approvalManageVO, String loginId, List<RequestDetailVO> assetList);
+	public int UpdateApproval(ApprovalManageVO approvalManageVO);
 	
 	public int InsertApproval(ApprovalManageVO approvalManageVO);
 
@@ -58,6 +57,8 @@ public interface ApprovalManageService {
 	public List<ApprovalManageVO> selectApprovalListB(ApprovalDefaultVO approvalSearchVO) throws Exception;
 
 	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO);
+
+	public int ApprovalInsertHist(AssetVO assetVO);
 
 
 }
