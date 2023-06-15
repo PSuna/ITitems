@@ -103,6 +103,15 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	}
 
 	/**
+     * 해당 자산의 개별자산 현황을 전체 조회한다.
+     */
+	@Override
+	public List<AssetVO> SelectAssetHistList(AssetManageVO assetManageVO) {
+		
+		return null;
+	}
+	
+	/**
      * 자산 등록.
      */
 	@Override
@@ -218,6 +227,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		}
 		
 	}
+
 
 
 

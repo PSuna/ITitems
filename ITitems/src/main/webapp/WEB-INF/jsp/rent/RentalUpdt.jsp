@@ -362,7 +362,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#histDate,#rentalStart,#rentalEnd").datepicker(
+	$("#rcptDate,#rentalStart,#rentalEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -779,7 +779,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="histDate" class="f_txt w_full readonly" value="${resultVO.histDate}" name="histDate" type="text" readonly="readonly">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">

@@ -83,6 +83,9 @@ public class RentalVO implements Serializable {
 	
 	/** 수령자 이름 */
 	private String rcptNm;
+	
+	/** 수령일자 */
+	private String rcptDate;
 
 	/** 본부 */
 	private String orgnztId;
@@ -111,9 +114,6 @@ public class RentalVO implements Serializable {
 	/** 내역 상태 */
 	private String histStatus;
 
-	/** 내역 신청일자 */
-	private String histDate;
-	
 	/** 내역 신청자 */
 	private String histUser;
 	
@@ -299,14 +299,6 @@ public class RentalVO implements Serializable {
 		this.histStatus = histStatus;
 	}
 
-	public String getHistDate() {
-		return histDate;
-	}
-
-	public void setHistDate(String histDate) {
-		this.histDate = histDate;
-	}
-
 	public String getRcptId() {
 		return rcptId;
 	}
@@ -393,6 +385,14 @@ public class RentalVO implements Serializable {
 
 	public void setMcatNm(String mcatNm) {
 		this.mcatNm = mcatNm;
+	}
+
+	public String getRcptDate() {
+		return rcptDate;
+	}
+
+	public void setRcptDate(String rcptDate) {
+		this.rcptDate = rcptDate;
 	}
 	
 	
