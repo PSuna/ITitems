@@ -1,6 +1,5 @@
 package egovframework.let.ass.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO);
 	
-	public List<AssetVO> SelectAssetHistList(AssetManageVO assetManageVO);
+	public Map<String, Object> SelectAssetHistList(AssetManageVO assetManageVO);
 	
 	//모바일용 내자산조회리스트 
 	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO);

@@ -191,6 +191,10 @@ public class AssetController {
 		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		
+		Map<String, Object> map = assetService.SelectAssetHistList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
@@ -391,7 +395,7 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-
+		assetManageVO.setSearchKind("out");
 		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -431,7 +435,7 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		assetManageVO.setCarryInOutSet("in");
+		assetManageVO.setSearchKind("in");
 		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -456,5 +460,45 @@ public class AssetController {
 		
 		return "/ass/AssetSearchList";
 	}
+	/**
+	 * 중복데이터조회페이지 이동
+	 */
+	@RequestMapping(value = "/ass/DistinctManage.do")
+	public String DistinctManage(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/DistinctManage";
+	}
 }

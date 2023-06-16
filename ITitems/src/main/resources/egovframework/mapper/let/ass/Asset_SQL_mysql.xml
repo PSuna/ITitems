@@ -56,6 +56,19 @@
 		<result property="rcptDate" column="RCPT_DATE" />
 	</resultMap>
 	
+	<resultMap type="egovframework.let.ass.service.AssetVO"
+		id="histList">
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="orgnztNm" column="ORGNZT_NM" />
+		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="useId" column="USE_ID" />
+		<result property="useNm" column="USE_NM" />
+		<result property="histGroup" column="HIST_GROUP" />
+	</resultMap>
+	
 	<sql id="search">
 		<where>
 			AND A.USAGE_STAUTS = 'Y'
@@ -98,7 +111,12 @@
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
-			
+			<if test="searchKind == 'out'">
+				AND D.HIST_GROUP != 'C1'
+			</if>
+			<if test="searchKind == 'in'">
+				AND D.HIST_GROUP = 'C1'
+			</if>
 		</where>
 	</sql>
 	
@@ -382,6 +400,72 @@
 					B.MNG_NUM,
 					B.RCPT_ID,
 					B.RCPT_DATE
+	</select>
+	
+	<select id="SelectAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="histList">
+			SELECT
+				COUNT(A.A_ID) AS ASSET_QTY,
+				B.ORGNZT_ID,
+				CASE
+					WHEN C.ORGNZT_UP IS NULL
+					THEN C.ORGNZT_NM
+					ELSE D.ORGNZT_NM
+				  END AS ORGNZT_NM,
+				CASE 
+					WHEN C.ORGNZT_UP IS NULL
+					THEN NULL
+					ELSE C.ORGNZT_NM
+				  END AS LOWER_ORGNZT_NM,
+				B.PRJ_ID,
+				E.PRJ_NAME AS PRJ_NM,
+				B.USE_ID,
+				F.USER_NM AS USE_NM,
+				CASE
+					WHEN B.HIST_GROUP IN ('C2','C3')
+					THEN '사용중'
+					ELSE G.CODE_NM
+				  END AS HIST_GROUP
+			  FROM ASSETINDIV A			
+   LEFT OUTER JOIN ASSETHIST B
+				ON A.A_ID = B.A_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO C
+				ON B.ORGNZT_ID = C.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO D
+				ON C.ORGNZT_UP = D.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS E
+				ON B.PRJ_ID = E.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				ON B.USE_ID = F.ESNTL_ID
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				ON B.HIST_GROUP = G.CODE
+			 WHERE A.USAGE_STAUTS = 'Y'
+			   AND B.HIST_STATUS = 'Y'
+			   AND B.HIST_GROUP != 'C4'
+			   AND A.ASSET_ID = #{assetId}
+		  GROUP BY B.ORGNZT_ID,
+					B.PRJ_ID,
+					B.USE_ID,
+					B.HIST_GROUP,
+					G.CODE_NM
+	</select>
+	
+	<select id="CountAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int" >
+		SELECT
+			COUNT(P.ASSET_QTY)
+		  FROM (
+		  	SELECT
+				COUNT(A.A_ID) AS ASSET_QTY
+  			  FROM ASSETINDIV A			
+   LEFT OUTER JOIN ASSETHIST B
+				ON A.A_ID = B.A_ID
+			 WHERE A.USAGE_STAUTS = 'Y'
+			   AND B.HIST_STATUS = 'Y'
+			   AND A.ASSET_ID = #{assetId}
+		  GROUP BY B.ORGNZT_ID,
+					B.PRJ_ID,
+					B.USE_ID,
+					B.HIST_GROUP
+		  ) P
 	</select>
 
 	<insert id="InsertAsset" parameterType="egovframework.let.ass.service.AssetVO">
