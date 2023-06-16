@@ -76,6 +76,9 @@ public class AssetVO implements Serializable {
 	/** 수령자 이름 */
 	private String rcptNm;
 	
+	/** 수령일자 */
+	private String rcptDate;
+	
 	/** 자산상세 ID */
 	private String aId;
 
@@ -105,9 +108,6 @@ public class AssetVO implements Serializable {
 
 	/** 내역 상태 */
 	private String histStatus;
-
-	/** 내역 신청일자 */
-	private String histDate;
 
 	/** 내역 신청자 */
 	private String histUser;
@@ -341,13 +341,6 @@ public class AssetVO implements Serializable {
 		this.histStatus = histStatus;
 	}
 
-	public String getHistDate() {
-		return histDate;
-	}
-
-	public void setHistDate(String histDate) {
-		this.histDate = histDate;
-	}
 
 	public String getHistUser() {
 		return histUser;
@@ -372,6 +365,15 @@ public class AssetVO implements Serializable {
 	public void setReqQty(int reqQty) {
 		this.reqQty = reqQty;
 	}
+
+	public String getRcptDate() {
+		return rcptDate;
+	}
+
+	public void setRcptDate(String rcptDate) {
+		this.rcptDate = rcptDate;
+	}
+
 	
 	
 }

@@ -29,6 +29,8 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO);
 	
+	public Map<String, Object> SelectAssetHistList(AssetManageVO assetManageVO);
+	
 	//모바일용 내자산조회리스트 
 	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO);
 	
@@ -36,7 +38,6 @@ public interface AssetService {
 	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
 	
 	public int InsertAssetInfo(AssetVO assetVO);
-
 	
 	public int UpdateAssetDetail(AssetVO assetVO);
 	

@@ -37,6 +37,7 @@
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <script src="<c:url value='/'/>js/FormSave.js"></script>
+<script src="<c:url value='/'/>js/Confirm.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -79,21 +80,12 @@ function insert_asset(){
 }
 
 /* ********************************************************
- * 등록확인 팝업창
+ * 필수 입력값 체크
  ******************************************************** */
- function RegistConfirm(){
+ function RegistCheck(){
 	   if(validateAssetRegist(document.assetRegist)){
-		 var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
-			.dialog({
-		    	autoOpen: false,
-		        modal: true,
-		        width: 400,
-		        height: 300
-			});
-		    $(".ui-dialog-titlebar").hide();
-			$dialog.dialog('open');
-	 }  
+		   RegistConfirm();
+	 	}  
 }
 
 /* ********************************************************
@@ -106,39 +98,6 @@ function insert_asset(){
 		 RegistIng();
 		 insert_asset();
 	 }	  
-}
-
-/* ********************************************************
- * 등록진행 팝업창
- ******************************************************** */
- function RegistIng(){
-	
-	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 400,
-	        height: 300
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 등록완료 팝업창
- ******************************************************** */
- function RegistSuccess(){
-	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
-		.dialog({
-	    	autoOpen: false,
-	        modal: true,
-	        width: 400,
-	        height: 300
-		});
-	    $(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
 }
 
 /* ********************************************************
@@ -351,7 +310,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#histDate").datepicker(
+	$("#rcptDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -763,7 +722,7 @@ window.onload = function(){
 												</td>
 												<td colspan="4">
 												<span class="search_date w_full">
-													<input id="histDate" class="f_txt w_full readonly" name="histDate" type="text"  maxlength="60" readonly="readonly">
+													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
 												</td>
 											</tr>
@@ -829,7 +788,7 @@ window.onload = function(){
 											<!-- 등록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 
-												onclick="RegistConfirm(); return false;"><spring:message
+												onclick="RegistCheck(); return false;"><spring:message
 													code="button.create" /></a>
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

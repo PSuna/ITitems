@@ -182,20 +182,6 @@ public class AssetController {
 		return "/ass/AssetManagement";
 	}
 	
-	
-	/**
-	 * 자산내역 검색
-	 */
-	
-	@RequestMapping(value = "/ass/SearchAsserList.do")
-	@ResponseBody
-	public Object SearchAsserList(AssetManageVO assetManageVO) throws Exception {
-
-		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
-		
-		return map.get("resultList");
-	}
-	
 	/**
 	 * 자산상세정보 페이지로 이동
 	 */
@@ -204,6 +190,10 @@ public class AssetController {
 		
 		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		model.addAttribute("resultVO", result);
+		
+		Map<String, Object> map = assetService.SelectAssetHistList(assetManageVO);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
 		
 		FileVO fvo = new FileVO();
 		fvo.setFileGroup(assetManageVO.getAssetId());
@@ -359,7 +349,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 제품사진 안내 팝업창로 이동
+	 * 제품사진 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/PhotoManual.do")
 	public String PhotoManual() throws Exception {
@@ -368,7 +358,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 시리얼넘버 안내 팝업창로 이동
+	 * 시리얼넘버 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetSnManual.do")
 	public String AssetSnManual() throws Exception {
@@ -377,7 +367,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 지급확인서 안내 팝업창로 이동
+	 * 지급확인서 안내 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/FileManual.do")
 	public String FileManual(ModelMap model) throws Exception {
@@ -390,7 +380,7 @@ public class AssetController {
 	}
 	
 	/**
-	 * 자산조회 팝업창로 이동
+	 * 자산조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/AssetSearchList.do")
 	public String AssetSearchList(HttpServletRequest request, ModelMap model,
@@ -405,7 +395,7 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-
+		assetManageVO.setSearchKind("out");
 		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -445,7 +435,7 @@ public class AssetController {
 		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
 		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
 		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		assetManageVO.setCarryInOutSet("in");
+		assetManageVO.setSearchKind("in");
 		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -470,5 +460,45 @@ public class AssetController {
 		
 		return "/ass/AssetSearchList";
 	}
+	/**
+	 * 중복데이터조회페이지 이동
+	 */
+	@RequestMapping(value = "/ass/DistinctManage.do")
+	public String DistinctManage(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		
+		return "/ass/DistinctManage";
+	}
 }

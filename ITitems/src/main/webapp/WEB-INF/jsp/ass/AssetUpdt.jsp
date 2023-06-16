@@ -362,7 +362,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#acquiredDate,#histDate").datepicker(
+	$("#acquiredDate,#rcptDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -705,7 +705,7 @@ window.onload = function(){
 														</td>
 													</c:otherwise>
 												</c:choose>
-												<td class="lb">
+												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
@@ -717,9 +717,9 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-												</td>
+												</td> --%>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -752,7 +752,7 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 
@@ -760,7 +760,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<input id="histDate" class="f_txt w_full readonly" value="${resultVO.histDate}" name="histDate" type="text" readonly="readonly">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
 												</td>
 												<td class="lb">

@@ -50,6 +50,14 @@ public class AssetDAO extends EgovAbstractMapper {
 		return selectOne("AssetDAO.SelectAssetVO",AssetManageVO);
 	}
 	
+	public List<AssetVO> SelectAssetHistList(AssetManageVO AssetManageVO) {
+		return selectList("AssetDAO.SelectAssetHistList",AssetManageVO);
+	};
+	
+	public int CountAssetHistList(AssetManageVO AssetManageVO) {
+		return selectOne("AssetDAO.CountAssetHistList",AssetManageVO);
+	};
+	
 	public int InsertAsset(AssetVO AssetVO) {
 		return insert("AssetDAO.InsertAsset",AssetVO);
 	};
@@ -111,5 +119,9 @@ public class AssetDAO extends EgovAbstractMapper {
 	 */
 	public List<AssetManageVO> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
 		return selectList("AssetDAO.MobSelectMyAssetInfoList", assetManageVO);
+	}
+
+	public List<String> getAId(AssetVO assetVO) {
+		return selectList("AssetDAO.getAId", assetVO);
 	}
 }

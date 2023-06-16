@@ -103,6 +103,17 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	}
 
 	/**
+     * 해당 자산의 개별자산 현황을 전체 조회한다.
+     */
+	@Override
+	public Map<String, Object> SelectAssetHistList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.SelectAssetHistList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetHistList(assetManageVO)));
+		return map;
+	}
+	
+	/**
      * 자산 등록.
      */
 	@Override
@@ -140,14 +151,14 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		
 		assetDAO.UpdateAssetdetail(assetVO);
 		assetDAO.InsertAssetdetail(assetVO);
-		
+		/*
 		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
 		assetVO.setHistGroup("C3");
 		for(String aId : aIdList) {
 			assetVO.setaId(aId);
 			assetDAO.UpdateAssethist(assetVO);
 			assetDAO.InsertAssethist(assetVO);
-		} 
+		} */
 		return 0;
 	}
 
@@ -218,6 +229,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		}
 		
 	}
+
 
 
 

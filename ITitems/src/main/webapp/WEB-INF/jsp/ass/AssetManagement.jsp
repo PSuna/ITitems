@@ -246,23 +246,7 @@ function AssetRegist() {
  ******************************************************** */
 function make_date(){
 	
-	$("#startDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-
-	$("#endDate").datepicker( 
+	$("#startDate,#endDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -544,8 +528,6 @@ window.onload = function(){
 											<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
 										</div>
-									
-								
                                     	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
                                     	<spring:message code="button.create" /></a><!-- 등록 -->
                                 </div>

@@ -177,6 +177,7 @@ public class EgovAuthorGroupController {
 	 * @return String
 	 * @exception Exception
 	 */ 
+	/**
 	@RequestMapping(value="/sec/rgm/EgovAuthorGroupDelete.do")
 	public String deleteAuthorGroup(@RequestParam("userIds") String userIds,
                                     @ModelAttribute("authorGroup") AuthorGroup authorGroup,
@@ -193,7 +194,7 @@ public class EgovAuthorGroupController {
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
 		return "forward:/sec/rgm/EgovAuthorGroupList.do";
 	}
-
+	*/
 
 
 }

@@ -309,7 +309,7 @@ function RentalList(){
 													<label for="">수령일자</label> 
 												</td>
 												<td>
-													${resultVO.histDate}
+													${resultVO.rcptDate}
 												</td>
 												<td class="lb">
 													<!-- 자산관리번호 --> 

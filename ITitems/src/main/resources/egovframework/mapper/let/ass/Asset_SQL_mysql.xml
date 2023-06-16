@@ -53,7 +53,20 @@
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="useId" column="USE_ID" />
 		<result property="useNm" column="USE_NM" />
-		<result property="histDate" column="HIST_DATE" />
+		<result property="rcptDate" column="RCPT_DATE" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.ass.service.AssetVO"
+		id="histList">
+		<result property="assetQty" column="ASSET_QTY" />
+		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="orgnztNm" column="ORGNZT_NM" />
+		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="useId" column="USE_ID" />
+		<result property="useNm" column="USE_NM" />
+		<result property="histGroup" column="HIST_GROUP" />
 	</resultMap>
 	
 	<sql id="search">
@@ -66,6 +79,10 @@
               	AND (	D.ORGNZT_ID = #{searchOrgnzt} 
               		OR  I.ORGNZT_UP = #{searchOrgnzt})
             </if>
+			<if test="searchName != null and searchName != ''">
+				AND (	G.USER_NM LIKE CONCAT ('%', #{searchName},'%') 
+					OR  H.USER_NM LIKE CONCAT ('%', #{searchName},'%'))
+		 	</if>
             <if test="userId != null and userId != ''">
 				AND (	B.RCPT_ID = #{userId} 
 					OR  D.USE_ID = #{userId})
@@ -94,7 +111,12 @@
 				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
 			</if>
-			
+			<if test="searchKind == 'out'">
+				AND D.HIST_GROUP != 'C1'
+			</if>
+			<if test="searchKind == 'in'">
+				AND D.HIST_GROUP = 'C1'
+			</if>
 		</where>
 	</sql>
 	
@@ -204,6 +226,10 @@
 				ON A.ASSET_ID = C.ASSET_ID			
    LEFT OUTER JOIN ASSETHIST D
 				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.ASSET_ID
@@ -297,6 +323,10 @@
 				ON A.ASSET_ID = C.ASSET_ID
    LEFT OUTER JOIN ASSETHIST D
 				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="search" />
 		  GROUP BY  
 				A.ASSET_ID
@@ -331,12 +361,7 @@
 			B.MNG_NUM, 
 			B.RCPT_ID,
 			I.USER_NM AS RCPT_NM,
-			J.ORGNZT_NM AS ORGNZT_ID, 
-			D.PRJ_ID,
-			K.PRJ_NAME AS PRJ_NM,
-			D.USE_ID,
-			L.USER_NM AS USE_NM, 
-			DATE_FORMAT(D.HIST_DATE,'%Y-%m-%d') AS HIST_DATE
+			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
 		   FROM ASSETS A
    LEFT OUTER JOIN ASSETDETAIL B
 				ON A.ASSET_ID = B.ASSET_ID
@@ -354,12 +379,6 @@
 		        ON B.MAKER_CODE = H.CODE
    LEFT OUTER JOIN LETTNEMPLYRINFO I
 		        ON B.RCPT_ID = I.ESNTL_ID
-   LEFT OUTER JOIN LETTNORGNZTINFO J
-		        ON D.ORGNZT_ID = J.ORGNZT_ID
-   LEFT OUTER JOIN PROJECTS K
-		        ON D.PRJ_ID = K.PRJ_ID
-   LEFT OUTER JOIN LETTNEMPLYRINFO L
-		        ON D.USE_ID = L.ESNTL_ID
 	        <where>
 	           AND A.USAGE_STAUTS = 'Y'
 			   AND B.USAGE_STAUTS = 'Y'
@@ -380,10 +399,73 @@
 					B.ASSET_SN,
 					B.MNG_NUM,
 					B.RCPT_ID,
-					J.ORGNZT_NM,
-					D.PRJ_ID,
-					D.USE_ID,
-					D.HIST_DATE
+					B.RCPT_DATE
+	</select>
+	
+	<select id="SelectAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="histList">
+			SELECT
+				COUNT(A.A_ID) AS ASSET_QTY,
+				B.ORGNZT_ID,
+				CASE
+					WHEN C.ORGNZT_UP IS NULL
+					THEN C.ORGNZT_NM
+					ELSE D.ORGNZT_NM
+				  END AS ORGNZT_NM,
+				CASE 
+					WHEN C.ORGNZT_UP IS NULL
+					THEN NULL
+					ELSE C.ORGNZT_NM
+				  END AS LOWER_ORGNZT_NM,
+				B.PRJ_ID,
+				E.PRJ_NAME AS PRJ_NM,
+				B.USE_ID,
+				F.USER_NM AS USE_NM,
+				CASE
+					WHEN B.HIST_GROUP IN ('C2','C3')
+					THEN '사용중'
+					ELSE G.CODE_NM
+				  END AS HIST_GROUP
+			  FROM ASSETINDIV A			
+   LEFT OUTER JOIN ASSETHIST B
+				ON A.A_ID = B.A_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO C
+				ON B.ORGNZT_ID = C.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO D
+				ON C.ORGNZT_UP = D.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS E
+				ON B.PRJ_ID = E.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				ON B.USE_ID = F.ESNTL_ID
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				ON B.HIST_GROUP = G.CODE
+			 WHERE A.USAGE_STAUTS = 'Y'
+			   AND B.HIST_STATUS = 'Y'
+			   AND B.HIST_GROUP != 'C4'
+			   AND A.ASSET_ID = #{assetId}
+		  GROUP BY B.ORGNZT_ID,
+					B.PRJ_ID,
+					B.USE_ID,
+					B.HIST_GROUP,
+					G.CODE_NM
+	</select>
+	
+	<select id="CountAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int" >
+		SELECT
+			COUNT(P.ASSET_QTY)
+		  FROM (
+		  	SELECT
+				COUNT(A.A_ID) AS ASSET_QTY
+  			  FROM ASSETINDIV A			
+   LEFT OUTER JOIN ASSETHIST B
+				ON A.A_ID = B.A_ID
+			 WHERE A.USAGE_STAUTS = 'Y'
+			   AND B.HIST_STATUS = 'Y'
+			   AND A.ASSET_ID = #{assetId}
+		  GROUP BY B.ORGNZT_ID,
+					B.PRJ_ID,
+					B.USE_ID,
+					B.HIST_GROUP
+		  ) P
 	</select>
 
 	<insert id="InsertAsset" parameterType="egovframework.let.ass.service.AssetVO">
@@ -421,6 +503,9 @@
 			MNG_NUM, 
 			USAGE_STAUTS,
 			RCPT_ID,
+			<if test="rcptDate != null and rcptDate != ''">
+			RCPT_DATE, 
+			</if>
 			CREAT_DT
 			)
 		VALUES (
@@ -440,6 +525,9 @@
 			#{mngNum},
 			'Y',
 			#{rcptId},
+			<if test="rcptDate != null and rcptDate != ''">
+			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
+			</if>
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
 		)
 	</insert>
@@ -466,9 +554,6 @@
 			PRJ_ID, 
 			USE_ID, 
 			HIST_STATUS,
-			<if test="histDate != null and histDate != ''">
-			HIST_DATE, 
-			</if> 
 			CREAT_DT,
 			HIST_USER,
 			HIST_GROUP
@@ -479,9 +564,6 @@
 			#{prjId},
 			#{useId},
 			'Y',
-			<if test="histDate != null and histDate != ''">
-			DATE_FORMAT(#{histDate}, '%Y-%m-%d'),
-			</if>
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 			#{histUser},
 			#{histGroup}
@@ -656,8 +738,7 @@
 		<!-- 모바일 내자산조회 리스트 매퍼 -->
 		<select id="MobSelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="myAssetList">
-		
-	    SELECT 
+		SELECT 
     		ASSET_ID, 
 			MIDDLE_CATEGORY, 
 			ASSET_NAME, 
@@ -712,7 +793,7 @@
 	<select id="MobSelectAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetList">
-		SELECT 
+SELECT 
     		ASSET_ID, 
 			ORGNZT_NM,
 	    	LOWER_ORGNZT_NM, 
@@ -780,5 +861,17 @@
 				I.ORGNZT_UP,
 				I.ORGNZT_NM
 		    ) P 
+	</select>
+	
+	<select id="getAId" parameterType="egovframework.let.ass.service.AssetVO" resultType="String">
+		 SELECT A.A_ID
+		   FROM ASSETINDIV A
+LEFT OUTER JOIN ASSETHIST B
+		     ON A.A_ID = B.A_ID
+		  WHERE ASSET_ID = #{assetId}
+			AND B.HIST_STATUS = 'Y'
+			AND B.HIST_GROUP != 'C1'
+	   ORDER BY REG_DATE DESC
+		  LIMIT #{reqQty};
 	</select>
 </mapper>
