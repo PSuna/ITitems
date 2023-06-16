@@ -10,6 +10,7 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,97 +59,32 @@ public class MobRequestController {
 
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
-
-	/**
-	 * 반출신청 페이지로 이동
-	 */
-	@RequestMapping(value = "/mob/req/CarryRequest.do")
-	public Map<String, Object> CarryRequset(HttpServletRequest request, ModelMap model, RequestManageVO manageVO)
-			throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
-
-		manageVO.setId(loginId.getUniqId());
-		manageVO.setAuthorCode(loginId.getAuthorCode());
-
-		if (manageVO.getMenuStartDate() != null && manageVO.getMenuStartDate() != "") {
-			manageVO.setStartDate(manageVO.getMenuStartDate());
-		}
-		if (manageVO.getMenuEndDate() != null && manageVO.getMenuEndDate() != "") {
-			manageVO.setEndDate(manageVO.getMenuEndDate());
-		}
-		if (manageVO.getMenuOrgnzt() != null && manageVO.getMenuOrgnzt() != "") {
-			manageVO.setSearchOrgnzt(manageVO.getMenuOrgnzt());
-		}
-
-		manageVO.setReqGroup("C1");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("req_list", requestService.SelectRequestVOList(manageVO));
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		vo.setTableNm("LETTNORGNZTINFO");
-		map.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-
-		vo.setCodeId("COM008");
-		map.put("cmmcode_detail", cmmUseService.selectCmmCodeDetail(vo));
-
-		CategoryManageVO cvo = new CategoryManageVO();
-		System.out.println(
-				"categoryService.SelectCategoryVOList(cvo) ======== " + categoryService.SelectCategoryVOList(cvo));
-		map.put("ctgry_vo_list", categoryService.SelectCategoryVOList(cvo));
-		map.put("manageVO", manageVO);
-
-		return map;
-	}
-
-	/**
-	 * 반출신청 등록 페이지로 이동
-	 */
-	@RequestMapping(value = "/mob/req/CarryRegist.do")
-	public Map<String, Object> CarryRegist(HttpServletRequest request, ModelMap model) throws Exception {
-		System.out.println("왔다! ==========");
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		request.getSession().setAttribute("baseMenuNo", "100");
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-//		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-		map.put("ogrnt_id_detail", cmmUseService.selectOgrnztIdDetail(vo));
-		CategoryManageVO cvo = new CategoryManageVO();
-//		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		map.put("ctgry_vo_list", categoryService.SelectCategoryVOList(cvo));
-
-		UserManageVO userManageVO = new UserManageVO();
-		userManageVO = userManageService.selectUser(user.getUniqId());
-		vo.setCode(userManageVO.getGrade());
-		userManageVO.setGrade(
-				cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm() : null);
-		model.addAttribute("userManageVO", userManageVO);
-		map.put("userManageVO", userManageVO);
-		System.out.println("완료 ===========================");
-		System.out.println(map);
-		return map;
-	}
-
 	/**
 	 * 신청 등록
 	 */
-//	@RequestMapping(value = "/req/insertRequest.do")
+	@RequestMapping(value = "/req/MobInsertRequest.do")
 	@ResponseBody
-	public String insertRequest(RequestVO requestVO) throws Exception {
-
+	public String insertRequest(@RequestBody Map<String, Object> insertMap) throws Exception {
+		System.out.println("반출 신청 등록 도착 =============================");
+		System.out.println(insertMap);
+		
+		//VO에 담기
+		RequestVO requestVO = new RequestVO();
+		requestVO.setId(insertMap.get("id").toString());
+		requestVO.setPrjId(insertMap.get("prjId").toString());
+		requestVO.setPm(insertMap.get("pm").toString());
+		requestVO.setStartDate(insertMap.get("startDate").toString());
+		requestVO.setEndDate(insertMap.get("endDate").toString());
+		requestVO.setPlace(insertMap.get("place").toString());
+		requestVO.setReqGroup("C1");
 		requestService.InsertRequestVO(requestVO);
-
-		return requestVO.getReqId();
+		return "성공";
 	}
 
 	/**
 	 * 신청상세 등록
 	 */
-//	@RequestMapping(value = "/req/insertRequestDetail.do")
+	@RequestMapping(value = "/req/MobInsertRequestDetail.do")
 	@ResponseBody
 	public String insertRequestDetail(RequestVO requestVO, RequestDetailVO requestDetailVO) throws Exception {
 		requestService.InsertRequestDetailVO(requestDetailVO);
