@@ -481,7 +481,7 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td><input type="text" class="reqQty" name="reqQty" value="`+assetQty+`" onchange="checkNum(this, `+assetQty+`)" style="width:70%;"/></td>
+					<td style="vertical-align:center;"><input type="text" class="f_txt w_80" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
 					<td>`+assetSn+` / `+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
@@ -501,21 +501,31 @@ function returnAss(val){
 /* ********************************************************
  * 숫자 유효성 검사
  ******************************************************** */
-function checkNum(e, assetQty){
-	if(!isNaN(e.value)){
-	 	if(Number(e.value) <= 0){
-	 		e.value = 1;
-	 		return;
-	 	}else if(Number(e.value) > assetQty){
-	 		e.value = assetQty;
-	 		return;
-	 	}else{
-			return;
-	 	}
- 	}else{
- 		e.value = assetQty;
- 	}
+function checkNum(e){
+    var num01;
+    var num02;
+    num01 = e.value;
+    if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0-9+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = num03;
+	    
+	    e.value =  num01;
+	    
+    }
 }
+
+function checkQty(e, assetQty){
+	var num01 = e.value;
+	if(num01 < 1){
+		e.value = 1;
+	}else if(num01 > assetQty){
+		e.value = assetQty;
+	}else{
+		e.value =  num01;
+	}
+}
+
 /* ********************************************************
  * date input 생성
  ******************************************************** */
@@ -840,8 +850,8 @@ function ReqList(){
 									<table>
 										<colgroup>
 											<col style="width: 15%;">
-											<col style="width: 10%;">
-											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 30%;">
 											<col style="width: 15%;">
 											<col style="width: 15%;">
 											<col style="width: 10%;">
@@ -849,7 +859,7 @@ function ReqList(){
 										<thead>
 											<tr>
 												<td class="lb"><label for="">분류</label></td>
-												<td class="lb"><label for="">수량</label></td>
+												<td class="lb"><label for="">수량 / 최대수량</label></td>
 												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
 												<td class="lb"><label for="">수령자</label></td>
 												<td class="lb"><label for="">실사용자</label></td>

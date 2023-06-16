@@ -89,6 +89,19 @@ function fnInsert(){
 	}
 	
 	
+	var phone1 = document.getElementById('moblphonNo1');
+	console.log(phone1.value);
+	var phone2 = document.getElementById('moblphonNo2');
+	console.log(phone2.value);
+	var phone3 = document.getElementById('moblphonNo3');
+	console.log(phone3.value);
+	if(phone1.value && phone2.value && phone3.value){
+		var moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+		console.log(moblphoneNo);
+	}
+	if(moblphoneNo != null && moblphoneNo != ''){
+		document.userManageVO.moblphonNo.value = moblphoneNo;
+	}
 	if(validateUserManageVO(document.userManageVO)){
 		document.userManageVO.submit();
     }
@@ -171,12 +184,44 @@ function checkTd(){
 	
 	return obj;
 }
-
+/* ********************************************************
+ * 숫자 유효성 검사
+ ******************************************************** */
+function checkNum(e){
+    var num01;
+    var num02;
+    num01 = e.value;
+    if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0-9+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = num03;
+	    
+	    e.value =  num01;
+	    
+    }
+}
 //-->
 </script>
 <style>
 .errSpan{
 	color:red;
+}
+.board_view_bot {
+	margin-top:8px;
+}
+.inputHint{
+	font-size:10px;
+	color:#bbb;
+}
+.phoneNumBox{
+	display:flex;
+}
+.divPnum{
+	font-size:22px;
+	padding:0 6px;
+}
+.f_txt{
+	padding:0 13px;
 }
 </style>
 </head>
@@ -220,10 +265,10 @@ function checkTd(){
                                 <div class="board_view2">
                                     <table>
                                         <colgroup>
-                                            <col style="width: 160px;">
-                                            <col style="width: auto;">
-                                            <col style="width: 160px;">
-                                            <col style="width: auto;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 34%;">
+                                            <col style="width: 16%;">
+                                            <col style="width: 34%;">
                                         </colgroup>
                                         <tr>
                                             <td class="lb">
@@ -304,14 +349,19 @@ function checkTd(){
                                                 <label for="empUniqNum">사번</label>
                                             </td>
                                             <td>
-                                                <form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="15"/>
+                                                <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 202301234" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
                                                 <form:errors path="empUniqNum" />
                                             </td>
                                             <td class="lb">
-                                                <label for="moblphonNo">핸드폰번호</label>
+                                                <label for="moblphonNo">연락처</label><br>
+                                                <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
+                                                
                                             </td>
                                             <td>
-                                                <form:input path="moblphonNo" id="moblphonNo" title="ex)01012345678" class="f_txt w_full" maxlength="15"/>
+                                            	<div class="phoneNumBox">
+                                                <input id="moblphonNo1" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="3"/><span class="divPnum">-</span>
+                                                <input id="moblphonNo2" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/><span class="divPnum">-</span>
+                                                <input id="moblphonNo3" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/></div>
                                                 <form:errors path="moblphonNo" />
                                             </td>
                                         </tr>
