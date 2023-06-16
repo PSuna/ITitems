@@ -48,5 +48,11 @@ public interface ProjectService {
 	 */
 	public void deletePrj(ProjectVO projectVO) throws Exception;
 
-	
+	/**
+	 * 모바일 프로젝트 검색
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public Map<String, Object> MobSelectProjectVOList(ProjectManageVO projectManageVO) throws Exception;
+
 }
