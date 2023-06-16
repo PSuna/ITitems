@@ -793,7 +793,7 @@
 	<select id="MobSelectAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetList">
-SELECT 
+		SELECT 
     		ASSET_ID, 
 			ORGNZT_NM,
 	    	LOWER_ORGNZT_NM, 
