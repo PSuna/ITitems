@@ -232,7 +232,11 @@
 	            ON D.USE_ID = H.ESNTL_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
-				A.ASSET_ID
+				A.ASSET_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P 
 	</select>
 
@@ -327,9 +331,15 @@
 	            ON B.RCPT_ID = G.ESNTL_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO H
 	            ON D.USE_ID = H.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
 				 <include refid="search" />
 		  GROUP BY  
-				A.ASSET_ID
+				A.ASSET_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P
 	</select>
 

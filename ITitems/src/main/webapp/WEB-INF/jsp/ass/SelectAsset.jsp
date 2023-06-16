@@ -270,7 +270,7 @@ function AssetList(){
 												</td>
 												<td>${resultVO.assetSn}</td>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label>
+													<!-- 수량 --> <label for="">총 수량</label>
 												</td>
 												<td> ${resultVO.assetQty}</td>
 											</tr>
@@ -279,7 +279,7 @@ function AssetList(){
 													<!-- 수령자 --> 
 													<label for="">수령자</label> 
 												</td>
-												<td>
+												<td  colspan="3">
 													${resultVO.rcptNm}
 												</td>
 												<%-- <td class="lb">
@@ -340,7 +340,7 @@ function AssetList(){
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                                    </c:import>
@@ -349,12 +349,14 @@ function AssetList(){
 											<tr>
 												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
-												<td colspan="4">
-													<div class="photoList">
-														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
-					                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
-					                                   	</c:forEach>
-				                                   	</div>
+												<td colspan="3">
+													<c:if test="${not empty PhotoList}">
+														<div class="photoList">
+															<c:forEach var="photo" items="${PhotoList}" varStatus="status">
+						                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
+						                                   	</c:forEach>
+					                                   	</div>
+				                                   	</c:if>
 												</td>
 											</tr>
 											<% pageContext.setAttribute("newLineChar", "\n"); %>
@@ -362,7 +364,7 @@ function AssetList(){
 												<td class="lb">
 													<!-- 비고 --> <label for="note">비고</label>
 												</td>
-												<td colspan="4">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
+												<td colspan="3">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
 											</tr>
 											<%-- <tr>
 												<td class="lb">
@@ -393,16 +395,16 @@ function AssetList(){
 									</div>
 									<br>
 									<!-- 게시판 -->
-								<div class="board_list selete_table">
+								<div class="board_list">
 									<table>
 										<colgroup>
+											<col style="width: 6%;">
+											<col style="width: 13%;">
+											<col style="width: 13%;">
+											<col style="width: 38%;">
+											<col style="width: 12%;">
+											<col style="width: 8%;">
 											<col style="width: 10%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
