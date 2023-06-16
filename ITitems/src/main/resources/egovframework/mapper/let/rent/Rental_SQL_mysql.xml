@@ -201,7 +201,11 @@
 				ON C.R_ID = D.R_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
-				A.RENTAL_ID
+				A.RENTAL_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P 
 	</select>
 
@@ -286,9 +290,15 @@
 				ON A.RENTAL_ID = C.RENTAL_ID
    LEFT OUTER JOIN RENTALHIST D
 				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
 				 <include refid="search" />
 		  GROUP BY  
-				A.RENTAL_ID
+				A.RENTAL_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P
 	</select>
 

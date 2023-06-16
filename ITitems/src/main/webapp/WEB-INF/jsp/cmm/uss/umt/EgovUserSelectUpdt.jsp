@@ -176,6 +176,10 @@ function getMOrgList(MOval) {
 .board_view_bot {
 	margin-top:8px;
 }
+.inputHint{
+	font-size:10px;
+	color:#bbb;
+}
 </style>
 </head>
 <body>
@@ -244,10 +248,10 @@ function getMOrgList(MOval) {
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 126px;">
-												<col style="width: auto;">
-												<col style="width: 120px;">
-												<col style="width: auto;">
+												<col style="width: 16%;">
+	                                            <col style="width: 34%;">
+	                                            <col style="width: 16%;">
+	                                            <col style="width: 34%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
@@ -261,22 +265,7 @@ function getMOrgList(MOval) {
 												<td></td>
 												<td></td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<label for="empUniqNum">사번</label>
-												</td>
-												<td>
-													<form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="15" />
-													<form:errors path="empUniqNum" />
-												</td>
-												<td class="lb">
-													<label for="moblphonNo">H.P</label>
-												</td>
-												<td>
-													<form:input path="moblphonNo" id="moblphonNo" class="f_txt w_full" maxlength="15" />
-													<form:errors path="moblphonNo" />
-												</td>
-											</tr>
+											
 											<tr>
 												<td class="lb">
 													<label for="emplyrNm">이름</label>
@@ -328,6 +317,23 @@ function getMOrgList(MOval) {
 														</form:select>
 													</label> 
 	                                            </td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<label for="empUniqNum">사번</label>
+												</td>
+												<td>
+													<form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="9" />
+													<form:errors path="empUniqNum" />
+												</td>
+												<td class="lb">
+													<label for="moblphonNo">연락처</label><br>
+													<label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
+												</td>
+												<td>
+													<form:input path="moblphonNo" id="moblphonNo" class="f_txt w_full" maxlength="15" />
+													<form:errors path="moblphonNo" />
+												</td>
 											</tr>
 										</table>
 									</div>
