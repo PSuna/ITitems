@@ -556,10 +556,11 @@
 			ORGNZT_ID, 
 			PRJ_ID, 
 			USE_ID, 
-			HIST_STATUS,
+			USAGE_STAUTS,
 			CREAT_DT,
 			HIST_USER,
-			HIST_GROUP
+			HIST_GROUP,
+			HIST_STATUS
 			)
 		VALUES (
 			#{aId},
@@ -569,7 +570,8 @@
 			'Y',
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 			#{histUser},
-			#{histGroup}
+			#{histGroup},
+			#{histStatus}
 		)
 	</insert>
 	
