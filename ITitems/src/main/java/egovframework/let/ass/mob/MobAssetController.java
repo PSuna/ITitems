@@ -152,8 +152,8 @@ public class MobAssetController {
 	 * 반출신청에서 자산조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/MobAssetSearchList.do")
-	public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
-			throws Exception {
+	   public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
+	         throws Exception {
 		System.out.println("넘어온 자산 정보 =======================");
 		System.out.println(assetManageVO.getSearchName());
 		System.out.println(assetManageVO.getUserId());

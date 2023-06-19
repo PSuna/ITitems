@@ -25,6 +25,8 @@
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="assetQty" column="ASSET_QTY" />
 		<result property="rcptNm" column="RCPT_NM" />
+		<result property="orgnztNm" column="ORGNZT_NM" />
+		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
 		<result property="useNm" column="USE_NM" />
 	</resultMap>
 	
@@ -751,10 +753,22 @@
 			PRJ_NM,
 			ASSET_QTY,
 			RCPT_NM,
-			USE_NM
+			USE_NM,
+			ORGNZT_NM,
+			LOWER_ORGNZT_NM
 	      FROM (
 			SELECT 
 				A.ASSET_ID, 
+				CASE
+					WHEN I.ORGNZT_UP IS NULL
+					THEN I.ORGNZT_NM
+					ELSE J.ORGNZT_NM
+			  END AS ORGNZT_NM,
+				CASE 
+					WHEN I.ORGNZT_UP IS NULL
+					THEN NULL
+					ELSE I.ORGNZT_NM
+			  END AS LOWER_ORGNZT_NM,
 				CASE 
 					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
 					THEN B.MCAT_ETC
@@ -781,6 +795,10 @@
 	            ON B.RCPT_ID = G.ESNTL_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO H
 	            ON D.USE_ID = H.ESNTL_ID
+              LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.ASSET_ID, 
@@ -791,7 +809,9 @@
 				F.PRJ_NAME,
 				G.USER_NM,
 				H.USER_NM,
-				A.REG_DATE
+				A.REG_DATE,
+				I.ORGNZT_UP,
+				I.ORGNZT_NM
 		    ) P 
 	</select>
 
