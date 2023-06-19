@@ -217,6 +217,12 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		return userManageDAO.selectUserListTotCntS(userSearchVO);
 	}
 
+	@Override
+	public List<?> mobSelectUserListS(UserDefaultVO userSearchVO) {
+		// TODO Auto-generated method stub
+		return userManageDAO.mobSelectUserListS(userSearchVO);
+	}
+
 
 
 }

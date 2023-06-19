@@ -108,6 +108,9 @@ public interface UserManageService  {
 	public List<?> selectUserListS(UserDefaultVO userSearchVO);
 
 	public int selectUserListTotCntS(UserDefaultVO userSearchVO);
+	
+	//모바일 회원검색
+	public List<?> mobSelectUserListS(UserDefaultVO userSearchVO);
 
 
 

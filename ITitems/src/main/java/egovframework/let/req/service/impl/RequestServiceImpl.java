@@ -115,4 +115,14 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		return requestDAO.SelectAprvList(manageVO);
 	}
 
+	//모바일
+	@Override
+	public Map<String, Object> MobSelectRequestVOList(RequestManageVO manageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("resultList", requestDAO.MobSelectRequestVOList(manageVO));
+		return map;
+	}
+
+
 }

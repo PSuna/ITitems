@@ -436,4 +436,58 @@
     	ON 				E.ORGNZT_ID = O.ORGNZT_ID
     	WHERE 			E.ESNTL_ID = #{uniqId}
     </select>
+    
+    <select id="mobSelectUserList_Search" parameterType="egovframework.let.uss.umt.service.UserDefaultVO" resultType="egovMap">
+		SELECT uniqId, 
+		       userTy, 
+		       userId , 
+		       userNm, 
+		       moblphonNo, 
+		       orgnztId, 
+		       sttus, 
+		       sbscrbDe, 
+		       grade, 
+		       authorCode
+		  FROM (SELECT A.ESNTL_ID uniqId,
+				       'USR03' userTy,
+				       A.EMPLYR_ID userId,
+				       A.USER_NM userNm,
+				       A.MBTLNUM moblphonNo,
+				       B.ORGNZT_NM orgnztId,
+				       A.EMPLYR_STTUS_CODE sttus,
+				       DATE_FORMAT(A.SBSCRB_DE, '%Y %m %d') as sbscrbDe,
+				       C.CODE_NM grade,
+				       D.AUTHOR_NM authorCode,
+				       A.EM_ORDER emOrder
+			   	  FROM LETTNEMPLYRINFO A
+	   LEFT OUTER JOIN LETTNORGNZTINFO B
+				    ON B.ORGNZT_ID = A.ORGNZT_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON C.CODE = A.GRADE
+	   LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS E
+	                ON E.SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID
+	   LEFT OUTER JOIN LETTNAUTHORINFO D
+					ON D.AUTHOR_CODE = E.AUTHOR_CODE
+           		 WHERE A.EMPLYR_ID != 'admin'
+        		<if test='searchAuthor !=null and searchAuthor !=""'>
+        		   AND D.AUTHOR_CODE = #{searchAuthor}
+        		</if>
+        		<if test='searchKeyword != null and searchKeyword !=""'>
+        		   AND (A.EMPLYR_ID LIKE '%' #{searchKeyword} '%' 
+        		       OR A.USER_NM LIKE '%' #{searchKeyword} '%'
+        		       OR A.EMP_UNIQ_NUM LIKE '%' #{searchKeyword} '%')
+        		</if>
+        		<if test='searchOrgnzt != "" and searchOrgnzt != null and !searchLOrgnzt'>
+           		   AND (B.ORGNZT_ID = #{searchOrgnzt}
+           		    OR B.ORGNZT_UP = #{searchOrgnzt})
+           	 	</if>
+           	 	<if test="searchLOrgnzt != null and searchLOrgnzt != ''">
+				   AND B.ORGNZT_ID = #{searchLOrgnzt}
+				</if>
+        		<if test='searchGrade != ""'>
+       	     	   AND C.CODE = #{searchGrade} 
+        		</if>
+        		) A
+      ORDER BY emOrder ASC, userNm ASC, sbscrbDe DESC
+    </select>
 </mapper>

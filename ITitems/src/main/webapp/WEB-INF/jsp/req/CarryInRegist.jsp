@@ -99,6 +99,7 @@ function insertCarry() {
 		contentType: false,
 		data: formData,
 		success: function (result) {
+			alert("result id 나왔나?"+result)
 			insertCarryDetail(result);
 		},
 		error: function (error) {

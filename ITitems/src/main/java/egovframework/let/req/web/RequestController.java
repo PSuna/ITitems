@@ -178,7 +178,10 @@ public class RequestController {
 	@RequestMapping(value = "/req/insertRequest.do")
 	@ResponseBody
 	public String insertRequest(RequestVO requestVO) throws Exception {
+		System.out.println("================id=====================");
+		System.out.println(requestVO.getReqId());
 		requestService.InsertRequestVO(requestVO);
+		System.out.println(requestVO.getReqId());
 		return requestVO.getReqId();
 	}
 	
@@ -188,6 +191,8 @@ public class RequestController {
 	@RequestMapping(value = "/req/insertRequestDetail.do")
 	@ResponseBody
 	public String insertRequestDetail(RequestVO requestVO, RequestDetailVO requestDetailVO) throws Exception {
+		System.out.println("반출상세 등록 =========================");
+		System.out.println(requestDetailVO);
 		requestService.InsertRequestDetailVO(requestDetailVO);
 		return requestVO.getReqId();
 	}
