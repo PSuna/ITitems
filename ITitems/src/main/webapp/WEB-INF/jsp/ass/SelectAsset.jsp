@@ -279,8 +279,15 @@ function AssetList(){
 													<!-- 수령자 --> 
 													<label for="">수령자</label> 
 												</td>
-												<td  colspan="3">
+												<td>
 													${resultVO.rcptNm}
+												</td>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
 												</td>
 												<%-- <td class="lb">
 													<!-- 실사용자 --> 
@@ -307,13 +314,7 @@ function AssetList(){
 												</td>
 											</tr> --%>
 											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="3">
-													${resultVO.rcptDate}
-												</td>
+												
 												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label> 
