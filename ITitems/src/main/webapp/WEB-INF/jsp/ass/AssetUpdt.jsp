@@ -686,7 +686,7 @@ window.onload = function(){
 												</td>
 												<c:choose>
 													<c:when test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-														<td>
+														<td colspan="3">
 															<input id="rcptNm"  class="f_txt w_full readonly"  type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
 															<input name="rcptId" id="rcptId" type="hidden"
@@ -694,7 +694,7 @@ window.onload = function(){
 														</td>
 													</c:when>
 													<c:otherwise>
-														<td>
+														<td colspan="3">
 															<span class="f_search2 w_full"> 
 															<input id="rcptNm" type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
@@ -758,18 +758,18 @@ window.onload = function(){
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td>
+												<td colspan="3">
 													<span class="search_date w_full">
 														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
 													</span>
 												</td>
-												<td class="lb">
+												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label>
 												</td>
 												<td>
 													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60"> 
-												</td>
+												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -815,7 +815,7 @@ window.onload = function(){
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
-												<td colspan="4">
+												<td colspan="3">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
 													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
