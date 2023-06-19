@@ -88,43 +88,42 @@ public class MobAssetController {
 	 */
 
 	@RequestMapping(value = "/ass/MobMyAssetManagement.do")
-	public Map<String, Object> MyAssetManagement(HttpServletRequest request, AssetManageVO assetManageVO,
-			@RequestBody AssetManageVO avo) throws Exception {
-		/*
-		 * 여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
-		 * System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
-		 */
+	public Map<String, Object> MyAssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO) throws Exception {
+		  /*
+	       * 여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
+	       * System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
+	       */
 
-		Map<String, Object> appMap = new HashMap<String, Object>();
-		// LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetManageVO.setUserId(avo.getAssetId());
+	      Map<String, Object> appMap = new HashMap<String, Object>();
+	      // LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+	      //assetManageVO.setUserId(avo.getAssetId());
 
-		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
+	      if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+	         assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+	      }
+	      if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+	         assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+	      }
 
-		Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
+	      Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
 
-		appMap.put("resultList", map.get("resultList"));
-		appMap.put("resultCnt", map.get("resultCnt"));
+	      appMap.put("resultList", map.get("resultList"));
+	      appMap.put("resultCnt", map.get("resultCnt"));
 
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+	      ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
-		vo.setTableNm("LETTNORGNZTINFO");
+	      vo.setTableNm("LETTNORGNZTINFO");
 
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+	      appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
 
-		vo.setCodeId("COM006");
-		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
+	      vo.setCodeId("COM006");
+	      appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
 
-		CategoryManageVO cvo = new CategoryManageVO();
-		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
+	      CategoryManageVO cvo = new CategoryManageVO();
+	      appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
 
-		appMap.put("searchVO", assetManageVO);
-		return appMap;
+	      appMap.put("searchVO", assetManageVO);
+	      return appMap;
 	}
 
 	/**
