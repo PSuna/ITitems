@@ -536,6 +536,11 @@ background: #F7F7F7;
 	width: 48.2%;
 }
 
+.scrollList{
+	max-height: 184px;
+	overflow-y: scroll;
+}
+
 @media screen and (max-width: 767px){
 	.j_box01 div{
 		width: 32%;

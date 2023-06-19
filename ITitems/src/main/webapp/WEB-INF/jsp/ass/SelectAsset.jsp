@@ -402,10 +402,10 @@ function AssetList(){
 											<col style="width: 6%;">
 											<col style="width: 13%;">
 											<col style="width: 13%;">
-											<col style="width: 38%;">
-											<col style="width: 12%;">
+											<col style="width: 36%;">
+											<col style="width: 14%;">
 											<col style="width: 8%;">
-											<col style="width: 10%;">
+											<col style="width: 8%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -413,31 +413,45 @@ function AssetList(){
 												<th scope="col">본부</th>
 												<th scope="col">부서</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">수량</th>
+												<th scope="col">자산관리번호</th>
 												<th scope="col">실사용자</th>
 												<th scope="col">상태</th>
 											</tr>
 										</thead>
-										<tbody>
-											<c:forEach var="result" items="${resultList}"
-												varStatus="status">
-												<tr>
-													<td><c:out value="${resultCnt - status.index}" /></td>
-													<td><c:out value="${result.orgnztNm}" /></td>
-													<td><c:out value="${result.lowerOrgnztNm}" /></td>
-													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
-													<td><c:out value="${result.useNm}" /></td>
-													<td><c:out value="${result.histGroup}" /></td>
-												</tr>
-											</c:forEach>
-											<c:if test="${empty resultList}">
-												<tr>
-                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
-                               					</tr>
-											</c:if>
-										</tbody>
 									</table>
+									<div class="scrollList">
+										<table>
+											<colgroup>
+												<col style="width: 6%;">
+												<col style="width: 13%;">
+												<col style="width: 13%;">
+												<col style="width: 36%;">
+												<col style="width: 14%;">
+												<col style="width: 8%;">
+												<col style="width: 8%;">
+												<col style="width: 1%;">
+											</colgroup>
+											<tbody>
+												<c:forEach var="result" items="${resultList}"
+													varStatus="status">
+													<tr>
+														<td><c:out value="${status.index + 1}" /></td>
+														<td><c:out value="${result.orgnztNm}" /></td>
+														<td><c:out value="${result.lowerOrgnztNm}" /></td>
+														<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
+														<td><c:out value="${result.assetQty}" /></td>
+														<td><c:out value="${result.useNm}" /></td>
+														<td><c:out value="${result.histGroup}" /></td>
+													</tr>
+												</c:forEach>
+												<c:if test="${empty resultList}">
+													<tr>
+	                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+	                               					</tr>
+												</c:if>
+											</tbody>
+										</table>
+									</div>
 								</div>
 										<%
 											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
