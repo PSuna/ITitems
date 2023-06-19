@@ -743,7 +743,7 @@
 		<!-- 모바일 내자산조회 리스트 매퍼 -->
 		<select id="MobSelectMyAssetInfoList" parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="myAssetList">
-		SELECT 
+	SELECT 
     		ASSET_ID, 
 			MIDDLE_CATEGORY, 
 			ASSET_NAME, 
@@ -798,7 +798,7 @@
 	<select id="MobSelectAssetInfoVOList"
 		parameterType="egovframework.let.ass.service.AssetManageVO"
 		resultMap="assetList">
-SELECT 
+	SELECT 
     		ASSET_ID, 
 			ORGNZT_NM,
 	    	LOWER_ORGNZT_NM, 
