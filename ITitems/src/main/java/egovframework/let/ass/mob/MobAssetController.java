@@ -88,8 +88,8 @@ public class MobAssetController {
 	 */
 
 	@RequestMapping(value = "/ass/MobMyAssetManagement.do")
-	public Map<String, Object> MyAssetManagement(HttpServletRequest request, AssetManageVO assetManageVO,
-			@RequestBody AssetManageVO avo) throws Exception {
+	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
+			@RequestBody AssetManageVO assetManageVO) throws Exception {
 		/*
 		 * 여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
 		 * System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
@@ -97,7 +97,7 @@ public class MobAssetController {
 
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		// LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetManageVO.setUserId(avo.getAssetId());
+		//assetManageVO.setUserId(avo.getAssetId());
 
 		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
 			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
