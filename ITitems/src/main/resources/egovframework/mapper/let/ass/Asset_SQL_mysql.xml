@@ -378,8 +378,7 @@
 		  END AS MAKER, 
 			B.MAKER_CODE, 
 			B.NOTE, 
-			B.ASSET_SN, 
-			B.MNG_NUM, 
+			B.ASSET_SN,
 			B.RCPT_ID,
 			I.USER_NM AS RCPT_NM,
 			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
@@ -418,7 +417,6 @@
 					H.CODE_NM,B.MAKER,
 					B.MAKER_CODE,B.NOTE,
 					B.ASSET_SN,
-					B.MNG_NUM,
 					B.RCPT_ID,
 					B.RCPT_DATE
 	</select>
@@ -520,8 +518,7 @@
 			MAKER, 
 			MAKER_CODE, 
 			NOTE, 
-			ASSET_SN, 
-			MNG_NUM, 
+			ASSET_SN,
 			USAGE_STAUTS,
 			RCPT_ID,
 			<if test="rcptDate != null and rcptDate != ''">
@@ -543,7 +540,6 @@
 			#{makerCode},
 			#{note},
 			#{assetSn},
-			#{mngNum},
 			'Y',
 			#{rcptId},
 			<if test="rcptDate != null and rcptDate != ''">

@@ -311,16 +311,16 @@ function AssetList(){
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
 												</td>
-												<td>
+												<td colspan="3">
 													${resultVO.rcptDate}
 												</td>
-												<td class="lb">
+												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label> 
 												</td>
 												<td >
 													${resultVO.mngNum}
-												</td>
+												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
