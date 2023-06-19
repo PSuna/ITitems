@@ -185,6 +185,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		
 		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
 		assetVO.setHistGroup("C4");
+		assetVO.setHistStatus("C4");
 		for(String aId : aIdList) {
 			assetVO.setaId(aId);
 			assetDAO.InsertAssetDelhist(assetVO);

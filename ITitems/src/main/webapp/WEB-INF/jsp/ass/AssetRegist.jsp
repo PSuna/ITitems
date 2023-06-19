@@ -38,6 +38,7 @@
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <script src="<c:url value='/'/>js/FormSave.js"></script>
 <script src="<c:url value='/'/>js/Confirm.js"></script>
+<script src="<c:url value='/'/>js/Inputcheck.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -339,8 +340,6 @@ function make_date(){
 	    num03 = num02.replace(/\D/g,"");
 	    num01 = setComma(num03);
 	    obj.value =  num01;
-	
-	    $('#test').text(num01); 
      }
      
   }
@@ -584,7 +583,7 @@ window.onload = function(){
 													</label> 
 												</td>
 												<td colspan="2">
-													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60"> 
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -614,7 +613,7 @@ window.onload = function(){
 													</label>
 												</td>
 												<td colspan="2">
-													<input id="maker" class="f_txt w_full" name="maker" type="hidden" maxlength="60"> 
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -623,7 +622,7 @@ window.onload = function(){
 													<label for="">제품명(모델명)</label>
 												</td>
 												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 													<br />
 												</td>
 												<td class="lb">
@@ -631,7 +630,7 @@ window.onload = function(){
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
 													<br />
 												</td>
 											</tr>
