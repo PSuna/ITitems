@@ -37,6 +37,9 @@ public class AssetVO implements Serializable {
 	/** 대분류 */
 	private String largeCategory;
 	
+	/** 대분류 코드*/
+	private String largeCategoryCode;
+	
 	/** 중분류 */
 	private String middleCategory;
 	
@@ -81,6 +84,9 @@ public class AssetVO implements Serializable {
 	
 	/** 자산상세 ID */
 	private String aId;
+	
+	/** 자산상세 분류 */
+	private String detailGroup;
 
 	/** 본부 */
 	private String orgnztId;
@@ -372,6 +378,22 @@ public class AssetVO implements Serializable {
 
 	public void setRcptDate(String rcptDate) {
 		this.rcptDate = rcptDate;
+	}
+
+	public String getDetailGroup() {
+		return detailGroup;
+	}
+
+	public void setDetailGroup(String detailGroup) {
+		this.detailGroup = detailGroup;
+	}
+
+	public String getLargeCategoryCode() {
+		return largeCategoryCode;
+	}
+
+	public void setLargeCategoryCode(String largeCategoryCode) {
+		this.largeCategoryCode = largeCategoryCode;
 	}
 
 	

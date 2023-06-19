@@ -34,6 +34,7 @@
 		<result property="regDate" column="REG_DATE" />
 		<result property="regId" column="REG_ID" />
 		<result property="assetQty" column="ASSET_QTY" />
+		<result property="largeCategoryCode" column="LARGE_CATEGORY_CODE" />
 		<result property="largeCategory" column="LARGE_CATEGORY" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="mcatNm" column="MCAT_NM" />
@@ -358,7 +359,8 @@
 			A.ASSET_ID, 
 			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
 			E.USER_NM AS REG_ID, 
-			COUNT(C.A_ID) AS ASSET_QTY, 
+			COUNT(C.A_ID) AS ASSET_QTY,
+			B.LARGE_CATEGORY AS LARGE_CATEGORY_CODE,
 			F.CAT_NAME AS LARGE_CATEGORY, 
 			B.MIDDLE_CATEGORY, 
 			CASE 
@@ -408,6 +410,7 @@
 		  GROUP BY A.REG_DATE,
 					E.USER_NM, 
 				  	F.CAT_NAME,
+				  	B.LARGE_CATEGORY,
 				  	B.MIDDLE_CATEGORY,
 					B.MCAT_ETC,
 					B.ASSET_NAME,

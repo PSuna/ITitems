@@ -273,6 +273,13 @@ function RentalList(){
 											</tr>
 											<tr>
 												<td class="lb">
+													<!-- 렌탈업체 --> 
+													<label for="">렌탈업체</label>
+												</td>
+												<td> ${resultVO.rentalCompany}</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 수령자 --> 
 													<label for="">수령자</label> 
 												</td>

@@ -38,6 +38,9 @@ public class RentalVO implements Serializable {
 
 	/** 대분류 */
 	private String largeCategory;
+	
+	/** 대분류 코드*/
+	private String largeCategoryCode;
 
 	/** 중분류 */
 	private String middleCategory;
@@ -393,6 +396,14 @@ public class RentalVO implements Serializable {
 
 	public void setRcptDate(String rcptDate) {
 		this.rcptDate = rcptDate;
+	}
+
+	public String getLargeCategoryCode() {
+		return largeCategoryCode;
+	}
+
+	public void setLargeCategoryCode(String largeCategoryCode) {
+		this.largeCategoryCode = largeCategoryCode;
 	}
 	
 	
