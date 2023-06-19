@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -247,6 +248,8 @@ public class CommonController {
 	//내자산조회 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfMyAssList.do")
 	public void xlsxTrsfMyAssList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetManageVO.setUserId(user.getUniqId());
 		assetService.xlsxTrsfMyAssList(assetManageVO,req,res);
 	}
 	
@@ -259,6 +262,8 @@ public class CommonController {
 	//내자산조회 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfMyRentList.do")
 	public void xlsxTrsfMyRentList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RentalManageVO rentalManageVO, HttpSession session) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		rentalManageVO.setUserId(user.getUniqId());
 		rentalService.xlsxTrsfMyRentList(rentalManageVO,req,res);
 	}
 }

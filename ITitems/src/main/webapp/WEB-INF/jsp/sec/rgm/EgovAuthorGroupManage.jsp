@@ -266,8 +266,8 @@ function press() {
                                 	<div style="display: flex; gap:8px;">
 	                                    <label class="f_select item" for="searchCondition">
 	                                        <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
-	    					                    <option value="1" <c:if test="${userSearchVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
-	                                            <option value="2" <c:if test="${userSearchVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
+	    					                    <option value="1" <c:if test="${authorManageVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
+	                                            <option value="2" <c:if test="${authorManageVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
 	    					               
 	    					                </select>
 	                                    </label> 
@@ -296,12 +296,12 @@ function press() {
 														<label class="item f_select" for="pageUnit"> 
 																
 															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																	<option value="10" <c:if test="${empty userSearchVO.pageUnit || userSearchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																	<option value="20" <c:if test="${userSearchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																	<option value="50" <c:if test="${userSearchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																	<option value="100" <c:if test="${userSearchVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																	<option value="300" <c:if test="${userSearchVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																	<option value="500" <c:if test="${userSearchVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+																	<option value="10" <c:if test="${empty authorManageVO.pageUnit || authorManageVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																	<option value="20" <c:if test="${authorManageVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																	<option value="50" <c:if test="${authorManageVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																	<option value="100" <c:if test="${authorManageVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																	<option value="300" <c:if test="${authorManageVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																	<option value="500" <c:if test="${authorManageVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
 															</select>
 														</label>
 														
@@ -388,7 +388,7 @@ function press() {
                                 </div>
 								
 								<!-- 페이지 네비게이션 시작 -->
-								<c:if test="${!empty authorGroupVO.pageIndex }">
+								<c:if test="${!empty authorManageVO.pageIndex }">
                                 <div class="board_list_bot">
                                     <div class="paging" id="paging_div">
                                         <ul>
@@ -405,7 +405,8 @@ function press() {
 								<input type="hidden" name="authorCodes"/>
 								<input type="hidden" name="regYns"/>
 								<!-- <input type="hidden" name="mberTyCodes"/> -->
-								<input type="hidden" name="pageIndex" value="<c:out value='${authorGroupVO.pageIndex}'/>"/>
+								<input type="hidden" name="pageIndex" value="<c:out value='${authorManageVO.pageIndex}'/>"/>
+								<input type="hidden" name="pageUnit" value="<c:out value='${authorManageVO.pageUnit}'/>"/>
 								
 								</form:form>
                                 
