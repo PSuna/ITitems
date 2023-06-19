@@ -98,33 +98,32 @@ public class MobAssetController {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		// LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		//assetManageVO.setUserId(avo.getAssetId());
+	      if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+	         assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+	      }
+	      if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+	         assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+	      }
 
-		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
+	      Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
 
-		Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
+	      appMap.put("resultList", map.get("resultList"));
+	      appMap.put("resultCnt", map.get("resultCnt"));
 
-		appMap.put("resultList", map.get("resultList"));
-		appMap.put("resultCnt", map.get("resultCnt"));
+	      ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+	      vo.setTableNm("LETTNORGNZTINFO");
 
-		vo.setTableNm("LETTNORGNZTINFO");
+	      appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
 
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+	      vo.setCodeId("COM006");
+	      appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
 
-		vo.setCodeId("COM006");
-		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
+	      CategoryManageVO cvo = new CategoryManageVO();
+	      appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
 
-		CategoryManageVO cvo = new CategoryManageVO();
-		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
-		appMap.put("searchVO", assetManageVO);
-		return appMap;
+	      appMap.put("searchVO", assetManageVO);
+	      return appMap;
 	}
 
 	/**
