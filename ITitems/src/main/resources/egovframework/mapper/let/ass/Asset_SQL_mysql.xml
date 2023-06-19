@@ -236,7 +236,11 @@
 				ON I.ORGNZT_UP = J.ORGNZT_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
-				A.ASSET_ID
+				A.ASSET_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P 
 	</select>
 
@@ -339,9 +343,14 @@
 				ON D.ORGNZT_ID = I.ORGNZT_ID
    LEFT OUTER JOIN LETTNORGNZTINFO J
 				ON I.ORGNZT_UP = J.ORGNZT_ID
+
 				 <include refid="search" />
 		  GROUP BY  
-				A.ASSET_ID
+				A.ASSET_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
 		    ) P
 	</select>
 
