@@ -304,7 +304,7 @@ LEFT OUTER JOIN LETTCCMMNDETAILCODE H
 		       AND A.USAGE_STAUTS = 'Y' 
 			   AND AD.USAGE_STAUTS = 'Y'
 			   AND AI.USAGE_STAUTS = 'Y' 
-			   AND AH.HIST_STATUS = 'Y' 
+			   AND AH.USAGE_STAUTS = 'Y' 
           GROUP BY REQ.RED_ID,
                	   MIDDLE_CATEGORY,
             	   REQ.REQ_QTY,
