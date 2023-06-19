@@ -275,7 +275,10 @@
 			    ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
 			    REQ.REQ_QTY,
 			    AD.ASSET_SN AS ASSET_SN,
-			    AD.MAKER AS MAKER, 
+			    CASE WHEN H.CODE_NM = '기타'
+					 THEN AD.MAKER
+					 ELSE H.CODE_NM  
+		  			 END AS MAKER,  
 			    C.USER_NM AS USER, 
 			    D.USER_NM AS RCPT_ID,
 			    REQ.ASSET_ID,
@@ -295,17 +298,19 @@ LEFT OUTER JOIN LETTNEMPLYRINFO C
 		     ON AH.USE_ID = C.ESNTL_ID
 LEFT OUTER JOIN LETTNEMPLYRINFO D
 		     ON AD.RCPT_ID = D.ESNTL_ID
+LEFT OUTER JOIN LETTCCMMNDETAILCODE H
+		     ON AD.MAKER_CODE = H.CODE
 		  WHERE REQ.REQ_ID = #{reqId}
 		       AND A.USAGE_STAUTS = 'Y' 
 			   AND AD.USAGE_STAUTS = 'Y'
 			   AND AI.USAGE_STAUTS = 'Y' 
 			   AND AH.HIST_STATUS = 'Y' 
-			   
-			   AND AH.HIST_GROUP != 'C1'
           GROUP BY REQ.RED_ID,
                	   MIDDLE_CATEGORY,
             	   REQ.REQ_QTY,
 	    		   AD.ASSET_SN,
+			       AD.MAKER_CODE,
+			       H.CODE_NM,
 			       AD.MAKER,
 			       C.USER_NM,
 			       D.USER_NM,

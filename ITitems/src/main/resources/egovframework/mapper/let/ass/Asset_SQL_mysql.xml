@@ -230,6 +230,10 @@
 	            ON B.RCPT_ID = G.ESNTL_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO H
 	            ON D.USE_ID = H.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
 				 <include refid="mySearch" />
 		  GROUP BY  
 				A.ASSET_ID,
@@ -327,12 +331,19 @@
 				ON A.ASSET_ID = C.ASSET_ID
    LEFT OUTER JOIN ASSETHIST D
 				ON C.A_ID = D.A_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO G
 	            ON B.RCPT_ID = G.ESNTL_ID
    LEFT OUTER JOIN LETTNEMPLYRINFO H
 	            ON D.USE_ID = H.ESNTL_ID
    LEFT OUTER JOIN LETTNORGNZTINFO I
 				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
+
 				 <include refid="search" />
 		  GROUP BY  
 				A.ASSET_ID,
@@ -367,8 +378,7 @@
 		  END AS MAKER, 
 			B.MAKER_CODE, 
 			B.NOTE, 
-			B.ASSET_SN, 
-			B.MNG_NUM, 
+			B.ASSET_SN,
 			B.RCPT_ID,
 			I.USER_NM AS RCPT_NM,
 			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
@@ -407,7 +417,6 @@
 					H.CODE_NM,B.MAKER,
 					B.MAKER_CODE,B.NOTE,
 					B.ASSET_SN,
-					B.MNG_NUM,
 					B.RCPT_ID,
 					B.RCPT_DATE
 	</select>
@@ -509,8 +518,7 @@
 			MAKER, 
 			MAKER_CODE, 
 			NOTE, 
-			ASSET_SN, 
-			MNG_NUM, 
+			ASSET_SN,
 			USAGE_STAUTS,
 			RCPT_ID,
 			<if test="rcptDate != null and rcptDate != ''">
@@ -532,7 +540,6 @@
 			#{makerCode},
 			#{note},
 			#{assetSn},
-			#{mngNum},
 			'Y',
 			#{rcptId},
 			<if test="rcptDate != null and rcptDate != ''">

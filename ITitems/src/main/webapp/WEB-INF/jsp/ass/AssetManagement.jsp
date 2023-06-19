@@ -41,36 +41,7 @@
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
-/* ********************************************************
- * 프로젝트 검색
- ******************************************************** */
-function ProjectSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 검색 프로젝트 입력
- ******************************************************** */
-function returnProject(val){
-	
-	if (val) {
-		document.getElementById("searchPrj").value  = val.prjId;
-		document.getElementById("prjNm").value  = val.prjNm;
-	}
-	
-	fn_egov_modal_remove();
-}
-
+,
 /* ********************************************************
  * 회원 검색
  ******************************************************** */

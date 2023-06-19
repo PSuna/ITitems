@@ -65,7 +65,6 @@ function insertCarryDetail(reqId) {
 		formdata.append('reqId', reqId);
 		let assetId = items.querySelector('input').value;
 		let reqQty = items.querySelector('.reqQty').value;
-		console.log(assetId);
 		formdata.append('assetId', assetId);
 		formdata.append('reqQty', reqQty);
 		formdata.append('reqOrder', trList.length - index);
@@ -128,7 +127,6 @@ function insertApproval(reqId){
 		formdata.append('targetId', targetId);
 		formdata.append('aprvOrder', index);
 		if(targetUp != null && targetUp != ''){
-			console.log(targetUp);
 			formdata.append('targetUp', targetUp);
 		}
 		
@@ -481,7 +479,7 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td style="vertical-align:center;"><input type="text" class="f_txt w_80" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
+					<td style="vertical-align:center;"><input type="text" class="f_txt w_80 reqQty" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
 					<td>`+assetSn+` / `+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
