@@ -135,6 +135,20 @@ public class MobRequestController {
 		
 		return appMap;
 	}
+	
+	//상세조회
+	@RequestMapping(value = "/req/MobSelectCarry.do")
+	public Map<String,Object> SelectCarry(HttpServletRequest request, ModelMap model, @RequestBody RequestManageVO manageVO) throws Exception {
+		System.out.println("넘어온 RequestId =================");
+		System.out.println(manageVO.getReqId());
+		Map<String,Object> appMap = new HashMap<String, Object>();
+		request.getSession().setAttribute("baseMenuNo", "100");
+		appMap.put("resultVO", requestService.SelectRequestVO(manageVO));
+		appMap.put("resultList",requestService.SelectRequestDetailVOList(manageVO));
+		appMap.put("aprvList_result",requestService.SelectAprvList(manageVO));
+		appMap.put("searchVO", manageVO);
+		return appMap;
+	}
 
 
 
