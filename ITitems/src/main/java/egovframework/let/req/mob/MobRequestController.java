@@ -65,9 +65,8 @@ public class MobRequestController {
 	@RequestMapping(value = "/req/MobInsertRequest.do")
 	@ResponseBody
 	public String insertRequest(@RequestBody Map<String, Object> insertMap) throws Exception {
-		System.out.println("반출 신청 등록 도착 =============================");
+		System.out.println("신청등록 모바일 도착");
 		System.out.println(insertMap);
-		
 		//VO에 담기
 		RequestVO requestVO = new RequestVO();
 		requestVO.setId(insertMap.get("id").toString());
@@ -78,7 +77,8 @@ public class MobRequestController {
 		requestVO.setPlace(insertMap.get("place").toString());
 		requestVO.setReqGroup("C1");
 		requestService.InsertRequestVO(requestVO);
-		return "성공";
+		System.out.println(requestVO.getReqId());
+		return requestVO.getReqId();
 	}
 
 	/**
@@ -90,63 +90,52 @@ public class MobRequestController {
 		requestService.InsertRequestDetailVO(requestDetailVO);
 		return requestVO.getReqId();
 	}
+	
+	//전체조회
+	@RequestMapping(value = "/req/MobCarryRequset.do")
+	public Map<String,Object> CarryRequset(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
+		Map<String,Object> appMap = new HashMap<String, Object>();
 
-	/**
-	 * 반출/반입상세정보 페이지로 이동
-	 */
-//	@RequestMapping(value = "/req/SelectCarry.do")
-	public String SelectCarry(HttpServletRequest request, ModelMap model,
-			@ModelAttribute("searchVO") RequestManageVO manageVO) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
-		model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
-		model.addAttribute("resultList", requestService.SelectRequestDetailVOList(manageVO));
-		model.addAttribute("aprvList_result", requestService.SelectAprvList(manageVO));
-		model.addAttribute("searchVO", manageVO);
-
-		return "/req/SelectCarry";
-	}
-
-	/**
-	 * 처분신청조회 페이지로 이동
-	 */
-//	@RequestMapping(value = "/req/DisposeRequest.do")
-	public String DisposeRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
-
+		request.getSession().setAttribute("baseMenuNo", "100");  
+		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
+		
+		manageVO.setId(loginId.getUniqId());
+		manageVO.setAuthorCode(loginId.getAuthorCode());
+		
+		if(manageVO.getMenuStartDate() != null && manageVO.getMenuStartDate() != "") {
+			manageVO.setStartDate(manageVO.getMenuStartDate());
+		}
+		if(manageVO.getMenuEndDate() != null && manageVO.getMenuEndDate() != "") {
+			manageVO.setEndDate(manageVO.getMenuEndDate());
+		}
+		if(manageVO.getMenuOrgnzt() != null && manageVO.getMenuOrgnzt() != "") {
+			manageVO.setSearchOrgnzt(manageVO.getMenuOrgnzt());
+		}
+		
+		manageVO.setReqGroup("C1");
+		Map<String, Object> map = requestService.MobSelectRequestVOList(manageVO);
+		
+		appMap.put("resultList", map.get("resultList"));
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-
+		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		
 		vo.setCodeId("COM008");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-
+		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		//결재요청분류코드를 코드정보로부터 조회 - COM011
+		vo.setCodeId("COM011");
+		appMap.put("group_result", cmmUseService.selectCmmCodeDetail(vo));
+		
 		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
-		return "/req/DisposeRequest";
+		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		
+		return appMap;
 	}
 
-	/**
-	 * 수리신청조회 페이지로 이동
-	 */
-//	@RequestMapping(value = "/req/RepairRequest.do")
-	public String RepairRequest(HttpServletRequest request, ModelMap model) throws Exception {
-		request.getSession().setAttribute("baseMenuNo", "100");
 
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
-
-		vo.setCodeId("COM008");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
-		return "/req/RepairRequest";
-	}
 
 }

@@ -60,7 +60,7 @@ public class MobAssetController {
 
 	@Resource(name = "ProjectService")
 	protected ProjectService projectService;
-	
+
 	@Resource(name = "CategoryService")
 	protected CategoryService categoryService;
 
@@ -69,20 +69,20 @@ public class MobAssetController {
 
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
-	
+
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileMngService;
 
 	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
-	
+
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 
 	/*
 	 * select => assetManageVo, /insert,upload => assetVo
-	 * */
-	
+	 */
+
 	/**
 	 * 내자산조회 페이지로 이동
 	 */
@@ -134,7 +134,7 @@ public class MobAssetController {
 	public Map<String, Object> SelectAsset(HttpServletRequest request, AssetManageVO assetManageVO,
 			@RequestBody AssetManageVO avo) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-		
+
 		AssetVO result = assetService.SelectAssetVO(avo);
 
 		appMap.put("resultVO", result);
@@ -150,11 +150,14 @@ public class MobAssetController {
 	}
 
 	/**
-	 * 전체자산조회 페이지로 이동
+	 * 반출신청에서 자산조회 팝업창으로 이동
 	 */
-	@RequestMapping(value = "/ass/MobAssetManagement.do")
-	public Map<String, Object> AssetManagement(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO)
+	@RequestMapping(value = "/ass/MobAssetSearchList.do")
+	public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
 			throws Exception {
+		System.out.println("넘어온 자산 정보 =======================");
+		System.out.println(assetManageVO.getSearchName());
+		System.out.println(assetManageVO.getUserId());
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
 		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
@@ -169,6 +172,7 @@ public class MobAssetController {
 		if (assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
 			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
 		}
+		assetManageVO.setSearchKind("out");
 		Map<String, Object> map = assetService.MobSelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
