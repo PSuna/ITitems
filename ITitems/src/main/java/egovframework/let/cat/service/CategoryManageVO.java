@@ -22,6 +22,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class CategoryManageVO extends CategoryVO implements Serializable {
 	
+	@Override
+	public String toString() {
+		return "CategoryManageVO [searchWord=" + searchWord + ", searchUpper=" + searchUpper + ", sortOrdr=" + sortOrdr
+				+ ", pageIndex=" + pageIndex + ", pageUnit=" + pageUnit + ", pageSize=" + pageSize + ", startPage="
+				+ startPage + ", lastPage=" + lastPage + ", totalRecord=" + totalRecord + ", first=" + first + ", last="
+				+ last + ", endPage=" + endPage + "]";
+	}
 	/** 검색단어 */
     private String searchWord = "";
     

@@ -11,6 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -50,6 +51,13 @@ function fnListPage(){
 	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
 	document.frm.submit();
 }
+
+function fnCheck(){
+	let loginId = '${approvalSearchVO.uniqId}';
+	var lastUserName = $("#lastUserName").val();
+	console.log(loginId + '==' + lastUserName);
+}
+
 /* ********************************************************
  * 승인확인 팝업창
  ******************************************************** */
@@ -72,22 +80,137 @@ function fnAgree(){
  function returnConfirm(val){
 	fn_egov_modal_remove();
 	 if(val){
+		 AprvIng();
 		 fnUpdate();
 	 }
 }
  /* ********************************************************
+  * 결재진행 팝업창
+  ******************************************************** */
+  function AprvIng(){
+ 	
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+ }
+ /* ********************************************************
   * 승인처리
   ******************************************************** */
 function fnUpdate(){
-	 var reqId = document.getElementById("reqId").value;
-	 $.ajax({
-		 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do?reqId='+reqId,
-			method: 'POST',
-			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
-			}
-	 });
+	var reqId = document.getElementById("reqId").value;
+	let formdata = new FormData();
+	formdata.append('reqId', reqId);
+	$.ajax({
+	 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
+		method: 'POST',
+		processData: false,
+		contentType: false,
+		data : formdata,
+		success: function (result) {
+			fn_egov_modal_remove();
+			fnInsertHist();
+		}
+	})
  }
+/* ********************************************************
+ * 승인처리 후 자산 내역 입력
+ ******************************************************** */
+function fnInsertHist(){
+	var reqId = document.getElementById("reqId").value;
+	let loginId = "${approvalSearchVO.uniqId}";
+	var lastUserName = $("#lastUserName").val();
+	if(lastUserName == loginId){
+		var assetIds = new Array();
+		assetIds = document.querySelectorAll("#assetDList tr");
+		for(let i=0; i<assetIds.length; i++){
+			let formdata = new FormData();
+			var assetId = assetIds[i].querySelector(".assetId").value;
+			var useId = assetIds[i].querySelector(".useId").value;
+			var reqQty = assetIds[i].querySelector(".reqQty").innerHTML;
+			var prjId = "${approvalVO.prjCode}";
+			
+			formdata.append('assetId', assetId);
+			formdata.append('reqQty', reqQty);
+			formdata.append('prjId', prjId);
+			formdata.append('histUser', loginId);
+			formdata.append('useId', useId);
+			if(${approvalVO.reqGroup == '반출신청'}){
+				formdata.append('histGroup', 'C1');
+			}else{
+				formdata.append('histGroup', 'C0');
+			}
+			
+			$.ajax({
+				url:'${pageContext.request.contextPath}/aprv/ApprovalInsertHist.do',
+				method: 'POST',
+				enctype: "multipart/form-data",
+				processData: false,
+				contentType: false,
+				data : formdata,
+				success: function (result) {
+					fn_egov_modal_remove();
+					AprvSuccess();
+				},
+				error: function (error) {
+					fn_egov_modal_remove();
+					AprvFail();
+				}
+			})
+		}
+	}else{
+		fn_egov_modal_remove();
+		AprvSuccess();
+	}
+}
+/* ********************************************************
+ * 승인완료 팝업창
+ ******************************************************** */
+ function AprvSuccess(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+ /* ********************************************************
+  * 승인완료 결과 처리
+  ******************************************************** */
+function returnSuccess(val){
+	var reqId = document.getElementById("reqId").value;
+	if(val){
+		fn_egov_modal_remove();
+ 	} 	
+ 	location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+ }
+ 
+/* ********************************************************
+ * 승인실패 팝업창
+ ******************************************************** */
+ function AprvFail(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
 /* ********************************************************
  * 반려확인 팝업창
  ******************************************************** */
@@ -121,17 +244,24 @@ function fnDisUpdate(){
 		 	url: '${pageContext.request.contextPath}/aprv/ApprovalDisUpdate.do?reqId='+reqId,
 			method: 'POST',
 			success: function (result) {
-				location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+				fn_egov_modal_remove();
+				AprvSuccess();
 			}
 	 });
  }
  
+/* ********************************************************
+ * onload 함수
+ ******************************************************** */
  window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
 					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<colgroup>
+							<col style="width: 39px;">
+						</colgroup>
 						<tbody>
-							<tr style="border-bottom:1px solid black;">
+							<tr style="border-bottom:1px solid black; ">
 								<td>/</td>
 							</tr>
 							<tr class="aprv_col" style="border-bottom:1px solid black;">
@@ -147,6 +277,7 @@ function fnDisUpdate(){
 	 for(var j=0;j<4-i;j++){
 		 $(".aprv_item:last-child").before(p);
 	 }
+	 
  }
 //-->
 </script>
@@ -207,7 +338,9 @@ function fnDisUpdate(){
 								<input name="searchStatus" type="hidden" value="<c:out value='${approvalSearchVO.searchStatus}'/>"/>
 								<input name="searchKeyword" type="hidden" value="<c:out value='${approvalSearchVO.searchKeyword}'/>"/>
 									<div class="aprv_top">
-										<h2 class="tit_2">결재요청정보</h2>
+										<h2 class="tit_2">결재요청정보 (
+										<c:if test="${approvalVO.reqGroup == '반출신청'}"><span>반출신청</span></c:if>
+										<c:if test="${approvalVO.reqGroup == '반입신청'}"><span>반입신청</span></c:if> )</h2>
 										<div class="aprv_view">
 											<table class="aprv_table" style ="margin-right:7px;border:1px solid black;text-align: center;">
 												<tbody>
@@ -232,6 +365,7 @@ function fnDisUpdate(){
 																</tr>
 																<tr class="aprv_col" style="border-bottom:1px solid black;">
 																	<td class="aprv_nm">${aprvItem.userNm }</td>
+																	<c:if test="${status.last}"><input type="hidden" id="lastUserName" name="lastUserName" value="<c:out value="${aprvItem.esntlId}"/>"/></c:if>
 																</tr>
 																<tr>
 																	<td class="aprv_td">
@@ -275,17 +409,8 @@ function fnDisUpdate(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td colspan="3">
-													<c:out value="${approvalVO.prjId}"></c:out>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> 
-													<label for="">사용장소</label> 
-												</td>
 												<td>
-													<c:out value="${approvalVO.place}"></c:out>
+													<c:out value="${approvalVO.prjId}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
@@ -293,6 +418,16 @@ function fnDisUpdate(){
 												</td>
 												<td>
 													<c:out value="${approvalVO.pmName} ${approvalVO.pmGrade}"></c:out>
+												</td>
+											</tr>
+											<c:if test="${approvalVO.reqGroup == '반출신청'}">
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> 
+													<label for="">사용장소</label> 
+												</td>
+												<td  colspan="3">
+													<c:out value="${approvalVO.place}"></c:out>
 												</td>
 											</tr>
 											<tr>
@@ -304,6 +439,7 @@ function fnDisUpdate(){
 													<c:out value="${approvalVO.startDate}"></c:out> — <c:out value="${approvalVO.endDate}"></c:out>
 												</td>
 											</tr>
+											</c:if>
 										</table>
 									</div>
 									</form>
@@ -322,34 +458,38 @@ function fnDisUpdate(){
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 34%;">
-											<col style="width: 24%;">
-											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
-										<tbody>
-											<c:forEach var="result" items="${approvalDetailList}" varStatus="status" >
+										<tbody id="assetDList">
+											<c:forEach var="result" items="${approvalDetailList}"
+												varStatus="status" >
 												<tr>
+													<input type="hidden" name="assetId" class="assetId" value="<c:out value="${result.assetId}"/>"/>
+													<input type="hidden" name="useId" class="useId" value="<c:out value="${result.useId}"/>"/>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
-													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.maker}"></c:out></td>
+													<td class="reqQty"><c:out value="${result.reqQty}"></c:out></td>
+													<td><c:out value="${result.assetSn} | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
-								<br>
-								<br>
 								 <!-- 지급확인버튼  -->
-								<div class="board_view_bot">
+								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">

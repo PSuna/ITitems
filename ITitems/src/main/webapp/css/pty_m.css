@@ -374,7 +374,7 @@
 	
 	.pty_condition{
 		display:flex !important;
-		/* ¿flex-wrap: wrap !important; */
+		flex-wrap: wrap !important;
 		gap: 8px;
 		
 	}
@@ -384,6 +384,7 @@
 	
 	.condition{
 		display:flex!important;
+		flex-wrap: wrap;
 	}
 	
 	.condition form{

@@ -23,10 +23,9 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-
-		    <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
-    <title>ITeyes 자산관리솔루션</title>
-
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+  <title>ITeyes 자산관리솔루션</title>
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
@@ -91,12 +90,41 @@ function fn_egov_modal_remove() {
         <!-- gnb -->
         <div class="gnb">
             <ul>
-          		<li><a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">내자산조회</a></li>
-          		<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-          			<li><a href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do')">전체자산조회</a></li>
-          		</c:if>
-          		<li><a href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do')">신규자산등록</a></li>
-          		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a></li>
+          		<li>
+          			<a href="#LINK" onclick="return false;">자산관리</a>
+          			<div class="pty_dropdown">	    
+		                <ul>
+		                    <li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">내자산조회</a></li>
+		                 </ul>
+		                 <ul>   
+			                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do')">전체자산조회</a></li>
+			          		</c:if>
+		                </ul>
+		                <ul>
+		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do')">신규자산등록</a></li>
+		                </ul>
+            		</div>
+          		</li>
+          		<li>
+          			<a href="#LINK" onclick="return false;">렌탈관리</a>
+          			<div class="pty_dropdown">	    
+		                <ul>
+		                    <li><a class="gnb_a" href="#LINK"  onclick="goMenuPage('/rent/MyRentalManagement.do')">내렌탈조회</a></li>
+		                 </ul>
+		                 <ul>   
+			                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/rent/RentalManagement.do')">전체렌탈조회</a></li>
+			          		</c:if>
+		                </ul>
+		                <ul>
+		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
+		                </ul>
+            		</div>
+
+          		</li>
+          		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a></li>
+
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>
           		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
           		<!-- <li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
@@ -104,7 +132,7 @@ function fn_egov_modal_remove() {
           		<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
                	<li class="gnb_li">
                	
-                	<a href="#LINK" style="width:140px; padding-left: 12px; ">사이트관리</a>
+                	<a href="#LINK" >사이트관리</a>
 
                 	<div class="admin pty_dropdown">	              
 			                <!-- <h3>사용자관리</h3> -->
@@ -131,9 +159,12 @@ function fn_egov_modal_remove() {
 							<!-- <h3>프로젝트관리</h3> -->
 							
 			                <ul>
-			                	<li><a class="gnb_a" href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
+			                	<li><a class="gnb_a pg_a" href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
 			                </ul>
-			                
+							
+			                <!-- <ul>
+			                	<li><a class="gnb_a pg_a" href="/ass/DistinctManage.do">중복데이터조회</a></li>
+			                </ul> -->
             		</div>
 				
                	</li>
@@ -193,9 +224,19 @@ function fn_egov_modal_remove() {
 			</li>
 
 			<li>
-				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출관리</a>				
+				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a>				
 			</li>
-
+			
+			<li><a href="#LINK" onclick="return false;">렌탈관리</a>
+				<ul class="pmt_sub">
+					<li><a href="#LINK"  onclick="goMenuPage('/rent/MyRentalManagement.do')">내렌탈조회</a></li>
+					<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+						<li><a href="#LINK" onclick="goMenuPage('/rent/RentalManagement.do')">전체렌탈조회</a></li>
+					</c:if>
+					<li><a  href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
+					
+				</ul>
+			</li>
 
 			<li>
 				<a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a>				
@@ -219,6 +260,7 @@ function fn_egov_modal_remove() {
 						</c:if>
 						<li><a href="/cat/CategoryManage.do">카테고리목록관리</a></li>
 						<li><a href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
+						<!-- <li><a href="/ass/DistinctManage.do">중복데이터조회</a></li> -->
 					</ul>
 				</li>
 			</c:if>			

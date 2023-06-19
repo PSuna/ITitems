@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RentalDAO">
+	
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="rentalList">
+		<result property="rentalId" column="RENTAL_ID" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="orgnztNm" column="ORGNZT_NM" />
+		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="rentalQty" column="RENTAL_QTY" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="useNm" column="USE_NM" />
+	</resultMap>
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="myRentalList">
+		<result property="rentalId" column="RENTAL_ID" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="assetSn" column="ASSET_SN" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="rentalQty" column="RENTAL_QTY" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="useNm" column="USE_NM" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.rent.service.RentalVO"
+		id="rentalDetail">
+		<result property="rentalId" column="RENTAL_ID" />
+		<result property="regDate" column="REG_DATE" />
+		<result property="regId" column="REG_ID" />
+		<result property="rentalQty" column="RENTAL_QTY" />
+		<result property="largeCategory" column="LARGE_CATEGORY" />
+		<result property="middleCategory" column="MIDDLE_CATEGORY" />
+		<result property="mcatNm" column="MCAT_NM" />
+		<result property="mcatEtc" column="MCAT_ETC" />
+		<result property="assetName" column="ASSET_NAME" />
+		<result property="rentalStart" column="RENTAL_START" />
+		<result property="rentalEnd" column="RENTAL_END" />
+		<result property="rentalPrice" column="RENTAL_PRICE" />
+		<result property="rentalCompany" column="RENTAL_COMPANY" />
+		<result property="maker" column="MAKER" />
+		<result property="makerCode" column="MAKER_CODE" />
+		<result property="note" column="NOTE" />
+		<result property="assetSn" column="ASSET_SN" />
+		<result property="mngNum" column="MNG_NUM" />
+		<result property="rcptId" column="RCPT_ID" />
+		<result property="rcptNm" column="RCPT_NM" />
+		<result property="orgnztId" column="ORGNZT_ID" />
+		<result property="prjId" column="PRJ_ID" />
+		<result property="prjNm" column="PRJ_NM" />
+		<result property="useId" column="USE_ID" />
+		<result property="useNm" column="USE_NM" />
+		<result property="rcptDate" column="RCPT_DATE" />
+	</resultMap>
+	
+	<sql id="search">
+		<where>
+			AND A.USAGE_STAUTS = 'Y'
+			AND B.USAGE_STAUTS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
+			<if test="searchOrgnzt != null and searchOrgnzt != ''">
+              	AND (	D.ORGNZT_ID = #{searchOrgnzt} 
+              		OR  I.ORGNZT_UP = #{searchOrgnzt})
+            </if>
+            <if test="userId != null and userId != ''">
+				AND (	B.RCPT_ID = #{userId} 
+					OR  D.USE_ID = #{userId})
+            </if>
+        	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
+				AND D.ORGNZT_ID = #{lowerOrgnzt}
+			</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND D.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND B.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="searchStatus != null and searchStatus != ''">
+				AND B.HIST_GROUP = #{searchStatus}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="mySearch">
+		<where>
+			AND A.USAGE_STAUTS = 'Y'
+			AND B.USAGE_STAUTS = 'Y'
+			AND C.USAGE_STAUTS = 'Y'
+			AND D.HIST_STATUS = 'Y'
+			AND (	B.RCPT_ID = #{userId} 
+				OR  D.USE_ID = #{userId})
+			<if test="searchWord != null and searchWord != ''">
+				AND (	B.ASSET_NAME LIKE CONCAT ('%', #{searchWord},'%') 
+					OR  B.ASSET_SN LIKE CONCAT ('%', #{searchWord},'%'))
+		 	</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND D.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND B.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND B.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND A.REG_DATE >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="SelectMyRentalVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="myRentalList">
+		SELECT 
+    		RENTAL_ID, 
+			MIDDLE_CATEGORY, 
+			ASSET_NAME, 
+			ASSET_SN,
+			PRJ_NM,
+			RENTAL_QTY,
+			RCPT_NM,
+			USE_NM
+	      FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+				A.RENTAL_ID, 
+				CASE 
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					THEN B.MCAT_ETC
+					ELSE E.CAT_NAME
+				END AS MIDDLE_CATEGORY, 
+				B.ASSET_NAME, 
+				B.ASSET_SN,
+				F.PRJ_NAME AS PRJ_NM,
+				COUNT(C.R_ID) AS RENTAL_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
+			  FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID			
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
+				 <include refid="mySearch" />
+		  GROUP BY  
+				A.RENTAL_ID, 
+				E.CAT_NAME,
+				B.MCAT_ETC,
+				B.ASSET_NAME,
+				B.ASSET_SN,
+				F.PRJ_NAME,
+				G.USER_NM,
+				H.USER_NM,
+				A.REG_DATE
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountMyRentalVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+		SELECT 
+    		COUNT(P.RENTAL_ID)
+	      FROM (
+			SELECT 
+				A.RENTAL_ID, 
+				COUNT(C.R_ID) AS ASSET_QTY
+			  FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID			
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+				 <include refid="mySearch" />
+		  GROUP BY  
+				A.RENTAL_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
+		    ) P 
+	</select>
+
+	<select id="SelectRentalVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="rentalList">
+		SELECT 
+    		RENTAL_ID, 
+			ORGNZT_NM,
+	    	LOWER_ORGNZT_NM, 
+			PRJ_NM,
+			MIDDLE_CATEGORY,
+			RENTAL_QTY,
+			RCPT_NM,
+			USE_NM
+	      FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+				A.RENTAL_ID,
+				CASE
+					WHEN I.ORGNZT_UP IS NULL
+					THEN I.ORGNZT_NM
+					ELSE J.ORGNZT_NM
+				 END AS ORGNZT_NM,
+				CASE 
+					WHEN I.ORGNZT_UP IS NULL
+					THEN NULL
+					ELSE I.ORGNZT_NM
+				 END AS LOWER_ORGNZT_NM,
+				F.PRJ_NAME AS PRJ_NM,
+				CASE 
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					THEN B.MCAT_ETC
+					ELSE E.CAT_NAME
+				END AS MIDDLE_CATEGORY, 
+				COUNT(C.R_ID) AS RENTAL_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
+			  FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+				ON I.ORGNZT_UP = J.ORGNZT_ID
+				 <include refid="search" />
+		  GROUP BY  
+				A.RENTAL_ID, 
+				E.CAT_NAME,
+				B.MCAT_ETC,
+				F.PRJ_NAME,
+				G.USER_NM,
+				H.USER_NM,
+				A.REG_DATE,
+				I.ORGNZT_UP,
+				I.ORGNZT_NM
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountRentalVOList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="int">
+		SELECT 
+    		COUNT(P.RENTAL_ID)
+	      FROM (
+			SELECT 
+				A.RENTAL_ID, 
+				COUNT(C.R_ID) AS ASSET_QTY
+			  FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+				ON D.ORGNZT_ID = I.ORGNZT_ID
+				 <include refid="search" />
+		  GROUP BY  
+				A.RENTAL_ID,
+				D.ORGNZT_ID,
+				D.PRJ_ID,
+				D.USE_ID,
+				D.HIST_GROUP
+		    ) P
+	</select>
+
+	<select id="SelectRentalVO" parameterType="egovframework.let.rent.service.RentalManageVO" resultMap="rentalDetail">
+		SELECT 
+			A.RENTAL_ID, 
+			DATE_FORMAT(A.REG_DATE,'%Y-%m-%d') AS REG_DATE, 
+			E.USER_NM AS REG_ID, 
+			COUNT(C.R_ID) AS RENTAL_QTY, 
+			F.CAT_NAME AS LARGE_CATEGORY, 
+			B.MIDDLE_CATEGORY, 
+			CASE 
+				WHEN G.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+				THEN B.MCAT_ETC
+				ELSE G.CAT_NAME
+			END AS MCAT_NM,
+			B.MCAT_ETC, 
+			B.ASSET_NAME, 
+			DATE_FORMAT(B.RENTAL_START,'%Y-%m-%d') AS RENTAL_START, 
+			DATE_FORMAT(B.RENTAL_END,'%Y-%m-%d') AS RENTAL_END, 
+			B.RENTAL_PRICE, 
+			B.RENTAL_COMPANY, 
+			CASE 
+				WHEN H.CODE_NM = '기타'
+				THEN B.MAKER
+				ELSE H.CODE_NM  
+			END AS MAKER, 
+			B.MAKER_CODE, 
+			B.NOTE, 
+			B.ASSET_SN, 
+			B.MNG_NUM, 
+			B.RCPT_ID,
+			I.USER_NM AS RCPT_NM,
+			J.ORGNZT_NM AS ORGNZT_ID, 
+			D.PRJ_ID,
+			K.PRJ_NAME AS PRJ_NM,
+			D.USE_ID,
+			L.USER_NM AS USE_NM, 
+			DATE_FORMAT(B.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
+		   FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO E
+	       		ON A.REG_ID = E.ESNTL_ID
+   LEFT OUTER JOIN CATEGORY F
+		    	ON B.LARGE_CATEGORY = F.CAT_ID
+   LEFT OUTER JOIN CATEGORY G
+			    ON B.MIDDLE_CATEGORY = G.CAT_ID
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE H
+		        ON B.MAKER_CODE = H.CODE
+   LEFT OUTER JOIN LETTNEMPLYRINFO I
+		        ON B.RCPT_ID = I.ESNTL_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO J
+		        ON D.ORGNZT_ID = J.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS K
+		        ON D.PRJ_ID = K.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO L
+		        ON D.USE_ID = L.ESNTL_ID
+	        <where>
+	           AND A.USAGE_STAUTS = 'Y'
+			   AND B.USAGE_STAUTS = 'Y'
+			   AND C.USAGE_STAUTS = 'Y'
+			   AND D.HIST_STATUS = 'Y'
+			   AND A.RENTAL_ID = #{rentalId}
+	        </where>
+		  GROUP BY A.REG_DATE,
+					E.USER_NM, 
+				  	F.CAT_NAME,
+				  	B.MIDDLE_CATEGORY,
+					B.MCAT_ETC,
+					B.ASSET_NAME,
+					B.RENTAL_START,
+					B.RENTAL_END,
+					B.RENTAL_PRICE,
+					B.RENTAL_COMPANY,
+					H.CODE_NM,B.MAKER,
+					B.MAKER_CODE,B.NOTE,
+					B.ASSET_SN,
+					B.MNG_NUM,
+					B.RCPT_ID,
+					J.ORGNZT_NM,
+					D.PRJ_ID,
+					D.USE_ID,
+					B.RCPT_DATE
+	</select>
+
+	<insert id="InsertRental" parameterType="egovframework.let.rent.service.RentalVO">
+		INSERT INTO RENTALASSET (
+			RENTAL_ID, 
+			REG_DATE, 
+			REG_ID, 
+			RENTAL_QTY, 
+			USAGE_STAUTS
+			)
+		VALUES (
+			#{rentalId},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{regId},
+			#{rentalQty},
+			'Y'
+		)
+	</insert>
+	
+	<insert id="InsertRentaldetail" parameterType="egovframework.let.rent.service.RentalVO">
+		INSERT INTO RENTALDETAIL (
+			RENTAL_ID, 
+			LARGE_CATEGORY, 
+			MIDDLE_CATEGORY, 
+			MCAT_ETC, 
+			ASSET_NAME,
+			<if test="rentalStart != null and rentalStart != ''">
+			RENTAL_START,
+			</if>
+			<if test="rentalEnd != null and rentalEnd != ''">
+			RENTAL_END,
+			</if>
+			RENTAL_PRICE,  
+			RENTAL_COMPANY, 
+			MAKER, 
+			MAKER_CODE, 
+			NOTE, 
+			ASSET_SN, 
+			MNG_NUM, 
+			USAGE_STAUTS,
+			RCPT_ID,
+			<if test="rcptDate != null and rcptDate != ''">
+			RCPT_DATE, 
+			</if> 
+			CREAT_DT
+			)
+		VALUES (
+			#{rentalId},
+			#{largeCategory},
+			#{middleCategory},
+			#{mcatEtc},
+			#{assetName},
+			<if test="rentalStart != null and rentalStart != ''">
+			DATE_FORMAT(#{rentalStart}, '%Y-%m-%d'),
+			</if>
+			<if test="rentalEnd != null and rentalEnd != ''">
+			DATE_FORMAT(#{rentalEnd}, '%Y-%m-%d'),
+			</if>
+			#{rentalPrice},
+			#{rentalCompany},
+			#{maker},
+			#{makerCode},
+			#{note},
+			#{assetSn},
+			#{mngNum},
+			'Y',
+			#{rcptId},
+			<if test="rcptDate != null and rcptDate != ''">
+			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
+			</if>
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
+	
+	<insert id="InsertRentalIndiv" parameterType="egovframework.let.rent.service.RentalVO">
+		INSERT INTO RENTALINDIV (
+			R_ID, 
+			RENTAL_ID,
+			USAGE_STAUTS,
+			REG_DATE
+			)
+		VALUES (
+			#{rId},
+			#{rentalId},
+			'Y',
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
+	
+	<insert id="InsertRentalhist" parameterType="egovframework.let.rent.service.RentalVO">
+		 INSERT INTO RENTALHIST (
+			R_ID, 
+			ORGNZT_ID, 
+			PRJ_ID, 
+			USE_ID, 
+			HIST_STATUS,
+			CREAT_DT,
+			HIST_USER,
+			HIST_GROUP
+			)
+		VALUES (
+			#{rId},
+			#{orgnztId},
+			#{prjId},
+			#{useId},
+			'Y',
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
+	</insert>
+	
+	<update id="UpdateRentaldetail" parameterType="egovframework.let.rent.service.RentalVO">
+		UPDATE RENTALDETAIL
+		   SET USAGE_STAUTS = 'N'
+		 WHERE RENTAL_ID = #{rentalId}
+		   AND USAGE_STAUTS = 'Y'
+	</update>
+	
+	<update id="UpdateRentalhist" parameterType="egovframework.let.rent.service.RentalVO">
+		UPDATE RENTALHIST
+		   SET HIST_STATUS = 'N'
+		 WHERE R_ID = #{rId}
+		   AND HIST_STATUS = 'Y'
+	</update>
+	
+	<select id="SelectRIdList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="String">
+		SELECT 
+			R_ID 
+		  FROM RENTALINDIV 
+		 WHERE RENTAL_ID = #{rentalId}
+	</select>
+	
+	<update id="UpdateRentalDel" parameterType="egovframework.let.rent.service.RentalVO">
+		UPDATE RENTALASSET
+		   SET USAGE_STAUTS = 'N'
+		 WHERE RENTAL_ID = #{rentalId}
+	</update>
+	
+	<insert id="InsertRentalDelhist" parameterType="egovframework.let.rent.service.RentalVO">
+		 INSERT INTO RENTALHIST (
+			R_ID,  
+			HIST_STATUS,
+			CREAT_DT,
+			HIST_USER,
+			HIST_GROUP
+			)
+		VALUES (
+			#{rId},
+			'N',
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+			#{histUser},
+			#{histGroup}
+		)
+	</insert>
+	
+	<select id="xlsxTrsfRentList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="egovMap">
+		SELECT  IFNULL(ORGNZT_NM, '') HIGHER_ORGNZT_ID,
+		    	IFNULL(LOWER_ORGNZT_NM, '') LOWER_ORGNZT_ID,
+				IFNULL(PRJ_NM, '') PRJ_NM,
+				IFNULL(MIDDLE_CATEGORY, '') CATEGORY,
+				IFNULL(RENTAL_QTY, '') RENTAL_QTY,
+				IFNULL(RCPT_NM, '') RCPT_NM,
+				IFNULL(USE_NM, '') USE_NM
+		   FROM (SELECT ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+					    A.RENTAL_ID,
+					    CASE WHEN I.ORGNZT_UP IS NULL
+							 THEN I.ORGNZT_NM
+							 ELSE J.ORGNZT_NM
+					 	 END AS ORGNZT_NM,
+						CASE WHEN I.ORGNZT_UP IS NULL
+							 THEN NULL
+							 ELSE I.ORGNZT_NM
+					 	 END AS LOWER_ORGNZT_NM,
+					    F.PRJ_NAME AS PRJ_NM,
+					    CASE WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+						     THEN B.MCAT_ETC
+							 ELSE E.CAT_NAME
+					     END AS MIDDLE_CATEGORY, 
+					    COUNT(C.R_ID) AS RENTAL_QTY,
+					    G.USER_NM AS RCPT_NM,
+					    H.USER_NM AS USE_NM
+				   FROM RENTALASSET A
+	    LEFT OUTER JOIN RENTALDETAIL B
+					 ON A.RENTAL_ID = B.RENTAL_ID
+	    LEFT OUTER JOIN RENTALINDIV C
+					 ON A.RENTAL_ID = C.RENTAL_ID
+	    LEFT OUTER JOIN RENTALHIST D
+					 ON C.R_ID = D.R_ID
+	    LEFT OUTER JOIN CATEGORY E
+					 ON B.MIDDLE_CATEGORY = E.CAT_ID
+	    LEFT OUTER JOIN PROJECTS F
+		   			 ON D.PRJ_ID = F.PRJ_ID
+	    LEFT OUTER JOIN LETTNEMPLYRINFO G
+		             ON B.RCPT_ID = G.ESNTL_ID
+	    LEFT OUTER JOIN LETTNEMPLYRINFO H
+		             ON D.USE_ID = H.ESNTL_ID
+	    LEFT OUTER JOIN LETTNORGNZTINFO I
+				 	 ON D.ORGNZT_ID = I.ORGNZT_ID
+	    LEFT OUTER JOIN LETTNORGNZTINFO J
+					 ON I.ORGNZT_UP = J.ORGNZT_ID
+					 <include refid="search" />
+			   GROUP BY  
+					A.RENTAL_ID, 
+					E.CAT_NAME,
+					B.MCAT_ETC,
+					F.PRJ_NAME,
+					G.USER_NM,
+					H.USER_NM,
+					A.REG_DATE,
+					I.ORGNZT_UP,
+					I.ORGNZT_NM
+			    ) P 
+		    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="xlsxTrsfMyRentList" parameterType="egovframework.let.rent.service.RentalManageVO" resultType="egovMap">
+		 SELECT IFNULL(MIDDLE_CATEGORY, '') CATEGORY,
+				IFNULL(ASSET_NAME, '') ASSET_NM,
+				IFNULL(ASSET_SN, '') ASSET_SN,
+				IFNULL(PRJ_NM, '') PRJ_NM,
+				IFNULL(RENTAL_QTY, '') RENTAL_QTY,
+				IFNULL(RCPT_NM, '') RCPT_NM,
+				IFNULL(USE_NM, '') USE_NM
+		   FROM (SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.REG_DATE DESC)AS RUM,
+				A.RENTAL_ID, 
+				CASE 
+					WHEN E.CAT_NAME = '기타' AND B.MCAT_ETC IS NOT NULL
+					THEN B.MCAT_ETC
+					ELSE E.CAT_NAME
+				END AS MIDDLE_CATEGORY, 
+				B.ASSET_NAME, 
+				B.ASSET_SN,
+				F.PRJ_NAME AS PRJ_NM,
+				COUNT(C.R_ID) AS RENTAL_QTY,
+				G.USER_NM AS RCPT_NM,
+				H.USER_NM AS USE_NM
+			  FROM RENTALASSET A
+   LEFT OUTER JOIN RENTALDETAIL B
+				ON A.RENTAL_ID = B.RENTAL_ID
+   LEFT OUTER JOIN RENTALINDIV C
+				ON A.RENTAL_ID = C.RENTAL_ID			
+   LEFT OUTER JOIN RENTALHIST D
+				ON C.R_ID = D.R_ID
+   LEFT OUTER JOIN CATEGORY E
+				ON B.MIDDLE_CATEGORY = E.CAT_ID
+   LEFT OUTER JOIN PROJECTS F
+	   			ON D.PRJ_ID = F.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO G
+	            ON B.RCPT_ID = G.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO H
+	            ON D.USE_ID = H.ESNTL_ID
+					 <include refid="mySearch" />
+			   GROUP BY  
+				A.RENTAL_ID, 
+				E.CAT_NAME,
+				B.MCAT_ETC,
+				B.ASSET_NAME,
+				B.ASSET_SN,
+				F.PRJ_NAME,
+				G.USER_NM,
+				H.USER_NM,
+				A.REG_DATE
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+</mapper>

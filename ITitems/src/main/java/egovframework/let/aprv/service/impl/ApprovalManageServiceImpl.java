@@ -7,14 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.aprv.service.ApprovalDefaultVO;
-import egovframework.let.aprv.service.ApprovalDetailVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.ass.service.AssetVO;
+import egovframework.let.ass.service.impl.AssetDAO;
 import egovframework.let.com.service.ExcelUtil;
+import egovframework.let.req.service.RequestDetailVO;
 
 /**
  * 결재게시판에 관한 비지니스 클래스를 정의한다.
@@ -39,6 +42,12 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	/** approvalManageDAO */
 	@Resource(name="approvalManageDAO")
 	private ApprovalManageDAO approvalManageDAO;
+	
+	@Resource(name = "AIdGnrService")
+	private EgovIdGnrService aIdGnrService;
+	
+	@Resource(name = "AssetDAO")
+	private AssetDAO assetDAO;
 
 	/**
 	 * 로그인한 유저에게 해당하는 결재요청정보를 데이터베이스에서 읽어와 화면에 출력
@@ -68,7 +77,7 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public List<ApprovalDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
+	public List<RequestDetailVO> SelectApprovalDetailList(ApprovalDefaultVO approvalSearchVO) {
 		return  approvalManageDAO.SelectApprovalDetailList(approvalSearchVO);
 	}
 
@@ -107,5 +116,17 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	@Override
 	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO) {
 		return approvalManageDAO.ApprovalDisUpdate(approvalManageVO);
+	}
+
+	@Override
+	public int ApprovalInsertHist(AssetVO assetVO) {
+		List<String> aId = assetDAO.getAId(assetVO);
+		int r = 0;
+		for(String aid : aId) {
+			assetVO.setaId(aid);
+			assetDAO.UpdateAssethist(assetVO);
+			r = assetDAO.InsertAssethist(assetVO);
+		}
+		return r;
 	}
 }

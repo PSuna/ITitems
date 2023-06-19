@@ -2,7 +2,43 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
+	<!-- 렌탈 ID Generation Config -->
+	<bean name="RentalIdGnrService"
+		class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
+		destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy" ref="RentalIdStrategy" />
+		<property name="blockSize" value="10" />
+		<property name="table" value="IDS" />
+		<property name="tableName" value="RENTAL_ID" />
+	</bean>
+	<!-- 렌탈 ID Generation Strategy Config -->
+	<bean name="RentalIdStrategy"
+		class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+		<property name="prefix" value="RENT_" />
+		<property name="cipers" value="13" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<!-- 렌탈상세 ID Generation Config -->
+	<bean name="RIdGnrService"
+		class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
+		destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy" ref="RIdStrategy" />
+		<property name="blockSize" value="10" />
+		<property name="table" value="IDS" />
+		<property name="tableName" value="R_ID" />
+	</bean>
+	<!-- 렌탈상세 ID Generation Strategy Config -->
+	<bean name="RIdStrategy"
+		class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+		<property name="prefix" value="R_" />
+		<property name="cipers" value="13" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
 	<!-- 자산 ID Generation Config -->
 	<bean name="AssetIdGnrService"
 		class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
@@ -22,19 +58,19 @@
 	</bean>
 
 	<!-- 자산내역 ID Generation Config -->
-	<bean name="HistIdGnrService"
+	<bean name="AIdGnrService"
 		class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
 		destroy-method="destroy">
 		<property name="dataSource" ref="dataSource" />
-		<property name="strategy" ref="HistIdStrategy" />
+		<property name="strategy" ref="AIdStrategy" />
 		<property name="blockSize" value="10" />
 		<property name="table" value="IDS" />
-		<property name="tableName" value="HIST_ID" />
+		<property name="tableName" value="A_ID" />
 	</bean>
 	<!-- 자산내역 ID Generation Strategy Config -->
-	<bean name="HistIdStrategy"
+	<bean name="AIdStrategy"
 		class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
-		<property name="prefix" value="ASH_" />
+		<property name="prefix" value="A_" />
 		<property name="cipers" value="13" />
 		<property name="fillChar" value="0" />
 	</bean>
@@ -62,7 +98,7 @@
 		class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl"
 		destroy-method="destroy">
 		<property name="dataSource" ref="dataSource" />
-		<property name="strategy" ref="ReqIdStrategy" />
+		<property name="strategy" ref="RedIdStrategy" />
 		<property name="blockSize" value="10" />
 		<property name="table" value="IDS" />
 		<property name="tableName" value="RED_ID" />

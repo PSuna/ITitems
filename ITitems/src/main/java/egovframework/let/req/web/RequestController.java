@@ -61,7 +61,7 @@ public class RequestController {
 
 
 	/**
-	 * 반출신청 페이지로 이동
+	 * 반출입 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRequset.do")
 	public String CarryRequset(HttpServletRequest request, ModelMap model,RequestManageVO manageVO) throws Exception {
@@ -90,7 +90,6 @@ public class RequestController {
 			manageVO.setSearchOrgnzt(manageVO.getMenuOrgnzt());
 		}
 		
-		manageVO.setReqGroup("C1");
 		Map<String, Object> map = requestService.SelectRequestVOList(manageVO);
 		
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
@@ -122,7 +121,36 @@ public class RequestController {
 	 * 반출신청 등록 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/CarryRegist.do")
-	public String CarryRegist(HttpServletRequest request, ModelMap model) throws Exception {
+	public String CarryRegist(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		request.getSession().setAttribute("baseMenuNo", "100");
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+		System.out.println("orgnztId_result ====================== "+cmmUseService.selectOgrnztIdDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		System.out.println("LCat_result ====================== "+ categoryService.SelectCategoryVOList(cvo));
+		
+		UserManageVO userManageVO = new UserManageVO();
+		userManageVO = userManageService.selectUser(user.getUniqId());
+		vo.setCode(userManageVO.getGrade());
+		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
+		model.addAttribute("userManageVO", userManageVO);
+
+		model.addAttribute("searchVO", manageVO);
+
+		
+		return "/req/CarryRegist";
+	}
+	
+	/**
+	 * 반입신청 등록 페이지로 이동
+	 */
+	@RequestMapping(value = "/req/CarryInRegist.do")
+	public String CarryInRegist(HttpServletRequest request, ModelMap model, RequestManageVO manageVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		request.getSession().setAttribute("baseMenuNo", "100");
 
@@ -139,8 +167,9 @@ public class RequestController {
 		vo.setCode(userManageVO.getGrade());
 		userManageVO.setGrade(cmmUseService.selectCodeDetail(vo) != null ? cmmUseService.selectCodeDetail(vo).getCodeNm():null);
 		model.addAttribute("userManageVO", userManageVO);
+		model.addAttribute("searchVO", manageVO);
 		
-		return "/req/CarryRegist";
+		return "/req/CarryInRegist";
 	}
 	
 	/**
@@ -149,9 +178,7 @@ public class RequestController {
 	@RequestMapping(value = "/req/insertRequest.do")
 	@ResponseBody
 	public String insertRequest(RequestVO requestVO) throws Exception {
-		
 		requestService.InsertRequestVO(requestVO);
-		
 		return requestVO.getReqId();
 	}
 	
@@ -169,20 +196,19 @@ public class RequestController {
 	 * 반출/반입상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/req/SelectCarry.do")
-	public String SelectCarry(HttpServletRequest request, ModelMap model,@ModelAttribute("searchVO") RequestManageVO manageVO) throws Exception {
+	public String SelectCarry(HttpServletRequest request, ModelMap model, @ModelAttribute("searchVO") RequestManageVO manageVO) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
-		
-		  model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
-		  model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
-		  model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
-		  model.addAttribute("searchVO", manageVO);
-		 
+		model.addAttribute("resultVO", requestService.SelectRequestVO(manageVO));
+		model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
+		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
+		model.addAttribute("searchVO", manageVO);
 		return "/req/SelectCarry";
 	}
 	
 	/**
 	 * 처분신청조회 페이지로 이동
 	 */
+	/**
 	@RequestMapping(value = "/req/DisposeRequest.do")
 	public String DisposeRequest(HttpServletRequest request, ModelMap model) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
@@ -200,10 +226,11 @@ public class RequestController {
 		
 		return "/req/DisposeRequest";
 	}
-
+	*/
 	/**
 	 * 수리신청조회 페이지로 이동
 	 */
+	/**
 	@RequestMapping(value = "/req/RepairRequest.do")
 	public String RepairRequest(HttpServletRequest request, ModelMap model) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "100");
@@ -222,6 +249,6 @@ public class RequestController {
 		
 		return "/req/RepairRequest";
 	}
-
+	*/
 	
 }

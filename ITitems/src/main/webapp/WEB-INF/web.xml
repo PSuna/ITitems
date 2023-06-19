@@ -67,7 +67,7 @@
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
+ 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -76,7 +76,7 @@
     </login-config>
 
     <session-config>
-        <session-timeout>600</session-timeout>
+        <session-timeout>999999</session-timeout>
     </session-config>
 
     <error-page>

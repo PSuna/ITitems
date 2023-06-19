@@ -20,6 +20,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 
@@ -117,7 +118,7 @@ public class ApprovalManageController {
 	}
 	
 	/**
-	 * 반출신청 결재요청자 등록
+	 * 반출입신청 결재요청자 등록
 	 */
 	@RequestMapping(value = "/aprv/ApprovalInsert.do")
 	@ResponseBody
@@ -129,7 +130,7 @@ public class ApprovalManageController {
 	}
 	
 	/**
-	 * 반출신청상세정보 페이지로 이동
+	 * 반출입신청상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/aprv/selectApproval.do")
 	public String SelectApproval(@ModelAttribute("approvalSearchVO") ApprovalDefaultVO approvalSearchVO,
@@ -150,25 +151,34 @@ public class ApprovalManageController {
 		approvalManageVO = approvalManageService.SelectApproval(approvalSearchVO);
 		model.addAttribute("approvalVO", approvalManageVO);
 		model.addAttribute("AuthorCode", approvalSearchVO.getAuthorCode());
-		model.addAttribute("approvalDetailList", approvalManageService.SelectApprovalDetailList(approvalSearchVO));
+		model.addAttribute("loginId", approvalSearchVO.getUniqId());
+		model.addAttribute("approvalDetailList", requestService.SelectRequestDetailVOList(manageVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		return "/aprv/SelectApproval";
 	}
 	
 	/**
-	 * 반출신청 승인처리
+	 * 반출입신청 승인처리
 	 */
 	@RequestMapping(value = "/aprv/ApprovalUpdate.do")
 	@ResponseBody
-	public int UpdateApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request, @RequestParam String reqId ) {
+	public int UpdateApproval(ApprovalManageVO approvalManageVO, HttpServletRequest request) {
 		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
 		String targetId = loginVO.getUniqId();
-		approvalManageVO.setReqId(reqId);
 		approvalManageVO.setTargetId(targetId);
+		System.out.println(approvalManageVO.getReqId());
 		return approvalManageService.UpdateApproval(approvalManageVO);
 	}
 	/**
-	 * 반출신청 승인처리
+	 * 반출입신청 자산내역 등록
+	 */
+	@RequestMapping(value = "/aprv/ApprovalInsertHist.do")
+	@ResponseBody
+	public int ApprovalInsertHist(AssetVO assetVO) {
+		return approvalManageService.ApprovalInsertHist(assetVO);
+	}
+	/**
+	 * 반출입신청 반려처리
 	 */
 	@RequestMapping(value = "/aprv/ApprovalDisUpdate.do")
 	@ResponseBody

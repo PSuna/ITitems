@@ -158,7 +158,7 @@ function DelIng(){
 }
 
 /* ********************************************************
- * 수정완료 결과 처리
+ * 삭제완료 결과 처리
  ******************************************************** */
  function returnSuccess(){
 	 fn_egov_modal_remove();
@@ -195,13 +195,6 @@ function AssetList(){
 	    document.frm.submit();
 	}
 }
-/* ********************************************************
- * onload
- ******************************************************** */
-window.onload = function(){
-	console.log('${PhotoList}');
-	  }
-
 //-->
 </script>
 <script type="text/javascript">
@@ -277,7 +270,7 @@ window.onload = function(){
 												</td>
 												<td>${resultVO.assetSn}</td>
 												<td class="lb">
-													<!-- 수량 --> <label for="">수량</label>
+													<!-- 수량 --> <label for="">총 수량</label>
 												</td>
 												<td> ${resultVO.assetQty}</td>
 											</tr>
@@ -290,14 +283,21 @@ window.onload = function(){
 													${resultVO.rcptNm}
 												</td>
 												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
+												</td>
+												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
 												<td>
 													${resultVO.useNm}
-												</td>
+												</td> --%>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -312,22 +312,16 @@ window.onload = function(){
 												<td>
 													${resultVO.prjNm}
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td>
-													${resultVO.rcptDate}
-												</td>
-												<td class="lb">
+												
+												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label> 
 												</td>
 												<td >
 													${resultVO.mngNum}
-												</td>
+												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -347,7 +341,7 @@ window.onload = function(){
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                                    </c:import>
@@ -356,12 +350,14 @@ window.onload = function(){
 											<tr>
 												<td class="lb"><label for="egovComFileUploader">제품사진</label>
 												</td>
-												<td colspan="4">
-													<div class="photoList">
-														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
-					                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
-					                                   	</c:forEach>
-				                                   	</div>
+												<td colspan="3">
+													<c:if test="${not empty PhotoList}">
+														<div class="photoList">
+															<c:forEach var="photo" items="${PhotoList}" varStatus="status">
+						                                       <img alt="" src="/uploadFile/${photo.streFileNm}">
+						                                   	</c:forEach>
+					                                   	</div>
+				                                   	</c:if>
 												</td>
 											</tr>
 											<% pageContext.setAttribute("newLineChar", "\n"); %>
@@ -369,7 +365,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 비고 --> <label for="note">비고</label>
 												</td>
-												<td colspan="4">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
+												<td colspan="3">${fn:replace(resultVO.note, newLineChar, "<br/>")}</td>
 											</tr>
 											<%-- <tr>
 												<td class="lb">
@@ -398,6 +394,65 @@ window.onload = function(){
 											</tr>
 										</table>
 									</div>
+									<br>
+									<!-- 게시판 -->
+								<div class="board_list">
+									<table>
+										<colgroup>
+											<col style="width: 6%;">
+											<col style="width: 13%;">
+											<col style="width: 13%;">
+											<col style="width: 36%;">
+											<col style="width: 14%;">
+											<col style="width: 8%;">
+											<col style="width: 8%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">번호</th>
+												<th scope="col">본부</th>
+												<th scope="col">부서</th>
+												<th scope="col">프로젝트</th>
+												<th scope="col">자산관리번호</th>
+												<th scope="col">실사용자</th>
+												<th scope="col">상태</th>
+											</tr>
+										</thead>
+									</table>
+									<div class="scrollList">
+										<table>
+											<colgroup>
+												<col style="width: 6%;">
+												<col style="width: 13%;">
+												<col style="width: 13%;">
+												<col style="width: 36%;">
+												<col style="width: 14%;">
+												<col style="width: 8%;">
+												<col style="width: 8%;">
+												<col style="width: 1%;">
+											</colgroup>
+											<tbody>
+												<c:forEach var="result" items="${resultList}"
+													varStatus="status">
+													<tr>
+														<td><c:out value="${status.index + 1}" /></td>
+														<td><c:out value="${result.orgnztNm}" /></td>
+														<td><c:out value="${result.lowerOrgnztNm}" /></td>
+														<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
+														<td><c:out value="${result.assetQty}" /></td>
+														<td><c:out value="${result.useNm}" /></td>
+														<td><c:out value="${result.histGroup}" /></td>
+													</tr>
+												</c:forEach>
+												<c:if test="${empty resultList}">
+													<tr>
+	                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+	                               					</tr>
+												</c:if>
+											</tbody>
+										</table>
+									</div>
+								</div>
 										<%
 											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 										%>

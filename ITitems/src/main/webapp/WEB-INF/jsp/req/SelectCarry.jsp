@@ -58,14 +58,25 @@
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+
+/* ********************************************************
+ * 목록
+ ******************************************************** */
 function CarryList(){
 	document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
 }
+
+/* ********************************************************
+ * onload 함수
+ ******************************************************** */
 window.onload = function(){
 	 var i = document.querySelectorAll('.aprv_item').length;
 	 var p = `<div class="aprv_item">
 					<table class="aprv_table" style="margin:0;border-top:1px solid black;border-left:1px solid black;border-bottom:1px solid black;">
+						<colgroup>
+							<col style="width: 39px;">
+						</colgroup>
 						<tbody>
 							<tr style="border-bottom:1px solid black;">
 								<td>/</td>
@@ -131,7 +142,12 @@ window.onload = function(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
+										<c:if test="${resultVO.reqGroup == '반출신청'}">
 										<li>반출신청정보</li>
+										</c:if>
+										<c:if test="${resultVO.reqGroup == '반입신청'}">
+										<li>반입신청정보</li>
+										</c:if>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -139,7 +155,12 @@ window.onload = function(){
 
 								<form id="frm" name="frm" >
 								<div class="aprv_top">
+								<c:if test="${resultVO.reqGroup == '반출신청'}">
 								<h2 class="tit_2">반출신청정보</h2>
+								</c:if>
+								<c:if test="${resultVO.reqGroup == '반입신청'}">
+								<h2 class="tit_2">반입신청정보</h2>
+								</c:if>
 								<% LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO"); %>
 								<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
 								<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
@@ -224,17 +245,8 @@ window.onload = function(){
 													<!-- 프로젝트 --> 
 													<label for="">프로젝트</label>
 												</td>
-												<td colspan="3">
-													<c:out value="${resultVO.prjId}"></c:out>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> 
-													<label for="">사용장소</label> 
-												</td>
 												<td>
-													<c:out value="${resultVO.place}"></c:out>
+													<c:out value="${resultVO.prjId}"></c:out>
 												</td>
 												<td class="lb">
 													<!-- PM(관리자) --> 
@@ -242,6 +254,18 @@ window.onload = function(){
 												</td>
 												<td>
 													<c:out value="${resultVO.pm}"></c:out>
+													
+												</td>
+											</tr>
+											<c:if test="${resultVO.reqGroup == '반출신청'}">
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> 
+													<label for="">사용장소</label> 
+												</td>
+												<td colspan="3">
+													<c:out value="${resultVO.place}"></c:out>
+													
 												</td>
 											</tr>
 											<tr>
@@ -253,26 +277,29 @@ window.onload = function(){
 													<c:out value="${resultVO.startDate}"></c:out> — <c:out value="${resultVO.endDate}"></c:out>
 												</td>
 											</tr>
+											</c:if>
 										</table>
 									</div>
 									
-									
+									<br>
 								
 								
 								<div class="board_list assetlist pty_board_list">
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 34%;">
-											<col style="width: 24%;">
-											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 35%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">구분</label></td>
+												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -281,7 +308,8 @@ window.onload = function(){
 												<tr>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
 													<td><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.maker}"></c:out></td>
+													<td><c:out value="${result.assetSn } | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>
 											</c:forEach>
@@ -290,7 +318,7 @@ window.onload = function(){
 								</div>
 							
 								 <!-- 버튼  -->
-									<div class="board_view_bot">
+									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

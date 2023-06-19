@@ -150,8 +150,30 @@ function UpdtIng(){
  ******************************************************** */
  function returnSuccess(){
 	 fn_egov_modal_remove();
-	 document.subForm.submit();
+	 SelectAsset();
 
+}
+
+/* ********************************************************
+ * 자산 상세 페이지 이동
+ ******************************************************** */
+function SelectAsset() {
+    document.subForm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.subForm.submit(); 
+}
+
+/* ********************************************************
+ * 목록 이동
+ ******************************************************** */
+function AssetList(){
+	let code = $('#listCode').val();
+	if(code == "AM"){
+		document.subForm.action = "<c:url value='/ass/AssetManagement.do'/>";
+	    document.subForm.submit();
+	}else if (code == "MYAM"){
+		document.subForm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+	    document.subForm.submit();
+	}
 }
 
 /* ********************************************************
@@ -244,16 +266,19 @@ function getMCatList(Mval) {
 /* ********************************************************
  * 숫자 콤마 입력
  ******************************************************** */
-  function getNumber(obj){
+ function getNumber(obj){
      var num01;
      var num02;
-     num01 = obj.value;
-     num02 = num01.replace(/(^0+)/, "");
-     num03 = num02.replace(/\D/g,"");
-     num01 = setComma(num03);
-     obj.value =  num01;
-
-     $('#test').text(num01);
+     num01 = $(obj).val();
+     if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = setComma(num03);
+	    obj.value =  num01;
+	
+	    $('#test').text(num01); 
+     }
+     
   }
 
   function setComma(n) {
@@ -337,23 +362,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#acquiredDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-	
-	$("#rcptDate").datepicker(
+	$("#acquiredDate,#rcptDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -378,7 +387,7 @@ let typeList = ["input", "select"]
 
 function removeP(objList) {
 	$(typeList).each(function(index, type){
-		$("#assetRegist").find(type).each(function(index, item){
+		$("#AssetUpdt").find(type).each(function(index, item){
 			let td = $(item).closest("td");
 			if($(td).children().last().prop('tagName') == 'P'){
 				$(td).children().last().remove();
@@ -497,6 +506,7 @@ function addDelFile(fileId) {
 	$('#fileNm').closest(".filebox").find('img')[0].remove();
 	$('#delFile').val(fileId);
 }
+
 
 /* ********************************************************
  * onload
@@ -696,6 +706,15 @@ window.onload = function(){
 													</c:otherwise>
 												</c:choose>
 												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
+												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
@@ -707,9 +726,9 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-												</td>
+												</td> --%>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -742,24 +761,16 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
-											</tr>
+											</tr> --%>
 											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td>
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
-												</td>
-												<td class="lb">
+												
+												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label>
 												</td>
 												<td>
 													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60"> 
-												</td>
+												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -805,7 +816,7 @@ window.onload = function(){
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
-												<td colspan="4">
+												<td colspan="3">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
 													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
@@ -848,16 +859,24 @@ window.onload = function(){
 											</tr> --%>
 										</table>
 									</div>
-									<!-- 등록버튼  -->
+									<!-- 버튼  -->
 									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
+											<!-- 수정 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="UpdtConfirm(); return false;"><spring:message
 													code="button.update" /></a>
-											<!-- 등록 -->
+											<!-- 취소 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="SelectAsset(); return false;"><spring:message
+													code="button.cancel" /></a>
+											<!-- 목록 -->
+											<a href="#LINK" class="btn btn_blue_46 w_100"
+												onclick="AssetList(); return false;"><spring:message
+													code="button.list" /></a>
 										</div>
 									</div>
-									<!-- // 등록버튼 끝  -->
+									<!-- // 버튼 끝  -->
 								</form:form>
 								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
 									<input type="hidden" name="assetId"

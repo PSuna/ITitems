@@ -14,10 +14,9 @@ import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
-import egovframework.let.ass.service.AssetHistVO;
-import egovframework.let.ass.service.AssetInfoVO;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.com.service.ExcelUtil;
 
 /**
@@ -40,26 +39,36 @@ import egovframework.let.com.service.ExcelUtil;
 @Service("AssetService")
 public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetService {
 	
-	@Resource(name = "AssetInfoDAO")
-	private AssetInfoDAO assetInfoDAO;
-	
-	@Resource(name = "AssetHistDAO")
-	private AssetHistDAO assetHistDAO;
+	@Resource(name = "AssetDAO")
+	private AssetDAO assetDAO;
 	
 	@Resource(name = "AssetIdGnrService")
 	private EgovIdGnrService assetIdGnrService;
 
-	@Resource(name = "HistIdGnrService")
-	private EgovIdGnrService histIdGnrService;
+	@Resource(name = "AIdGnrService")
+	private EgovIdGnrService aIdGnrService;
 
+	
+	
 	/**
      * 조건에 맞는 전체자산을 전부 조회한다.
      */
 	@Override
-	public Map<String, Object> SelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
+	public Map<String, Object> SelectAssetVOList(AssetManageVO assetManageVO) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resultList", assetInfoDAO.SelectAssetInfoVOList(assetManageVO));
-		map.put("resultCnt", Integer.toString(assetInfoDAO.CountAssetInfoVOList(assetManageVO)));
+		map.put("resultList", assetDAO.SelectAssetVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetVOList(assetManageVO)));
+		return map;
+	}
+	
+	/**
+     * 조건에 맞는 전체자산을 전부 조회한다.(모바일)
+     */
+	@Override
+	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.MobSelectAssetInfoVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetVOList(assetManageVO)));
 		return map;
 	}
 	
@@ -67,10 +76,20 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	/**
      * 조건에 맞는 내자산을 전부 조회한다.
      */
-	public Map<String, Object> SelectMyAssetInfoList(AssetManageVO assetManageVO) {
+	public Map<String, Object> SelectMyAssetVOList(AssetManageVO assetManageVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resultList", assetInfoDAO.SelectMyAssetInfoList(assetManageVO));
-		map.put("resultCnt", Integer.toString(assetInfoDAO.CountMyAssetInfoList(assetManageVO)));
+		map.put("resultList", assetDAO.SelectMyAssetVOList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountMyAssetVOList(assetManageVO)));
+		return map;
+	}
+	
+	/**
+	 * 조건에 맞는 내자산을 전부 조회한다.(모바일용)
+	 */
+	public Map<String, Object> MobSelectMyAssetInfoList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.MobSelectMyAssetInfoList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountMyAssetVOList(assetManageVO)));
 		return map;
 	}
 	
@@ -78,68 +97,108 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 조건에 맞는 자산 단일 조회한다.
      */
 	@Override
-	public AssetInfoVO SelectAssetInfoVO(AssetManageVO assetManageVO) {
+	public AssetVO SelectAssetVO(AssetManageVO assetManageVO) {
 		
-		return assetInfoDAO.SelectAssetInfoVO(assetManageVO);
+		return assetDAO.SelectAssetVO(assetManageVO);
 	}
 
+	/**
+     * 해당 자산의 개별자산 현황을 전체 조회한다.
+     */
+	@Override
+	public Map<String, Object> SelectAssetHistList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.SelectAssetHistList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetHistList(assetManageVO)));
+		return map;
+	}
+	
 	/**
      * 자산 등록.
      */
 	@Override
-	public int InsertAssetInfo(AssetInfoVO assetInfoVO){
+	public int InsertAssetInfo(AssetVO assetVO){
 		
 		try {
-			assetInfoVO.setAssetId(assetIdGnrService.getNextStringId());
+			assetVO.setAssetId(assetIdGnrService.getNextStringId());
+			
+			assetDAO.InsertAsset(assetVO);
+			assetDAO.InsertAssetdetail(assetVO);
+			
+			int qty = Integer.parseInt(assetVO.getAssetQty());
+			for(int i=0; i<qty; i++) {
+				assetVO.setaId(aIdGnrService.getNextStringId());
+				assetDAO.InsertAssetIndiv(assetVO);
+				assetVO.setHistGroup("C2");
+				assetVO.setHistStatus("H0");
+				assetDAO.InsertAssethist(assetVO);
+			}
 		} catch (FdlException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return assetInfoDAO.InsertAssetInfo(assetInfoVO);
+		return 0;
 	}
 
 	/**
      * 자산 수정.
      */
 	@Override
-	public int UpdateAssetInfo(AssetInfoVO assetInfoVO) {
+	public int UpdateAssetDetail(AssetVO assetVO) {
 		
-		return assetInfoDAO.UpdateAssetInfo(assetInfoVO);
+		AssetManageVO manageVO = new AssetManageVO();
+		manageVO.setAssetId(assetVO.getAssetId());
+		
+		assetDAO.UpdateAssetdetail(assetVO);
+		assetDAO.InsertAssetdetail(assetVO);
+		/*
+		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
+		assetVO.setHistGroup("C3");
+		for(String aId : aIdList) {
+			assetVO.setaId(aId);
+			assetDAO.UpdateAssethist(assetVO);
+			assetDAO.InsertAssethist(assetVO);
+		} */
+		return 0;
 	}
 
 	/**
-     * 자산내역 등록.
+     * 자산 개별 수정.
      */
 	@Override
-	public int InsertAssetHist(AssetHistVO assetHistVO){
-	
-		try {
-			assetHistVO.setHistId(histIdGnrService.getNextStringId());
-		} catch (FdlException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return assetHistDAO.InsertAssetHist(assetHistVO);
-	}
-
-	/**
-     * 자산내역 수정.
-     */
-	@Override
-	public int UpdateAssetHist(AssetHistVO assetHistVO) {
-
-		return assetHistDAO.UpdateAssetHist(assetHistVO);
+	public int UpdateAssetHist(AssetVO assetVO){
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**
      * 자산 삭제상태로 변경.
      */
 	@Override
-	public int deleteAssetInfo(AssetInfoVO assetInfoVO) {
+	public int deleteAsset(AssetVO assetVO) {
 		
-		return assetInfoDAO.deleteAssetInfo(assetInfoVO);
+		AssetManageVO manageVO = new AssetManageVO();
+		manageVO.setAssetId(assetVO.getAssetId());
+		
+		assetDAO.UpdateAssetDel(assetVO);
+		
+		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
+		assetVO.setHistGroup("C4");
+		for(String aId : aIdList) {
+			assetVO.setaId(aId);
+			assetDAO.InsertAssetDelhist(assetVO);
+		} 
+		return 0;
+	}
+	
+	/**
+     * 개별 자산 삭제상태로 변경.
+     */
+	@Override
+	public int deleteAssetIndiv(AssetVO assetVO) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -147,7 +206,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			throws Exception {
 		String title = "자산관리솔루션 - 전체자산목록";
 		try {
-			List<EgovMap> tmpList = assetInfoDAO.xlsxTrsfAssetList(assetManageVO);
+			List<EgovMap> tmpList = assetDAO.xlsxTrsfAssetList(assetManageVO);
 			ExcelUtil excelUtil = new ExcelUtil();
 			
 			excelUtil.getxlsxDownload(title , tmpList , req, res);	
@@ -162,7 +221,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			throws Exception {
 		String title = "자산관리솔루션 - 나의자산목록";
 		try {
-			List<EgovMap> tmpList = assetInfoDAO.xlsxTrsfMyAssList(assetManageVO);
+			List<EgovMap> tmpList = assetDAO.xlsxTrsfMyAssList(assetManageVO);
 			ExcelUtil excelUtil = new ExcelUtil();
 			
 			excelUtil.getxlsxDownload(title , tmpList , req, res);	
@@ -171,6 +230,8 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		}
 		
 	}
+
+
 
 
 

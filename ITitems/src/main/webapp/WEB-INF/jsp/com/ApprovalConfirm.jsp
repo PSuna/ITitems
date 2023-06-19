@@ -40,7 +40,6 @@
 	}
 
 	function return_val(val) {
-
 		parent.parent.returnConfirm(val);
 	}
 	

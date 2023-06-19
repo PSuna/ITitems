@@ -15,6 +15,8 @@ import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.rent.service.RentalManageVO;
+import egovframework.let.rent.service.RentalService;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
@@ -55,6 +57,10 @@ public class CommonController {
 	/** assetService */
 	@Resource(name = "AssetService")
 	private AssetService assetService;
+	
+	/** assetService */
+	@Resource(name = "RentalService")
+	private RentalService rentalService;
 	
 	/**
 	 * 등록확인 팝업창로 이동
@@ -103,11 +109,35 @@ public class CommonController {
 		return "/com/AlertModal";
 	}
 	/**
-	 * 승인확인 팝업창로 이동
+	 * 결재승인확인 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/ApprovalConfirm.do")
 	public String ApprovalConfirm() throws Exception {
 		return "/com/ApprovalConfirm";
+	}
+	/**
+	 * 결재승인완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/AprvSuccess.do")
+	public String AprvSuccess() throws Exception {
+
+		return "/com/ApprovalSuccess";
+	}
+	/**
+	 * 결재승인실패 팝업창으로 이동
+	 */
+	@RequestMapping(value = "/com/AprvFail.do")
+	public String AprvFail() throws Exception {
+
+		return "/com/ApprovalFail";
+	}
+	/**
+	 * 결재승인진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/AprvIng.do")
+	public String AprvIng() throws Exception {
+
+		return "/com/ApprovalIng";
 	}
 	/**
 	 * 반려확인 팝업창로 이동
@@ -201,7 +231,7 @@ public class CommonController {
 		approvalSearchVO.setUniqId(loginId.getUniqId());
 		approvalManageService.xlsxTrsfAprvList(approvalSearchVO,req,res);
 	}
-	//반출목록 엑셀 출력
+	//반출입목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfReqList.do")
 	public void xlsxTrsfReqList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RequestManageVO requestManageVO, HttpSession session) throws Exception {
 		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
@@ -211,16 +241,24 @@ public class CommonController {
 	//전체자산목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfAssetList.do")
 	public void xlsxTrsfAssetList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
-		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
-		assetManageVO.setUserId(loginId.getUniqId());
 		assetService.xlsxTrsfAssetList(assetManageVO,req,res);
 	}
 
 	//내자산조회 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfMyAssList.do")
 	public void xlsxTrsfMyAssList(HttpServletRequest req, HttpServletResponse res, ModelMap model, AssetManageVO assetManageVO, HttpSession session) throws Exception {
-		LoginVO loginId = (LoginVO)req.getSession().getAttribute("LoginVO");
-		assetManageVO.setUserId(loginId.getUniqId());
 		assetService.xlsxTrsfMyAssList(assetManageVO,req,res);
+	}
+	
+	//전체자산목록 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfRentList.do")
+	public void xlsxTrsfRentList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RentalManageVO rentalManageVO, HttpSession session) throws Exception {
+		rentalService.xlsxTrsfRentList(rentalManageVO,req,res);
+	}
+
+	//내자산조회 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfMyRentList.do")
+	public void xlsxTrsfMyRentList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RentalManageVO rentalManageVO, HttpSession session) throws Exception {
+		rentalService.xlsxTrsfMyRentList(rentalManageVO,req,res);
 	}
 }

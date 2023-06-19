@@ -1,5 +1,5 @@
 <%--
-  Class Name : EgovPasswordUpdt.jsp
+  Class Name : MyPassUpdt.jsp
   Description : 암호수정 JSP
   Modification Information
  

@@ -53,6 +53,7 @@
             AND A.REQ_STATUS = #{searchStatus}
           </if>
 	   ORDER BY REQ_STATUS ASC, REQ_DATE DESC
+	   LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
 	<select id="selectApprovalListTotCnt" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="int">
@@ -129,6 +130,7 @@
 	<select id="SelectApproval" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovframework.let.aprv.service.ApprovalManageVO">
 		SELECT  R.REQ_ID,
 				E.USER_NM,
+				R.PRJ_ID PRJ_CODE,
 				C1.CODE_NM GRADE,
 			    P.PRJ_NAME PRJ_ID,
 			    E1.USER_NM PM_NAME,
@@ -138,7 +140,7 @@
 			    DATE_FORMAT(R.END_DATE,'%Y-%m-%d') END_DATE,
 			    DATE_FORMAT(R.REQ_DATE,'%m-%d') REQ_DATE,
 			    C3.CODE_NM REQ_GROUP, 
-			    R.REQ_STATUS RREQ_STATUS,
+			    AP.REQ_STATUS RREQ_STATUS,
 			    T.REQ_STATUS REQ_STATUS
 		   FROM REQUESTS R 
 	  LEFT JOIN PROJECTS P

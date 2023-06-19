@@ -98,7 +98,6 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
-=
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 
 <title>내부업무 사이트 > 알림정보 > <c:out value='${result.bbsNm}'/></title>
@@ -125,7 +124,7 @@
                                  <!-- Location -->
                                 <div class="location">
                                     <ul>
-                                        <li><a class="home" href="/uat/uia/actionMain.do">Home</a></li>
+                                        <li><a class="home" href="/uat/uia/web/actionMain.do">Home</a></li>
                                         <li><a href="">알림정보</a></li>
                                         <li><c:out value='${result.bbsNm}'/></li>
                                     </ul>
@@ -222,18 +221,18 @@
                                     </c:if>
 
 									<!-- 목록/저장버튼  -->
-                                    <div class="board_view_bot">
+                                    <div class="board_view_bot btn_bot">
                                         <div class="right_btn btn3">
                                         	<c:if test="${result.frstRegisterId == sessionUniqId}"> 
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a><!-- 삭제 -->
                                             </c:if>
-                                           <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
+                                           <%-- <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 	                                            <c:if test="${result.replyPosblAt == 'Y' && result.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}">  
 
 	                                            	<a href="#LINK" class="btn btn_skyblue_h46 w_120" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a><!-- 답글작성 -->
 	                                            </c:if>
-                                            </c:if> 
+                                            </c:if>  --%>
                                             <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList(); return false;">목록</a><!-- 목록 -->
                                         </div>
                                     </div>

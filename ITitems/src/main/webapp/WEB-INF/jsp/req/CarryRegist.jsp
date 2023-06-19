@@ -1,6 +1,6 @@
 <%--
-  Class Name : AssetInsert.jsp
-  Description : 자산등록 화면
+  Class Name : CarryRegist.jsp
+  Description : 반출신청 화면
   Modification Information
  
       수정일         수정자                   수정내용
@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -57,35 +59,29 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  ******************************************************** */
 function insertCarryDetail(reqId) {
 	let dataList;
-	let trList = document.querySelector('.assetlist tbody').querySelectorAll("tr");
+	let trList = document.querySelectorAll('#assetTbody tr');
 	trList.forEach(function(items,index) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
-		let Mcat = items.querySelector('#middleCategory');
-		let qty = items.querySelector('#reqQty');
-		if(Mcat != null && qty != null){
-			formdata.append('largeCategory', items.querySelector('#largeCategory').value);
-			formdata.append('middleCategory', Mcat.value);
-			formdata.append('reqQty', qty.value);
-			formdata.append('maker', items.querySelector('#maker').value);
-			formdata.append('user', items.querySelector('#user').value);
-			formdata.append('reqOrder', trList.length - index);
-			$.ajax({
-				url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
-				method: 'POST',
-				enctype: "multipart/form-data",
-				processData: false,
-				contentType: false,
-				data: formdata,
-				success: function (result) {
-					
-				},
-				error: function (error) {
-					RegistFail();
-					return;
-				}
-			}) 
-		}
+		let assetId = items.querySelector('input').value;
+		let reqQty = items.querySelector('.reqQty').value;
+		formdata.append('assetId', assetId);
+		formdata.append('reqQty', reqQty);
+		formdata.append('reqOrder', trList.length - index);
+		$.ajax({
+			url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
+			method: 'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formdata,
+			success: function (result) {
+			},
+			error: function (error) {
+				RegistFail();
+				return;
+			}
+		}) 
 	});
 	insertApproval(reqId);
 }
@@ -94,22 +90,22 @@ function insertCarryDetail(reqId) {
  * 반출신청 등록 처리
  ******************************************************** */
 function insertCarry() {
-		let formData = new FormData(document.getElementById('frm'));
-	 	$.ajax({
-			url: '${pageContext.request.contextPath}/req/insertRequest.do',
-			method: 'POST',
-			enctype: "multipart/form-data",
-			processData: false,
-			contentType: false,
-			data: formData,
-			success: function (result) {
-				insertCarryDetail(result);
-			},
-			error: function (error) {
-				RegistFail();
-				return;
-			}
-		})
+	let formData = new FormData(document.getElementById('frm'));
+ 	$.ajax({
+		url: '${pageContext.request.contextPath}/req/insertRequest.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			insertCarryDetail(result);
+		},
+		error: function (error) {
+			RegistFail();
+			return;
+		}
+	})
 }
 /* ********************************************************
  * 결재자 등록 처리
@@ -131,7 +127,6 @@ function insertApproval(reqId){
 		formdata.append('targetId', targetId);
 		formdata.append('aprvOrder', index);
 		if(targetUp != null && targetUp != ''){
-			console.log(targetUp);
 			formdata.append('targetUp', targetUp);
 		}
 		
@@ -160,20 +155,26 @@ function insertApproval(reqId){
 /* ********************************************************
  * 등록확인 팝업창
  ******************************************************** */
- function RegistConfirm(){
-	 removeP();
-	 if(validateCarryRegist(document.frm) && checkValid()){
-		 var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
-			.dialog({
-		    	autoOpen: false,
-		        modal: true,
-		        width: 400,
-		        height: 300
-			});
-		    $(".ui-dialog-titlebar").hide();
+function RegistConfirm(){
+	removeP();
+	let trList = document.querySelectorAll('#assetTbody tr');
+	if(trList.length > 0){
+		if(validateCarryRegist(document.frm) && checkValid()){
+			var $dialog = $('<div id="modalPan"></div>')
+				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+				.dialog({
+			    	autoOpen: false,
+			        modal: true,
+			        width: 400,
+			        height: 300
+				});
+			$(".ui-dialog-titlebar").hide();
 			$dialog.dialog('open');
-	 } 
+		}
+	}else{
+		alert('반출신청할 자산이 없습니다.');
+		return;
+	}
 }
 
 /* ********************************************************
@@ -246,6 +247,8 @@ function insertApproval(reqId){
 	    document.getElementById("aprv1").value  = "";
 	    document.getElementById("aprv2").value  = "";
 	    document.getElementById("aprv3").value  = "";
+	    $("#assetTbody tr").remove();
+	    
 		document.frm.prjNm.focus(); 
 	}else{
 		document.CarryRequset.submit();
@@ -389,7 +392,7 @@ function AssetSearch(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 1100,
+        width: 660,
         height: 700
 	});
     $(".ui-dialog-titlebar").hide();
@@ -412,7 +415,6 @@ function UserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-
 
 /* ********************************************************
  * 검색 프로젝트 입력
@@ -455,30 +457,79 @@ if (val) {
 
 fn_egov_modal_remove();
 }
+/* ********************************************************
+ * 검색 자산 입력
+ ******************************************************** */
+function returnAss(val){
+	var assetIds = document.querySelectorAll(".assetIds");
+	for (let i=0; i<assetIds.length; i++){
+		if(val.assetId == assetIds[i].value){
+			alert("이미 추가된 자산입니다.");
+			return;
+		}
+	}
+	if (val) {
+		var assetId = val.assetId;
+		var middleCategory = val.middleCategory;
+		var assetQty = val.assetQty;
+		var assetSn = val.assetSn;
+		var maker = val.maker;
+		var rcptNm = val.rcptNm;
+		var useNm = val.useNm;
+		var p = `<tr style="text-align:center;">
+					<input type='hidden' value='`+assetId+`' class='assetIds'>
+					<td>`+middleCategory+`</td>
+					<td style="vertical-align:center;"><input type="text" class="f_txt w_80 reqQty" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
+					<td>`+assetSn+` / `+maker+`</td>
+					<td>`+rcptNm+`</td>
+					<td>`+useNm+`</td>
+					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
+				 </tr>`;
+		$("#assetTbody").append(p);
+	}
+	
+	fn_egov_modal_remove();
+}
+/* ********************************************************
+ * 자산 tr 삭제
+ ******************************************************** */
+ function deleteTr(e){
+	 $(e).closest('tr').remove();
+}
+/* ********************************************************
+ * 숫자 유효성 검사
+ ******************************************************** */
+function checkNum(e){
+    var num01;
+    var num02;
+    num01 = e.value;
+    if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0-9+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = num03;
+	    
+	    e.value =  num01;
+	    
+    }
+}
 
+function checkQty(e, assetQty){
+	var num01 = e.value;
+	if(num01 < 1){
+		e.value = 1;
+	}else if(num01 > assetQty){
+		e.value = assetQty;
+	}else{
+		e.value =  num01;
+	}
+}
 
 /* ********************************************************
  * date input 생성
  ******************************************************** */
 function make_date(){
 	
-	$("#startDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
-
-	$("#endDate").datepicker( 
+	$("#startDate,#endDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -499,17 +550,20 @@ function make_date(){
 /* ********************************************************
  * 숫자 콤마 입력
  ******************************************************** */
-  function getNumber(obj){
-	     var num01;
-	     var num02;
-	     num01 = obj.value;
-	     num02 = num01.replace(/(^0+)/, "");
-	     num03 = num02.replace(/\D/g,"");
-	     num01 = setComma(num03);
-	     obj.value =  num01;
-
-	     $('#test').text(num01);
-	  }
+ function getNumber(obj){
+     var num01;
+     var num02;
+     num01 = $(obj).val();
+     if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = setComma(num03);
+	    obj.value =  num01;
+	
+	    $('#test').text(num01); 
+     }
+     
+  }
 
 	  function setComma(n) {
 	     var reg = /(^[+-]?\d+)(\d{3})/;
@@ -637,8 +691,15 @@ window.onload = function(){
 	addtrClone =  $('#clonehere tr').last().clone(true);
 	trClone = $('#clonehere tr').last().prev().clone(true);
 	make_date();
-	  }
+}
 
+/* ********************************************************
+ * 목록 버튼
+ ******************************************************** */
+function ReqList(){
+	document.CarryRequset.action="<c:url value='/req/CarryRequset.do'/>";
+	document.CarryRequset.submit();
+}
 //-->
 </script>
 
@@ -663,8 +724,12 @@ window.onload = function(){
 	float: right;
 }
 
-.board_view2 thead .lb {
+.board_view2 thead .lb{
 	text-align: center;
+}
+.addAsset{
+	display: flex;
+    justify-content: space-between;
 }
 </style>
 
@@ -689,14 +754,14 @@ window.onload = function(){
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
 										<li><a href="#LINK">자산관리</a></li>
-										<li>반출 신청</li>
+										<li>반출신청</li>
 									</ul>
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm" autocomplete="off">
 									<h2 class="tit_2">반출 신청</h2>
-									<input name="reqGroup" value="C1" type="hidden"> <input
-										name="reqStatus" value="A0" type="hidden"> <br>
+									<input name="reqGroup" value="C1" type="hidden">
+									<br>
 									<h3> ■ 신청자정보</h3>
 									<div class="board_view2">
 										<table>
@@ -708,7 +773,7 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
-													<!-- 성명 --> <label for="">수령자</label> <span class="req">필수</span>
+													<label for="">신청자</label>
 												</td>
 												<td><span class="f_search2 w_full"> <input
 														value="${userManageVO.emplyrNm}" type="text"
@@ -728,7 +793,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 프로젝트 --> <label for="">프로젝트</label>
 												</td>
-												<td colspan="3"><span class="f_search2 wp_90"> <input
+												<td><span class="f_search2 w_full"> <input
 														id="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly"/>
 														<button type="button" class="btn"
@@ -736,24 +801,25 @@ window.onload = function(){
 												</span> <input name="prjId" id="prjId"
 													type="hidden" title="프로젝트" value="" 
 													/></td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
-												</td>
-												<td><input type="text" class="f_txt w_full" id="place"
-													name="place"></td>
-												<td class="lb">
+													<td class="lb">
 													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
 													class="req">필수</span>
 												</td>
 												<td>
-													<span class="f_search2 wp_90"> 
+													<span class="f_search2 w_full"> 
 														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span>
 													<input name="pm" id="pm" type="hidden" title="pm" value="" />
 												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 사용장소 --> <label for="">사용장소</label> <span class="req">필수</span>
+												</td>
+												<td colspan='3'><input type="text" class="f_txt w_full" id="place"
+													name="place"></td>
+												
 											</tr>
 											<tr>
 												<td class="lb">
@@ -774,27 +840,32 @@ window.onload = function(){
 										</table>
 									</div>
 								<br>
-								<h3> ■ 자산정보 <span class="f_s_15">(최대 10칸)</span></h3>
+								<div class="addAsset">
+									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3>
+									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
+								</div>
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
-											<col style="width: 22%;">
 											<col style="width: 15%;">
-											<col style="width: 29%;">
-											<col style="width: 34%;">
+											<col style="width: 15%;">
+											<col style="width: 30%;">
+											<col style="width: 15%;">
+											<col style="width: 15%;">
+											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
-												<td class="lb"><label for="">분류</label><span
-													class="req">필수</span></td>
-												<td class="lb"><label for="">수량</label><span
-													class="req">필수</span></td>
+												<td class="lb"><label for="">분류</label></td>
+												<td class="lb"><label for="">수량 / 최대수량</label></td>
 												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
-												<td class="lb"><label for="">사용자</label></td>
+												<td class="lb"><label for="">수령자</label></td>
+												<td class="lb"><label for="">실사용자</label></td>
+												<td class="lb"></td>
 											</tr>
 										</thead>
-										<tbody id='clonehere'>
-											<tr>
+										<tbody id='assetTbody'>
+											<%-- <tr>
 												<td><label class="f_select w_full" for="largeCategory">
 														<select id="largeCategory" name="largeCategory"
 														title="대분류" onchange="getMCatList(this);">
@@ -834,7 +905,7 @@ window.onload = function(){
 														onclick="addTr(5);">+ 5</a>
 												</div>
 											</td>
-										</tr>
+										</tr> --%>
 										</tbody>
 									</table>
 								</div>
@@ -895,6 +966,7 @@ window.onload = function(){
 								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistConfirm();return false;"><spring:message code="button.create" /></a>
+										<a href="#LINK" class="btn btn_blue_46 w_100" onclick="ReqList();return false;"><spring:message code="button.list" /></a>
 										<!-- 등록 -->
 									</div>
 								</div>
@@ -904,6 +976,12 @@ window.onload = function(){
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
 									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+									<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" >
+									<input type="hidden" name="searchGroup" value="<c:out value='${searchVO.searchGroup}'/>">
+									<input type="hidden" name="searchStatus" value="<c:out value='${searchVO.searchStatus}'/>" />
+									<input type="hidden" name="prjNm" value="<c:out value='${searchVO.prjNm}'/>" />
+									<input type="hidden" name="searchPrj" value="<c:out value='${searchVO.searchPrj}'/>" />
+									<input type="hidden" name="searchWord" value="<c:out value='${searchVO.searchWord}'/>" />
 								</form>
 							</div>
 						</div>

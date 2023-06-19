@@ -115,10 +115,9 @@ function fnSelectAprv(reqId){
                                 		<div>
 	                                		<label class="item f_select w_150" for="searchGroup">
 	                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-	                                				<option value="" label="분류"/>
-	                                				<c:forEach var="aprvGroup" items="${aprvGroup_result }">
-	                                					<option value="<c:out value="${aprvGroup.code}"/>" <c:if test="${approvalSearchVO.searchGroup == aprvGroup.code}">selected="selected"</c:if>>${aprvGroup.codeNm}</option>
-	                                				</c:forEach>
+	                                				<option value="" label="분류" />
+															<option value="C0" <c:if test="${approvalSearchVO.searchGroup == 'C0'}">selected="selected"</c:if> label="반입신청" />
+															<option value="C1" <c:if test="${approvalSearchVO.searchGroup == 'C1'}">selected="selected"</c:if>label="반출신청" />
 	                                			</select>
 	                                		</label>
                                 		</div>
@@ -134,9 +133,9 @@ function fnSelectAprv(reqId){
                                 		</div>
 	                                    <div class="pty_search">
 											<span class="item f_search" >
-												<input class="f_input w_350 pty_f_input" style="margin-right: 8px;" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+												<input class="f_input pty_f_input" style="margin-right: 8px; padding:0" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
-											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+											<button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>
                                 	</div>
                                 	<!-- //검색조건 -->

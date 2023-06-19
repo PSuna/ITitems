@@ -20,9 +20,13 @@
 		<result property="redId" column="RED_ID" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="reqQty" column="REQ_QTY" />
+		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
 		<result property="user" column="USER" />
+		<result property="rcptId" column="RCPT_ID" />
 		<result property="assetId" column="ASSET_ID" />
+		<result property="useId" column="USE_ID" />
+		
 	</resultMap>
 	
 	<sql id="search">
@@ -64,20 +68,28 @@
 			REQ_NOTE,
 			PRJ_ID,
 			PM,
-			START_DATE,
-			END_DATE,
+			<if test= "startDate != null and  startDate !=''">
+				START_DATE,
+			</if>
+			<if test= "endDate != null and  endDate !=''">
+				END_DATE,
+			</if>
 			PLACE,
 			REQ_GROUP )
 		VALUES (
 			#{reqId},
 			#{id},
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
-			#{reqStatus},
+			'A0',
 			#{reqNote},
 			#{prjId},
 			#{pm},
-			#{startDate},
-			#{endDate},
+			<if test= "startDate != null and  startDate !=''">
+				#{startDate},
+			</if>
+			<if test= "endDate != null and  endDate !=''">
+				#{endDate},
+			</if>
 			#{place},
 			#{reqGroup} )
 
@@ -140,7 +152,7 @@
 				    ON A.ID = F.ESNTL_ID
 	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
-				 WHERE A.REQ_GROUP = #{reqGroup} 
+				 WHERE 1=1
 				<if test = 'authorCode == "ROLE_USER_MEMBER"'>
 				   	AND A.ID = #{id}
 				</if>
@@ -190,11 +202,38 @@
 				  FROM REQUESTS A
 	   LEFT OUTER JOIN REQUESTDETAIL B
 					ON A.REQ_ID = B.REQ_ID
-				 WHERE A.REQ_GROUP = #{reqGroup} 
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+				 WHERE 1=1 
 				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
-				   AND A.ID = #{id}
-				 </if>
-				 <include refid="search" />
+				   	AND A.ID = #{id}
+				</if>
+				<if test="searchPrj != null and searchPrj != ''">
+					AND A.PRJ_ID = #{searchPrj}
+				</if>
+				<if test="searchLCat != null and searchLCat != ''">
+					AND B.LARGE_CATEGORY = #{searchLCat}
+				</if>
+				<if test="searchdMCat != null and searchdMCat != ''">
+					AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				</if>
+				<if test="searchStatus != null and searchStatus != ''">
+					AND A.REQ_STATUS = #{searchStatus}
+				</if>
+				<if test='searchGroup !=""'>
+		            AND A.REQ_GROUP = #{searchGroup}
+		          </if>
+				<if test="startDate != null and startDate != ''">
+					AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND (A.PLACE LIKE '%' #{searchWord} '%' OR F.USER_NM LIKE '%' #{searchWord} '%')
+				</if>
+				<if test="endDate != null and endDate != ''">
+					<![CDATA[
+					AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+					]]>
+				</if>
 				 GROUP BY A.REQ_ID
 			 ) P
 	</select>
@@ -230,20 +269,54 @@
 	
 	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
 		resultMap="RequestDetailList">
-			SELECT 
-				A.RED_ID, 
-				CASE WHEN A.LARGE_CATEGORY = 'ETC' 
-					 THEN A.MIDDLE_CATEGORY 
-					 ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
-				A.REQ_QTY, 
-				A.MAKER, 
-				A.USER, 
-				A.ASSET_ID
-			  FROM REQUESTDETAIL A
-   LEFT OUTER JOIN category B
-			    ON A.MIDDLE_CATEGORY = B.CAT_ID
-			 WHERE REQ_ID = #{reqId}
-			 ORDER BY A.REQ_ORDER
+		 SELECT REQ.RED_ID, 
+			    CASE WHEN AD.LARGE_CATEGORY = 'ETC'
+			    THEN AD.MIDDLE_CATEGORY 
+			    ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
+			    REQ.REQ_QTY,
+			    AD.ASSET_SN AS ASSET_SN,
+			    CASE WHEN H.CODE_NM = '기타'
+					 THEN AD.MAKER
+					 ELSE H.CODE_NM  
+		  			 END AS MAKER,  
+			    C.USER_NM AS USER, 
+			    D.USER_NM AS RCPT_ID,
+			    REQ.ASSET_ID,
+			    AH.USE_ID
+		   FROM REQUESTDETAIL REQ
+LEFT OUTER JOIN ASSETS A
+			 ON REQ.ASSET_ID = A.ASSET_ID
+LEFT OUTER JOIN ASSETDETAIL AD
+			 ON REQ.ASSET_ID = AD.ASSET_ID
+LEFT OUTER JOIN ASSETINDIV AI
+			 ON REQ.ASSET_ID = AI.ASSET_ID
+LEFT OUTER JOIN ASSETHIST AH
+			 ON AI.A_ID = AH.A_ID
+LEFT OUTER JOIN category B
+			 ON AD.MIDDLE_CATEGORY = B.CAT_ID
+LEFT OUTER JOIN LETTNEMPLYRINFO C
+		     ON AH.USE_ID = C.ESNTL_ID
+LEFT OUTER JOIN LETTNEMPLYRINFO D
+		     ON AD.RCPT_ID = D.ESNTL_ID
+LEFT OUTER JOIN LETTCCMMNDETAILCODE H
+		     ON AD.MAKER_CODE = H.CODE
+		  WHERE REQ.REQ_ID = #{reqId}
+		       AND A.USAGE_STAUTS = 'Y' 
+			   AND AD.USAGE_STAUTS = 'Y'
+			   AND AI.USAGE_STAUTS = 'Y' 
+			   AND AH.USAGE_STAUTS = 'Y' 
+          GROUP BY REQ.RED_ID,
+               	   MIDDLE_CATEGORY,
+            	   REQ.REQ_QTY,
+	    		   AD.ASSET_SN,
+			       AD.MAKER_CODE,
+			       H.CODE_NM,
+			       AD.MAKER,
+			       C.USER_NM,
+			       D.USER_NM,
+			       REQ.ASSET_ID,
+			       AH.USE_ID 
+		  ORDER BY REQ.REQ_ORDER 
 	</select>
 	
 	<select id="xlsxTrsfReqList" parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
@@ -275,21 +348,49 @@
 				    ON A.ID = F.ESNTL_ID
 	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
 				    ON F.GRADE = G.CODE
-				 WHERE A.REQ_GROUP = #{reqGroup} 
-				 <if test = 'authorCode == "ROLE_USER_MEMBER"'>
-				   AND A.ID = #{id}
-				 </if>
-				 <include refid="search" />
-			  GROUP BY A.REQ_ID,
-				 	   E.CODE_NM,
-				 	   F.USER_NM,
-				 	   G.CODE_NM,
-				 	   C.CODE_NM) P
+				 WHERE 1=1
+				<if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   	AND A.ID = #{id}
+				</if>
+				<if test="searchPrj != null and searchPrj != ''">
+					AND A.PRJ_ID = #{searchPrj}
+				</if>
+				<if test="searchLCat != null and searchLCat != ''">
+					AND B.LARGE_CATEGORY = #{searchLCat}
+				</if>
+				<if test="searchdMCat != null and searchdMCat != ''">
+					AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				</if>
+				<if test="searchStatus != null and searchStatus != ''">
+					AND A.REQ_STATUS = #{searchStatus}
+				</if>
+				<if test='searchGroup !=""'>
+		            AND A.REQ_GROUP = #{searchGroup}
+		          </if>
+				<if test="startDate != null and startDate != ''">
+					AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND (A.PLACE LIKE '%' #{searchWord} '%' OR F.USER_NM LIKE '%' #{searchWord} '%')
+				</if>
+				<if test="endDate != null and endDate != ''">
+					<![CDATA[
+					AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				 GROUP BY 
+				 	A.REQ_ID, 
+				 	E.CODE_NM, 
+				 	F.USER_NM, 
+				 	G.CODE_NM,
+				 	C.CODE_NM
+			 ) P
 		 WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 	
 	<select id='SelectAprvList' parameterType="egovframework.let.req.service.RequestManageVO" resultType="egovMap">
 		 SELECT E.USER_NM,
+		 		E.ESNTL_ID,
 			    DATE_FORMAT(A.APRV_DATE,'%m-%d') AS APRV_DATE,
 			    A.REQ_STATUS,
 			    A.APRV_ORDER

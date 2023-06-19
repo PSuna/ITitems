@@ -55,7 +55,6 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		try {
 			requestVO.setReqId(reqIdGnrService.getNextStringId());
 		} catch (FdlException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return requestDAO.InsertRequestVO(requestVO);
@@ -66,7 +65,6 @@ public class RequestServiceImpl extends EgovAbstractServiceImpl implements Reque
 		try {
 			requestDetailVO.setRedId(redIdGnrService.getNextStringId());
 		} catch (FdlException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return requestDAO.InsertRequestDetailVO(requestDetailVO);

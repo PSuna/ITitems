@@ -236,48 +236,68 @@ function getMOrgList(MOval) {
 	                                <h2 class="tit_2">사용자목록</h2>
 	                                
 	                                <!-- 검색조건 -->
-	                                <div class="condition pty_condition" style="display: flex; justify-content: center;">
-	                                    <div>
-											<label class="item f_select w_150" for="sel1"> 
-												<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
-														<option value="" label="본부"/>
-														<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-															<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-														</c:forEach>
+	                                <div class="condition">
+	                                
+	                                	<div class="pty_condition">
+	                                	
+		                                    <div>
+												<label class="item f_select w_180" for="sel1"> 
+													<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
+															<option value="" label="본부"/>
+															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
+																<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
+															</c:forEach>
+													</select>
+												</label> 
+											</div>
+											<div>
+												<label class="item f_select w_180" for="sel1">
+												<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
+													<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 												</select>
-											</label> 
-										</div>
-										<div>
-											<label class="item f_select w_150" for="sel1">
-											<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
-												<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
-											</select>
-											</label> 
-										</div>
-	                                    <label class="item f_select w_150"  for="searchGrade">
-	                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
-		                                        <option value="" label="직급"/>
-		                                        <c:forEach var="grade" items="${grd_result}">
-		                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
-		                                        </c:forEach>
-	                                    	</select>
-	                                    </label>
-	                                    
-	                                    <label class="item f_select w_150" for="searchAuthor">
-	                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
-	                                        	<option value="" label="권한"/>
-		                                        <c:forEach var="author" items="${auth_result}">
-		                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
-		                                        </c:forEach>
-	                                        </select>
-	                                    </label> 
-										<div class="pty_search">
-											<span class="item f_search">
-												<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="사번/사용자명/아이디" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
-											</span>
+												</label> 
+											</div>
+											
+											<div>
+			                                    <label class="item f_select w_150"  for="searchGrade">
+			                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
+				                                        <option value="" label="직급"/>
+				                                        <c:forEach var="grade" items="${grd_result}">
+				                                        	<option value="<c:out value="${grade.code}"/>" <c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
+				                                        </c:forEach>
+			                                    	</select>
+			                                    </label>
+			                                  </div>  
+			                                    
+			                                <div>    
+			                                  <label class="item f_select w_150" for="searchAuthor">
+		                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
+		                                        	<option value="" label="권한"/>
+			                                        <c:forEach var="author" items="${auth_result}">
+			                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
+			                                        </c:forEach>
+		                                        </select>
+		                                    </label> 
+			                                    
+			                                    
+			                                 </div>   
+		                                    
+		                             
+											<div class="pty_search">
+												<span class="item f_search">
+													<input class="f_input pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="사번/사용자명/아이디" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+												</span>
+												
+											</div>
+											
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
-										</div>
+											
+		                                </div>
 	                                </div>
+	                                
+	                                
+	                                
+	                                
 	                                <!--// 검색조건 -->
 									
 									<div class="board_list_top">
