@@ -130,6 +130,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 				assetVO.setaId(aIdGnrService.getNextStringId());
 				assetDAO.InsertAssetIndiv(assetVO);
 				assetVO.setHistGroup("C2");
+				assetVO.setHistStatus("H0");
 				assetDAO.InsertAssethist(assetVO);
 			}
 		} catch (FdlException e) {
