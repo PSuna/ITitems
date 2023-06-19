@@ -686,7 +686,7 @@ window.onload = function(){
 												</td>
 												<c:choose>
 													<c:when test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-														<td colspan="3">
+														<td>
 															<input id="rcptNm"  class="f_txt w_full readonly"  type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
 															<input name="rcptId" id="rcptId" type="hidden"
@@ -694,7 +694,7 @@ window.onload = function(){
 														</td>
 													</c:when>
 													<c:otherwise>
-														<td colspan="3">
+														<td>
 															<span class="f_search2 w_full"> 
 															<input id="rcptNm" type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
@@ -705,6 +705,15 @@ window.onload = function(){
 														</td>
 													</c:otherwise>
 												</c:choose>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
 												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
@@ -754,15 +763,7 @@ window.onload = function(){
 												</td>
 											</tr> --%>
 											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="3">
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
-												</td>
+												
 												<%-- <td class="lb">
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label>
