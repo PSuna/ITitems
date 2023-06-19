@@ -702,7 +702,7 @@ function ReqList(){
 									</div>
 								<br>
 								<div class="addAsset">
-									<h3> ■ 자산정보</h3>
+									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3>
 									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
 								</div>
 								<div class="board_view2 assetlist">

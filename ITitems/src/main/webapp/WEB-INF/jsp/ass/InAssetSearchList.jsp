@@ -117,7 +117,7 @@ function returnProject(val){
 function SearchAssetList() {
 	event.preventDefault();
 	document.listForm.pageIndex.value = '1';
-    document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
+    document.listForm.action = "<c:url value='/ass/InAssetSearchList.do'/>";
     document.listForm.submit(); 
 }
 
@@ -139,13 +139,13 @@ function fn_egov_return_Ass(assetId, middleCategory, assetQty, assetSn, maker, r
 
 function fn_egov_pageview(page) {
 	document.listForm.pageIndex.value = page;
-	document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
+	document.listForm.action = "<c:url value='/ass/InAssetSearchList.do'/>";
 	document.listForm.submit();
 }
 
 function fn_egov_search_Prj() {
 	document.listForm.pageIndex.value = 1;
-	document.listForm.action = "<c:url value='/ass/AssetSearchList.do'/>";
+	document.listForm.action = "<c:url value='/ass/InAssetSearchList.do'/>";
 	document.listForm.submit();
 }
 </script>
@@ -164,7 +164,7 @@ function fn_egov_search_Prj() {
 		기능을 사용하실 수 없습니다.</noscript>
 
 	<form name="listForm"
-		action="<c:url value='/ass/AssetSearchList.do'/>" method="post">
+		action="<c:url value='/ass/InAssetSearchList.do'/>" method="post">
 
 		<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 		<!-- 프로젝트 찾기 팝업 -->
@@ -213,7 +213,7 @@ function fn_egov_search_Prj() {
 						<div class="j_box02">
 							<div class="search_box" style="width: 150% !important;">
 								<span class="item f_search w_full" >
-									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="수령자/실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
+									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
 								</span>
 							</div>
 							<div class="btn_box" >
