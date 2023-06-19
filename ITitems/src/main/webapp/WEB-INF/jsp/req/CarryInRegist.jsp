@@ -450,7 +450,7 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td style="vertical-align:center;"><input type="text" class="f_txt w_80" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
+					<td style="vertical-align:center;"><input type="text" class="f_txt w_80 reqQty" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
 					<td>`+assetSn+` / `+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
@@ -590,7 +590,6 @@ function checkTd(){
 window.onload = function(){
 	addtrClone =  $('#clonehere tr').last().clone(true);
 	trClone = $('#clonehere tr').last().prev().clone(true);
-	make_date();
 }
 
 /* ********************************************************

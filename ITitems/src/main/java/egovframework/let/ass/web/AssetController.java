@@ -462,7 +462,7 @@ public class AssetController {
 		
 		model.addAttribute("searchVO", assetManageVO);
 		
-		return "/ass/AssetSearchList";
+		return "/ass/InAssetSearchList";
 	}
 	/**
 	 * 중복데이터조회페이지 이동
