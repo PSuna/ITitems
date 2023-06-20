@@ -50,8 +50,8 @@
 				<div class="pop_header">
 					<h1>수정진행</h1>
 				</div>
-				<div class="pop_container">
-					<div class="pop_check">
+				<div class="pop_container check">
+					<div class="pop_check2">
 						<h4><spring:message code="common.update.ing" /></h4>
 						<h4><spring:message code="common.ing" /></h4>
 					</div>

@@ -389,7 +389,9 @@
 					J.ORGNZT_NM,
 					D.PRJ_ID,
 					D.USE_ID,
-					B.RCPT_DATE
+					B.RCPT_DATE,
+					I.USER_NM,
+					L.USER_NM
 	</select>
 
 	<insert id="InsertRental" parameterType="egovframework.let.rent.service.RentalVO">
