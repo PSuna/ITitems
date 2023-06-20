@@ -52,8 +52,8 @@ public class UserManageDAO extends EgovAbstractMapper{
      * @param userManageVO 업무사용자 등록정보
      * @return String result 등록결과
      */
-    public void insertUser(UserManageVO userManageVO){
-        insert("userManageDAO.insertUser_S", userManageVO);
+    public int insertUser(UserManageVO userManageVO){
+        return insert("userManageDAO.insertUser_S", userManageVO);
     }
 
     /**

@@ -50,81 +50,31 @@ function fnDeleteUser(checkedIds) {
         document.userManageVO.submit(); 
     }
 }
-function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
-    document.userManageVO.submit();
-}
+
+var moblphoneNo = '';
 function fnUpdate(){
-	if(!document.userManageVO.emplyrNm.value){
-		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
+	if(fncheckNums() == 'false'){
+		fn_egov_modal_remove();
+		return;
 	}else{
-		document.getElementById('emplyrNmErr').innerHTML='';
+		let formData = new FormData(document.getElementById('userManageVO'));
+		$.ajax({
+			url:'${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do',
+			method:'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formData,
+			success: function (result) {
+				fn_egov_modal_remove();
+				UpdateSuccess();
+			},
+			error: function (error) {
+				fn_egov_modal_remove();
+				UpdateFail();
+			}
+		});
 	}
-	
-	if(!document.userManageVO.orgnztId.value){
-		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
-	}else{
-		document.getElementById('orgnztIdErr').innerHTML='';
-	}
-	
-	if(!document.userManageVO.grade.value){
-		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
-	}else{
-		document.getElementById('gradeErr').innerHTML='';
-	}
-    if(validateUserManageVO(document.userManageVO)){
-        document.userManageVO.submit();
-    }
-}
-function fn_egov_inqire_cert() {
-    var url = '/uat/uia/EgovGpkiRegist.do';
-    var popupwidth = '500';
-    var popupheight = '400';
-    var title = '인증서';
-
-    Top = (window.screen.height - popupheight) / 3;
-    Left = (window.screen.width - popupwidth) / 2;
-    if (Top < 0) Top = 0;
-    if (Left < 0) Left = 0;
-    Future = "fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,left=" + Left + ",top=" + Top + ",width=" + popupwidth + ",height=" + popupheight;
-    PopUpWindow = window.open(url, title, Future)
-    PopUpWindow.focus();
-}
-
-function fn_egov_dn_info_setting(dn) {
-    var frm = document.userManageVO;
-    
-    frm.subDn.value = dn;
-}
-
-function fn_egov_ZipSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sym/cmm/EgovCcmZipSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 1100,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-function fn_egov_returnValue(retVal){
-	
-	if (retVal) {
-		document.getElementById("zip_view").value  = retVal.sAddr;
-	}
-	
-	fn_egov_modal_remove();
-}
-
-/**********************************************************
- * 모달 종료 버튼
- ******************************************************** */
-function fn_egov_modal_remove() {
-	$('#modalPan').remove();
 }
 
 /**********************************************************
@@ -167,11 +117,225 @@ function getMOrgList(MOval) {
 		
 	}
 }
+
+/* ********************************************************
+ * 숫자 유효성 검사
+ ******************************************************** */
+function checkNum(e){
+    var num01;
+    var num02;
+    num01 = e.value;
+    if(num01 != null && num01 != ""){
+    	num02 = num01.replace(/(^0-9+)/, "");
+	    num03 = num02.replace(/\D/g,"");
+	    num01 = num03;
+	    e.value =  num01;
+    }
+    if (e.value.length == e.maxLength) {
+    	if(e.id == 'moblphonNo1'){
+        	document.getElementById('moblphonNo2').focus();
+    	}
+    	if(e.id == 'moblphonNo2'){
+        	document.getElementById('moblphonNo3').focus();
+    	}
+    }
+}
+
+/* ********************************************************
+ * 필수값, 사번, 휴대폰 번호 형식 검사
+ ******************************************************** */
+ function fncheckValid(){
+ 	if(!document.userManageVO.emplyrNm.value){
+		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrNmErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.orgnztId.value){
+		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
+	}else{
+		document.getElementById('orgnztIdErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.grade.value){
+		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
+	}else{
+		document.getElementById('gradeErr').innerHTML='';
+	}
+	
+ 	var phone1 = document.getElementById('moblphonNo1');
+	var phone2 = document.getElementById('moblphonNo2');
+	var phone3 = document.getElementById('moblphonNo3');
+	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var res = patt.test(moblphoneNo);
+	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
+		if(!patt.test(moblphoneNo)){
+			document.getElementById('phoneErr').innerHTML='전화번호를 정확히 입력해주세요.';
+		}else{
+			document.userManageVO.moblphonNo.value = moblphoneNo;
+			document.getElementById('phoneErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('phoneErr').innerHTML='';
+	}
+	
+	var empUniqNum = document.getElementById('empUniqNum').value;
+	var patt1 = new RegExp("20[0-9]{7}");
+	var res1 = patt.test(empUniqNum);
+	if(empUniqNum != null && empUniqNum != ''){
+		if(!patt1.test(empUniqNum)){
+			document.getElementById('empUniqErr').innerHTML='유효하지 않은 사원번호입니다.';
+		}else{
+			document.userManageVO.empUniqNum.value = empUniqNum;
+			document.getElementById('empUniqErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('empUniqErr').innerHTML='';
+	}
+}
+/* ********************************************************
+ * 사번, 휴대폰 번호 형식 검사
+ ******************************************************** */
+function fncheckNums(){
+	var phone1 = document.getElementById('moblphonNo1');
+	var phone2 = document.getElementById('moblphonNo2');
+	var phone3 = document.getElementById('moblphonNo3');
+	let checkNum = 'true';
+	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var res = patt.test(moblphoneNo);
+	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
+		if(!patt.test(moblphoneNo)){
+			document.getElementById('phoneErr').innerHTML='전화번호를 정확히 입력해주세요.';
+			checkNum = 'false';
+		}else{
+			document.userManageVO.moblphonNo.value = moblphoneNo;
+			document.getElementById('phoneErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('phoneErr').innerHTML='';
+	}
+	
+	var empUniqNum = document.getElementById('empUniqNum').value;
+	var patt1 = new RegExp("20[0-9]{7}");
+	var res1 = patt.test(empUniqNum);
+	if(empUniqNum != null && empUniqNum != ''){
+		if(!patt1.test(empUniqNum)){
+			document.getElementById('empUniqErr').innerHTML='유효하지 않은 사원번호입니다.';
+			checkNum = 'false'
+		}else{
+			document.userManageVO.empUniqNum.value = empUniqNum;
+			document.getElementById('empUniqErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('empUniqErr').innerHTML='';
+	}
+	return checkNum;
+}
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+function UpdateConfirm(){
+	if(validateUserManageVO(document.userManageVO)){
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+			});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+	}else{
+		fn_egov_modal_remove();
+		fncheckValid();
+	}
+}
+/* ********************************************************
+ * 수정확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+	
+	fn_egov_modal_remove();
+	 if(val){
+		 UpdateIng();
+		 fnUpdate(); 
+	 }	  
+}
+ /* ********************************************************
+ * 수정진행 팝업창
+ ******************************************************** */
+ function UpdateIng(){
+  	 var $dialog = $('<div id="modalPan"></div>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.dialog({
+  	    	autoOpen: false,
+  	        modal: true,
+  	        width: 400,
+  	        height: 300
+  		});
+  	    $(".ui-dialog-titlebar").hide();
+  		$dialog.dialog('open');
+ }
+ /* ********************************************************
+  * 수정완료 팝업창
+  ******************************************************** */
+  function UpdateSuccess(){
+ 	
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+ }
+  /* ********************************************************
+   * 등록완료 결과 처리
+   ******************************************************** */
+   function returnSuccess(val){
+  	if(val){
+  		fn_egov_modal_remove();
+  		document.getElementById('userManageVO').reset();
+  	}else{
+  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+  		document.userManageVO.submit();
+  	}
+
+  }
+   /* ********************************************************
+    * 수정실패 팝업창
+    ******************************************************** */
+    function UpdateFail(){
+   	
+   	 var $dialog = $('<div id="modalPan"></div>')
+   		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+   		.dialog({
+   	    	autoOpen: false,
+   	        modal: true,
+   	        width: 400,
+   	        height: 300
+   		});
+   	    $(".ui-dialog-titlebar").hide();
+   		$dialog.dialog('open');
+   }
+/**********************************************************
+ * 모달 종료 버튼
+ ******************************************************** */
+function fn_egov_modal_remove() {
+	$('#modalPan').remove();
+}
 //-->
 </script>
 <style>
 .errSpan{
 	color:red;
+	font-size:12px;
 }
 .board_view_bot {
 	margin-top:8px;
@@ -179,6 +343,16 @@ function getMOrgList(MOval) {
 .inputHint{
 	font-size:10px;
 	color:#bbb;
+}
+.phoneNumBox{
+	display:flex;
+}
+.divPnum{
+	font-size:22px;
+	padding:0 6px;
+}
+.f_txt{
+	padding:0 13px;
 }
 </style>
 </head>
@@ -283,7 +457,7 @@ function getMOrgList(MOval) {
 	                                            </td>
                                             	<td>
 	                                                <label class="item f_select w_full" for="orgnztId"> 
-														<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" style=" width: 200px;" onchange="getMOrgList();">
+														<form:select path="orgnztId" id="orgnztId" name="orgnztId" title="본부" onchange="getMOrgList();">
 															<form:option value="" label="본부"/>
 															<form:options items="${orgnztId_result}" itemValue="code" itemLabel="codeNm"/>
 														</form:select>
@@ -319,22 +493,30 @@ function getMOrgList(MOval) {
 	                                            </td>
 											</tr>
 											<tr>
-												<td class="lb">
-													<label for="empUniqNum">사번</label>
-												</td>
-												<td>
-													<form:input path="empUniqNum" id="empUniqNum" class="f_txt w_full" maxlength="9" />
-													<form:errors path="empUniqNum" />
-												</td>
-												<td class="lb">
-													<label for="moblphonNo">연락처</label><br>
-													<label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
-												</td>
-												<td>
-													<form:input path="moblphonNo" id="moblphonNo" class="f_txt w_full" maxlength="15" />
-													<form:errors path="moblphonNo" />
-												</td>
-											</tr>
+	                                            <td class="lb">
+	                                                <label for="empUniqNum">사번</label><br>
+	                                                <label for="moblphonNo" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
+	                                            </td>
+	                                            <td>
+	                                                <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
+	                                                <form:errors path="empUniqNum" />
+	                                                <span id="empUniqErr" class="errSpan"></span>
+	                                            </td>
+	                                            <td class="lb">
+	                                                <label for="moblphonNo">연락처</label><br>
+	                                                <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
+	                                                
+	                                            </td>
+	                                            <td>
+	                                            	<div class="phoneNumBox">
+	                                                <input id="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3"/><span class="divPnum">-</span>
+	                                                <input id="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/><span class="divPnum">-</span>
+	                                                <input id="moblphonNo3" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/></div>
+	                                                <form:input path="moblphonNo" id="moblphonNo" type="hidden" maxlength="13"/>
+	                                                <form:errors path="moblphonNo" />
+	                                                <span id="phoneErr" class="errSpan"></span>
+	                                            </td>
+	                                        </tr>
 										</table>
 									</div>
 

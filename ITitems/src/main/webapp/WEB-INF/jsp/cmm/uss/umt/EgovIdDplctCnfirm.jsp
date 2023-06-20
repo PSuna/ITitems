@@ -26,6 +26,8 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -48,7 +50,7 @@ function fnCheckId(){
 function fnReturnId(){
 	var retVal="";
     if (document.checkForm.usedCnt.value == 0){
-	    retVal = document.checkForm.resultId.value;
+	    retVal = document.checkForm.resultId.value + "@iteyes.co.kr";
 	    parent.showModalDialogCallback(retVal);
     }else if (document.checkForm.usedCnt.value == 1){
         alert("이미사용중인 아이디입니다.");
@@ -95,7 +97,7 @@ function fnCheckNotKorean(koreanStr){
                     <label for="mid">사용할 아이디</label>
                     <input type="hidden" name="resultId" value="<c:out value="${checkId}"/>" />
                     <input type="hidden" name="usedCnt" value="<c:out value="${usedCnt}"/>" />
-                    <input id="mid" class="f_txt2 ml15" type="text" name="checkId" title="선택여부" value="<c:out value="${checkId}"/>" maxlength="40" />
+                    <input id="mid" class="f_txt2 w_200" type="text" name="checkId" title="선택여부" value="<c:out value="${checkId}"/>" maxlength="40" />@iteyes.co.kr
                 </div>
 
                 <p class="result">
