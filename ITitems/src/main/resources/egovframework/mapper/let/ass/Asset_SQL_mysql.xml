@@ -420,7 +420,8 @@
 					B.MAKER_CODE,B.NOTE,
 					B.ASSET_SN,
 					B.RCPT_ID,
-					B.RCPT_DATE
+					B.RCPT_DATE,
+					I.USER_NM
 	</select>
 	
 	<select id="SelectAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="histList">
