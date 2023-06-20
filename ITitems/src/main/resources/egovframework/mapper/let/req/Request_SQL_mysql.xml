@@ -402,7 +402,7 @@ LEFT OUTER JOIN LETTNEMPLYRINFO E
 	</select>
 	
 	<select id="MobSelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
-		SELECT
+				SELECT
 				REQ_ID,
 				REQ_GROUP,
 				ID,
@@ -469,7 +469,5 @@ LEFT OUTER JOIN LETTNEMPLYRINFO E
 				 	G.CODE_NM,
 				 	C.CODE_NM
 			 ) P
-
-		 
 	</select>
 </mapper>

@@ -93,11 +93,8 @@ public class EgovLoginController {
 	@RequestMapping(value = "/uat/uia/web/actionSecurityLogin.do")
 	public String actionSecurityLogin(@ModelAttribute LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
-		System.out.println(loginVO);
-
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
-
 		// 1. 일반 로그인 처리
 		loginVO.setId(loginVO.getId() + "@iteyes.co.kr");
 		LoginVO resultVO = loginService.actionLogin(loginVO);
