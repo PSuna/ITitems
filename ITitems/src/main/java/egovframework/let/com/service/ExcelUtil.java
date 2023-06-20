@@ -401,12 +401,12 @@ public class ExcelUtil {
 					cell = row.createCell(j);
 					String tmpValue = "";
 					Double tmpDoubleValue = 0d;
-					boolean numFlag = true;
+					boolean numFlag = false;
 					cs = wb.createCellStyle();
-					try {
+					if(dataList.getClass().getName().equals("java.lang.Integer")) {
+						numFlag = true;
 						tmpDoubleValue = Double.parseDouble(dataList.get(j).toString());
-					} catch (Exception e) {
-
+					}else {
 						numFlag = false;
 						tmpValue = StringUtil.nullConvert(dataList.get(j));
 					}

@@ -380,7 +380,7 @@
 			   IFNULL(grade, '') grade, 
 			   IFNULL(orgnztId, '') orgnztId,
 			   IFNULL(userId, '') userId, 
-		       IFNULL(empUniqNum, '') empUniqNum, 
+		       IFNULL(CONVERT(empUniqNum, CHAR), '') empUniqNum, 
 		       IFNULL(moblphonNo, '') moblphonNo, 
 		       IFNULL(authorCode, '') authorCode
 		  FROM (SELECT A.ESNTL_ID uniqId,

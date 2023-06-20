@@ -234,7 +234,7 @@ public class UserManageController {
 		
 		userManageVO.setAuthorCode("ROLE_USER_MEMBER");
 		userManageVO.setPassword("iteyes00");
-		if(userManageVO.getLowerOrgnzt() != null) {
+		if(userManageVO.getLowerOrgnzt() != null && !userManageVO.getLowerOrgnzt().equals("")) {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
 		// 미인증 사용자에 대한 보안처리

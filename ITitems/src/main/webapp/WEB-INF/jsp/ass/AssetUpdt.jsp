@@ -36,6 +36,7 @@
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/Inputcheck.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -592,19 +593,8 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select w_full" for="largeCategory">
-															<select id="largeCategory" name="largeCategory"
-																title="대분류" onchange="getMCatList();">
-																<option value="" label="선택하세요" />
-																<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-																	<option value="${LCat.catId}" <c:if test="${LCat.catName == resultVO.largeCategory}">selected="selected"</c:if>>
-																		<c:out value="${LCat.catName}" />
-																	</option>
-																</c:forEach>
-															</select>
-															<form:errors path="largeCategory" />
-													</label> 
-													<br />
+													<input id="largeCategoryNm" class="f_txt w_full readonly" name="largeCategoryNm" type="text" value="${resultVO.largeCategory}" readonly="readonly">
+													<input id="largeCategory" class="f_txt w_full readonly" name="largeCategory" type="hidden" value="${resultVO.largeCategoryCode}" readonly="readonly"> 
 												</td>
 												<td class="lb">
 													<!-- 수량 -->
@@ -612,7 +602,7 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20"
+													<input id="assetQty" class="f_txt w_full readonly" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20" readonly="readonly"
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 											</tr>
@@ -629,7 +619,7 @@ window.onload = function(){
 													</label> 
 												</td>
 												<td colspan="2">
-													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" value="${resultVO.mcatEtc}" maxlength="60"> 
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" value="${resultVO.mcatEtc}" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -659,7 +649,7 @@ window.onload = function(){
 													</label>
 												</td>
 												<td colspan="2">
-													<input id="maker" class="f_txt w_full" name="maker" type="hidden" value="${resultVO.maker}" maxlength="60"> 
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" value="${resultVO.maker}" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -668,14 +658,14 @@ window.onload = function(){
 													<label for="">제품명(모델명)</label>
 												</td>
 												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60">
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
 												</td>
 											</tr>
 											<tr>

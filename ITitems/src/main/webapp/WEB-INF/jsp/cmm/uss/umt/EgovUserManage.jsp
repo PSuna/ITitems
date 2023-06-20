@@ -242,7 +242,7 @@ function getMOrgList(MOval) {
 	                                	
 		                                    <div>
 												<label class="item f_select w_180" for="sel1"> 
-													<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList();">
+													<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList(); fnSearch();">
 															<option value="" label="본부"/>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
 																<option value="${orgnztId.code}" <c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
@@ -271,7 +271,7 @@ function getMOrgList(MOval) {
 			                                    
 			                                <div>    
 			                                  <label class="item f_select w_150" for="searchAuthor">
-		                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한">
+		                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한" onchange="fnSearch();">
 		                                        	<option value="" label="권한"/>
 			                                        <c:forEach var="author" items="${auth_result}">
 			                                        	<option value="<c:out value="${author.code}"/>" <c:if test="${userSearchVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>

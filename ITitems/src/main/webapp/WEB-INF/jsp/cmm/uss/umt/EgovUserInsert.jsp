@@ -63,6 +63,7 @@ function fnListPage(){
     document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>"; 
     document.userManageVO.submit();
 }
+var moblphoneNo = '';
 function fnInsert(){
 	if(!document.userManageVO.id_view.value){
 		document.getElementById('emplyrIdErr').innerHTML='아이디는 필수입력값입니다.';
@@ -88,20 +89,41 @@ function fnInsert(){
 		document.getElementById('gradeErr').innerHTML='';
 	}
 	
-	
 	var phone1 = document.getElementById('moblphonNo1');
-	console.log(phone1.value);
 	var phone2 = document.getElementById('moblphonNo2');
-	console.log(phone2.value);
 	var phone3 = document.getElementById('moblphonNo3');
-	console.log(phone3.value);
-	if(phone1.value && phone2.value && phone3.value){
-		var moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
-		console.log(moblphoneNo);
+	
+	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+	
+	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var res = patt.test(moblphoneNo);
+	var phone1 = document.getElementById('moblphonNo1');
+	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
+		if(!patt.test(moblphoneNo)){
+			document.getElementById('phoneErr').innerHTML='전화번호를 정확히 입력해주세요.';
+		    return false;
+		}else{
+			document.userManageVO.moblphonNo.value = moblphoneNo;
+			document.getElementById('phoneErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('phoneErr').innerHTML='';
 	}
-	if(moblphoneNo != null && moblphoneNo != ''){
-		document.userManageVO.moblphonNo.value = moblphoneNo;
+	
+	var empUniqNum = document.getElementById('empUniqNum').value;
+	var patt1 = new RegExp("20[0-9]{7}");
+	var res1 = patt.test(empUniqNum);
+	if(empUniqNum != null && empUniqNum != ''){
+		if(!patt1.test(empUniqNum)){
+			document.getElementById('empUniqErr').innerHTML='유효하지 않은 사원번호입니다.';
+		}else{
+			document.userManageVO.empUniqNum.value = empUniqNum;
+			document.getElementById('empUniqErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('empUniqErr').innerHTML='';
 	}
+	
 	if(validateUserManageVO(document.userManageVO)){
 		document.userManageVO.submit();
     }
@@ -351,6 +373,7 @@ function checkNum(e){
                                             <td>
                                                 <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 202301234" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
                                                 <form:errors path="empUniqNum" />
+                                                <span id="empUniqErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
                                                 <label for="moblphonNo">연락처</label><br>
@@ -362,7 +385,9 @@ function checkNum(e){
                                                 <input id="moblphonNo1" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="3"/><span class="divPnum">-</span>
                                                 <input id="moblphonNo2" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/><span class="divPnum">-</span>
                                                 <input id="moblphonNo3" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/></div>
+                                                <form:input path="moblphonNo" id="moblphonNo" type="hidden" maxlength="13"/>
                                                 <form:errors path="moblphonNo" />
+                                                <span id="phoneErr" class="errSpan"></span>
                                             </td>
                                         </tr>
                                     </table>

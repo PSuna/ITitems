@@ -136,8 +136,8 @@ public class UserManageVO extends UserDefaultVO{
 	/**
 	 * 조직 ID
 	 */
-	private String orgnztId;
-	private String lowerOrgnzt;
+	private String orgnztId = "";
+	private String lowerOrgnzt = "";
 	
 	/**
 	 * 직급 ID

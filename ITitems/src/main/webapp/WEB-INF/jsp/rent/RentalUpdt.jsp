@@ -611,19 +611,8 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select w_full" for="largeCategory">
-															<select id="largeCategory" name="largeCategory"
-																title="대분류" onchange="getMCatList();">
-																<option value="" label="선택하세요" />
-																<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-																	<option value="${LCat.catId}" <c:if test="${LCat.catName == resultVO.largeCategory}">selected="selected"</c:if>>
-																		<c:out value="${LCat.catName}" />
-																	</option>
-																</c:forEach>
-															</select>
-															<form:errors path="largeCategory" />
-													</label> 
-													<br />
+													<input id="largeCategoryNm" class="f_txt w_full readonly" name="largeCategoryNm" type="text" value="${resultVO.largeCategory}" readonly="readonly">
+													<input id="largeCategory" class="f_txt w_full readonly" name="largeCategory" type="hidden" value="${resultVO.largeCategoryCode}" readonly="readonly"> 
 												</td>
 												<td class="lb">
 													<!-- 수량 -->
@@ -631,8 +620,8 @@ window.onload = function(){
 													<span class="req">필수</span>
 												</td>
 												<td>
-													<input id="rentalQty" class="f_txt w_full readonly" name="rentalQty" type="text" value="${resultVO.rentalQty}"  maxlength="20"
-														onchange="getNumber(this);" onkeyup="getNumber(this);" readonly="readonly">
+													<input id="rentalQty" class="f_txt w_full readonly" name="rentalQty" type="text" value="${resultVO.rentalQty}"  maxlength="20" readonly="readonly"
+														onchange="getNumber(this);" onkeyup="getNumber(this);">
 												</td>
 											</tr>
 											<tr>
@@ -695,6 +684,15 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 렌탈업체 --> 
+													<label for="">렌탈업체</label>
+												</td>
+												<td colspan="3">
+													<input id="rentalCompany" class="f_txt w_full" name="rentalCompany" type="text" value="${resultVO.rentalCompany}"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);" >
 												</td>
 											</tr>
 											<tr>
