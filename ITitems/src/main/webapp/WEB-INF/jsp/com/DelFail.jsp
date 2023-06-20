@@ -50,8 +50,8 @@
 				<div class="pop_header">
 					<h1>등록실패</h1>
 				</div>
-				<div class="pop_container">
-					<div class="pop_check">
+				<div class="pop_container check">
+					<div class="pop_check2">
 						<h4><spring:message code="fail.common.delete" /></h4>
 						<h4><spring:message code="fail.common.msg" /></h4>
 						<!-- 버튼  -->

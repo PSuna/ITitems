@@ -48,11 +48,27 @@
 
 .pop_check{
 	text-align: center;
-    line-height: 3;
+    line-height:  6;
+}
+
+.pop_check2{
+	text-align: center;
+    line-height:  2.5;
+}
+
+.check{
+	height: 179px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pop_search{
+	padding: 29px 40px !important;
 }
 
 .pop_check h4{
-	margin-bottom: 13px;
+	/* margin-bottom: 13px; */
 }
 
 .pop_check .btn_blue_46{
@@ -539,6 +555,29 @@ background: #F7F7F7;
 .scrollList{
 	max-height: 184px;
 	overflow-y: scroll;
+	position: relative;
+}
+
+.pty_btn {
+    height: 34px;
+    background: var(--box-color);
+    border-radius: 6px;
+    border: 1px solid #dde2e5;
+    font-size: 14px;
+    padding: 0 24px;
+}
+
+thead {
+    background: #f5f6f7;
+}
+
+td {
+    font-size: 14px;
+}
+
+.btn_area {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 767px){
@@ -663,5 +702,10 @@ background: #F7F7F7;
 	
 	.wp_date{
 		width: 46.7%;
+	}
+	
+	.condition {
+    display: flex!important;
+    flex-wrap: wrap;
 	}
 }

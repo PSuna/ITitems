@@ -55,7 +55,7 @@
 				<div class="pop_header">
 					<h1>수정완료</h1>
 				</div>
-				<div class="pop_container">
+				<div class="pop_container check">
 					<div class="pop_check">
 						<h4><spring:message code="success.common.update" /></h4>
 						<!-- 버튼  -->

@@ -262,7 +262,7 @@
                                 <div class="board_view_bot btn_bot">
                                     <div class="btn1">
                                     	<c:if test="${bdMstr.authFlag == 'Y'}">
-                                        	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message code="button.create" /></a><!-- 등록 -->
                                         </c:if>
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
