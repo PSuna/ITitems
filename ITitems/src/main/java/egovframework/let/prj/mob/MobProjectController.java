@@ -62,15 +62,12 @@ public class MobProjectController {
 	public Map<String, Object> selectZipSearchList(@RequestBody ProjectManageVO searchVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = projectService.SelectProjectVOList(searchVO);
-		System.out.println("왔냐====================================================================");
-		System.out.println(searchVO.getSearchWord());
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "6000000");
 
 		// 미인증 사용자에 대한 보안처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
-			System.out.println("인증안됨 MobProjectController =====================");
 			resultMap.put("message", egovMessageSource.getMessage("fail.common.login"));
 			return resultMap;
 		}

@@ -156,14 +156,24 @@ public class MobEgovLoginController {
 	}
 
 	@RequestMapping(value = "/uat/uia/mob/goMobile.do")
-	public Map<String, Object> actionLogout(HttpServletRequest request) throws Exception {
+	public Map<String, Object> actionMain(HttpServletRequest request) throws Exception {
 		LoginVO loginVO = (LoginVO) request.getSession().getAttribute("LoginVO");
-		System.out.println(loginVO);
-
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("result", loginVO);
 
 		return returnMap;
+	}
+	
+	/**
+	 * 로그아웃한다.
+	 * 
+	 * @return String
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/uat/uia/mob/actionLogout.do")
+	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
+		request.getSession().setAttribute("LoginVO", null);
+		return "redirect:/egov_security_logout";
 	}
 }
 
