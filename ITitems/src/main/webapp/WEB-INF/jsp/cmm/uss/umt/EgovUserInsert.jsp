@@ -27,6 +27,8 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
@@ -63,48 +65,31 @@ function fnListPage(){
     document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>"; 
     document.userManageVO.submit();
 }
+
+var moblphoneNo = '';
 function fnInsert(){
-	if(!document.userManageVO.id_view.value){
-		document.getElementById('emplyrIdErr').innerHTML='아이디는 필수입력값입니다.';
+	if(fncheckNums() == 'false'){
+		fn_egov_modal_remove();
+		return;
 	}else{
-		document.getElementById('emplyrIdErr').innerHTML='';
+		let formData = new FormData(document.getElementById('userManageVO'));
+		$.ajax({
+			url:'${pageContext.request.contextPath}/uss/umt/user/EgovUserInsert.do',
+			method:'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formData,
+			success: function (result) {
+				fn_egov_modal_remove();
+				RegistSuccess();
+			},
+			error: function (error) {
+				fn_egov_modal_remove();
+				RegistFail();
+			}
+		});
 	}
-	
-	if(!document.userManageVO.emplyrNm.value){
-		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
-	}else{
-		document.getElementById('emplyrNmErr').innerHTML='';
-	}
-	
-	if(!document.userManageVO.orgnztId.value){
-		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
-	}else{
-		document.getElementById('orgnztIdErr').innerHTML='';
-	}
-	
-	if(!document.userManageVO.grade.value){
-		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
-	}else{
-		document.getElementById('gradeErr').innerHTML='';
-	}
-	
-	
-	var phone1 = document.getElementById('moblphonNo1');
-	console.log(phone1.value);
-	var phone2 = document.getElementById('moblphonNo2');
-	console.log(phone2.value);
-	var phone3 = document.getElementById('moblphonNo3');
-	console.log(phone3.value);
-	if(phone1.value && phone2.value && phone3.value){
-		var moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
-		console.log(moblphoneNo);
-	}
-	if(moblphoneNo != null && moblphoneNo != ''){
-		document.userManageVO.moblphonNo.value = moblphoneNo;
-	}
-	if(validateUserManageVO(document.userManageVO)){
-		document.userManageVO.submit();
-    }
 }
 
 
@@ -156,6 +141,8 @@ function getMOrgList(MOval) {
 		
 	}
 }
+
+
 let typeList = ["input", "select"]
 function alertValid(objList) {
 	$(typeList).each(function(index, type){
@@ -195,16 +182,215 @@ function checkNum(e){
     	num02 = num01.replace(/(^0-9+)/, "");
 	    num03 = num02.replace(/\D/g,"");
 	    num01 = num03;
-	    
 	    e.value =  num01;
-	    
+    }
+    if (e.value.length == e.maxLength) {
+    	if(e.id == 'moblphonNo1'){
+        	document.getElementById('moblphonNo2').focus();
+    	}
+    	if(e.id == 'moblphonNo2'){
+        	document.getElementById('moblphonNo3').focus();
+    	}
     }
 }
+/* ********************************************************
+ * 등록확인 팝업창
+ ******************************************************** */
+function RegistConfirm(){
+	if(validateUserManageVO(document.userManageVO)){
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+			});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+	}else{
+		fn_egov_modal_remove();
+		fncheckValid();
+	}
+}
+
+/* ********************************************************
+ * 필수값, 사번, 휴대폰 번호 형식 검사
+ ******************************************************** */
+function fncheckValid(){
+	if(!document.userManageVO.id_view.value){
+		document.getElementById('emplyrIdErr').innerHTML='아이디는 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrIdErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.emplyrNm.value){
+		document.getElementById('emplyrNmErr').innerHTML='이름은 필수입력값입니다.';
+	}else{
+		document.getElementById('emplyrNmErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.orgnztId.value){
+		document.getElementById('orgnztIdErr').innerHTML='본부는 필수입력값입니다.';
+	}else{
+		document.getElementById('orgnztIdErr').innerHTML='';
+	}
+	
+	if(!document.userManageVO.grade.value){
+		document.getElementById('gradeErr').innerHTML='직급은 필수입력값입니다.';
+	}else{
+		document.getElementById('gradeErr').innerHTML='';
+	}
+	
+	var phone1 = document.getElementById('moblphonNo1');
+	var phone2 = document.getElementById('moblphonNo2');
+	var phone3 = document.getElementById('moblphonNo3');
+	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var res = patt.test(moblphoneNo);
+	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
+		if(!patt.test(moblphoneNo)){
+			document.getElementById('phoneErr').innerHTML='전화번호를 정확히 입력해주세요.';
+		}else{
+			document.userManageVO.moblphonNo.value = moblphoneNo;
+			document.getElementById('phoneErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('phoneErr').innerHTML='';
+	}
+	
+	var empUniqNum = document.getElementById('empUniqNum').value;
+	var patt1 = new RegExp("20[0-9]{7}");
+	var res1 = patt.test(empUniqNum);
+	if(empUniqNum != null && empUniqNum != ''){
+		if(!patt1.test(empUniqNum)){
+			document.getElementById('empUniqErr').innerHTML='유효하지 않은 사원번호입니다.';
+		}else{
+			document.userManageVO.empUniqNum.value = empUniqNum;
+			document.getElementById('empUniqErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('empUniqErr').innerHTML='';
+	}
+}
+
+/* ********************************************************
+ * 사번, 휴대폰 번호 형식 검사
+ ******************************************************** */
+function fncheckNums(){
+	var phone1 = document.getElementById('moblphonNo1');
+	var phone2 = document.getElementById('moblphonNo2');
+	var phone3 = document.getElementById('moblphonNo3');
+	let checkNum = 'true';
+	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
+	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var res = patt.test(moblphoneNo);
+	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
+		if(!patt.test(moblphoneNo)){
+			document.getElementById('phoneErr').innerHTML='전화번호를 정확히 입력해주세요.';
+			checkNum = 'false';
+		}else{
+			document.userManageVO.moblphonNo.value = moblphoneNo;
+			document.getElementById('phoneErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('phoneErr').innerHTML='';
+	}
+	
+	var empUniqNum = document.getElementById('empUniqNum').value;
+	var patt1 = new RegExp("20[0-9]{7}");
+	var res1 = patt.test(empUniqNum);
+	if(empUniqNum != null && empUniqNum != ''){
+		if(!patt1.test(empUniqNum)){
+			document.getElementById('empUniqErr').innerHTML='유효하지 않은 사원번호입니다.';
+			checkNum = 'false'
+		}else{
+			document.userManageVO.empUniqNum.value = empUniqNum;
+			document.getElementById('empUniqErr').innerHTML='';
+		}
+	}else{
+		document.getElementById('empUniqErr').innerHTML='';
+	}
+	return checkNum;
+}
+/* ********************************************************
+ * 등록확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+	
+	fn_egov_modal_remove();
+	 if(val){
+		 RegistIng();
+		 fnInsert(); 
+	 }	  
+}
+/* ********************************************************
+* 등록진행 팝업창
+******************************************************** */
+function RegistIng(){
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 등록완료 팝업창
+ ******************************************************** */
+ function RegistSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+ /* ********************************************************
+  * 등록완료 결과 처리
+  ******************************************************** */
+  function returnSuccess(val){
+ 	if(val){
+ 		fn_egov_modal_remove();
+ 		document.getElementById('userManageVO').reset();
+ 	}else{
+ 		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+ 		document.userManageVO.submit();
+ 	}
+
+ }
+  /* ********************************************************
+   * 등록실패 팝업창
+   ******************************************************** */
+   function RegistFail(){
+  	
+  	 var $dialog = $('<div id="modalPan"></div>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.dialog({
+  	    	autoOpen: false,
+  	        modal: true,
+  	        width: 400,
+  	        height: 300
+  		});
+  	    $(".ui-dialog-titlebar").hide();
+  		$dialog.dialog('open');
+  }
 //-->
 </script>
 <style>
 .errSpan{
 	color:red;
+	font-size:12px;
 }
 .board_view_bot {
 	margin-top:8px;
@@ -257,7 +443,7 @@ function checkNum(e){
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserInsert.do" name="userManageVO" method="post" >
+								<form:form modelAttribute="userManageVO" name="userManageVO" id="userManageVO" autocomplete="off" method="post" >
                                 
                                 <h1 class="tit_1">내부시스템관리</h1>
                                 <h2 class="tit_2">사용자등록관리</h2>
@@ -346,11 +532,13 @@ function checkNum(e){
                                         </tr>
                                         <tr>
                                             <td class="lb">
-                                                <label for="empUniqNum">사번</label>
+                                                <label for="empUniqNum">사번</label><br>
+                                                <label for="moblphonNo" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
                                             </td>
                                             <td>
-                                                <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 202301234" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
+                                                <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
                                                 <form:errors path="empUniqNum" />
+                                                <span id="empUniqErr" class="errSpan"></span>
                                             </td>
                                             <td class="lb">
                                                 <label for="moblphonNo">연락처</label><br>
@@ -359,10 +547,12 @@ function checkNum(e){
                                             </td>
                                             <td>
                                             	<div class="phoneNumBox">
-                                                <input id="moblphonNo1" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="3"/><span class="divPnum">-</span>
-                                                <input id="moblphonNo2" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/><span class="divPnum">-</span>
-                                                <input id="moblphonNo3" onkeyup="checkNum(this)"class="f_txt w_full" maxlength="4"/></div>
+                                                <input id="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3"/><span class="divPnum">-</span>
+                                                <input id="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/><span class="divPnum">-</span>
+                                                <input id="moblphonNo3" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/></div>
+                                                <form:input path="moblphonNo" id="moblphonNo" type="hidden" maxlength="13"/>
                                                 <form:errors path="moblphonNo" />
+                                                <span id="phoneErr" class="errSpan"></span>
                                             </td>
                                         </tr>
                                     </table>
@@ -375,17 +565,22 @@ function checkNum(e){
                                     </div>
 
                                     <div class="right_col btn1">
-                                        <a href="#LINK" class="btn btn_blue_46" onclick="JavaScript:fnInsert(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        <a href="#LINK" class="btn btn_blue_46" onclick="JavaScript:RegistConfirm(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
                                         <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
                                 
                                 <!-- 검색조건 유지 -->
-						        <input type="hidden" name="searchCondition" value="<c:out value='${userSearchVO.searchCondition}'/>"/>
 						        <input type="hidden" name="searchKeyword" value="<c:out value='${userSearchVO.searchKeyword}'/>"/>
 						        <input type="hidden" name="pageIndex" value="<c:out value='${userSearchVO.pageIndex}'/><c:if test="${userSearchVO.pageIndex eq null}">1</c:if>"/>
-						        
+								<input name="firstIndex" type="hidden" value="<c:out value='${userSearchVO.firstIndex}'/>"/>
+								<input name="recordCountPerPage" type="hidden" value="<c:out value='${userSearchVO.recordCountPerPage}'/>"/>
+								<input name="searchOrgnzt" type="hidden" value="<c:out value='${userSearchVO.searchOrgnzt}'/>"/>
+								<input name="searchLOrgnzt" type="hidden" value="<c:out value='${userSearchVO.searchLOrgnzt}'/>"/>
+								<input name="searchGrade" type="hidden" value="<c:out value='${userSearchVO.searchGrade}'/>"/>
+								<input name="searchAuthor" type="hidden" value="<c:out value='${userSearchVO.searchAuthor}'/>"/>
+								<input name="pageUnit" type="hidden" value="<c:out value='${userSearchVO.pageUnit}'/>"/>
 			                	</form:form>
                                 
                             </div>

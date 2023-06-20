@@ -37,6 +37,7 @@
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <script src="<c:url value='/'/>js/FormSave.js"></script>
+<script src="<c:url value='/'/>js/Inputcheck.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -622,7 +623,7 @@ window.onload = function(){
 													</label> 
 												</td>
 												<td colspan="2">
-													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60"> 
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -652,7 +653,7 @@ window.onload = function(){
 													</label>
 												</td>
 												<td colspan="2">
-													<input id="maker" class="f_txt w_full" name="maker" type="hidden" maxlength="60"> 
+													<input id="maker" class="f_txt w_full" name="maker" type="hidden" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -661,23 +662,23 @@ window.onload = function(){
 													<label for="">제품명(모델명)</label>
 												</td>
 												<td>
-													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" >
+													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);" >
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60"> 
+													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 렌탈기간 --> 
+													<!-- 렌탈업체 --> 
 													<label for="">렌탈업체</label>
 												</td>
 												<td colspan="3">
-													<input id="rentalCompany" class="f_txt w_full" name="rentalCompany" type="text"  maxlength="60" >
+													<input id="rentalCompany" class="f_txt w_full" name="rentalCompany" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);" >
 												</td>
 											</tr>
 											<%

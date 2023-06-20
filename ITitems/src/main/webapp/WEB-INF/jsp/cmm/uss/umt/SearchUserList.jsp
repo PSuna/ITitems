@@ -26,8 +26,6 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
@@ -104,7 +102,7 @@
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
 
-				<div class="pop_container">
+				<div class="pop_container pop_search">
 					<!-- 검색조건 -->
 					<div class="condition" style="justify-content: center;">
 						<%-- <label class="item f_select" for="searchOrgnzt"> <select

@@ -44,7 +44,7 @@ public interface UserManageService  {
 	 * @return result 등록결과
 	 * @throws Exception
 	 */
-	public void insertUser(UserManageVO userManageVO) throws Exception;
+	public int insertUser(UserManageVO userManageVO) throws Exception;
 
 	/**
 	 * 기 등록된 사용자 중 검색조건에 맞는 사용자의 정보를 데이터베이스에서 읽어와 화면에 출력

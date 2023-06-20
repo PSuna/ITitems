@@ -18,6 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
@@ -227,14 +228,16 @@ public class UserManageController {
 	 * @return forward:/uss/umt/user/EgovUserManage.do
 	 * @throws Exception
 	 */
+	
 	@RequestMapping("/uss/umt/user/EgovUserInsert.do")
-	public String insertUser(@ModelAttribute("userManageVO") @Valid UserManageVO userManageVO, Errors errors,
-							@ModelAttribute("authorManageVO") AuthorManageVO authorManageVO, 
+	@ResponseBody
+	public String insertUser(UserManageVO userManageVO, Errors errors,
+							AuthorManageVO authorManageVO, 
 							Model model) throws Exception {
 		
 		userManageVO.setAuthorCode("ROLE_USER_MEMBER");
 		userManageVO.setPassword("iteyes00");
-		if(userManageVO.getLowerOrgnzt() != null) {
+		if(userManageVO.getLowerOrgnzt() != null && !userManageVO.getLowerOrgnzt().equals("")) {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
 		// 미인증 사용자에 대한 보안처리
@@ -244,27 +247,24 @@ public class UserManageController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
-		if (errors.hasErrors()) {
-			ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
-			//직급코드를 코드정보로부터 조회 - COM002 
-			vo.setCodeId("COM002");
-			model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+		//직급코드를 코드정보로부터 조회 - COM002 
+		vo.setCodeId("COM002");
+		model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
 
-			//조직정보를 조회 - ORGNZT_ID정보
-			vo.setTableNm("LETTNORGNZTINFO");
-			model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+		//조직정보를 조회 - ORGNZT_ID정보
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 
-			//권한정보를 조회
-			authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
-	        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
-			
-			return "cmm/uss/umt/EgovUserInsert";
-		}
-		userManageService.insertUser(userManageVO);
+		//권한정보를 조회
+		authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
+        model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+
+		int r = userManageService.insertUser(userManageVO);
 		model.addAttribute("resultMsg", "success.common.insert");
-		
-		return "forward:/uss/umt/user/EgovUserManage.do";
+		String result = String.valueOf(r);
+		return result;
 	}
 
 	/**
@@ -317,11 +317,10 @@ public class UserManageController {
 	}
 
 	/**
-	 * 사용자정보 수정후 목록조회 화면으로 이동한다.
+	 * 사용자정보 수정
 	 * @param userManageVO 사용자수정정보
 	 * @param bindingResult 입력값검증용 bindingResult
 	 * @param model 화면모델
-	 * @return forward:/uss/umt/user/EgovUserManage.do
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserSelectUpdt.do")
@@ -338,11 +337,13 @@ public class UserManageController {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
     	
+    	
 		//업무사용자 수정시 히스토리 정보를 등록한다.
-		userManageService.updateUser(userManageVO);
+		int r = userManageService.updateUser(userManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/uss/umt/user/EgovUserManage.do";
+		String result = String.valueOf(r);
+		return result;
 	}
 
 	/**
@@ -412,8 +413,9 @@ public class UserManageController {
 
 		if (checkId == null || checkId.equals(""))
 			return "forward:/uss/umt/EgovIdDplctCnfirmView.do";
-
+		checkId = checkId + "@iteyes.co.kr";
 		int usedCnt = userManageService.checkIdDplct(checkId);
+		checkId = (String) commandMap.get("checkId");
 		model.addAttribute("usedCnt", usedCnt);
 		model.addAttribute("checkId", checkId);
 

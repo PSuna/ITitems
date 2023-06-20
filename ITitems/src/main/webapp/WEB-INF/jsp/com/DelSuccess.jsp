@@ -55,7 +55,7 @@
 				<div class="pop_header">
 					<h1>등록완료</h1>
 				</div>
-				<div class="pop_container">
+				<div class="pop_container check">
 					<div class="pop_check">
 						<h4><spring:message code="success.common.delete" /></h4>
 						<!-- 버튼  -->

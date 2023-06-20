@@ -93,7 +93,7 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 * @throws Exception
 	 */
 	@Override
-	public void insertUser(UserManageVO userManageVO) throws Exception {
+	public int insertUser(UserManageVO userManageVO) throws Exception {
 		//고유아이디 셋팅
 		String uniqId = idgenService.getNextStringId();
 		userManageVO.setUniqId(uniqId);
@@ -104,8 +104,9 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		authorGroup.setUniqId(uniqId);
 		authorGroup.setAuthorCode(userManageVO.getAuthorCode());
 		
-		userManageDAO.insertUser(userManageVO);
+		int r =userManageDAO.insertUser(userManageVO);
 		authorGroupDAO.insertAuthorGroup(authorGroup);
+		return r ; 
 	}
 
 	/**

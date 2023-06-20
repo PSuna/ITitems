@@ -397,28 +397,30 @@ function AssetList(){
 									<br>
 									<!-- 게시판 -->
 								<div class="board_list">
-									<table>
-										<colgroup>
-											<col style="width: 6%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-											<col style="width: 36%;">
-											<col style="width: 14%;">
-											<col style="width: 8%;">
-											<col style="width: 8%;">
-										</colgroup>
-										<thead>
-											<tr>
-												<th scope="col">번호</th>
-												<th scope="col">본부</th>
-												<th scope="col">부서</th>
-												<th scope="col">프로젝트</th>
-												<th scope="col">자산관리번호</th>
-												<th scope="col">실사용자</th>
-												<th scope="col">상태</th>
-											</tr>
-										</thead>
-									</table>
+									<div class="non_scrollList">
+										<table>
+											<colgroup>
+												<col style="width: 6%;">
+												<col style="width: 13%;">
+												<col style="width: 13%;">
+												<col style="width: 36%;">
+												<col style="width: 14%;">
+												<col style="width: 8%;">
+												<col style="width: 8%;">
+											</colgroup>
+											<thead>
+												<tr>
+													<th scope="col">번호</th>
+													<th scope="col">본부</th>
+													<th scope="col">부서</th>
+													<th scope="col">프로젝트</th>
+													<th scope="col">자산관리번호</th>
+													<th scope="col">실사용자</th>
+													<th scope="col">상태</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
 									<div class="scrollList">
 										<table>
 											<colgroup>
@@ -461,7 +463,7 @@ function AssetList(){
 									<!-- 버튼  -->
 									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
-										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.useId == login || resultVO.rcptId == login}">
+										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.rcptId == login}">
 												<!-- 수정 -->
 												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
 													onclick="AssetUpdt();return false;"> <spring:message
