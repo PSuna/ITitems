@@ -74,4 +74,13 @@ public class ProjectDAO extends EgovAbstractMapper {
 		return selectList("ProjectDAO.xlsxTrsfPrjList",projectManageVO);
 	}
 	
+	
+	/**
+	 * 모바일 조건에 맞는 프로젝트 전체 조회
+	 */
+	public List<ProjectVO> MobSelectProjectVOList(ProjectManageVO projectManageVO) throws Exception {
+		return selectList("ProjectDAO.MobSelectProjectVOList", projectManageVO);
+	}
+	
+
 }

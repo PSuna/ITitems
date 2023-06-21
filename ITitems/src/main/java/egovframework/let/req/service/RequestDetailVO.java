@@ -22,6 +22,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class RequestDetailVO implements Serializable {
 
+	@Override
+	public String toString() {
+		return "RequestDetailVO [redId=" + redId + ", reqId=" + reqId + ", largeCategory=" + largeCategory
+				+ ", middleCategory=" + middleCategory + ", assetId=" + assetId + ", reqQty=" + reqQty + ", maker="
+				+ maker + ", user=" + user + ", useId=" + useId + ", rcptId=" + rcptId + ", assetSn=" + assetSn
+				+ ", reqOrder=" + reqOrder + "]";
+	}
+
 	/** 신청상세코드 */
 	private String redId;
 

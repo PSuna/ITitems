@@ -40,4 +40,7 @@ public interface RequestService {
 	public void xlsxTrsfReqList(RequestManageVO requestManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 	public List<EgovMap> SelectAprvList(RequestManageVO manageVO);
+	
+	public Map<String, Object> MobSelectRequestVOList(RequestManageVO manageVO);//모바일
+	
 }

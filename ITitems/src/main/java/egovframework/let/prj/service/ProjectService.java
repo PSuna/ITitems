@@ -53,6 +53,15 @@ public interface ProjectService {
 	public void deletePrj(ProjectVO projectVO) throws Exception;
 
 	/**
+
+	 * 모바일 프로젝트 검색
+	 * @param projectVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public Map<String, Object> MobSelectProjectVOList(ProjectManageVO projectManageVO) throws Exception;
+
+	/**
+
 	 * 프로젝트목록 엑셀다운로드
 	 * @param projectManageVO 프로젝트 정보
 	 * @throws Exception
@@ -60,4 +69,5 @@ public interface ProjectService {
 	public void xlsxTrsfPrjList(ProjectManageVO projectManageVO, HttpServletRequest req, HttpServletResponse res)throws Exception;
 
 	
+
 }

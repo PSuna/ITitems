@@ -384,7 +384,11 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetSearchList.do")
 	public String AssetSearchList(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
+		System.out.println("넘어온 자산 정보 =======================");
 
+		System.out.println(assetManageVO.getSearchName());
+		System.out.println(assetManageVO.getUserId());
+		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());

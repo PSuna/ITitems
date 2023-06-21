@@ -86,6 +86,16 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	public void deletePrj(ProjectVO projectVO) throws Exception {
 		projectDAO.deletePrj(projectVO);
 	}
+	
+	@Override
+	public Map<String, Object> MobSelectProjectVOList(ProjectManageVO ProjectManageVO) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("resultList", projectDAO.MobSelectProjectVOList(ProjectManageVO));
+		map.put("resultCnt", Integer.toString(projectDAO.CountProjectVOList(ProjectManageVO)));
+		return map;
+	}
+
 
 	@Override
 	public void xlsxTrsfPrjList(ProjectManageVO projectManageVO, HttpServletRequest req, HttpServletResponse res)
@@ -100,4 +110,5 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 		}
 		
 	}
+
 }

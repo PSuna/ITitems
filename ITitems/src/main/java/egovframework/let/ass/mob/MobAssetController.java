@@ -60,7 +60,7 @@ public class MobAssetController {
 
 	@Resource(name = "ProjectService")
 	protected ProjectService projectService;
-	
+
 	@Resource(name = "CategoryService")
 	protected CategoryService categoryService;
 
@@ -69,27 +69,27 @@ public class MobAssetController {
 
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
-	
+
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileMngService;
 
 	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
-	
+
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 
 	/*
 	 * select => assetManageVo, /insert,upload => assetVo
-	 * */
-	
+	 */
+
 	/**
 	 * 내자산조회 페이지로 이동
 	 */
 
 	@RequestMapping(value = "/ass/MobMyAssetManagement.do")
-	public Map<String, Object> MyAssetManagement(HttpServletRequest request, AssetManageVO assetManageVO,
-			@RequestBody AssetManageVO avo) throws Exception {
+	public Map<String, Object> MyAssetManagement(HttpServletRequest request,
+			@RequestBody AssetManageVO assetManageVO) throws Exception {
 		/*
 		 * 여러 데이터를 보낼때 @RequestBody Map<String,Object> paramMap이런 식으로 받사 사용
 		 * System.out.println(paramMap.get("data")+">>>>>>>>>>>>>>>>>>>");
@@ -97,49 +97,51 @@ public class MobAssetController {
 
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		// LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetManageVO.setUserId(avo.getAssetId());
+		//assetManageVO.setUserId(avo.getAssetId());
+	      if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+	         assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+	      }
+	      if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+	         assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+	      }
 
-		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if (assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
+	      Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
 
-		Map<String, Object> map = assetService.MobSelectMyAssetInfoList(assetManageVO);
+	      appMap.put("resultList", map.get("resultList"));
+	      appMap.put("resultCnt", map.get("resultCnt"));
 
-		appMap.put("resultList", map.get("resultList"));
-		appMap.put("resultCnt", map.get("resultCnt"));
+	      ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+	      vo.setTableNm("LETTNORGNZTINFO");
 
-		vo.setTableNm("LETTNORGNZTINFO");
+	      appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
 
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdDetail(vo));
+	      vo.setCodeId("COM006");
+	      appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
 
-		vo.setCodeId("COM006");
-		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
+	      CategoryManageVO cvo = new CategoryManageVO();
+	      appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
 
-		CategoryManageVO cvo = new CategoryManageVO();
-		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
-		appMap.put("searchVO", assetManageVO);
-		return appMap;
+	      appMap.put("searchVO", assetManageVO);
+	      return appMap;
 	}
 
 	/**
 	 * 자산상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/MobSelectAsset.do")
-	public Map<String, Object> SelectAsset(HttpServletRequest request, AssetManageVO assetManageVO,
-			@RequestBody AssetManageVO avo) throws Exception {
+	public Map<String, Object> SelectAsset(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-		
-		AssetVO result = assetService.SelectAssetVO(avo);
 
+		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		appMap.put("resultVO", result);
+		
+		Map<String, Object> map = assetService.SelectAssetHistList(assetManageVO);
+		appMap.put("resultList", map.get("resultList"));
+		appMap.put("resultCnt", map.get("resultCnt"));
+		
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(avo.getAssetId());
+		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
 		appMap.put("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
@@ -150,11 +152,14 @@ public class MobAssetController {
 	}
 
 	/**
-	 * 전체자산조회 페이지로 이동
+	 * 반출신청에서 자산조회 팝업창으로 이동
 	 */
-	@RequestMapping(value = "/ass/MobAssetManagement.do")
-	public Map<String, Object> AssetManagement(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO)
-			throws Exception {
+	@RequestMapping(value = "/ass/MobAssetSearchList.do")
+	   public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
+	         throws Exception {
+		System.out.println("넘어온 자산 정보 =======================");
+		System.out.println(assetManageVO.getSearchName());
+		System.out.println(assetManageVO.getUserId());
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
 		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
@@ -169,6 +174,7 @@ public class MobAssetController {
 		if (assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
 			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
 		}
+		assetManageVO.setSearchKind("out");
 		Map<String, Object> map = assetService.MobSelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));

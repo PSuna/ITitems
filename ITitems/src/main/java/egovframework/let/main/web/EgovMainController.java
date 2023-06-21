@@ -90,8 +90,6 @@ public class EgovMainController {
 	public String getMgtMainPage(ApprovalDefaultVO approvalSearchVO, HttpServletRequest request, ModelMap model)
 			throws Exception {
 		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
-		System.out.println("❤️ 왔냐 =================================================================");
-		System.out.println(loginId.getIsMob());
 
 		approvalSearchVO.setUniqId(loginId.getUniqId());
 		// 공지사항 메인 컨텐츠 조회 시작 ---------------------------------

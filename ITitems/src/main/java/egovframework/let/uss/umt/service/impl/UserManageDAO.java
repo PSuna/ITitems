@@ -133,5 +133,7 @@ public class UserManageDAO extends EgovAbstractMapper{
 	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
 		return (Integer)selectOne("userManageDAO.selectUserListTotCnt_Search", userSearchVO);
 	}
-
+	public List<?> mobSelectUserListS(UserDefaultVO userSearchVO) {
+		return selectList("userManageDAO.mobSelectUserList_Search", userSearchVO);
+	}
 }

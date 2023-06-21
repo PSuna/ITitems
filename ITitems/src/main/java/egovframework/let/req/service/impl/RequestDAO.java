@@ -35,7 +35,6 @@ public class RequestDAO extends EgovAbstractMapper {
 	 * 신청 등록
 	 */
 	public int InsertRequestVO(RequestVO requestVO) {
-
 		return insert("RequestDAO.InsertRequestVO", requestVO);
 	}
 
@@ -85,5 +84,14 @@ public class RequestDAO extends EgovAbstractMapper {
 
 	public List<EgovMap> SelectAprvList(RequestManageVO manageVO) {
 		return selectList("RequestDAO.SelectAprvList", manageVO);
+	}
+	
+
+	/**
+	 * 모바일
+	 */
+	public List<RequestVO> MobSelectRequestVOList(RequestManageVO manageVO){
+		
+		return selectList("RequestDAO.MobSelectRequestVOList", manageVO);
 	}
 }

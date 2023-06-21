@@ -400,4 +400,74 @@ LEFT OUTER JOIN LETTNEMPLYRINFO E
 		  WHERE A.REQ_ID = #{reqId}
 	   ORDER BY APRV_ORDER
 	</select>
+	
+	<select id="MobSelectRequestVOList" parameterType="egovframework.let.req.service.RequestManageVO" resultMap="RequestList">
+				SELECT
+				REQ_ID,
+				REQ_GROUP,
+				ID,
+				PRJ_ID,
+				REQ_DATE,
+				PLACE,
+				REQ_STATUS
+		  FROM (
+				SELECT
+					A.REQ_ID,
+					E.CODE_NM AS REQ_GROUP,
+					CONCAT(F.USER_NM,' ',G.CODE_NM) AS ID,
+					D.PRJ_NAME AS PRJ_ID,
+					DATE_FORMAT(A.REQ_DATE,'%Y-%m-%d') AS REQ_DATE,
+					A.PLACE PLACE,
+					C.CODE_NM AS REQ_STATUS
+				  FROM REQUESTS A
+	   LEFT OUTER JOIN REQUESTDETAIL B
+				    ON A.REQ_ID = B.REQ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+				    ON A.REQ_STATUS = C.CODE
+	   LEFT OUTER JOIN PROJECTS D
+				    ON A.PRJ_ID = D.PRJ_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE E
+				    ON A.REQ_GROUP = E.CODE
+	   LEFT OUTER JOIN LETTNEMPLYRINFO F
+				    ON A.ID = F.ESNTL_ID
+	   LEFT OUTER JOIN LETTCCMMNDETAILCODE G
+				    ON F.GRADE = G.CODE
+				 WHERE 1=1
+				<if test = 'authorCode == "ROLE_USER_MEMBER"'>
+				   	AND A.ID = #{id}
+				</if>
+				<if test="searchPrj != null and searchPrj != ''">
+					AND A.PRJ_ID = #{searchPrj}
+				</if>
+				<if test="searchLCat != null and searchLCat != ''">
+					AND B.LARGE_CATEGORY = #{searchLCat}
+				</if>
+				<if test="searchdMCat != null and searchdMCat != ''">
+					AND B.MIDDLE_CATEGORY = #{searchdMCat}
+				</if>
+				<if test="searchStatus != null and searchStatus != ''">
+					AND A.REQ_STATUS = #{searchStatus}
+				</if>
+				<if test='searchGroup !=""'>
+		            AND A.REQ_GROUP = #{searchGroup}
+		          </if>
+				<if test="startDate != null and startDate != ''">
+					AND A.REQ_DATE >= STR_TO_DATE(#{startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND (A.PLACE LIKE '%' #{searchWord} '%' OR F.USER_NM LIKE '%' #{searchWord} '%')
+				</if>
+				<if test="endDate != null and endDate != ''">
+					<![CDATA[
+					AND DATE_FORMAT(A.REQ_DATE, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				 GROUP BY 
+				 	A.REQ_ID, 
+				 	E.CODE_NM, 
+				 	F.USER_NM, 
+				 	G.CODE_NM,
+				 	C.CODE_NM
+			 ) P
+	</select>
 </mapper>

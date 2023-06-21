@@ -92,7 +92,7 @@ public class AssetDAO extends EgovAbstractMapper {
 	 * 조건에 맞는 전체자산 전체 조회(모바일)
 	 */
 	public List<AssetManageVO> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception{
-		return selectList("AssetDAO.SelectAssetInfoVOList", assetManageVO);
+		return selectList("AssetDAO.MobSelectAssetInfoVOList", assetManageVO);
 	}
 	/**
 	 * 조건에 맞는 내자산 전체 조회(모바일용)
