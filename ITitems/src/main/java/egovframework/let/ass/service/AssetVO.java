@@ -70,6 +70,9 @@ public class AssetVO implements Serializable {
 	/** 시리얼넘버 */
 	private String assetSn;
 	
+	/** 업체 */
+	private String assetCompany;
+	
 	/** 수령자 */
 	private String rcptId;
 	
@@ -405,6 +408,14 @@ public class AssetVO implements Serializable {
 
 	public void setUsageStauts(String usageStauts) {
 		this.usageStauts = usageStauts;
+	}
+
+	public String getAssetCompany() {
+		return assetCompany;
+	}
+
+	public void setAssetCompany(String assetCompany) {
+		this.assetCompany = assetCompany;
 	}
 	
 }

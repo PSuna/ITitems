@@ -405,6 +405,12 @@ public class AssetManageVO implements Serializable {
 	public void setSearchKind(String searchKind) {
 		this.searchKind = searchKind;
 	}
+	public String getAssId() {
+		return assId;
+	}
+	public void setAssId(String assId) {
+		this.assId = assId;
+	}
 	
 	
 }

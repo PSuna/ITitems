@@ -1,5 +1,6 @@
 package egovframework.let.ass.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetMasterVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.com.service.ExcelUtil;
@@ -117,18 +119,20 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 자산 등록.
      */
 	@Override
-	public int InsertAssetInfo(AssetVO assetVO){
-		
+	public List<String> InsertAsset(AssetVO assetVO){
+		List<String> idList = new ArrayList<String>();
 		try {
 			assetVO.setAssetStauts("C2");
 			assetVO.setUsageStauts("U1");
 			
 			String strQty = assetVO.getAssetQty().replace(",", "");
 			int qty = Integer.parseInt(strQty);
+			
 			for(int i=0; i<qty; i++) {
 				String id = assetIdGnrService.getNextStringId();
 				assetVO.setAssetId(id);
 				assetVO.setMngNum(id);
+				idList.add(id);
 				assetDAO.InsertAsset(assetVO);
 				assetDAO.InsertAssethist(assetVO);
 			}
@@ -137,24 +141,29 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			e.printStackTrace();
 		}
 		
-		return 0;
+		return idList;
 	}
 
 	/**
      * 자산 수정.
      */
 	@Override
-	public int UpdateAsset(AssetVO assetVO) {
+	public String UpdateAsset(AssetVO assetVO) {
 		
 		assetVO.setAssetStauts("C3");
 		assetVO.setUsageStauts("U1");
 		
 		assetDAO.UpdateAsset(assetVO);
-		
-		if(assetVO.getMngNum() == null || assetVO.getMngNum() == "") {
+
+		if(assetVO.getMngNum() == null || assetVO.getMngNum() == "" || assetVO.getMngNum() == assetVO.getAssetId()) {
 			assetVO.setMngNum(assetVO.getAssetId());
+		}else {
+			assetDAO.UpdateAssetMngNum(assetVO);
 		}
-		return assetDAO.InsertAssethist(assetVO);
+		assetVO.setMngNum(assetVO.getMngNum());
+		assetDAO.InsertAssethist(assetVO);
+		
+		return assetVO.getMngNum();
 	}
 
 	/**
@@ -162,9 +171,16 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      */
 	@Override
 	public int deleteAsset(AssetVO assetVO) {
-		
+		assetVO.setAssetStauts("C4");
+		assetVO.setUsageStauts("C4");
 		assetDAO.UpdateAssetDel(assetVO);
-
+		
+		String id = assetVO.getMngNum();
+		if(id == null || id == "") {
+			id = assetVO.getAssetId();
+		}
+		assetVO.setMngNum(id);
+		
 		return assetDAO.InsertAssethist(assetVO);
 	}
 
@@ -196,6 +212,12 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public AssetMasterVO SelectAssetMaster(AssetManageVO assetManageVO) {
+
+		return assetDAO.SelectAssetMaster(assetManageVO);
 	}
 
 

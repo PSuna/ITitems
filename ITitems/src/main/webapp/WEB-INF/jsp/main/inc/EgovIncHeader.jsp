@@ -94,15 +94,15 @@ function fn_egov_modal_remove() {
           			<a href="#LINK" onclick="return false;">자산관리</a>
           			<div class="pty_dropdown">	    
 		                <ul>
-		                    <li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">내자산조회</a></li>
+		                    <li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000001')">내자산조회</a></li>
 		                 </ul>
 		                 <ul>   
 			                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do')">전체자산조회</a></li>
+			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do','assId','ASSMSTR_000000000001')">전체자산조회</a></li>
 			          		</c:if>
 		                </ul>
 		                <ul>
-		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do')">신규자산등록</a></li>
+		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do','assId','ASSMSTR_000000000001')">신규자산등록</a></li>
 		                </ul>
             		</div>
           		</li>
@@ -110,15 +110,15 @@ function fn_egov_modal_remove() {
           			<a href="#LINK" onclick="return false;">렌탈관리</a>
           			<div class="pty_dropdown">	    
 		                <ul>
-		                    <li><a class="gnb_a" href="#LINK"  onclick="goMenuPage('/rent/MyRentalManagement.do')">내렌탈조회</a></li>
+		                    <li><a class="gnb_a" href="#LINK"  onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000002')">내렌탈조회</a></li>
 		                 </ul>
 		                 <ul>   
 			                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/rent/RentalManagement.do')">전체렌탈조회</a></li>
+			          			<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do','assId','ASSMSTR_000000000002')">전체렌탈조회</a></li>
 			          		</c:if>
 		                </ul>
 		                <ul>
-		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
+		                	<li><a class="gnb_a" href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do','assId','ASSMSTR_000000000002')">신규렌탈등록</a></li>
 		                </ul>
             		</div>
 
@@ -126,7 +126,7 @@ function fn_egov_modal_remove() {
           		<li><a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a></li>
 
           		<li><a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a></li>
-          		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
+          		<li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do','bbsId','BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
           		<!-- <li><a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
           		
           		<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
@@ -214,11 +214,11 @@ function fn_egov_modal_remove() {
 
 			<li><a href="#LINK">자산관리</a>
 				<ul class="pmt_sub">
-					<li><a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">내 자산조회</a></li>
+					<li><a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000001')">내 자산조회</a></li>
 					<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-						<li><a href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do')">전체자산조회</a></li>
+						<li><a href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do','assId','ASSMSTR_000000000001')">전체자산조회</a></li>
 					</c:if>
-					<li><a href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do')">신규자산등록</a></li>
+					<li><a href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do','assId','ASSMSTR_000000000001')">신규자산등록</a></li>
 					
 				</ul>
 			</li>
@@ -229,11 +229,11 @@ function fn_egov_modal_remove() {
 			
 			<li><a href="#LINK" onclick="return false;">렌탈관리</a>
 				<ul class="pmt_sub">
-					<li><a href="#LINK"  onclick="goMenuPage('/rent/MyRentalManagement.do')">내렌탈조회</a></li>
+					<li><a href="#LINK"  onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000002')">내렌탈조회</a></li>
 					<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-						<li><a href="#LINK" onclick="goMenuPage('/rent/RentalManagement.do')">전체렌탈조회</a></li>
+						<li><a href="#LINK" onclick="goMenuPage('/ass/AssetManagement.do','assId','ASSMSTR_000000000002')">전체렌탈조회</a></li>
 					</c:if>
-					<li><a  href="#LINK" onclick="goMenuPage('/rent/RentalRegist.do')">신규렌탈등록</a></li>
+					<li><a  href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do','assId','ASSMSTR_000000000002')">신규렌탈등록</a></li>
 					
 				</ul>
 			</li>
@@ -243,7 +243,7 @@ function fn_egov_modal_remove() {
 			</li>
 
 			<li>
-				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA')">공지사항</a>				
+				<a href="#LINK" onclick="goMenuPage('/cop/bbs/selectBoardList.do','bbsId','BBSMSTR_AAAAAAAAAAAA')">공지사항</a>				
 			</li>
 			
 			<!-- <li>
@@ -289,7 +289,11 @@ function getLastLink(baseMenuNo){
         }
     }
 }
-function goMenuPage(url){
+function goMenuPage(url,name,val){
+	
+	if(name != null && name != ""){
+		$('#menuGroup').attr("name",name).val(val);
+	}
     document.menuListForm.action = url;
     document.menuListForm.submit();
 }
@@ -302,9 +306,9 @@ function actionLogout()
 //-->
 </script>
 <!-- // Topmenu end -->
-
+  
 <!-- Menu list -->
-<form name="menuListForm" action="" method="post">
+<form id="menuListForm" name="menuListForm" action="" method="post">
 	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 		<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
 		<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
@@ -317,6 +321,7 @@ function actionLogout()
 	<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
     <input type="hidden" id="baseMenuNo" name="baseMenuNo" value="<%=session.getAttribute("baseMenuNo")%>" />
     <input type="hidden" id="link" name="link" value="" />
+    <input type="hidden" id="menuGroup" name="" value="" />
     <div style="width:0px; height:0px;">
     <c:forEach var="result" items="${list_menulist}" varStatus="status" > 
         <input type="hidden" name="tmp_menuNm" value="${result.menuNo}|${result.upperMenuId}|${result.menuNm}|${result.relateImagePath}|${result.relateImageNm}|${result.chkURL}|" />

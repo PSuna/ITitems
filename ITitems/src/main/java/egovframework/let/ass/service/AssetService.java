@@ -1,5 +1,6 @@
 package egovframework.let.ass.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,14 +38,16 @@ public interface AssetService {
 	//모바일용 전체자산조회리스트
 	public Map<String, Object> MobSelectAssetInfoVOList(AssetManageVO assetManageVO) throws Exception;
 	
-	public int InsertAssetInfo(AssetVO assetVO);
+	public List<String> InsertAsset(AssetVO assetVO);
 	
-	public int UpdateAsset(AssetVO assetVO);
+	public String UpdateAsset(AssetVO assetVO);
 	
 	public int deleteAsset(AssetVO assetVO);
 	
 	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 	public void xlsxTrsfMyAssList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
+	
+	public AssetMasterVO SelectAssetMaster(AssetManageVO assetManageVO);
 
 }

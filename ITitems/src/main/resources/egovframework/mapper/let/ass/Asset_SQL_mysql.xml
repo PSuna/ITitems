@@ -58,6 +58,10 @@
 		<result property="orgnztNm" column="ORGNZT_NM" />
 		<result property="useId" column="USE_ID" />
 		<result property="useNm" column="USE_NM" />
+		<result property="rcptDate" column="RCPT_DATE" />
+		<result property="assetStart" column="ASSET_START" />
+		<result property="assetEnd" column="ASSET_END" />
+		<result property="assetCompany" column="ASSET_COMPANY" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetVO"
@@ -65,6 +69,16 @@
 		<result property="assetStauts" column="ASSET_STAUTS" />
 		<result property="creatDt" column="CREAT_DT" />
 		<result property="creatId" column="CREAT_ID" />
+	</resultMap>
+	
+	<resultMap type="egovframework.let.ass.service.AssetMasterVO"
+		id="assetMaster">
+		<result property="assId" column="ASS_ID" />
+		<result property="assNm" column="ASS_NM" />
+		<result property="frstRegisterId" column="FRST_REGISTER_ID" />
+		<result property="frstRegistPnttm" column="FRST_REGIST_PNTTM" />
+		<result property="lastUpdusrId" column="LAST_UPDUSR_ID" />
+		<result property="lastUpdtPnttm" column="LAST_UPDT_PNTTM" />
 	</resultMap>
 	
 	<sql id="search">
@@ -112,6 +126,9 @@
 			<if test="searchKind == 'in'">
 				AND A.ASSET_STAUTS = 'C1'
 			</if>
+			<if test="assId != null and assId != ''">
+				AND A.ASS_ID = #{assId}
+			</if>
 		</where>
 	</sql>
 	
@@ -145,6 +162,9 @@
 				<![CDATA[
 				AND DATE_FORMAT(A.CREAT_DT, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
+			</if>
+			<if test="assId != null and assId != ''">
+				AND A.ASS_ID = #{assId}
 			</if>
 		</where>
 	</sql>
@@ -319,6 +339,8 @@
 				A.MAKER_CODE, 
 				A.NOTE, 
 				A.ASSET_SN,
+				DATE_FORMAT(A.ASSET_START,'%Y-%m-%d') AS ASSET_START, 
+				DATE_FORMAT(A.ASSET_END,'%Y-%m-%d') AS ASSET_END, 
 				A.RCPT_ID,
 				E.USER_NM AS RCPT_NM,
 				A.PRJ_ID,
@@ -327,7 +349,8 @@
 				H.ORGNZT_NM AS ORGNZT_NM,
 				G.USER_NM AS USE_NM,
 				A.USE_ID,
-				DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE
+				DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
+				A.ASSET_COMPANY
 			  FROM ASSET A
    LEFT OUTER JOIN CATEGORY B
 	   			ON A.LARGE_CATEGORY = B.CAT_ID
@@ -389,12 +412,22 @@
 			ORGNZT_ID,
 			ASSET_NAME,
 			ASSET_SN,
+			<if test="acquiredDate != null and acquiredDate != ''">
+			ACQUIRED_DATE,
+			</if>
+			<if test="assetStart != null and assetStart != ''">
+			ASSET_START,
+			</if>
+			<if test="assetEnd != null and assetEnd != ''">
+			ASSET_END,
+			</if>
 			MAKER,
 			MAKER_CODE,
 			<if test="rcptDate != null and rcptDate != ''">
 			RCPT_DATE,
 			</if>
-			NOTE
+			NOTE,
+			ASSET_COMPANY
 			)
 		VALUES (
 			#{assetId},
@@ -411,12 +444,22 @@
 			#{orgnztId},
 			#{assetName},
 			#{assetSn},
+			<if test="acquiredDate != null and acquiredDate != ''">
+			#{acquiredDate},
+			</if>
+			<if test="assetStart != null and assetStart != ''">
+			#{assetStart},
+			</if>
+			<if test="assetEnd != null and assetEnd != ''">
+			#{assetEnd},
+			</if>
 			#{maker},
 			#{makerCode},
 			<if test="rcptDate != null and rcptDate != ''">
 			#{rcptDate},
 			</if>
-			#{note}
+			#{note},
+			#{assetCompany}
 		)
 	</insert>
 	
@@ -451,6 +494,7 @@
 			<if test="rcptDate != null and rcptDate != ''">
 			RCPT_DATE,
 			</if>
+			ASSET_COMPANY,
 			CREAT_ID
 			)
 		VALUES (
@@ -483,6 +527,7 @@
 			<if test="rcptDate != null and rcptDate != ''">
 			#{rcptDate},
 			</if>
+			#{assetCompany},
 			#{creatId}
 		)
 	</insert>
@@ -533,10 +578,22 @@
 	<update id="UpdateAssetDel" parameterType="egovframework.let.ass.service.AssetVO">
 		UPDATE ASSET
 		   SET 
-		   		USAGE_STAUTS = 'C4',
-		   		ASSET_STAUTS = 'C4'
+		   		USAGE_STAUTS = #{usageStauts},
+		   		ASSET_STAUTS = #{assetStauts}
 		 WHERE MNG_NUM = #{assetId}
 			OR ASSET_ID = #{assetId}
+	</update>
+	
+	<update id="UpdateAssetMngNum" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSETHISTORY
+		   SET 
+		   		MNG_NUM = #{mngNum}
+		 WHERE MNG_NUM = #{assetId};
+		 
+		 UPDATE LETTNFILEDETAIL
+		   SET 
+		   		FILE_GROUP = #{mngNum}
+		 WHERE FILE_GROUP = #{assetId};
 	</update>
 	
 	<select id="xlsxTrsfAssetList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">
@@ -752,6 +809,19 @@
 				ON F.ORGNZT_UP = G.ORGNZT_ID
 				 <include refid="search" />
 		    ) P 
+	</select>
+
+	<select id="SelectAssetMaster" parameterType="egovframework.let.ass.service.AssetManageVO"
+		resultMap="assetMaster">
+		SELECT 
+			ASS_ID,
+			ASS_NM,
+			FRST_REGISTER_ID,
+			FRST_REGIST_PNTTM,
+			LAST_UPDUSR_ID,
+			LAST_UPDT_PNTTM
+		 FROM ASSETMASTER
+		WHERE ASS_ID = #{assId}
 	</select>
 
 </mapper>

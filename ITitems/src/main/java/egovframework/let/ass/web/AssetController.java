@@ -125,6 +125,8 @@ public class AssetController {
 		
 		model.addAttribute("searchVO", assetManageVO);
 		
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
 		return "/ass/MyAssetManagement";
 	}
 	
@@ -178,6 +180,7 @@ public class AssetController {
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
 		model.addAttribute("searchVO", assetManageVO);
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
 		return "/ass/AssetManagement";
 	}
@@ -202,7 +205,7 @@ public class AssetController {
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		model.addAttribute("searchVO", assetManageVO);
-		
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
 		return "/ass/SelectAsset";
 	}
@@ -228,7 +231,8 @@ public class AssetController {
 		model.addAttribute("maker_result", cmmUseService.selectCmmCodeDetail(vo));
 		
 		model.addAttribute("searchVO", assetManageVO);
-	
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
 		return "/ass/AssetRegist";
 	}
 	
@@ -243,20 +247,24 @@ public class AssetController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		assetVO.setCreatId(user.getUniqId());
 
-		assetService.InsertAssetInfo(assetVO);
+		List<String> list = assetService.InsertAsset(assetVO);
 		
 		if (isAuthenticated) {
 			List<MultipartFile> photoList = multiRequest.getFiles("photo");
 			for(MultipartFile photo : photoList) {
 				if (!photo.isEmpty()) {
-					FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
-					fileMngService.insertAssFileInf(result);
+					for(String id : list) {
+						FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", id, "PHOTO");
+						fileMngService.insertAssFileInf(result);
+					}
 				}
 			}
 			MultipartFile file = multiRequest.getFile("file");
 			if (!file.isEmpty()) {
-				FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
-				fileMngService.insertAssFileInf(result);
+				for(String id : list) {
+					FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", id, "FILE");
+					fileMngService.insertAssFileInf(result);
+				}
 			}
 		}
 		
@@ -289,7 +297,8 @@ public class AssetController {
 		fvo.setFileType("FILE");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		model.addAttribute("searchVO", assetManageVO);
-	
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
 		return "/ass/AssetUpdt";
 	}
 	
@@ -301,12 +310,12 @@ public class AssetController {
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetVO.setCreatId(user.getUniqId());
-		assetService.UpdateAsset(assetVO);
+		String resultId = assetService.UpdateAsset(assetVO);
 		
 		String[] delPhotoList = delPhoto.split("/");
 		
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(assetVO.getAssetId());
+		fvo.setFileGroup(resultId);
 		for(String photoId : delPhotoList) {
 			fvo.setAtchFileId(photoId);
 			fileMngService.updateFileListUse(fvo);
@@ -314,7 +323,7 @@ public class AssetController {
 		List<MultipartFile> photoList = multiRequest.getFiles("photo");
 		for(MultipartFile photo : photoList) {
 			if (!photo.isEmpty()) {
-				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
+				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", resultId, "PHOTO");
 				fileMngService.insertAssFileInf(result);
 			}
 		}
@@ -325,12 +334,12 @@ public class AssetController {
 		MultipartFile file = multiRequest.getFile("file");
 		if (!file.isEmpty()) {
 			fileMngService.updateFileUse(fvo);
-			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", resultId, "FILE");
 			fileMngService.insertAssFileInf(result);
 		}
 		
 		
-		return assetVO.getAssetId();
+		return resultId;
 	}
 	
 	
@@ -341,7 +350,7 @@ public class AssetController {
 	@ResponseBody
 	public String AssetDel(AssetVO assetVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		/* assetVO.setHistUser(user.getUniqId()); */
+		assetVO.setCreatId(user.getUniqId());
 		assetService.deleteAsset(assetVO);
 		
 		return assetVO.getAssetId();

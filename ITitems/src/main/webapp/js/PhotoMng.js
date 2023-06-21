@@ -1,7 +1,7 @@
 /****************************************************************
  *
  * 파일명 : PhotoMng.js
- * 설  명 : 사진 다중 업로드 JavaScript
+ * 설  명 : 사진 다중 업로드 & 단건 파일 업로드 JavaScript
  *
  *    수정일      수정자     Version        Function 명
  * ------------    ---------   -------------  ----------------------------
@@ -122,36 +122,31 @@ function getDelPhotoList() {
 	$('#delPhoto').val(delPhotoList);
 }
 
-/*//img 비교해서 이미 표시된 이미지면 표시안함
-function matchfile(fileName) {
-	let check = true;
-	if (photoFileList.length == 0) {
-		listinput(fileName);
-		return check;
-	} else {
-		for (let i = 0; i < photoFileList.length; i++) {
-			if (photoFileList[i].name == fileName) {
-				check = false;
-			}
-		}
-	}
-	if (check) {
-		listinput(fileName);
-	}
-	return check;
-}*/
+/* ********************************************************
+ * 지급확인서 파일명 가져오기
+ ******************************************************** */
+ function getFileName(obj) {
+	 if(obj.files.length>0){
+		 $('#fileNm').val(obj.files[0].name);
+		 const dataTransfer = new DataTransfer();
+		 dataTransfer.items.add(obj.files[0]);
+		 $('input[name=file]')[0].files = dataTransfer.files; 
+		 if($(obj).next().prop('tagName') != 'IMG'){
+			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+				 delFileName();
+				}));
+		 }
+		 $(obj).val('');
+	 }
+}
 
-/*
-// 중복되지 않는 파일은 저장
-function listinput(fileName) {
-	let files = $('#aks-file-upload').find('input#aksfileupload')[0].files;
-	let fileArray = Array.from(files);
-	for (let i = 0; i < fileArray.length; i++) {
-		if (fileArray[i].name == fileName) {
-			photoFileList.push(fileArray[i]);
-		}
-	}
-	return;
-}*/
+/* ********************************************************
+ * 지급확인서 파일 지우기
+ ******************************************************** */
+ function delFileName() {
+	 $('#fileNm').val('');
+	 $('input[name=file]').val('');
+	 $('#fileNm').closest(".filebox").find('img')[0].remove();
+}
 
 

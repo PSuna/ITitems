@@ -7,6 +7,7 @@ import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetMasterVO;
 import egovframework.let.ass.service.AssetVO;
 
 /**
@@ -70,6 +71,10 @@ public class AssetDAO extends EgovAbstractMapper {
 		return insert("AssetDAO.InsertAssethist",AssetVO);
 	};
 	
+	public int UpdateAssetMngNum(AssetVO AssetVO) {
+		return update("AssetDAO.UpdateAssetMngNum",AssetVO);
+	};
+	
 	public int UpdateAssetDel(AssetVO AssetVO) {
 		return update("AssetDAO.UpdateAssetDel",AssetVO);
 	};
@@ -101,4 +106,8 @@ public class AssetDAO extends EgovAbstractMapper {
 		return selectList("AssetDAO.MobSelectMyAssetInfoList", assetManageVO);
 	}
 
+	public AssetMasterVO SelectAssetMaster(AssetManageVO assetManageVO) {
+		return selectOne("AssetDAO.SelectAssetMaster", assetManageVO);
+	}
+	
 }
