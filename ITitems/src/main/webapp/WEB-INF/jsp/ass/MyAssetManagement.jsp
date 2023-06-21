@@ -362,14 +362,13 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 5%;">
-											<col style="width: 8%;">
-											<col style="width: 16%;">
-											<col style="width: 16%;">
-											<col style="width: 30%;">
-											<col style="width: 8%;">
-											<col style="width: 8%;">
+											<col style="width: 6%;">
+											<col style="width: 9%;">
+											<col style="width: 17%;">
+											<col style="width: 17%;">
+											<col style="width: 31%;">
 											<col style="width: 10%;">
+											<col style="width: 11%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -378,7 +377,6 @@ window.onload = function(){
 												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
 												<th scope="col">프로젝트</th>
-												<th scope="col">자산관리번호</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 											</tr>
@@ -394,7 +392,6 @@ window.onload = function(){
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
 													<td><c:out value="${result.prjNm}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>

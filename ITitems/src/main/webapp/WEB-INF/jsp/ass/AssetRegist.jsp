@@ -526,7 +526,7 @@ window.onload = function(){
 								<!--// Location -->
 
 								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" autocomplete="off">
-
+									
 									<h1 class="tit_1">자산관리</h1>
 
 									<h2 class="tit_2">신규자산등록</h2>
@@ -543,13 +543,12 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 대분류 --> 
-													<label for="">대분류</label> 
+													<label for=""><spring:message code="ass.largeCategory" /></label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
 													<label class="f_select w_full" for="largeCategory">
-															<select id="largeCategory" name="largeCategory"
-																title="대분류" onchange="getMCatList();">
+															<select id="largeCategory" name="largeCategory" onchange="getMCatList();">
 																<option value="" label="선택하세요" />
 																<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 																	<option value="${LCat.catId}">
@@ -561,7 +560,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 수량 -->
-													<label for="assetQty">수량</label> 
+													<label for="assetQty"><spring:message code="ass.assetQty" /></label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
@@ -572,7 +571,7 @@ window.onload = function(){
 											<tr>
 											<td class="lb">
 													<!-- 중분류 --> 
-													<label for="">중분류</label> 
+													<label for=""><spring:message code="ass.middleCategory" /></label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
@@ -589,7 +588,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> 
-													<label for="">제조사</label>
+													<label for=""><spring:message code="ass.maker" /></label>
 												</td>
 												<td>
 													<label class="f_select w_full" for="largeCategory">
@@ -619,7 +618,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for="">제품명(모델명)</label>
+													<label for=""><spring:message code="ass.assetName2" /></label>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
@@ -627,7 +626,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+													<label for=""><spring:message code="ass.assetSn" /></label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
@@ -640,44 +639,44 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<label for=""><spring:message code="ass.rcptId" /></label> 
 													<span class="req">필수</span>
 												</td>
 												<td>
 													<c:set var="Nm" value="<%= loginVO.getName()%>"/>
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_full"> 
-													<input id="rcptNm" name="rcptNm" type="text" title="회원" maxlength="100"
+													<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
 														readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
-													<input name="rcptId" id="rcptId" type="hidden" title="프로젝트" 
+													<input name="rcptId" id="rcptId" type="hidden" 
 														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
+													<label for=""><spring:message code="ass.useId" /></label> 
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input id="useNm" name="useNm" type="text" title="회원" maxlength="100"
+														<input id="useNm" name="useNm" type="text" maxlength="100"
 															readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
-													<input name="useId" id="useId" type="hidden" title="프로젝트" value="<c:out value="${Id}"></c:out>"
+													<input name="useId" id="useId" type="hidden" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
-													<label for="orgnztId">본부/부서</label>
+													<label for="orgnztId"><spring:message code="ass.orgnzt" /></label>
 												</td>
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
 													<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
 													<label class="f_select w_full" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" title="부서">
+														<select id="orgnztId" name="orgnztId" >
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
@@ -698,26 +697,26 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
-													<label for="">프로젝트</label>
+													<label for=""><spring:message code="ass.prj" /></label>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
 
-													<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100"
+													<input id="prjNm" name="prjNm" type="text" maxlength="100"
 
 														readonly="readonly" />
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
 													<form:errors path="prjId" /> 
-													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
+													<input name="prjId" id="prjId" type="hidden"  maxlength="8"
 														readonly="readonly" />
 												</td>
 											</tr>
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<label for=""><spring:message code="ass.rcptDate" /></label> 
 												</td>
 												<td colspan="4">
 												<span class="search_date w_full">
@@ -727,7 +726,7 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
+													<label for="egovComFileUploader"><spring:message code="ass.file" /></label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="4">
@@ -746,7 +745,7 @@ window.onload = function(){
 											
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">제품사진</label>
+													<label for="egovComFileUploader"><spring:message code="ass.photo" /></label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												</td>
 												<td colspan="4">
@@ -762,7 +761,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 비고 --> 
-													<label for="note">비고</label>
+													<label for="note"><spring:message code="ass.note" /></label>
 												</td>
 												<td colspan="4">
 													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1"></textarea>
@@ -810,6 +809,7 @@ window.onload = function(){
 									<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
 									<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
 								</c:if>
+								
 								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
 								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />

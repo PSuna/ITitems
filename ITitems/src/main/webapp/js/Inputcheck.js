@@ -3,8 +3,7 @@
  ******************************************************** */
 function symbolCheck1(obj){
 	let val = $(obj).val();
-	let newVal = val.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g, "");
-	
+	let newVal = val.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g, "");
 	 $(obj).val(newVal);
 }
 
@@ -13,7 +12,6 @@ function symbolCheck1(obj){
  ******************************************************** */
 function symbolCheck2(obj){
 	let val = $(obj).val();
-	let newVal = val.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g, "");
-	
+	let newVal = val.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g, "");
 	 $(obj).val(newVal);
 }
