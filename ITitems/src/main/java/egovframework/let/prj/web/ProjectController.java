@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -161,6 +162,7 @@ public class ProjectController {
 	 * @exception Exception
 	 */
 	@RequestMapping("/prj/ProjectInsert.do")
+	@ResponseBody
 	public String ProjectInsert(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
 		
 		// 미인증 사용자에 대한 보안처리
@@ -170,9 +172,10 @@ public class ProjectController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
-		projectService.insertPrj(projectVO);
+		int r = projectService.insertPrj(projectVO);
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
+		String result = String.valueOf(r);
+		return result;
 	}
 	
 	/**

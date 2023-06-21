@@ -48,13 +48,18 @@ public class CategoryServiceImpl extends EgovAbstractServiceImpl implements Cate
      * 카테고리 삭제
      */
 	@Override
-	public int DeleteCategory(CategoryManageVO categoryManageVO){
-		try {
-			categoryDAO.DeleteCategory(categoryManageVO);
-		} catch (Exception e) {
-			return 0;
+	public int DeleteCategory(CategoryManageVO categoryManageVO) throws Exception{
+		int result = 0;
+		
+		if(categoryManageVO.getCheckUpDown().equals("up")) {
+			result = categoryDAO.DeleteCategory(categoryManageVO);
+		}else{
+			int downNum = categoryDAO.findDownNum(categoryManageVO);
+			if(downNum < 1) {
+				result = categoryDAO.DeleteCategory(categoryManageVO);
+			}
 		}
-		return 1;
+		return result;
 	}
 	
 	/**

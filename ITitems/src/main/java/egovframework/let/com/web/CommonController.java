@@ -16,6 +16,8 @@ import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.prj.service.ProjectManageVO;
+import egovframework.let.prj.service.ProjectService;
 import egovframework.let.rent.service.RentalManageVO;
 import egovframework.let.rent.service.RentalService;
 import egovframework.let.req.service.RequestManageVO;
@@ -63,6 +65,9 @@ public class CommonController {
 	@Resource(name = "RentalService")
 	private RentalService rentalService;
 	
+	/** projectService */
+	@Resource(name = "ProjectService")
+	private ProjectService projectService;
 	/**
 	 * 등록확인 팝업창로 이동
 	 */
@@ -265,5 +270,11 @@ public class CommonController {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		rentalManageVO.setUserId(user.getUniqId());
 		rentalService.xlsxTrsfMyRentList(rentalManageVO,req,res);
+	}
+	
+	//프로젝트목록 엑셀 출력
+	@RequestMapping("/com/xlsxTrsfPrjList.do")
+	public void xlsxTrsfPrjList(HttpServletRequest req, HttpServletResponse res, ModelMap model, ProjectManageVO projectManageVO, HttpSession session) throws Exception {
+		projectService.xlsxTrsfPrjList(projectManageVO,req,res);
 	}
 }
