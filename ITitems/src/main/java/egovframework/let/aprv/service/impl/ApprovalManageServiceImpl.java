@@ -120,13 +120,13 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 
 	@Override
 	public int ApprovalInsertHist(AssetVO assetVO) {
-		List<String> aId = assetDAO.getAId(assetVO);
+		/*List<String> aId = assetDAO.getAId(assetVO);*/
 		int r = 0;
-		for(String aid : aId) {
+		/*for(String aid : aId) {
 			assetVO.setaId(aid);
 			assetDAO.UpdateAssethist(assetVO);
 			r = assetDAO.InsertAssethist(assetVO);
-		}
+		}*/
 		return r;
 	}
 }

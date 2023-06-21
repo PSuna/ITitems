@@ -21,19 +21,13 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public class AssetVO implements Serializable {
+
+	/** 자산관리번호 */
+	private String mngNum;
 	
-	/** 자산코드 */
+	/** 임시 자산코드 */
 	private String assetId;
 
-	/** 등록일자 */
-	private String regDate;
-
-	/** 등록자 */
-	private String regId;
-
-	/** 자산 개수 */
-	private String assetQty;
-	
 	/** 대분류 */
 	private String largeCategory;
 	
@@ -48,31 +42,34 @@ public class AssetVO implements Serializable {
 
 	/** 중분류 기타 */
 	private String mcatEtc;
-
+	
 	/** 제품명(모델명) */
 	private String assetName;
 
 	/** 취득일자 */
 	private String acquiredDate;
+	
+	/** 자산 시작일 */
+	private String assetStart;
+	
+	/** 자산 종료일 */
+	private String assetEnd;
 
 	/** 취득가액 */
 	private String acquiredPrice;
-
+	
 	/** 제조사 */
 	private String maker;
 
 	/** 제조사 코드 */
 	private String makerCode;
-
+	
 	/** 비고 */
 	private String note;
 
 	/** 시리얼넘버 */
 	private String assetSn;
-
-	/** 자산관리번호 */
-	private String mngNum;
-
+	
 	/** 수령자 */
 	private String rcptId;
 	
@@ -82,12 +79,6 @@ public class AssetVO implements Serializable {
 	/** 수령일자 */
 	private String rcptDate;
 	
-	/** 자산상세 ID */
-	private String aId;
-	
-	/** 자산상세 분류 */
-	private String detailGroup;
-
 	/** 본부 */
 	private String orgnztId;
 	
@@ -111,15 +102,27 @@ public class AssetVO implements Serializable {
 
 	/** 사용자 이름*/
 	private String useNm;
-
-	/** 내역 상태 */
-	private String histStatus;
-
-	/** 내역 신청자 */
-	private String histUser;
-
-	/** 내역 분류 */
-	private String histGroup;
+	
+	/** 자산 상태 */
+	private String assetStauts;
+	
+	/** 등록날짜 */
+	private String creatDt;
+	
+	/** 등록자 */
+	private String creatId;
+	
+	/** 등록자 이름 */
+	private String creatNm;
+	
+	/** 사용 상태 */
+	private String usageStauts;
+	
+	/** 자산 개수 */
+	private String assetQty;
+	
+	/** 자산 분류 ID */
+	private String assId;
 	
 	private int reqQty;
 
@@ -129,22 +132,6 @@ public class AssetVO implements Serializable {
 
 	public void setAssetId(String assetId) {
 		this.assetId = assetId;
-	}
-
-	public String getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-
-	public String getRegId() {
-		return regId;
-	}
-
-	public void setRegId(String regId) {
-		this.regId = regId;
 	}
 
 	public String getAssetQty() {
@@ -169,14 +156,6 @@ public class AssetVO implements Serializable {
 
 	public void setMiddleCategory(String middleCategory) {
 		this.middleCategory = middleCategory;
-	}
-
-	public String getMcatNm() {
-		return mcatNm;
-	}
-
-	public void setMcatNm(String mcatNm) {
-		this.mcatNm = mcatNm;
 	}
 
 	public String getMcatEtc() {
@@ -266,15 +245,7 @@ public class AssetVO implements Serializable {
 	public void setRcptNm(String rcptNm) {
 		this.rcptNm = rcptNm;
 	}
-
-	public String getaId() {
-		return aId;
-	}
-
-	public void setaId(String aId) {
-		this.aId = aId;
-	}
-
+	
 	public String getOrgnztId() {
 		return orgnztId;
 	}
@@ -339,31 +310,6 @@ public class AssetVO implements Serializable {
 		this.useNm = useNm;
 	}
 
-	public String getHistStatus() {
-		return histStatus;
-	}
-
-	public void setHistStatus(String histStatus) {
-		this.histStatus = histStatus;
-	}
-
-
-	public String getHistUser() {
-		return histUser;
-	}
-
-	public void setHistUser(String histUser) {
-		this.histUser = histUser;
-	}
-
-	public String getHistGroup() {
-		return histGroup;
-	}
-
-	public void setHistGroup(String histGroup) {
-		this.histGroup = histGroup;
-	}
-
 	public int getReqQty() {
 		return reqQty;
 	}
@@ -380,12 +326,61 @@ public class AssetVO implements Serializable {
 		this.rcptDate = rcptDate;
 	}
 
-	public String getDetailGroup() {
-		return detailGroup;
+
+	public String getMcatNm() {
+		return mcatNm;
 	}
 
-	public void setDetailGroup(String detailGroup) {
-		this.detailGroup = detailGroup;
+	public void setMcatNm(String mcatNm) {
+		this.mcatNm = mcatNm;
+	}
+
+	public String getAssetStart() {
+		return assetStart;
+	}
+
+	public void setAssetStart(String assetStart) {
+		this.assetStart = assetStart;
+	}
+
+	public String getAssetEnd() {
+		return assetEnd;
+	}
+
+	public void setAssetEnd(String assetEnd) {
+		this.assetEnd = assetEnd;
+	}
+
+	public String getAssetStauts() {
+		return assetStauts;
+	}
+
+	public void setAssetStauts(String assetStauts) {
+		this.assetStauts = assetStauts;
+	}
+
+	public String getCreatDt() {
+		return creatDt;
+	}
+
+	public void setCreatDt(String creatDt) {
+		this.creatDt = creatDt;
+	}
+
+	public String getCreatId() {
+		return creatId;
+	}
+
+	public void setCreatId(String creatId) {
+		this.creatId = creatId;
+	}
+
+	public String getCreatNm() {
+		return creatNm;
+	}
+
+	public void setCreatNm(String creatNm) {
+		this.creatNm = creatNm;
 	}
 
 	public String getLargeCategoryCode() {
@@ -396,6 +391,20 @@ public class AssetVO implements Serializable {
 		this.largeCategoryCode = largeCategoryCode;
 	}
 
-	
+	public String getAssId() {
+		return assId;
+	}
+
+	public void setAssId(String assId) {
+		this.assId = assId;
+	}
+
+	public String getUsageStauts() {
+		return usageStauts;
+	}
+
+	public void setUsageStauts(String usageStauts) {
+		this.usageStauts = usageStauts;
+	}
 	
 }
