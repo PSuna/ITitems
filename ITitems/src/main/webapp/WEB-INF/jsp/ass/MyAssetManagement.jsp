@@ -83,7 +83,7 @@ function getMCatList(Mval) {
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategory List.do',
+			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpper' : val},

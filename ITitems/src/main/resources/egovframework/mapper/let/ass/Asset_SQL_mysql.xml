@@ -95,7 +95,7 @@
 				AND A.MIDDLE_CATEGORY = #{searchdMCat}
 			</if>
 			<if test="searchStatus != null and searchStatus != ''">
-				AND A.CREAT_STATUS = #{searchStatus}
+				AND A.ASSET_STAUTS = #{searchStatus}
 			</if>
 			<if test="startDate != null and startDate != ''">
 				AND DATE_FORMAT(A.CREAT_DT, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
@@ -107,10 +107,10 @@
 				]]>
 			</if>
 			<if test="searchKind == 'out'">
-				AND A.CREAT_STATUS != 'C1'
+				AND A.ASSET_STAUTS != 'C1'
 			</if>
 			<if test="searchKind == 'in'">
-				AND A.CREAT_STATUS = 'C1'
+				AND A.ASSET_STAUTS = 'C1'
 			</if>
 		</where>
 	</sql>
