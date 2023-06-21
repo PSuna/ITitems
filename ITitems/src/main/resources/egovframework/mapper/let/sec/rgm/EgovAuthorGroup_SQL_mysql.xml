@@ -39,15 +39,8 @@
                AND B.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
                AND USER_ID != 'admin'
             <if test="searchKeyword != null and searchKeyword != ''">
-                <if test='searchCondition == "1"'>AND
-                       A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
-                </if>
-	            <if test='searchCondition == "2"'>AND
-	                   A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
-	            </if>
-	            <!-- <if test='searchCondition == "3"'>AND
-	                   A.GROUP_ID = #{searchKeyword}
-	            </if> -->
+	            	AND (A.USER_ID LIKE '%' #{searchKeyword} '%'
+          	 		     OR A.USER_NM LIKE '%' #{searchKeyword} '%')
             </if>
             
             ORDER BY USER_NM ASC
@@ -107,15 +100,8 @@
                AND B.AUTHOR_CODE != 'ROLE_HIGH_ADMIN' 
 	           AND USER_ID != 'admin'
             <if test="searchKeyword != null and searchKeyword != ''">
-                <if test='searchCondition == "1"'>AND
-                       A.USER_ID LIKE CONCAT('%' , #{searchKeyword}, '%')
-                </if>
-	            <if test='searchCondition == "2"'>AND
-	                   A.USER_NM LIKE CONCAT('%' , #{searchKeyword}, '%')
-	            </if>
-	            <!-- <if test='searchCondition == "3"'>AND
-	                   A.GROUP_ID = #{searchKeyword}
-	            </if> -->
+	            	AND (A.USER_ID LIKE '%' #{searchKeyword} '%'
+          	 		     OR A.USER_NM LIKE '%' #{searchKeyword} '%')
             </if>) A
 	</select>
 

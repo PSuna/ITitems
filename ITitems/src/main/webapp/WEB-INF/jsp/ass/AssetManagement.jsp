@@ -460,7 +460,7 @@ window.onload = function(){
 												<th scope="col">부서</th>
 												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
-												<th scope="col">수량</th>
+												<th scope="col">자산관리번호</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
 												<!-- <th scope="col">상태</th> -->
@@ -477,7 +477,7 @@ window.onload = function(){
 													<td><c:out value="${result.lowerOrgnztNm}" /></td>
 													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<td><c:out value="${result.assetQty}" /></td>
+													<td><c:out value="${result.mngNum}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>

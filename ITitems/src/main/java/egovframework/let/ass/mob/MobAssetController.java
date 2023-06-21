@@ -130,15 +130,18 @@ public class MobAssetController {
 	 * 자산상세정보 페이지로 이동
 	 */
 	@RequestMapping(value = "/ass/MobSelectAsset.do")
-	public Map<String, Object> SelectAsset(HttpServletRequest request, AssetManageVO assetManageVO,
-			@RequestBody AssetManageVO avo) throws Exception {
+	public Map<String, Object> SelectAsset(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
-		AssetVO result = assetService.SelectAssetVO(avo);
-
+		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		appMap.put("resultVO", result);
+		
+		Map<String, Object> map = assetService.SelectAssetHistList(assetManageVO);
+		appMap.put("resultList", map.get("resultList"));
+		appMap.put("resultCnt", map.get("resultCnt"));
+		
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(avo.getAssetId());
+		fvo.setFileGroup(assetManageVO.getAssetId());
 		fvo.setFileType("PHOTO");
 		appMap.put("PhotoList", fileMngService.selectFileList(fvo));
 		fvo.setFileType("FILE");
@@ -152,8 +155,8 @@ public class MobAssetController {
 	 * 반출신청에서 자산조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/ass/MobAssetSearchList.do")
-	public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
-			throws Exception {
+	   public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
+	         throws Exception {
 		System.out.println("넘어온 자산 정보 =======================");
 		System.out.println(assetManageVO.getSearchName());
 		System.out.println(assetManageVO.getUserId());

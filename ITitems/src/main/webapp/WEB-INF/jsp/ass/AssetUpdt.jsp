@@ -37,6 +37,7 @@
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <script src="<c:url value='/'/>js/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/Confirm.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -569,7 +570,7 @@ window.onload = function(){
 								<%
 									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 								%>
-								<form:form modelAttribute="AssetInfoVO" id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
+								<form id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 									<h1 class="tit_1">자산관리</h1>
 
@@ -588,6 +589,15 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label>
+												</td>
+												<td colspan="3">
+													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 대분류 --> 
 													<label for="">대분류</label> 
 													<span class="req">필수</span>
@@ -596,7 +606,9 @@ window.onload = function(){
 													<input id="largeCategoryNm" class="f_txt w_full readonly" name="largeCategoryNm" type="text" value="${resultVO.largeCategory}" readonly="readonly">
 													<input id="largeCategory" class="f_txt w_full readonly" name="largeCategory" type="hidden" value="${resultVO.largeCategoryCode}" readonly="readonly"> 
 												</td>
-												<td class="lb">
+												<td colspan="2">
+												</td>
+												<%-- <td class="lb">
 													<!-- 수량 -->
 													<label for="">수량</label> 
 													<span class="req">필수</span>
@@ -604,7 +616,7 @@ window.onload = function(){
 												<td>
 													<input id="assetQty" class="f_txt w_full readonly" name="assetQty" type="text" value="${resultVO.assetQty}"  maxlength="20" readonly="readonly"
 														onchange="getNumber(this);" onkeyup="getNumber(this);">
-												</td>
+												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -696,15 +708,6 @@ window.onload = function(){
 													</c:otherwise>
 												</c:choose>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td>
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
-												</td>
-												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
@@ -716,9 +719,20 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-												</td> --%>
+												</td>
 											</tr>
-											<%-- <tr>
+											<tr>
+												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="3">
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
+											</tr>
+											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
@@ -751,16 +765,6 @@ window.onload = function(){
 													<input name="prjId" id="prjId" type="hidden" title="프로젝트"  maxlength="8"
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
-											</tr> --%>
-											<tr>
-												
-												<%-- <td class="lb">
-													<!-- 자산관리번호 --> 
-													<label for="">자산관리번호</label>
-												</td>
-												<td>
-													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60"> 
-												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -787,7 +791,7 @@ window.onload = function(){
 													<label for="egovComFileUploader">지급확인서</label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
 													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
@@ -832,21 +836,10 @@ window.onload = function(){
 													<!-- 비고 --> 
 													<label for="note">비고</label>
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<textarea id="note" name="note" class="f_txtar w_full " cols="30" rows="1" >${resultVO.note}</textarea>
 												</td>
 											</tr>
-											<%-- <tr>
-												<td class="lb">
-													<!-- 반출사유 --> 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td colspan="4">
-												
-													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full" cols="30" rows="1">${resultVO.carryReason}</textarea>
-												</td>
-											</tr> --%>
 										</table>
 									</div>
 									<!-- 버튼  -->
@@ -867,10 +860,9 @@ window.onload = function(){
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-								</form:form>
+								</form>
 								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
-									<input type="hidden" name="assetId"
-										value="<c:out value='${resultVO.assetId}'/>" />
+									<input type="hidden" id="assetId" name="assetId" value="<c:out value='${resultVO.assetId}'/>" />
 									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
 									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />

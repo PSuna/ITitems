@@ -30,7 +30,7 @@
 			   UPPER_CAT
 		FROM CATEGORY
 		<include refid="search"></include>
-		ORDER BY CAT_ORDER ASC, CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
+		ORDER BY CAT_ORDER ASC, CAT_NAME, CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
 	</select>
 	
 	<delete id="DeleteCategory" parameterType="egovframework.let.cat.service.CategoryManageVO">
@@ -58,4 +58,9 @@
 			  #{upperCat}
 			  )
 	</insert>
+	<select id="findDownNum" parameterType="egovframework.let.cat.service.CategoryVO" resultType="int">
+		SELECT COUNT(ASSET_ID)
+		  FROM ASSETDETAIL
+		 WHERE MIDDLE_CATEGORY = #{catId}
+	</select>
 </mapper>

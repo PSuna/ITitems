@@ -264,16 +264,8 @@ function press() {
                                 <!-- 검색조건 -->
                                 <div class="condition pty_condition">
                                 	<div style="display: flex; gap:8px;">
-	                                    <label class="f_select item" for="searchCondition">
-	                                        <select id="searchCondition" name="searchCondition" onchange="onSearchCondition()" title="조회조건">
-	    					                    <option value="1" <c:if test="${authorManageVO.searchCondition == '1'}">selected="selected"</c:if> >사용자ID</option>
-	                                            <option value="2" <c:if test="${authorManageVO.searchCondition == '2'}">selected="selected"</c:if> >사용자명</option>
-	    					               
-	    					                </select>
-	                                    </label> 
-									
 										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
+											<input class="f_input w_full pty_f_input" type="text" name="searchKeyword" placeholder="사용자명/사용자ID 검색" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
 										</span>
 										<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
 									</div>

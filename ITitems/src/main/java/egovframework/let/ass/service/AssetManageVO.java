@@ -31,6 +31,9 @@ public class AssetManageVO implements Serializable {
 	/** 자산코드 */
 	private String assetId;
 	
+	/** 자산 분류 ID */
+	private String assId;
+	
 	/** 검색본부 */
     private String searchOrgnzt = "";
     

@@ -245,6 +245,15 @@ function AssetList(){
 											</colgroup>
 											<tr>
 												<td class="lb">
+													<!-- 자산관리번호 --> 
+													<label for="">자산관리번호</label> 
+												</td>
+												<td colspan="3" >
+													${resultVO.mngNum}
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 대분류 --> <label for="">대분류</label>
 												</td>
 												<td>${resultVO.largeCategory}</td>
@@ -270,9 +279,16 @@ function AssetList(){
 												</td>
 												<td>${resultVO.assetSn}</td>
 												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td>
+													${resultVO.rcptDate}
+												</td>
+												<%-- <td class="lb">
 													<!-- 수량 --> <label for="">총 수량</label>
 												</td>
-												<td> ${resultVO.assetQty}</td>
+												<td> ${resultVO.assetQty}</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -283,27 +299,20 @@ function AssetList(){
 													${resultVO.rcptNm}
 												</td>
 												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td>
-													${resultVO.rcptDate}
-												</td>
-												<%-- <td class="lb">
 													<!-- 실사용자 --> 
 													<label for="">실사용자</label> 
 												</td>
 												<td>
 													${resultVO.useNm}
-												</td> --%>
+												</td>
 											</tr>
-											<%-- <tr>
+											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
 													<label for="orgnztId">본부/부서</label>
 												</td>
 												<td>
-													${resultVO.orgnztId}
+													${resultVO.orgnztNm}
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
@@ -312,16 +321,6 @@ function AssetList(){
 												<td>
 													${resultVO.prjNm}
 												</td>
-											</tr> --%>
-											<tr>
-												
-												<%-- <td class="lb">
-													<!-- 자산관리번호 --> 
-													<label for="">자산관리번호</label> 
-												</td>
-												<td >
-													${resultVO.mngNum}
-												</td> --%>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -369,29 +368,20 @@ function AssetList(){
 											</tr>
 											<%-- <tr>
 												<td class="lb">
-													<!-- 반출사유 --> 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td colspan="4">
-													${fn:replace(resultVO.carryReason, newLineChar, "<br/>")}
-												</td>
-											</tr> --%>
-											<tr>
-												<td class="lb">
 													<!-- 등록일자 --> 
 													<label for="">등록일자</label> 
 												</td>
 												<td>
-													${resultVO.regDate}
+													${resultVO.creatDt}
 												</td>
 												<td class="lb">
 													<!-- 등록자 --> 
 													<label for="">등록자</label> 
 												</td>
 												<td>
-													${resultVO.regId}
+													${resultVO.creatNm}
 												</td>
-											</tr>
+											</tr> --%>
 										</table>
 									</div>
 									<br>
@@ -400,23 +390,17 @@ function AssetList(){
 									<div class="non_scrollList">
 										<table>
 											<colgroup>
-												<col style="width: 6%;">
-												<col style="width: 13%;">
-												<col style="width: 13%;">
-												<col style="width: 36%;">
-												<col style="width: 14%;">
-												<col style="width: 8%;">
-												<col style="width: 8%;">
+												<col style="width: 10%;">
+												<col style="width: 30%;">
+												<col style="width: 30%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<thead>
 												<tr>
 													<th scope="col">번호</th>
-													<th scope="col">본부</th>
-													<th scope="col">부서</th>
-													<th scope="col">프로젝트</th>
-													<th scope="col">자산관리번호</th>
-													<th scope="col">실사용자</th>
-													<th scope="col">상태</th>
+													<th scope="col">내역</th>
+													<th scope="col">회원</th>
+													<th scope="col">일자</th>
 												</tr>
 											</thead>
 										</table>
@@ -424,26 +408,19 @@ function AssetList(){
 									<div class="scrollList">
 										<table>
 											<colgroup>
-												<col style="width: 6%;">
-												<col style="width: 13%;">
-												<col style="width: 13%;">
-												<col style="width: 36%;">
-												<col style="width: 14%;">
-												<col style="width: 8%;">
-												<col style="width: 8%;">
-												<col style="width: 1%;">
+												<col style="width: 10%;">
+												<col style="width: 30%;">
+												<col style="width: 30%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tbody>
 												<c:forEach var="result" items="${resultList}"
 													varStatus="status">
 													<tr>
-														<td><c:out value="${status.index + 1}" /></td>
-														<td><c:out value="${result.orgnztNm}" /></td>
-														<td><c:out value="${result.lowerOrgnztNm}" /></td>
-														<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
-														<td><c:out value="${result.assetQty}" /></td>
-														<td><c:out value="${result.useNm}" /></td>
-														<td><c:out value="${result.histGroup}" /></td>
+														<td><c:out value="${resultCnt - status.index}" /></td>
+														<td><c:out value="${result.assetStauts}" /></td>
+														<td><c:out value="${result.creatId}" /></td>
+														<td><c:out value="${result.creatDt}" /></td>
 													</tr>
 												</c:forEach>
 												<c:if test="${empty resultList}">

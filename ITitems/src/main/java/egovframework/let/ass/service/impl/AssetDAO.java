@@ -62,38 +62,18 @@ public class AssetDAO extends EgovAbstractMapper {
 		return insert("AssetDAO.InsertAsset",AssetVO);
 	};
 	
-	public int InsertAssetdetail(AssetVO AssetVO) {
-		return insert("AssetDAO.InsertAssetdetail",AssetVO);
-	};
-	
-	public int InsertAssetIndiv(AssetVO AssetVO) {
-		return insert("AssetDAO.InsertAssetIndiv",AssetVO);
+	public int UpdateAsset(AssetVO AssetVO) {
+		return insert("AssetDAO.UpdateAsset",AssetVO);
 	};
 	
 	public int InsertAssethist(AssetVO AssetVO) {
 		return insert("AssetDAO.InsertAssethist",AssetVO);
 	};
 	
-	public int UpdateAssetdetail(AssetVO AssetVO) {
-		return update("AssetDAO.UpdateAssetdetail",AssetVO);
-	};
-	
-	public int UpdateAssethist(AssetVO AssetVO) {
-		return update("AssetDAO.UpdateAssethist",AssetVO);
-	};
-	
-	public List<String> SelectaIdList(AssetManageVO AssetManageVO) {
-		return selectList("AssetDAO.SelectaIdList",AssetManageVO);
-	};
-	
 	public int UpdateAssetDel(AssetVO AssetVO) {
 		return update("AssetDAO.UpdateAssetDel",AssetVO);
 	};
-	
-	public int InsertAssetDelhist(AssetVO AssetVO) {
-		return insert("AssetDAO.InsertAssetDelhist",AssetVO);
-	};
-	
+
 	/**
 	 * 전체자산정보 엑셀 추출
 	 */
@@ -121,7 +101,4 @@ public class AssetDAO extends EgovAbstractMapper {
 		return selectList("AssetDAO.MobSelectMyAssetInfoList", assetManageVO);
 	}
 
-	public List<String> getAId(AssetVO assetVO) {
-		return selectList("AssetDAO.getAId", assetVO);
-	}
 }

@@ -3,6 +3,7 @@ package egovframework.let.prj.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.prj.service.ProjectManageVO;
@@ -65,8 +66,12 @@ public class ProjectDAO extends EgovAbstractMapper {
 		
 	}
 
-	public void insertPrj(ProjectVO projectVO) {
-		insert("ProjectDAO.insertPrj", projectVO);
+	public int insertPrj(ProjectVO projectVO) {
+		return insert("ProjectDAO.insertPrj", projectVO);
+	}
+
+	public List<EgovMap> xlsxTrsfPrjList(ProjectManageVO projectManageVO) {
+		return selectList("ProjectDAO.xlsxTrsfPrjList",projectManageVO);
 	}
 	
 	
