@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
@@ -65,107 +66,133 @@ public class MobRequestController {
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 
+	@Resource(name = "approvalManageService")
+	private ApprovalManageService approvalManageService;
+
 	/**
 	 * 신청 등록
 	 */
 	@RequestMapping(value = "/req/MobInsertRequest.do")
 	@ResponseBody
-	public String insertRequest(@RequestBody List<Map<String, Object>> insertMap) throws Exception {
-		System.out.println("신청 등록 컨트롤러 수정 필요함 ==========================================");
-		System.out.println(insertMap);
-		/**
-		 * [{requestVO={reqId=, id=USRCNFRM_00000000063, prjId=prj11, prjName=DGB 대구은행 23년 여신신청심사 및 카드업무 운영, 
-		 * 				pm=USRCNFRM_00000000200, pmName=이현철, startDate=2023-06-21, endDate=2023-06-30, place=test, isDone=true}}, 
-		 * {requestDetailVO=[{assetId=ASI_0000000000001, assetQty=1, reqOrder=1, orgnztNm=지역사업본부, assetSn=null, lowerOrgnztNm=영남사업부, middleCategory=노트북, 
-		 * 						rcptNm=서성원, useNm=서성원, prjNm=null, reqId=null}, 
-		 * 					{assetId=ASI_0000000000007, assetQty=1, reqOrder=2, orgnztNm=지역사업본부, assetSn=009NTPCDX952, lowerOrgnztNm=본부지원부, middleCategory=모니터, 
-		 * 						rcptNm=최정국, useNm=최정국, prjNm=null, reqId=null}]}, {}]
-
-		 */
-
+	public Map<String, Object> insertRequest(@RequestBody List<Map<String, Object>> insertMap,
+			HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("reqId", "fail");
+		
 		// requestVO
-		Map<String, Object> requestVO = new HashMap<String, Object>();
-		List<Map<String, Object>> requestDetailVO = new ArrayList();
-		List<Map<String, Object>> approvalManageVO = new ArrayList();
+		Map<String, Object> rVO = new HashMap<String, Object>();
+		List<Map<String, Object>> rdVO = new ArrayList();
+		List<Map<String, Object>> aprvVO = new ArrayList();
 
 		for (int i = 0; i < insertMap.size(); i++) {
 			switch (i) {
 			case 0: {
-				requestVO = (Map<String, Object>) insertMap.get(i).get("requestVO");
+				rVO = (Map<String, Object>) insertMap.get(i).get("requestVO");
 				break;
 			}
 			case 1: {
-				requestDetailVO = (List<Map<String, Object>>) insertMap.get(i).get("requestDetailVO");
+				rdVO = (List<Map<String, Object>>) insertMap.get(i).get("requestDetailVO");
 				break;
 			}
 			case 2: {
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				System.out.println(insertMap.get(i));
-				approvalManageVO = (List<Map<String, Object>>) insertMap.get(i).get("approvalManageVO");
+				aprvVO = (List<Map<String, Object>>) insertMap.get(i).get("approvalManageVO");
 				break;
 			}
 			default: {
-				System.out.println("오류발생");
+				resultMap.put("result", "등록 처리 중 오류가 발생했습니다.");
 			}
 			}
-
 		}
-		System.out.println("=============================================");
-		System.out.println(requestVO);
-		System.out.println(requestVO.get("id"));
-		System.out.println("=============================================");
-		System.out.println(requestDetailVO);
-		System.out.println(requestDetailVO.get(0));
-		System.out.println("=============================================");
-		System.out.println(approvalManageVO);
-		System.out.println(approvalManageVO.get(0));
-		
-		
-//		Map<String, Object> data = (insertMap);
-//		ObjectMapper objMapper = new ObjectMapper();
-//		// VO에 담기
-//		RequestVO requestVO = new RequestVO();
-//		
-//		System.out.println(insertMap.get("requestVO"));
-//		Object requestVOObj = insertMap.get("requestVO");
-//		System.out.println(requestVOObj);
 
-//		requestVO.setId(insertMap.get("id").toString());
-//		requestVO.setPrjId(insertMap.get("prjId").toString());
-//		requestVO.setPm(insertMap.get("pm").toString());
-//		requestVO.setStartDate(insertMap.get("startDate").toString());
-//		requestVO.setEndDate(insertMap.get("endDate").toString());
-//		requestVO.setPlace(insertMap.get("place").toString());
-//		requestVO.setReqGroup("C1");
-//		requestService.InsertRequestVO(requestVO);
-//		System.out.println(requestVO.getReqId());
+		// req등록
+		RequestVO requestVO = new RequestVO();
+		requestVO.setId(String.valueOf(rVO.get("id")));
+		requestVO.setPrjId(String.valueOf(rVO.get("prjId")));
+		requestVO.setPm(String.valueOf(rVO.get("pm")));
+		requestVO.setStartDate(String.valueOf(rVO.get("startDate")));
+		requestVO.setEndDate(String.valueOf(rVO.get("endDate")));
+		requestVO.setPlace(String.valueOf(rVO.get("place")));
+		requestVO.setReqGroup("C1");
+
+		int rCnt = requestService.InsertRequestVO(requestVO);
+		String reqId = requestVO.getReqId();
+
+		// reqDetail 등록
+		int rdCnt = 0;
+		for (int i = 0; i < rdVO.size(); i++) {
+			RequestDetailVO requestDetailVO = new RequestDetailVO();
+			requestDetailVO.setReqId(reqId);
+			requestDetailVO.setAssetId(String.valueOf(rdVO.get(i).get("assetId")));
+			requestDetailVO.setReqQty(Integer.parseInt(String.valueOf(rdVO.get(i).get("assetQty"))));
+			requestDetailVO.setReqOrder(Integer.parseInt(String.valueOf(rdVO.get(i).get("reqOrder"))));
+
+			
+			int result = requestService.InsertRequestDetailVO(requestDetailVO);
+			if (result > 0) {
+				rdCnt += result;
+			}
+		}
+
+		// approvalManageVO 등록
+		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
+		String targetUp = null;
+		int aprvCnt = 0;
+
+		for (int i = 0; i < aprvVO.size(); i++) {
+			ApprovalManageVO approvalManageVO = new ApprovalManageVO();
+			String targetId = String.valueOf(aprvVO.get(i).get("uniqId"));// 결재자 아이디
+
+			approvalManageVO.setReqId(reqId);
+			approvalManageVO.setId(loginId.getUniqId());
+
+			// 결재자가 있는 경우
+			if (targetId != null && targetId != "" && !(targetId.isEmpty())) {
+				approvalManageVO.setTargetId(String.valueOf(aprvVO.get(i).get("uniqId")));
+				approvalManageVO.setAprvOrder(String.valueOf(aprvVO.get(i).get("aprvOrder")));
+				if (targetUp != null && targetUp != "" && !(targetUp.isEmpty())) {
+					approvalManageVO.setTargetUp(targetUp);
+					targetUp = String.valueOf(aprvVO.get(i).get("uniqId"));
+				}
+				int result = approvalManageService.InsertApproval(approvalManageVO);
+				if (result > 0) {
+					aprvCnt += result;
+				}
+			}
+		}
+
+		// 반출 등록 성공 여부
+		if (rCnt <= 0) {
+			resultMap.put("result", "반출 등록 중 오류가 발생했습니다.");
+
+			// 반출 자산 등록 성공 여부
+		} else if (rdCnt <= 0) {
+			resultMap.put("result", "반출 자산 등록 중 오류가 발생했습니다.");
+
+			// 반출 결재자 등록 성공 여부
+		} else if (aprvCnt <= 0) {
+			resultMap.put("reuslt", "결재자 등록 중 오류가 발생했습니다.");
+
+			// 전체 성공 시 result + reqId 반환
+		} else {
+			resultMap.put("result", "반출 등록 성공");
+			resultMap.replace("reqId", reqId);
+		}
+		
+		return resultMap;
+	}
+
+//	/**
+//	 * 신청상세 등록
+//	 */
+//	@RequestMapping(value = "/req/MobInsertRequestDetail.do")
+//	@ResponseBody
+//	public String insertRequestDetail(RequestVO requestVO, @RequestBody Map<String, Object> mobileVO) throws Exception {
+//		System.out.println("신청 상세 등록(자산) 도착 ==========================================");
+//		System.out.println(mobileVO);
+//		RequestDetailVO requestDetailVO = new RequestDetailVO();
+////		requestService.InsertRequestDetailVO(requestDetailVO);
 //		return requestVO.getReqId();
-		return "야호";
-	}
-
-	/**
-	 * 신청상세 등록
-	 */
-	@RequestMapping(value = "/req/MobInsertRequestDetail.do")
-	@ResponseBody
-	public String insertRequestDetail(RequestVO requestVO, @RequestBody Map<String, Object> mobileVO) throws Exception {
-		System.out.println("신청 상세 등록(자산) 도착 ==========================================");
-		System.out.println(mobileVO);
-		RequestDetailVO requestDetailVO = new RequestDetailVO();
-//		requestService.InsertRequestDetailVO(requestDetailVO);
-		return requestVO.getReqId();
-	}
-
-	/**
-	 * 
-	 * @RequestMapping(value = "/aprv/ApprovalInsert.do")
-	 * @ResponseBody public String ApprovalInsert(ApprovalManageVO approvalManageVO,
-	 *               HttpServletRequest request) { LoginVO loginId =
-	 *               (LoginVO)request.getSession().getAttribute("LoginVO");
-	 *               approvalManageVO.setId(loginId.getUniqId());
-	 *               approvalManageService.InsertApproval(approvalManageVO); return
-	 *               approvalManageVO.getReqId(); }
-	 */
+//	}
 
 	// 전체조회
 	@RequestMapping(value = "/req/MobCarryRequset.do")
