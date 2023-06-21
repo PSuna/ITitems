@@ -38,6 +38,8 @@
 <script src="<c:url value='/'/>js/PhotoMng.js"></script>
 <script src="<c:url value='/'/>js/Inputcheck.js"></script>
 <script src="<c:url value='/'/>js/Confirm.js"></script>
+<script src="<c:url value='/'/>js/Manual.js"></script>
+<script src="<c:url value='/'/>js/SearchList.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -71,6 +73,8 @@ function UpdateAsset(){
 		data: formData,
 		success: function (result) {
 			fn_egov_modal_remove();
+			$('#subForm #assetId').val(result);
+			console.log(result);
 			UpdtSuccess();
 		},
 		error: function (error) {
@@ -292,42 +296,6 @@ function getMCatList(Mval) {
      return n;
   }
 
-
-/* ********************************************************
- * 프로젝트 검색
- ******************************************************** */
-function ProjectSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-} 
-  
-/* ********************************************************
- * 회원 검색
- ******************************************************** */
-function UserSearch(ch){
-	userCheck = ch;
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
 /* ********************************************************
  * 검색 프로젝트 입력
  ******************************************************** */
@@ -364,7 +332,7 @@ fn_egov_modal_remove();
  ******************************************************** */
 function make_date(){
 	
-	$("#acquiredDate,#rcptDate").datepicker(
+	$("#acquiredDate,#rcptDate,#assetStart,#assetEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -380,6 +348,26 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 	
+}
+
+/* ********************************************************
+ *  날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#AssetUpdt #assetStart').val();
+	let endDate = $('#AssetUpdt #assetEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#AssetUpdt #assetStart').val(endDate);
+		$('#AssetUpdt #assetEnd').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#AssetUpdt #assetStart').val();
+	let endDate = $('#AssetUpdt #assetEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#AssetUpdt #assetEnd').val("");
+	}
 }
 
 /* ********************************************************
@@ -413,93 +401,6 @@ function alertValid(objList) {
 }
 
 /* ********************************************************
- * 제품사진 안내
- ******************************************************** */
-function PhotoManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/PhotoManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 500
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 시리얼넘버 안내
- ******************************************************** */
-function AssetSnManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSnManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 450
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 지급확인서 안내
- ******************************************************** */
-function FileManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/FileManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 파일명 가져오기
- ******************************************************** */
- function getFileName(obj) {
-	 if(obj.files.length>0){
-		 $('#fileNm').val(obj.files[0].name);
-	 }
-}
-
-/* ********************************************************
- * 지급확인서 파일명 가져오기
- ******************************************************** */
- function getFileName(obj) {
-	 if(obj.files.length>0){
-		 $('#fileNm').val(obj.files[0].name);
-		 const dataTransfer = new DataTransfer();
-		 dataTransfer.items.add(obj.files[0]);
-		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 if($(obj).next().prop('tagName') != 'IMG'){
-			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-				 delFileName();
-				}));
-		 }
-		 $(obj).val('');
-	 }
-}
-
-/* ********************************************************
- * 지급확인서 파일 지우기
- ******************************************************** */
- function delFileName() {
-	 $('#fileNm').val('');
-	 $('input[name=file]').val('');
-	 $('#fileNm').closest(".filebox").find('img')[0].remove();
-}
-
-/* ********************************************************
  * 기존 지급확인서 파일 지우기
  ******************************************************** */
 function addDelFile(fileId) {
@@ -508,7 +409,6 @@ function addDelFile(fileId) {
 	$('#fileNm').closest(".filebox").find('img')[0].remove();
 	$('#delFile').val(fileId);
 }
-
 
 /* ********************************************************
  * onload
@@ -561,8 +461,8 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>자산수정</li>
+										<li><a href="#LINK">${masterVO.assNm}관리</a></li>
+										<li>${masterVO.assNm}수정</li>
 									</ul>
 								</div>
 								<!--// Location -->
@@ -572,9 +472,9 @@ window.onload = function(){
 								%>
 								<form id="AssetUpdt" name="AssetUpdt" method="post" enctype="multipart/form-data" autocomplete="off">
 									<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
-									<h1 class="tit_1">자산관리</h1>
+									<h1 class="tit_1">${masterVO.assNm}관리</h1>
 
-									<h2 class="tit_2">자산수정</h2>
+									<h2 class="tit_2">${masterVO.assNm}수정</h2>
 
 									<c:if test="<%= !loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\") && !loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
 									<p><span class="req">필수</span><spring:message code="ass.update.rcpt" /></p>
@@ -680,6 +580,17 @@ window.onload = function(){
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
 												</td>
 											</tr>
+											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<!-- 렌탈업체 --> 
+														<label for="">렌탈업체</label>
+													</td>
+													<td colspan="3">
+														<input id="assetCompany" class="f_txt w_full" name="assetCompany" value="${resultVO.assetCompany}" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
+													</td>
+												</tr>
+											</c:if>
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
@@ -766,26 +677,56 @@ window.onload = function(){
 														readonly="readonly" value="${resultVO.prjId}"/>
 												</td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> 
-													<label for="">취득일자</label>
-												</td>
-												<td>
+											<c:choose>
+											<c:when test="${masterVO.assId eq 'ASSMSTR_000000000001'}">
+												<tr>
+													<td class="lb">
+														<!-- 취득일자 --> <label for="">취득일자</label>
+													</td>
+													<td>
 													<span class="search_date w_full">
 														<input id="acquiredDate" class="f_txt w_full readonly" name="acquiredDate" type="text" value="${resultVO.acquiredDate}" readonly="readonly">
 													</span>
-												</td>
-												<td class="lb">
-													<!-- 취득가액 --> 
-													<label for="">취득가액</label>
-												</td>
-												<td>
+													</td>
+													<td class="lb">
+														<!-- 취득가액 --> <label for="">취득가액</label>
+													</td>
+													<td>
 													<input id="acquiredPrice" class="f_txt w_full"
 													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
-													<br />
-												</td>
-											</tr>
+													</td>											
+												</tr>
+											</c:when>
+											<c:when test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<!-- 렌탈기간 --> 
+														<label for="">렌탈기간</label> 
+													</td>
+													<td colspan="3">
+													<div>
+														<span class="search_date wp_date">
+															<input id="assetStart" class="f_txt w_full readonly" name="assetStart" type="text" value="${resultVO.assetStart}" maxlength="60" readonly="readonly" onchange="checkStartDate()">
+														</span>
+														&nbsp;&nbsp;―&nbsp;&nbsp;
+														<span class="search_date wp_date">
+															<input id="assetEnd" class="f_txt w_full readonly" name="assetEnd" type="text" value="${resultVO.assetEnd}" maxlength="60" readonly="readonly" onchange="checkEndDate()">
+														</span>
+													</div>
+												</tr>
+												<tr>
+													<td class="lb">
+														<!-- 렌탈비용 --> 
+														<label for="">렌탈비용</label> 
+													</td>
+													<td colspan="3">
+													<c:if test="${not empty resultVO.acquiredPrice}">
+													${resultVO.rentalPrice} 원
+													</c:if>
+													</td>
+												</tr>
+											</c:when>
+											</c:choose>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
@@ -861,23 +802,6 @@ window.onload = function(){
 									</div>
 									<!-- // 버튼 끝  -->
 								</form>
-								<form name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
-									<input type="hidden" id="assetId" name="assetId" value="<c:out value='${resultVO.assetId}'/>" />
-									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
-									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
-									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
-									<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
-									<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
-									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
-									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
-									<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
-									<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
-									<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
-									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
-									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
-									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
-									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -889,6 +813,23 @@ window.onload = function(){
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-
 </body>
+<form id="subForm" name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
+	<input type="hidden" id="assetId" name="assetId" value="<c:out value='${resultVO.assetId}'/>" />
+	<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
+	<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+	<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+	<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+	<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+	<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+	<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+	<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+	<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+	<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+	<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+</form>
 </html>

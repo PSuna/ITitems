@@ -39,6 +39,8 @@
 <script src="<c:url value='/'/>js/FormSave.js"></script>
 <script src="<c:url value='/'/>js/Confirm.js"></script>
 <script src="<c:url value='/'/>js/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/Manual.js"></script>
+<script src="<c:url value='/'/>js/SearchList.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -119,7 +121,7 @@ function insert_asset(){
 	    removeP();
 	    $('#fileNm').closest(".filebox").find('img')[0].remove();
 	}else{
-		document.MyAssetManagement.submit(); 
+		document.subFrm.submit(); 
 	}
 	
 }
@@ -217,58 +219,6 @@ function getMCatList(Mval) {
 		 $("#maker").attr("type","text");
 	 }
  }
- 
-/* ********************************************************
- * 프로젝트 검색
- ******************************************************** */
-function ProjectSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 자산 검색
- ******************************************************** */
-function AssetSearch(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 1100,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 회원 검색
- ******************************************************** */
-function UserSearch(ch){
-	userCheck = ch;
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
 
 /* ********************************************************
  * 검색 프로젝트 입력
@@ -327,83 +277,7 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 }
-
-/* ********************************************************
- * 숫자 콤마 입력
- ******************************************************** */
- function getNumber(obj){
-     var num01;
-     var num02;
-     num01 = $(obj).val();
-     if(num01 != null && num01 != ""){
-    	num02 = num01.replace(/(^0+)/, "");
-	    num03 = num02.replace(/\D/g,"");
-	    num01 = setComma(num03);
-	    obj.value =  num01;
-     }
-     
-  }
-
-	  function setComma(n) {
-	     var reg = /(^[+-]?\d+)(\d{3})/;
-	     n += '';         
-	     while (reg.test(n)) {
-	        n = n.replace(reg, '$1' + ',' + '$2');
-	     }         
-	     return n;
-	  }
 	  
-/* ********************************************************
- * 제품사진 안내
- ******************************************************** */
-function PhotoManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/PhotoManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 500
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 시리얼넘버 안내
- ******************************************************** */
-function AssetSnManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSnManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 450
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 지급확인서 안내
- ******************************************************** */
-function FileManual(){
-    
-    var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/FileManual.do'/>" +'" width="100%" height="100%"></iframe>')
-	.dialog({
-    	autoOpen: false,
-        modal: true,
-        width: 660,
-        height: 700
-	});
-    $(".ui-dialog-titlebar").hide();
-	$dialog.dialog('open');
-}
-
 /* ********************************************************
  * 유효성 체크
  ******************************************************** */
@@ -435,43 +309,16 @@ function alertValid(objList) {
 }
 
 /* ********************************************************
- * 지급확인서 파일명 가져오기
- ******************************************************** */
- function getFileName(obj) {
-	 if(obj.files.length>0){
-		 $('#fileNm').val(obj.files[0].name);
-		 const dataTransfer = new DataTransfer();
-		 dataTransfer.items.add(obj.files[0]);
-		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 if($(obj).next().prop('tagName') != 'IMG'){
-			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-				 delFileName();
-				}));
-		 }
-		 $(obj).val('');
-	 }
-}
-
-/* ********************************************************
- * 지급확인서 파일 지우기
- ******************************************************** */
- function delFileName() {
-	 $('#fileNm').val('');
-	 $('input[name=file]').val('');
-	 $('#fileNm').closest(".filebox").find('img')[0].remove();
-}
-
-/* ********************************************************
  * 목록 이동
  ******************************************************** */
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/AssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.subFrm.action = "<c:url value='/ass/AssetManagement.do'/>";
+	    document.subFrm.submit();
 	}else if (code == "MYAM"){
-		document.MyAssetManagement.action = "<c:url value='/ass/MyAssetManagement.do'/>";
-	    document.MyAssetManagement.submit();
+		document.subFrm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+	    document.subFrm.submit();
 	}
 }
  
@@ -519,17 +366,17 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>신규자산등록</li>
+										<li><a href="#LINK">${masterVO.assNm}관리</a></li>
+										<li>신규${masterVO.assNm}등록</li>
 									</ul>
 								</div>
 								<!--// Location -->
 
 								<form id="assetRegist" name="assetRegist" method="post" enctype="multipart/form-data" autocomplete="off">
-									
-									<h1 class="tit_1">자산관리</h1>
+									<input name="assId" type="hidden" value="${masterVO.assId}">
+									<h1 class="tit_1">${masterVO.assNm}관리</h1>
 
-									<h2 class="tit_2">신규자산등록</h2>
+									<h2 class="tit_2">신규${masterVO.assNm}등록</h2>
 
 									<div class="board_view2">
 										<table>
@@ -622,7 +469,6 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
-													<br />
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
@@ -630,9 +476,19 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
-													<br />
 												</td>
 											</tr>
+											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<!-- 렌탈업체 --> 
+														<label for="">렌탈업체</label>
+													</td>
+													<td colspan="3">
+														<input id="assetCompany" class="f_txt w_full" name="assetCompany" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
+													</td>
+												</tr>
+											</c:if>
 											<%
 												LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 											%>
@@ -718,7 +574,7 @@ window.onload = function(){
 													<!-- 수령일자 --> 
 													<label for=""><spring:message code="ass.rcptDate" /></label> 
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 												<span class="search_date w_full">
 													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
@@ -739,16 +595,13 @@ window.onload = function(){
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 												</td>
-												
 											</tr>
-											
-											
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader"><spring:message code="ass.photo" /></label>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												</td>
-												<td colspan="4">
+												<td colspan="3">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
 													    <input name="photoFrm" id="photoFrm" type="file" multiple accept=".jpg, .png, .jpeg" onchange="checkPhoto(this)">
@@ -767,16 +620,6 @@ window.onload = function(){
 													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1"></textarea>
 												</td>
 											</tr>
-											<!-- <tr>
-												<td class="lb">
-													반출사유 
-													<label for="carryReason">반출사유</label>
-												</td>
-												<td colspan="4">
-													<textarea id="carryReason" name="carryReason"
-														class="f_txtar w_full" cols="30" rows="1"></textarea>
-												</td>
-											</tr> -->
 										</table>
 									</div>
 									<!-- 등록버튼  -->
@@ -797,34 +640,7 @@ window.onload = function(){
 									</div>
 									<!-- // 등록버튼 끝  -->
 								</form>
-								<form name="MyAssetManagement" method="post"
-									action="<c:url value='/ass/MyAssetManagement.do'/>">
-									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
-									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
-									<c:set var="end" value="<%=new java.util.Date()%>" />
-									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
-								<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-									<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-									<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
-									<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
-									<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
-								</c:if>
 								
-								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
-								<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
-								<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
-								<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
-								<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
-								<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
-								<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
-								<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
-								<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
-								<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
-								<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
-								<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
-								<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
-								<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -836,6 +652,33 @@ window.onload = function(){
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-
 </body>
+
+<form name="subFrm" method="post" action="<c:url value='/ass/MyAssetManagement.do'/>">
+	<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+	<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+	<c:set var="end" value="<%=new java.util.Date()%>" />
+	<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+	<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+	<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+	<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+	<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
+</c:if>
+<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
+<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+</form>
 </html>

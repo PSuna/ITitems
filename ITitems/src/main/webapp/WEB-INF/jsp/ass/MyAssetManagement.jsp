@@ -163,6 +163,7 @@ function fn_egov_select_noticeList(pageNo) {
  * 자산 등록 페이지 이동
  ******************************************************** */
 function AssetRegist() {
+	inputpush();
 	event.preventDefault();
     document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
     document.frm.submit(); 
@@ -172,6 +173,7 @@ function AssetRegist() {
  * 자산 상세 페이지 이동
  ******************************************************** */
 function SelectAsset(assetId) {
+	inputpush();
 	event.preventDefault();
 	document.frm.assetId.value = assetId;
     document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
@@ -204,6 +206,7 @@ function make_date(){
  * Excel
  ******************************************************** */
 function fntrsfExcel(){
+	inputpush();
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
@@ -263,18 +266,19 @@ window.onload = function(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>내자산조회</li>
+										<li><a href="#LINK">${masterVO.assNm}관리</a></li>
+										<li>내${masterVO.assNm}조회</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<h2 class="tit_2">내자산조회</h2>
+								<h2 class="tit_2">내${masterVO.assNm}조회</h2>
 
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="assetId" />
+										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
 										<input type="hidden" name="listCode" value="MYAM" />
 										<div class="j_box01">
 											<div>
@@ -399,7 +403,7 @@ window.onload = function(){
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
-                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+                               						<td colspan="8" id="noData">등록된 ${masterVO.assNm}이 없거나 조건에 맞는 ${masterVO.assNm}이 없습니다</td>
                                					</tr>
 											</c:if>
 										</tbody>

@@ -65,15 +65,15 @@
  * 수정페이지로 이동
  ******************************************************** */
 function AssetUpdt() {
-	document.frm.action = "<c:url value='/ass/AssetUpdt.do'/>";
-    document.frm.submit();
+	document.subFrm.action = "<c:url value='/ass/AssetUpdt.do'/>";
+    document.subFrm.submit();
 }
 
 /* ********************************************************
  * 자산 삭제
  ******************************************************** */
 function AssetDel() {
-	let formData = new FormData(document.getElementById('frm'));
+	let formData = new FormData(document.getElementById('subFrm'));
 	   $.ajax({
 		url: '${pageContext.request.contextPath}/ass/AssetDel.do',
 		method: 'POST',
@@ -113,7 +113,7 @@ function AssetDel() {
 /* ********************************************************
  * 삭제확인 결과 처리
  ******************************************************** */
- function returnConfirm(val){
+ function returnDelConfirm(val){
  
 	fn_egov_modal_remove();
 	 if(val){
@@ -188,11 +188,11 @@ function DelIng(){
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
-	    document.frm.submit();
+		document.subFrm.action = "<c:url value='/ass/AssetManagement.do'/>";
+	    document.subFrm.submit();
 	}else if (code == "MYAM"){
-		document.frm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
-	    document.frm.submit();
+		document.subFrm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+	    document.subFrm.submit();
 	}
 }
 //-->
@@ -223,16 +223,16 @@ function AssetList(){
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">자산관리</a></li>
-										<li>자산정보</li>
+										<li><a href="#LINK">${masterVO.assNm}관리</a></li>
+										<li>${masterVO.assNm}정보</li>
 									</ul>
 								</div>
 								<!--// Location -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
-									<input name="assetId" type="hidden" value="${resultVO.assetId}">
-									<h1 class="tit_1">자산관리</h1>
+									
+									<h1 class="tit_1">${masterVO.assNm}관리</h1>
 
-									<h2 class="tit_2">자산정보</h2>
+									<h2 class="tit_2">${masterVO.assNm}정보</h2>
 
 									<br>
 									<div class="board_view2">
@@ -290,6 +290,17 @@ function AssetList(){
 												</td>
 												<td> ${resultVO.assetQty}</td> --%>
 											</tr>
+											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<!-- 렌탈업체 --> 
+														<label for="">렌탈업체</label>
+													</td>
+													<td colspan="3">
+														${resultVO.assetCompany}
+													</td>
+												</tr>
+											</c:if>
 											<tr>
 												<td class="lb">
 													<!-- 수령자 --> 
@@ -322,20 +333,48 @@ function AssetList(){
 													${resultVO.prjNm}
 												</td>
 											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 취득일자 --> <label for="">취득일자</label>
-												</td>
-												<td>${resultVO.acquiredDate}</td>
-												<td class="lb">
-													<!-- 취득가액 --> <label for="">취득가액</label>
-												</td>
-												<td>${resultVO.acquiredPrice}
-													<c:if test="${not empty resultVO.acquiredPrice}">
-														원
+											<c:choose>
+											<c:when test="${masterVO.assId eq 'ASSMSTR_000000000001'}">
+												<tr>
+													<td class="lb">
+														<!-- 취득일자 --> <label for="">취득일자</label>
+													</td>
+													<td>${resultVO.acquiredDate}</td>
+													<td class="lb">
+														<!-- 취득가액 --> <label for="">취득가액</label>
+													</td>
+													<td>${resultVO.acquiredPrice}
+														<c:if test="${not empty resultVO.acquiredPrice}">
+															원
+														</c:if>
+													</td>											
+												</tr>
+											</c:when>
+											<c:when test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<!-- 렌탈기간 --> 
+														<label for="">렌탈기간</label> 
+													</td>
+													<td colspan="3">
+													<c:if test="${not empty resultVO.assetStart}">
+													${resultVO.assetStart}&nbsp;&nbsp;―&nbsp;&nbsp;${resultVO.assetEnd}
 													</c:if>
-												</td>											
-											</tr>
+													</td>
+												</tr>
+												<tr>
+													<td class="lb">
+														<!-- 렌탈비용 --> 
+														<label for="">렌탈비용</label> 
+													</td>
+													<td colspan="3">
+													<c:if test="${not empty resultVO.acquiredPrice}">
+													${resultVO.rentalPrice} 원
+													</c:if>
+													</td>
+												</tr>
+											</c:when>
+											</c:choose>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label>
@@ -462,30 +501,7 @@ function AssetList(){
 										</div>
 									</div>
 									<!-- // 버튼 끝  -->
-									<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
-										<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
-										<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
-										<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
-										<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
-									</c:if>
-									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
-									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
-									<c:set var="end" value="<%=new java.util.Date()%>" />
-									<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
-									<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
-									<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
-									<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
-									<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
-									<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
-									<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
-									<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
-									<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
-									<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
-									<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
-									<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
-									<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
-									<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
-									<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+									
 								</form>
 							</div>
 						</div>
@@ -498,6 +514,33 @@ function AssetList(){
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-
+<form name="subFrm" method="post" >
+<input name="assetId" type="hidden" value="${resultVO.assetId}">
+<input name="assId" type="hidden" value="${masterVO.assId}">
+	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
+		<c:set var="orgnztId" value="<%= loginVO.getOrgnztId()%>"/>
+		<input type="hidden" id="menuOrgnzt" name="menuOrgnzt" value="<c:out value="${orgnztId}"/>" />
+		<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+		<input type="hidden" id="menuLowerOrgnzt" name="menuLowerOrgnzt" value="<c:out value="${lowerOrgnztId}"/>" />
+	</c:if>
+	<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
+	<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
+	<c:set var="end" value="<%=new java.util.Date()%>" />
+	<input type="hidden" id="menuEndDate" name="menuEndDate" value="<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />" />
+	<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+	<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />
+	<input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" />
+	<input name="searchLCat" id="searchLCat" type="hidden"  value="<c:out value="${searchVO.searchLCat}"/>" />
+	<input name="searchdMCat" id="searchdMCat" type="hidden"  value="<c:out value="${searchVO.searchdMCat}"/>" />
+	<input name="startDate" id="startDate" type="hidden"  value="<c:out value="${searchVO.startDate}"/>" />
+	<input name="endDate" id="endDate" type="hidden"  value="<c:out value="${searchVO.endDate}"/>" />
+	<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
+	<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
+	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
+	<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
+	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+</form>
 </body>
 </html>
