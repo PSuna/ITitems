@@ -181,24 +181,13 @@ public class MobRequestController {
 		return resultMap;
 	}
 
-//	/**
-//	 * 신청상세 등록
-//	 */
-//	@RequestMapping(value = "/req/MobInsertRequestDetail.do")
-//	@ResponseBody
-//	public String insertRequestDetail(RequestVO requestVO, @RequestBody Map<String, Object> mobileVO) throws Exception {
-//		System.out.println("신청 상세 등록(자산) 도착 ==========================================");
-//		System.out.println(mobileVO);
-//		RequestDetailVO requestDetailVO = new RequestDetailVO();
-////		requestService.InsertRequestDetailVO(requestDetailVO);
-//		return requestVO.getReqId();
-//	}
-
 	// 전체조회
 	@RequestMapping(value = "/req/MobCarryRequset.do")
-	public Map<String, Object> CarryRequset(HttpServletRequest request, RequestManageVO manageVO) throws Exception {
+	public Map<String, Object> CarryRequset(HttpServletRequest request, @RequestBody RequestManageVO manageVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(manageVO);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		request.getSession().setAttribute("baseMenuNo", "100");
 		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
 
