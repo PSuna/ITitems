@@ -72,22 +72,6 @@ public class MobRequestController {
 	@ResponseBody
 	public String insertRequest(@RequestBody List<Map<String, Object>> insertMap) throws Exception {
 		System.out.println("신청 등록 컨트롤러 수정 필요함 ==========================================");
-		/**
-		 * [ requestVO={reqId=, id=USRCNFRM_00000000063, prjId=prj12, prjName=제주 실시간
-		 * 예비력시장 도입을 위한 전력거래시스템 개선 용역, pm=USRCNFRM_00000000178, pmName=강문성,
-		 * startDate=2023-06-20, endDate=2023-06-29, place=test1, isDone=true},
-		 * requestDetailVO=[{assetId=ASI_0000000000001, assetQty=1, reqOrder=2,
-		 * orgnztNm=지역사업본부, assetSn=null, lowerOrgnztNm=영남사업부, middleCategory=노트북,
-		 * rcptNm=서성원, useNm=서성원, prjNm=null, reqId=null}, {assetId=ASI_0000000000008,
-		 * assetQty=1, reqOrder=3, orgnztNm=지역사업본부, assetSn=PF-3T2RGS,
-		 * lowerOrgnztNm=본부지원부, middleCategory=노트북, rcptNm=최정국, useNm=최정국, prjNm=null,
-		 * reqId=null}, {assetId=ASI_0000000000002, assetQty=1, reqOrder=4,
-		 * orgnztNm=지역사업본부, assetSn=3Y10G63, lowerOrgnztNm=영남사업부, middleCategory=노트북,
-		 * rcptNm=전홍준, useNm=전홍준, prjNm=null, reqId=null}],
-		 * approvalManageVO=[{uniqId=USRCNFRM_00000000178, userNm=강문성, grade=수석(G2),
-		 * orgnztId=호남사업부, moblphonNo=010-6390-0099}]} ]
-		 * 
-		 */
 		System.out.println(insertMap);
 		/**
 		 * [{requestVO={reqId=, id=USRCNFRM_00000000063, prjId=prj11, prjName=DGB 대구은행 23년 여신신청심사 및 카드업무 운영, 
