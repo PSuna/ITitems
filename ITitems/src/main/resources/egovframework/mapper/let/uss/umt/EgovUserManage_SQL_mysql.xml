@@ -112,6 +112,9 @@
         		<if test='searchGrade != ""'>
        	     	   AND C.CODE = #{searchGrade} 
         		</if>
+        		<if test = "emptyUserShow = 'off'">
+        		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
+        		</if>
         		) A
       ORDER BY emOrder ASC, userNm ASC, sbscrbDe DESC
          LIMIT #{recordCountPerPage} OFFSET #{firstIndex}

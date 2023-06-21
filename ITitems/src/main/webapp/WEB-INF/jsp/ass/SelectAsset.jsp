@@ -113,7 +113,7 @@ function AssetDel() {
 /* ********************************************************
  * 삭제확인 결과 처리
  ******************************************************** */
- function returnConfirm(val){
+ function returnDelConfirm(val){
  
 	fn_egov_modal_remove();
 	 if(val){
@@ -160,7 +160,7 @@ function DelIng(){
 /* ********************************************************
  * 삭제완료 결과 처리
  ******************************************************** */
- function returnSuccess(){
+ function returnDelSuccess(){
 	 fn_egov_modal_remove();
 	 AssetList();
 }

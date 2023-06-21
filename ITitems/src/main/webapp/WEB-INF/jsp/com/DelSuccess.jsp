@@ -38,7 +38,7 @@
 
 	function return_val(val) {
 
-		parent.parent.returnSuccess(val);
+		parent.parent.returnDelSuccess(val);
 	}
 	
 </script>

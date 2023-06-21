@@ -142,6 +142,7 @@ function fncSelectAuthorGroupList(pageNo){
     document.listForm.submit();
 }
 function setPageUnit(){
+	inputPush();
 	document.listForm.pageIndex.value = 1;
     document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
@@ -167,7 +168,7 @@ function fncAuthorGroupDeleteList() {
 }
 
 function linkPage(pageNo){
-    //document.listForm.searchCondition.value = "1";
+	inputPush();
     document.listForm.pageIndex.value = pageNo;
     document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
@@ -192,7 +193,9 @@ function fncSelectAuthorGroupPop() {
         return;
     }
 }
-
+function inputPush(){
+	document.listForm.searchKeyword.value = '${authorGroupVO.searchKeyword}';
+}
 /**********************************************************
  * 모달 종료 버튼
  ******************************************************** */
@@ -275,37 +278,27 @@ function press() {
                                 <div class="board_list_top">
                                 	<div class="left_col">
                                 		<div class="list_count">
-												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
-													<div>
-														<span style="margin:0;">Totall</span> 
-														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
-													</div>
-														
-													<div style="display: flex; align-items: center;">
-														<span style="margin-right: 16px;">페이지당 항목 수</span> 
-														<label class="item f_select" for="pageUnit"> 
-																
-															<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
-																	<option value="10" <c:if test="${empty authorManageVO.pageUnit || authorManageVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
-																	<option value="20" <c:if test="${authorManageVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
-																	<option value="50" <c:if test="${authorManageVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
-																	<option value="100" <c:if test="${authorManageVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
-																	<option value="300" <c:if test="${authorManageVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
-																	<option value="500" <c:if test="${authorManageVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
-															</select>
-														</label>
-														
-														
-													</div>
-													
+											<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
+												<div>
+													<span style="margin:0;">Totall</span> 
+													<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
 												</div>
-												
-												
+												<div style="display: flex; align-items: center;">
+													<span style="margin-right: 16px;">페이지당 항목 수</span> 
+													<label class="item f_select" for="pageUnit"> 
+														<select name="pageUnit" id="pageUnit" title="페이지당 항목 수" onchange="setPageUnit(); return false;">										
+																<option value="10" <c:if test="${empty authorManageVO.pageUnit || authorManageVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
+																<option value="20" <c:if test="${authorManageVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
+																<option value="50" <c:if test="${authorManageVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
+																<option value="100" <c:if test="${authorManageVO.pageUnit == '100'}">selected="selected"</c:if>>100</option>
+																<option value="300" <c:if test="${authorManageVO.pageUnit == '300'}">selected="selected"</c:if>>300</option>
+																<option value="500" <c:if test="${authorManageVO.pageUnit == '500'}">selected="selected"</c:if>>500</option>
+														</select>
+													</label>
+												</div>
 											</div>
-                              			</div>
-                                    
+										</div>
+                             		</div>
                                 </div>
 
                                 <!-- 게시판 -->

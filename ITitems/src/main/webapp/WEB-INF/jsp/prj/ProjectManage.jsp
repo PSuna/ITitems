@@ -53,6 +53,7 @@ function fnSearchPrj() {
  * 페이지 이동
  ******************************************************** */
 function fnLinkPage(pageNo){
+	inputPush();
     document.listForm.pageIndex.value = pageNo;
     document.listForm.action = "<c:url value='/prj/ProjectManage.do'/>";
     document.listForm.submit();
@@ -79,6 +80,7 @@ function fnAddProjectView() {
  * 페이지당 리스트 갯수 설정
  ******************************************************** */
 function setPageUnit(){
+	inputPush();
 	document.listForm.pageIndex.value = 1;
     document.listForm.action = "<c:url value='/prj/ProjectManage.do'/>";
     document.listForm.submit();
@@ -96,12 +98,19 @@ function fnSelectPrj(id) {
  * 엑셀 다운로드
  ******************************************************** */
 function fntrsfExcel(){
+	inputPush();
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 항목이 없습니다.")
 	}else{
 	    document.listForm.action = "<c:url value='/com/xlsxTrsfPrjList.do'/>";
 	    document.listForm.submit();
 	}
+}
+/* ********************************************************
+ * input 정리
+ ******************************************************** */
+ function inputPush(){
+	 document.listForm.searchWord.value = '${searchVO.searchWord}';
 }
 //-->
 </script>

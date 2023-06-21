@@ -52,6 +52,9 @@ public class UserDefaultVO implements Serializable {
     /** 검색사용여부 */
     private String searchUseYn = "";
     
+    /** 공용사용자 노출여부 */
+    private String emptyUserShow = "on";
+    
     /** 현재페이지 */
     private int pageIndex = 1;
     
@@ -285,6 +288,14 @@ public class UserDefaultVO implements Serializable {
 
 	public void setSelectedId(String selectedId) {
 		this.selectedId = selectedId;
+	}
+
+	public String getEmptyUserShow() {
+		return emptyUserShow;
+	}
+
+	public void setEmptyUserShow(String emptyUserShow) {
+		this.emptyUserShow = emptyUserShow;
 	}
 
 

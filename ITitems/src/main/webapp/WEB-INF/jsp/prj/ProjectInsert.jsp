@@ -42,7 +42,7 @@ var userCheck = 0;
  * 프로젝트 등록 처리
  ******************************************************** */
 function fnPrjInsert(){
-	let formData = new FormData(document.projectVO);
+	let formData = new FormData(document.getElementById('projectVO'));
 	$.ajax({
 		url:'${pageContext.request.contextPath}/prj/ProjectInsert.do',
 		method:'POST',
@@ -68,7 +68,7 @@ function UserSearch(ch){
 	userCheck = ch;
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -99,42 +99,33 @@ function returnUser(val){
  * 등록확인 팝업창
  ******************************************************** */
 function RegistConfirm(){
-	if(validateProjectVO(document.projectVO)){
-		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
-			.dialog({
-		    	autoOpen: false,
-		        modal: true,
-		        width: 400,
-		        height: 300
-			});
-		$(".ui-dialog-titlebar").hide();
-		$dialog.dialog('open');
-	}else{
-		fn_egov_modal_remove();
-		fncheckValid();
+	if(validateProjectVO(document.getElementById('projectVO'))){
+		if(fncheckValid()){
+			var $dialog = $('<div id="modalPan"></div>')
+				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+				.dialog({
+			    	autoOpen: false,
+			        modal: true,
+			        width: 400,
+			        height: 300
+				});
+			$(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+		}
 	}
 }
 /* ********************************************************
- * 필수값, 날짜 유효성 검사
+ * 날짜 유효성 검사
  ******************************************************** */
 function fncheckValid(){
 	var prjStart = document.projectVO.prjStart.value;
 	var prjEnd = document.projectVO.prjEnd.value;
-	if(!document.projectVO.prjName.value){
-		document.getElementById('prjNameErr').innerHTML='프로젝트명은 필수입력값입니다.';
-	}else{
-		document.getElementById('prjNameErr').innerHTML='';
-	}
-	if(!document.projectVO.prjState.value){
-		document.getElementById('prjStateErr').innerHTML='진행상태는 필수입력값입니다.';
-	}else{
-		document.getElementById('prjStateErr').innerHTML='';
-	}
 	if(prjStart && prjEnd && prjStart > prjEnd){
 		document.getElementById('prjStartErr').innerHTML='시작일은 종료일 이전이어야합니다.';
+		return false;
 	}else{
 		document.getElementById('prjStartErr').innerHTML='';
+		return true;
 	}
 }
 /* ********************************************************
@@ -186,10 +177,10 @@ function RegistIng(){
  function returnSuccess(val){
 	if(val){
 		fn_egov_modal_remove();
-		document.getElementById('userManageVO').reset();
+		document.getElementById('projectVO').reset();
 	}else{
-		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
-		document.userManageVO.submit();
+		document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+		document.projectVO.submit();
 	}
 
 }
@@ -208,11 +199,41 @@ function RegistFail(){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
+/* ********************************************************
+ * 유효성검사
+ ******************************************************** */
+let typeList = ["input", "select"]
+function alertValid(objList) {
+	removeP();
+	$(typeList).each(function(index, type){
+		$("#projectVO").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
+}
+function removeP() {
+	$(typeList).each(function(index, type){
+		$("#projectVO").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			if($(td).children().last().prop('tagName') == 'P'){
+				$(td).children().last().remove();
+			}
+		})
+	})
+}
 //-->
 </script>
 <style>
 .errSpan{
 	color:red;
+}
+.board_view_bot {
+	margin-top:8px;
 }
 </style>
 </head>
@@ -254,9 +275,9 @@ function RegistFail(){
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 160px;">
+												<col style="width: 126px;">
 												<col style="width: auto;">
-												<col style="width: 160px;">
+												<col style="width: 120px;">
 												<col style="width: auto;">
 											</colgroup>
 											<tr>
@@ -264,24 +285,34 @@ function RegistFail(){
 													<label for="prjName">프로젝트명</label>
 													<span class="req">필수</span>
 												</td>
-												<td>
+												<td colspan="3">
 													<form:input path="prjName" id="prjName" class="f_txt w_full" maxlength="50"/>
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
 													<span id="prjNameErr" class="errSpan"></span>
 												</td>
+											</tr>
+											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
 													<label for="name">PM</label> 
+													<span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readOnly="true" />
+													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
 													<form:errors path="name" />
 													<span id="nameErr" class="errSpan"></span>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<form:input path="id" id="id" type="hidden" title="id" />
 												</td>
+												<td class="lb">
+													<label for="prjCode">프로젝트코드</label> 
+												</td>
+												<td>
+	                                                <form:input path="prjCode" id="prjCode" class="f_txt w_full" maxlength="30" />
+													<form:errors path="prjCode" />
+													
+	                                            </td>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -290,6 +321,7 @@ function RegistFail(){
 												<td>
 													<form:input path="prjStart" id="prjStart" class="f_txt w_full" type="date" />
 													<form:errors path="prjStart" />
+													<span id="prjStartErr" class="errSpan"></span>
 												</td>
 												<td class="lb">
 													<label for="orgnztId">종료일</label>
@@ -306,11 +338,9 @@ function RegistFail(){
 	                                            <td>
 	                                                <form:input path="client" id="client" class="f_txt w_full" maxlength="30" />
 													<form:errors path="client" />
-													<span id="clientErr" class="errSpan"></span>
 	                                            </td>
 												<td class="lb">
 	                                                <label for="prjState">진행여부</label>
-	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="prjState">
@@ -320,7 +350,6 @@ function RegistFail(){
 																itemLabel="codeNm" />
 														</form:select>
 													</label>
-													<span id="prjStateErr" class="errSpan"></span>
 	                                            </td>
 											</tr>
 										</table>

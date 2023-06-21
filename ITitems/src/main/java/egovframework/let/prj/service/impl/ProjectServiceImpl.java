@@ -63,8 +63,8 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	}
 
 	@Override
-	public void updatePrj(ProjectVO projectVO) throws Exception {
-		projectDAO.updatePrj(projectVO);
+	public int updatePrj(ProjectVO projectVO) throws Exception {
+		return projectDAO.updatePrj(projectVO);
 	}
 	
 	/**

@@ -40,7 +40,37 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 var userCheck = 0;
+function fnListPage(){
+	document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+    document.projectVO.submit();
+}
 
+/* ********************************************************
+ * 프로젝트 수정 처리
+ ******************************************************** */
+function fnUpdate(){
+	let formData = new FormData(document.getElementById('projectVO'));
+	$.ajax({
+		url:'${pageContext.request.contextPath}/prj/ProjectSelectUpdt.do',
+		method:'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			fn_egov_modal_remove();
+			UpdateSuccess();
+		},
+		error: function (error) {
+			fn_egov_modal_remove();
+			UpdateFail();
+		}
+	});
+}
+
+/* ********************************************************
+ * PM 등록 시 회원 검색
+ ******************************************************** */
 function UserSearch(ch){
 	userCheck = ch;
     
@@ -55,10 +85,10 @@ function UserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
-function fnListPage(){
-	document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
-    document.projectVO.submit();
-}
+
+/* ********************************************************
+ * 회원검색값 반환
+ ******************************************************** */
 function returnUser(val){
 	
 	if (val) {
@@ -74,20 +104,189 @@ function returnUser(val){
 	fn_egov_modal_remove();
 }
 
-function fnUpdate(){
-	confirm("저장하시겠습니까?")
-    if(validateProjectVO(document.projectVO)){
-		document.projectVO.submit();
-    }
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+function UpdateConfirm(){
+	if(validateProjectVO(document.projectVO)){
+		if(fncheckValid()){
+			var $dialog = $('<div id="modalPan"></div>')
+				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+				.dialog({
+			    	autoOpen: false,
+			        modal: true,
+			        width: 400,
+			        height: 300
+				});
+			$(".ui-dialog-titlebar").hide();
+			$dialog.dialog('open');
+		}
+	}
+}
+/* ********************************************************
+ * 날짜 유효성 검사
+ ******************************************************** */
+function fncheckValid(){
+	var prjStart = document.projectVO.prjStart.value;
+	var prjEnd = document.projectVO.prjEnd.value;
+	if(prjStart && prjEnd && prjStart > prjEnd){
+		document.getElementById('prjStartErr').innerHTML='시작일은 종료일 이전이어야합니다.';
+		return false;
+	}else{
+		document.getElementById('prjStartErr').innerHTML='';
+		return true;
+	}
+}
+/* ********************************************************
+ * 수정확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+	
+	fn_egov_modal_remove();
+	 if(val){
+		 UpdateIng();
+		 fnUpdate(); 
+	 }	  
+}
+/* ********************************************************
+* 수정진행 팝업창
+******************************************************** */
+function UpdateIng(){
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 수정완료 팝업창
+ ******************************************************** */
+ function UpdateSuccess(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+		fn_egov_modal_remove();
+		document.userManageVO.action = "<c:url value='/prj/ProjectSelectUpdtView.do'/>";
+		document.userManageVO.submit();
+}
+/* ********************************************************
+* 수정실패 팝업창
+******************************************************** */
+function UpdateFail(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+   		.dialog({
+   	    	autoOpen: false,
+   	        modal: true,
+   	        width: 400,
+   	        height: 300
+   		});
+   	    $(".ui-dialog-titlebar").hide();
+   		$dialog.dialog('open');
 }
 
+/**********************************************************
+ * 프로젝트 삭제 처리
+ ******************************************************** */
 function fnDeletePrj(prjId){
-	if(confirm("<spring:message code="common.delete.msg" />")){
-        document.projectVO.action = "<c:url value='/prj/ProjectSelectDelete.do'/>";
-        document.projectVO.submit();
-    }
+    document.projectVO.action = "<c:url value='/prj/ProjectSelectDelete.do'/>";
+    document.projectVO.submit();
+}
+/* ********************************************************
+ * 삭제확인 팝업창
+ ******************************************************** */
+ function DelConfirm(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
 }
 
+/* ********************************************************
+ * 삭제확인 결과 처리
+ ******************************************************** */
+ function returnDelConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 DelIng();
+		 fnDeletePrj(); 
+	 }	  
+}
+
+/* ********************************************************
+* 삭제진행 팝업창
+******************************************************** */
+function DelIng(){
+
+ var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 400,
+        height: 300
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+
+/* ********************************************************
+ * 삭제완료 팝업창
+ ******************************************************** */
+ function DelSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제완료 결과 처리
+ ******************************************************** */
+ function returnDelSuccess(){
+	 fn_egov_modal_remove();
+	 document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+     document.userManageVO.submit(); 
+}
+
+/**********************************************************
+ * 모달 종료 버튼
+ ******************************************************** */
+function fn_egov_modal_remove() {
+	$('#modalPan').remove();
+}
 //-->
 </script>
 <style>
@@ -158,6 +357,7 @@ function fnDeletePrj(prjId){
 												<td colspan="3">
 													<form:input path="prjName" id="prjName" class="f_txt w_full" maxlength="50"/>
 													<form:errors path="prjName" /> <form:hidden path="prjId" />
+													<span id="prjNameErr" class="errSpan"></span>
 												</td>
 											</tr>
 											<tr>
@@ -169,16 +369,18 @@ function fnDeletePrj(prjId){
 													<span class="f_search2 w_full"> 
 													<form:input path="name" id="name" type="text" title="PM" maxlength="20" readonly="false" />
 													<form:errors path="name" />
+													<span id="nameErr" class="errSpan"></span>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<form:input path="id" id="id" type="hidden" title="id" />
 												</td>
 												<td class="lb">
-													<label for="prjCode">프로젝트번호</label> 
+													<label for="prjCode">프로젝트코드</label> 
 												</td>
 												<td>
 	                                                <form:input path="prjCode" id="prjCode" class="f_txt w_full" maxlength="30" />
 													<form:errors path="prjCode" />
+													
 	                                            </td>
 											</tr>
 											<tr>
@@ -188,6 +390,7 @@ function fnDeletePrj(prjId){
 												<td>
 													<form:input path="prjStart" id="prjStart" class="f_txt w_full" type="date" />
 													<form:errors path="prjStart" />
+													<span id="prjStartErr" class="errSpan"></span>
 												</td>
 												<td class="lb">
 													<label for="orgnztId">종료일</label>
@@ -226,7 +429,7 @@ function fnDeletePrj(prjId){
 										<div class="left_col btn3">
 											<a href="#LINK"
 												class="btn btn_skyblue_h46 w_100"
-												onclick="JavaScript:fnDeletePrj(); return false;">
+												onclick="JavaScript:DelConfirm(); return false;">
 												<spring:message	code="button.delete" />
 											</a>
 											<!-- 삭제 -->
@@ -237,7 +440,7 @@ function fnDeletePrj(prjId){
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;">수정</a>
+												onclick="JavaScript:UpdateConfirm(); return false;">수정</a>
 											<!-- 저장 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="fnListPage(); return false;"><spring:message
