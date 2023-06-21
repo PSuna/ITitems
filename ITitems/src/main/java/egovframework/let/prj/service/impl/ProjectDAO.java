@@ -52,8 +52,8 @@ public class ProjectDAO extends EgovAbstractMapper {
 		return (ProjectVO) selectOne("ProjectDAO.selectPrj", prjId);
 	}
 
-	public void updatePrj(ProjectVO projectVO) {
-		update("ProjectDAO.updatePrj", projectVO);
+	public int updatePrj(ProjectVO projectVO) {
+		return update("ProjectDAO.updatePrj", projectVO);
 	}
 	
 	/**

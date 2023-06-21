@@ -91,11 +91,11 @@ function fnDeleteUser() {
 /* ********************************************************
  * 페이지 이동
  ******************************************************** */
-function fnLinkPage(pageNo){
+/* function fnLinkPage(pageNo){
     document.listForm.pageIndex.value = pageNo;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
     document.listForm.submit();
-}
+} */
 function fnSelectUser(id) {
     document.listForm.selectedId.value = id;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
@@ -106,6 +106,7 @@ function fnAddUserView() {
     document.listForm.submit();
 }
 function fnLinkPage(pageNo){
+	inputpush();
     document.listForm.pageIndex.value = pageNo;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
@@ -115,7 +116,13 @@ function fnSearch(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
-
+function inputpush() {
+	document.listForm.searchOrgnzt.value= '${userSearchVO.searchOrgnzt}';
+	document.listForm.searchLOrgnzt.value= '${userSearchVO.searchLOrgnzt}';
+	document.listForm.searchGrade.value= '${userSearchVO.searchGrade}';
+	document.listForm.searchAuthor.value= '${userSearchVO.searchAuthor}';
+	document.listForm.searchKeyword.value= '${userSearchVO.searchKeyword}';
+}
 /* function fnViewCheck(){ 
     if(insert_msg.style.visibility == 'hidden'){
         insert_msg.style.visibility = 'visible';
@@ -125,6 +132,7 @@ function fnSearch(){
 } */
 
 function setPageUnit(){
+	inputpush();
 	document.listForm.pageIndex.value = 1;
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();

@@ -90,7 +90,8 @@
 							 PRJ_END,
 							 ID,
 							 CLIENT,
-							 PRJ_STATE
+							 PRJ_STATE,
+							 PRJ_CODE
 							 )
 		VALUES (
 				#{prjId},
@@ -99,7 +100,8 @@
 				#{prjEnd},
 				#{id},
 				#{client},
-				#{prjState}
+				#{prjState},
+				#{prjCode}
 		)
 		
 	</insert>

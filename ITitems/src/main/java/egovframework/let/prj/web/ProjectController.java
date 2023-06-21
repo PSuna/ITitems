@@ -215,6 +215,7 @@ public class ProjectController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/prj/ProjectSelectUpdt.do")
+	@ResponseBody
 	public String updateProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
 
 		// 미인증 사용자에 대한 보안처리
@@ -224,9 +225,10 @@ public class ProjectController {
         	return "uat/uia/EgovLoginUsr";
     	}
 
-		projectService.updatePrj(projectVO);
+		int r = projectService.updatePrj(projectVO);
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
+		String result = String.valueOf(r);
+		return result;
 		
 	}
 	
@@ -239,8 +241,6 @@ public class ProjectController {
 	 */
 	@RequestMapping("/prj/ProjectSelectDelete.do")
 	public String deleteProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
-
-
 		projectService.deletePrj(projectVO);
 		model.addAttribute("resultMsg", "success.common.update");
 		return "forward:/prj/ProjectManage.do";

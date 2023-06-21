@@ -154,8 +154,7 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		String pass = EgovFileScrty.encryptPassword(userManageVO.getPassword(), userManageVO.getEmplyrId());
 		userManageVO.setPassword(pass);
 
-		int r =userManageDAO.updateUser(userManageVO);
-		return r;
+		return userManageDAO.updateUser(userManageVO);
 	}
 
 	/**

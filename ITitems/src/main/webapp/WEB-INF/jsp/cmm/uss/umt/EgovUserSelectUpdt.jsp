@@ -39,20 +39,34 @@
 	xhtml="true" cdata="false" />
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
+var moblphoneNo = '';
+/**********************************************************
+ * 이전화면 이동
+ ******************************************************** */
 function fnListPage(){
     document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.userManageVO.submit();
 }
+
+/**********************************************************
+ * 암호변경화면 이동
+ ******************************************************** */
+function fnPasswordMove(){
+    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
+    document.userManageVO.submit();
+}
+/**********************************************************
+ * 사용자 삭제 처리
+ ******************************************************** */
 function fnDeleteUser(checkedIds) {
 	document.userManageVO.checkedIdForDel.value="<c:out value='${userManageVO.userTy}'/>:<c:out value='${userManageVO.uniqId}'/>";
     document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
     document.userManageVO.submit(); 
 }
-function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
-    document.userManageVO.submit();
-}
-var moblphoneNo = '';
+
+/**********************************************************
+ * 사용자 수정 처리
+ ******************************************************** */
 function fnUpdate(){
 	if(fncheckNums() == 'false'){
 		fn_egov_modal_remove();
@@ -204,7 +218,7 @@ function fncheckNums(){
 	var phone3 = document.getElementById('moblphonNo3');
 	let checkNum = 'true';
 	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
-	var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}");
+	var patt = new RegExp("[0-9]{3}-[0-9]{4}-[0-9]{4}");
 	var res = patt.test(moblphoneNo);
 	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
 		if(!patt.test(moblphoneNo)){
@@ -265,28 +279,12 @@ function UpdateConfirm(){
 		 fnUpdate(); 
 	 }	  
 }
- /* ********************************************************
- * 수정진행 팝업창
- ******************************************************** */
- function UpdateIng(){
-  	 var $dialog = $('<div id="modalPan"></div>')
-  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
-  		.dialog({
-  	    	autoOpen: false,
-  	        modal: true,
-  	        width: 400,
-  	        height: 300
-  		});
-  	    $(".ui-dialog-titlebar").hide();
-  		$dialog.dialog('open');
- }
- /* ********************************************************
-  * 수정완료 팝업창
-  ******************************************************** */
-  function UpdateSuccess(){
- 	
+/* ********************************************************
+* 수정진행 팝업창
+******************************************************** */
+function UpdateIng(){
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -295,20 +293,30 @@ function UpdateConfirm(){
  		});
  	    $(".ui-dialog-titlebar").hide();
  		$dialog.dialog('open');
- }
-  /* ********************************************************
-   * 수정완료 결과 처리
-   ******************************************************** */
-   function returnSuccess(val){
-  	if(val){
-  		fn_egov_modal_remove();
-  		document.getElementById('userManageVO').reset();
-  	}else{
-  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
-  		document.userManageVO.submit();
-  	}
-
-  }
+}
+/* ********************************************************
+ * 수정완료 팝업창
+ ******************************************************** */
+ function UpdateSuccess(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+		fn_egov_modal_remove();
+		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
+		document.userManageVO.submit();
+}
 /* ********************************************************
 * 수정실패 팝업창
 ******************************************************** */
@@ -344,7 +352,7 @@ function UpdateFail(){
 /* ********************************************************
  * 삭제확인 결과 처리
  ******************************************************** */
- function returnConfirm(val){
+ function returnDelConfirm(val){
  
 	fn_egov_modal_remove();
 	 if(val){
@@ -391,7 +399,7 @@ function DelIng(){
 /* ********************************************************
  * 삭제완료 결과 처리
  ******************************************************** */
- function returnSuccess(){
+ function returnDelSuccess(){
 	 fn_egov_modal_remove();
 	 document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
      document.userManageVO.submit(); 

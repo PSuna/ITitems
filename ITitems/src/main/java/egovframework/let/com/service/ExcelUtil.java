@@ -1709,28 +1709,40 @@ public class ExcelUtil {
 	 */
 
 	/*
-	 * public List<Object> getExcelData(final Map<String, MultipartFile> files, int
-	 * sheetNum, int headrow, int firstRow, String keys) throws Exception {
-	 * List<Object> result = new ArrayList<Object>(); if (files != null) {
-	 * 
-	 * Iterator<Entry<String, MultipartFile>> itr = files.entrySet().iterator();
-	 * MultipartFile file = null; InputStream fis = null; while (itr.hasNext()) {
-	 * Entry<String, MultipartFile> entry = itr.next(); try { file =
-	 * entry.getValue(); fis = file.getInputStream(); String filename =
-	 * file.getOriginalFilename().toLowerCase(); if (filename.endsWith(".xls")) {
-	 * HSSFWorkbook workbook = new HSSFWorkbook(fis); result =
-	 * getSheetData(workbook.getSheetAt(sheetNum), headrow, firstRow, keys); } else
-	 * if (filename.endsWith(".xlsx")) { Workbook workbook = new XSSFWorkbook(fis);
-	 * result = getSheetDataXlsx(workbook.getSheetAt(sheetNum), headrow, firstRow,
-	 * keys);
-	 * 
-	 * }
-	 * 
-	 * } finally { try { if (fis != null) { fis.close(); } } catch (IOException ee)
-	 * { // ee.printStackTrace(); fis.close(); } } } }
-	 * 
-	 * return result; }
-	 */
+	public List<Object> getExcelData(final Map<String, MultipartFile> files, int sheetNum, int headrow, int firstRow, String keys) throws Exception {
+		List<Object> result = new ArrayList<Object>(); 
+		if (files != null) {
+			Iterator<Entry<String, MultipartFile>> itr = files.entrySet().iterator();
+			MultipartFile file = null; 
+			InputStream fis = null;
+			while (itr.hasNext()) {
+				Entry<String, MultipartFile> entry = itr.next(); 
+				try { 
+					file = entry.getValue(); 
+					fis = file.getInputStream(); 
+					String filename = file.getOriginalFilename().toLowerCase(); 
+					if (filename.endsWith(".xls")) {
+						HSSFWorkbook workbook = new HSSFWorkbook(fis);
+						result = getSheetData(workbook.getSheetAt(sheetNum), headrow, firstRow, keys);
+					} else if (filename.endsWith(".xlsx")) { 
+						Workbook workbook = new XSSFWorkbook(fis);
+						result = getSheetDataXlsx(workbook.getSheetAt(sheetNum), headrow, firstRow, keys);
+					}	  
+				} finally { 
+					try { 
+						if (fis != null) { 
+						fis.close(); 
+						} 
+					} catch (IOException ee){ 
+					ee.printStackTrace();
+					fis.close();
+					} 
+				} 
+			} 
+		}
+		return result;
+	}
+	*/
 
 	/**
 	 * <pre>

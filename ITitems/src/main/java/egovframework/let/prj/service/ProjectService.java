@@ -35,7 +35,7 @@ public interface ProjectService {
 	 */
 	public ProjectVO selectPrj(String prjId) throws Exception;
 
-	public void updatePrj(ProjectVO projectVO) throws Exception;
+	public int updatePrj(ProjectVO projectVO) throws Exception;
 
 	/**
 	 * 프로젝트 등록

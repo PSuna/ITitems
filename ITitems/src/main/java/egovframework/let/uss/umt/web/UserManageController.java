@@ -215,11 +215,10 @@ public class UserManageController {
 	}
 
 	/**
-	 * 사용자등록처리후 목록화면으로 이동한다.
+	 * 사용자등록처리
 	 * @param userManageVO 사용자등록정보
 	 * @param bindingResult 입력값검증용 bindingResult
 	 * @param model 화면모델
-	 * @return forward:/uss/umt/user/EgovUserManage.do
 	 * @throws Exception
 	 */
 	
@@ -507,4 +506,47 @@ public class UserManageController {
 		return "cmm/uss/umt/EgovUserPasswordUpdt";
 	}
 	
+	/**
+	 * 사용자목록 조회 팝업창으로 이동
+	 */
+	@RequestMapping(value = "/uss/umt/user/SearchNeUserList.do")
+	public String SearchNeUserList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO,
+								ModelMap model, HttpServletRequest request) throws Exception {
+
+		/** EgovPropertyService */
+		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
+		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
+
+		/** paging */
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(userSearchVO.getPageUnit());
+		paginationInfo.setPageSize(userSearchVO.getPageSize());
+
+		userSearchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		userSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		userSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		userSearchVO.setEmptyUserShow("off");
+		model.addAttribute("resultList", userManageService.selectUserListS(userSearchVO));
+
+		int totCnt = userManageService.selectUserListTotCntS(userSearchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		//사용자상태코드를 코드정보로부터 조회
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		vo.setCodeId("COM013");
+		model.addAttribute("emplyrSttusCode_result", cmmUseService.selectCmmCodeDetail(vo));//사용자상태코드목록
+		//직급코드를 코드정보로부터 조회 - COM002 
+		vo.setCodeId("COM002");
+		model.addAttribute("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+
+		//조직정보를 조회 - ORGNZT_ID정보
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+		model.addAttribute("SearchVO", userSearchVO);
+
+		return "cmm/uss/umt/SearchUserList";
+	}
+
 }
