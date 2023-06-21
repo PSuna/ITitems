@@ -34,6 +34,9 @@ public class CategoryVO  implements Serializable {
 	/** 카테고리 sorting order */
 	private int catOrder;
 	
+	/** 카테고리 대 중 구분 */
+	private String checkUpDown;
+	
 	public String getCatId() {
 		return catId;
 	}
@@ -64,6 +67,14 @@ public class CategoryVO  implements Serializable {
 
 	public void setCatOrder(int catOrder) {
 		this.catOrder = catOrder;
+	}
+
+	public String getCheckUpDown() {
+		return checkUpDown;
+	}
+
+	public void setCheckUpDown(String checkUpDown) {
+		this.checkUpDown = checkUpDown;
 	}
 
 	

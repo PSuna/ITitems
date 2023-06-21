@@ -129,6 +129,9 @@ function setPageUnit(){
     document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
+/* ********************************************************
+ * 엑셀다운로드
+ ******************************************************** */
 function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 항목이 없습니다.")
@@ -368,7 +371,6 @@ function getMOrgList(MOval) {
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                        	
 	                                        	<c:if test="${fn:length(resultList) == 0}">
 		                                        	<tr>
 		                                        		<td colspan="8" id="noData"><spring:message code="common.nodata.msg" /></td>

@@ -42,26 +42,23 @@ var userCheck = 0;
  * 프로젝트 등록 처리
  ******************************************************** */
 function fnPrjInsert(){
-	var prjStart = document.projectVO.prjStart.value;
-	var prjEnd = document.projectVO.prjEnd.value;
-	if(!document.projectVO.prjName.value){
-		document.getElementById('prjNameErr').innerHTML='프로젝트명은 필수입력값입니다.';
-	}else{
-		document.getElementById('prjNameErr').innerHTML='';
-	}
-	if(!document.projectVO.prjState.value){
-		document.getElementById('prjStateErr').innerHTML='진행상태는 필수입력값입니다.';
-	}else{
-		document.getElementById('prjStateErr').innerHTML='';
-	}
-	if(prjStart && prjEnd && prjStart > prjEnd){
-		alert("프로젝트 시작일은 종료일보다 이전이어야 합니다.")
-		return;
-	}
-	confirm("저장하시겠습니까?")
-    if(validateProjectVO(document.projectVO)){
-		document.projectVO.submit();
-    }
+	let formData = new FormData(document.projectVO);
+	$.ajax({
+		url:'${pageContext.request.contextPath}/prj/ProjectInsert.do',
+		method:'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			fn_egov_modal_remove();
+			RegistSuccess();
+		},
+		error: function (error) {
+			fn_egov_modal_remove();
+			RegistFail();
+		}
+	});
 }
 
 /* ********************************************************
@@ -96,6 +93,120 @@ function returnUser(val){
 		}
 	}
 	fn_egov_modal_remove();
+}
+
+/* ********************************************************
+ * 등록확인 팝업창
+ ******************************************************** */
+function RegistConfirm(){
+	if(validateProjectVO(document.projectVO)){
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+			});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+	}else{
+		fn_egov_modal_remove();
+		fncheckValid();
+	}
+}
+/* ********************************************************
+ * 필수값, 날짜 유효성 검사
+ ******************************************************** */
+function fncheckValid(){
+	var prjStart = document.projectVO.prjStart.value;
+	var prjEnd = document.projectVO.prjEnd.value;
+	if(!document.projectVO.prjName.value){
+		document.getElementById('prjNameErr').innerHTML='프로젝트명은 필수입력값입니다.';
+	}else{
+		document.getElementById('prjNameErr').innerHTML='';
+	}
+	if(!document.projectVO.prjState.value){
+		document.getElementById('prjStateErr').innerHTML='진행상태는 필수입력값입니다.';
+	}else{
+		document.getElementById('prjStateErr').innerHTML='';
+	}
+	if(prjStart && prjEnd && prjStart > prjEnd){
+		document.getElementById('prjStartErr').innerHTML='시작일은 종료일 이전이어야합니다.';
+	}else{
+		document.getElementById('prjStartErr').innerHTML='';
+	}
+}
+/* ********************************************************
+ * 등록확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+	
+	fn_egov_modal_remove();
+	 if(val){
+		 RegistIng();
+		 fnPrjInsert(); 
+	 }	  
+}
+/* ********************************************************
+* 등록진행 팝업창
+******************************************************** */
+function RegistIng(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+	$(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+/* ********************************************************
+ * 등록완료 팝업창
+ ******************************************************** */
+ function RegistSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 등록완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(val){
+	if(val){
+		fn_egov_modal_remove();
+		document.getElementById('userManageVO').reset();
+	}else{
+		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+		document.userManageVO.submit();
+	}
+
+}
+/* ********************************************************
+ * 등록실패 팝업창
+ ******************************************************** */
+function RegistFail(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+    		autoOpen: false,
+        	modal: true,
+        	width: 400,
+        	height: 300
+		});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
 }
 //-->
 </script>
@@ -225,7 +336,7 @@ function returnUser(val){
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnPrjInsert(); return false;"><spring:message
+												onclick="JavaScript:RegistConfirm(); return false;"><spring:message
 													code="button.save" /></a>
 											<!-- 등록 -->
 											<a href="<c:url value='/prj/ProjectManage.do'/>"

@@ -63,8 +63,7 @@ public class CategoryController {
 	@RequestMapping(value= "/cat/InsertCategory.do")
 	@ResponseBody
 	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception {
-		int r = categoryService.InsertCategory(categoryManageVO);
-		return r;
+		return categoryService.InsertCategory(categoryManageVO);
 	}
 	
 	/**
@@ -74,8 +73,7 @@ public class CategoryController {
 	 */
 	@RequestMapping(value= "/cat/DeleteCategory.do")
 	@ResponseBody
-	public int DeleteCategory(CategoryManageVO categoryManageVO){
-		int r = categoryService.DeleteCategory(categoryManageVO);
-		return r;
+	public int DeleteCategory(CategoryManageVO categoryManageVO) throws Exception {
+		return categoryService.DeleteCategory(categoryManageVO);
 	}
 }

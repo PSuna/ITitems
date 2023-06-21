@@ -120,17 +120,16 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	public int InsertAssetInfo(AssetVO assetVO){
 		
 		try {
-			assetVO.setAssetId(assetIdGnrService.getNextStringId());
+			assetVO.setAssetStauts("C2");
+			assetVO.setUsageStauts("U1");
 			
-			assetDAO.InsertAsset(assetVO);
-			assetDAO.InsertAssetdetail(assetVO);
-			
-			int qty = Integer.parseInt(assetVO.getAssetQty());
+			String strQty = assetVO.getAssetQty().replace(",", "");
+			int qty = Integer.parseInt(strQty);
 			for(int i=0; i<qty; i++) {
-				assetVO.setaId(aIdGnrService.getNextStringId());
-				assetDAO.InsertAssetIndiv(assetVO);
-				assetVO.setHistGroup("C2");
-				assetVO.setHistStatus("H0");
+				String id = assetIdGnrService.getNextStringId();
+				assetVO.setAssetId(id);
+				assetVO.setMngNum(id);
+				assetDAO.InsertAsset(assetVO);
 				assetDAO.InsertAssethist(assetVO);
 			}
 		} catch (FdlException e) {
@@ -145,31 +144,17 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 자산 수정.
      */
 	@Override
-	public int UpdateAssetDetail(AssetVO assetVO) {
+	public int UpdateAsset(AssetVO assetVO) {
 		
-		AssetManageVO manageVO = new AssetManageVO();
-		manageVO.setAssetId(assetVO.getAssetId());
+		assetVO.setAssetStauts("C3");
+		assetVO.setUsageStauts("U1");
 		
-		assetDAO.UpdateAssetdetail(assetVO);
-		assetDAO.InsertAssetdetail(assetVO);
-		/*
-		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
-		assetVO.setHistGroup("C3");
-		for(String aId : aIdList) {
-			assetVO.setaId(aId);
-			assetDAO.UpdateAssethist(assetVO);
-			assetDAO.InsertAssethist(assetVO);
-		} */
-		return 0;
-	}
-
-	/**
-     * 자산 개별 수정.
-     */
-	@Override
-	public int UpdateAssetHist(AssetVO assetVO){
-		// TODO Auto-generated method stub
-		return 0;
+		assetDAO.UpdateAsset(assetVO);
+		
+		if(assetVO.getMngNum() == null || assetVO.getMngNum() == "") {
+			assetVO.setMngNum(assetVO.getAssetId());
+		}
+		return assetDAO.InsertAssethist(assetVO);
 	}
 
 	/**
@@ -178,28 +163,9 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 	@Override
 	public int deleteAsset(AssetVO assetVO) {
 		
-		AssetManageVO manageVO = new AssetManageVO();
-		manageVO.setAssetId(assetVO.getAssetId());
-		
 		assetDAO.UpdateAssetDel(assetVO);
-		
-		List<String> aIdList = assetDAO.SelectaIdList(manageVO);
-		assetVO.setHistGroup("C4");
-		assetVO.setHistStatus("C4");
-		for(String aId : aIdList) {
-			assetVO.setaId(aId);
-			assetDAO.InsertAssetDelhist(assetVO);
-		} 
-		return 0;
-	}
-	
-	/**
-     * 개별 자산 삭제상태로 변경.
-     */
-	@Override
-	public int deleteAssetIndiv(AssetVO assetVO) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return assetDAO.InsertAssethist(assetVO);
 	}
 
 	@Override

@@ -269,7 +269,10 @@
 	           DATE_FORMAT(A.SBSCRB_DE,'%Y %m %d') as sbscrbDe,
 	           A.CRTFC_DN_VALUE            subDn,
 	           A.GRADE			grade,
-	           B.AUTHOR_CODE	authorCode
+	           B.AUTHOR_CODE	authorCode,
+	           SUBSTR(MBTLNUM, 1, 3) moblphonNo1,
+	           REPLACE(SUBSTR(MBTLNUM, 5, 4), '-', '') moblphonNo2,
+	           SUBSTR(MBTLNUM, -4) moblphonNo3	           
           FROM LETTNEMPLYRINFO A, LETTNEMPLYRSCRTYESTBS B
          WHERE ESNTL_ID=#{uniqId}
            AND A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID

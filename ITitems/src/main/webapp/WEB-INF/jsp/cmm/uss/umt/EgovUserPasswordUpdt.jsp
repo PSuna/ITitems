@@ -35,21 +35,197 @@
 <validator:javascript formName="passwordChgVO" staticJavascript="false" xhtml="true" cdata="false"/>
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
-function fnListPage(){
-    history.back();
+function fnListPage(id){
+	location.href="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?uniqId="+id;
 }
 function fnUpdate(){
-    if(validatePasswordChgVO(document.passwordChgVO)){
-        if(document.passwordChgVO.newPassword.value != document.passwordChgVO.newPassword2.value){
-            alert("<spring:message code="fail.user.passwordUpdate2" />");
-            return;
-        }
-        document.passwordChgVO.submit();
-    }
+	fn_egov_modal_remove();
+	document.passwordChgVO.submit();
 }
 <c:if test="${!empty resultMsg}">alert("<spring:message code="${resultMsg}" />");</c:if>
+
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+function fnCheckPw(e){
+	fnCheckPw1(e);
+	fnCheckPw2(e);
+	fnCheckPw3(e);
+}
+
+function fnCheckPw1(e){
+	let p_pass = e.value;
+
+    if (e.value.length < 8 || e.value.length > 20 ){
+		document.getElementById('hint1').style.color= 'red';
+    }else{
+    	document.getElementById('hint1').style.color= 'green';
+    }
+}
+function fnCheckPw2(e){
+	let p_pass = e.value;
+    var cnt=0,cnt2=1,cnt3=1;
+    var temp="";
+
+    for(i=0;i < p_pass.length;i++){
+            temp_pass1 = p_pass.charAt(i);
+            next_pass = (parseInt(temp_pass1.charCodeAt(0)))+1;
+            temp_p = p_pass.charAt(i+1);
+            temp_pass2 = (parseInt(temp_p.charCodeAt(0)));
+            if (temp_pass2 == next_pass)
+                cnt2 = cnt2 + 1;
+            else
+                cnt2 = 1;
+            if (temp_pass1 == temp_p)
+                cnt3 = cnt3 + 1;
+            else
+                cnt3 = 1;
+            if (cnt2 > 3) break;
+            if (cnt3 > 3) break;
+    }
+    if (cnt2 > 3){
+    	document.getElementById('hint2').style.color= 'red';
+    }else{
+    	document.getElementById('hint2').style.color= 'green';
+    }
+}
+
+function fnCheckPw3(e){
+	let p_pass = e.value;
+    var cnt=0,cnt2=1,cnt3=1;
+    var temp="";
+
+    for(i=0;i < p_pass.length;i++){
+            temp_pass1 = p_pass.charAt(i);
+            next_pass = (parseInt(temp_pass1.charCodeAt(0)))+1;
+            temp_p = p_pass.charAt(i+1);
+            temp_pass2 = (parseInt(temp_p.charCodeAt(0)));
+            if (temp_pass2 == next_pass)
+                cnt2 = cnt2 + 1;
+            else
+                cnt2 = 1;
+            if (temp_pass1 == temp_p)
+                cnt3 = cnt3 + 1;
+            else
+                cnt3 = 1;
+            if (cnt2 > 3) break;
+            if (cnt3 > 3) break;
+    }
+    if (cnt3 > 3){
+    	document.getElementById('hint3').style.color= 'red';
+    }else{
+    	document.getElementById('hint3').style.color= 'green';
+    }
+}
+/* ********************************************************
+ * 수정확인 팝업창
+ ******************************************************** */
+function UpdateConfirm(){
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+			});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+		
+}
+/* ********************************************************
+ * 수정확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+	
+	fn_egov_modal_remove();
+	 if(val){
+		 UpdateIng();
+		 fncheckValid();
+	 }	  
+}
+ /* ********************************************************
+ * 수정진행 팝업창
+ ******************************************************** */
+ function UpdateIng(){
+  	 var $dialog = $('<div id="modalPan"></div>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.dialog({
+  	    	autoOpen: false,
+  	        modal: true,
+  	        width: 400,
+  	        height: 300
+  		});
+  	    $(".ui-dialog-titlebar").hide();
+  		$dialog.dialog('open');
+ }
+ /* ********************************************************
+  * 수정완료 팝업창
+  ******************************************************** */
+  function UpdateSuccess(){
+ 	 var $dialog = $('<div id="modalPan"></div>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.dialog({
+ 	    	autoOpen: false,
+ 	        modal: true,
+ 	        width: 400,
+ 	        height: 300
+ 		});
+ 	    $(".ui-dialog-titlebar").hide();
+ 		$dialog.dialog('open');
+ }
+ 
+/* ********************************************************
+ * 수정완료 결과 처리
+ ******************************************************** */
+function returnSuccess(val){
+	if(val){
+  		fn_egov_modal_remove();
+  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+  		document.userManageVO.submit();
+  	}
+}
+/* ********************************************************
+* 수정실패 팝업창
+******************************************************** */
+function UpdateFail(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+   		.dialog({
+   	    	autoOpen: false,
+   	        modal: true,
+   	        width: 400,
+   	        height: 300
+   		});
+   	    $(".ui-dialog-titlebar").hide();
+   		$dialog.dialog('open');
+}
+function fncheckValid(){
+	if(validatePasswordChgVO(document.passwordChgVO)){
+        if(document.passwordChgVO.newPassword.value != document.passwordChgVO.newPassword2.value){
+        	fn_egov_modal_remove();
+            document.getElementById('newPassword2Err').innerHTML='비밀번호가 일치하지 않습니다.';
+            return;
+        }else{
+        	fnUpdate();
+        }
+    }
+}
 //-->
 </script>
+<style>
+.errSpan{
+	color:red;
+	font-size:14px;
+}
+.inputHint{
+	font-size:14px;
+	color:#bbb;
+}
+.board_view_bot{
+	margin-top:8px;
+}
+</style>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -100,44 +276,54 @@ function fnUpdate(){
                                 <div class="board_view2">
                                     <table>
                                         <colgroup>
-                                            <col style="width: 190px;">
-                                            <col style="width: auto;">
+                                            <col style="width: 25%;">
+                                            <col style="width: 25%;">
+                                            <col style="width: 50%;">
                                         </colgroup>
                                         <tr>
                                             <td class="lb">
                                                 <label for="emplyrId">사용자아이디</label>
                                             </td>
                                             <td>
-                                                <input name="emplyrId" id="emplyrId" class="f_txt" title="사용자아이디" type="text" value="<c:out value='${userManageVO.emplyrId}'/>" maxlength="20" readonly="readonly"/>
+                                                <input name="emplyrId" id="emplyrId" class="f_txt w_full" title="사용자아이디" type="text" value="<c:out value='${userManageVO.emplyrId}'/>" maxlength="20" readonly="readonly"/>
                                                 <input name="uniqId" id="uniqId" title="uniqId" type="hidden" value="<c:out value='${userManageVO.uniqId}'/>"/>
                                                 <input name="userTy" id="userTy" title="userTy" type="hidden" value="<c:out value='${userManageVO.userTy}'/>"/>
                                             </td>
+                                            <td rowspan='2'>
+	                                            <label for="empUniqNum" class="inputHint" id="hint1">8~20자 이내</label><br>
+			                                    <label for="empUniqNum" class="inputHint" id="hint2">연속된 문자나 순차적인 문자 4개이상 사용금지</label><br>
+			                                    <label for="empUniqNum" class="inputHint" id="hint3">반복문자나 숫자 연속 4개이상 사용금지</label>
+                                            </td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td class="lb">
                                                 <label for="oldPassword">기존 비밀번호</label>
                                             </td>
                                             <td>
                                                 <input name="oldPassword" id="oldPassword" class="f_txt" title="기존 비밀번호" type="password" value="" maxlength="100" />
                                             </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="newPassword">변경할 비밀번호</label>
+                                            </td>
+                                            <td>
+                                                <input name="newPassword" id="newPassword" class="f_txt w_full" title="비밀번호" type="password" value="" onkeyup="fnCheckPw(this);"maxlength="100" />
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="lb">
-                                                <label for="newPassword">비밀번호</label>
+                                                <label for="newPassword2">변경할 비밀번호확인</label>
                                             </td>
                                             <td>
-                                                <input name="newPassword" id="newPassword" class="f_txt" title="비밀번호" type="password" value="" maxlength="100" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="lb">
-                                                <label for="newPassword2">비밀번호확인</label>
+                                                <input name="newPassword2" id="newPassword2" class="f_txt w_full" title="비밀번호확인" type="password" value="" maxlength="100" />
                                             </td>
                                             <td>
-                                                <input name="newPassword2" id="newPassword2" class="f_txt" title="비밀번호확인" type="password" value="" maxlength="100" />
+                                                <span id="newPassword2Err" class="errSpan"></span>
                                             </td>
                                         </tr>
                                     </table>
+                                    
                                 </div>
 
 								<!-- 목록/저장버튼  -->
@@ -147,14 +333,16 @@ function fnUpdate(){
                                     </div>
 
                                     <div class="right_col btn1">
-                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnUpdate(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="fnListPage(); return false;">이전</a><!-- 목록 -->
+                                        <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:UpdateConfirm(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        <a href="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=${userManageVO.uniqId}" class="btn btn_blue_46 w_100">이전</a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
                                 
                                 </form>
-                                
+                                <form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
+                                	<input type="hidden" name="selectedId" value="<c:out value='${userManageVO.uniqId}'/>" />
+                                </form:form>
                             </div>
                         </div>
                     </div>

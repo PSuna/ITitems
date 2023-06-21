@@ -55,7 +55,6 @@ function fnSetUpperCat(){
 	document.getElementById('upperUl').replaceChildren();
 	var setUpper = document.getElementById('settedUpper');
 	setUpper.setAttribute('value','');
-	console.log(setUpper.value);
 	$.ajax({
 		url:"${pageContext.request.contextPath}/cat/GetMCategoryList.do",
 		method : "post",
@@ -83,7 +82,7 @@ function fnSetUpperCat(){
 					delBtn.setAttribute('id', res.catId);
 					delBtn.setAttribute('class', 'catDelBtn');
 					delBtn.onclick = function(){
-						fnDeleteCat(this);
+						fnDeleteCat(this, 'up');
 					};
 					/* btnDiv.appendChild(upBtn);
 					btnDiv.appendChild(downBtn); */
@@ -133,7 +132,7 @@ function fnSetLowerCat(e){
 					delBtn.setAttribute('id', res.catId);
 					delBtn.setAttribute('class', 'catDelBtn');
 					delBtn.onclick = function(){
-						fnDeleteCat(this);
+						fnDeleteCat(this, 'down');
 					}
 					/* btnDiv.appendChild(upBtn);
 					btnDiv.appendChild(downBtn); */
@@ -151,12 +150,22 @@ function fnSetLowerCat(e){
  * 대분류 추가 함수
  ******************************************************** */
 function fnUpperInsertCat(){
+	var upperLis = document.querySelectorAll('.upperLi');
+	var inputCat = document.getElementById('upperCatName').value;
+	for(let i=0; i < upperLis.length; i++){
+		if(upperLis[i].textContent.slice(0,-1) == inputCat){
+			alert("이미 존재하는 대분류명입니다.");
+			document.getElementById('upperCatName').focus();
+			return;
+		}
+	}
 	if(!document.getElementById('upperCatName').value){
 		alert("대분류명을 입력해주세요.");
 		document.getElementById('upperCatName').focus();
 		return;
 	}
 	var catName = document.getElementById('upperCatName').value;
+	
 	$.ajax({
 		url: "${pageContext.request.contextPath}/cat/InsertCategory.do",
 		method : "post",
@@ -177,6 +186,15 @@ function fnUpperInsertCat(){
  * 중분류 추가 함수
  ******************************************************** */
 function fnLowerInsertCat(){
+	var lowerLis = document.querySelectorAll('.lowerLi');
+	var inputCat = document.getElementById('lowerCatName').value;
+	for(let i=0; i < lowerLis.length; i++){
+		if(lowerLis[i].textContent.slice(0,-1) == inputCat){
+			alert("이미 존재하는 중분류명입니다.");
+			document.getElementById('lowerCatName').focus();
+			return;
+		}
+	}
 	if(!document.getElementById('lowerCatName').value){
 		alert("중분류명을 입력해주세요.");
 		document.getElementById('lowerCatName').focus();
@@ -205,30 +223,36 @@ function fnLowerInsertCat(){
 /* ********************************************************
  * 분류 삭제 함수
  ******************************************************** */
-function fnDeleteCat(e){
+function fnDeleteCat(e, updown){
 	if(confirm("삭제하시겠습니까?") == true){
 		var catId = e.id;
+		var checkUpDown = updown;
 		$.ajax({
 			url : "${pageContext.request.contextPath}/cat/DeleteCategory.do",
 			method : "post",
 			data: {
-				catId
+				catId,
+				checkUpDown
 			},
 			success:function(result){
 				console.log(result);
-				if(result<1){
-					alert("하위 항목이 존재합니다.");
+				if(result == 0){
+					alert("하위 자산항목이 존재합니다.");
 				}else{
 					alert("삭제 성공");
 					fnSetUpperCat();
 					document.getElementById('lowerUl').replaceChildren();
 				}
+			},error:function(error){
+				alert("하위 중분류가 존재합니다.")
 			}
+			
 		})
 	}else{
 		return false;
 	}
 }
+
 -->
 </script>
 <style>

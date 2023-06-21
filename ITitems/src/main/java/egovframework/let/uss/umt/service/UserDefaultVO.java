@@ -29,7 +29,10 @@ public class UserDefaultVO implements Serializable {
 
 	/** 검색조건-회원상태     (0, A, D, P)*/
     private String sbscrbSttus = "0";
-	
+
+    /** 선택한 사용자 Id */
+    private String selectedId = "";
+    
 	/** 검색조건 */
     private String searchCondition = "";
     
@@ -274,6 +277,14 @@ public class UserDefaultVO implements Serializable {
 
 	public void setSearchAuthor(String searchAuthor) {
 		this.searchAuthor = searchAuthor;
+	}
+
+	public String getSelectedId() {
+		return selectedId;
+	}
+
+	public void setSelectedId(String selectedId) {
+		this.selectedId = selectedId;
 	}
 
 

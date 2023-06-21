@@ -38,12 +38,15 @@ public class CategoryDAO extends EgovAbstractMapper {
 	}
 
 	public int DeleteCategory(CategoryManageVO categoryManageVO) throws Exception{
-		int r = delete("CategoryDAO.DeleteCategory", categoryManageVO);
-		return r;
+		return delete("CategoryDAO.DeleteCategory", categoryManageVO);
 	}
 
 	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception{
 		return insert("CategoryDAO.InsertCategory", categoryManageVO);
 	}
-	
+
+	public int findDownNum(CategoryManageVO categoryManageVO) {
+		return selectOne("CategoryDAO.findDownNum",categoryManageVO);
+	}
+
 }

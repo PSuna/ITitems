@@ -241,8 +241,7 @@ public class AssetController {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		assetVO.setRegId(user.getUniqId());
-		assetVO.setHistUser(user.getUniqId());
+		assetVO.setCreatId(user.getUniqId());
 
 		assetService.InsertAssetInfo(assetVO);
 		
@@ -301,8 +300,8 @@ public class AssetController {
 	@ResponseBody
 	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetVO.setHistUser(user.getUniqId());
-		assetService.UpdateAssetDetail(assetVO);
+		assetVO.setCreatId(user.getUniqId());
+		assetService.UpdateAsset(assetVO);
 		
 		String[] delPhotoList = delPhoto.split("/");
 		
@@ -342,7 +341,7 @@ public class AssetController {
 	@ResponseBody
 	public String AssetDel(AssetVO assetVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		assetVO.setHistUser(user.getUniqId());
+		/* assetVO.setHistUser(user.getUniqId()); */
 		assetService.deleteAsset(assetVO);
 		
 		return assetVO.getAssetId();

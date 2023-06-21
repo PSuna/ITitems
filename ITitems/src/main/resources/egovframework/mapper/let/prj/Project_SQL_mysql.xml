@@ -151,6 +151,35 @@
 			        ON B.GRADE = C.CODE 
 			      LEFT OUTER JOIN LETTCCMMNDETAILCODE D
 			        ON A.PRJ_STATE =  D.CODE
+				<include refid="search"></include>
+				) P 
+	</select>
+
+	<select id="xlsxTrsfPrjList" parameterType="egovframework.let.prj.service.ProjectManageVO" resultType="egovMap">
+		SELECT IFNULL(PRJ_CODE, '') PRJ_CODE,
+			   IFNULL(PRJ_NAME, '') PRJ_NAME,
+			   IFNULL(USER_NM, '') PM_NM,
+			   IFNULL(CLIENT, '') CLIENT,
+			   IFNULL(PRJ_STATE, '') PRJ_STATE
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRJ_STATE ASC, PRJ_START DESC, A.PRJ_ID) AS RUM,
+					   A.PRJ_ID, 
+				       A.PRJ_NAME, 
+				       DATE_FORMAT(a.PRJ_START,'%Y-%m-%d') AS PRJ_START,
+				       DATE_FORMAT(a.PRJ_END,'%Y-%m-%d') AS PRJ_END,
+				       A.CLIENT,
+				       D.CODE_NM AS PRJ_STATE,
+				       B.ESNTL_ID AS ID,
+				       B.USER_NM, 
+				       C.CODE_NM,
+				       A.PRJ_CODE
+			      FROM PROJECTS A 
+			      LEFT OUTER JOIN LETTNEMPLYRINFO B
+			        ON A.ID = B.EMPLYR_ID 
+			      LEFT OUTER JOIN LETTCCMMNDETAILCODE C
+			        ON B.GRADE = C.CODE 
+			      LEFT OUTER JOIN LETTCCMMNDETAILCODE D
+			        ON A.PRJ_STATE =  D.CODE
 				<include refid="search"></include>) P 
+	     WHERE P.RUM BETWEEN #{first} AND #{last}
 	</select>
 </mapper>
