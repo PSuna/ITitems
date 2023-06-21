@@ -44,13 +44,14 @@ function fnListPage(){
     document.userManageVO.submit();
 }
 function fnDeleteUser(checkedIds) {
-    if(confirm("<spring:message code="common.delete.msg" />")){
-        document.userManageVO.checkedIdForDel.value=checkedIds;
-        document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
-        document.userManageVO.submit(); 
-    }
+	document.userManageVO.checkedIdForDel.value="<c:out value='${userManageVO.userTy}'/>:<c:out value='${userManageVO.uniqId}'/>";
+    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+    document.userManageVO.submit(); 
 }
-
+function fnPasswordMove(){
+    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
+    document.userManageVO.submit();
+}
 var moblphoneNo = '';
 function fnUpdate(){
 	if(fncheckNums() == 'false'){
@@ -296,25 +297,24 @@ function UpdateConfirm(){
  		$dialog.dialog('open');
  }
   /* ********************************************************
-   * 등록완료 결과 처리
+   * 수정완료 결과 처리
    ******************************************************** */
    function returnSuccess(val){
   	if(val){
   		fn_egov_modal_remove();
   		document.getElementById('userManageVO').reset();
   	}else{
-  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
   		document.userManageVO.submit();
   	}
 
   }
-   /* ********************************************************
-    * 수정실패 팝업창
-    ******************************************************** */
-    function UpdateFail(){
-   	
-   	 var $dialog = $('<div id="modalPan"></div>')
-   		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+/* ********************************************************
+* 수정실패 팝업창
+******************************************************** */
+function UpdateFail(){
+	var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
    		.dialog({
    	    	autoOpen: false,
    	        modal: true,
@@ -323,12 +323,87 @@ function UpdateConfirm(){
    		});
    	    $(".ui-dialog-titlebar").hide();
    		$dialog.dialog('open');
-   }
+}
+/* ********************************************************
+ * 삭제확인 팝업창
+ ******************************************************** */
+ function DelConfirm(){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+	        
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제확인 결과 처리
+ ******************************************************** */
+ function returnConfirm(val){
+ 
+	fn_egov_modal_remove();
+	 if(val){
+		 DelIng();
+		 fnDeleteUser(); 
+	 }	  
+}
+
+/* ********************************************************
+* 삭제진행 팝업창
+******************************************************** */
+function DelIng(){
+
+ var $dialog = $('<div id="modalPan"></div>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 400,
+        height: 300
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}
+
+
+/* ********************************************************
+ * 삭제완료 팝업창
+ ******************************************************** */
+ function DelSuccess(){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제완료 결과 처리
+ ******************************************************** */
+ function returnSuccess(){
+	 fn_egov_modal_remove();
+	 document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+     document.userManageVO.submit(); 
+}
 /**********************************************************
  * 모달 종료 버튼
  ******************************************************** */
 function fn_egov_modal_remove() {
 	$('#modalPan').remove();
+}
+window.onload = function(){
+	getMOrgList('${userManageVO.lowerOrgnzt}');
 }
 //-->
 </script>
@@ -410,6 +485,8 @@ function fn_egov_modal_remove() {
 										value="<c:out value='${userSearchVO.searchGrade}'/>" />
 									<input type="hidden" name="searchAuthor"
 										value="<c:out value='${userSearchVO.searchAuthor}'/>" />
+									<input type="hidden" name="selectedId"
+										value="<c:out value='${userSearchVO.selectedId}'/>" />
 									<!-- 우편번호검색 -->
 									<input type="hidden" name="zip_url"
 										value="<c:url value='/sym/cmm/EgovCcmZipSearchPopup.do'/>" />
@@ -495,7 +572,7 @@ function fn_egov_modal_remove() {
 											<tr>
 	                                            <td class="lb">
 	                                                <label for="empUniqNum">사번</label><br>
-	                                                <label for="moblphonNo" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
+	                                                <label for="empUniqNum" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
 	                                            </td>
 	                                            <td>
 	                                                <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
@@ -509,9 +586,9 @@ function fn_egov_modal_remove() {
 	                                            </td>
 	                                            <td>
 	                                            	<div class="phoneNumBox">
-	                                                <input id="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3"/><span class="divPnum">-</span>
-	                                                <input id="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/><span class="divPnum">-</span>
-	                                                <input id="moblphonNo3" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/></div>
+	                                                <input value="<c:out value='${userManageVO.moblphonNo1}'/>" id="moblphonNo1" name="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3"/><span class="divPnum">-</span>
+	                                                <input value="<c:out value='${userManageVO.moblphonNo2}'/>" id="moblphonNo2" name="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/><span class="divPnum">-</span>
+	                                                <input value="<c:out value='${userManageVO.moblphonNo3}'/>" id="moblphonNo3" name="moblphonNo3" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/></div>
 	                                                <form:input path="moblphonNo" id="moblphonNo" type="hidden" maxlength="13"/>
 	                                                <form:errors path="moblphonNo" />
 	                                                <span id="phoneErr" class="errSpan"></span>
@@ -525,7 +602,7 @@ function fn_egov_modal_remove() {
 										<div class="left_col btn3">
 											<a href="<c:url value='/uss/umt/user/EgovUserDelete.do'/>"
 												class="btn btn_skyblue_h46 w_100"
-												onclick="fnDeleteUser('<c:out value='${userManageVO.userTy}'/>:<c:out value='${userManageVO.uniqId}'/>'); return false;"><spring:message
+												onclick="JavaScript:DelConfirm(); return false;"><spring:message
 													code="button.delete" /></a>
 											<!-- 삭제 -->
 											<a
@@ -540,7 +617,7 @@ function fn_egov_modal_remove() {
 
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="JavaScript:fnUpdate(); return false;">수정</a>
+												onclick="JavaScript:UpdateConfirm(); return false;">수정</a>
 											<!-- 저장 -->
 											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>"
 												class="btn btn_blue_46 w_100"
@@ -566,9 +643,5 @@ function fn_egov_modal_remove() {
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-<script>
-var OrgnztUp = '${userManageVO.lowerOrgnzt}';
-getMOrgList(OrgnztUp);
-</script>
 </body>
 </html>

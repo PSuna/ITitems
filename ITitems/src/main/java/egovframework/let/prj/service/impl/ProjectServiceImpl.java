@@ -1,15 +1,20 @@
 package egovframework.let.prj.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.prj.service.ProjectService;
 import egovframework.let.prj.service.ProjectVO;
+import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.prj.service.ProjectManageVO;
 
 /**
@@ -68,8 +73,8 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	 * @throws Exception
 	 */
 	@Override
-	public void insertPrj(ProjectVO projectVO) throws Exception {
-		projectDAO.insertPrj(projectVO);
+	public int insertPrj(ProjectVO projectVO) throws Exception {
+		return projectDAO.insertPrj(projectVO);
 	}
 	
 	/**
@@ -80,5 +85,19 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	@Override
 	public void deletePrj(ProjectVO projectVO) throws Exception {
 		projectDAO.deletePrj(projectVO);
+	}
+
+	@Override
+	public void xlsxTrsfPrjList(ProjectManageVO projectManageVO, HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		String title = "자산관리솔루션 - 프로젝트목록조회";
+		try {
+			List<EgovMap> tmpList = projectDAO.xlsxTrsfPrjList(projectManageVO);
+			ExcelUtil excelUtil = new ExcelUtil();
+			excelUtil.getxlsxDownload(title , tmpList , req, res);	
+		}catch(Exception e) {
+			throw e;
+		}
+		
 	}
 }

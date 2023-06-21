@@ -22,7 +22,7 @@ public interface CategoryService {
 	
 	public List<CategoryVO> SelectCategoryVOList(CategoryManageVO categoryManageVO)  throws Exception;
 
-	public int DeleteCategory(CategoryManageVO categoryManageVO);
+	public int DeleteCategory(CategoryManageVO categoryManageVO) throws Exception;
 
 	public int InsertCategory(CategoryManageVO categoryManageVO) throws Exception;
 

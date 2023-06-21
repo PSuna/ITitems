@@ -2,6 +2,9 @@ package egovframework.let.prj.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * 프로젝트를 위한 서비스 인터페이스  클래스
@@ -37,9 +40,10 @@ public interface ProjectService {
 	/**
 	 * 프로젝트 등록
 	 * @param projectVO 프로젝트 정보
+	 * @return 
 	 * @throws Exception
 	 */
-	public void insertPrj(ProjectVO projectVO) throws Exception;
+	public int insertPrj(ProjectVO projectVO) throws Exception;
 	
 	/**
 	 * 프로젝트 삭제
@@ -47,6 +51,13 @@ public interface ProjectService {
 	 * @throws Exception
 	 */
 	public void deletePrj(ProjectVO projectVO) throws Exception;
+
+	/**
+	 * 프로젝트목록 엑셀다운로드
+	 * @param projectManageVO 프로젝트 정보
+	 * @throws Exception
+	 */
+	public void xlsxTrsfPrjList(ProjectManageVO projectManageVO, HttpServletRequest req, HttpServletResponse res)throws Exception;
 
 	
 }

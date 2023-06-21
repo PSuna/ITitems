@@ -4,12 +4,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,11 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
-import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.sec.ram.service.AuthorManageVO;
 import egovframework.let.sec.ram.service.EgovAuthorManageService;
@@ -147,8 +143,6 @@ public class UserManageController {
 		/* userSearchVO.setPageUnit(propertiesService.getInt("pageUnit")); */
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
 
-		LoginVO loginId = (LoginVO)request.getSession().getAttribute("LoginVO");
-		String enstl_id = (loginId.getUniqId());
 		/** paging */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());
@@ -324,6 +318,7 @@ public class UserManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/user/EgovUserSelectUpdt.do")
+	@ResponseBody
 	public String updateUser(@ModelAttribute("userManageVO") UserManageVO userManageVO, BindingResult bindingResult, Model model) throws Exception {
 
 		// 미인증 사용자에 대한 보안처리

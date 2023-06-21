@@ -125,6 +125,14 @@ public class UserManageVO extends UserDefaultVO{
 	 * 핸드폰번호
 	 */
 	private String moblphonNo;
+	
+	/**
+	 * 핸드폰번호1,2,3
+	 */
+	private String moblphonNo1;
+	private String moblphonNo2;
+	private String moblphonNo3;
+	
 	/**
 	 * 직위명
 	 */
@@ -674,6 +682,24 @@ public class UserManageVO extends UserDefaultVO{
 	}
 	public void setEmpUniqNum(String empUniqNum) {
 		this.empUniqNum = empUniqNum;
+	}
+	public String getMoblphonNo1() {
+		return moblphonNo1;
+	}
+	public void setMoblphonNo1(String moblphonNo1) {
+		this.moblphonNo1 = moblphonNo1;
+	}
+	public String getMoblphonNo2() {
+		return moblphonNo2;
+	}
+	public void setMoblphonNo2(String moblphonNo2) {
+		this.moblphonNo2 = moblphonNo2;
+	}
+	public String getMoblphonNo3() {
+		return moblphonNo3;
+	}
+	public void setMoblphonNo3(String moblphonNo3) {
+		this.moblphonNo3 = moblphonNo3;
 	}
 	
 }

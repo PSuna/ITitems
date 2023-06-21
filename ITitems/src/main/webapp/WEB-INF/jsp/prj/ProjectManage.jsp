@@ -92,6 +92,17 @@ function fnSelectPrj(id) {
     document.listForm.submit();
 }
 
+/* ********************************************************
+ * 엑셀 다운로드
+ ******************************************************** */
+function fntrsfExcel(){
+	if(document.getElementById('noData')){
+		alert("엑셀로 다운로드할 항목이 없습니다.")
+	}else{
+	    document.listForm.action = "<c:url value='/com/xlsxTrsfPrjList.do'/>";
+	    document.listForm.submit();
+	}
+}
 //-->
 </script>
 </head>
@@ -178,7 +189,7 @@ function fnSelectPrj(id) {
 				                        <colgroup>
 				                            <col style="width: 5%;">
 				                            <col style="width: 12%;">
-				                            <col style="width: auto;">
+				                            <col style="width: 38%;">
 				                            <col style="width: 20%;">
 				                            <col style="width: 15%;">
 				                            <col style="width: 10%;">
@@ -195,6 +206,11 @@ function fnSelectPrj(id) {
 				                            </tr>
 				                        </thead>
 				                        <tbody>
+                                        	<c:if test="${fn:length(resultList) == 0}">
+	                                        	<tr>
+	                                        		<td colspan="6" id="noData"><spring:message code="common.nodata.msg" /></td>
+	                                        	</tr>
+                                        	</c:if>
 				                        	<c:forEach items="${resultList}" var="resultInfo" varStatus="status">
 				                            <tr onclick="fnSelectPrj('<c:out value="${resultInfo.prjId}"/>');">
 				                            	<td><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}"/></td>
