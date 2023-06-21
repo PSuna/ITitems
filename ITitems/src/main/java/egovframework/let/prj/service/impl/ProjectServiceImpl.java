@@ -86,7 +86,6 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 	public void deletePrj(ProjectVO projectVO) throws Exception {
 		projectDAO.deletePrj(projectVO);
 	}
-<<<<<<< HEAD
 	
 	@Override
 	public Map<String, Object> MobSelectProjectVOList(ProjectManageVO ProjectManageVO) throws Exception {
@@ -97,7 +96,6 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 		return map;
 	}
 
-=======
 
 	@Override
 	public void xlsxTrsfPrjList(ProjectManageVO projectManageVO, HttpServletRequest req, HttpServletResponse res)
@@ -112,5 +110,5 @@ public class ProjectServiceImpl extends EgovAbstractServiceImpl implements Proje
 		}
 		
 	}
->>>>>>> branch 'master' of https://github.com/ITitems/ITitems.git
+
 }
