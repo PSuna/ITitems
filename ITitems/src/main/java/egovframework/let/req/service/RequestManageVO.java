@@ -23,18 +23,18 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class RequestManageVO implements Serializable {
 
+
 	@Override
 	public String toString() {
-		return "RequestManageVO [reqId=" + reqId + ", searchOrgnzt=" + searchOrgnzt + ", menuOrgnzt=" + menuOrgnzt
-				+ ", searchPrj=" + searchPrj + ", prjNm=" + prjNm + ", id=" + id + ", reqGroup=" + reqGroup
-				+ ", searchLCat=" + searchLCat + ", searchdMCat=" + searchdMCat + ", searchStatus=" + searchStatus
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", menuStartDate=" + menuStartDate
-				+ ", menuEndDate=" + menuEndDate + ", searchWord=" + searchWord + ", AuthorCode=" + AuthorCode
-				+ ", sortOrdr=" + sortOrdr + ", pageIndex=" + pageIndex + ", pageUnit=" + pageUnit + ", pageSize="
-				+ pageSize + ", startPage=" + startPage + ", lastPage=" + lastPage + ", totalRecord=" + totalRecord
-				+ ", first=" + first + ", last=" + last + ", endPage=" + endPage + "]";
+		return "RequestManageVO [reqId=" + reqId + ", searchOrgnzt=" + searchOrgnzt + ", searchGroup=" + searchGroup
+				+ ", menuOrgnzt=" + menuOrgnzt + ", searchPrj=" + searchPrj + ", prjNm=" + prjNm + ", id=" + id
+				+ ", reqGroup=" + reqGroup + ", searchLCat=" + searchLCat + ", searchdMCat=" + searchdMCat
+				+ ", searchStatus=" + searchStatus + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", menuStartDate=" + menuStartDate + ", menuEndDate=" + menuEndDate + ", searchWord=" + searchWord
+				+ ", AuthorCode=" + AuthorCode + ", sortOrdr=" + sortOrdr + ", pageIndex=" + pageIndex + ", pageUnit="
+				+ pageUnit + ", pageSize=" + pageSize + ", startPage=" + startPage + ", lastPage=" + lastPage
+				+ ", totalRecord=" + totalRecord + ", first=" + first + ", last=" + last + ", endPage=" + endPage + "]";
 	}
-	
 	/** 신청코드 */
 	private String reqId;
 	
