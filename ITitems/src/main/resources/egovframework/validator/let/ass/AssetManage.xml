@@ -23,10 +23,7 @@
     </formset>
     
     <formset>
-		<form name="assetUpdt">
-			<field property="largeCategory" depends="required">
-        		<arg0 key="대분류" resource="false"/>
-			</field>			
+		<form name="assetUpdt">		
 			<field property="middleCategory" depends="required">
         		<arg0 key="중분류" resource="false"/>
 			</field> 

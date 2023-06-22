@@ -73,8 +73,6 @@ function UpdateAsset(){
 		data: formData,
 		success: function (result) {
 			fn_egov_modal_remove();
-			$('#subForm #assetId').val(result);
-			console.log(result);
 			UpdtSuccess();
 		},
 		error: function (error) {
@@ -157,7 +155,6 @@ function UpdtIng(){
  function returnSuccess(){
 	 fn_egov_modal_remove();
 	 SelectAsset();
-
 }
 
 /* ********************************************************
@@ -203,7 +200,8 @@ function AssetList(){
  * 중분류 조회
  ******************************************************** */
 function getMCatList(Mval) {
-	let val = document.getElementById('largeCategory').value;
+	let val = '${resultVO.largeCategoryCode}';
+	console.log(val);
 	if(val == ""){
 		document.getElementById('middleCategory').replaceChildren();
 		let op = document.createElement('option');
@@ -449,12 +447,10 @@ window.onload = function(){
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
-
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
@@ -493,7 +489,7 @@ window.onload = function(){
 													<label for="">자산관리번호</label>
 												</td>
 												<td colspan="3">
-													<input id="mngNum" class="f_txt w_full" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
+													<input id="mngNum" class="f_txt w_full readonly" name="mngNum" type="text" value="${resultVO.mngNum}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);" readonly="readonly"> 
 												</td>
 											</tr>
 											<tr>
@@ -504,7 +500,6 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="largeCategoryNm" class="f_txt w_full readonly" name="largeCategoryNm" type="text" value="${resultVO.largeCategory}" readonly="readonly">
-													<input id="largeCategory" class="f_txt w_full readonly" name="largeCategory" type="hidden" value="${resultVO.largeCategoryCode}" readonly="readonly"> 
 												</td>
 												<td colspan="2">
 												</td>
@@ -654,7 +649,7 @@ window.onload = function(){
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${orgnztId.codeNm == resultVO.orgnztId}">selected="selected"</c:if>>
+																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == resultVO.orgnztId}">selected="selected"</c:if>>
 																	<c:out value="${orgnztId.codeNm}" />
 																</option>
 															</c:forEach>
@@ -815,7 +810,8 @@ window.onload = function(){
 	</div>
 </body>
 <form id="subForm" name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
-	<input type="hidden" id="assetId" name="assetId" value="<c:out value='${resultVO.assetId}'/>" />
+	<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
+	<input type="hidden" id="mngNum" name="mngNum" value="${resultVO.mngNum}">
 	<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
 	<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 	<input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />

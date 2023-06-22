@@ -514,7 +514,8 @@ function AssetList(){
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
-<form name="subFrm" method="post" >
+<form id="subFrm" name="subFrm" method="post" >
+<input name="mngNum" type="hidden" value="${resultVO.mngNum}">
 <input name="assetId" type="hidden" value="${resultVO.assetId}">
 <input name="assId" type="hidden" value="${masterVO.assId}">
 	<c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\")%>">
@@ -537,7 +538,7 @@ function AssetList(){
 	<input name="searchWord" id="searchWord" type="hidden"  value="<c:out value="${searchVO.searchWord}"/>" />
 	<input name="searchOrgnzt" id="searchOrgnzt" type="hidden"  value="<c:out value="${searchVO.searchOrgnzt}"/>" />
 	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
-	<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
+	<input name="userNm" id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
 	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.LoginVO;
@@ -82,7 +83,7 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/MyAssetManagement.do")
 	public String MyAssetManagement(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
+			 AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetManageVO.setUserId(user.getUniqId());
@@ -241,7 +242,7 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetInsert.do")
 	@ResponseBody
-	public String AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO, BindingResult bindingResult) throws Exception {
+	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO, BindingResult bindingResult) throws Exception {
 		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -268,7 +269,7 @@ public class AssetController {
 			}
 		}
 		
-		return assetVO.getAssetId();
+		return list.size();
 	}
 	
 	/**
@@ -307,15 +308,15 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/AssetUpdate.do")
 	@ResponseBody
-	public String AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
+	public int AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetVO.setCreatId(user.getUniqId());
-		String resultId = assetService.UpdateAsset(assetVO);
+		int res = assetService.UpdateAsset(assetVO);
 		
 		String[] delPhotoList = delPhoto.split("/");
 		
 		FileVO fvo = new FileVO();
-		fvo.setFileGroup(resultId);
+		fvo.setFileGroup(assetVO.getAssetId());
 		for(String photoId : delPhotoList) {
 			fvo.setAtchFileId(photoId);
 			fileMngService.updateFileListUse(fvo);
@@ -323,7 +324,7 @@ public class AssetController {
 		List<MultipartFile> photoList = multiRequest.getFiles("photo");
 		for(MultipartFile photo : photoList) {
 			if (!photo.isEmpty()) {
-				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", resultId, "PHOTO");
+				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
 				fileMngService.insertAssFileInf(result);
 			}
 		}
@@ -334,12 +335,12 @@ public class AssetController {
 		MultipartFile file = multiRequest.getFile("file");
 		if (!file.isEmpty()) {
 			fileMngService.updateFileUse(fvo);
-			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", resultId, "FILE");
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
 			fileMngService.insertAssFileInf(result);
 		}
 		
 		
-		return resultId;
+		return res;
 	}
 	
 	
@@ -362,7 +363,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/PhotoManual.do")
 	public String PhotoManual() throws Exception {
 
-		return "/ass/PhotoManual";
+		return "/ass/PhotoManual"; 
 	}
 	
 	/**

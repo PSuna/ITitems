@@ -168,6 +168,20 @@
 			</if>
 		</where>
 	</sql>
+	
+	<sql id="detailSearch">
+		<where>
+	         <choose>
+				<when test="mngNum != null and mngNum != ''">
+					AND A.MNG_NUM =#{mngNum}
+				</when>
+				<otherwise>
+					AND A.MNG_NUM IS NULL
+				</otherwise>
+			</choose>
+       		AND A.ASSET_ID = #{assetId}
+       </where> 
+	</sql>
 
 	<select id="SelectMyAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="myAssetList">
 		SELECT
@@ -183,11 +197,7 @@
 			SELECT 
 				ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
 				A.MNG_NUM,
-				CASE 
-					WHEN A.MNG_NUM IS NOT NULL
-					THEN A.MNG_NUM
-					ELSE A.ASSET_ID
-				END AS ASSET_ID, 
+				A.ASSET_ID, 
 				CASE 
 					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
 					THEN A.MCAT_ETC
@@ -214,14 +224,12 @@
 	
 	<select id="CountMyAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
 		SELECT
-			COUNT(P.MNG_NUM)
+			COUNT(P.RUM)
 		  FROM (
 				SELECT 
-					CASE 
-						WHEN A.MNG_NUM IS NOT NULL
-						THEN A.MNG_NUM
-						ELSE A.ASSET_ID
-					END AS MNG_NUM
+					ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+					A.MNG_NUM,
+					A.ASSET_ID
 				  FROM ASSET A
 	   LEFT OUTER JOIN LETTNEMPLYRINFO D
 		            ON A.RCPT_ID = D.ESNTL_ID
@@ -247,11 +255,7 @@
 			SELECT 
 				ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
 				A.MNG_NUM,
-				CASE 
-					WHEN A.MNG_NUM IS NOT NULL
-					THEN A.MNG_NUM
-					ELSE A.ASSET_ID
-				END AS ASSET_ID,
+				A.ASSET_ID,
 				CASE
 					WHEN F.ORGNZT_UP IS NULL
 					THEN F.ORGNZT_NM
@@ -292,14 +296,12 @@
 	
 	<select id="CountAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
 		SELECT 
-    		COUNT(P.MNG_NUM)
+    		COUNT(P.RUM)
 	      FROM (
 			SELECT 
-				CASE 
-					WHEN A.MNG_NUM IS NOT NULL
-					THEN A.MNG_NUM
-					ELSE A.ASSET_ID
-				END AS MNG_NUM
+				ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+				A.MNG_NUM,
+				A.ASSET_ID
 			  FROM ASSET A
    LEFT OUTER JOIN LETTNEMPLYRINFO D
 	            ON A.RCPT_ID = D.ESNTL_ID
@@ -314,11 +316,7 @@
 	<select id="SelectAssetVO" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetDetail">
 			SELECT 
 				A.MNG_NUM,
-				CASE 
-					WHEN A.MNG_NUM IS NOT NULL
-					THEN A.MNG_NUM
-					ELSE A.ASSET_ID
-				END AS ASSET_ID,
+				A.ASSET_ID,
 				A.LARGE_CATEGORY AS LARGE_CATEGORY_CODE,
 				B.CAT_NAME AS LARGE_CATEGORY, 
 				A.MIDDLE_CATEGORY, 
@@ -366,8 +364,7 @@
 	            ON A.USE_ID = G.ESNTL_ID
    LEFT OUTER JOIN LETTNORGNZTINFO H
 				ON A.ORGNZT_ID = H.ORGNZT_ID
-		         WHERE A.MNG_NUM = #{assetId}
-				    OR A.ASSET_ID = #{assetId}
+	        <include refid="detailSearch" />
 	</select>
 	
 	<select id="SelectAssetHistList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="histList">
@@ -380,7 +377,7 @@
 				ON A.ASSET_STAUTS = B.CODE
    LEFT OUTER JOIN LETTNEMPLYRINFO C
 				ON A.CREAT_ID = C.ESNTL_ID
-			   WHERE A.MNG_NUM = #{assetId}
+				<include refid="detailSearch" />
 			ORDER BY A.CREAT_DT DESC
 	</select>
 	
@@ -392,12 +389,15 @@
 				SELECT
 					ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM
 					FROM ASSETHISTORY A	
-					WHERE A.MNG_NUM = #{assetId}
+					<include refid="detailSearch" />
 			   ) P
 	</select>
 
 	<insert id="InsertAsset" parameterType="egovframework.let.ass.service.AssetVO">
 		INSERT INTO ASSET (
+			<if test="mngNum != null and mngNum != ''">
+			MNG_NUM,
+			</if>
 			ASSET_ID,
 			ASS_ID,
 			ASSET_STAUTS,
@@ -430,6 +430,9 @@
 			ASSET_COMPANY
 			)
 		VALUES (
+			<if test="mngNum != null and mngNum != ''">
+			#{mngNum},
+			</if>
 			#{assetId},
 			#{assId},
 			#{assetStauts},
@@ -465,7 +468,10 @@
 	
 	<insert id="InsertAssethist" parameterType="egovframework.let.ass.service.AssetVO">
 		 INSERT INTO ASSETHISTORY (
+			<if test="mngNum != null and mngNum != ''">
 			MNG_NUM,
+			</if>
+			ASSET_ID,
 			ASSET_STAUTS,
 			USAGE_STAUTS,
 			CREAT_DT,
@@ -498,7 +504,10 @@
 			CREAT_ID
 			)
 		VALUES (
+			<if test="mngNum != null and mngNum != ''">
 			#{mngNum},
+			</if>
+			#{assetId},
 			#{assetStauts},
 			#{usageStauts},
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
@@ -533,20 +542,10 @@
 	</insert>
 	
 	<update id="UpdateAsset">
-		UPDATE ASSET
+		UPDATE ASSET A
 		   SET
-		   		<choose>
-		   		<when test="mngNum != null and mngNum != ''">
-		   			MNG_NUM = #{mngNum},
-		   			ASSET_ID = NULL,
-		   		</when>
-		   		<otherwise>
-		   			ASSET_ID = #{assetId},
-		   		</otherwise>
-		   		</choose>
 				ASSET_STAUTS = #{assetStauts},
 				USAGE_STAUTS = #{usageStauts},
-				LARGE_CATEGORY = #{largeCategory},
 				MIDDLE_CATEGORY = #{middleCategory},
 				MCAT_ETC = #{mcatEtc},
 				PRJ_ID = #{prjId},
@@ -571,29 +570,22 @@
 				RCPT_DATE = #{rcptDate},
 				</if>
 				NOTE = #{note}
-		 WHERE MNG_NUM = #{assetId}
-		    OR ASSET_ID = #{assetId}	
+		<include refid="detailSearch" />	
 	</update>
 	
 	<update id="UpdateAssetDel" parameterType="egovframework.let.ass.service.AssetVO">
-		UPDATE ASSET
+		UPDATE ASSET A
 		   SET 
 		   		USAGE_STAUTS = #{usageStauts},
 		   		ASSET_STAUTS = #{assetStauts}
-		 WHERE MNG_NUM = #{assetId}
-			OR ASSET_ID = #{assetId}
+		 <include refid="detailSearch" />
 	</update>
 	
 	<update id="UpdateAssetMngNum" parameterType="egovframework.let.ass.service.AssetVO">
-		UPDATE ASSETHISTORY
+		UPDATE ASSETHISTORY A
 		   SET 
-		   		MNG_NUM = #{mngNum}
-		 WHERE MNG_NUM = #{assetId};
-		 
-		 UPDATE LETTNFILEDETAIL
-		   SET 
-		   		FILE_GROUP = #{mngNum}
-		 WHERE FILE_GROUP = #{assetId};
+		   		MNG_NUM = #{newMngNum}
+		 <include refid="detailSearch" />
 	</update>
 	
 	<select id="xlsxTrsfAssetList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">
