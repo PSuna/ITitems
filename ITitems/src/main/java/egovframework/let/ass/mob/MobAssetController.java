@@ -193,7 +193,11 @@ public class MobAssetController {
 		CategoryManageVO cvo = new CategoryManageVO();
 		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
 
+		vo.setCodeId("COM015");
+		appMap.put("maker_result", cmmUseService.selectCmmCodeDetail(vo));
+
 		appMap.put("searchVO", assetManageVO);
+		appMap.put("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		System.out.println(appMap);
 
 		return appMap;
