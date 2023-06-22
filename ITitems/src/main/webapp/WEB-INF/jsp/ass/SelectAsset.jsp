@@ -62,6 +62,59 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
+ * 자산관리번호 수정칸 생성
+ ******************************************************** */
+ function MngNumUpdtInput(){
+	$(".viewMngNum").css("display","none");
+	$(".editMngNum").css("display","block");
+}
+
+/* ********************************************************
+ * 자산관리번호 수정 취소
+ ******************************************************** */
+ function MngNumCancel(){
+	$(".viewMngNum").css("display","none");
+	$(".editMngNum").css("display","block");
+}
+
+/* ********************************************************
+ * 자산관리번호 수정
+ ******************************************************** */
+ function MngNumUpdt(){
+	 let formData = new FormData(document.getElementById('subFrm'));
+	 formData.append('newMngNum', $(#newMngNum).val);
+	   $.ajax({
+		url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			
+		},
+		error: function (error) {
+			
+		}
+	}) 
+}
+
+function removeP() {
+	let td = $(".editMngNum").closest("td");
+	if($(td).children().last().prop('tagName') == 'P'){
+		$(td).children().last().remove();
+	}
+}
+
+function alertValid(objList) {
+	removeP();
+	let td = $(item).closest("td");
+	if($(item).attr("name") == key){
+		$(td).append($('<p/>').addClass('alertV').text("이미 존재하는 자산관리번호입니다"));
+	}
+}
+
+/* ********************************************************
  * 수정페이지로 이동
  ******************************************************** */
 function AssetUpdt() {
@@ -208,7 +261,12 @@ function AssetList(){
 
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
-
+	
+	<%
+		LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
+	%>
+	<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
+	<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 	<div class="wrap">
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
@@ -248,9 +306,47 @@ function AssetList(){
 													<!-- 자산관리번호 --> 
 													<label for="">자산관리번호</label> 
 												</td>
-												<td colspan="3" >
-													${resultVO.mngNum}
-												</td>
+												<c:choose>
+													<c:when test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
+														<td colspan="2" >
+															<div class="viewMngNum">
+																${resultVO.mngNum}
+															</div>
+															<div class="editMngNum">
+																<input class="f_txt w_full" id="NewMngNum" name="NewMngNum" maxlength="30" type="text" value="${resultVO.mngNum}"/>
+															</div>
+														</td>
+														<td>
+															<div class="viewMngNum">
+																<div class="right_btn btn1">
+																	<!-- 자산관리번호 수정 -->
+																	<a href="#LINK" class="btn btn_skyblue_h46 w_180"
+																		onclick="MngNumUpdtInput();return false;"> 자산관리번호 수정
+																	</a>
+																</div>
+															</div>
+															<div class="editMngNum">
+																<div class="right_btn btn1">
+																	<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
+																		<!-- 수정 -->
+																		<a href="#LINK" class="btn btn_skyblue_h46 w_88"
+																			onclick="MngNumUpdt();return false;"><spring:message code="button.update" />
+																		</a>
+																		<!-- 취소 -->
+																		<a href="#LINK" class="btn btn_skyblue_h46 w_88"
+																			onclick="MngNumCancel();return false;"><spring:message code="button.cancel" />
+																		</a>
+																	</c:if>
+																</div>
+															</div>
+														</td>
+													</c:when>
+													<c:otherwise>
+													<td colspan="3" >
+														${resultVO.mngNum}
+													</td>
+													</c:otherwise>
+												</c:choose>
 											</tr>
 											<tr>
 												<td class="lb">
@@ -471,11 +567,6 @@ function AssetList(){
 										</table>
 									</div>
 								</div>
-										<%
-											LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
-										%>
-										<c:set var="login" value="<%= loginVO.getUniqId()%>"/>
-										<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 									<!-- 버튼  -->
 									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">

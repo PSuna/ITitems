@@ -343,18 +343,31 @@ public class AssetController {
 		return res;
 	}
 	
+	/**
+	 * 자산관리번호 수정
+	 */
+	@RequestMapping(value = "/ass/AssetDel.do")
+	@ResponseBody
+	public int MngNumUpdt(AssetVO assetVO) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetVO.setCreatId(user.getUniqId());
+		
+		int res = assetService.MngNumUpdt(assetVO);
+		
+		return res;
+	}
 	
 	/**
 	 * 자산삭제
 	 */
 	@RequestMapping(value = "/ass/AssetDel.do")
 	@ResponseBody
-	public String AssetDel(AssetVO assetVO) throws Exception {
+	public int AssetDel(AssetVO assetVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetVO.setCreatId(user.getUniqId());
-		assetService.deleteAsset(assetVO);
 		
-		return assetVO.getAssetId();
+		
+		return assetService.deleteAsset(assetVO);
 	}
 	
 	/**

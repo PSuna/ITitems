@@ -42,6 +42,8 @@ public interface AssetService {
 	
 	public int UpdateAsset(AssetVO assetVO);
 	
+	public int MngNumUpdt(AssetVO assetVO);
+	
 	public int deleteAsset(AssetVO assetVO);
 	
 	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;

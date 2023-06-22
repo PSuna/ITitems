@@ -159,6 +159,30 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		
 		return result;
 	}
+	
+	/**
+     * 자산관리번호 수정.
+     */
+	@Override
+	public int MngNumUpdt(AssetVO assetVO) {
+		
+		assetVO.setAssetStauts("C5");
+		assetVO.setUsageStauts("U1");
+		
+		if(assetDAO.CountMngNum(assetVO) == 0) {
+			return -1;
+		}else if(assetDAO.CountMngNum(assetVO) == 1){
+			int result = assetDAO.UpdateAssetMngNum(assetVO);
+			
+			if(result > 0) {
+				assetDAO.InsertAssethist(assetVO);
+			}
+			return result;
+		}
+		
+		return 0;
+	}
+
 
 	/**
      * 자산 삭제상태로 변경.
