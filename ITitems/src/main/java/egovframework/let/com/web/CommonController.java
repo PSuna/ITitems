@@ -18,8 +18,6 @@ import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectService;
-import egovframework.let.rent.service.RentalManageVO;
-import egovframework.let.rent.service.RentalService;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.uss.umt.service.UserDefaultVO;
@@ -60,11 +58,7 @@ public class CommonController {
 	/** assetService */
 	@Resource(name = "AssetService")
 	private AssetService assetService;
-	
-	/** assetService */
-	@Resource(name = "RentalService")
-	private RentalService rentalService;
-	
+
 	/** projectService */
 	@Resource(name = "ProjectService")
 	private ProjectService projectService;
@@ -257,21 +251,7 @@ public class CommonController {
 		assetManageVO.setUserId(user.getUniqId());
 		assetService.xlsxTrsfMyAssList(assetManageVO,req,res);
 	}
-	
-	//전체자산목록 엑셀 출력
-	@RequestMapping("/com/xlsxTrsfRentList.do")
-	public void xlsxTrsfRentList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RentalManageVO rentalManageVO, HttpSession session) throws Exception {
-		rentalService.xlsxTrsfRentList(rentalManageVO,req,res);
-	}
 
-	//내자산조회 엑셀 출력
-	@RequestMapping("/com/xlsxTrsfMyRentList.do")
-	public void xlsxTrsfMyRentList(HttpServletRequest req, HttpServletResponse res, ModelMap model, RentalManageVO rentalManageVO, HttpSession session) throws Exception {
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		rentalManageVO.setUserId(user.getUniqId());
-		rentalService.xlsxTrsfMyRentList(rentalManageVO,req,res);
-	}
-	
 	//프로젝트목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfPrjList.do")
 	public void xlsxTrsfPrjList(HttpServletRequest req, HttpServletResponse res, ModelMap model, ProjectManageVO projectManageVO, HttpSession session) throws Exception {

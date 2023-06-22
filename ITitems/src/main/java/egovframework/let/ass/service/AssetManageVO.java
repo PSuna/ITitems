@@ -22,6 +22,8 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class AssetManageVO implements Serializable {
 
+	
+	
 	/** 검색 사용자 */
 	private String userId;
 	
@@ -30,6 +32,9 @@ public class AssetManageVO implements Serializable {
 	
 	/** 자산코드 */
 	private String assetId;
+	
+	/** 자산관리번호 */
+	private String mngNum;
 	
 	/** 자산 분류 ID */
 	private String assId;
@@ -410,6 +415,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setAssId(String assId) {
 		this.assId = assId;
+	}
+	public String getMngNum() {
+		return mngNum;
+	}
+	public void setMngNum(String mngNum) {
+		this.mngNum = mngNum;
 	}
 	
 	

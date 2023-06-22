@@ -131,7 +131,6 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			for(int i=0; i<qty; i++) {
 				String id = assetIdGnrService.getNextStringId();
 				assetVO.setAssetId(id);
-				assetVO.setMngNum(id);
 				idList.add(id);
 				assetDAO.InsertAsset(assetVO);
 				assetDAO.InsertAssethist(assetVO);
@@ -148,22 +147,17 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
      * 자산 수정.
      */
 	@Override
-	public String UpdateAsset(AssetVO assetVO) {
+	public int UpdateAsset(AssetVO assetVO) {
 		
 		assetVO.setAssetStauts("C3");
 		assetVO.setUsageStauts("U1");
 		
-		assetDAO.UpdateAsset(assetVO);
-
-		if(assetVO.getMngNum() == null || assetVO.getMngNum() == "" || assetVO.getMngNum() == assetVO.getAssetId()) {
-			assetVO.setMngNum(assetVO.getAssetId());
-		}else {
-			assetDAO.UpdateAssetMngNum(assetVO);
+		int result = assetDAO.UpdateAsset(assetVO);
+		if(result > 0) {
+			assetDAO.InsertAssethist(assetVO);
 		}
-		assetVO.setMngNum(assetVO.getMngNum());
-		assetDAO.InsertAssethist(assetVO);
 		
-		return assetVO.getMngNum();
+		return result;
 	}
 
 	/**
@@ -174,12 +168,6 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		assetVO.setAssetStauts("C4");
 		assetVO.setUsageStauts("C4");
 		assetDAO.UpdateAssetDel(assetVO);
-		
-		String id = assetVO.getMngNum();
-		if(id == null || id == "") {
-			id = assetVO.getAssetId();
-		}
-		assetVO.setMngNum(id);
 		
 		return assetDAO.InsertAssethist(assetVO);
 	}

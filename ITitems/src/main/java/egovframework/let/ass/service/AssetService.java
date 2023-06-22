@@ -40,7 +40,7 @@ public interface AssetService {
 	
 	public List<String> InsertAsset(AssetVO assetVO);
 	
-	public String UpdateAsset(AssetVO assetVO);
+	public int UpdateAsset(AssetVO assetVO);
 	
 	public int deleteAsset(AssetVO assetVO);
 	

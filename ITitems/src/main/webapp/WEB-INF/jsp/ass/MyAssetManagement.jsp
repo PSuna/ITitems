@@ -172,10 +172,11 @@ function AssetRegist() {
 /* ********************************************************
  * 자산 상세 페이지 이동
  ******************************************************** */
-function SelectAsset(assetId) {
+function SelectAsset(assetId,mngNum) {
 	inputpush();
 	event.preventDefault();
 	document.frm.assetId.value = assetId;
+	document.frm.mngNum.value = mngNum;
     document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
     document.frm.submit(); 
 }
@@ -278,6 +279,7 @@ window.onload = function(){
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 										<input type="hidden" name="assetId" />
+										<input type="hidden" name="mngNum" />
 										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
 										<input type="hidden" name="listCode" value="MYAM" />
 										<div class="j_box01">
@@ -388,7 +390,7 @@ window.onload = function(){
 										<tbody>
 											<c:forEach var="result" items="${resultList}"
 												varStatus="status">
-												<tr onclick="SelectAsset('${result.assetId}');">
+												<tr onclick="SelectAsset('${result.assetId}','${result.mngNum}');">
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>

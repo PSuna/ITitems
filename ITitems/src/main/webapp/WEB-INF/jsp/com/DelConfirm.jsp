@@ -38,7 +38,7 @@
 
 	function return_val(val) {
 
-		parent.parent.returnConfirm(val);
+		parent.parent.returnDelConfirm(val);
 	}
 	
 </script>

@@ -25,6 +25,9 @@ public class AssetVO implements Serializable {
 	/** 자산관리번호 */
 	private String mngNum;
 	
+	/** 새 자산관리번호 */
+	private String newMngNum;
+	
 	/** 임시 자산코드 */
 	private String assetId;
 

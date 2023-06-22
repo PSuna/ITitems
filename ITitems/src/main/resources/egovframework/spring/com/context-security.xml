@@ -35,7 +35,7 @@
 
         hash="plaintext"
         hashBase64="false"
-
+		cacheControl="true"
 		concurrentMaxSessons="999"
 		concurrentExpiredUrl="/uat/uia/actionMain.do"
 

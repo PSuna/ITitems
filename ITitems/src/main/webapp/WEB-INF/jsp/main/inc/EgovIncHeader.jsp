@@ -16,6 +16,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%    
+response.setHeader("Cache-Control","no-store");    
+response.setHeader("Pragma","no-cache");    
+response.setDateHeader("Expires",0);    
+if (request.getProtocol().equals("HTTP/1.1"))  
+        response.setHeader("Cache-Control", "no-cache");  
+%>
 	<script src="<c:url value='/'/>js/showModalDialog.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
