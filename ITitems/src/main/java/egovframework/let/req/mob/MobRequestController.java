@@ -239,6 +239,8 @@ public class MobRequestController {
 		appMap.put("resultList", requestService.SelectRequestDetailVOList(manageVO));
 		appMap.put("aprvList_result", requestService.SelectAprvList(manageVO));
 		appMap.put("searchVO", manageVO);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(appMap);
 		return appMap;
 	}
 
