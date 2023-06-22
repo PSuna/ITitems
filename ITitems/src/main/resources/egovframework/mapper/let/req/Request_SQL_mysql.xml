@@ -64,7 +64,6 @@
 			ID,
 			REQ_DATE,
 			REQ_STATUS,
-			REQ_NOTE,
 			PRJ_ID,
 			PM,
 			<if test= "startDate != null and  startDate !=''">
@@ -74,13 +73,13 @@
 				END_DATE,
 			</if>
 			PLACE,
-			REQ_GROUP )
+			REQ_GROUP 
+			)
 		VALUES (
 			#{reqId},
 			#{id},
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
 			'A0',
-			#{reqNote},
 			#{prjId},
 			#{pm},
 			<if test= "startDate != null and  startDate !=''">
@@ -95,24 +94,15 @@
 	</insert>
 
 	<insert id="InsertRequestDetailVO">
-
 		INSERT INTO REQUESTDETAIL(
 			RED_ID,
 			REQ_ID,
-			LARGE_CATEGORY,
-			MIDDLE_CATEGORY,
 			ASSET_ID,
-			MAKER,
-			USER,
 			REQ_ORDER )
 		VALUES (
 			#{redId},
 			#{reqId},
-			#{largeCategory},
-			#{middleCategory},
 			#{assetId},
-			#{maker},
-			#{user},
 			#{reqOrder} )
 	</insert>
 
@@ -241,7 +231,6 @@
 					B.USER_NM AS ID, 
 					DATE_FORMAT(A.REQ_DATE,'%m-%d') AS REQ_DATE, 
 					D.CODE_NM AS REQ_STATUS, 
-					A.REQ_NOTE, 
 					C.PRJ_NAME AS PRJ_ID, 
 					CONCAT(F.USER_NM, ' ', G.CODE_NM) PM, 
 					DATE_FORMAT(A.START_DATE,'%Y-%m-%d') AS START_DATE, 
