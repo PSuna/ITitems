@@ -84,7 +84,8 @@ function SearchCarryList() {
  *  페이지 이동
  ******************************************************** */
 function fn_egov_select_noticeList(pageNo) {
-	event.preventDefault()
+	event.preventDefault();
+	inputPush();
 	document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchStatus.value = '${searchVO.searchStatus}';
@@ -165,6 +166,7 @@ function SelectCarry(reqId) {
  *  현재 리스트 엑셀 추출
  ******************************************************** */
 function fntrsfExcel(){
+	inputPush();
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
@@ -177,9 +179,21 @@ function fntrsfExcel(){
  *  페이지당 리스트 수 설정
  ******************************************************** */
 function setPageUnit(){
+	inputPush();
 	document.frm.pageIndex.value = 1;
     document.frm.action = "<c:url value='/req/CarryRequset.do'/>";
     document.frm.submit();
+}
+/* ********************************************************
+ *  인풋값 정리
+ ******************************************************** */
+function inputPush(){
+	document.frm.searchGroup.value='${searchVO.searchGroup}';
+	document.frm.searchStatus.value='${searchVO.searchStatus}';
+	document.frm.searchPrj.value='${searchVO.searchPrj}';
+	document.frm.startDate.value='${searchVO.startDate}';
+	document.frm.endDate.value='${searchVO.endDate}';
+	document.frm.searchWord.value='${searchVO.searchWord}';
 }
 
 </script>
@@ -296,7 +310,7 @@ function setPageUnit(){
 												</div>
 												<div class="search_box">
 													<span class="item f_search w_full" >
-														<input class="f_input w_full pty_f_input" type="text" name="searchWord" onchange="SearchCarryList(); return false;" placeholder="사용장소/신청자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+														<input class="f_input w_full pty_f_input" type="text" name="searchWord" placeholder="사용장소/신청자 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
 													</span>
 												</div>
 												<div class="btn_box">

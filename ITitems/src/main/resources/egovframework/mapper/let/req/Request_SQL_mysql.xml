@@ -19,7 +19,6 @@
 		id="RequestDetailList">
 		<result property="redId" column="RED_ID" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
-		<result property="reqQty" column="REQ_QTY" />
 		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
 		<result property="user" column="USER" />
@@ -103,7 +102,6 @@
 			LARGE_CATEGORY,
 			MIDDLE_CATEGORY,
 			ASSET_ID,
-			REQ_QTY,
 			MAKER,
 			USER,
 			REQ_ORDER )
@@ -113,7 +111,6 @@
 			#{largeCategory},
 			#{middleCategory},
 			#{assetId},
-			#{reqQty},
 			#{maker},
 			#{user},
 			#{reqOrder} )
@@ -270,52 +267,31 @@
 	<select id="SelectRequestDetailVOList" parameterType="egovframework.let.req.service.RequestManageVO" 
 		resultMap="RequestDetailList">
 		 SELECT REQ.RED_ID, 
-			    CASE WHEN AD.LARGE_CATEGORY = 'ETC'
-			    THEN AD.MIDDLE_CATEGORY 
+			    CASE WHEN A.LARGE_CATEGORY = 'ETC'
+			    THEN A.MIDDLE_CATEGORY 
 			    ELSE B.CAT_NAME END AS MIDDLE_CATEGORY, 
-			    REQ.REQ_QTY,
-			    AD.ASSET_SN AS ASSET_SN,
+			    A.ASSET_SN AS ASSET_SN,
 			    CASE WHEN H.CODE_NM = '기타'
-					 THEN AD.MAKER
+					 THEN A.MAKER
 					 ELSE H.CODE_NM  
 		  			 END AS MAKER,  
 			    C.USER_NM AS USER, 
 			    D.USER_NM AS RCPT_ID,
 			    REQ.ASSET_ID,
-			    AH.USE_ID
+			    A.USE_ID
 		   FROM REQUESTDETAIL REQ
-LEFT OUTER JOIN ASSETS A
+LEFT OUTER JOIN ASSET A
 			 ON REQ.ASSET_ID = A.ASSET_ID
-LEFT OUTER JOIN ASSETDETAIL AD
-			 ON REQ.ASSET_ID = AD.ASSET_ID
-LEFT OUTER JOIN ASSETINDIV AI
-			 ON REQ.ASSET_ID = AI.ASSET_ID
-LEFT OUTER JOIN ASSETHIST AH
-			 ON AI.A_ID = AH.A_ID
 LEFT OUTER JOIN category B
-			 ON AD.MIDDLE_CATEGORY = B.CAT_ID
+			 ON A.MIDDLE_CATEGORY = B.CAT_ID
 LEFT OUTER JOIN LETTNEMPLYRINFO C
-		     ON AH.USE_ID = C.ESNTL_ID
+		     ON A.USE_ID = C.ESNTL_ID
 LEFT OUTER JOIN LETTNEMPLYRINFO D
-		     ON AD.RCPT_ID = D.ESNTL_ID
+		     ON A.RCPT_ID = D.ESNTL_ID
 LEFT OUTER JOIN LETTCCMMNDETAILCODE H
-		     ON AD.MAKER_CODE = H.CODE
+		     ON A.MAKER_CODE = H.CODE
 		  WHERE REQ.REQ_ID = #{reqId}
-		       AND A.USAGE_STAUTS = 'Y' 
-			   AND AD.USAGE_STAUTS = 'Y'
-			   AND AI.USAGE_STAUTS = 'Y' 
-			   AND AH.USAGE_STAUTS = 'Y' 
-          GROUP BY REQ.RED_ID,
-               	   MIDDLE_CATEGORY,
-            	   REQ.REQ_QTY,
-	    		   AD.ASSET_SN,
-			       AD.MAKER_CODE,
-			       H.CODE_NM,
-			       AD.MAKER,
-			       C.USER_NM,
-			       D.USER_NM,
-			       REQ.ASSET_ID,
-			       AH.USE_ID 
+		    AND A.USAGE_STAUTS = 'U1' 
 		  ORDER BY REQ.REQ_ORDER 
 	</select>
 	
