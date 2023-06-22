@@ -168,6 +168,7 @@ public class MyManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/uss/myp/EgovMyPasswordUpdt.do")
+	@ResponseBody
 	public String EgovMyPasswordUpdt(ModelMap model, @RequestParam Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
 			@ModelAttribute("userManageVO") UserManageVO userManageVO) throws Exception {
 
@@ -190,19 +191,22 @@ public class MyManageController {
 		userManageVO.setPassword(newPassword);
 		userManageVO.setOldPassword(oldPassword);
 		userManageVO.setUniqId(uniqId);
-
+		String returnResult = "false";
 		String resultMsg = "";
 		resultVO = userManageService.selectPassword(userManageVO);
 		//패스워드 암호화
 		String encryptPass = EgovFileScrty.encryptPassword(oldPassword, userManageVO.getEmplyrId());
 		if (encryptPass.equals(resultVO.getPassword())) {
 			if (newPassword.equals(newPassword2)) {
+				System.out.println("true>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				isCorrectPassword = true;
 			} else {
+				System.out.println("false>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				isCorrectPassword = false;
 				resultMsg = "fail.user.passwordUpdate2";
 			}
 		} else {
+			System.out.println("false2>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			isCorrectPassword = false;
 			resultMsg = "fail.user.passwordUpdate1";
 		}
@@ -212,12 +216,14 @@ public class MyManageController {
 			userManageService.updatePassword(userManageVO);
 			model.addAttribute("userManageVO", userManageVO);
 			resultMsg = "success.common.update";
+			returnResult = "true";
 		} else {
 			model.addAttribute("userManageVO", userManageVO);
+			returnResult = "false";
 		}
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("resultMsg", resultMsg);
 
-		return "forward:/uss/myp/MyManage.do?=uniqId"+id;
+		return returnResult;
 	}
 }

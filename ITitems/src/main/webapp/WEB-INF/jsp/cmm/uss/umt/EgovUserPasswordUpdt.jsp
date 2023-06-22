@@ -51,6 +51,7 @@ function fnCheckPw(e){
 	fnCheckPw1(e);
 	fnCheckPw2(e);
 	fnCheckPw3(e);
+	
 }
 
 function fnCheckPw1(e){
@@ -201,6 +202,20 @@ function UpdateFail(){
    		$dialog.dialog('open');
 }
 function fncheckValid(){
+	if(!document.passwordChgVO.newPassword.value ){
+		fn_egov_modal_remove();
+		document.getElementById('newPasswordErr').innerHTML='비밀번호를 입력하세요';
+		return;
+	}else{
+		document.getElementById('newPasswordErr').innerHTML='';
+	}
+	if(!document.passwordChgVO.newPassword2.value){
+		fn_egov_modal_remove();
+		document.getElementById('newPassword2Err').innerHTML='비밀번호 확인을 입력하세요';
+		return;
+	}else{
+		document.getElementById('newPassword2Err').innerHTML='';
+	}
 	if(validatePasswordChgVO(document.passwordChgVO)){
         if(document.passwordChgVO.newPassword.value != document.passwordChgVO.newPassword2.value){
         	fn_egov_modal_remove();
@@ -309,6 +324,7 @@ function fncheckValid(){
                                             </td>
                                             <td>
                                                 <input name="newPassword" id="newPassword" class="f_txt w_full" title="비밀번호" type="password" value="" onkeyup="fnCheckPw(this);"maxlength="100" />
+                                                <span id="newPasswordErr" class="errSpan"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -317,9 +333,9 @@ function fncheckValid(){
                                             </td>
                                             <td>
                                                 <input name="newPassword2" id="newPassword2" class="f_txt w_full" title="비밀번호확인" type="password" value="" maxlength="100" />
+                                                <span id="newPassword2Err" class="errSpan"></span>
                                             </td>
                                             <td>
-                                                <span id="newPassword2Err" class="errSpan"></span>
                                             </td>
                                         </tr>
                                     </table>

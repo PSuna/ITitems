@@ -37,7 +37,6 @@
 	}
 
 	function return_val() {
-
 		parent.parent.returnSuccess();
 	}
 	

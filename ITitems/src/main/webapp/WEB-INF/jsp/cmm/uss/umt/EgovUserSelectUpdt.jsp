@@ -218,7 +218,7 @@ function fncheckNums(){
 	var phone3 = document.getElementById('moblphonNo3');
 	let checkNum = 'true';
 	moblphoneNo= phone1.value + '-' +phone2.value+ '-' +phone3.value;
-	var patt = new RegExp("[0-9]{3}-[0-9]{4}-[0-9]{4}");
+	var patt = new RegExp("[0-9]{3}-[0-9]{3,4}-[0-9]{4}");
 	var res = patt.test(moblphoneNo);
 	if(phone1.value != null && phone1.value != '' || phone2.value != null && phone2.value != '' || phone3.value != null && phone3.value != '' ){
 		if(!patt.test(moblphoneNo)){

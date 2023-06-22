@@ -460,8 +460,7 @@ public class UserManageController {
 				resultMsg = "fail.user.passwordUpdate2";
 			}
 		} else {
-			isCorrectPassword = false;
-			resultMsg = "fail.user.passwordUpdate1";
+			isCorrectPassword = true;
 		}
 
 		if (isCorrectPassword) {

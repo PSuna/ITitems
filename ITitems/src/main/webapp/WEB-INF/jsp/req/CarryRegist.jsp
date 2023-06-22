@@ -157,8 +157,6 @@ function insertApproval(reqId){
  ******************************************************** */
 function RegistConfirm(){
 	removeP();
-	let trList = document.querySelectorAll('#assetTbody tr');
-	if(trList.length > 0){
 		if(validateCarryRegist(document.frm) && checkValid()){
 			var $dialog = $('<div id="modalPan"></div>')
 				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
@@ -171,10 +169,6 @@ function RegistConfirm(){
 			$(".ui-dialog-titlebar").hide();
 			$dialog.dialog('open');
 		}
-	}else{
-		alert('반출신청할 자산이 없습니다.');
-		return;
-	}
 }
 
 /* ********************************************************
@@ -271,98 +265,6 @@ function RegistConfirm(){
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 자산 입력 폼 추가
- ******************************************************** */
-function addTr(num) {
-	for(let i=0; i<num; i++){
-	 let tr = $(trClone).clone(true);
-	 let a = $('<a/>').addClass('btn').text('-').on('click',function(){
-		 delTr(this);
-	 });
-	 let btn = $('<div/>').addClass('btn1').attr("id","delTr").append(a);
-	 $(tr).children('td').last().append(btn);
-	 $('#clonehere tr').last().before(tr);
-	 if($('#clonehere').children('tr').length == 11){
-		 $('#clonehere tr').last().remove();
-		 return;
-	 }
-	}
-}
-
-/* ********************************************************
- * 자산 입력 폼 삭제
- ******************************************************** */
-function delTr(obj) {
-	 $(obj).closest('tr').remove();
-	 if($('#clonehere').children('tr').length == 9){
-		 $('#clonehere').append(addtrClone);
-	 }
-	 console.log($('#clonehere').children('tr'));
-}
-
-/* ********************************************************
- * 중분류 조회
- ******************************************************** */
-function getMCatList(Lcat) {
-	
-	let val = Lcat.value;
-	let mCat = Lcat.closest("td").querySelector("div");
-	if (val == "ETC"){
-		mCat.replaceChildren();
-		let input = document.createElement('input');
-		input.setAttribute('id', 'middleCategory');
-		input.setAttribute('name', 'middleCategory');
-		input.setAttribute('type', 'text');
-		input.setAttribute('class', 'f_txt w_full');
-		mCat.appendChild(input);
-	}else if (val == ""){
-		mCat.replaceChildren();
-		let label = document.createElement('label');
-		label.setAttribute('class', 'f_select w_full');
-		let select = document.createElement('select');
-		select.setAttribute('id', 'middleCategory');
-		select.setAttribute('name', 'middleCategory');
-		let op = document.createElement('option');
-		op.textContent = '중분류';
-		op.value = "";
-		select.appendChild(op);
-		label.appendChild(select);
-		mCat.appendChild(label);
-	}else{
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
-			success: function (result) {
-				mCat.replaceChildren();
-				let label = document.createElement('label');
-				label.setAttribute('class', 'f_select w_full');
-				let select = document.createElement('select');
-				select.setAttribute('id', 'middleCategory');
-				select.setAttribute('name', 'middleCategory');
-				let op = document.createElement('option');
-				op.textContent = '중분류';
-				op.value = "";
-				select.appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					select.appendChild(op);
-				}
-				label.appendChild(select);
-				mCat.appendChild(label);
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})	
-	} 
-	
 }
 
 /* ********************************************************
@@ -479,8 +381,8 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td style="vertical-align:center;"><input type="text" class="f_txt w_80 reqQty" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
-					<td>`+assetSn+` / `+maker+`</td>
+					<td>`+assetSn+`</td>
+					<td>`+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
 					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
@@ -607,7 +509,6 @@ function alertValid(objList) {
 function checkValid(){
 	let result = checkTd();
 	if(result != null){
-		$(result).focus();
 		return false;
 	}else{
 		return true;
@@ -615,24 +516,24 @@ function checkValid(){
 }
 
 function checkTd(){
-	let obj = null;
-	$('#frm #middleCategory, #frm #reqQty').each(function(){
-		if($(this).val() == null || $(this).val() == ""){
-			if($(this).attr('id') == 'middleCategory'){
-				$(this).closest('td').append($('<p/>').addClass('alertV').text("중분류은(는) 필수 입력값입니다."));	
-			}else if($(this).attr('id') == 'reqQty'){
-				$(this).closest('td').append($('<p/>').addClass('alertV').text("수량은(는) 필수 입력값입니다."));
-			}
-			if(obj == null){
-				obj = $(this);
-			}
-		}
-	})
-	
+	let obj = null;	
 	if($('#frm #aprvNm3').val() == null || $('#frm #aprvNm3').val() == 0){
 		$('#frm #aprvNm3').closest('td').append($('<p/>').addClass('alertV').text("결재자4은(는) 필수 입력값입니다."));
 		if(obj == null){
 			obj = $('#frm #aprvNm3');
+		}
+	}
+	
+	if($('#aprvTbl #aprv0').val()||$('#aprvTbl #aprv1').val()||$('#aprvTbl #aprv2').val()||$('#aprvTbl #aprv3').val()){
+		const arr = [$('#aprvTbl #aprv0').val(), $('#aprvTbl #aprv1').val(), $('#aprvTbl #aprv2').val(), $('#aprvTbl #aprv3').val()];
+		const set = [arr];
+		if(arr.length !== set.size){
+			document.getElementById('aprvErr').innerHTML='중복되는 결재자가 있습니다.';
+			if(obj == null){
+				obj = $('#aprvTbl');
+			}
+		}else{
+			document.getElementById('aprvErr').innerHTML='';
 		}
 	}
 	
@@ -660,7 +561,15 @@ function checkTd(){
 			obj = $('#aprvTbl #aprv3');
 		}
 	}
-	
+	let trList = document.querySelectorAll('#assetTbody tr');
+	if(trList.length < 1){
+		document.getElementById('assetErr').innerHTML='반출신청할 자산이 없습니다.';
+		if(obj == null){
+			obj = $('#assetTbody');
+		}
+	}else{
+		document.getElementById('assetErr').innerHTML='';
+	}
 	return obj;
 }
 
@@ -730,6 +639,9 @@ function ReqList(){
 .addAsset{
 	display: flex;
     justify-content: space-between;
+}
+.errSpan{
+	color:red;
 }
 </style>
 
@@ -841,77 +753,38 @@ function ReqList(){
 									</div>
 								<br>
 								<div class="addAsset">
-									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3>
+									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span><span id="assetErr" class="errSpan"></span></h3>
 									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
 								</div>
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
 											<col style="width: 15%;">
+											<col style="width: 20%;">
 											<col style="width: 15%;">
-											<col style="width: 30%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<td class="lb"><label for="">분류</label></td>
-												<td class="lb"><label for="">수량 / 최대수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
+												<td class="lb"><label for="">시리얼넘버</label></td>
+												<td class="lb"><label for="">제조사</label></td>
 												<td class="lb"><label for="">수령자</label></td>
 												<td class="lb"><label for="">실사용자</label></td>
 												<td class="lb"></td>
 											</tr>
 										</thead>
 										<tbody id='assetTbody'>
-											<%-- <tr>
-												<td><label class="f_select w_full" for="largeCategory">
-														<select id="largeCategory" name="largeCategory"
-														title="대분류" onchange="getMCatList(this);">
-															<option value="" label="대분류" />
-															<c:forEach var="LCat" items="${LCat_result}"
-																varStatus="status">
-																<option value="${LCat.catId}">
-																	<c:out value="${LCat.catName}" />
-																</option>
-															</c:forEach>
-															<option value="ETC" label="직접입력" />
-													</select>
-												</label>
-													<div id="mCat">
-														<label class="f_select w_full" for="middleCategory"> <select
-															id="middleCategory" name="middleCategory" title="중분류">
-																<option value="" label="중분류" selected="selected" />
-														</select>
-														</label>
-													</div></td>
-												<td><input id="reqQty" name="reqQty" type="text"
-													class="f_txt w_full" onchange="getNumber(this);" onkeyup="getNumber(this);"></td>
-												<td><input id="maker" name="maker" type="text"
-													class="f_txt w_full"></td>
-												<td class="btn_rel"><input id="user" name="user" type="text"
-													class="f_txt w_full">	
-												</td>
-											</tr>
-											<tr>
-											<td colspan="4">
-												<div class="right_btn btn1">
-													<!-- 입력칸 1개 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
-														onclick="addTr(1);">+</a>
-													<!-- 입력칸 5개 추가 -->
-													<a href="#LINK" class="btn btn_blue_46 w_80 f_s_21"
-														onclick="addTr(5);">+ 5</a>
-												</div>
-											</td>
-										</tr> --%>
 										</tbody>
 									</table>
+									
 								</div>
 								<br>
 								<div class="approvalList">
-								<h3> ■ 결재정보</h3>
+								<h3> ■ 결재정보<span id="aprvErr" class="errSpan"></span></h3>
+								
 									<table class="board_view2" id="aprvTbl">
 										<colgroup>
 											<col style="width: 25%;">
