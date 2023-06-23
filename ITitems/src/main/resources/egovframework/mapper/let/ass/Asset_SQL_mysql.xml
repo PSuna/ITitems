@@ -13,6 +13,7 @@
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
+		<result property="makerCode" column="MAKER_CODE" />
 		<result property="rcptNm" column="RCPT_NM" />
 		<result property="orgnztNm" column="ORGNZT_NM" />
 		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
@@ -249,6 +250,7 @@
 			MIDDLE_CATEGORY,
 			ASSET_SN,
 			MAKER,
+			MAKER_CODE,
 			RCPT_NM,
 			USE_NM
 	      FROM (
@@ -273,7 +275,12 @@
 					ELSE B.CAT_NAME
 				END AS MIDDLE_CATEGORY, 
 				A.ASSET_SN,
-				A.MAKER,
+				CASE 
+					WHEN H.CODE_NM = '기타'
+					THEN A.MAKER
+					ELSE H.CODE_NM  
+			  END AS MAKER, 
+				A.MAKER_CODE, 
 				D.USER_NM AS RCPT_NM,
 				E.USER_NM AS USE_NM
 			  FROM ASSET A
@@ -289,6 +296,8 @@
 				ON A.ORGNZT_ID = F.ORGNZT_ID
    LEFT OUTER JOIN LETTNORGNZTINFO G
 				ON F.ORGNZT_UP = G.ORGNZT_ID
+   LEFT OUTER JOIN LETTCCMMNDETAILCODE H
+			    ON A.MAKER_CODE = H.CODE
 				 <include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -387,7 +396,9 @@
 				COUNT(P.RUM)
 			FROM (
 				SELECT
-					ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM
+					ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+					A.MNG_NUM,
+					A.ASSET_ID
 					FROM ASSETHISTORY A	
 					<include refid="detailSearch" />
 			   ) P
@@ -580,6 +591,19 @@
 		   		ASSET_STAUTS = #{assetStauts}
 		 <include refid="detailSearch" />
 	</update>
+	
+	<select id="CountMngNum" parameterType="egovframework.let.ass.service.AssetVO" resultType="int">
+		SELECT
+				COUNT(P.RUM)
+			FROM (
+				SELECT
+					ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+					A.MNG_NUM,
+					A.ASSET_ID
+					FROM ASSET A	
+					WHERE A.MNG_NUM = #{newMngNum}
+			   ) P
+	</select>
 	
 	<update id="UpdateAssetMngNum" parameterType="egovframework.let.ass.service.AssetVO">
 		UPDATE ASSET A
