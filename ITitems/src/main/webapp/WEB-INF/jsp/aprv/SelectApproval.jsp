@@ -56,12 +56,17 @@ function fnCheck(){
 	let loginId = '${approvalSearchVO.uniqId}';
 	var lastUserName = $("#lastUserName").val();
 	console.log(loginId + '==' + lastUserName);
+	if(loginId == lastUserName){
+		return 'true';
+	}else{
+		return 'false';
+	}
 }
 
 /* ********************************************************
  * 승인확인 팝업창
  ******************************************************** */
-function fnAgree(){
+function ApprovalConfirm(){
 	var $dialog = $('<div id="modalPan"></div>')
 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
@@ -104,18 +109,19 @@ function fnAgree(){
   * 승인처리
   ******************************************************** */
 function fnUpdate(){
-	var reqId = document.getElementById("reqId").value;
-	let formdata = new FormData();
-	formdata.append('reqId', reqId);
+	let formData = new FormData(document.getElementById('frm'));
 	$.ajax({
 	 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
 		method: 'POST',
 		processData: false,
 		contentType: false,
-		data : formdata,
+		data : formData,
 		success: function (result) {
 			fn_egov_modal_remove();
 			fnInsertHist();
+		},error:function(e){
+			fn_egov_modal_remove();
+			AprvFail();
 		}
 	})
  }
@@ -124,9 +130,7 @@ function fnUpdate(){
  ******************************************************** */
 function fnInsertHist(){
 	var reqId = document.getElementById("reqId").value;
-	let loginId = "${approvalSearchVO.uniqId}";
-	var lastUserName = $("#lastUserName").val();
-	if(lastUserName == loginId){
+	if(fnCheck()){
 		var assetIds = new Array();
 		assetIds = document.querySelectorAll("#assetDList tr");
 		for(let i=0; i<assetIds.length; i++){
@@ -134,16 +138,17 @@ function fnInsertHist(){
 			var assetId = assetIds[i].querySelector(".assetId").value;
 			var useId = assetIds[i].querySelector(".useId").value;
 			var prjId = "${approvalVO.prjCode}";
-			
+			var creatId = "${approvalVO.userId}";
 			formdata.append('assetId', assetId);
-			formdata.append('prjId', prjId);
-			formdata.append('histUser', loginId);
-			formdata.append('useId', useId);
 			if(${approvalVO.reqGroup == '반출신청'}){
-				formdata.append('histGroup', 'C1');
+				formdata.append('assetStauts', 'C1');
 			}else{
-				formdata.append('histGroup', 'C0');
+				formdata.append('assetStauts', 'C0');
 			}
+			formdata.append('usageStauts', 'U1');
+			formdata.append('prjId', prjId);
+			formdata.append('useId', useId);
+			formdata.append('creatId', creatId);
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/aprv/ApprovalInsertHist.do',
@@ -185,11 +190,9 @@ function fnInsertHist(){
  /* ********************************************************
   * 승인완료 결과 처리
   ******************************************************** */
-function returnSuccess(val){
+function returnSuccess(){
+	fn_egov_modal_remove();
 	var reqId = document.getElementById("reqId").value;
-	if(val){
-		fn_egov_modal_remove();
- 	} 	
  	location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
  }
  
@@ -212,7 +215,7 @@ function returnSuccess(val){
 /* ********************************************************
  * 반려확인 팝업창
  ******************************************************** */
-function fnDisAgree(){
+function ApprovalDisConfirm(){
 	var $dialog = $('<div id="modalPan"></div>')
 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalDisConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
@@ -279,11 +282,8 @@ function fnDisUpdate(){
  }
 //-->
 </script>
-
-
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
-
 </head>
 <style type="text/css">
 .ui-datepicker-trigger {
@@ -303,7 +303,6 @@ function fnDisUpdate(){
 	text-align: center;
 }
 </style>
-
 <body >
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
@@ -388,8 +387,8 @@ function fnDisUpdate(){
 										<table>
 											<colgroup>
 												<col style="width: 20%;">
-												<col style="width: 34%;">
-												<col style="width: 24%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
 												<col style="width: 30%;">
 											</colgroup>
 											<tr>
@@ -399,7 +398,8 @@ function fnDisUpdate(){
 												</td>
 												<td colspan="3">
 													<c:out value="${approvalVO.userNm} ${approvalVO.grade }"></c:out>
-													<input type="hidden" id="reqId" value="<c:out value="${approvalVO.reqId}"/>">
+													<input type="hidden" name="reqId" id="reqId" value="<c:out value="${approvalVO.reqId}"/>">
+													<input type="hidden" name="userId" id="userId" value="<c:out value="${approvalVO.userId}"/>">
 												</td>
 											</tr>
 											<tr>
@@ -490,10 +490,10 @@ function fnDisUpdate(){
 								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">
-											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnAgree(); return false;">
+											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:ApprovalConfirm(); return false;">
 												<spring:message code="button.agree" />
 											</a>
-											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fnDisAgree(); return false;">
+											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:ApprovalDisConfirm(); return false;">
 												<spring:message code="button.disagree" />
 											</a>
 											

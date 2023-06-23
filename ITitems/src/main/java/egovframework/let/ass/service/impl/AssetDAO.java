@@ -113,5 +113,8 @@ public class AssetDAO extends EgovAbstractMapper {
 	public AssetMasterVO SelectAssetMaster(AssetManageVO assetManageVO) {
 		return selectOne("AssetDAO.SelectAssetMaster", assetManageVO);
 	}
-	
+
+	public void updateAssetStatus(AssetVO assetVO) throws Exception{
+		update("AssetDAO.updateAssetStatus", assetVO);
+	}
 }
