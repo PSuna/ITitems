@@ -844,5 +844,12 @@
 		 FROM ASSETMASTER
 		WHERE ASS_ID = #{assId}
 	</select>
-
+	<update id="updateAssetStatus" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSET A
+		   SET 
+		   		USAGE_STAUTS = #{usageStauts},
+		   		ASSET_STAUTS = #{assetStauts},
+		   		PRJ_ID = #{prjId}
+		 WHERE ASSET_ID = #{assetId}
+	</update>
 </mapper>

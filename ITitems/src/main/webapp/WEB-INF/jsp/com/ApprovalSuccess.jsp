@@ -36,8 +36,8 @@
 		parent.fn_egov_modal_remove();
 	}
 
-	function return_val(val) {
-		parent.parent.returnSuccess(val);
+	function return_val() {
+		parent.parent.returnSuccess();
 	}
 	
 </script>

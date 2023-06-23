@@ -119,15 +119,16 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public int ApprovalInsertHist(AssetVO assetVO) {
-		/*List<String> aId = assetDAO.getAId(assetVO);*/
-		int r = 0;
-		/*for(String aid : aId) {
-			assetVO.setaId(aid);
-			assetDAO.UpdateAssethist(assetVO);
-			r = assetDAO.InsertAssethist(assetVO);
-		}*/
-		return r;
+	public int ApprovalInsertHist(AssetVO assetVO) throws Exception{
+		if(assetVO.getAssetStauts().equals("C1")) {
+			assetDAO.updateAssetStatus(assetVO);
+		}else {
+			assetVO.setAssetStauts("C2");
+			assetVO.setPrjId(null);
+			assetDAO.updateAssetStatus(assetVO);
+			assetVO.setAssetStauts("C0");
+		}
+		return assetDAO.InsertAssethist(assetVO);
 	}
 
 	//모바일

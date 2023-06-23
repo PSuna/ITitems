@@ -166,7 +166,6 @@ public class ApprovalManageController {
 		LoginVO loginVO = (LoginVO)request.getSession().getAttribute("LoginVO");
 		String targetId = loginVO.getUniqId();
 		approvalManageVO.setTargetId(targetId);
-		System.out.println(approvalManageVO.getReqId());
 		return approvalManageService.UpdateApproval(approvalManageVO);
 	}
 	/**
@@ -174,7 +173,7 @@ public class ApprovalManageController {
 	 */
 	@RequestMapping(value = "/aprv/ApprovalInsertHist.do")
 	@ResponseBody
-	public int ApprovalInsertHist(AssetVO assetVO) {
+	public int ApprovalInsertHist(AssetVO assetVO) throws Exception{
 		return approvalManageService.ApprovalInsertHist(assetVO);
 	}
 	/**

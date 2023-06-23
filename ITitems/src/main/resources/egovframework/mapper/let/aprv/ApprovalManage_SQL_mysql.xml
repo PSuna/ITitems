@@ -130,6 +130,7 @@
 	<select id="SelectApproval" parameterType="egovframework.let.aprv.service.ApprovalDefaultVO" resultType="egovframework.let.aprv.service.ApprovalManageVO">
 		SELECT  R.REQ_ID,
 				E.USER_NM,
+				R.ID USER_ID, 
 				R.PRJ_ID PRJ_CODE,
 				C1.CODE_NM GRADE,
 			    P.PRJ_NAME PRJ_ID,
