@@ -103,9 +103,6 @@ public class MobRequestController {
 			}
 			}
 		}
-		System.out.println(rVO);
-		System.out.println(rdVO);
-		System.out.println(aprvVO);
 
 		// req등록
 		RequestVO requestVO = new RequestVO();
@@ -189,13 +186,13 @@ public class MobRequestController {
 	public Map<String, Object> CarryRequset(HttpServletRequest request, @RequestBody RequestManageVO manageVO)
 			throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(manageVO);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		request.getSession().setAttribute("baseMenuNo", "100");
 		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
-
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>여기>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(manageVO.getSearchWord());
+		System.out.println(manageVO.getId());
 		manageVO.setId(loginId.getUniqId());
+		
 		manageVO.setAuthorCode(loginId.getAuthorCode());
 
 		if (manageVO.getMenuStartDate() != null && manageVO.getMenuStartDate() != "") {
