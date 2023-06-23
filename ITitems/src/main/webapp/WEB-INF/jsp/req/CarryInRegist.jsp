@@ -64,9 +64,7 @@ function insertCarryDetail(reqId) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
 		let assetId = items.querySelector('input').value;
-		let reqQty = items.querySelector('.reqQty').value;
 		formdata.append('assetId', assetId);
-		formdata.append('reqQty', reqQty);
 		formdata.append('reqOrder', trList.length - index);
 		$.ajax({
 			url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
@@ -99,7 +97,6 @@ function insertCarry() {
 		contentType: false,
 		data: formData,
 		success: function (result) {
-			alert("result id 나왔나?"+result)
 			insertCarryDetail(result);
 		},
 		error: function (error) {
@@ -128,7 +125,6 @@ function insertApproval(reqId){
 		formdata.append('targetId', targetId);
 		formdata.append('aprvOrder', index);
 		if(targetUp != null && targetUp != ''){
-			console.log(targetUp);
 			formdata.append('targetUp', targetUp);
 		}
 		
@@ -159,23 +155,17 @@ function insertApproval(reqId){
  ******************************************************** */
 function RegistConfirm(){
 	removeP();
-	let trList = document.querySelectorAll('#assetTbody tr');
-	if(trList.length > 0){
-		if(validateCarryInRegist(document.frm) && checkValid()){
-			var $dialog = $('<div id="modalPan"></div>')
-				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
-				.dialog({
-			    	autoOpen: false,
-			        modal: true,
-			        width: 400,
-			        height: 300
-				});
-			$(".ui-dialog-titlebar").hide();
-			$dialog.dialog('open');
-		}
-	}else{
-		alert('반입신청할 자산이 없습니다.');
-		return;
+	if(validateCarryInRegist(document.frm) && checkValid()){
+		var $dialog = $('<div id="modalPan"></div>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.dialog({
+		    	autoOpen: false,
+		        modal: true,
+		        width: 400,
+		        height: 300
+			});
+		$(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
 	}
 }
 
@@ -236,7 +226,6 @@ function RegistConfirm(){
 	        this.reset();
 	    });
 	    removeP();
-	    console.log($('#frm #delTr'));
 	    if($('#frm #delTr').length == 9){
 	    	$('#clonehere').append(addtrClone);
 	    }
@@ -273,68 +262,6 @@ function RegistConfirm(){
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
-}
-
-/* ********************************************************
- * 중분류 조회
- ******************************************************** */
-function getMCatList(Lcat) {
-	
-	let val = Lcat.value;
-	let mCat = Lcat.closest("td").querySelector("div");
-	if (val == "ETC"){
-		mCat.replaceChildren();
-		let input = document.createElement('input');
-		input.setAttribute('id', 'middleCategory');
-		input.setAttribute('name', 'middleCategory');
-		input.setAttribute('type', 'text');
-		input.setAttribute('class', 'f_txt w_full');
-		mCat.appendChild(input);
-	}else if (val == ""){
-		mCat.replaceChildren();
-		let label = document.createElement('label');
-		label.setAttribute('class', 'f_select w_full');
-		let select = document.createElement('select');
-		select.setAttribute('id', 'middleCategory');
-		select.setAttribute('name', 'middleCategory');
-		let op = document.createElement('option');
-		op.textContent = '중분류';
-		op.value = "";
-		select.appendChild(op);
-		label.appendChild(select);
-		mCat.appendChild(label);
-	}else{
-		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpper' : val},
-			success: function (result) {
-				mCat.replaceChildren();
-				let label = document.createElement('label');
-				label.setAttribute('class', 'f_select w_full');
-				let select = document.createElement('select');
-				select.setAttribute('id', 'middleCategory');
-				select.setAttribute('name', 'middleCategory');
-				let op = document.createElement('option');
-				op.textContent = '중분류';
-				op.value = "";
-				select.appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.catId);
-					op.textContent = res.catName;
-					select.appendChild(op);
-				}
-				label.appendChild(select);
-				mCat.appendChild(label);
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})	
-	} 
-	
 }
 
 /* ********************************************************
@@ -442,7 +369,6 @@ function returnAss(val){
 	if (val) {
 		var assetId = val.assetId;
 		var middleCategory = val.middleCategory;
-		var assetQty = val.assetQty;
 		var assetSn = val.assetSn;
 		var maker = val.maker;
 		var rcptNm = val.rcptNm;
@@ -450,8 +376,8 @@ function returnAss(val){
 		var p = `<tr style="text-align:center;">
 					<input type='hidden' value='`+assetId+`' class='assetIds'>
 					<td>`+middleCategory+`</td>
-					<td style="vertical-align:center;"><input type="text" class="f_txt w_80 reqQty" name="reqQty" value="`+assetQty+`" onkeyup="checkNum(this)" onchange="checkQty(this, `+assetQty+`)"/><span> / `+assetQty+`</span></td>
-					<td>`+assetSn+` / `+maker+`</td>
+					<td>`+assetSn+`</td>
+					<td>`+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
 					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
@@ -528,7 +454,6 @@ function alertValid(objList) {
 function checkValid(){
 	let result = checkTd();
 	if(result != null){
-		$(result).focus();
 		return false;
 	}else{
 		return true;
@@ -537,19 +462,6 @@ function checkValid(){
 
 function checkTd(){
 	let obj = null;
-	$('#frm #middleCategory, #frm #reqQty').each(function(){
-		if($(this).val() == null || $(this).val() == ""){
-			if($(this).attr('id') == 'middleCategory'){
-				$(this).closest('td').append($('<p/>').addClass('alertV').text("중분류은(는) 필수 입력값입니다."));	
-			}else if($(this).attr('id') == 'reqQty'){
-				$(this).closest('td').append($('<p/>').addClass('alertV').text("수량은(는) 필수 입력값입니다."));
-			}
-			if(obj == null){
-				obj = $(this);
-			}
-		}
-	})
-	
 	if($('#frm #aprvNm3').val() == null || $('#frm #aprvNm3').val() == 0){
 		$('#frm #aprvNm3').closest('td').append($('<p/>').addClass('alertV').text("결재자4은(는) 필수 입력값입니다."));
 		if(obj == null){
@@ -557,29 +469,61 @@ function checkTd(){
 		}
 	}
 	
+	const arr = [];
+	if($('#aprvTbl #aprv0').val()){
+		arr.push($('#aprvTbl #aprv0').val());
+	}
+	if($('#aprvTbl #aprv1').val()){
+		arr.push($('#aprvTbl #aprv1').val());
+	}
+	if($('#aprvTbl #aprv2').val()){
+		arr.push($('#aprvTbl #aprv2').val());
+	}
+	if($('#aprvTbl #aprv3').val()){
+		arr.push($('#aprvTbl #aprv3').val());
+	}
+	const set = new Set(arr);
+	if(arr.length !== set.size){
+		document.getElementById('aprvErr').innerHTML='중복되는 결재자가 있습니다.';
+		if(obj == null){
+			obj = $('#aprvTbl');
+		}
+	}else{
+		document.getElementById('aprvErr').innerHTML='';
+	}
+	
 	if($('#aprvTbl #aprv0').val() == $('#id').val()){
-		$('#aprvTbl #aprv0').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv0').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv0');
 		}
 	}
 	if($('#aprvTbl #aprv1').val() == $('#id').val()){
-		$('#aprvTbl #aprv1').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv1').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv1');
 		}
 	}
 	if($('#aprvTbl #aprv2').val() == $('#id').val()){
-		$('#aprvTbl #aprv2').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv2').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv2');
 		}
 	}
 	if($('#aprvTbl #aprv3').val() == $('#id').val()){
-		$('#aprvTbl #aprv3').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv3').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv3');
 		}
+	}
+	let trList = document.querySelectorAll('#assetTbody tr');
+	if(trList.length < 1){
+		document.getElementById('assetErr').innerHTML='반출신청할 자산이 없습니다.';
+		if(obj == null){
+			obj = $('#assetTbody');
+		}
+	}else{
+		document.getElementById('assetErr').innerHTML='';
 	}
 	return obj;
 }
@@ -616,6 +560,9 @@ function ReqList(){
 .addAsset{
 	display: flex;
     justify-content: space-between;
+}
+.errSpan{
+	color:red;
 }
 </style>
 </head>
@@ -693,7 +640,7 @@ function ReqList(){
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly="false" />
+														<input name="pmNm" id="pmNm" type="text" title="회원" maxlength="100" readonly/>
 														<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span>
 													<input name="pm" id="pm" type="hidden" title="pm" value="" />
@@ -703,37 +650,38 @@ function ReqList(){
 									</div>
 								<br>
 								<div class="addAsset">
-									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3>
+									<div style="display:flex;"><h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3><span style="margin-left:10px;" id="assetErr" class="errSpan"></span></div>
 									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
 								</div>
 								<div class="board_view2 assetlist">
 									<table>
 										<colgroup>
 											<col style="width: 15%;">
+											<col style="width: 20%;">
 											<col style="width: 15%;">
-											<col style="width: 30%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<td class="lb"><label for="">분류</label></td>
-												<td class="lb"><label for="">수량 / 최대수량</label></td>
-												<td class="lb"><label for="">S/N(노트북)/제조사</label></td>
+												<td class="lb"><label for="">시리얼넘버</label></td>
+												<td class="lb"><label for="">제조사</label></td>
 												<td class="lb"><label for="">수령자</label></td>
 												<td class="lb"><label for="">실사용자</label></td>
 												<td class="lb"></td>
 											</tr>
 										</thead>
 										<tbody id='assetTbody'>
-											
 										</tbody>
 									</table>
 								</div>
 								<br>
 								<div class="approvalList">
-								<h3> ■ 결재정보</h3>
+								<div style="display:flex;">
+								<h3> ■ 결재정보</h3><span id="aprvErr" style="margin-left:10px;"class="errSpan"></span>
+								</div>
 									<table class="board_view2" id="aprvTbl">
 										<colgroup>
 											<col style="width: 25%;">
@@ -753,28 +701,28 @@ function ReqList(){
 											<tr>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
-														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly="true" />
+														<input name="aprvNm0" type="text" id="aprvNm0" title="결재자1이름" maxlength="100" readonly />
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
 													<input name="aprv0" id="aprv0" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
-														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly="true" />
+														<input name="aprvNm1" id="aprvNm1" type="text" title="결재자1이름" maxlength="100" readonly />
 														<button type="button" class="btn" onclick="UserSearch(2);">조회</button>
 													</span>
 													<input name="aprv1" id="aprv1" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
-														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly="true" />
+														<input name="aprvNm2" id="aprvNm2" type="text" title="결재자1이름" maxlength="100" readonly />
 														<button type="button" class="btn" onclick="UserSearch(3);">조회</button>
 													</span>
 													<input name="aprv2" id="aprv2" type="hidden" class="aprvNms" title="결재자1ID" value="" />
 												</td>
 												<td class='apvrTd'>
 													<span class="f_search2 w_80%">
-														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readonly="true" />
+														<input name="aprvNm3" id="aprvNm3" type="text" title="결재자1이름" maxlength="100" readOnly />
 														<button type="button" class="btn" onclick="UserSearch(4);">조회</button>
 													</span>
 													<input name="aprv3" id="aprv3" type="hidden" class="aprvNms" title="결재자1ID" value="" />

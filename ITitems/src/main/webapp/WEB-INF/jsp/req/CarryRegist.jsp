@@ -226,7 +226,6 @@ function RegistConfirm(){
 	        this.reset();
 	    });
 	    removeP();
-	    console.log($('#frm #delTr'));
 	    if($('#frm #delTr').length == 9){
 	    	$('#clonehere').append(addtrClone);
 	    }
@@ -371,7 +370,6 @@ function returnAss(val){
 	if (val) {
 		var assetId = val.assetId;
 		var middleCategory = val.middleCategory;
-		var assetQty = val.assetQty;
 		var assetSn = val.assetSn;
 		var maker = val.maker;
 		var rcptNm = val.rcptNm;
@@ -619,14 +617,8 @@ function ReqList(){
 }
 //-->
 </script>
-
-
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
-
-
-</head>
-
 <style type="text/css">
 .ui-datepicker-trigger {
 	margin-left: 10px;
@@ -652,7 +644,7 @@ function ReqList(){
 	color:red;
 }
 </style>
-
+</head>
 <body>
 	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
