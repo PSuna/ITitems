@@ -346,7 +346,7 @@ public class AssetController {
 	/**
 	 * 자산관리번호 수정
 	 */
-	@RequestMapping(value = "/ass/AssetDel.do")
+	@RequestMapping(value = "/ass/MngNumUpdt.do")
 	@ResponseBody
 	public int MngNumUpdt(AssetVO assetVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
