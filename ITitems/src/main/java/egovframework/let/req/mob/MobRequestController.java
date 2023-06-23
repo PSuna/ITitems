@@ -78,7 +78,7 @@ public class MobRequestController {
 			HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("reqId", "fail");
-		
+
 		// requestVO
 		Map<String, Object> rVO = new HashMap<String, Object>();
 		List<Map<String, Object>> rdVO = new ArrayList();
@@ -103,6 +103,9 @@ public class MobRequestController {
 			}
 			}
 		}
+		System.out.println(rVO);
+		System.out.println(rdVO);
+		System.out.println(aprvVO);
 
 		// req등록
 		RequestVO requestVO = new RequestVO();
@@ -116,6 +119,8 @@ public class MobRequestController {
 
 		int rCnt = requestService.InsertRequestVO(requestVO);
 		String reqId = requestVO.getReqId();
+		System.out.println(">>>>>>>>>>>>>>reqId");
+		System.out.println(reqId);
 
 		// reqDetail 등록
 		int rdCnt = 0;
@@ -123,10 +128,8 @@ public class MobRequestController {
 			RequestDetailVO requestDetailVO = new RequestDetailVO();
 			requestDetailVO.setReqId(reqId);
 			requestDetailVO.setAssetId(String.valueOf(rdVO.get(i).get("assetId")));
-			requestDetailVO.setReqQty(Integer.parseInt(String.valueOf(rdVO.get(i).get("assetQty"))));
 			requestDetailVO.setReqOrder(Integer.parseInt(String.valueOf(rdVO.get(i).get("reqOrder"))));
 
-			
 			int result = requestService.InsertRequestDetailVO(requestDetailVO);
 			if (result > 0) {
 				rdCnt += result;
@@ -177,13 +180,14 @@ public class MobRequestController {
 			resultMap.put("result", "반출 등록 성공");
 			resultMap.replace("reqId", reqId);
 		}
-		
+
 		return resultMap;
 	}
 
 	// 전체조회
 	@RequestMapping(value = "/req/MobCarryRequset.do")
-	public Map<String, Object> CarryRequset(HttpServletRequest request, @RequestBody RequestManageVO manageVO) throws Exception {
+	public Map<String, Object> CarryRequset(HttpServletRequest request, @RequestBody RequestManageVO manageVO)
+			throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		System.out.println(manageVO);
@@ -221,7 +225,6 @@ public class MobRequestController {
 
 		CategoryManageVO cvo = new CategoryManageVO();
 		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
 		appMap.put("searchVO", manageVO);
 
 		return appMap;
