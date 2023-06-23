@@ -88,7 +88,7 @@ function insert_asset(){
  function RegistCheck(){
 	   if(validateAssetRegist(document.assetRegist)){
 		   RegistConfirm();
-	 	}  
+	 	}
 }
 
 /* ********************************************************
@@ -412,7 +412,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<input id="assetQty" class="f_txt w_full" name="assetQty" type="text" maxlength="20" value="1"
-														onchange="getNumber(this);" onkeyup="getNumber(this);">
+														onchange="checkQty(this);" onkeyup="checkQty(this);">
 												</td>
 											</tr>
 											<tr>

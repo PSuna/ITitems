@@ -40,3 +40,29 @@ function symbolCheck2(obj){
      }         
      return n;
   }
+
+/* ********************************************************
+ * 최대 수량 입력 (100개제한)
+ ******************************************************** */
+function checkQty(obj){
+	removeP(obj);
+	let td = $(obj).closest("td");
+	var num01 = $(obj).val();
+	if(num01 != null && num01 != ""){
+    	num01 = num01.replace(/(^0+)/, "");
+	    num01 = num01.replace(/\D/g,"");
+     }
+	if(num01 > 100){
+		$(td).append($('<p/>').addClass('alertV').text("최대 100개까지 입력가능합니다"));
+		$(obj).val('100');
+	}else{
+		$(obj).val(num01);
+	}
+}
+
+function removeP(obj) {
+	let td = $(obj).closest("td");
+	if($(td).children().last().prop('tagName') == 'P'){
+		$(td).children().last().remove();
+	}
+}
