@@ -221,7 +221,6 @@ public class MobRequestController {
 
 		CategoryManageVO cvo = new CategoryManageVO();
 		appMap.put("LCat_result", categoryService.SelectCategoryVOList(cvo));
-
 		appMap.put("searchVO", manageVO);
 
 		return appMap;
