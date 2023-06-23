@@ -64,9 +64,7 @@ function insertCarryDetail(reqId) {
 		let formdata = new FormData();
 		formdata.append('reqId', reqId);
 		let assetId = items.querySelector('input').value;
-		let reqQty = items.querySelector('.reqQty').value;
 		formdata.append('assetId', assetId);
-		formdata.append('reqQty', reqQty);
 		formdata.append('reqOrder', trList.length - index);
 		$.ajax({
 			url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
@@ -524,39 +522,49 @@ function checkTd(){
 		}
 	}
 	
-	if($('#aprvTbl #aprv0').val()||$('#aprvTbl #aprv1').val()||$('#aprvTbl #aprv2').val()||$('#aprvTbl #aprv3').val()){
-		const arr = [$('#aprvTbl #aprv0').val(), $('#aprvTbl #aprv1').val(), $('#aprvTbl #aprv2').val(), $('#aprvTbl #aprv3').val()];
-		const set = [arr];
-		if(arr.length !== set.size){
-			document.getElementById('aprvErr').innerHTML='중복되는 결재자가 있습니다.';
-			if(obj == null){
-				obj = $('#aprvTbl');
-			}
-		}else{
-			document.getElementById('aprvErr').innerHTML='';
+	const arr = [];
+	if($('#aprvTbl #aprv0').val()){
+		arr.push($('#aprvTbl #aprv0').val());
+	}
+	if($('#aprvTbl #aprv1').val()){
+		arr.push($('#aprvTbl #aprv1').val());
+	}
+	if($('#aprvTbl #aprv2').val()){
+		arr.push($('#aprvTbl #aprv2').val());
+	}
+	if($('#aprvTbl #aprv3').val()){
+		arr.push($('#aprvTbl #aprv3').val());
+	}
+	const set = new Set(arr);
+	if(arr.length !== set.size){
+		document.getElementById('aprvErr').innerHTML='중복되는 결재자가 있습니다.';
+		if(obj == null){
+			obj = $('#aprvTbl');
 		}
+	}else{
+		document.getElementById('aprvErr').innerHTML='';
 	}
 	
 	if($('#aprvTbl #aprv0').val() == $('#id').val()){
-		$('#aprvTbl #aprv0').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv0').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv0');
 		}
 	}
 	if($('#aprvTbl #aprv1').val() == $('#id').val()){
-		$('#aprvTbl #aprv1').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv1').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv1');
 		}
 	}
 	if($('#aprvTbl #aprv2').val() == $('#id').val()){
-		$('#aprvTbl #aprv2').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv2').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv2');
 		}
 	}
 	if($('#aprvTbl #aprv3').val() == $('#id').val()){
-		$('#aprvTbl #aprv3').closest('td').append($('<p/>').addClass('alertV').text("본인은 자동으로 결재승인 처리합니다."));
+		$('#aprvTbl #aprv3').closest('td').append($('<p/>').addClass('alertV').text("본인은 등록할 수 없습니다."));
 		if(obj == null){
 			obj = $('#aprvTbl #aprv3');
 		}
@@ -753,7 +761,7 @@ function ReqList(){
 									</div>
 								<br>
 								<div class="addAsset">
-									<h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span><span id="assetErr" class="errSpan"></span></h3>
+									<div style="display:flex;"><h3> ■ 자산정보 <span class="req">(최소 1개 등록)</span></h3><span style="margin-left:10px;" id="assetErr" class="errSpan"></span></div>
 									<button class="btn pty_btn" onclick="javascript:AssetSearch(); return false;" style="margin-bottom:4px;">자산추가 +</button>
 								</div>
 								<div class="board_view2 assetlist">
@@ -783,8 +791,9 @@ function ReqList(){
 								</div>
 								<br>
 								<div class="approvalList">
-								<h3> ■ 결재정보<span id="aprvErr" class="errSpan"></span></h3>
-								
+								<div style="display:flex;">
+								<h3> ■ 결재정보</h3><span id="aprvErr" style="margin-left:10px;"class="errSpan"></span>
+								</div>
 									<table class="board_view2" id="aprvTbl">
 										<colgroup>
 											<col style="width: 25%;">
