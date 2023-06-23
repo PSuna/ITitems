@@ -13,7 +13,7 @@
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
-		<result property="makerCode" column="MAKER_CODE" />
+		<result property="makerCode" column="MAKER_CODE" /> 
 		<result property="rcptNm" column="RCPT_NM" />
 		<result property="orgnztNm" column="ORGNZT_NM" />
 		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
