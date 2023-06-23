@@ -82,7 +82,8 @@
  ******************************************************** */
  function MngNumUpdt(){
 	 let formData = new FormData(document.getElementById('subFrm'));
-	 formData.append('newMngNum', $(#newMngNum).val);
+	 console.log($("#newMngNum").val());
+	 formData.append('newMngNum', $("#newMngNum").val());
 	   $.ajax({
 		url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
 		method: 'POST',
@@ -91,26 +92,35 @@
 		contentType: false,
 		data: formData,
 		success: function (result) {
-			
+			if(result.res == -1){
+				alertResult(result.res);
+			}else if(result.res == 1){
+				$(".viewMngNum").eq(0).text(result.mngNum);
+				MngNumCancel();
+			}else{
+				alertResult(result.res);
+			}
 		},
 		error: function (error) {
-			
+			alertResult(0);
 		}
 	}) 
 }
 
 function removeP() {
-	let td = $(".editMngNum").closest("td");
+	let td = $(".editMngNum").closest("td").next();
 	if($(td).children().last().prop('tagName') == 'P'){
 		$(td).children().last().remove();
 	}
 }
 
-function alertValid(objList) {
+function alertResult(result) {
 	removeP();
-	let td = $(item).closest("td");
-	if($(item).attr("name") == key){
+	let td = $(".editMngNum").eq(0).closest("td").next();
+	if(result == -1){
 		$(td).append($('<p/>').addClass('alertV').text("이미 존재하는 자산관리번호입니다"));
+	}else{
+		$(td).append($('<p/>').addClass('alertV').text("<spring:message code="fail.common.update" />\n<spring:message code="fail.common.msg" />"));
 	}
 }
 
@@ -308,13 +318,15 @@ function AssetList(){
 												</td>
 												<c:choose>
 													<c:when test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
-														<td colspan="2" >
+														<td>
 															<div class="viewMngNum">
 																${resultVO.mngNum}
 															</div>
 															<div class="editMngNum">
 																<input class="f_txt w_full" id="NewMngNum" name="NewMngNum" maxlength="30" type="text" value="${resultVO.mngNum}"/>
 															</div>
+														</td>
+														<td>
 														</td>
 														<td>
 															<div class="viewMngNum">

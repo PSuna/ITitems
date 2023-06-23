@@ -169,9 +169,9 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		assetVO.setAssetStauts("C5");
 		assetVO.setUsageStauts("U1");
 		
-		if(assetDAO.CountMngNum(assetVO) == 0) {
+		if(assetDAO.CountMngNum(assetVO) >= 1) {
 			return -1;
-		}else if(assetDAO.CountMngNum(assetVO) == 1){
+		}else if(assetDAO.CountMngNum(assetVO) == 0){
 			int result = assetDAO.UpdateAssetMngNum(assetVO);
 			
 			if(result > 0) {
