@@ -42,7 +42,6 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 
 	private String upreqStatus;
 	
-	private int reqQty;
 	/** 자산 Id */
 	private String assetId;
 	
@@ -333,13 +332,6 @@ public class ApprovalManageVO extends ApprovalDefaultVO{
 		this.assetId = assetId;
 	}
 
-	public int getReqQty() {
-		return reqQty;
-	}
-
-	public void setReqQty(int reqQty) {
-		this.reqQty = reqQty;
-	}
 
 	public String getPrjCode() {
 		return prjCode;

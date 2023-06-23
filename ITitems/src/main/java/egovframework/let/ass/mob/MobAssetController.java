@@ -13,13 +13,17 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.LoginVO;
@@ -194,6 +198,47 @@ public class MobAssetController {
 		System.out.println(appMap);
 
 		return appMap;
+	}
+	
+	
+	/**
+	 * 모바일자산등록 
+	 */
+	@RequestMapping(value = "/mob/MobAssetInsert.do")
+	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO, BindingResult bindingResult) throws Exception {
+		
+		System.out.println("++++++++++++++++++++++++++++++++++++모바일자산등록");
+		System.out.println(multiRequest);
+		System.out.println(assetVO.getCreatId());
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+		
+		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		//Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		assetVO.setCreatId(assetVO.getCreatId());
+
+		List<String> list = assetService.InsertAsset(assetVO);
+		
+		if(assetVO.getUseId() != "") {
+			List<MultipartFile> photoList = multiRequest.getFiles("photo");
+			for(MultipartFile photo : photoList) {
+				if (!photo.isEmpty()) {
+					for(String id : list) {
+						FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", id, "PHOTO");
+						fileMngService.insertAssFileInf(result);
+					}
+				}
+			}
+			MultipartFile file = multiRequest.getFile("file");
+			if (!file.isEmpty()) {
+				for(String id : list) {
+					FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", id, "FILE");
+					fileMngService.insertAssFileInf(result);
+				}
+			}
+		}
+
+		
+		return list.size();
 	}
 
 }

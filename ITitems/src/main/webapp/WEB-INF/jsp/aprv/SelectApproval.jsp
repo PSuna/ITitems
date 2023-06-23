@@ -133,11 +133,9 @@ function fnInsertHist(){
 			let formdata = new FormData();
 			var assetId = assetIds[i].querySelector(".assetId").value;
 			var useId = assetIds[i].querySelector(".useId").value;
-			var reqQty = assetIds[i].querySelector(".reqQty").innerHTML;
 			var prjId = "${approvalVO.prjCode}";
 			
 			formdata.append('assetId', assetId);
-			formdata.append('reqQty', reqQty);
 			formdata.append('prjId', prjId);
 			formdata.append('histUser', loginId);
 			formdata.append('useId', useId);
@@ -458,16 +456,16 @@ function fnDisUpdate(){
 									<table>
 										<colgroup>
 											<col style="width: 20%;">
-											<col style="width: 15%;">
-											<col style="width: 35%;">
-											<col style="width: 15%;">
-											<col style="width: 15%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
+											<col style="width: 20%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<td class="lb"><label for="">분류</label></td>
-												<td class="lb"><label for="">수량</label></td>
-												<td class="lb"><label for="">시리얼넘버 | 제조사</label></td>
+												<td class="lb"><label for="">시리얼넘버</label></td>
+												<td class="lb"><label for="">제조사</label></td>
 												<td class="lb"><label for="">수령자</label></td>
 												<td class="lb"><label for="">실사용자</label></td>
 											</tr>
@@ -479,8 +477,8 @@ function fnDisUpdate(){
 													<input type="hidden" name="assetId" class="assetId" value="<c:out value="${result.assetId}"/>"/>
 													<input type="hidden" name="useId" class="useId" value="<c:out value="${result.useId}"/>"/>
 													<td><c:out value="${result.middleCategory}"></c:out></td>
-													<td class="reqQty"><c:out value="${result.reqQty}"></c:out></td>
-													<td><c:out value="${result.assetSn} | ${result.maker}"></c:out></td>
+													<td><c:out value="${result.assetSn}"></c:out></td>
+													<td><c:out value="${result.maker}"></c:out></td>
 													<td><c:out value="${result.rcptId}"></c:out></td>
 													<td><c:out value="${result.user}"></c:out></td>
 												</tr>

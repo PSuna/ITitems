@@ -1,5 +1,6 @@
 package egovframework.let.ass.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -348,13 +349,17 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/MngNumUpdt.do")
 	@ResponseBody
-	public int MngNumUpdt(AssetVO assetVO) throws Exception {
+	public Map<String, Object> MngNumUpdt(AssetVO assetVO) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetVO.setCreatId(user.getUniqId());
 		
 		int res = assetService.MngNumUpdt(assetVO);
 		
-		return res;
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("mngNum", assetVO.getNewMngNum());
+		result.put("res", res);
+		
+		return result;
 	}
 	
 	/**

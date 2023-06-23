@@ -45,10 +45,6 @@ public class ApprovalDetailVO implements Serializable{
 	 */
 	private String middleCategory;
 	
-	/**
-	 * 요청수량
-	 */
-	private int reqQty;
 	
 	/**
 	 * 제조사
@@ -110,13 +106,6 @@ public class ApprovalDetailVO implements Serializable{
 		this.middleCategory = middleCategory;
 	}
 
-	public int getReqQty() {
-		return reqQty;
-	}
-
-	public void setReqQty(int reqQty) {
-		this.reqQty = reqQty;
-	}
 
 	public String getMaker() {
 		return maker;
