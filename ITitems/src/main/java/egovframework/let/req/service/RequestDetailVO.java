@@ -25,7 +25,7 @@ public class RequestDetailVO implements Serializable {
 	@Override
 	public String toString() {
 		return "RequestDetailVO [redId=" + redId + ", reqId=" + reqId + ", largeCategory=" + largeCategory
-				+ ", middleCategory=" + middleCategory + ", assetId=" + assetId + ", reqQty=" + reqQty + ", maker="
+				+ ", middleCategory=" + middleCategory + ", assetId=" + assetId + ", maker="
 				+ maker + ", user=" + user + ", useId=" + useId + ", rcptId=" + rcptId + ", assetSn=" + assetSn
 				+ ", reqOrder=" + reqOrder + "]";
 	}
@@ -45,8 +45,6 @@ public class RequestDetailVO implements Serializable {
 	/** 자산코드 */
 	private String assetId;
 
-	/** 수량 */
-	private Integer reqQty;
 
 	/** 제조사 */
 	private String maker;
@@ -98,13 +96,6 @@ public class RequestDetailVO implements Serializable {
 		this.assetId = assetId;
 	}
 
-	public Integer getReqQty() {
-		return reqQty;
-	}
-
-	public void setReqQty(Integer reqQty) {
-		this.reqQty = reqQty;
-	}
 
 	public String getMaker() {
 		return maker;

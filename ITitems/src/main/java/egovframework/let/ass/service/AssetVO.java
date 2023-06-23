@@ -130,7 +130,6 @@ public class AssetVO implements Serializable {
 	/** 자산 분류 ID */
 	private String assId;
 	
-	private int reqQty;
 
 	public String getAssetId() {
 		return assetId;
@@ -316,13 +315,6 @@ public class AssetVO implements Serializable {
 		this.useNm = useNm;
 	}
 
-	public int getReqQty() {
-		return reqQty;
-	}
-
-	public void setReqQty(int reqQty) {
-		this.reqQty = reqQty;
-	}
 
 	public String getRcptDate() {
 		return rcptDate;

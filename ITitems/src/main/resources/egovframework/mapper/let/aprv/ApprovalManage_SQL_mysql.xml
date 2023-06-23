@@ -171,7 +171,6 @@
 			   (SELECT CAT_NAME
 			       FROM CATEGORY 
 			      WHERE CAT_ID = R.MIDDLE_CATEGORY) AS MIDDLE_CATEGORY,
-			   R.REQ_QTY,
 			   R.MAKER,
 			   R.USER,
 			   E.USER_NM,
