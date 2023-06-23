@@ -582,10 +582,15 @@
 	</update>
 	
 	<update id="UpdateAssetMngNum" parameterType="egovframework.let.ass.service.AssetVO">
+		UPDATE ASSET A
+		   SET 
+		   		MNG_NUM = #{newMngNum}
+		 <include refid="detailSearch" />;
+		
 		UPDATE ASSETHISTORY A
 		   SET 
 		   		MNG_NUM = #{newMngNum}
-		 <include refid="detailSearch" />
+		 <include refid="detailSearch" />;
 	</update>
 	
 	<select id="xlsxTrsfAssetList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">

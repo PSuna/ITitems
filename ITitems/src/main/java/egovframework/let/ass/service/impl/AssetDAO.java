@@ -71,6 +71,10 @@ public class AssetDAO extends EgovAbstractMapper {
 		return insert("AssetDAO.InsertAssethist",AssetVO);
 	};
 	
+	public int CountMngNum(AssetVO AssetVO) {
+		return selectOne("AssetDAO.CountMngNum",AssetVO);
+	};
+	
 	public int UpdateAssetMngNum(AssetVO AssetVO) {
 		return update("AssetDAO.UpdateAssetMngNum",AssetVO);
 	};

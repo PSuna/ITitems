@@ -420,5 +420,13 @@ public class AssetVO implements Serializable {
 	public void setAssetCompany(String assetCompany) {
 		this.assetCompany = assetCompany;
 	}
+
+	public String getNewMngNum() {
+		return newMngNum;
+	}
+
+	public void setNewMngNum(String newMngNum) {
+		this.newMngNum = newMngNum;
+	}
 	
 }

@@ -11,6 +11,14 @@
     
 }
 
+.w_88{
+	width: 88px;
+}
+
+.editMngNum{
+	display: none;
+}
+
 .search_date{
 	display: inline-grid;
     position: relative;
