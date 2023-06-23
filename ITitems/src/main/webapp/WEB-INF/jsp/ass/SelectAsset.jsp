@@ -73,8 +73,9 @@
  * 자산관리번호 수정 취소
  ******************************************************** */
  function MngNumCancel(){
-	$(".viewMngNum").css("display","none");
-	$(".editMngNum").css("display","block");
+	$(".viewMngNum").css("display","block");
+	$(".editMngNum").css("display","none");
+	$("#newMngNum").val('${resultVO.mngNum}');
 }
 
 /* ********************************************************
@@ -82,8 +83,7 @@
  ******************************************************** */
  function MngNumUpdt(){
 	 let formData = new FormData(document.getElementById('subFrm'));
-	 console.log($("#newMngNum").val());
-	 formData.append('newMngNum', $("#newMngNum").val());
+	  formData.append('newMngNum', $("#newMngNum").val());
 	   $.ajax({
 		url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
 		method: 'POST',
@@ -95,8 +95,9 @@
 			if(result.res == -1){
 				alertResult(result.res);
 			}else if(result.res == 1){
-				$(".viewMngNum").eq(0).text(result.mngNum);
-				MngNumCancel();
+				document.subFrm.mngNum.value = result.mngNum;
+				document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
+			    document.subFrm.submit();
 			}else{
 				alertResult(result.res);
 			}
@@ -104,7 +105,7 @@
 		error: function (error) {
 			alertResult(0);
 		}
-	}) 
+	})  
 }
 
 function removeP() {
@@ -323,7 +324,7 @@ function AssetList(){
 																${resultVO.mngNum}
 															</div>
 															<div class="editMngNum">
-																<input class="f_txt w_full" id="NewMngNum" name="NewMngNum" maxlength="30" type="text" value="${resultVO.mngNum}"/>
+																<input class="f_txt w_full" id="newMngNum" name="newMngNum" maxlength="30" type="text" value="${resultVO.mngNum}"/>
 															</div>
 														</td>
 														<td>

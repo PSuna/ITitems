@@ -562,8 +562,11 @@ background: #F7F7F7;
 
 .scrollList{
 	max-height: 184px;
-	overflow-y: scroll;
-	position: relative;
+	 overflow: overlay;
+}
+
+.scrollList::-webkit-scrollbar {
+    width: 1vw;
 }
 
 .pty_btn {
