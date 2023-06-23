@@ -59,6 +59,10 @@ public interface ApprovalManageService {
 	public int ApprovalDisUpdate(ApprovalManageVO approvalManageVO);
 
 	public int ApprovalInsertHist(AssetVO assetVO);
+	
+	//모바일
+	public List<ApprovalManageVO> mobSelectApprovalList(ApprovalDefaultVO approvalSearchVO) throws Exception;
 
+	
 
 }

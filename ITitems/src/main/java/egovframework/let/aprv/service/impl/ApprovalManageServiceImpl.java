@@ -129,4 +129,10 @@ public class ApprovalManageServiceImpl extends EgovAbstractServiceImpl implement
 		}*/
 		return r;
 	}
+
+	//모바일
+	@Override
+	public List<ApprovalManageVO> mobSelectApprovalList(ApprovalDefaultVO approvalSearchVO) throws Exception {
+		return approvalManageDAO.mobSelectApprovalList(approvalSearchVO);
+	}
 }
