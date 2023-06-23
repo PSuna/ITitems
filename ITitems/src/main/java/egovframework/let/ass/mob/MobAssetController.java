@@ -205,20 +205,14 @@ public class MobAssetController {
 	 * 모바일자산등록 
 	 */
 	@RequestMapping(value = "/mob/MobAssetInsert.do")
-	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO, BindingResult bindingResult) throws Exception {
-		
-		System.out.println("++++++++++++++++++++++++++++++++++++모바일자산등록");
-		System.out.println(multiRequest);
-		System.out.println(assetVO.getCreatId());
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO) throws Exception {
 		
 		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		//Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		assetVO.setCreatId(assetVO.getCreatId());
 
 		List<String> list = assetService.InsertAsset(assetVO);
-		
-		if(assetVO.getUseId() != "") {
+		if (!assetVO.getCreatId().equals("")|| !assetVO.getCreatId().equals(null)) {
 			List<MultipartFile> photoList = multiRequest.getFiles("photo");
 			for(MultipartFile photo : photoList) {
 				if (!photo.isEmpty()) {
@@ -228,16 +222,9 @@ public class MobAssetController {
 					}
 				}
 			}
-			MultipartFile file = multiRequest.getFile("file");
-			if (!file.isEmpty()) {
-				for(String id : list) {
-					FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", id, "FILE");
-					fileMngService.insertAssFileInf(result);
-				}
-			}
-		}
 
-		
+		}
+			
 		return list.size();
 	}
 
