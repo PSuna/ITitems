@@ -56,8 +56,10 @@ function reset_Prj(){
 }
 
 function fn_egov_pageview(page){
-	document.listForm.searchWord.value = '${searchVO.searchWord}';
+	inputPush();
+	document.listForm.searchWord.blur();
 	document.listForm.pageIndex.value = page;
+	document.listForm.action = "<c:url value='/prj/ProjectSearchList.do'/>";
    	document.listForm.submit();
 }
 
@@ -65,7 +67,9 @@ function fn_egov_search_Prj() {
 	document.listForm.pageIndex.value = 1;
    	document.listForm.submit();
 }
-
+function inputPush(){
+	document.listForm.searchWord.value = '${searchVO.searchWord}'
+}
 
 </script>
 </head>
@@ -91,8 +95,7 @@ function fn_egov_search_Prj() {
                 <!-- 검색조건 -->
                 <div class="condition2" style="display: flex;justify-content: center;margin-top:0;">
                     <span class="item f_search">
-                        <input class="f_input w_300 pty_f_input" name="searchWord" placeholder="프로젝트명 검색" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20" title="동명"/>
-                        <button class="btn" type="submit" onclick="fn_egov_search_Prj();"><spring:message code='button.inquire' /></button><!-- 조회 -->
+                        <input class="f_input w_300 pty_f_input" name="searchWord" placeholder="프로젝트명 검색" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20"/>
                     </span>
                     <button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fn_egov_search_Prj(); return false;">검색</button>
                     <div class="btn_area"style="margin-top:0px !important;">

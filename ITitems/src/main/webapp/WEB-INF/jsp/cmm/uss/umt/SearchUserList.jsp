@@ -67,6 +67,8 @@
 		document.listForm.submit();
 	}
 	function fnLinkPage(pageNo){
+		inputPush();
+		document.listForm.searchKeyword.blur();
 	    document.listForm.pageIndex.value = pageNo;
 	    document.listForm.action = "<c:url value='/uss/umt/user/SearchUserList.do'/>";
 	    document.listForm.submit();
@@ -75,7 +77,13 @@
 	    document.listForm.pageIndex.value = 1;
 	    document.listForm.action = "<c:url value='/uss/umt/user/SearchUserList.do'/>";
 	    document.listForm.submit();
-	}//-->
+	}
+function inputPush(){
+	document.listForm.searchKeyword.value = '${userSearchVO.searchKeyword}';
+	
+}
+//-->
+	
 </script>
 </head>
 
@@ -105,32 +113,6 @@
 				<div class="pop_container pop_search">
 					<!-- 검색조건 -->
 					<div class="condition" style="justify-content: center;">
-						<%-- <label class="item f_select" for="searchOrgnzt"> <select
-							id="searchOrgnzt" name="searchOrgnzt" title="검색조건-부서"
-							onchange="javascript:fnSearch(); return false;">
-								<option value="" label="부서" />
-								<c:forEach var="orgnztId" items="${orgnztId_result}">
-									<option value="<c:out value="${orgnztId.code}"/>"
-										<c:if test="${userSearchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>>${orgnztId.codeNm}</option>
-								</c:forEach>
-						</select>
-						</label> <label class="item f_select" for="searchGrade"> <select
-							id="searchGrade" name="searchGrade" title="검색조건-직급"
-							onchange="javascript:fnSearch(); return false;">
-								<option value="" label="직급" />
-								<c:forEach var="grade" items="${grd_result}">
-									<option value="<c:out value="${grade.code}"/>"
-										<c:if test="${userSearchVO.searchGrade == grade.code}">selected="selected"</c:if>>${grade.codeNm}</option>
-								</c:forEach>
-						</select> --%>
-						<%-- </label> <label class="item f_select" for="searchCondition"> <select
-							name="searchCondition" id="searchCondition" title="검색조건-검색어구분">
-								<option value="0"
-									<c:if test="${userSearchVO.searchCondition == '0'}">selected="selected"</c:if>>사용자ID</option>
-								<option value="1"
-									<c:if test="${empty userSearchVO.searchCondition || userSearchVO.searchCondition == '1'}">selected="selected"</c:if>>사용자명</option>
-						</select>
-						</label> --%> 
 						<div class="pty_search">
 							<span class="item f_search">
 								<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">

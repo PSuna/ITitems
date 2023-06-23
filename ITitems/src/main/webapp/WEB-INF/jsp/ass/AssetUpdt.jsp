@@ -588,6 +588,17 @@ window.onload = function(){
 											</c:if>
 											<tr>
 												<td class="lb">
+													<!-- 수령일자 --> 
+													<label for="">수령일자</label> 
+												</td>
+												<td colspan="3">
+													<span class="search_date w_full">
+														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td class="lb">
 													<!-- 수령자 --> 
 													<label for="">수령자</label> 
 													<span class="req">필수</span>
@@ -625,17 +636,6 @@ window.onload = function(){
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
-												</td>
-											</tr>
-											<tr>
-												<td class="lb">
-													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
-												</td>
-												<td colspan="3">
-													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
-													</span>
 												</td>
 											</tr>
 											<tr>

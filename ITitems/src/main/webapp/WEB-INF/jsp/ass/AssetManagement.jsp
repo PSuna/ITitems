@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+<script src="<c:url value='/'/>js/SearchList.js"></script>
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -160,7 +161,7 @@ function SearchAssetList() {
     document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
     document.frm.submit(); 
 }
-
+ 
 /* ********************************************************
  * 페이지 항목 수 변경
  ******************************************************** */

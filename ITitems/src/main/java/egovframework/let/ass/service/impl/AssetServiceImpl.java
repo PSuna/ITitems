@@ -175,6 +175,7 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 			int result = assetDAO.UpdateAssetMngNum(assetVO);
 			
 			if(result > 0) {
+				assetVO.setMngNum(assetVO.getNewMngNum());
 				assetDAO.InsertAssethist(assetVO);
 			}
 			return result;
