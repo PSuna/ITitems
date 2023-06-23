@@ -160,7 +160,7 @@ function SearchAssetList() {
     document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
     document.frm.submit(); 
 }
-
+ 
 /* ********************************************************
  * 페이지 항목 수 변경
  ******************************************************** */

@@ -42,6 +42,7 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function setPageUnit(){
+	inputPush();
 	document.listForm.pageIndex.value = 1;
     document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
@@ -53,6 +54,7 @@ function fnSearch(){
     document.listForm.submit();
 }
 function fntrsfExcel(){
+	inputPush();
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
@@ -64,6 +66,17 @@ function fnSelectAprv(reqId){
 	document.listForm.reqId.value = reqId;
 	document.listForm.action = "<c:url value='/aprv/selectApproval.do'/>";
 	document.listForm.submit();
+}
+function inputPush(){
+	document.listForm.searchGroup.value = '${approvalSearchVO.searchGroup}';
+	document.listForm.searchStatus.value = '${approvalSearchVO.searchStatus}';
+	document.listForm.searchKeyword.value = '${approvalSearchVO.searchKeyword}';
+}
+function fnLinkPage(pageNo){
+	inputPush();
+    document.listForm.pageIndex.value = pageNo;
+    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+    document.listForm.submit();
 }
 //-->
 </script>
@@ -133,7 +146,7 @@ function fnSelectAprv(reqId){
                                 		</div>
 	                                    <div class="pty_search">
 											<span class="item f_search" >
-												<input class="f_input pty_f_input" style="margin-right: 8px; padding:0" type="text" name="searchKeyword" onchange="javascript:fnSearch(); return false;" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+												<input class="f_input pty_f_input" style="margin-right: 8px; padding:0" type="text" name="searchKeyword" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
 											</span>
 											<button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fnSearch(); return false;">검색</button>
 										</div>
