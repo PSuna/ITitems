@@ -224,5 +224,43 @@ public class MobAssetController {
 			
 		return list.size();
 	}
+	
+	/**
+	 * 자산수정
+	 */
+	@RequestMapping(value = "/mob/MobAssetUpdate.do")
+	@ResponseBody
+	public int AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
+		int res = assetService.UpdateAsset(assetVO);
+		
+		String[] delPhotoList = delPhoto.split("/");
+		
+		FileVO fvo = new FileVO();
+		fvo.setFileGroup(assetVO.getAssetId());
+		for(String photoId : delPhotoList) {
+			fvo.setAtchFileId(photoId);
+			fileMngService.updateFileListUse(fvo);
+		}
+		List<MultipartFile> photoList = multiRequest.getFiles("photo");
+		for(MultipartFile photo : photoList) {
+			if (!photo.isEmpty()) {
+				FileVO result = fileUtil.parseAssFileInf(photo, "BBS_", 0, "", "", assetVO.getAssetId(), "PHOTO");
+				fileMngService.insertAssFileInf(result);
+			}
+		}
+		if(delFile != null && delFile != "") {
+			fvo.setAtchFileId(delFile);
+			fileMngService.updateFileListUse(fvo);
+		}
+		MultipartFile file = multiRequest.getFile("file");
+		if (!file.isEmpty()) {
+			fileMngService.updateFileUse(fvo);
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
+			fileMngService.insertAssFileInf(result);
+		}
+		
+		
+		return res;
+	}
 
 }
