@@ -183,6 +183,58 @@
        		AND A.ASSET_ID = #{assetId}
        </where> 
 	</sql>
+	
+	<sql id="mngNumsearch">
+		
+	</sql>
+	
+	<sql id="assetSnsearch">
+		<where>
+			AND A.USAGE_STAUTS = 'U1'
+			AND A.ASSET_SN IN (
+								SELECT ASSET_SN
+							      FROM ASSET
+								 WHERE ASSET_SN IS NOT NULL
+								   AND ASSET_SN != ""
+							  GROUP BY ASSET_SN
+								HAVING COUNT(ASSET_SN) > 1)
+			<if test="searchOrgnzt != null and searchOrgnzt != ''">
+              	AND (	A.ORGNZT_ID = #{searchOrgnzt} 
+              		OR  F.ORGNZT_UP = #{searchOrgnzt})
+            </if>
+			<if test="searchName != null and searchName != ''">
+				AND (	D.USER_NM LIKE CONCAT ('%', #{searchName},'%') 
+					OR  E.USER_NM LIKE CONCAT ('%', #{searchName},'%'))
+		 	</if>
+            <if test="userId != null and userId != ''">
+				AND A.RCPT_ID = #{userId}
+            </if>
+        	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
+				AND A.ORGNZT_ID = #{lowerOrgnzt}
+			</if>
+			<if test="searchPrj != null and searchPrj != ''">
+				AND A.PRJ_ID = #{searchPrj}
+			</if>
+			<if test="searchLCat != null and searchLCat != ''">
+				AND A.LARGE_CATEGORY = #{searchLCat}
+			</if>
+			<if test="searchdMCat != null and searchdMCat != ''">
+				AND A.MIDDLE_CATEGORY = #{searchdMCat}
+			</if>
+			<if test="searchStatus != null and searchStatus != ''">
+				AND A.ASSET_STAUTS = #{searchStatus}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND DATE_FORMAT(A.CREAT_DT, '%Y-%m-%d') >= STR_TO_DATE(#{startDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+				AND DATE_FORMAT(A.CREAT_DT, '%Y-%m-%d') <= STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</where>
+	</sql>
 
 	<select id="SelectMyAssetVOList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="myAssetList">
 		SELECT
@@ -852,4 +904,71 @@
 		   		PRJ_ID = #{prjId}
 		 WHERE ASSET_ID = #{assetId}
 	</update>
+	
+	<select id="SelectMngNumList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">
+		
+	</select>
+	
+	<select id="CountMngNumList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
+	
+	</select>
+	
+	<select id="SelectAssetSnList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">
+		SELECT
+			MNG_NUM, 
+			ASSET_ID,
+			MIDDLE_CATEGORY, 
+			ASSET_NAME, 
+			ASSET_SN,
+			PRJ_NM,
+			RCPT_NM,
+			USE_NM
+	      FROM (
+			SELECT 
+				ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+				A.MNG_NUM,
+				A.ASSET_ID, 
+				CASE 
+					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
+					THEN A.MCAT_ETC
+					ELSE B.CAT_NAME
+			  END AS MIDDLE_CATEGORY, 
+				A.ASSET_NAME, 
+				A.ASSET_SN,
+				C.PRJ_NAME AS PRJ_NM,
+				D.USER_NM AS RCPT_NM,
+				E.USER_NM AS USE_NM
+			  FROM ASSET A
+   LEFT OUTER JOIN CATEGORY B
+				ON A.MIDDLE_CATEGORY = B.CAT_ID
+   LEFT OUTER JOIN PROJECTS C
+	   			ON A.PRJ_ID = C.PRJ_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO D
+	            ON A.RCPT_ID = D.ESNTL_ID
+   LEFT OUTER JOIN LETTNEMPLYRINFO E
+	            ON A.USE_ID = E.ESNTL_ID
+				 <include refid="assetSnsearch" />
+		  ORDER BY A.ASSET_SN
+		    ) P 
+	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="CountAssetSnList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
+			SELECT 
+		    		COUNT(P.RUM)
+			      FROM (
+					SELECT 
+						ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
+						A.MNG_NUM,
+						A.ASSET_ID
+					  FROM ASSET A
+		   LEFT OUTER JOIN LETTNEMPLYRINFO D
+			            ON A.RCPT_ID = D.ESNTL_ID
+		   LEFT OUTER JOIN LETTNEMPLYRINFO E
+			            ON A.USE_ID = E.ESNTL_ID
+		   LEFT OUTER JOIN LETTNORGNZTINFO F
+						ON A.ORGNZT_ID = F.ORGNZT_ID
+						 <include refid="assetSnsearch" />
+				    ) P 
+	</select>
 </mapper>

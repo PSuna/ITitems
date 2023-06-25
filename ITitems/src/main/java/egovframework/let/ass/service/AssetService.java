@@ -52,4 +52,7 @@ public interface AssetService {
 	
 	public AssetMasterVO SelectAssetMaster(AssetManageVO assetManageVO);
 
+	public Map<String, Object> SelectMngNumList(AssetManageVO assetManageVO);
+	
+	public Map<String, Object> SelectAssetSnList(AssetManageVO assetManageVO);
 }
