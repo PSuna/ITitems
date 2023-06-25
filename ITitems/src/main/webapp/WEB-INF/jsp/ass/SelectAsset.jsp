@@ -73,6 +73,7 @@
  * 자산관리번호 수정 취소
  ******************************************************** */
  function MngNumCancel(){
+	 removeP();
 	$(".viewMngNum").css("display","block");
 	$(".editMngNum").css("display","none");
 	$("#newMngNum").val('${resultVO.mngNum}');
@@ -82,34 +83,40 @@
  * 자산관리번호 수정
  ******************************************************** */
  function MngNumUpdt(){
-	 let formData = new FormData(document.getElementById('subFrm'));
-	  formData.append('newMngNum', $("#newMngNum").val());
-	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
-		method: 'POST',
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function (result) {
-			if(result.res == -1){
-				alertResult(result.res);
-			}else if(result.res == 1){
-				document.subFrm.mngNum.value = result.mngNum;
-				document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
-			    document.subFrm.submit();
-			}else{
-				alertResult(result.res);
+	let val = $("#newMngNum").val();
+	if(val != null && val != ""){
+		let formData = new FormData(document.getElementById('subFrm'));
+		  formData.append('newMngNum', val);
+		   $.ajax({
+			url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
+			method: 'POST',
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			data: formData,
+			success: function (result) {
+				if(result.res == -1){
+					alertResult(result.res);
+				}else if(result.res == 1){
+					document.subFrm.mngNum.value = result.mngNum;
+					document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
+				    document.subFrm.submit();
+				}else{
+					alertResult(result.res);
+				}
+			},
+			error: function (error) {
+				alertResult(0);
 			}
-		},
-		error: function (error) {
-			alertResult(0);
-		}
-	})  
+		})  
+	}else{
+		alertResult(-2);
+	}
+	 
 }
 
 function removeP() {
-	let td = $(".editMngNum").closest("td").next();
+	let td = $(".editMngNum").eq(0).closest("td");
 	if($(td).children().last().prop('tagName') == 'P'){
 		$(td).children().last().remove();
 	}
@@ -117,8 +124,10 @@ function removeP() {
 
 function alertResult(result) {
 	removeP();
-	let td = $(".editMngNum").eq(0).closest("td").next();
-	if(result == -1){
+	let td = $(".editMngNum").eq(0).closest("td");
+	if(result == -2){
+		$(td).append($('<p/>').addClass('alertV').text("자산관리번호를 입력해주세요"));
+	}else if(result == -1){
 		$(td).append($('<p/>').addClass('alertV').text("이미 존재하는 자산관리번호입니다"));
 	}else{
 		$(td).append($('<p/>').addClass('alertV').text("<spring:message code="fail.common.update" />\n<spring:message code="fail.common.msg" />"));
@@ -319,15 +328,13 @@ function AssetList(){
 												</td>
 												<c:choose>
 													<c:when test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN'}">
-														<td>
+														<td colspan="2">
 															<div class="viewMngNum">
 																${resultVO.mngNum}
 															</div>
 															<div class="editMngNum">
 																<input class="f_txt w_full" id="newMngNum" name="newMngNum" maxlength="30" type="text" value="${resultVO.mngNum}"/>
 															</div>
-														</td>
-														<td>
 														</td>
 														<td>
 															<div class="viewMngNum">
@@ -478,7 +485,7 @@ function AssetList(){
 													</td>
 													<td colspan="3">
 													<c:if test="${not empty resultVO.acquiredPrice}">
-													${resultVO.rentalPrice} 원
+													${resultVO.acquiredPrice} 원
 													</c:if>
 													</td>
 												</tr>

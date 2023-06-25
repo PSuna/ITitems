@@ -69,7 +69,7 @@
 		           	<div class="pty_main_right02">
 		           	
 			           		<div class="pmr_d">
-			           			<a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do')">
+			           			<a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000001')">
 				           			<div class=pmr_dd>
 					           			<img src="<c:url value="/" />images/pty_icon_01.png">
 					           			<p> 내 자산조회 </p>

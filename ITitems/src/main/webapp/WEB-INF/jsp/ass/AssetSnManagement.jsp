@@ -10,14 +10,13 @@
     author   : 영남사업부 주소현
     since    : 2023.04.13
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,23 +31,22 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
-<script src="<c:url value='/'/>js/SearchList.js"></script>
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+ 
+ <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 /* ********************************************************
- * 회원 검색
+ * 프로젝트 검색
  ******************************************************** */
-function UserSearch(){
+function ProjectSearch(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -60,11 +58,15 @@ function UserSearch(){
 }
 
 /* ********************************************************
- * 검색 회원 입력
+ * 검색 프로젝트 입력
  ******************************************************** */
-function returnUser(val){
-	document.getElementById("userId").value  = val.userId;
-	document.getElementById("userNm").value  = val.userNm;
+function returnProject(val){
+	
+	if (val) {
+		document.getElementById("searchPrj").value  = val.prjId;
+		document.getElementById("prjNm").value  = val.prjNm;
+	}
+	
 	fn_egov_modal_remove();
 }
 
@@ -109,46 +111,16 @@ function getMCatList(Mval) {
 	
 }
 
-
 /* ********************************************************
- * 부서 조회
+ * 페이지 항목 수 변경
  ******************************************************** */
-function getOrgList(Oval) {
-	let val = document.getElementById('searchOrgnzt').value;
-	if(val == ""){
-		document.getElementById('lowerOrgnzt').replaceChildren();
-		let op = document.createElement('option');
-		op.textContent = '부서';
-		op.value = "";
-		document.getElementById('lowerOrgnzt').appendChild(op);
-	}else{
-		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
-			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded',
-			data: {'searchUpperOrg' : val},
-			success: function (result) {
-				document.getElementById('lowerOrgnzt').replaceChildren();
-				let op = document.createElement('option');
-				op.textContent = '부서';
-				op.value = "";
-				document.getElementById('lowerOrgnzt').appendChild(op);
-				for(res of result){
-					op = document.createElement('option');
-					op.setAttribute('value', res.orgnztId);
-					op.textContent = res.orgnztNm;
-					if(Oval == res.orgnztId){
-						op.setAttribute('selected', 'selected');
-					}
-					document.getElementById('lowerOrgnzt').appendChild(op);
-				}
-			},
-			error: function (error) {
-				console.log(error);
-			}
-		})
-	}
-	
+function setPageUnit(obj) {
+	event.preventDefault();
+	inputpush();
+	document.frm.pageIndex.value = '1';
+	document.frm.pageUnit.value = obj.value;
+    document.frm.action = "<c:url value='/ass/AssetSnManagement.do'/>";
+    document.frm.submit(); 
 }
 
 /* ********************************************************
@@ -158,19 +130,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
-    document.frm.submit(); 
-}
-
-/* ********************************************************
- * 페이지 항목 수 변경
- ******************************************************** */
-function setPageUnit(obj) {
-	event.preventDefault();
-	inputpush();
-	document.frm.pageIndex.value = '1';
-	document.frm.pageUnit.value = obj.value;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/AssetSnManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -181,28 +141,24 @@ function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	inputpush();
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/AssetSnManagement.do'/>";
     document.frm.submit(); 
 }
 
 /* ********************************************************
  * input 정리
  ******************************************************** */
-function inputpush() {
-	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
-	document.frm.lowerOrgnzt.value = '${searchVO.lowerOrgnzt}';
-	document.frm.prjNm.value = '${searchVO.prjNm}';
+ function inputpush() {
+	 document.frm.prjNm.value = '${searchVO.prjNm}';
 	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';
 	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
-//	document.frm.searchStatus.value = '${searchVO.searchStatus}';
 	document.frm.startDate.value = '${searchVO.startDate}';
 	document.frm.endDate.value = '${searchVO.endDate}';
-//	document.frm.searchWord.value = '${searchVO.searchWord}';
-	document.frm.userId.value = '${searchVO.userId}';
-	document.frm.userNm.value = '${searchVO.userNm}';
+	document.frm.searchWord.value = '${searchVO.searchWord}';
 }
-
+ 
+ 
 /* ********************************************************
  * 자산 등록 페이지 이동
  ******************************************************** */
@@ -210,6 +166,18 @@ function AssetRegist() {
 	inputpush();
 	event.preventDefault();
     document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
+    document.frm.submit(); 
+}
+
+/* ********************************************************
+ * 자산 상세 페이지 이동
+ ******************************************************** */
+function SelectAsset(assetId,mngNum) {
+	inputpush();
+	event.preventDefault();
+	document.frm.assetId.value = assetId;
+	document.frm.mngNum.value = mngNum;
+    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
     document.frm.submit(); 
 }
 
@@ -236,18 +204,6 @@ function make_date(){
 }
 
 /* ********************************************************
- * 자산 상세 페이지 이동
- ******************************************************** */
-function SelectAsset(assetId,mngNum) {
-	inputpush();
-	event.preventDefault();
-	document.frm.assetId.value = assetId;
-	document.frm.mngNum.value = mngNum;
-    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
-    document.frm.submit(); 
-}
-
-/* ********************************************************
  * Excel
  ******************************************************** */
 function fntrsfExcel(){
@@ -255,7 +211,7 @@ function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
-	    document.frm.action = "<c:url value='/com/xlsxTrsfAssetList.do'/>";
+	    document.frm.action = "<c:url value='/com/xlsxTrsfMyAssList.do'/>";
 	    document.frm.submit();
 	}
 }
@@ -279,20 +235,19 @@ function checkStartDate(){
 		$('#frm #endDate').val("");
 	}
 }
-
 /* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
-	getOrgList('${searchVO.lowerOrgnzt}')
 	make_date();
 	  }
+	  
 //-->
 </script>
 </head>
 <body>
-	<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+	<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
@@ -306,131 +261,98 @@ window.onload = function(){
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
+					<!-- Left menu -->
+						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<!--// Left menu -->
 						<div class="content_wrap">
 							<div id="contents" class="content">
 								<!-- Location -->
 								<div class="location">
 									<ul>
 										<li><a class="home" href="#LINK">Home</a></li>
-										<li><a href="#LINK">${masterVO.assNm}관리</a></li>
-										<li>전체${masterVO.assNm}조회</li>
+										<li><a href="#LINK">자산관리</a></li>
+										<li>시리얼넘버관리</li>
 									</ul>
 								</div>
 								<!--// Location -->
-								<h2 class="tit_2">전체${masterVO.assNm}조회</h2>
+								<h2 class="tit_2">시리얼넘버관리</h2>
+
 								<!-- 검색조건 -->
 								<form id="frm" name="frm" autocomplete="off" method="post">
-								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
-								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
 										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 										<input type="hidden" name="assetId" />
 										<input type="hidden" name="mngNum" />
 										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
-										<input type="hidden" name="listCode" value="AM" />
-										<div class="j_box02">
+										<input type="hidden" name="listCode" value="MYAM" />
+										<div class="j_box01">
 											<div>
-												<div>
-													<!-- <span class="lb">본부/부서</span> -->
-													<label class="item f_select w_full" for="sel1"> 
-														<select id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
-																<option value="" >본부</option>
-																<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
-																	<option value="${orgnztId.code}" <c:if test="${searchVO.searchOrgnzt == orgnztId.code}">selected="selected"</c:if>><c:out value="${orgnztId.codeNm}" /></option>
-																</c:forEach>
-														</select>
-													</label> 
-												</div>
-												<div>
-													<!-- <span class="lb">본부/부서</span> -->
-													<label class="item f_select w_full" for="sel1"> 
-														<select id="lowerOrgnzt" name="lowerOrgnzt" >
-																<option value="" >부서</option>
-														</select>
-													</label> 
-												</div>
+												<!-- <span class="lb">프로젝트</span> --> 
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="<c:out value="${searchVO.prjNm}"/>" />
+
+													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
+												</span><input name="searchPrj" id="searchPrj" type="hidden"  value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" />
 											</div>
 											<div>
-												<div>
-													<!-- <span class="lb">대분류</span>  -->
-													<label class="item f_select w_full" for="sel1">
-													<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
-															<option value='' label="대분류" />
-															<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-																<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
-															</c:forEach>
-													</select> 
-													
-													</label> 
-												</div>
-																								
-												<div>
-													<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
-															<option value='' label="중분류" />
-													</select>
-													</label> 
-												</div>
+												<!-- <span class="lb">대분류</span> --> 
+												<label class="item f_select w_full" for="sel1">
+												<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
+														<option value='' label="대분류" />
+														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
+														</c:forEach>
+												</select>   
+												</label> 
 											</div>
-										</div>
-										<div class="j_box02">	
+																							
 											<div>
-												<div class="date_box">
-													<!-- <span class="lb">등록일자</span>  -->
-													<div>
-													<span class="search_date">
-													<input class="f_date pty_f_date w_full" type="text" placeholder="등록일자" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
-													</span>
-													―
-													 <span class="search_date">
-													 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
-													 </span>
-													 </div>
-												</div>	
-												<div class="search_box">
-													<!-- <span class="lb">수령자/실사용자</span> -->
-													<span class="f_search2 w_full"> 
-														<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
-															readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
-														<button type="button" class="btn" onclick="UserSearch()">조회</button>
-													</span>
-													<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
-														maxlength="8" readonly="readonly" />
-												</div>
+												<!-- <span class="lb">중분류</span> --> <label class="item f_select w_full" for="sel1"> <select id="middleCategory" name="searchdMCat" >
+														<option value='' label="중분류" />
+												</select>
+												</label> 
 											</div>
-											<div>
-												<div class="search_box">
-													<!-- <span class="lb">프로젝트</span>  -->
-													<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
-														<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-													</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
-												</div>
-												<div class="btn_box">
-													<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
-												</div>
+										</div>	
+											
+										<div class="j_box01">	
+											<div class="date_box">
+												<!-- <span class="lb">등록일자</span>  -->
+												<div>
+												<span class="search_date">
+												<input class="f_date pty_f_date w_full" type="text" name="startDate" id="startDate" value="<c:out value="${searchVO.startDate}"/>"  readonly="readonly" onchange="checkStartDate()">
+												</span>
+												 ― 
+												 <span class="search_date">
+												 <input class="f_date pty_f_date w_full" type="text" name="endDate" id="endDate" value="<c:out value="${searchVO.endDate}"/>"  readonly="readonly" onchange="checkEndDate()">
+												 </span>
+												 </div>
+											</div>	
+											<div class="search_box">
+												<!-- <span class="lb">품명/시리얼넘버</span> -->
+												<span class="item f_search w_full">
+														<!-- <span>검색</span>  -->
+													<input class="f_input w_full pty_f_input" type="text" name="searchWord" id="usernm" placeholder="제품명 / 시리얼넘버" value="<c:out value="${searchVO.searchWord}"/>">
+												</span>
 											</div>
+											<div class="btn_box">
+												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
+											</div>  
 										</div>
 									</div>	
-								</form>
+								
 								<!--// 검색 조건 -->
 								<div class="board_list_top">
 									<div class="left_col">
 											<div class="list_count">
-
-
 												<div style="display: flex; justify-content: space-between; align-items: center;" class="pty_margin-bottom_8">
-													
 													<div>
-														<span style="margin:0;">Total :</span> 
+														<span style="margin:0;">Total : </span> 
 														<strong><c:out value="${paginationInfo.totalRecordCount}" /></strong> 
-																
 													</div>
-														
 													<div style="display: flex; align-items: center;">
 														<span style="margin-right: 16px;">페이지당 항목 수</span> 
 														<label class="item f_select" for="pageUnit"> 
 																
-															<select name="pageUnit" id="pageUnit"  onchange="setPageUnit(this); return false;">										
+															<select name="pageUnit" id="pageUnit" onchange="setPageUnit(this); return false;">										
 																	<option value="10" <c:if test="${empty searchVO.pageUnit || searchVO.pageUnit == '10'}">selected="selected"</c:if>>10</option>
 																	<option value="20" <c:if test="${searchVO.pageUnit == '20'}">selected="selected"</c:if>>20</option>
 																	<option value="50" <c:if test="${searchVO.pageUnit == '50'}">selected="selected"</c:if>>50</option>
@@ -440,36 +362,32 @@ window.onload = function(){
 															</select>
 														</label>
 													</div>
-													
 												</div>
-												
-												
 											</div>
 										</div>
                                 </div>
+                                </form>
 								<!-- 게시판 -->
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
 											<col style="width: 6%;">
-											<col style="width: 13%;">
-											<col style="width: 13%;">
-											<col style="width: 38%;">
-											<col style="width: 12%;">
 											<col style="width: 9%;">
-											<col style="width: 9%;">
+											<col style="width: 17%;">
+											<col style="width: 17%;">
+											<col style="width: 31%;">
+											<col style="width: 10%;">
+											<col style="width: 11%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
-												<th scope="col">본부</th>
-												<th scope="col">부서</th>
-												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
-												<!-- <th scope="col">자산관리번호</th> -->
+												<th scope="col">제품명</th>
+												<th scope="col">시리얼넘버</th>
+												<th scope="col">프로젝트</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
-												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
 										<tbody>
@@ -479,11 +397,10 @@ window.onload = function(){
 													<td>
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
-													<td><c:out value="${result.orgnztNm}" /></td>
-													<td><c:out value="${result.lowerOrgnztNm}" /></td>
-													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
-													<%-- <td><c:out value="${result.mngNum}" /></td> --%>
+													<td><c:out value="${result.assetName}" /></td>
+													<td><c:out value="${result.assetSn}" /></td>
+													<td><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
@@ -496,18 +413,19 @@ window.onload = function(){
 											</c:if>
 										</tbody>
 									</table>
-								</div>
-								<div>
+									<div>
 								
 								<div class="btn_area">
 										<div class="excel_btn pty_margin-left_8">
-											<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
+									<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
 											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-										</div>
-                                    	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
-                                    	<spring:message code="button.create" /></a><!-- 등록 -->
+									</div>
+								
+                                    <%-- 	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
+                                    	<spring:message code="button.create" /></a><!-- 등록 --> --%>
                                 </div>
                                 </div>
+								</div>
 								<c:if test="${not empty resultList}">
 									<!-- 페이지 네비게이션 시작 -->
 									<div class="board_list_bot">

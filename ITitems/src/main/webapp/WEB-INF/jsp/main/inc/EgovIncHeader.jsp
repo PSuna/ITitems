@@ -172,6 +172,14 @@ function fn_egov_modal_remove() {
 			                <!-- <ul>
 			                	<li><a class="gnb_a pg_a" href="/ass/DistinctManage.do">중복데이터조회</a></li>
 			                </ul> -->
+			                
+			                <!-- <ul>
+			                	<li><a class="gnb_a pg_a" href="/ass/MngNumManagement.do">자산관리번호 관리</a></li>
+			                </ul>
+			                <ul>
+			                	<li><a class="gnb_a pg_a" href="/ass/AssetSnManagement.do">시리얼넘버 관리</a></li>
+			                </ul> -->
+							
             		</div>
 				
                	</li>
@@ -229,10 +237,6 @@ function fn_egov_modal_remove() {
 					
 				</ul>
 			</li>
-
-			<li>
-				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a>				
-			</li>
 			
 			<li><a href="#LINK" onclick="return false;">렌탈관리</a>
 				<ul class="pmt_sub">
@@ -243,7 +247,13 @@ function fn_egov_modal_remove() {
 					<li><a  href="#LINK" onclick="goMenuPage('/ass/AssetRegist.do','assId','ASSMSTR_000000000002')">신규렌탈등록</a></li>
 					
 				</ul>
+			</li> 
+
+			<li>
+				<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">반출입</a>				
 			</li>
+			
+			
 
 			<li>
 				<a href="#LINK" onclick="goMenuPage('/aprv/ApprovalManage.do')">결재</a>				

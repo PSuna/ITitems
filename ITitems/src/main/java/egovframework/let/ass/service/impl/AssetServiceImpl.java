@@ -233,6 +233,22 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return assetDAO.SelectAssetMaster(assetManageVO);
 	}
 
+	@Override
+	public Map<String, Object> SelectMngNumList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.SelectMngNumList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountMngNumList(assetManageVO)));
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> SelectAssetSnList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.SelectAssetSnList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountAssetSnList(assetManageVO)));
+		return map;
+	}
+
 
 
 

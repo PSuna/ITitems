@@ -715,9 +715,8 @@ window.onload = function(){
 														<label for="">렌탈비용</label> 
 													</td>
 													<td colspan="3">
-													<c:if test="${not empty resultVO.acquiredPrice}">
-													${resultVO.rentalPrice} 원
-													</c:if>
+													<input id="acquiredPrice" class="f_txt w_full"
+													name="acquiredPrice" type="text" value="${resultVO.acquiredPrice}"  maxlength="60" onchange="getNumber(this);" onkeyup="getNumber(this);">
 													</td>
 												</tr>
 											</c:when>
