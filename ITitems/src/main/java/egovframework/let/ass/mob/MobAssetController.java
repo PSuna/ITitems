@@ -207,6 +207,10 @@ public class MobAssetController {
 	@RequestMapping(value = "/mob/MobAssetInsert.do")
 	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO) throws Exception {
 		
+		System.out.println(assetVO.getMiddleCategory());
+		System.out.println(assetVO.getMcatEtc());
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		//Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		assetVO.setCreatId(assetVO.getCreatId());
