@@ -19,6 +19,16 @@ import java.io.Serializable;
  * </pre>
  */
 public class ApprovalDefaultVO  implements Serializable{
+	
+	
+	@Override
+	public String toString() {
+		return "ApprovalDefaultVO [searchKeyword=" + searchKeyword + ", searchGroup=" + searchGroup + ", searchStatus="
+				+ searchStatus + ", pageIndex=" + pageIndex + ", pageUnit=" + pageUnit + ", pageSize=" + pageSize
+				+ ", firstIndex=" + firstIndex + ", lastIndex=" + lastIndex + ", recordCountPerPage="
+				+ recordCountPerPage + ", uniqId=" + uniqId + ", authorCode=" + authorCode + ", reqId=" + reqId + "]";
+	}
+
 	/**
 	 * serialVersionUID
 	 */

@@ -487,6 +487,7 @@ function fnDisUpdate(){
 									</table>
 								</div>
 								 <!-- 지급확인버튼  -->
+								 ${approvalVO}
 								<div class="board_view_bot btn_bot">
 									<div class="right_btn btn1">
 										<c:if test="${approvalVO.rreqStatus eq 'A0' and ( approvalVO.reqStatus eq 'A1' or approvalVO.reqStatus eq null )}">

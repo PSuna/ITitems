@@ -8,19 +8,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
-import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.aprv.service.ApprovalManageVO;
@@ -31,25 +25,6 @@ import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
 import egovframework.let.req.service.RequestVO;
 import egovframework.let.uss.umt.service.UserManageService;
-import egovframework.let.uss.umt.service.UserManageVO;
-
-/**
- * 신청관리를 위한 컨트롤러 클래스
- * 
- * @author 영남사업부 주소현
- * @since 2023.04.26
- * @version 1.0
- * @see
- *
- *      <pre>
- * << 개정이력(Modification Information) >>
- *
- *   수정일      수정자          수정내용
- *  -------    --------    ---------------------------
- *  2023.04.26  주소현          최초 생성
- *
- *      </pre>
- */
 
 @RestController
 public class MobRequestController {
@@ -103,6 +78,7 @@ public class MobRequestController {
 			}
 			}
 		}
+		String uniqId =String.valueOf(rVO.get("id"));
 
 		// req등록
 		RequestVO requestVO = new RequestVO();
@@ -134,7 +110,6 @@ public class MobRequestController {
 		}
 
 		// approvalManageVO 등록
-		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
 		String targetUp = null;
 		int aprvCnt = 0;
 
@@ -143,7 +118,7 @@ public class MobRequestController {
 			String targetId = String.valueOf(aprvVO.get(i).get("uniqId"));// 결재자 아이디
 
 			approvalManageVO.setReqId(reqId);
-			approvalManageVO.setId(loginId.getUniqId());
+			approvalManageVO.setId(uniqId);
 
 			// 결재자가 있는 경우
 			if (targetId != null && targetId != "" && !(targetId.isEmpty())) {
@@ -187,13 +162,8 @@ public class MobRequestController {
 			throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		request.getSession().setAttribute("baseMenuNo", "100");
-		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>여기>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(manageVO.getSearchWord());
-		System.out.println(manageVO.getId());
-		manageVO.setId(loginId.getUniqId());
-		
-		manageVO.setAuthorCode(loginId.getAuthorCode());
+		System.out.println("===============================================================");
+		System.out.println(manageVO);
 
 		if (manageVO.getMenuStartDate() != null && manageVO.getMenuStartDate() != "") {
 			manageVO.setStartDate(manageVO.getMenuStartDate());
@@ -231,16 +201,14 @@ public class MobRequestController {
 	@RequestMapping(value = "/req/MobSelectCarry.do")
 	public Map<String, Object> SelectCarry(HttpServletRequest request, @RequestBody RequestManageVO manageVO)
 			throws Exception {
-		System.out.println("넘어온 RequestId =================");
-		System.out.println(manageVO.getReqId());
+
 		Map<String, Object> appMap = new HashMap<String, Object>();
 		request.getSession().setAttribute("baseMenuNo", "100");
 		appMap.put("resultVO", requestService.SelectRequestVO(manageVO));
 		appMap.put("resultList", requestService.SelectRequestDetailVOList(manageVO));
 		appMap.put("aprvList_result", requestService.SelectAprvList(manageVO));
 		appMap.put("searchVO", manageVO);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(appMap);
+
 		return appMap;
 	}
 
