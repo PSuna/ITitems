@@ -21,6 +21,18 @@ import java.util.List;
 
 public class ApprovalManageVO extends ApprovalDefaultVO{
 
+	@Override
+	public String toString() {
+		return "ApprovalManageVO [reqId=" + reqId + ", id=" + id + ", userId=" + userId + ", aprvDate=" + aprvDate
+				+ ", upreqStatus=" + upreqStatus + ", assetId=" + assetId + ", lastUserName=" + lastUserName
+				+ ", userNm=" + userNm + ", prjId=" + prjId + ", prjCode=" + prjCode + ", prjName=" + prjName + ", pm="
+				+ pm + ", pmName=" + pmName + ", pmGrade=" + pmGrade + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", place=" + place + ", reqDate=" + reqDate + ", reqGroup=" + reqGroup + ", reqStatus="
+				+ reqStatus + ", rreqStatus=" + rreqStatus + ", grade=" + grade + ", approvalDetailList="
+				+ approvalDetailList + ", targetId=" + targetId + ", targetUp=" + targetUp + ", aprvOrder=" + aprvOrder
+				+ "]";
+	}
+
 	/**
 	 * serialVersionUID
 	 */
