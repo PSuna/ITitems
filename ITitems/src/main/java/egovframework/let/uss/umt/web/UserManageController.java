@@ -449,19 +449,19 @@ public class UserManageController {
 		userManageVO.setUniqId(uniqId);
 
 		String resultMsg = "";
-		resultVO = userManageService.selectPassword(userManageVO);
+		//resultVO = userManageService.selectPassword(userManageVO);
 		//패스워드 암호화
-		String encryptPass = EgovFileScrty.encryptPassword(oldPassword, userManageVO.getEmplyrId());
-		if (encryptPass.equals(resultVO.getPassword())) {
-			if (newPassword.equals(newPassword2)) {
-				isCorrectPassword = true;
-			} else {
-				isCorrectPassword = false;
-				resultMsg = "fail.user.passwordUpdate2";
-			}
-		} else {
+		//String encryptPass = EgovFileScrty.encryptPassword(oldPassword, userManageVO.getEmplyrId());
+		//if (encryptPass.equals(resultVO.getPassword())) {
+		//	if (newPassword.equals(newPassword2)) {
+		//		isCorrectPassword = true;
+		//	} else {
+		//		isCorrectPassword = false;
+		//		resultMsg = "fail.user.passwordUpdate2";
+		//	}
+		//} else {
 			isCorrectPassword = true;
-		}
+		//}
 
 		if (isCorrectPassword) {
 			userManageVO.setPassword(EgovFileScrty.encryptPassword(newPassword, userManageVO.getEmplyrId()));
