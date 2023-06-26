@@ -65,13 +65,6 @@ public class MobProjectController {
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "6000000");
 
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		if (!isAuthenticated) {
-			resultMap.put("message", egovMessageSource.getMessage("fail.common.login"));
-			return resultMap;
-		}
-
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		// 프로젝트 진행여부를 코드정보로부터 조회
@@ -79,8 +72,6 @@ public class MobProjectController {
 		resultMap.put("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
 		Map<String, Object> map = projectService.SelectProjectVOList(searchVO);
 
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-
 		resultMap.put("resultList", map.get("resultList"));
 		resultMap.put("searchVO", searchVO);
 		resultMap.put("totCnt", Integer.parseInt((String) map.get("resultCnt")));
@@ -90,148 +81,5 @@ public class MobProjectController {
 		return resultMap;
 	}
 
-	/**
-	 * 프로젝트 관리페이지 이동
-	 * 
-	 * @return String
-	 * @exception Exception
-	 */
-	@RequestMapping("/prj/MobProjectManage.do")
-	public Map<String, Object> ProjectManageView(ProjectManageVO searchVO, ModelMap model, HttpServletRequest request)
-			throws Exception {
-		Map<String, Object> resultMap = projectService.SelectProjectVOList(searchVO);
-
-		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
-		request.getSession().setAttribute("baseMenuNo", "6000000");
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		// 프로젝트 진행여부를 코드정보로부터 조회
-		vo.setCodeId("COM007");
-		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
-
-		Map<String, Object> map = projectService.SelectProjectVOList(searchVO);
-
-		resultMap.put("resultList", map.get("resultList"));
-		resultMap.put("searchVO", searchVO);
-		resultMap.put("totCnt", Integer.parseInt((String) map.get("resultCnt")));
-
-		System.out.println(resultMap);
-		return resultMap;
-	}
-
-	/**
-	 * 프로젝트 등록화면 이동
-	 * 
-	 * @return String
-	 * @exception Exception
-	 */
-	@RequestMapping("/prj/MobProjectInsertView.do")
-	public String ProjectInsertView(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		if (!isAuthenticated) {
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
-		}
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		// 프로젝트 진행여부를 코드정보로부터 조회
-		vo.setCodeId("COM007");
-		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
-
-		return "prj/ProjectInsert";
-	}
-
-	/**
-	 * 프로젝트 등록
-	 * 
-	 * @return String
-	 * @exception Exception
-	 */
-	@RequestMapping("/prj/MobProjectInsert.do")
-	public String ProjectInsert(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
-
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		if (!isAuthenticated) {
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
-		}
-
-		projectService.insertPrj(projectVO);
-		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
-	}
-
-	/**
-	 * 프로젝트 상세보기 및 수정 이동
-	 * 
-	 * @return String
-	 * @exception Exception
-	 */
-	@RequestMapping("/prj/MobProjectSelectView.do")
-	public String ProjectSelectView(@RequestParam("selectedId") String prjId,
-			@ModelAttribute("searchVO") ProjectManageVO searchVO, Model model) throws Exception {
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		if (!isAuthenticated) {
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
-		}
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		// 프로젝트 진행여부를 코드정보로부터 조회
-		vo.setCodeId("COM007");
-		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
-
-		ProjectVO projectVO = new ProjectVO();
-		projectVO = projectService.selectPrj(prjId);
-		model.addAttribute("searchVO", searchVO);
-		model.addAttribute("projectVO", projectVO);
-
-		return "prj/ProjectSelectUpdt";
-	}
-
-	/**
-	 * 프로젝트 정보 수정후 목록조회 화면으로 이동한다.
-	 * 
-	 * @param projectVO 사용자수정정보
-	 * @param model     화면모델
-	 * @return forward:/prj/ProjectManage.do
-	 * @throws Exception
-	 */
-	@RequestMapping("/prj/MobProjectSelectUpdt.do")
-	public String updateProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
-
-		// 미인증 사용자에 대한 보안처리
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-		if (!isAuthenticated) {
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
-		}
-
-		projectService.updatePrj(projectVO);
-		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
-
-	}
-
-	/**
-	 * 프로젝트 정보 삭제 후 목록조회 화면으로 이동한다.
-	 * 
-	 * @param projectVO 프로젝트 정보
-	 * @param model     화면모델
-	 * @return forward:/prj/ProjectManage.do
-	 * @throws Exception
-	 */
-	@RequestMapping("/prj/MobProjectSelectDelete.do")
-	public String deleteProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
-
-		projectService.deletePrj(projectVO);
-		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
-
-	}
 
 }

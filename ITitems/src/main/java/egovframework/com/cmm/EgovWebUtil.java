@@ -56,13 +56,14 @@ public class EgovWebUtil {
 
 	public static String filePathBlackList(String value) {
 		String returnValue = value;
-		if (returnValue == null || returnValue.trim().equals("")) {
-			return "";
-		}
-
-		returnValue = returnValue.replaceAll("\\.\\.", "");
-
-		return returnValue;
+	    if (returnValue == null || returnValue.trim().equals("")) {
+	        return "";
+	    }
+	 
+	    returnValue = returnValue.replaceAll("\\.\\./", ""); 
+	    returnValue = returnValue.replaceAll("\\.\\.\\\\", "");
+	 
+	    return returnValue;
 	}
 
 	/**
@@ -121,5 +122,6 @@ public class EgovWebUtil {
 	public static String removeOSCmdRisk(String parameter) {
 		return parameter.replaceAll("\\p{Space}", "").replaceAll("\\*", "").replaceAll("\\|", "").replaceAll(";", "");
 	}
-
+	
+	
 }

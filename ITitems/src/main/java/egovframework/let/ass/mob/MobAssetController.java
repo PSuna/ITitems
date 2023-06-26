@@ -154,9 +154,7 @@ public class MobAssetController {
 	@RequestMapping(value = "/ass/MobAssetSearchList.do")
 	   public Map<String, Object> AssetManagement(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO)
 	         throws Exception {
-		System.out.println("넘어온 자산 정보 =======================");
-		System.out.println(assetManageVO.getSearchName());
-		System.out.println(assetManageVO.getUserId());
+
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
 		if (assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
@@ -195,7 +193,6 @@ public class MobAssetController {
 
 		appMap.put("searchVO", assetManageVO);
 		appMap.put("masterVO", assetService.SelectAssetMaster(assetManageVO));
-		System.out.println(appMap);
 
 		return appMap;
 	}

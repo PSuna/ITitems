@@ -117,4 +117,20 @@ public class AssetDAO extends EgovAbstractMapper {
 	public void updateAssetStatus(AssetVO assetVO) throws Exception{
 		update("AssetDAO.updateAssetStatus", assetVO);
 	}
+	
+	public List<AssetVO> SelectMngNumList(AssetManageVO AssetManageVO) {
+		return selectList("AssetDAO.SelectMngNumList",AssetManageVO);
+	};
+	
+	public int CountMngNumList(AssetManageVO AssetManageVO) {
+		return selectOne("AssetDAO.CountMngNumList",AssetManageVO);
+	};
+	
+	public List<AssetVO> SelectAssetSnList(AssetManageVO AssetManageVO) {
+		return selectList("AssetDAO.SelectAssetSnList",AssetManageVO);
+	};
+	
+	public int CountAssetSnList(AssetManageVO AssetManageVO) {
+		return selectOne("AssetDAO.CountAssetSnList",AssetManageVO);
+	};
 }

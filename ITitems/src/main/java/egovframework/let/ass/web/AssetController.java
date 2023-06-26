@@ -532,4 +532,114 @@ public class AssetController {
 		
 		return "/ass/DistinctManage";
 	}
+	
+	/**
+	 * 자산관리번호관리 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/MngNumManagement.do")
+	public String MngNumManagement(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
+			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
+		}
+		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
+			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
+		}
+		Map<String, Object> map = assetService.SelectMngNumList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
+		return "/ass/MngNumManagement";
+	}
+	
+	/**
+	 * 시리얼넘버 관리 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/AssetSnManagement.do")
+	public String AssetSnManagement(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
+			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
+		}
+		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
+			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
+		}
+		Map<String, Object> map = assetService.SelectAssetSnList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
+		return "/ass/AssetSnManagement";
+	}
 }

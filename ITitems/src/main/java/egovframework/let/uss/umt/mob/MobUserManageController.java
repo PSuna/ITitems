@@ -56,12 +56,7 @@ public class MobUserManageController {
 			HttpServletRequest request) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
-		LoginVO loginId = (LoginVO) request.getSession().getAttribute("LoginVO");
-		String enstl_id = (loginId.getUniqId());
-
 		appMap.put("resultList", userManageService.mobSelectUserListS(userSearchVO));
-
-		int totCnt = userManageService.selectUserListTotCntS(userSearchVO);
 
 		// 사용자상태코드를 코드정보로부터 조회
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
