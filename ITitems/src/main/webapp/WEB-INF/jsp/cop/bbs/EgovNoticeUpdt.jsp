@@ -31,6 +31,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
@@ -298,14 +299,11 @@
                                 </div>
 
 								<!-- 목록/저장버튼  -->
-                                <div class="board_view_bot">
-                                    <div class="left_col btn3">
-                                    </div>
-
-                                    <div class="right_col btn1">
+                                <div class="board_view_bot btn_bot">
+                                    <div class="right_btn btn3">
                                     	<c:if test="${bdMstr.authFlag == 'Y'}">
                                     		<c:if test="${result.frstRegisterId == searchVO.frstRegisterId}">
-                                        		<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
+                                        		<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return false;"><spring:message code="button.update" /></a><!-- 저장 -->
                                         	</c:if>
                                         </c:if>
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
