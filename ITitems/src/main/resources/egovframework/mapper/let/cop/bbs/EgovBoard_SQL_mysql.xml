@@ -154,9 +154,8 @@
 			WHERE
 				a.BBS_ID = #{bbsId}
 		
-			<if test="useAt != ''">AND
-				a.USE_AT = #{useAt}
-			</if>
+			AND
+				a.USE_AT = 'Y'
 			<if test="searchCnd == 0">AND
 					a.NTT_SJ LIKE CONCAT ('%', #{searchWrd},'%') 		
 			</if>
@@ -184,9 +183,8 @@
 			WHERE
 				a.BBS_ID = #{bbsId}
 		
-			<if test="useAt != ''">AND
-				a.USE_AT = #{useAt}
-			</if>
+			AND
+				a.USE_AT = 'Y'
 			<if test="searchCnd == 0">AND
 					a.NTT_SJ LIKE CONCAT ('%', #{searchWrd},'%') 		
 			</if>
