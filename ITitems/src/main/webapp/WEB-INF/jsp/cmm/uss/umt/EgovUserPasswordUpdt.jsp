@@ -277,13 +277,30 @@ function fncheckValid(){
 								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserPasswordUpdt.do" >
 								<!-- onsubmit="javascript:return FormValidation(document.passwordChgVO);" >  -->
 								<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
-								<input name="checkedIdForDel" type="hidden" />
-								<!-- 검색조건 유지 -->
-								<input type="hidden" name="searchCondition" value="<c:out value='${userSearchVO.searchCondition}'/>"/>
-								<input type="hidden" name="searchKeyword" value="<c:out value='${userSearchVO.searchKeyword}'/>"/>
-								<input type="hidden" name="sbscrbSttus" value="<c:out value='${userSearchVO.sbscrbSttus}'/>"/>
-								<input type="hidden" name="pageIndex" value="<c:out value='${userSearchVO.pageIndex}'/>"/>
-								<!-- 우편번호검색 -->
+									<input name="checkedIdForDel" type="hidden" />
+									<!-- 검색조건 유지 -->
+									<input type="hidden" name="searchCondition"
+										value="<c:out value='${userSearchVO.searchCondition}'/>" />
+									<input type="hidden" name="searchKeyword"
+										value="<c:out value='${userSearchVO.searchKeyword}'/>" />
+									<input type="hidden" name="sbscrbSttus"
+										value="<c:out value='${userSearchVO.sbscrbSttus}'/>" />
+									<input type="hidden" name="pageIndex"
+										value="<c:out value='${userSearchVO.pageIndex}'/>" />
+									<input type="hidden" name="pageUnit"
+										value="<c:out value='${userSearchVO.pageUnit}'/>" />
+									<input type="hidden" name="searchOrgnzt"
+										value="<c:out value='${userSearchVO.searchOrgnzt}'/>" />
+									<input type="hidden" name="searchLOrgnzt"
+										value="<c:out value='${userSearchVO.searchLOrgnzt}'/>" />
+									<input type="hidden" name="searchGrade"
+										value="<c:out value='${userSearchVO.searchGrade}'/>" />
+									<input type="hidden" name="searchAuthor"
+										value="<c:out value='${userSearchVO.searchAuthor}'/>" />
+									<!-- 사용자유형정보 : password 수정화면으로 이동시 타겟 유형정보 확인용, 만약검색조건으로 유형이 포함될경우 혼란을 피하기위해 userTy명칭을 쓰지 않음-->
+									<input type="hidden" name="userTyForPassword"
+										value="<c:out value='${userManageVO.userTy}'/>" />
+								
 								<input type="hidden" name="url" value="<c:url value='/sym/ccm/zip/EgovCcmZipSearchPopup.do'/>" />
 
                                 <h2 class="tit_2">비밀번호변경</h2>

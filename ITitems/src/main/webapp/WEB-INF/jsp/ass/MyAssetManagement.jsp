@@ -369,10 +369,10 @@ window.onload = function(){
 									<table>
 										<colgroup>
 											<col style="width: 6%;">
-											<col style="width: 9%;">
+											<col style="width: 10%;">
 											<col style="width: 17%;">
 											<col style="width: 17%;">
-											<col style="width: 31%;">
+											<col style="width: 30%;">
 											<col style="width: 10%;">
 											<col style="width: 11%;">
 										</colgroup>
