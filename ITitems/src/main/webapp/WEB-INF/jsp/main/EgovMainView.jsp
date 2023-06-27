@@ -89,7 +89,7 @@
 			           		</div>	
 			           	
 		           	</div>
-		           	
+		           	<div class="Mload">
 		           	<div class="pty_main_right03">
 		           		
 		           		<p> 사용자 메뉴얼 가이드 </p>
@@ -102,6 +102,18 @@
 	                    </c:import> 		
 		           		<img src="<c:url value="/" />images/pty_icon_03.png">
 		           		</div>
+		           	</div>
+		           	
+		           	<div class="pty_main_right04">
+		           		
+		           		<p> 어플리케이션 </p>
+		           		<div class="file_G">
+		           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+	                        <c:param name="param_atchFileId" value="${APK.atchFileId}" />
+	                    </c:import>		
+		           		<img src="<c:url value="/" />images/pty_icon_03.png">
+		           		</div>
+		           	</div>
 		           	</div>
 	           	
 	           </div>

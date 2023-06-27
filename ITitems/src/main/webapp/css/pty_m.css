@@ -190,16 +190,16 @@
 	}
 	
 	
-	.pmr_d p, .pty_main_right03 p{
+	.pmr_d p, .pty_main_right03 p, .pty_main_right04 p{
 		font-size:24px!important;
 	}
 	
 	
-	.pmr_d h4, .pty_main_right03 h4{
+	.pmr_d h4, .pty_main_right03 h4, .pty_main_right04 h4{
 		font-size:16px!important;
 	}
 	
-	.pty_main_right03 h4{
+	.pty_main_right03 h4, .pty_main_right04 h4{
 		margin-top: 0!important;
 	}
 	
@@ -261,8 +261,27 @@
 		
 	}
 	
+	.Mload{
+		display: flex;
+		gap: 2%;
+	}
+	
 	.pty_main_right03{
-		width: 100%!important;
+		/* width: 100%!important; */
+		width: 60%!important;
+	}
+	
+	.pty_main_right04{
+		display: block !important;
+		width: 38%!important;
+		height:110px;
+		
+		border-radius: 4px;
+		background:#fff;
+		margin-top: 16px;
+		position: relative;
+		
+		padding:20px;
 	}
 	
 	.footer h1 {
