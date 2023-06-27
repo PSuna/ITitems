@@ -432,7 +432,7 @@ window.onload = function(){
 }
 .divPnum{
 	font-size:22px;
-	padding:0 6px;
+	padding:0;
 }
 .f_txt{
 	padding:0 13px;
