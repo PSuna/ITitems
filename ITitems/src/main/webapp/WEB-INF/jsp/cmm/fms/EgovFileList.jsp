@@ -71,6 +71,11 @@
 				<h4> 모바일 버전 → </h4>
 			</a>
 		</c:when>
+		<c:when test="${fileVO.fileType == 'APK'}">
+			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
+				<h4> 다운로드 → </h4>
+			</a>
+		</c:when>
 		<c:otherwise>
 			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
 				<c:out value="${fileVO.orignlFileNm}"/>

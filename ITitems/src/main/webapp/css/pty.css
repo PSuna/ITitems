@@ -153,14 +153,14 @@ display:flex;
 	
 }
 
-.pmr_d p, .pty_main_right03 p{
+.pmr_d p, .pty_main_right03 p, .pty_main_right04 p{
 	font-size: 16px;
 	font-weight:500;
 	
 }
 
 
-.pmr_d h4, .pty_main_right03 h4{
+.pmr_d h4, .pty_main_right03 h4, .pty_main_right04 h4{
 	font-size:12px;
 	color: var(--font-gray);
 	font-weight:200;
@@ -185,11 +185,25 @@ display:flex;
 	padding:20px;	
 }
 
+.pty_main_right04 {
+    display: none
+}
+
 .pty_main_right03 h4{
 	margin-top:30px;
 }
 
 .pty_main_right03 img{
+	position: absolute;
+  bottom: 20%;
+  right: 6%;
+}
+
+.pty_main_right04 h4{
+	margin-top:30px;
+}
+
+.pty_main_right04 img{
 	position: absolute;
   bottom: 20%;
   right: 6%;

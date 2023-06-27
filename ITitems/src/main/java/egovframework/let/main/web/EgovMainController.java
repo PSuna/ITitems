@@ -129,6 +129,9 @@ public class EgovMainController {
 
 		fvo.setFileType("MOBG");
 		model.addAttribute("mobG", fileMngService.selectFileVO(fvo));
+		
+		fvo.setFileType("APK");
+		model.addAttribute("APK", fileMngService.selectFileVO(fvo));
 
 		// 모바일 화면으로 forward
 		if (loginId.getIsMob() == "success") {
