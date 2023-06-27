@@ -429,7 +429,7 @@ window.onload = function(){
 													</label> 
 												</td>
 												<td colspan="2">
-													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="60" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
+													<input id="mcatEtc" name="mcatEtc" class="f_txt w_full" type="hidden" maxlength="20" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"> 
 												</td>
 											</tr>
 											<tr>
@@ -617,7 +617,7 @@ window.onload = function(){
 													<label for="note"><spring:message code="ass.note" /></label>
 												</td>
 												<td colspan="4">
-													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1"></textarea>
+													<textarea id="note" name="note" class="f_txtar w_full" cols="30" rows="1" onchange="strLengthCheck(this);" onkeyup="strLengthCheck(this);" ></textarea>
 												</td>
 											</tr>
 										</table>

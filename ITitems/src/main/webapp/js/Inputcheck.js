@@ -2,18 +2,29 @@
  * 특수문자 확인(특수문자 전부 제거)
  ******************************************************** */
 function symbolCheck1(obj){
-	let val = $(obj).val();
-	let newVal = val.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-	 $(obj).val(newVal);
+	let val1 = $(obj).val();
+	let val2 = val1.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+	let val3 = val2.substr(0, 30);
+	 $(obj).val(val3);
 }
 
 /* ********************************************************
  * 특수문자 확인(-_.만 허용)
  ******************************************************** */
 function symbolCheck2(obj){
-	let val = $(obj).val();
-	let newVal = val.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣-_.]/g, "");
-	 $(obj).val(newVal);
+	let val1 = $(obj).val();
+	let val2 = val1.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣-_.]/g, "");
+	let val3 = val2.substr(0, 30);
+	 $(obj).val(val3);
+}
+
+/* ********************************************************
+ * 글자 수 제한
+ ******************************************************** */
+function strLengthCheck(obj){
+	let val1 = $(obj).val();
+	let val2 = val1.substr(0, 200);
+	 $(obj).val(val2);
 }
 
 /* ********************************************************
