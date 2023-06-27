@@ -192,7 +192,8 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/SelectAsset.do")
 	public String SelectAsset(HttpServletRequest request, ModelMap model, AssetManageVO assetManageVO) throws Exception {
-		
+		  System.out.println(assetManageVO.getMngNum());
+	        System.out.println(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
 		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		model.addAttribute("resultVO", result);
 		

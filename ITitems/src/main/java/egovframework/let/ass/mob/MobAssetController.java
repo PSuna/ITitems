@@ -129,7 +129,8 @@ public class MobAssetController {
 	@RequestMapping(value = "/ass/MobSelectAsset.do")
 	public Map<String, Object> SelectAsset(HttpServletRequest request, @RequestBody AssetManageVO assetManageVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-
+        System.out.println(assetManageVO.getMngNum());
+        System.out.println(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
 		AssetVO result = assetService.SelectAssetVO(assetManageVO);
 		appMap.put("resultVO", result);
 		
