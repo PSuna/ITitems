@@ -229,9 +229,17 @@ public class MobAssetController {
 	 * 자산수정
 	 */
 	@RequestMapping(value = "/mob/MobAssetUpdate.do")
-	@ResponseBody
-	public int AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
+	public Map<String, Object> AssetUpdate(MultipartHttpServletRequest multiRequest, AssetVO assetVO, String delFile, String delPhoto) throws Exception {
+		
+		Map<String, Object> appMap = new HashMap<String, Object>();
+		
 		int res = assetService.UpdateAsset(assetVO);
+		
+	    AssetManageVO avo = new AssetManageVO();
+	    avo.setUserId(assetVO.getCreatId());
+		Map<String, Object> map = assetService.MobSelectMyAssetInfoList(avo);
+
+	      appMap.put("resultList", map.get("resultList"));
 		
 		String[] delPhotoList = delPhoto.split("/");
 		
@@ -254,7 +262,9 @@ public class MobAssetController {
 		}
 		
 		
-		return res;
+		return appMap;
 	}
+
+
 
 }
