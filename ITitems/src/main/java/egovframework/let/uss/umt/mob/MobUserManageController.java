@@ -52,8 +52,7 @@ public class MobUserManageController {
 	 * 사용자목록 조회 팝업창으로 이동
 	 */
 	@RequestMapping(value = "/uss/umt/user/MobSearchUserList.do")
-	public Map<String, Object> SearchUserList(@RequestBody UserDefaultVO userSearchVO,
-			HttpServletRequest request) throws Exception {
+	public Map<String, Object> SearchUserList(@RequestBody UserDefaultVO userSearchVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
 		appMap.put("resultList", userManageService.mobSelectUserListS(userSearchVO));
