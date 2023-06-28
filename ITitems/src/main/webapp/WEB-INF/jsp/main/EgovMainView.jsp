@@ -100,7 +100,7 @@
 	                    <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 	                        <c:param name="param_atchFileId" value="${mobG.atchFileId}" />
 	                    </c:import> 		
-		           		<img src="<c:url value="/" />images/pty_icon_03.png">
+		           		<img src="<c:url value="/" />images/pdf.png">
 		           		</div>
 		           	</div>
 		           	
@@ -111,7 +111,7 @@
 		           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 	                        <c:param name="param_atchFileId" value="${APK.atchFileId}" />
 	                    </c:import>		
-		           		<img src="<c:url value="/" />images/pty_icon_03.png">
+		           		<img src="<c:url value="/" />images/apk.png">
 		           		</div>
 		           	</div>
 		           	</div>
