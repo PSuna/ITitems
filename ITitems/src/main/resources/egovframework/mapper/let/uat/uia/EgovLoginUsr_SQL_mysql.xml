@@ -70,6 +70,13 @@
 		</if>
 	</select>
 	
+	<select id="selectParsingGrade" resultType="String">
+	SELECT B.CODE_NM FROM 
+	LETTNEMPLYRINFO A JOIN lettccmmndetailcode B
+	ON A.GRADE = B.CODE
+	WHERE A.ESNTL_ID=#{uniqId}
+	</select>
+	
 	<!-- 인증서 로그인
 	<select id="loginDAO.actionCrtfctLogin" resultMap="login">
 		<![CDATA[

@@ -139,4 +139,9 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements
 
     	return result;
     }
+
+	@Override
+	public String selectParsingGrade(String uniqId) throws Exception {
+		return loginDAO.selectParsingGrade(uniqId);
+	}
 }
