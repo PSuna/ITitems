@@ -304,7 +304,7 @@ function fnDeleteCat(e, updown){
 	padding-bottom: 8px;
 	text-align : center;
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1400px){
 	.content_wrap #contents{
 	width:100% !important;
 	}
