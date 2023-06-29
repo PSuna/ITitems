@@ -44,4 +44,6 @@ public interface EgovLoginService {
 	 * @exception Exception
 	 */
     boolean searchPassword(LoginVO vo) throws Exception;
+    
+    String selectParsingGrade(String uniqId) throws Exception;
 }

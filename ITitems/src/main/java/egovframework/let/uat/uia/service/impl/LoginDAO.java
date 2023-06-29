@@ -66,4 +66,8 @@ public class LoginDAO extends EgovAbstractMapper {
     public void updatePassword(LoginVO vo) throws Exception {
     	update("loginDAO.updatePassword", vo);
     }
+    
+    String selectParsingGrade(String uniqId) throws Exception{
+    	return (String)selectOne("loginDAO.selectParsingGrade", uniqId);
+    }
 }
