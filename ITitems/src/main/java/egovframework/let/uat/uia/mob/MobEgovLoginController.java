@@ -158,6 +158,8 @@ public class MobEgovLoginController {
 	@RequestMapping(value = "/uat/uia/mob/goMobile.do")
 	public Map<String, Object> actionMain(HttpServletRequest request) throws Exception {
 		LoginVO loginVO = (LoginVO) request.getSession().getAttribute("LoginVO");
+		String parsingGrade =loginService.selectParsingGrade(loginVO.getUniqId());
+		loginVO.setParsingGrade(parsingGrade);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("result", loginVO);
 
