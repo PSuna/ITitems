@@ -1,7 +1,26 @@
 @charset "UTF-8";
 
+
+
 @media screen and (max-width: 1400px){
 	
+	.layout .content_wrap {
+    	padding-left: 1%;
+	}
+	
+	.layout .nav {
+		display: none !important;
+	}
+	
+	.sub_in {
+	    padding: 0;
+	}
+}
+
+
+
+@media screen and (max-width: 900px){
+
 		
 	.wrap{
 		

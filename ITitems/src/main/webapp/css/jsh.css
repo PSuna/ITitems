@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.header{
+	display: flex;
+    justify-content: center;
+}
+
 :root {
     --point-color: #ff6600;
     --main-hover: #0C91E9;
@@ -602,7 +607,16 @@ td {
     justify-content: space-between;
 }
 
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 900px){
+	
+	.mobG{
+	 	display: block;
+	 }
+	 
+	 .webG{
+	 	display: none;
+	 }
+	
 	.j_box01 div{
 		width: 32%;
 		margin: 0px auto;
