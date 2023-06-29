@@ -94,12 +94,16 @@
 		           		
 		           		<p> 사용자 메뉴얼 가이드 </p>
 		           		<div class="file_G">
+		           		<div class="webG">
 		           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 	                        <c:param name="param_atchFileId" value="${webG.atchFileId}" />
 	                    </c:import>
+	                    </div>
+	                    <div class="mobG">
 	                    <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 	                        <c:param name="param_atchFileId" value="${mobG.atchFileId}" />
-	                    </c:import> 		
+	                    </c:import>
+	                    </div>
 		           		<img src="<c:url value="/" />images/pdf.png">
 		           		</div>
 		           	</div>
