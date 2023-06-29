@@ -217,7 +217,7 @@ function inputPush(){
 	margin-bottom:10px;
 	margin-top: 10px;
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1400px){
 	.req_box{
 		margin-bottom:10px;
 		margin-top: 0;

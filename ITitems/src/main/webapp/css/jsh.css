@@ -600,7 +600,7 @@ td {
     justify-content: space-between;
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1400px){
 	.j_box01 div{
 		width: 32%;
 		margin: 0px auto;
