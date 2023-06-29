@@ -7,6 +7,7 @@ import egovframework.let.sec.rgm.service.AuthorGroupVO;
 import egovframework.let.sec.rgm.service.EgovAuthorGroupService;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 
 import javax.annotation.Resource;
 
@@ -32,7 +33,8 @@ import org.springframework.stereotype.Service;
 
 @Service("egovAuthorGroupService")
 public class EgovAuthorGroupServiceImpl  extends EgovAbstractServiceImpl implements EgovAuthorGroupService {
-	
+	@Resource(name="egovUsrCnfrmIdGnrService")
+	private EgovIdGnrService idgenService;
 	@Resource(name="authorGroupDAO")
     private AuthorGroupDAO authorGroupDAO;
 
@@ -61,6 +63,8 @@ public class EgovAuthorGroupServiceImpl  extends EgovAbstractServiceImpl impleme
 	 * @exception Exception
 	 */
 	public void updateAuthorGroup(AuthorGroup authorGroup) throws Exception{
+		String uniqId = idgenService.getNextStringId();
+		authorGroup.setUniqId(uniqId);
 		authorGroupDAO.updateAuthorGroup(authorGroup);
 	}
 
