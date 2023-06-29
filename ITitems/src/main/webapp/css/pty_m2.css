@@ -1,8 +1,23 @@
 @charset "UTF-8";
 
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 767px){
 	
-		
+	.mobG{
+		display: block !important;
+	}
+	
+	.webG{
+		display: none;
+	}
 	.wrap{
 		
 		width: 100% !important;
@@ -232,12 +247,14 @@
 	
 	
 	.pmr_d p, .pty_main_right03 p, .pty_main_right04 p{
-		font-size:24px!important;
+		/* font-size:24px!important; */
+		    font-size: 18px!important;
 	}
 	
 	
 	.pmr_d h4, .pty_main_right03 h4, .pty_main_right04 h4{
-		font-size:16px!important;
+		/* font-size:16px!important; */
+		font-size: 14px!important;
 	}
 	
 	.pty_main_right03 h4, .pty_main_right04 h4{
@@ -303,16 +320,34 @@
 		margin-right: 2%;
 	}
 	
-
+	.Mload{
+		display: flex;
+		gap: 2%;
+		margin-left: 2%;
+    	margin-right: 2%;
+	}
+	
+	.all_menu>div {
+    	height: 100%;
+	}
 	
 	.pty_main_right03{
 		/* width: 100%!important; */
-		width: 60%!important;
+		width: 50%!important;
+		padding: 3% 2% !important;
+	}
+	
+	
+	.file_G img {
+	    width: 30% !important;
+	    position: absolute !important;
+	    bottom: 20% !important;
+	    right: 6% !important;
 	}
 	
 	.pty_main_right04{
 		display: block !important;
-		width: 38%!important;
+		width: 50%!important;
 		height:110px;
 		
 		border-radius: 4px;
@@ -320,7 +355,7 @@
 		margin-top: 16px;
 		position: relative;
 		
-		padding:20px;
+		padding: 3% 2% !important;
 	}
 	
 	.footer h1 {
@@ -360,7 +395,8 @@
 	}
 	
 	#pmt_nav ul.pmt_menu li a {
-	    font-size: 16px !important;
+	   /*  font-size: 16px !important; */
+	    font-size: 35px !important;
 	    line-height: initial !important;
 	}
 	

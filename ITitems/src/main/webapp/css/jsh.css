@@ -10,7 +10,9 @@
     --blue-color: #0465be;
     
 }
-
+ .mobG{
+ display: none;
+ }
 .file_G img{
 	width: 68px;
 }
@@ -714,6 +716,9 @@ td {
 	
 	.file_G {
     	margin-top: 13px;
+    	position: absolute;
+    	bottom: 7%;
+    	width: 95%;
 	}
 	
 	.search_date input{
