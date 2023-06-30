@@ -104,8 +104,7 @@ public class MobApprovalManageController {
 		// 결재요청분류코드를 코드정보로부터 조회 - COM011
 		vo.setCodeId("COM011");
 		appMap.put("aprvGroup_result", cmmUseService.selectCmmCodeDetail(vo));
-System.out.println(appMap);
-System.out.println("==========================================================================");
+
 
 		return appMap;
 	}

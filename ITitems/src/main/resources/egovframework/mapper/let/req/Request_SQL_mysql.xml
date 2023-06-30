@@ -433,5 +433,6 @@ LEFT OUTER JOIN LETTNEMPLYRINFO E
 				 	G.CODE_NM,
 				 	C.CODE_NM
 			 ) P
+			 ORDER BY REQ_DATE DESC
 	</select>
 </mapper>
