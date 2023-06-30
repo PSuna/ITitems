@@ -51,25 +51,26 @@ public class MobUserManageController {
 	/**
 	 * 사용자목록 조회 팝업창으로 이동
 	 */
-	@RequestMapping(value = "/uss/umt/user/MobSearchUserList.do")
+//	@RequestMapping(value = "/user/MobSearchUserList.do")
 	public Map<String, Object> SearchUserList(@RequestBody UserDefaultVO userSearchVO) throws Exception {
+		System.out.println("회원관리 도착");
 		Map<String, Object> appMap = new HashMap<String, Object>();
 
 		appMap.put("resultList", userManageService.mobSelectUserListS(userSearchVO));
-
-		// 사용자상태코드를 코드정보로부터 조회
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		vo.setCodeId("COM013");
-		appMap.put("emplyrSttusCode_result", cmmUseService.selectCmmCodeDetail(vo));// 사용자상태코드목록
-
-		// 직급코드를 코드정보로부터 조회 - COM002
-		vo.setCodeId("COM002");
-		appMap.put("grd_result", cmmUseService.selectCmmCodeDetail(vo));
-
-		// 조직정보를 조회 - ORGNZT_ID정보
-		vo.setTableNm("LETTNORGNZTINFO");
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-		appMap.put("SearchVO", userSearchVO);
+//
+//		// 사용자상태코드를 코드정보로부터 조회
+//		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+//		vo.setCodeId("COM013");
+//		appMap.put("emplyrSttusCode_result", cmmUseService.selectCmmCodeDetail(vo));// 사용자상태코드목록
+//
+//		// 직급코드를 코드정보로부터 조회 - COM002
+//		vo.setCodeId("COM002");
+//		appMap.put("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+//
+//		// 조직정보를 조회 - ORGNZT_ID정보
+//		vo.setTableNm("LETTNORGNZTINFO");
+//		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+//		appMap.put("SearchVO", userSearchVO);
 
 		return appMap;
 	}

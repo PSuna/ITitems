@@ -23,6 +23,8 @@ import egovframework.let.aprv.service.ApprovalManageVO;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.req.service.RequestManageVO;
 import egovframework.let.req.service.RequestService;
+import egovframework.let.uss.umt.service.UserDefaultVO;
+import egovframework.let.uss.umt.service.UserManageService;
 
 @RestController
 public class MobApprovalManageController {
@@ -46,6 +48,35 @@ public class MobApprovalManageController {
 	@Resource(name = "RequestService")
 	private RequestService requestService;
 
+	
+	/** userManageService */
+	@Resource(name = "userManageService")
+	private UserManageService userManageService;
+	@RequestMapping(value = "/user/MobSearchUserList.do")
+	public Map<String, Object> SearchUserList(@RequestBody UserDefaultVO userSearchVO) throws Exception {
+		Map<String, Object> appMap = new HashMap<String, Object>();
+
+		appMap.put("resultList", userManageService.mobSelectUserListS(userSearchVO));
+//
+//		// 사용자상태코드를 코드정보로부터 조회
+//		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+//		vo.setCodeId("COM013");
+//		appMap.put("emplyrSttusCode_result", cmmUseService.selectCmmCodeDetail(vo));// 사용자상태코드목록
+//
+//		// 직급코드를 코드정보로부터 조회 - COM002
+//		vo.setCodeId("COM002");
+//		appMap.put("grd_result", cmmUseService.selectCmmCodeDetail(vo));
+//
+//		// 조직정보를 조회 - ORGNZT_ID정보
+//		vo.setTableNm("LETTNORGNZTINFO");
+//		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+//		appMap.put("SearchVO", userSearchVO);
+
+		return appMap;
+	}
+	
+	
+	
 	/**
 	 * 전체조회
 	 * 
