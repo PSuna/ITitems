@@ -89,11 +89,10 @@ public class MobRequestController {
 		requestVO.setEndDate(String.valueOf(rVO.get("endDate")));
 		requestVO.setPlace(String.valueOf(rVO.get("place")));
 		requestVO.setReqGroup("C1");
-
+		
 		int rCnt = requestService.InsertRequestVO(requestVO);
 		String reqId = requestVO.getReqId();
-		System.out.println(">>>>>>>>>>>>>>reqId");
-		System.out.println(reqId);
+
 
 		// reqDetail 등록
 		int rdCnt = 0;
@@ -116,7 +115,6 @@ public class MobRequestController {
 		for (int i = 0; i < aprvVO.size(); i++) {
 			ApprovalManageVO approvalManageVO = new ApprovalManageVO();
 			String targetId = String.valueOf(aprvVO.get(i).get("uniqId"));// 결재자 아이디
-
 			approvalManageVO.setReqId(reqId);
 			approvalManageVO.setId(uniqId);
 
@@ -126,8 +124,10 @@ public class MobRequestController {
 				approvalManageVO.setAprvOrder(String.valueOf(aprvVO.get(i).get("aprvOrder")));
 				if (targetUp != null && targetUp != "" && !(targetUp.isEmpty())) {
 					approvalManageVO.setTargetUp(targetUp);
-					targetUp = String.valueOf(aprvVO.get(i).get("uniqId"));
 				}
+				targetUp = targetId;
+				
+				approvalManageVO.setReqStatus("A0");
 				int result = approvalManageService.InsertApproval(approvalManageVO);
 				if (result > 0) {
 					aprvCnt += result;
