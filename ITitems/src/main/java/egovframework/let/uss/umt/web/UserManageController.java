@@ -439,29 +439,15 @@ public class UserManageController {
 
 		String oldPassword = (String) commandMap.get("oldPassword");
 		String newPassword = (String) commandMap.get("newPassword");
-		String newPassword2 = (String) commandMap.get("newPassword2");
 		String uniqId = (String) commandMap.get("uniqId");
 
 		boolean isCorrectPassword = false;
-		UserManageVO resultVO = new UserManageVO();
 		userManageVO.setPassword(newPassword);
 		userManageVO.setOldPassword(oldPassword);
 		userManageVO.setUniqId(uniqId);
 
 		String resultMsg = "";
-		//resultVO = userManageService.selectPassword(userManageVO);
-		//패스워드 암호화
-		//String encryptPass = EgovFileScrty.encryptPassword(oldPassword, userManageVO.getEmplyrId());
-		//if (encryptPass.equals(resultVO.getPassword())) {
-		//	if (newPassword.equals(newPassword2)) {
-		//		isCorrectPassword = true;
-		//	} else {
-		//		isCorrectPassword = false;
-		//		resultMsg = "fail.user.passwordUpdate2";
-		//	}
-		//} else {
-			isCorrectPassword = true;
-		//}
+		isCorrectPassword = true;
 
 		if (isCorrectPassword) {
 			userManageVO.setPassword(EgovFileScrty.encryptPassword(newPassword, userManageVO.getEmplyrId()));

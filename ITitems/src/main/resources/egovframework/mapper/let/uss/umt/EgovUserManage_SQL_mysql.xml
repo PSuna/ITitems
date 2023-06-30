@@ -37,7 +37,7 @@
 	                ON E.SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
-           		 WHERE A.EMPLYR_ID != 'admin'
+           		 WHERE E.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
            		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
@@ -142,7 +142,7 @@
 	                ON E.SCRTY_DTRMN_TRGET_ID = A.ESNTL_ID
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
-           		 WHERE A.EMPLYR_ID != 'admin'
+           		 WHERE E.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
            		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}

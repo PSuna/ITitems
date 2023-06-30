@@ -63,8 +63,10 @@ public class EgovAuthorGroupServiceImpl  extends EgovAbstractServiceImpl impleme
 	 * @exception Exception
 	 */
 	public void updateAuthorGroup(AuthorGroup authorGroup) throws Exception{
-		String uniqId = idgenService.getNextStringId();
-		authorGroup.setUniqId(uniqId);
+		/*
+		 * String uniqId = idgenService.getNextStringId();
+		 * authorGroup.setUniqId(uniqId);
+		 */
 		authorGroupDAO.updateAuthorGroup(authorGroup);
 	}
 
