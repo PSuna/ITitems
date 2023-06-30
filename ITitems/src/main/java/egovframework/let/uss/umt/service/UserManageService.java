@@ -4,8 +4,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
 /**
  * 사용자관리에 관한 인터페이스클래스를 정의한다.
  * @author 영남사업부 천세훈
