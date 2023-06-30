@@ -28,7 +28,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -369,6 +369,15 @@ $(document).ready(function(){
 			$("ul",this).slideToggle("fast");
 		});
 		
+	});
+	
+	$(window).resize(function(){
+		const width = window.innerWidth;
+		if(width>900){
+			$(".all_menu").css("display","none");
+			$(".util_menu .allmenu").removeClass("on");
+			$(".pty_bottom_fix, .container").css("display","block");
+		}
 	});
 </script>
 

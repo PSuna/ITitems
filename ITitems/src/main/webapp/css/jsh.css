@@ -15,6 +15,15 @@
     --blue-color: #0465be;
     
 }
+
+.gnb li div {
+	width: 100%;
+}
+
+.gnb li div li{
+	width: 100%;
+}
+
  .mobG{
  display: none;
  }
@@ -34,6 +43,7 @@
 	display: inline-grid;
     position: relative;
     height: 34px;
+    width: 100%;
 }
 
 .search_date img{
@@ -395,7 +405,7 @@ form .condition2{
 }
 
 .j_box02 div{
-	width: 50%;
+	width: 24.5%;
     margin: 0px auto;
     height: 100%;
     display: flex;
@@ -406,30 +416,12 @@ form .condition2{
     margin: auto;
 }
 
-
-.j_box02 .btn_box{
-	width: 49% !important;
-}
 .btn_box{
     display: flex !important;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
-}
-
-.j_box02 .date_box{
-	width: 49% !important;
-	margin: 0px auto;
-	height: 34px;
-}
-
-.j_box02 .search_box{
-	width:  49% !important;
-}
-
-.j_box03 .btn_box{
-	width: 10% !important;
 }
 
 .j_box03 .date_box{
@@ -602,12 +594,124 @@ td {
     font-size: 14px;
 }
 
+
+form .condition2 :last-child{
+    margin-bottom: 0px;
+}
+
 .btn_area {
     display: flex;
     justify-content: space-between;
 }
 
+
+
+@media screen and (max-width: 670px){
+	
+	.board_list table {
+	    font-size: 11px;
+	}
+	
+	td {
+	    font-size: 11px;
+	}
+	
+	.j_box01 .btn_box{
+		width: 99% !important;
+		margin-top: 5px;
+	}
+	
+	.j_box01 .search_box{
+		width: 99% !important;
+		margin-top: 5px;
+	}
+	
+	.date_box div span {
+	    margin: 0px 1%;
+	}
+
+	.j_box01 .date_box{
+		width: 99% !important;
+	}
+	
+	.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03 {
+	    flex-wrap: wrap;
+	}
+}
+
+@media screen and (max-width: 425px){
+	
+		.j_box02 .btn_box{
+			width: 99% !important;
+		}
+		
+		.j_box02 .search_box{
+			width: 49% !important;
+		}
+	
+		.j_box02 .date_box{
+			width: 99% !important;
+		}
+}
+
+@media (min-width: 425px) and (max-width: 900px){
+	
+		
+	.j_box02 .date_box{
+		width: 49% !important;
+	}
+	
+	.j_box02 .search_box{
+		width: 49% !important;
+	}
+	
+	.j_box02 .btn_box{
+		width: 49% !important;
+	}
+}
+
+@media (min-width: 670px) and (max-width: 900px){
+	
+		.j_box01 .btn_box{
+			width: 12% !important;
+		}
+		
+		.j_box01 .search_box{
+			width: 37% !important;
+		}
+	
+		.j_box01 .date_box{
+			width: 47% !important;
+		}
+}
+
+@media (min-width: 900px) and (max-width: 1200px){
+	
+		
+	.j_box02 .date_box{
+		width: 30% !important;
+		margin: 0px auto;
+		height: 34px;
+	}
+	
+	.j_box02 .search_box{
+		width:  29% !important;
+	}
+	
+	.j_box02 .btn_box{
+		width: 10% !important;
+	}
+}
+
 @media screen and (max-width: 900px){
+	
+	.pop_search {
+	    padding: 14px 2px !important;
+	}
+
+	.ui-widget.ui-widget-content {
+		width: 100% !important;
+	}
 	
 	.mobG{
 	 	display: block;
@@ -624,57 +728,39 @@ td {
 	.j_box01 .lb{
 		margin: 0 10px 0px 5px;
 	}
-	.j_box01 .date_box{
-		width: 47% !important;
-	}
+
 	.date_box div{
 		width: 100%;
 	}
 	
-	.j_box01 .btn_box{
-		width: 12% !important;
-	}
+
 	
 	form .condition2{
-	    padding: 10px 2%;
+	    padding: 10px 1%;
 	}
-	
-	.j_box01 .search_box{
-		width: 37% !important;
-	}
-	
-	.j_box02 .date_box{
-		width: 49% !important;
-	}
-	
-	.j_box02 .search_box{
-		width: 49% !important;
-	}
-	
-	.j_box02 .btn_box{
-		width: 49% !important;
-	}
+
 	
 	.j_box02 div {
-    	width: 100%;
+    	width: 49%;
     	margin-bottom: 5px;
     }
 	
 	.condition2 .j_box02 {
 	    flex-wrap: wrap;
-	    margin-bottom: 0px;
+	    margin-bottom: 5px;
 	}
 	
 	.condition2 .j_box01{
 	    margin-bottom: 5px;
 	}
+
 	
 	.filebox {
 		flex-wrap: wrap;
 	}
 	
 	.namebox {
-    	width: 70%;
+    	 width: 100%;
 	}
 	
 	.photoList {
@@ -736,7 +822,7 @@ td {
 	}
 	
 	.search_date input{
-		padding-left: 37px;
+		padding-left: 30px;
 	}
 	
 	.wp_date{

@@ -109,9 +109,11 @@ $(function() {
                 if (_this.is(':visible')) {
                     _this.fadeOut(100);
                     $(this).removeClass('on');
+					$(".pty_bottom_fix, .container").css("display","block");
                 } else {
                     _this.fadeIn(100);
                     $(this).addClass('on');
+					$(".pty_bottom_fix, .container").css("display","none");
                 }
             });
         }
