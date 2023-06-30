@@ -6893,7 +6893,7 @@ function showHide( elements, show ) {
 		values[ index ] = jQuery._data( elem, "olddisplay" );
 		display = elem.style.display;
 		if ( show ) {
-
+			
 			// Reset the inline display of this element to learn if it is
 			// being hidden by cascaded rules or not
 			if ( !values[ index ] && display === "none" ) {
@@ -6909,8 +6909,9 @@ function showHide( elements, show ) {
 			}
 		} else {
 			hidden = isHidden( elem );
-
+			
 			if ( display && display !== "none" || !hidden ) {
+				
 				jQuery._data(
 					elem,
 					"olddisplay",
@@ -7619,6 +7620,7 @@ function defaultPrefilter( elem, props, opts ) {
 		if ( rfxtypes.exec( value ) ) {
 			delete props[ prop ];
 			toggle = toggle || value === "toggle";
+			
 			if ( value === ( hidden ? "hide" : "show" ) ) {
 
 				// If there is dataShow left over from a stopped hide or show
@@ -8050,6 +8052,7 @@ jQuery.each( {
 	fadeToggle: { opacity: "toggle" }
 }, function( name, props ) {
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
+		
 		return this.animate( props, speed, easing, callback );
 	};
 } );
@@ -8891,7 +8894,7 @@ jQuery.fn.extend( {
 
 	toggleClass: function( value, stateVal ) {
 		var type = typeof value;
-
+		
 		if ( typeof stateVal === "boolean" && type === "string" ) {
 			return stateVal ? this.addClass( value ) : this.removeClass( value );
 		}

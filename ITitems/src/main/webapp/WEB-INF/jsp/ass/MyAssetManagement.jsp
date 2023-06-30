@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
@@ -368,13 +368,13 @@ window.onload = function(){
 								<div class="board_list selete_table">
 									<table>
 										<colgroup>
-											<col style="width: 6%;">
+											<col style="width: 7%;">
 											<col style="width: 10%;">
 											<col style="width: 17%;">
 											<col style="width: 17%;">
-											<col style="width: 30%;">
+											<col style="width: 26%;">
 											<col style="width: 10%;">
-											<col style="width: 11%;">
+											<col style="width: 13%;">
 										</colgroup>
 										<thead>
 											<tr>

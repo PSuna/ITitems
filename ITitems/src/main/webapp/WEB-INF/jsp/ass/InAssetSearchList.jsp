@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>

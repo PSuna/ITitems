@@ -934,7 +934,7 @@ body .ui-tooltip {
 	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	width: 350px;
-    height: 322px;
+    height: auto;
 }
 .ui-widget-content {
 	border: 1px solid #dddddd;

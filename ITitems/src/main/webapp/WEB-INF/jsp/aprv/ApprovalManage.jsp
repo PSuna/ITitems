@@ -185,13 +185,12 @@ function fnLinkPage(pageNo){
                                 		<table summary="결재요청 목록을 제공한다.">
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
-	                                            <col style="width: 5%;">
-
+	                                            <col style="width: 7%;">
 												<col style="width: 10%;">
-												<col style="width: 40%;">
+												<col style="width: 36%;">
 												<col style="width: 15%;">
 												<col style="width: 12%;">
-												<col style="width: 8%;">
+												<col style="width: 10%;">
 												<col style="width: 10%;">
 
                                         	</colgroup>

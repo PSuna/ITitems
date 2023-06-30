@@ -1,7 +1,280 @@
 @charset "UTF-8";
 
-
 @media screen and (max-width: 1400px){
+	
+	.layout .content_wrap {
+    	padding-left: 1%;
+	}
+	
+	.layout .nav {
+		display: none !important;
+	}
+	
+	.sub_in {
+	    padding: 0;
+	}
+}
+
+
+@media screen and (max-width: 425px){
+	
+	.f_txt {
+	    font-size: 12px;
+	}
+	
+	.btn_blue_46, .btn_skyblue_h46 {
+	    height: 31px !important;
+	    font-size: 11px !important;
+	    line-height: 28px !important;
+	    padding: 0 4px !important;
+	    width: 70px !important;
+	    margin-bottom: 5px !important;
+	}
+	
+	.pty_btn {
+	    height: 31px !important;
+	    font-size: 11px !important;
+	    padding: 0 4px !important;
+	    width: 80px;
+	}
+	
+	.btn_area {
+		margin-bottom: 5px;
+	}
+	
+	.board_list_bot {
+	    margin-bottom: 10px;
+	}
+	
+	.paging .btn a {
+	    width: 20px !important;
+	    height: 20px !important;
+	}
+	
+	.paging>ul li a, .paging>ul li strong {
+	    width: 18px !important;
+	    height: 18px !important;
+	    line-height: 17px !important;
+	}
+	
+	.aprv_table {
+	    width: 40px;
+	}
+	
+	.board_list table {
+	    font-size: 10px;
+	}
+	
+	.header .top_menu {
+	    top: 10px !important;
+	}
+	
+	.header .inner .left_col {
+	    padding: 8px 2% !important;
+	}
+	
+	.header {
+	    height: 110px !important;
+	}
+	
+	.header .inner .left_col {
+	    padding: 30px 2% !important;
+	}
+	
+	.board_view2 td {
+	    padding: 3px 1% !important;
+	}
+	
+	td {
+	    font-size: 10px !important;
+	}
+	
+	.lb .manual_img {
+	    width: 18px !important;
+	    right: 0 !important;
+	    transform: translate(-14%, -50%) !important;
+	}
+		
+	.f_select::after {
+	    right: 7px;
+	}
+	
+	.f_14 {
+	    font-size: 10px !important;
+	}
+
+	.footer h1 {
+	    margin: 20px 6px;
+	}
+	.content {
+	    min-height: initial !important;
+	    padding-bottom: 0px;
+	}
+}
+
+
+@media (min-width: 425px) and (max-width: 900px){ 
+		
+	.btn_blue_46, .btn_skyblue_h46 {
+	    height: 31px !important;
+	    font-size: 14px !important;
+	    line-height: 28px !important;
+	    padding: 0 5px !important;
+	    width: 70px !important;
+	    margin-bottom: 5px !important;
+	}
+	
+	.pty_btn {
+	    height: 31px !important;
+	    font-size: 14px !important;
+	    padding: 0 5px !important;
+	    width: 80px;
+	}
+	
+	.aprv_table {
+	    width: 60px;
+	}
+	
+	.f_select::after {
+	    right: 4%;
+	}
+	
+	.header .inner .left_col {
+	    padding: 16px 2% !important;
+	}
+
+}
+ 
+@media screen and (max-width: 900px){
+	
+	.f_search input[type=text] {
+	    padding: 0 14px 0 7px;
+	    font-size: 12px;
+	}
+		
+	.P_MAIN .col .head h2{
+		margin-bottom: 0px !important;
+	}
+	
+	.pty_list_d {
+	    display: flex;
+	    flex-direction: column-reverse;
+	}
+		
+	.al_r {
+	    text-align: initial !important;
+	}
+	
+	.pmt_sub li a {
+		 font-size: 30px !important;
+	}
+	
+	.list_count div div:last-child{
+		width: 163px;
+;
+	}
+	
+	.list_count div div:last-child span{
+		width: 60%;
+		margin-right: 0 !important;
+	}
+	
+	.list_count div div:last-child label{
+		width: 40%;
+	}
+	
+	.left_col span {
+	    font-size: 12px !important;
+	}
+	
+	.list_count {
+	    font-size: 14px !important;
+	}
+	
+	.f_chk_only::before {
+	    width: 10px;
+	    height: 10px;
+	    vertical-align: bottom;
+	}
+
+	
+	
+	
+	td .btn_skyblue_h46{
+		width: 100% !important;
+		padding: 0 5px;
+		font-size: 10px;
+	}
+	
+	td .w_88{
+		width: 48% !important;
+	}
+	
+	.paging .btn a {
+	    width: 23px;
+    	height: 23px;
+	}
+	.paging .first,  .paging .last{
+		background-size: 70% 76%;
+	}
+	
+	.paging .prev, .paging .next{
+		background-size: 55% 80%;
+	}
+	
+	.paging>ul li {
+	    margin-top: 0px;
+	}
+	
+	.paging>ul li a, .paging>ul li strong {
+	    display: block;
+	    width: 20px;
+	    height: 20px;
+	    font-weight: 300;
+	    line-height: 19px;
+	    text-align: center;
+	}
+	
+	.f_select {
+		width: 100%;
+	}
+	
+	.f_select select {
+	    padding: 0 23px 0 5px !important;
+    	font-size: 12px !important;
+	}
+	
+	.f_search2 input[type=text] {
+	   padding: 0 23px 0 5px !important;
+	   font-size: 12px !important;
+	}
+	
+	.ui-datepicker-trigger {
+	    margin-left: 6px !important;
+	}
+	
+	.search_date img {
+	    width: 12px !important;
+	    height: 12px !important;
+	}
+	
+	.search_date input {
+	    padding-left: 20px !important;
+	}
+	
+	.search_date input {
+	    font-size: 12px !important;
+	}
+		
+	.f_txt {
+	    padding: 0 8px;
+	}
+	
+	.f_txtar {
+	    padding: 3px 8px;
+	}
+
+	
 	
 	.mobG{
 		display: block !important;
@@ -17,7 +290,6 @@
 	}
 	
 	.header{
-		height: 125px !important;
 		width: 100%;
 	}
 	
@@ -60,6 +332,7 @@
 		font-size: 16px;
 		border-bottom: 1px solid #c5c5c5;
 		margin-bottom: 16px;
+		padding: 0px 5px;
 	
 	}
 	
@@ -92,13 +365,14 @@
 	} */
 	
 	.pty_flex dd{
-		/* font-size:32px; */
+		font-size: 16px !important;
 		font-size: 16px;
 		color:var(--font-gray);
 	}
 	
 	.pty_flex dd input.pdi{
 		width: 60%!important;
+		padding: 0px 5px;
 	}
 	
 	.loginbox{
@@ -159,7 +433,6 @@
     .header .inner .left_col{
     	display:block !important;
     	width : 100%;
-    	padding: 16px 2% !important;
     }
 
 	.gnb{
@@ -331,7 +604,7 @@
 	
 	
 	.file_G img {
-	    width: 30% !important;
+	    width: 60px !important;
 	    position: absolute !important;
 	    bottom: 20% !important;
 	    right: 6% !important;
@@ -370,15 +643,16 @@
 	}
 	
 	.pty_footer {
-	    position: absolute !important;
-	    /* transform: translateY(100%); */
-	    bottom: 0px !important;
+	  /*    position: absolute !important; */
+	 /*   transform: translateY(100%); */
+	  /*   bottom: 0px !important; */
 	}
 	
 	.all_menu{
 		/* width:700px !important; */
 		width:100% !important;
-		height: 80% !important;
+		min-height: calc(100% - 125px) !important;
+   		 height: auto !important;
 	}
 	
 	.all_menu .inner{
@@ -388,7 +662,7 @@
 	
 	#pmt_nav ul.pmt_menu li a {
 	   /*  font-size: 16px !important; */
-	    font-size: 35px !important;
+	    font-size: 35px ;
 	    line-height: initial !important;
 	}
 	
@@ -398,16 +672,17 @@
 	
 	.sub_layout{
 		border-top: 0!important;
-		position: absolute !important;
+		/* position: absolute !important;
 		top: 50% !important;
 		left: 50%;
-		transform:translate(-50%,-50%);
-		width: 94%;
+		transform:translate(-50%,-50%); */
+		width: 98%;
+    	margin: 0 auto;
 	}
 	
 	.pty_bottom_fix {
-	    height: calc(100% - 170px) !important;
-	    min-height: initial !important;
+	    /* height: calc(100% - 170px) !important; */
+	    min-height: calc(100% - 170px) !important;
 	    width: 100%;
 	}
 	

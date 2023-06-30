@@ -365,12 +365,12 @@ function inputPush(){
 								<div class="board_list">
 									<table>
 										<colgroup>
-											<col style="width: 5%;">
+											<col style="width: 6%;">
 											<col style="width: 10%;">
-											<col style="width: 40%;">
+											<col style="width: 37%;">
 											<col style="width: 15%;">
 											<col style="width: 12%;">
-											<col style="width: 8%;">
+											<col style="width: 10%;">
 											<col style="width: 10%;">
 										</colgroup>
 										<thead>
