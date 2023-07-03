@@ -16,6 +16,37 @@
     
 }
 
+
+.j_table tr td:nth-child(1), .j_table tr th:nth-child(1){
+	width: 3%
+}
+
+.j_table tr td:nth-child(2), .j_table tr th:nth-child(2){
+	width: 5%
+}
+
+.j_table tr td:nth-child(3), .j_table tr th:nth-child(3){
+	width: 15%
+}
+
+.j_table tr td:nth-child(4), .j_table tr th:nth-child(4){
+	width: 18%
+}
+
+.j_table tr td:nth-child(5), .j_table tr th:nth-child(5){
+	width: 24%
+}
+.j_table tr td:nth-child(6), .j_table tr th:nth-child(6){
+	width: 11%
+}
+
+.j_table tr td:nth-child(7),.j_table tr th:nth-child(7){
+	width: 14%;
+}
+.j_table tr td:nth-child(8), .j_table tr th:nth-child(8){
+	width: 10%
+}
+
 .gnb li div {
 	width: 100%;
 }
@@ -317,9 +348,55 @@
 	width: 100% !important;
 }
 
-.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03 {
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06 {
 	display: flex;
     margin-bottom: 10px;
+}
+.condition2 .j_box04{
+	max-width: 700px;
+    margin: 0 auto;
+}
+
+.j_box06 .search_box{
+    width: 59%;
+    margin: 0px auto;
+}
+
+.j_box06 .btn_box{
+    width: 39%;
+    margin: 0px auto;
+}
+
+.condition2 .j_box05{
+    margin: 0 auto;
+}
+
+.j_box05 div{
+    width: 16%;
+    margin: 0px auto;
+}
+
+.j_box05 .search_box{
+    width: 22%;
+    margin: 0px auto;
+}
+
+.j_box05 .btn_box{
+    width: 10%;
+    margin: 0px auto;
+}
+
+.j_box04 .select_box{
+		width: 19%;
+		margin: 0px auto;
+}
+.j_box04 .search_box{
+		width: 59%;
+		margin: 0px auto;
+}
+.j_box04 .btn_box{
+		width: 19%;
+		margin: 0px auto;
 }
 
 .j_box01 div{
@@ -328,14 +405,12 @@
 }
 
 .j_box03 div{
-	display: flex;
+	width: 24%;
+	margin: 0px auto;
+    height: 100%;
+    display: flex;
 }
 
-.j_box03 div div{
-	width: 49%;
-	margin: 0px auto;
-	display: block;
-}
 
 .j_box01 .lb, .j_box02 .lb, .j_box03 .lb{
 		margin: 0 10px 0px 5px;
@@ -606,6 +681,7 @@ form .condition2 :last-child{
 
 
 
+
 @media screen and (max-width: 670px){
 	
 	.board_list table {
@@ -634,12 +710,112 @@ form .condition2 :last-child{
 		width: 99% !important;
 	}
 	
-	.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03 {
+	.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06{
 	    flex-wrap: wrap;
 	}
 }
 
 @media screen and (max-width: 425px){
+	
+	
+	.j_box06 .search_box{
+	    width: 99%;
+	    margin: 0px auto;
+	    margin-bottom: 5px;
+	}
+	
+	.j_box06 .btn_box{
+	    width: 99%;
+	    margin: 0px auto;
+	}
+	
+	
+	.pty_btn {
+	    height: 31px !important;
+	    font-size: 11px !important;
+	    padding: 0 4px !important;
+	    width: 80px;
+	}
+	.btn_box .btn_blue_46{
+		 margin-bottom: 0px !important;
+	}
+		
+	.btn_blue_46, .btn_skyblue_h46 {
+	    height: 31px !important;
+	    font-size: 11px !important;
+	    line-height: 28px !important;
+	    padding: 0 4px !important;
+	    width: 68px !important;
+	    margin-bottom: 5px !important;
+	}
+	
+	.errSpan{
+		font-size:10px !important;
+	}
+	.inputHint{
+		font-size:10px !important;
+	}
+	
+		.j_table tr td:nth-child(7),.j_table tr th:nth-child(7){
+			display: none;
+		}
+		
+		.j_table tr td:nth-child(1), .j_table tr th:nth-child(1){
+			width: 7%
+		}
+		
+		.j_table tr td:nth-child(2), .j_table tr th:nth-child(2){
+			width: 10%
+		}
+		
+		.j_table tr td:nth-child(3), .j_table tr th:nth-child(3){
+			width: 17%
+		}
+		
+		.j_table tr td:nth-child(4), .j_table tr th:nth-child(4){
+			width: 18%
+		}
+		
+		.j_table tr td:nth-child(5), .j_table tr th:nth-child(5){
+			width: 20%
+		}
+		.j_table tr td:nth-child(6), .j_table tr th:nth-child(6){
+			width: 16%
+		}
+		.j_table tr td:nth-child(8), .j_table tr th:nth-child(8){
+			width: 12%
+		}
+		
+		.j_box04 .select_box{
+				width: 25%;
+				margin: 0px auto;
+				margin-bottom: 5px;
+		}
+		.j_box04 .search_box{
+				width: 73%;
+				margin: 0px auto;
+				margin-bottom: 5px;
+		}
+		.j_box04 .btn_box{
+				width: 99%;
+				margin: 0px auto;
+		}
+	
+	
+		.j_box03 div{
+			width: 49% !important;
+			margin-bottom: 5px;
+		}
+		
+		.j_box03 .search_box{
+			width: 99% !important;
+			margin-bottom: 5px;
+		}
+		
+		.j_box03 .btn_box{
+			width: 99% !important;
+			margin-bottom: 0px;
+		}
 	
 		.j_box02 .btn_box{
 			width: 99% !important;
@@ -655,6 +831,15 @@ form .condition2 :last-child{
 }
 
 @media (min-width: 425px) and (max-width: 900px){
+	.j_box03 div{
+		width: 49% !important;
+		margin-bottom: 5px;
+	}
+	
+	.j_box03 .search_box,.j_box03 .btn_box{
+		margin-bottom: 0px;
+	}
+	
 	
 		
 	.j_box02 .date_box{
@@ -671,6 +856,7 @@ form .condition2 :last-child{
 }
 
 @media (min-width: 670px) and (max-width: 900px){
+		
 	
 		.j_box01 .btn_box{
 			width: 12% !important;
@@ -686,7 +872,26 @@ form .condition2 :last-child{
 }
 
 @media (min-width: 900px) and (max-width: 1200px){
+	 .condition2 .j_box05{
+	 flex-wrap: wrap;
+	 }
+	.j_box05 div{
+	    width: 24%;
+	    margin: 0px auto;
+	    margin-bottom: 5px;
+	}
 	
+	.j_box05 .search_box{
+	    width: 79%;
+	    margin: 0px auto;
+	    margin-bottom: 0px;
+	}
+	
+	.j_box05 .btn_box{
+	    width: 19%;
+	    margin: 0px auto;
+	    margin-bottom: 0px;
+	}
 		
 	.j_box02 .date_box{
 		width: 30% !important;
@@ -704,6 +909,53 @@ form .condition2 :last-child{
 }
 
 @media screen and (max-width: 900px){
+	
+	.paging .btn a {
+	    width: 23px;
+    	height: 23px;
+	}
+	.paging .first,  .paging .last{
+		background-size: 70% 76%;
+	}
+	
+	.paging .prev, .paging .next{
+		background-size: 55% 80%;
+	}
+	
+	.paging>ul li {
+	    margin-top: 0px;
+	}
+	
+	.paging>ul li a, .paging>ul li strong {
+	    display: block;
+	    width: 20px;
+	    height: 20px;
+	    font-weight: 300;
+	    line-height: 19px;
+	    text-align: center;
+	}
+
+	 .condition2 .j_box05{
+	 flex-wrap: wrap;
+	 }
+	.j_box05 div{
+	    width: 49%;
+	    margin: 0px auto;
+	    margin-bottom: 5px;
+	}
+	
+	.j_box05 .search_box{
+	    width: 99%;
+	    margin: 0px auto;
+	    margin-bottom: 5px;
+	}
+	
+	.j_box05 .btn_box{
+	    width: 99%;
+	    margin: 0px auto;
+	    margin-bottom: 0px;
+	}
+	
 	
 	.pop_search {
 	    padding: 14px 2px !important;
@@ -747,7 +999,7 @@ form .condition2 :last-child{
 	
 	.condition2 .j_box02 {
 	    flex-wrap: wrap;
-	    margin-bottom: 5px;
+	    margin-bottom: 0px;
 	}
 	
 	.condition2 .j_box01{
@@ -799,10 +1051,6 @@ form .condition2 :last-child{
 	
 	.condition2 .j_box03 {
 		flex-wrap: wrap;
-	}
-	
-	.j_box03 div{
-		width: 100%;
 	}
 	
 	.condition form{

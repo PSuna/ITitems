@@ -18,6 +18,37 @@
 
 @media screen and (max-width: 425px){
 	
+	.ui-dialog .ui-dialog-content {
+	  padding: 0;
+	}
+	
+	.ui-dialog-corner-all {
+	    border-radius: 5px;
+	}
+	.catInnerBox {
+	    height: 180px;
+	}
+	
+	.catInLabel {
+	    font-size: 13px;
+	}
+	
+	td div .search_date{
+		 width: 45.2%;
+	}
+	
+	.f_search2 .btn {
+	    right: 6px;
+	    width: 17px;
+	    height: 17px;
+	}
+	
+	.tit_2{
+		text-align:center!important;
+		padding-top:0px !important;
+		font-size:17px !important;
+	}
+	
 	.f_txt {
 	    font-size: 12px;
 	}
@@ -27,7 +58,7 @@
 	    font-size: 11px !important;
 	    line-height: 28px !important;
 	    padding: 0 4px !important;
-	    width: 70px !important;
+	    width: 68px !important;
 	    margin-bottom: 5px !important;
 	}
 	
@@ -56,9 +87,12 @@
 	    height: 18px !important;
 	    line-height: 17px !important;
 	}
+	.aprv_view table{
+		width: 33px !important;
+	}
 	
-	.aprv_table {
-	    width: 40px;
+	.aprv_col {
+	    height: 33px !important;
 	}
 	
 	.board_list table {
@@ -114,6 +148,18 @@
 
 
 @media (min-width: 425px) and (max-width: 900px){ 
+	.catInnerBox {
+	    height: 180px;
+	}
+	.aprv_col {
+	    height: 50px;
+	}
+	
+		.tit_2{
+			text-align:center!important;
+			padding-top:0px !important;
+			font-size:23px !important;
+		}
 		
 	.btn_blue_46, .btn_skyblue_h46 {
 	    height: 31px !important;
@@ -132,7 +178,7 @@
 	}
 	
 	.aprv_table {
-	    width: 60px;
+	    width: 50px !important;
 	}
 	
 	.f_select::after {
@@ -146,7 +192,9 @@
 }
  
 @media screen and (max-width: 900px){
-	
+	.upperLi, .lowerLi {
+	    font-size: 16px;
+	}
 	.f_search input[type=text] {
 	    padding: 0 14px 0 7px;
 	    font-size: 12px;
@@ -722,7 +770,7 @@
 	.sub_in{
 		/* padding:0 24px !important; */
 		padding: 0 !important;
-		width:auto!important;
+		width:100%!important;
 		
 	}
 	
@@ -811,13 +859,6 @@
 		padding:0 0 8px 0!important;
 		border-bottom:0!important;
 	}
-	
-	.tit_2{
-		text-align:center!important;
-		padding-top:0px !important;
-		font-size:24px !important;
-	}
-	
 	.pty_f_search{
 		margin-left:0!important;
 		margin-top:10px!important;

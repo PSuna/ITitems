@@ -112,16 +112,18 @@ function inputPush(){
 
 				<div class="pop_container pop_search">
 					<!-- 검색조건 -->
-					<div class="condition" style="justify-content: center;">
-						<div class="pty_search">
-							<span class="item f_search">
-								<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
-							</span>
-							<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
-						</div>
-						<div class="btn_area"style="margin-top:0px !important;">
-		                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_reset(); return false;">
-		                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+					<div class="condition2" style="justify-content: center;">
+						<div class="j_box06">
+							<div class="search_box">
+								<span class="item f_search w_full">
+									<input class="f_input w_full pty_f_input" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
+								</span>
+							</div>
+							<div class="btn_box" >
+								<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+			                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_reset(); return false;">
+			                   	<spring:message code="button.reset" /></a>
+		               	 	</div>
 	               	 	</div>
 					</div>
 					<!--// 검색조건 -->

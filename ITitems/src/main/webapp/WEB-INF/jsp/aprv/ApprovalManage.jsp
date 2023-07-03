@@ -124,32 +124,36 @@ function fnLinkPage(pageNo){
                                 	<h2 class="tit_2">결재</h2>
                                 	
                                 	<!-- 검색조건 -->
-                                	<div class="condition pty_condition" style="display:flex;justify-content: center;">
-                                		<div>
-	                                		<label class="item f_select w_150" for="searchGroup">
-	                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
-	                                				<option value="" label="분류" />
-															<option value="C0" <c:if test="${approvalSearchVO.searchGroup == 'C0'}">selected="selected"</c:if> label="반입신청" />
-															<option value="C1" <c:if test="${approvalSearchVO.searchGroup == 'C1'}">selected="selected"</c:if>label="반출신청" />
-	                                			</select>
-	                                		</label>
-                                		</div>
-                                		<div>
-	                                		<label class="item f_select w_150" for="searchStatus">
-	                                			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
-	                                				<option value="" label="상태"/>
-	                                				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
-	                                					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
-	                                				</c:forEach>
-	                                			</select>
-	                                		</label>
-                                		</div>
-	                                    <div class="pty_search">
-											<span class="item f_search" >
-												<input class="f_input pty_f_input" style="margin-right: 8px; padding:0" type="text" name="searchKeyword" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
-											</span>
-											<button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fnSearch(); return false;">검색</button>
-										</div>
+                                	<div class="condition2" >
+                                	<div class="j_box03">
+	                                		<div>
+		                                		<label class="item f_select w_full" for="searchGroup">
+		                                			<select id="searchGroup" name="searchGroup" title="검색조건-결재분류" onchange="javascript:fnSearch(); return false;">
+		                                				<option value="" label="분류" />
+																<option value="C0" <c:if test="${approvalSearchVO.searchGroup == 'C0'}">selected="selected"</c:if> label="반입신청" />
+																<option value="C1" <c:if test="${approvalSearchVO.searchGroup == 'C1'}">selected="selected"</c:if>label="반출신청" />
+		                                			</select>
+		                                		</label>
+	                                		</div>
+	                                		<div>
+		                                		<label class="item f_select w_full" for="searchStatus">
+		                                			<select id="searchStatus" name="searchStatus" title="검색조건-결재상태" onchange="javascript:fnSearch(); return false;">
+		                                				<option value="" label="상태"/>
+		                                				<c:forEach var="aprvStatus" items="${aprvStatus_result }">
+		                                					<option value="<c:out value="${aprvStatus.code}"/>" <c:if test="${approvalSearchVO.searchStatus == aprvStatus.code}">selected="selected"</c:if>>${aprvStatus.codeNm}</option>
+		                                				</c:forEach>
+		                                			</select>
+		                                		</label>
+	                                		</div>
+		                                    <div class="search_box ">
+												<span class="item f_search w_full" >
+													<input class="f_input pty_f_input" padding:0" type="text" name="searchKeyword" placeholder="신청자/프로젝트명 검색" title="검색어" value="<c:out value="${approvalSearchVO.searchKeyword}"/>">
+												</span>
+											</div>
+											<div class="btn_box">
+												<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+											</div>
+	                                	</div>
                                 	</div>
                                 	<!-- //검색조건 -->
 
@@ -192,7 +196,6 @@ function fnLinkPage(pageNo){
 												<col style="width: 12%;">
 												<col style="width: 10%;">
 												<col style="width: 10%;">
-
                                         	</colgroup>
                                         	<thead>
                                         		<tr>

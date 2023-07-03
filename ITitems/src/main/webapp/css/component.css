@@ -553,7 +553,7 @@
 	font-size:0;
 }
 .board_view_bot .left_col .btn+.btn {
-	margin-left:10px;
+	margin-left:3px;
 }
 .board_view_bot .right_col {
 	position:absolute;
@@ -562,7 +562,7 @@
 	font-size:0;
 }
 .board_view_bot .right_col .btn+.btn {
-	margin-left:10px;
+	margin-left:3px;
 }
 .board_view2 {
 	border-top:2px solid #222;

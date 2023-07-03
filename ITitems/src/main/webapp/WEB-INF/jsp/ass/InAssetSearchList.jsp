@@ -175,11 +175,11 @@ function fn_egov_search_Prj() {
 					<button type="button" class="close"
 						onclick="fn_egov_cancel_popup(); return false;">닫기</button>
 				</div>
-				<div class="pop_container">
+				<div class="pop_container pop_search">
 
 					<!-- 검색조건 -->
 					<div class="condition2">
-						<div class="j_box02">
+						<div class="j_box03">
 							<!-- <div>
 								<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트" maxlength="100" readonly="readonly" value="">
 									<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
@@ -197,10 +197,8 @@ function fn_egov_search_Prj() {
 													value="${LCat.catName}" /></option>
 										</c:forEach>
 								</select>
-
 								</label>
 							</div>
-
 							<div>
 								<!-- <span class="lb">중분류</span> -->
 								<label class="item f_select w_full" for="sel1"> <select
@@ -209,15 +207,13 @@ function fn_egov_search_Prj() {
 								</select>
 								</label>
 							</div>
-						</div>
-						<div class="j_box02">
-							<div class="search_box" style="width: 150% !important;">
+							<div class="search_box" >
 								<span class="item f_search w_full" >
 									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
 								</span>
 							</div>
 							<div class="btn_box" >
-								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="padding: 0; width:100%">검색</button>
+								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();">검색</button>
 							</div>
 						</div>
 					</div>

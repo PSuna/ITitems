@@ -740,11 +740,11 @@ function ReqList(){
 												<td colspan="3">
 													<div>
 														<span class="search_date">
-															<input id="startDate" class="f_txt w_40%" name="startDate" type="text" maxlength="60" readonly="readonly" checkStartDate()">
+															<input id="startDate" class="f_txt w_full readonly" name="startDate" type="text" maxlength="60" readonly="readonly" checkStartDate()">
 														</span>
 														&nbsp;&nbsp;―&nbsp;&nbsp;
 														<span class="search_date">
-															<input id="endDate" class="f_txt w_40%" name="endDate" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
+															<input id="endDate" class="f_txt w_full readonly" name="endDate" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
 														</span>
 													</div>
 												</td>

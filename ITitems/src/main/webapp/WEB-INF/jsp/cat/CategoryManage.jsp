@@ -304,11 +304,6 @@ function fnDeleteCat(e, updown){
 	padding-bottom: 8px;
 	text-align : center;
 }
-@media screen and (max-width: 1400px){
-	.content_wrap #contents{
-	width:100% !important;
-	}
-}
 </style>
 </head>
 <body>
@@ -327,7 +322,7 @@ function fnDeleteCat(e, updown){
 						<c:import url="/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 						<div class="content_wrap">
-							<div id="contents" class="content" style="width:1070px;">
+							<div id="contents" class="content" >
 								<!-- Location -->
 								<div class="location">
 									<ul>
