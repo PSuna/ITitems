@@ -454,11 +454,14 @@ window.onload = function(){
 												</label></td>
 											</tr>
 											<tr>
-												<td class="lb"><label for="empUniqNum">사번</label><br> <label for="empUniqNum" class="inputHint">숫자9자리 ex)20XXXXXXX</label></td>
-												<td><form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9" /> <form:errors path="empUniqNum" /> <span
+												<td class="lb"><label for="empUniqNum">사번</label><br> </td>
+												<td colspan="3"><label for="empUniqNum" class="inputHint">숫자9자리 ex)20XXXXXXX</label><form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9" /> <form:errors path="empUniqNum" /> <span
 													id="empUniqErr" class="errSpan"></span></td>
-												<td class="lb"><label for="moblphonNo">연락처</label><br> <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label></td>
-												<td>
+											</tr>
+											<tr>
+												<td class="lb"><label for="moblphonNo">연락처</label><br> </td>
+												<td colspan="3">
+													<label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
 													<div class="phoneNumBox">
 														<input value="<c:out value='${userManageVO.moblphonNo1}'/>" id="moblphonNo1" name="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3" /><span class="divPnum">-</span>
 														<input value="<c:out value='${userManageVO.moblphonNo2}'/>" id="moblphonNo2" name="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4" /><span class="divPnum">-</span>
