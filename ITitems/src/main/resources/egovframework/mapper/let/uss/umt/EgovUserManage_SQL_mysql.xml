@@ -112,7 +112,7 @@
         		<if test='searchGrade != ""'>
        	     	   AND C.CODE = #{searchGrade} 
         		</if>
-        		<if test = "emptyUserShow = 'off'">
+        		<if test = "emptyUserShow == 'off'">
         		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
         		</if>
         		) A
