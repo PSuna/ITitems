@@ -514,12 +514,10 @@ window.onload = function(){
 													<label for="emplyrId">사용자ID</label>
 													<span class="req">필수</span>
 												</td>
-												<td>
+												<td colspan="3">
 													<form:input path="emplyrId" id="emplyrId" class="f_txt w_full" maxlength="100" readonly="true" />
 													<form:errors path="emplyrId" /> <form:hidden path="uniqId" />
 												</td>
-												<td></td>
-												<td></td>
 											</tr>
 											
 											<tr>

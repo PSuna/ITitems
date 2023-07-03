@@ -369,10 +369,10 @@ function fnDeleteCat(e, updown){
 				</div>
 			</div>
 		</div>
-	</div>
 	<!-- Footer -->
 	<c:import url="/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
+	</div>
 <script>
 fnSetUpperCat();
 </script>

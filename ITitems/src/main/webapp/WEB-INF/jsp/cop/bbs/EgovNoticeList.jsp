@@ -74,7 +74,6 @@
     }
     
     function setPageUnit(obj) {
-    	console.log("확인");
     	document.frm.pageIndex.value = '1';
     	document.frm.pageUnit.value = obj.value;
         document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";

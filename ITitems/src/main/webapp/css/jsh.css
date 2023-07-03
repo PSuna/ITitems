@@ -348,10 +348,26 @@
 	width: 100% !important;
 }
 
-.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06 {
+.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06, .condition2 .j_box07 {
 	display: flex;
     margin-bottom: 10px;
 }
+
+.condition2 .j_box07{
+	max-width: 700px;
+    margin: 0 auto;
+}
+
+.j_box07 .search_box{
+    width: 69%;
+    margin: 0px auto;
+}
+
+.j_box07 .btn_box{
+    width: 29%;
+    margin: 0px auto;
+}
+
 .condition2 .j_box04{
 	max-width: 700px;
     margin: 0 auto;
@@ -710,13 +726,64 @@ form .condition2 :last-child{
 		width: 99% !important;
 	}
 	
-	.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06{
+	.condition2 .j_box01, .condition2 .j_box02, .condition2 .j_box03, .condition2 .j_box04, .condition2 .j_box05, .condition2 .j_box06, .condition2 .j_box07{
 	    flex-wrap: wrap;
 	}
 }
 
 @media screen and (max-width: 425px){
 	
+	.f_txt2 {
+	    height: 31px;
+	    font-size: 14px;
+	    margin: 0 auto;
+	}
+	
+	.pop_container .box_1 :last-child{
+	    margin: 0 auto;
+	}
+	
+	.pop_container .box_1 {
+	    padding: 26px 5px;
+	    display: flex;
+    	flex-wrap: wrap;
+	}
+	
+	.pop_container .box_1 :first-child {
+	    width: 99%;
+	    margin-bottom: 10px;
+	}
+	
+	.pop_container {
+	    padding: 5px 10px;
+	}
+	
+	.pop_header h1 {
+		padding: 17px 29px 0 29px;
+	    font-size: 20px;
+	}
+		
+	.skip_str{
+		display: none;
+	}
+	.paging .next, .paging .prev {
+	    margin-left: 5px;
+	}
+		
+	.ui-widget.ui-widget-content {
+		width: 100% !important;
+	}
+	
+	.j_box07 .search_box{
+	    width: 99%;
+	    margin: 0px auto;
+	    margin-bottom: 5px;
+	}
+	
+	.j_box07 .btn_box{
+	    width: 99%;
+	    margin: 0px auto;
+	}
 	
 	.j_box06 .search_box{
 	    width: 99%;
@@ -746,7 +813,6 @@ form .condition2 :last-child{
 	    line-height: 28px !important;
 	    padding: 0 4px !important;
 	    width: 68px !important;
-	    margin-bottom: 5px !important;
 	}
 	
 	.errSpan{
@@ -831,6 +897,11 @@ form .condition2 :last-child{
 }
 
 @media (min-width: 425px) and (max-width: 900px){
+	
+	.ui-widget.ui-widget-content {
+		width: 95% !important;
+	}
+	
 	.j_box03 div{
 		width: 49% !important;
 		margin-bottom: 5px;
@@ -959,10 +1030,6 @@ form .condition2 :last-child{
 	
 	.pop_search {
 	    padding: 14px 2px !important;
-	}
-
-	.ui-widget.ui-widget-content {
-		width: 100% !important;
 	}
 	
 	.mobG{

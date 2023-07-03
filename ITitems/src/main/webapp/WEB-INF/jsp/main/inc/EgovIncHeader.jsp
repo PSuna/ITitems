@@ -377,6 +377,7 @@ $(document).ready(function(){
 			$(".all_menu").css("display","none");
 			$(".util_menu .allmenu").removeClass("on");
 			$(".pty_bottom_fix, .container").css("display","block");
+			$(".pty_bottom_fix .container").css("display","flex");
 		}
 	});
 </script>

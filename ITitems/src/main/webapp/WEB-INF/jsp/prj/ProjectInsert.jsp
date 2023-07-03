@@ -226,6 +226,56 @@ function removeP() {
 		})
 	})
 }
+
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+function make_date(){
+	
+	$("#prjStart,#prjEnd").datepicker(
+	        {dateFormat:'yy-mm-dd'
+	         , showOn: 'button'
+	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImageOnly: true
+	         
+	         , showMonthAfterYear: true
+	         , showOtherMonths: true
+		     , selectOtherMonths: true
+		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+				
+	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+	});
+	
+}
+
+/* ********************************************************
+ *  날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#prjStart').val();
+	let endDate = $('#prjEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#prjStart').val(endDate);
+		$('#prjEnd').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#prjStart').val();
+	let endDate = $('#prjEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#prjEnd').val("");
+	}
+}
+
+/* ********************************************************
+ * onload
+ ******************************************************** */
+window.onload = function(){
+	make_date();
+	  }
 //-->
 </script>
 <style>
@@ -275,10 +325,10 @@ function removeP() {
 									<div class="board_view2">
 										<table>
 											<colgroup>
-												<col style="width: 126px;">
-												<col style="width: auto;">
-												<col style="width: 120px;">
-												<col style="width: auto;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
+												<col style="width: 20%;">
+												<col style="width: 30%;">
 											</colgroup>
 											<tr>
 												<td class="lb">
@@ -319,15 +369,21 @@ function removeP() {
 													<label for="prjStart">시작일</label>
 												</td>
 												<td>
-													<form:input path="prjStart" id="prjStart" class="f_txt w_full" type="date" />
-													<form:errors path="prjStart" />
+													<span class="search_date w_full">
+														<form:input path="prjStart" id="prjStart" class="f_txt w_full readonly" name="prjStart" type="text" readonly="readonly" onchange="checkStartDate()"/>
+													</span>
+													<%-- <form:input path="prjStart" id="prjStart" class="f_txt w_full" type="date" />--%>
+													<form:errors path="prjStart" /> 
 													<span id="prjStartErr" class="errSpan"></span>
 												</td>
 												<td class="lb">
 													<label for="orgnztId">종료일</label>
 												</td>
 												<td>
-													<form:input path="prjEnd" id="prjEnd" class="f_txt w_full" type="date"/>
+													<span class="search_date w_full">
+														<form:input path="prjEnd" id="prjEnd" class="f_txt w_full readonly" name="prjEnd" type="text" readonly="readonly" onchange="checkEndDate()" />
+													</span>
+													<%-- <form:input path="prjEnd" id="prjEnd" class="f_txt w_full" type="date"/> --%>
 													<form:errors path="prjEnd" />
 												</td>
 											</tr>

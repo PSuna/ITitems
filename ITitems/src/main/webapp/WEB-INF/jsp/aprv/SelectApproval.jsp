@@ -55,7 +55,6 @@ function fnListPage(){
 function fnCheck(){
 	let loginId = '${approvalSearchVO.uniqId}';
 	var lastUserName = $("#lastUserName").val();
-	console.log(loginId + '==' + lastUserName);
 	if(loginId == lastUserName){
 		return 'true';
 	}else{

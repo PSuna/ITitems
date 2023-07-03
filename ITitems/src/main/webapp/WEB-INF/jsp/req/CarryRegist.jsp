@@ -714,7 +714,7 @@ function ReqList(){
 													type="hidden" title="프로젝트" value="" 
 													/></td>
 													<td class="lb">
-													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
+													<!-- PM(관리자) --> <label for="">PM<span class="skip_str">(관리자)</span></label> <span
 													class="req">필수</span>
 												</td>
 												<td>
@@ -735,7 +735,7 @@ function ReqList(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 사용기간 --> <label for="">반출기간</label> (시작일<span class="req">필수</span>)
+													<!-- 사용기간 --> <label for="">반출기간</label> (시작일)<span class="req">필수</span>
 												</td>
 												<td colspan="3">
 													<div>
