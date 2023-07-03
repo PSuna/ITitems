@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.com.service.CommonService;
 import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectService;
 import egovframework.let.req.service.RequestManageVO;
@@ -47,6 +50,10 @@ public class CommonController {
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
 	
+	/** userManageService */
+	@Resource(name = "commonService")
+	private CommonService commonService;
+	
 	/** approvalManageService */
 	@Resource(name = "approvalManageService")
 	private ApprovalManageService approvalManageService;
@@ -62,6 +69,11 @@ public class CommonController {
 	/** projectService */
 	@Resource(name = "ProjectService")
 	private ProjectService projectService;
+	
+	/** EgovMessageSource */
+	@Resource(name = "egovMessageSource")
+	EgovMessageSource egovMessageSource;
+	
 	/**
 	 * 등록확인 팝업창로 이동
 	 */
@@ -258,6 +270,23 @@ public class CommonController {
 		projectService.xlsxTrsfPrjList(projectManageVO,req,res);
 	}
 	
-	
-
+	/**
+	 * 엑셀 업로드 처리
+	 * @param multiRequest
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("cfgUploadAction.do")
+	public String cfgUploadAction(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+		try {
+			//commonService.excelUpload(request);
+			redirectAttributes.addFlashAttribute("Code", 0);
+			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
+		} catch (Exception ex) {
+			redirectAttributes.addFlashAttribute("Code", 1);
+			redirectAttributes.addFlashAttribute("Message", "오류가 발생하였습니다. 엑셀양식을 확인해 주세요.");
+		}
+		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
+	}
 }
