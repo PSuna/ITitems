@@ -15,7 +15,9 @@
     --blue-color: #0465be;
     
 }
-
+.passHint{
+	margin-bottom: 5px;
+}
 
 .j_table tr td:nth-child(1), .j_table tr th:nth-child(1){
 	width: 3%
@@ -1101,7 +1103,7 @@ form .condition2 :last-child{
 	}
 	
 	.board_view2 td {
-    	padding: 12px 1%;
+    	padding: 5px 1%;
 	}
 	
 	.board_view2 .lb {
