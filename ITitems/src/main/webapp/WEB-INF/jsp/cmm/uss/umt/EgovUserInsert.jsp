@@ -458,22 +458,23 @@ function RegistIng(){
                                         </colgroup>
                                         <tr>
                                             <td class="lb">
-                                                <label for="emplyrId">사용자아이디</label>
+                                                <label for="emplyrId"><span class="skip_str">사용자</span>아이디</label>
                                                 <span class="req">필수</span>
                                             </td>
-                                            <td colspan="2">
+                                            <td colspan="3">
                                                 <span class="f_search2 w_full">
                                                     <input type="text" maxlength="40" disabled="disabled" id="id_view" name="id_view" readonly="readonly">
                                                     <form:input path="emplyrId" id="emplyrId" title="사용자아이디" maxlength="40" type="hidden" />
                                                     <button type="button" class="btn" onclick="fnIdCheck();">조회</button>
                                                 </span>
-                                                
+                                                <form:errors path="emplyrId" />
+                                                <span id="emplyrIdErr" class="errSpan"></span>
                                             </td>
-                                            <td>
+                                            <%-- <td>
                                            		<span class="f_txt_inner ml10" style="align:left;">(중복체크)</span>
                                            		<form:errors path="emplyrId" />
                                                 <span id="emplyrIdErr" class="errSpan"></span>
-                                            </td>
+                                            </td> --%>
                                             
                                         </tr>
                                         
@@ -543,7 +544,6 @@ function RegistIng(){
                                             <td class="lb">
                                                 <label for="moblphonNo">연락처</label><br>
                                                 <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
-                                                
                                             </td>
                                             <td>
                                             	<div class="phoneNumBox">

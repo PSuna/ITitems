@@ -28,7 +28,7 @@
 		}
 		var leftStartMenuValue = document.getElementById("baseMenuNo").value;
 		if (leftStartMenuValue==null || leftStartMenuValue=="" || leftStartMenuValue=="null") leftStartMenuValue = '1000000';
-		console.log("leftStartMenuValue = "+leftStartMenuValue);
+
 		
 		// 서브 메뉴 생성
 		function subMenuTag(menuList, mainMenuNo) {

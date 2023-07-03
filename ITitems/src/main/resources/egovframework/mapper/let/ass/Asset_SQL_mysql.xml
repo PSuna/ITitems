@@ -617,21 +617,41 @@
 				ORGNZT_ID = #{orgnztId},
 				ASSET_NAME = #{assetName},
 				ASSET_SN = #{assetSn},
-				<if test="acquiredDate != null and acquiredDate != ''">
-				ACQUIRED_DATE = #{acquiredDate},
-				</if>
-				<if test="assetStart != null and assetStart != ''">
-				ASSET_START = #{assetStart},
-				</if>
-				<if test="assetEnd != null and assetEnd != ''">
-				ASSET_END = #{assetEnd},
-				</if>
+				<choose>
+					<when test="acquiredDate != null and acquiredDate != ''">
+						ACQUIRED_DATE = #{acquiredDate},
+					</when>
+					<otherwise>
+						ACQUIRED_DATE = NULL,
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="assetStart != null and assetStart != ''">
+						ASSET_START = #{assetStart},
+					</when>
+					<otherwise>
+						ASSET_START = NULL,
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="assetEnd != null and assetEnd != ''">
+						ASSET_END = #{assetEnd},
+					</when>
+					<otherwise>
+						ASSET_END = NULL,
+					</otherwise>
+				</choose>
 				ACQUIRED_PRICE = #{acquiredPrice},
 				MAKER = #{maker},
 				MAKER_CODE = #{makerCode},
-				<if test="rcptDate != null and rcptDate != ''">
-				RCPT_DATE = #{rcptDate},
-				</if>
+				<choose>
+					<when test="rcptDate != null and rcptDate != ''">
+						RCPT_DATE = #{rcptDate},
+					</when>
+					<otherwise>
+						RCPT_DATE = NULL,
+					</otherwise>
+				</choose>
 				NOTE = #{note}
 		<include refid="detailSearch" />	
 	</update>

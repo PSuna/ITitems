@@ -265,12 +265,16 @@ function press() {
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
                                 <!-- 검색조건 -->
-                                <div class="condition pty_condition">
-                                	<div style="display: flex; gap:8px;">
-										<span class="item f_search">
-											<input class="f_input w_full pty_f_input" type="text" name="searchKeyword" placeholder="사용자명/사용자ID 검색" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
-										</span>
-										<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
+                                <div class="condition2">
+                                	<div class="j_box07">
+	                                	<div class="search_box">
+											<span class="item f_search w_full">
+												<input class="f_input w_full pty_f_input" type="text" name="searchKeyword" placeholder="사용자명/사용자ID 검색" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
+											</span>
+										</div>
+										<div class="btn_box">
+											<button class="btn pty_btn" onclick="javascript:fncSelectAuthorGroupList('1'); return false;">검색</button>
+										</div>
 									</div>
                                 </div>
                                 <!--// 검색조건 -->

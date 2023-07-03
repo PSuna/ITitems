@@ -155,12 +155,16 @@ function fntrsfExcel(){
 									<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<h2 class="tit_2">프로젝트목록관리</h2>
 								<!-- 검색조건 -->
-				                <div class="condition pty_condition">
-				                	<div class="pty_search">
-										<span class="item f_search">
-											<input class="f_input w_250 pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명/코드 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
-										</span>
-										<button class="btn pty_btn" onclick="javascript:fnSearchPrj(); return false;">검색</button>
+				                <div class="condition2">
+				                	<div class="j_box07">
+					                	<div class="search_box">
+											<span class="item f_search w_full">
+												<input class="f_input w_full pty_f_input" style="margin-right:8px;" type="text" name="searchWord" placeholder="프로젝트명/코드 검색" title="검색어" value="<c:out value="${searchVO.searchWord}"/>">
+											</span>
+										</div>
+										<div class="btn_box">
+											<button class="btn pty_btn" onclick="javascript:fnSearchPrj(); return false;">검색</button>
+										</div>
 									</div>
 				                </div>
 				                <!--// 검색조건 -->
@@ -273,9 +277,9 @@ function fntrsfExcel(){
 				</div>
 			</div>
 		</div>
-	</div>
 	<!-- Footer -->
 	<c:import url="/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
+	</div>
 </body>
 </html>
