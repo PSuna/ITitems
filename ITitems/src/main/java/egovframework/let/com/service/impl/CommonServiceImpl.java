@@ -10,10 +10,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import egovframework.let.ass.service.AssetVO;
+import egovframework.let.ass.service.impl.AssetDAO;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.com.service.StringUtil;
@@ -23,7 +26,13 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 
 	@Resource(name = "CommonDAO")
 	private CommonDAO commonDAO;
-	   
+	
+	@Resource(name = "AssetDAO")
+	private AssetDAO assetDAO;
+	
+	@Resource(name = "AssetIdGnrService")
+	private EgovIdGnrService assetIdGnrService;
+	
 	@Override
 	public int InsertXcptInfo(HashMap<String, String> xcpt) {
 		
@@ -36,7 +45,7 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 * @return String
 	 * @throws Exception
 	 */
-	/**
+	
 	@SuppressWarnings("unchecked")
 	public void excelUpload(HttpServletRequest request) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
@@ -49,41 +58,46 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		int startCelNum = 2; 	//3번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
 		//테이블 Key 정보
-		DeviceBaseVO deviceBaseVO = null;
+		AssetVO assetVO = null;
 		//엑셀 Row 수 만큼 For문 조회 
 		for(Object obj : excelList) {
 			Map<Integer, String> mp = (Map<Integer, String>)obj;
 			Set<Integer> keySet = mp.keySet();
 			Iterator<Integer> iterator = keySet.iterator();
-			deviceBaseVO = new DeviceBaseVO();
+			assetVO = new AssetVO();
 			while(iterator.hasNext()) {
 				int key = iterator.next();
 				String value = StringUtil.nullConvert(mp.get(key));
 				switch(key) {
 				case 2 :
-					deviceBaseVO.setAreaId(value);
+					//assetVO.setAreaId(value);
 					break;
 				case 4 :
-					deviceBaseVO.setFacilityId(value);
+					//assetVO.setFacilityId(value);
 					break;
 				case 5 :
-					deviceBaseVO.setDeviceNm(value);
+					//assetVO.setDeviceNm(value);
 					break;
 				case 6 :
-					deviceBaseVO.setDeviceId(value);
+					//assetVO.setDeviceId(value);
 					break;
 				case 7 :
-					deviceBaseVO.setInstDt(value);
+					//assetVO.setInstDt(value);
 					break;
 				case 8 :
-					deviceBaseVO.setUseYn(value);
+					//assetVO.setUseYn(value);
 					break;
 				}
 			}
-			if(!"".equals(deviceBaseVO.getAreaId()) && deviceBaseVO.getAreaId() != null) {
-				cfgMapper.updateCfgInfo(deviceBaseVO);
+			if(!"".equals(assetVO.getAssetId()) && assetVO.getAssetId() != null) {
+				String id = assetIdGnrService.getNextStringId();
+				assetVO.setAssetId(id);
+				assetVO.setAssetStauts("C2");
+				assetVO.setUsageStauts("U1");
+				assetDAO.InsertAsset(assetVO);
+				assetDAO.InsertAssethist(assetVO);
 			}
 		}
-	}*/
+	}
 }
 

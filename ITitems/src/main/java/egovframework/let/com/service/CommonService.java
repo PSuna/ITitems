@@ -8,7 +8,8 @@ public interface CommonService {
 	
 	public int InsertXcptInfo(HashMap<String, String> xcpt);
 
-	//public void excelUpload(HttpServletRequest request) throws Exception;
+	public void excelUpload(HttpServletRequest request) throws Exception;
 	 
+	
 }
 

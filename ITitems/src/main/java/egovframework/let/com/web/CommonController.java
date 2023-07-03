@@ -277,10 +277,10 @@ public class CommonController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("cfgUploadAction.do")
-	public String cfgUploadAction(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+	@RequestMapping("/com/xlsxAssetUpload.do")
+	public String xlsxAssetUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		try {
-			//commonService.excelUpload(request);
+			commonService.excelUpload(request);
 			redirectAttributes.addFlashAttribute("Code", 0);
 			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
 		} catch (Exception ex) {
