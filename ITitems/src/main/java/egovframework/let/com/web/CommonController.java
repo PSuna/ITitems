@@ -51,7 +51,7 @@ public class CommonController {
 	private UserManageService userManageService;
 	
 	/** userManageService */
-	@Resource(name = "commonService")
+	@Resource(name = "CommonService")
 	private CommonService commonService;
 	
 	/** approvalManageService */
