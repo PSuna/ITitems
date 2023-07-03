@@ -93,14 +93,18 @@ function inputPush(){
 
             <div class="pop_container pop_search">
                 <!-- 검색조건 -->
-                <div class="condition2" style="display: flex;justify-content: center;margin-top:0;">
-                    <span class="item f_search">
-                        <input class="f_input w_300 pty_f_input" name="searchWord" placeholder="프로젝트명 검색" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20"/>
-                    </span>
-                    <button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fn_egov_search_Prj(); return false;">검색</button>
-                    <div class="btn_area"style="margin-top:0px !important;">
-	                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
-	                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+                <div class="condition2" >
+                	<div class="j_box06">
+	                	<div class="search_box">
+		                    <span class="item f_search w_full">
+		                        <input class="f_input w_full pty_f_input" name="searchWord" placeholder="프로젝트명 검색" value="<c:out value="${searchVO.searchWord}"/>" type="text"  maxlength="20"/>
+		                    </span>
+	                    </div>
+	                    <div class="btn_box">
+		                    <button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fn_egov_search_Prj(); return false;">검색</button>
+		                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
+		                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+	               	 	</div>
                	 	</div>
                 </div>
                 <!--// 검색조건 -->

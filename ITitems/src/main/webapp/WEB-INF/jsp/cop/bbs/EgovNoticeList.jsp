@@ -132,7 +132,6 @@
                                 <h2 class="tit_2"><c:out value="${brdMstrVO.bbsNm}"/></h2>    
 
                                 <!-- 검색조건 -->
-								<div class="condition">
 									<form name="frm"
 										action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>"
 										method="post">
@@ -150,23 +149,30 @@
 											value="<c:out value='${searchVO.pageIndex}'/>" />
 
 
-										<div class="j_condition">
-											<label class="item f_select" for="sel1">
-												<select name="searchCnd" id="searchCnd" title="검색조건 선택">
-													<option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>제목</option>
-													<option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if>>내용</option>
-												</select>
-											</label> 
-											<span class="item f_search"> 
-												<input class="f_input w_250" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
-												<%-- <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 --> --%>
-											</span>
-											<button class="btn pty_btn search_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button>
-											<!-- 조회 -->
+										<div class="condition2">
+											<div class="j_box04">
+												<div class="select_box">
+													<label class="item f_select w_full" for="sel1">
+														<select name="searchCnd" id="searchCnd" title="검색조건 선택">
+															<option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>제목</option>
+															<option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if>>내용</option>
+														</select>
+													</label> 
+												</div>
+												<div class="search_box">
+													<span class="item f_search w_full"> 
+														<input class="f_input w_full" name="searchWrd" type="text" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력">
+														<%-- <button class="btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 --> --%>
+													</span>
+												</div>
+												<div class="btn_box">
+													<button class="btn pty_btn" type="submit" onclick="fn_egov_select_noticeList('1'); return false;">검색</button>
+												</div>
+												<!-- 조회 -->
+											</div>
 										</div>
 									</form>
 								<!--// 검색조건 -->
-								</div>		
                                 <!-- 게시판 -->
                                 
                               

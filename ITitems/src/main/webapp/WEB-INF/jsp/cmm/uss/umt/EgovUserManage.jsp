@@ -247,12 +247,12 @@ function getMOrgList(MOval) {
 	                                <h2 class="tit_2">사용자목록</h2>
 	                                
 	                                <!-- 검색조건 -->
-	                                <div class="condition">
+	                                <div class="condition2">
 	                                
-	                                	<div class="pty_condition">
+	                                	<div class="j_box05">
 	                                	
 		                                    <div>
-												<label class="item f_select w_180" for="sel1"> 
+												<label class="item f_select w_full" for="sel1"> 
 													<select id="orgnztId" name="searchOrgnzt" title="본부"  onchange="getMOrgList(); fnSearch();">
 															<option value="" label="본부"/>
 															<c:forEach var="orgnztId" items="${orgnztId_result}" varStatus="status">
@@ -262,7 +262,7 @@ function getMOrgList(MOval) {
 												</label> 
 											</div>
 											<div>
-												<label class="item f_select w_180" for="sel1">
+												<label class="item f_select w_full" for="sel1">
 												<select id="lowerOrgnzt" name="searchLOrgnzt" title="부서" onchange="fnSearch();">
 													<option value='' label="부서" <c:if test="${userSearchVO.searchLOrgnzt == orgnztId.code}">selected="selected"</c:if>></option>
 												</select>
@@ -270,7 +270,7 @@ function getMOrgList(MOval) {
 											</div>
 											
 											<div>
-			                                    <label class="item f_select w_150"  for="searchGrade">
+			                                    <label class="item f_select w_full"  for="searchGrade">
 			                                    	<select id="searchGrade" name="searchGrade" title="검색조건-직급" onchange="javascript:fnSearch(); return false;">
 				                                        <option value="" label="직급"/>
 				                                        <c:forEach var="grade" items="${grd_result}">
@@ -281,7 +281,7 @@ function getMOrgList(MOval) {
 			                                  </div>  
 			                                    
 			                                <div>    
-			                                  <label class="item f_select w_150" for="searchAuthor">
+			                                  <label class="item f_select w_full" for="searchAuthor">
 		                                        <select name="searchAuthor" id="searchAuthor" title="검색조건-권한" onchange="fnSearch();">
 		                                        	<option value="" label="권한"/>
 			                                        <c:forEach var="author" items="${auth_result}">
@@ -294,14 +294,15 @@ function getMOrgList(MOval) {
 			                                 </div>   
 		                                    
 		                             
-											<div class="pty_search">
-												<span class="item f_search">
+											<div class="search_box">
+												<span class="item f_search w_full">
 													<input class="f_input pty_f_input" style="margin-right:8px;" type="text" name="searchKeyword" placeholder="사번/사용자명/아이디" title="검색어" value="<c:out value="${userSearchVO.searchKeyword}"/>">
 												</span>
 												
 											</div>
-											
+											<div class="btn_box">
 											<button class="btn pty_btn" onclick="javascript:fnSearch(); return false;">검색</button>
+											</div>
 											
 		                                </div>
 	                                </div>
@@ -350,18 +351,9 @@ function getMOrgList(MOval) {
 									
 	                                <!-- 게시판 -->
 	                                <div class="board_list">
-	                                    <table summary="사용자 목록을 제공한다.">
+	                                    <table class="j_table" summary="사용자 목록을 제공한다.">
 	                                    	<caption>사용자목록</caption>
-	                                        <colgroup>
-	                                            <col style="width: 3%;">
-	                                            <col style="width: 5%;">
-	                                            <col style="width: 15%;">
-	                                            <col style="width: 18%;">
-	                                            <col style="width: 24%;">
-	                                            <col style="width: 11%;">
-	                                            <col style="width: 14%;">
-	                                            <col style="width: 10%;">
-	                                        </colgroup>
+
 	                                        <thead>
 	                                            <tr>
 	                                                <th scope="col">

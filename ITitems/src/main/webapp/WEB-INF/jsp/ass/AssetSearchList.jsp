@@ -160,14 +160,6 @@ function fn_egov_search_Prj() {
 	document.listForm.submit();
 }
 </script>
-<style>
-.condition2 .j_box02 {
-	flex-wrap: nowrap;
-}
-.j_box02 div {
-	margin-right:3px;
-}
-</style>
 </head>
 <body>
 	<!-- 자바스크립트 경고 태그  -->
@@ -245,7 +237,7 @@ function fn_egov_search_Prj() {
 								</span>
 							</div>
 							<div class="btn_box" >
-								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();" style="padding: 0; width:100%">검색</button>
+								<button class="btn pty_btn" type="submit" onclick="SearchAssetList();">검색</button>
 							</div>
 						</div>
 					</div>
