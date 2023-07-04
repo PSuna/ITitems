@@ -160,7 +160,8 @@
 	text-align:center;
 }
 .board_list td {
-	padding:8px 0;
+	padding-bottom: 8px;
+	padding-top: 8px;
 	border-bottom:1px solid #dde2e5;
 	color:#666;
 	text-align:center;

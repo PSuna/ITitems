@@ -219,8 +219,8 @@ function fnLinkPage(pageNo){
                                 					<tr onclick="fnSelectAprv('<c:out value="${result.reqId}"/>');">
                                 						<td><c:out value="${paginationInfo.totalRecordCount - ((approvalSearchVO.pageIndex-1) * approvalSearchVO.pageUnit) - status.index}"/></td>
                                 						<td><c:out value="${result.reqGroup}"/></td>
-                                						<td><c:out value="${result.prjId}"/></td>
-                                						<td><c:out value="${result.place}"/></td>
+                                						<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}"/></td>
+                                						<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.place}"/></td>
                                 						<td><c:out value="${result.id} ${result.grade}"/></td>
                                 						<td><c:out value="${result.reqDate}"/></td>
                                 						<td><c:out value="${result.reqStatus}"/></td>

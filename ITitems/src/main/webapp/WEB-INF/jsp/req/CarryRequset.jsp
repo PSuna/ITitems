@@ -196,6 +196,15 @@ function inputPush(){
 	document.frm.searchWord.value='${searchVO.searchWord}';
 }
 
+/* ********************************************************
+ *  날짜표시 변경
+ ******************************************************** */
+function resizeDate() {
+	$(".resizeDate").each(function(index, item){
+		let date = $(item).text();
+	})
+}
+
 </script>
 <style type="text/css">
 .board_view_bot {
@@ -366,12 +375,12 @@ function inputPush(){
 									<table>
 										<colgroup>
 											<col style="width: 6%;">
-											<col style="width: 10%;">
-											<col style="width: 37%;">
-											<col style="width: 15%;">
 											<col style="width: 12%;">
-											<col style="width: 10%;">
-											<col style="width: 10%;">
+											<col style="width: 29%;">
+											<col style="width: 16%;">
+											<col style="width: 12%;">
+											<col style="width: 14%;">
+											<col style="width: 11%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -397,10 +406,10 @@ function inputPush(){
 														<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - status.index}" />
 													</td>
 													<td><c:out value="${result.reqGroup}" /></td>
-													<td><c:out value="${result.prjId}" /></td>
-													<td><c:out value="${result.place}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.place}" /></td>
 													<td><c:out value="${result.id}" /></td>
-													<td><c:out value="${result.reqDate}" /></td>
+													<td class="resizeDate"><c:out value="${result.reqDate}" /></td>
 													<td><c:out value="${result.reqStatus}" /></td>
 												</tr>
 											</c:forEach>
