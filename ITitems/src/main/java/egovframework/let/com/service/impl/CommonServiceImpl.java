@@ -21,6 +21,8 @@ import egovframework.let.com.service.CommonService;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.com.service.StringUtil;
 import egovframework.let.uss.umt.service.UserManageVO;
+import egovframework.let.uss.umt.service.impl.UserManageDAO;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 @Service("CommonService")
 public class CommonServiceImpl extends EgovAbstractServiceImpl implements CommonService  {
@@ -33,6 +35,14 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	
 	@Resource(name = "AssetIdGnrService")
 	private EgovIdGnrService assetIdGnrService;
+	
+	/** egovUsrCnfrmIdGnrService */
+	@Resource(name="egovUsrCnfrmIdGnrService")
+	private EgovIdGnrService idgenService;
+	
+	/** userManageDAO */
+	@Resource(name="userManageDAO")
+	private UserManageDAO userManageDAO;
 	
 	@Override
 	public int InsertXcptInfo(HashMap<String, String> xcpt) {
@@ -115,7 +125,6 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 * @return String
 	 * @throws Exception
 	 */
-	/*
 	@SuppressWarnings("unchecked")
 	public void excelUserUpload(HttpServletRequest request) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
@@ -146,28 +155,34 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 					userManageVO.setEmplyrNm(value);
 					break;
 				case 5 :
-					userManageVO.setDeviceNm(value);
+					userManageVO.setMoblphonNo(value);
 					break;
 				case 6 :
-					userManageVO.setDeviceId(value);
+					userManageVO.setOrgnztId(value);
 					break;
 				case 7 :
-					userManageVO.setInstDt(value);
+					userManageVO.setGrade(value);
 					break;
 				case 8 :
-					userManageVO.setUseYn(value);
+					userManageVO.setEmpUniqNum(value);
 					break;
 				}
 			}
-			if(!"".equals(userManageVO.setEmplyrId()) && userManageVO.setEmplyrId() != null) {
-				String id = assetIdGnrService.getNextStringId();
-				userManageVO.setAssetId(id);
-				userManageVO.setAssetStauts("C2");
-				userManageVO.setUsageStauts("U1");
-				assetDAO.InsertAsset(userManageVO);
-				assetDAO.InsertAssethist(userManageVO);
+			if(!"".equals(userManageVO.getEmplyrId()) && userManageVO.getEmplyrId() != null) {
+				//고유아이디 셋팅
+				String uniqId = idgenService.getNextStringId();
+				userManageVO.setUniqId(uniqId);
+				//패스워드 암호화
+				String pass = EgovFileScrty.encryptPassword("iteyes00", userManageVO.getEmplyrId());
+				userManageVO.setPassword(pass);
+				
+				//authorGroup.setUniqId(uniqId);
+				//authorGroup.setAuthorCode(userManageVO.getAuthorCode());
+				
+				int r =userManageDAO.insertUser(userManageVO);
+				//authorGroupDAO.insertAuthorGroup(authorGroup);
 			}
 		}
-	}*/
+	}
 }
 
