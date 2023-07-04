@@ -30,12 +30,12 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png" />
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript">
@@ -43,8 +43,7 @@
 var imgpath = "<c:url value='/'/>images/";
 //-->
 </script>
-<script language="javascript1.2" type="text/javaScript"
-	src="<c:url value='/js/EgovMenuCreat.js'/>"></script>
+<script language="javascript1.2" type="text/javaScript" src="<c:url value='/js/EgovMenuCreat.js'/>"></script>
 <script language="javascript1.2" type="text/javaScript">
 <!--
 
@@ -256,53 +255,58 @@ function fnDeleteCat(e, updown){
 -->
 </script>
 <style>
-.catBox{
-	display:flex;
+.catBox {
+	display: flex;
 	margin-top: 23px;
 }
-.upperCat, .lowerCat{
-	margin : 0 10px;
-	padding : 10px;
-	border:1px solid #ddd;
+
+.upperCat, .lowerCat {
+	margin: 0 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
 	border-radius: 10px;
-	min-height : 520px;
-	width:600px;
+	min-height: 520px;
+	width: 600px;
 }
-.catInnerBox{
-	height : 400px;
-	width : 100%;
-	padding : 10px;
-	overflow : auto;
+
+.catInnerBox {
+	height: 400px;
+	width: 100%;
+	padding: 10px;
+	overflow: auto;
 }
-.upperLi, .lowerLi{
+
+.upperLi, .lowerLi {
 	display: flex;
-    justify-content: space-between;
-    font-size:20px;
-    border-bottom : 1px solid #eee;
-    padding: 8px 0;
-    align-items: center;
+	justify-content: space-between;
+	font-size: 20px;
+	border-bottom: 1px solid #eee;
+	padding: 8px 0;
+	align-items: center;
 }
 
-.upperLi:hover, .lowerLi:hover{
-	background : #ddd;
-}
-.catDelBtn{
-	background : none;
+.upperLi:hover, .lowerLi:hover {
+	background: #ddd;
 }
 
-.catInLabel{
-	font-size:18px;
+.catDelBtn {
+	background: none;
 }
 
-.catInputBox{
-	display:flex;
+.catInLabel {
+	font-size: 18px;
+}
+
+.catInputBox {
+	display: flex;
 	justify-content: space-around;
-    align-items: center;
+	align-items: center;
 }
-.catTitle{
+
+.catTitle {
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 8px;
-	text-align : center;
+	text-align: center;
 }
 </style>
 </head>
@@ -322,7 +326,7 @@ function fnDeleteCat(e, updown){
 						<c:import url="/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 						<div class="content_wrap">
-							<div id="contents" class="content" >
+							<div id="contents" class="content">
 								<!-- Location -->
 								<div class="location">
 									<ul>
@@ -343,9 +347,8 @@ function fnDeleteCat(e, updown){
 											</ul>
 										</div>
 										<div class="catInputBox">
-											<label for="upperCatName" class="catInLabel">대분류명 : </label>
-											<input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명">
-											<a href="#LINK" id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
+											<label for="upperCatName" class="catInLabel">대분류명 : </label> <input id="upperCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="대분류명"> <a href="#LINK"
+												id="upperCatIn" class="item btn btn_blue_46 w_100" onclick="fnUpperInsertCat()">추가</a>
 											<!-- <a href="#LINK" id="upperCatSave" class="item btn btn_blue_46 w_50" onclick="fnUpperInsertCat()">저장</a> -->
 										</div>
 									</div>
@@ -356,42 +359,40 @@ function fnDeleteCat(e, updown){
 											</ul>
 										</div>
 										<div class="catInputBox">
-											<label for="lowerCatName" class="catInLabel">중분류명 : </label>
-											<input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명">
-											<a href="#LINK" id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
+											<label for="lowerCatName" class="catInLabel">중분류명 : </label> <input id="lowerCatName" class="f_txt item" name="catName" type="text" maxlength="20" title="중분류명"> <a href="#LINK"
+												id="lowerCatIn" class="item btn btn_blue_46 w_100" onclick="fnLowerInsertCat(this)">추가</a>
 											<!-- <a href="#LINK" id="lowerCatSave" class="item btn btn_blue_46 w_50" onclick="fnLowerInsertCat(this)">저장</a> -->
 										</div>
 									</div>
 								</div>
-								<%-- <div>
-								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
-									<table>
-										<caption>엑셀 업로드</caption>
-										<colgroup>
-											<col>
-											<col>
-										</colgroup>
-										<tbody>
-											<tr>
-												<th><label for="code2">파일찾기</label></th>
-												<td><input name="excelFile" id="excelFile" type="file" size="30"></td>
-											</tr>
-									</table>
-									<!-- 버튼 영역 -->
-									<div class="btn-area">
-										<a href="#" onclick="document.getElementById('popForm').submit();" class="btn btn-yellow btn-ok">업로드</a> <a href="javascript:self.close();" class="btn btn-yellow btn-cancel">창닫기</a>
-									</div>
-								</form>
-								
-							</div> --%>
+								<div>
+									<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
+										<table>
+											<caption>엑셀 업로드</caption>
+											<colgroup>
+												<col>
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<th><label for="code2">파일찾기</label></th>
+													<td><input name="excelFile" id="excelFile" type="file" size="30"></td>
+												</tr>
+										</table>
+										<!-- 버튼 영역 -->
+										<div class="btn-area">
+											<a href="#" onclick="document.getElementById('popForm').submit();" class="btn btn-yellow btn-ok">업로드</a> <a href="javascript:self.close();" class="btn btn-yellow btn-cancel">창닫기</a>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	<!-- Footer -->
-	<c:import url="/sym/mms/EgovFooter.do" />
-	<!--// Footer -->
+		<!-- Footer -->
+		<c:import url="/sym/mms/EgovFooter.do" />
+		<!--// Footer -->
 	</div>
 <script>
 fnSetUpperCat();
