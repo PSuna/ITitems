@@ -47,7 +47,7 @@ function fnIdCheck(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 600,
+        width: 375,
         height: 450
 	});
     $(".ui-dialog-titlebar").hide();

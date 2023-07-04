@@ -97,7 +97,7 @@ function fnCheckNotKorean(koreanStr){
                     <label for="mid">사용할 아이디</label>
                     <input type="hidden" name="resultId" value="<c:out value="${checkId}"/>" />
                     <input type="hidden" name="usedCnt" value="<c:out value="${usedCnt}"/>" />
-                    <input id="mid" class="f_txt2 w_200" type="text" name="checkId" title="선택여부" value="<c:out value="${checkId}"/>" maxlength="40" /><span>@iteyes.co.kr</span>
+                    <input id="mid" class="f_txt2 w_100%" type="text" name="checkId" title="선택여부" value="<c:out value="${checkId}"/>" maxlength="40" /><span>@iteyes.co.kr</span>
                 </div>
 
                 <p class="result">
