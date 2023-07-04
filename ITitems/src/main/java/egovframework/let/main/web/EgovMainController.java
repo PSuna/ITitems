@@ -132,7 +132,9 @@ public class EgovMainController {
 		
 		fvo.setFileType("APK");
 		model.addAttribute("APK", fileMngService.selectFileVO(fvo));
-
+		
+		fvo.setFileType("APKG");
+		model.addAttribute("APKG", fileMngService.selectFileVO(fvo));
 		// 모바일 화면으로 forward
 		if (loginId.getIsMob() == "success") {
 			System.out.println("main컨트롤러 모바일 실행");
