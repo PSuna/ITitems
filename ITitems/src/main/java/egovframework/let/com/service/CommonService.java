@@ -10,7 +10,7 @@ public interface CommonService {
 
 	public void excelAssetUpload(HttpServletRequest request) throws Exception;
 	
-	//public void excelUserUpload(HttpServletRequest request) throws Exception;
+	public void excelUserUpload(HttpServletRequest request) throws Exception;
 	 
 	
 }

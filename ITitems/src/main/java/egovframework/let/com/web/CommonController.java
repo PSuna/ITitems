@@ -296,7 +296,6 @@ public class CommonController {
 	 * @return
 	 * @throws Exception
 	 */
-	/*
 	@RequestMapping("/com/xlsxUserUpload.do")
 	public String xlsxUserUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		try {
@@ -309,5 +308,4 @@ public class CommonController {
 		}
 		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
 	}
-	*/
 }
