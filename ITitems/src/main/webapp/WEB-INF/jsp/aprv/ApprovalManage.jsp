@@ -33,6 +33,7 @@
 	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
 		   <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 		
@@ -78,6 +79,37 @@ function fnLinkPage(pageNo){
     document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
+
+function resizeDate(width) {
+	if(width>425){
+		$(".resizeDate").each(function(index, item){
+			let str = $(item).text();
+			if(str.indexOf('.') != -1){
+				$(item).text();
+				let newDate = moment(str,'YY.MM.DD').format('YYYY-MM-DD');
+				$(item).text(newDate);
+			}else{
+				return;
+			}
+		})
+	}else{
+		$(".resizeDate").each(function(index, item){
+			let str = $(item).text();
+			if(str.indexOf('-') != -1){
+				$(item).text();
+				let newDate = moment(str,'YYYY-MM-DD').format('YY.MM.DD');
+				$(item).text(newDate);
+			}else{
+				return;
+			}
+		})
+	}
+
+}
+$(window).resize(function(){
+const width = window.innerWidth;
+resizeDate(width);
+});
 //-->
 </script>
 <style>
@@ -190,11 +222,11 @@ function fnLinkPage(pageNo){
                                 			<caption>결재요청목록</caption>
                                 			<colgroup>
 	                                            <col style="width: 7%;">
-												<col style="width: 10%;">
-												<col style="width: 36%;">
-												<col style="width: 15%;">
 												<col style="width: 12%;">
-												<col style="width: 10%;">
+												<col style="width: 30%;">
+												<col style="width: 17%;">
+												<col style="width: 12%;">
+												<col style="width: 12%;">
 												<col style="width: 10%;">
                                         	</colgroup>
                                         	<thead>
@@ -222,7 +254,7 @@ function fnLinkPage(pageNo){
                                 						<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjId}"/></td>
                                 						<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.place}"/></td>
                                 						<td><c:out value="${result.id} ${result.grade}"/></td>
-                                						<td><c:out value="${result.reqDate}"/></td>
+                                						<td class="resizeDate"><c:out value="${result.reqDate}"/></td>
                                 						<td><c:out value="${result.reqStatus}"/></td>
                                 					</tr>
                                 				</c:forEach>

@@ -231,7 +231,7 @@ function fn_egov_search_Prj() {
 							</div>
 						</div>
 						<div class="j_box02">
-							<div class="search_box" style="width: 150% !important;">
+							<div class="search_box" >
 								<span class="item f_search w_full" >
 									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="수령자/실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
 								</span>

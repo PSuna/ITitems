@@ -28,9 +28,10 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+<script src="<c:url value='/'/>js/EditDate.js"></script>
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
@@ -196,14 +197,38 @@ function inputPush(){
 	document.frm.searchWord.value='${searchVO.searchWord}';
 }
 
-/* ********************************************************
- *  날짜표시 변경
- ******************************************************** */
-function resizeDate() {
-	$(".resizeDate").each(function(index, item){
-		let date = $(item).text();
-	})
+
+
+function resizeDate(width) {
+		if(width>425){
+			$(".resizeDate").each(function(index, item){
+				let str = $(item).text();
+				if(str.indexOf('.') != -1){
+					$(item).text();
+					let newDate = moment(str,'YY.MM.DD').format('YYYY-MM-DD');
+					$(item).text(newDate);
+				}else{
+					return;
+				}
+			})
+		}else{
+			$(".resizeDate").each(function(index, item){
+				let str = $(item).text();
+				if(str.indexOf('-') != -1){
+					$(item).text();
+					let newDate = moment(str,'YYYY-MM-DD').format('YY.MM.DD');
+					$(item).text(newDate);
+				}else{
+					return;
+				}
+			})
+		}
+	
 }
+$(window).resize(function(){
+	const width = window.innerWidth;
+	resizeDate(width);
+});
 
 </script>
 <style type="text/css">

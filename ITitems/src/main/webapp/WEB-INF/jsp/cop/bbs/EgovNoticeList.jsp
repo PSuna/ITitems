@@ -32,6 +32,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
 <c:if test="${anonymous == 'true'}"><c:set var="prefix" value="/anonymous"/></c:if>
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />" ></script>
@@ -86,6 +87,37 @@
         document.subForm.action = "<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>";
         document.subForm.submit();          
     }
+    
+    function resizeDate(width) {
+		if(width>425){
+			$(".resizeDate").each(function(index, item){
+				let str = $(item).text();
+				if(str.indexOf('.') != -1){
+					$(item).text();
+					let newDate = moment(str,'YY.MM.DD').format('YYYY-MM-DD');
+					$(item).text(newDate);
+				}else{
+					return;
+				}
+			})
+		}else{
+			$(".resizeDate").each(function(index, item){
+				let str = $(item).text();
+				if(str.indexOf('-') != -1){
+					$(item).text();
+					let newDate = moment(str,'YYYY-MM-DD').format('YY.MM.DD');
+					$(item).text(newDate);
+				}else{
+					return;
+				}
+			})
+		}
+	
+}
+$(window).resize(function(){
+	const width = window.innerWidth;
+	resizeDate(width);
+});
 //-->
 </script>
 </c:otherwise>
@@ -295,7 +327,7 @@
                                                 <c:if test="${anonymous != 'true'}">
                                                 	<td><c:out value="${result.frstRegisterNm}"/></td>
                                                 </c:if>
-                                                <td><c:out value="${result.frstRegisterPnttm}"/></td>
+                                                <td class="resizeDate"><c:out value="${result.frstRegisterPnttm}"/></td>
                                                 <td><c:out value="${result.inqireCo}"/></td>
                                             </tr>
                                             </c:if>

@@ -23,6 +23,7 @@ response.setDateHeader("Expires",0);
 if (request.getProtocol().equals("HTTP/1.1"))  
         response.setHeader("Cache-Control", "no-cache");  
 %>
+
 	<script src="<c:url value='/'/>js/showModalDialog.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -31,8 +32,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	
 	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
   <title>ITeyes 자산관리솔루션</title>
+  
 <script type="text/javaScript" language="javascript">
 function fn_egov_modal_create(){
 	
@@ -370,16 +373,8 @@ $(document).ready(function(){
 		});
 		
 	});
+
 	
-	$(window).resize(function(){
-		const width = window.innerWidth;
-		if(width>900){
-			$(".all_menu").css("display","none");
-			$(".util_menu .allmenu").removeClass("on");
-			$(".pty_bottom_fix, .container").css("display","block");
-			$(".pty_bottom_fix .container").css("display","flex");
-		}
-	});
 </script>
 
 
