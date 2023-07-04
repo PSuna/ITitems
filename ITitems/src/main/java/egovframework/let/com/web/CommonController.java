@@ -287,7 +287,7 @@ public class CommonController {
 			redirectAttributes.addFlashAttribute("Code", 1);
 			redirectAttributes.addFlashAttribute("Message", "오류가 발생하였습니다. 엑셀양식을 확인해 주세요.");
 		}
-		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
+		return "redirect:/cat/CategoryManage.do";
 	}
 	/**
 	 * 엑셀 업로드 처리
