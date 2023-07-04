@@ -802,15 +802,15 @@ form .condition2 :last-child{
 		width: 100% !important;
 	}
 	
-/* 	.ui-widget.ui-widget-content :has(.condition2) {
+ 	.SearchListPan {
 		max-height: 98%;
 		height: 100% !important;
 	}
 	
-	.ui-dialog .ui-dialog-content :is(div.SearchList){
+	.SearchListPan .SearchList{
 	    max-height: 100% !important;
 	    height: -webkit-fill-available !important;
-	}  */
+	}  
 	
 	.j_box07 .search_box{
 	    width: 99%;
