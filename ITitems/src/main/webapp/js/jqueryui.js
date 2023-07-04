@@ -12187,15 +12187,16 @@ $.widget( "ui.dialog", {
 			}
 			return;
 		}
-
 		this._isOpen = true;
 		this.opener = $( $.ui.safeActiveElement( this.document[ 0 ] ) );
-
+		if($(this.bindings[0]).children("#modalPan").hasClass("SearchList") == true){
+			$(this.bindings[0]).addClass("SearchListPan");
+		}
 		this._size();
 		this._position();
 		this._createOverlay();
 		this._moveToTop( null, true );
-
+		
 		// Ensure the overlay is moved to the top with the dialog, but only when
 		// opening. The overlay shouldn't move after the dialog is open so that
 		// modeless dialogs opened after the modal dialog stack properly.
@@ -12771,7 +12772,6 @@ $.widget( "ui.dialog", {
 		if ( !this.options.modal ) {
 			return;
 		}
-
 		// We use a delay in case the overlay is created from an
 		// event that we're going to be cancelling (#2804)
 		var isOpening = true;
@@ -12780,7 +12780,7 @@ $.widget( "ui.dialog", {
 		} );
 
 		if ( !this.document.data( "ui-dialog-overlays" ) ) {
-
+			
 			// Prevent use of anchors and inputs
 			// Using _on() for an event handler shared across many instances is
 			// safe because the dialogs stack and must be closed in reverse order
@@ -12800,7 +12800,7 @@ $.widget( "ui.dialog", {
 
 		this.overlay = $( "<div>" )
 			.appendTo( this._appendTo() );
-
+		
 		this._addClass( this.overlay, null, "ui-widget-overlay ui-front" );
 		this._on( this.overlay, {
 			mousedown: "_keepFocus"
