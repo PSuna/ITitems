@@ -133,7 +133,9 @@ public class EgovBBSManageController {
 		
 		boardVO.setBbsId(boardVO.getBbsId());
 		boardVO.setBbsNm(boardVO.getBbsNm());
-
+		System.out.println("==========여기=================================");
+		System.out.println(boardVO);
+		System.out.println("==========여기=================================");
 		BoardMasterVO vo = new BoardMasterVO();
 
 		vo.setBbsId(boardVO.getBbsId());

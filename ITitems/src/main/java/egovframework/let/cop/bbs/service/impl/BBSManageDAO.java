@@ -225,4 +225,9 @@ public class BBSManageDAO extends EgovAbstractMapper {
     public String getPasswordInf(Board board) throws Exception {
 	return (String)selectOne("BBSManageDAO.getPasswordInf", board);
     }
+    //모바일
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> mobSelectBoardArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.mobSelectBoardArticleList", boardVO);
+    }
 }
