@@ -112,9 +112,16 @@
 		           		
 		           		<p> 어플리케이션 </p>
 		           		<div class="file_G">
-		           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-	                        <c:param name="param_atchFileId" value="${APK.atchFileId}" />
-	                    </c:import>		
+		           		<div>
+			           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+		                        <c:param name="param_atchFileId" value="${APKG.atchFileId}" />
+		                    </c:import>	
+	                    </div>
+	                    <div>
+			           		<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+		                        <c:param name="param_atchFileId" value="${APK.atchFileId}" />
+		                    </c:import>
+	                    </div>
 		           		<img src="<c:url value="/" />images/apk.png">
 		           		</div>
 		           	</div>

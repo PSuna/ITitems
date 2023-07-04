@@ -70,6 +70,8 @@
 	width: 68px;
 }
 
+
+
 .w_88{
 	width: 88px;
 }
@@ -800,7 +802,7 @@ form .condition2 :last-child{
 		width: 100% !important;
 	}
 	
-/* 	.ui-widget.ui-widget-content :has(div.SearchList) {
+/* 	.ui-widget.ui-widget-content :has(.condition2) {
 		max-height: 98%;
 		height: 100% !important;
 	}
@@ -808,7 +810,7 @@ form .condition2 :last-child{
 	.ui-dialog .ui-dialog-content :is(div.SearchList){
 	    max-height: 100% !important;
 	    height: -webkit-fill-available !important;
-	} */
+	}  */
 	
 	.j_box07 .search_box{
 	    width: 99%;
@@ -1170,6 +1172,11 @@ form .condition2 :last-child{
     	position: absolute;
     	bottom: 7%;
     	width: 95%;
+    	flex-wrap: wrap;
+	}
+	
+	.file_G div{
+		width: 100%;
 	}
 	
 	.search_date input{
