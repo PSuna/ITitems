@@ -10,20 +10,40 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import egovframework.let.ass.service.AssetVO;
+import egovframework.let.ass.service.impl.AssetDAO;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.com.service.StringUtil;
+import egovframework.let.uss.umt.service.UserManageVO;
+import egovframework.let.uss.umt.service.impl.UserManageDAO;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 @Service("CommonService")
 public class CommonServiceImpl extends EgovAbstractServiceImpl implements CommonService  {
 	 
 	@Resource(name = "CommonDAO")
 	private CommonDAO commonDAO;
-	   
+	
+	@Resource(name = "AssetDAO")
+	private AssetDAO assetDAO;
+	
+	@Resource(name = "AssetIdGnrService")
+	private EgovIdGnrService assetIdGnrService;
+	
+	/** egovUsrCnfrmIdGnrService */
+	@Resource(name="egovUsrCnfrmIdGnrService")
+	private EgovIdGnrService idgenService;
+	
+	/** userManageDAO */
+	@Resource(name="userManageDAO")
+	private UserManageDAO userManageDAO;
+	
 	@Override
 	public int InsertXcptInfo(HashMap<String, String> xcpt) {
 		
@@ -31,14 +51,13 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	}
 	
 	/**
-	 * 엑셀 업로드 처리
+	 * 엑셀 자산 업로드 처리
 	 * @param multiRequest
 	 * @return String
 	 * @throws Exception
 	 */
-	/**
 	@SuppressWarnings("unchecked")
-	public void excelUpload(HttpServletRequest request) throws Exception{
+	public void excelAssetUpload(HttpServletRequest request) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 		//파일 정보
 		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
@@ -49,41 +68,121 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		int startCelNum = 2; 	//3번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
 		//테이블 Key 정보
-		DeviceBaseVO deviceBaseVO = null;
+		AssetVO assetVO = null;
 		//엑셀 Row 수 만큼 For문 조회 
 		for(Object obj : excelList) {
 			Map<Integer, String> mp = (Map<Integer, String>)obj;
 			Set<Integer> keySet = mp.keySet();
 			Iterator<Integer> iterator = keySet.iterator();
-			deviceBaseVO = new DeviceBaseVO();
+			assetVO = new AssetVO();
 			while(iterator.hasNext()) {
 				int key = iterator.next();
 				String value = StringUtil.nullConvert(mp.get(key));
 				switch(key) {
 				case 2 :
-					deviceBaseVO.setAreaId(value);
+					assetVO.setMiddleCategory(value);
+					break;
+				case 3 :
+					assetVO.setMaker(value);
 					break;
 				case 4 :
-					deviceBaseVO.setFacilityId(value);
+					assetVO.setPrjId(value);
 					break;
 				case 5 :
-					deviceBaseVO.setDeviceNm(value);
+					assetVO.setRcptId(value);
 					break;
 				case 6 :
-					deviceBaseVO.setDeviceId(value);
+					assetVO.setUseId(value);
 					break;
 				case 7 :
-					deviceBaseVO.setInstDt(value);
+					assetVO.setAssetName(value);
 					break;
 				case 8 :
-					deviceBaseVO.setUseYn(value);
+					assetVO.setAssetSn(value);
+					break;
+				case 9 :
+					assetVO.setRcptDate(value);
+					break;
+				case 10 :
+					assetVO.setNote(value);
 					break;
 				}
 			}
-			if(!"".equals(deviceBaseVO.getAreaId()) && deviceBaseVO.getAreaId() != null) {
-				cfgMapper.updateCfgInfo(deviceBaseVO);
+			if(!"".equals(assetVO.getMiddleCategory()) && assetVO.getMiddleCategory() != null) {
+				String id = assetIdGnrService.getNextStringId();
+				assetVO.setAssetId(id);
+				assetVO.setAssetStauts("C2");
+				assetVO.setUsageStauts("U1");
+				assetDAO.InsertAsset(assetVO);
+				assetDAO.InsertAssethist(assetVO);
 			}
 		}
-	}*/
+	}
+	
+	/**
+	 * 엑셀 사용자 업로드 처리
+	 * @param multiRequest
+	 * @return String
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public void excelUserUpload(HttpServletRequest request) throws Exception{
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+		//파일 정보
+		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
+		//엑셀정보
+		ExcelUtil eu = new ExcelUtil();
+		int sheetNum = 0;		//1번째 시트 읽음 
+		int strartRowNum = 1;	//2번째 줄부터 읽음
+		int startCelNum = 2; 	//3번째 줄부터 읽음(지역ID)
+		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
+		//테이블 Key 정보
+		UserManageVO userManageVO = null;
+		//엑셀 Row 수 만큼 For문 조회 
+		for(Object obj : excelList) {
+			Map<Integer, String> mp = (Map<Integer, String>)obj;
+			Set<Integer> keySet = mp.keySet();
+			Iterator<Integer> iterator = keySet.iterator();
+			userManageVO = new UserManageVO();
+			while(iterator.hasNext()) {
+				int key = iterator.next();
+				String value = StringUtil.nullConvert(mp.get(key));
+				switch(key) {
+				case 2 :
+					userManageVO.setEmplyrId(value);
+					break;
+				case 4 :
+					userManageVO.setEmplyrNm(value);
+					break;
+				case 5 :
+					userManageVO.setMoblphonNo(value);
+					break;
+				case 6 :
+					userManageVO.setOrgnztId(value);
+					break;
+				case 7 :
+					userManageVO.setGrade(value);
+					break;
+				case 8 :
+					userManageVO.setEmpUniqNum(value);
+					break;
+				}
+			}
+			if(!"".equals(userManageVO.getEmplyrId()) && userManageVO.getEmplyrId() != null) {
+				//고유아이디 셋팅
+				String uniqId = idgenService.getNextStringId();
+				userManageVO.setUniqId(uniqId);
+				//패스워드 암호화
+				String pass = EgovFileScrty.encryptPassword("iteyes00", userManageVO.getEmplyrId());
+				userManageVO.setPassword(pass);
+				
+				//authorGroup.setUniqId(uniqId);
+				//authorGroup.setAuthorCode(userManageVO.getAuthorCode());
+				
+				int r =userManageDAO.insertUser(userManageVO);
+				//authorGroupDAO.insertAuthorGroup(authorGroup);
+			}
+		}
+	}
 }
 

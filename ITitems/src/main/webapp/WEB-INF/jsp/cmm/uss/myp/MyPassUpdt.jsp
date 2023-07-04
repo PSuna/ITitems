@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -320,22 +321,17 @@ function fncheckValid(){
                                             <td class="lb">
                                                 <label for="emplyrId">사용자아이디</label>
                                             </td>
-                                            <td>
-                                                <input name="emplyrId" id="emplyrId" class="f_txt w_full" title="사용자아이디" type="text" value="<c:out value='${userManageVO.emplyrId}'/>" maxlength="20" readonly="readonly"/>
+                                            <td colspan="3">
+                                                <input name="emplyrId" id="emplyrId" class="f_txt w_full readonly"  title="사용자아이디" type="text" value="<c:out value='${userManageVO.emplyrId}'/>" maxlength="20" readonly="readonly"/>
                                                 <input name="uniqId" id="uniqId" title="uniqId" type="hidden" value="<c:out value='${userManageVO.uniqId}'/>"/>
                                                 <input name="userTy" id="userTy" title="userTy" type="hidden" value="<c:out value='${userManageVO.userTy}'/>"/>
-                                            </td>
-                                            <td rowspan='2'>
-	                                            <label for="empUniqNum" class="inputHint" id="hint1">8~20자 이내</label><br>
-			                                    <label for="empUniqNum" class="inputHint" id="hint2">연속된 문자나 순차적인 문자 4개이상 사용금지</label><br>
-			                                    <label for="empUniqNum" class="inputHint" id="hint3">반복문자나 숫자 연속 4개이상 사용금지</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="lb">
                                                 <label for="oldPassword">기존 비밀번호</label>
                                             </td>
-                                            <td>
+                                            <td colspan="3">
                                                 <input name="oldPassword" id="oldPassword" class="f_txt w_full" title="기존 비밀번호" type="password" value="" maxlength="100" />
                                                 <br><span id="oldPasswordErr" class="errSpan"></span>
                                             </td>
@@ -344,20 +340,24 @@ function fncheckValid(){
                                             <td class="lb">
                                                 <label for="newPassword">변경할 비밀번호</label>
                                             </td>
-                                            <td>
+                                            <td colspan="3">
+                                            	<div class="passHint">
+	                                            	<label for="empUniqNum" class="inputHint" id="hint1">8~20자 이내</label><br>
+				                                    <label for="empUniqNum" class="inputHint" id="hint2">연속된 문자나 순차적인 문자 4개이상 사용금지</label><br>
+				                                    <label for="empUniqNum" class="inputHint" id="hint3">반복문자나 숫자 연속 4개이상 사용금지</label>
+			                                    </div>
                                                 <input name="newPassword" id="newPassword" class="f_txt w_full" title="비밀번호" type="password" value="" onkeyup="fnCheckPw(this);"maxlength="100" />
                                                 <br><span id="newPasswordErr" class="errSpan"></span>
-                                            </td><td></td>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="lb">
                                                 <label for="newPassword2">변경할 비밀번호확인</label>
                                             </td>
-                                            <td>
+                                            <td colspan="3">
                                                 <input name="newPassword2" id="newPassword2" class="f_txt w_full" title="비밀번호확인" type="password" value="" maxlength="100" />
                                                 <br><span id="newPassword2Err" class="errSpan"></span>
                                             </td>
-                                            <td></td>
                                         </tr>
                                     </table>
                                     

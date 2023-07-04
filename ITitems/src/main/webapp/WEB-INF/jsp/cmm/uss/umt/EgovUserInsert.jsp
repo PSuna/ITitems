@@ -47,7 +47,7 @@ function fnIdCheck(){
 	.dialog({
     	autoOpen: false,
         modal: true,
-        width: 600,
+        width: 375,
         height: 450
 	});
     $(".ui-dialog-titlebar").hide();
@@ -534,18 +534,22 @@ function RegistIng(){
                                         <tr>
                                             <td class="lb">
                                                 <label for="empUniqNum">사번</label><br>
-                                                <label for="moblphonNo" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
+                                                
                                             </td>
-                                            <td>
+                                            <td colspan="3">
+                                            	<label for="moblphonNo" class="inputHint">숫자9자리 ex)20XXXXXXX</label>
                                                 <form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9"/>
                                                 <form:errors path="empUniqNum" />
                                                 <span id="empUniqErr" class="errSpan"></span>
                                             </td>
+                                         </tr>
+                                         <tr>
                                             <td class="lb">
                                                 <label for="moblphonNo">연락처</label><br>
-                                                <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
+                                                
                                             </td>
-                                            <td>
+                                            <td colspan="3">
+                                           		<label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
                                             	<div class="phoneNumBox">
                                                 <input id="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3"/><span class="divPnum">-</span>
                                                 <input id="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4"/><span class="divPnum">-</span>

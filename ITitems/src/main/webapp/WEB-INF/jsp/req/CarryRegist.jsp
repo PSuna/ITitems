@@ -381,7 +381,7 @@ function returnAss(val){
 					<td>`+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
-					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
+					<td><button class="btn pty_btn delbtn" onclick="deleteTr(this); return false;">삭제</button></td>
 				 </tr>`;
 		$("#assetTbody").append(p);
 	}
@@ -642,6 +642,12 @@ function ReqList(){
 }
 .errSpan{
 	color:red;
+}
+
+@media screen and (max-width: 425px){
+	.delbtn{
+		width:32px !important;
+	}
 }
 </style>
 </head>

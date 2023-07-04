@@ -424,9 +424,8 @@ window.onload = function(){
 											</colgroup>
 											<tr>
 												<td class="lb"><label for="emplyrId">사용자ID</label> <span class="req">필수</span></td>
-												<td><form:input path="emplyrId" id="emplyrId" class="f_txt w_full" maxlength="100" readonly="true" /> <form:errors path="emplyrId" /> <form:hidden path="uniqId" /></td>
-												<td></td>
-												<td></td>
+												<td colspan="3"><form:input path="emplyrId" id="emplyrId" class="f_txt w_full readonly" maxlength="100" readonly="true" /> <form:errors path="emplyrId" /> <form:hidden path="uniqId" /></td>
+												
 											</tr>
 
 											<tr>
@@ -454,11 +453,14 @@ window.onload = function(){
 												</label></td>
 											</tr>
 											<tr>
-												<td class="lb"><label for="empUniqNum">사번</label><br> <label for="empUniqNum" class="inputHint">숫자9자리 ex)20XXXXXXX</label></td>
-												<td><form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9" /> <form:errors path="empUniqNum" /> <span
+												<td class="lb"><label for="empUniqNum">사번</label><br> </td>
+												<td colspan="3"><label for="empUniqNum" class="inputHint">숫자9자리 ex)20XXXXXXX</label><form:input path="empUniqNum" id="empUniqNum" placeholder="ex) 20XXXXXXX" onkeyup="checkNum(this)" class="f_txt w_full" maxlength="9" /> <form:errors path="empUniqNum" /> <span
 													id="empUniqErr" class="errSpan"></span></td>
-												<td class="lb"><label for="moblphonNo">연락처</label><br> <label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label></td>
-												<td>
+											</tr>
+											<tr>
+												<td class="lb"><label for="moblphonNo">연락처</label><br> </td>
+												<td colspan="3">
+													<label for="moblphonNo" class="inputHint">ex) 010-XXXX-XXXX</label>
 													<div class="phoneNumBox">
 														<input value="<c:out value='${userManageVO.moblphonNo1}'/>" id="moblphonNo1" name="moblphonNo1" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="3" /><span class="divPnum">-</span>
 														<input value="<c:out value='${userManageVO.moblphonNo2}'/>" id="moblphonNo2" name="moblphonNo2" onkeyup="checkNum(this)" class="f_txt w_full inputs" maxLength="4" /><span class="divPnum">-</span>
@@ -484,7 +486,7 @@ window.onload = function(){
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:UpdtConfirm(); return false;">수정</a>
 											<!-- 저장 -->
-											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="JavaScript:fnListPage(); return false;"><spring:message code="button.list" /></a>
+											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="JavaScript:fnListPage(); return false;">메인</a>
 											<!-- 목록 -->
 										</div>
 									</div>

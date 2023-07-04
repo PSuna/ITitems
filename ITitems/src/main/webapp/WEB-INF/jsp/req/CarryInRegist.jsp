@@ -380,7 +380,7 @@ function returnAss(val){
 					<td>`+maker+`</td>
 					<td>`+rcptNm+`</td>
 					<td>`+useNm+`</td>
-					<td><button style="padding:0 15px;" class="btn pty_btn" onclick="deleteTr(this); return false;">삭제</button></td>
+					<td><button class="btn pty_btn delbtn" onclick="deleteTr(this); return false;">삭제</button></td>
 				 </tr>`;
 		$("#assetTbody").append(p);
 	}
@@ -564,6 +564,11 @@ function ReqList(){
 .errSpan{
 	color:red;
 }
+@media screen and (max-width: 425px){
+	.delbtn{
+		width:32px !important;
+	}
+}
 </style>
 </head>
 <body>
@@ -635,7 +640,7 @@ function ReqList(){
 													type="hidden" title="프로젝트" value="" 
 													/></td>
 													<td class="lb">
-													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
+													<!-- PM(관리자) --> <label for="">PM<span class="skip_str">(관리자)</span></label> <span
 													class="req">필수</span>
 												</td>
 												<td>
