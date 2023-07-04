@@ -280,7 +280,7 @@ public class CommonController {
 	@RequestMapping("/com/xlsxAssetUpload.do")
 	public String xlsxAssetUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		try {
-			commonService.excelUpload(request);
+			commonService.excelAssetUpload(request);
 			redirectAttributes.addFlashAttribute("Code", 0);
 			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
 		} catch (Exception ex) {
@@ -289,4 +289,25 @@ public class CommonController {
 		}
 		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
 	}
+	/**
+	 * 엑셀 업로드 처리
+	 * @param multiRequest
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	/*
+	@RequestMapping("/com/xlsxUserUpload.do")
+	public String xlsxUserUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+		try {
+			commonService.excelUserUpload(request);
+			redirectAttributes.addFlashAttribute("Code", 0);
+			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
+		} catch (Exception ex) {
+			redirectAttributes.addFlashAttribute("Code", 1);
+			redirectAttributes.addFlashAttribute("Message", "오류가 발생하였습니다. 엑셀양식을 확인해 주세요.");
+		}
+		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
+	}
+	*/
 }
