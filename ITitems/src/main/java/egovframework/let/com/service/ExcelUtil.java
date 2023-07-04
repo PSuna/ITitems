@@ -959,6 +959,7 @@ public class ExcelUtil {
 
 	 */
 
+	@SuppressWarnings({ "resource", "deprecation" })
 	public List<HashMap<Integer, String>> excelReadSetValue(CommonsMultipartFile file, int sheetNum, int strartRowNum, int startCelNum) throws Exception {
 
 		List<HashMap<Integer, String>> resultList = new ArrayList<>();
@@ -1093,6 +1094,8 @@ public class ExcelUtil {
 
 									value = cell.getStringCellValue();
 
+									break;
+								default:
 									break;
 
 								}
