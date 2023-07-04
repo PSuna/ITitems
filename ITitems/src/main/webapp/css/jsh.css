@@ -735,6 +735,12 @@ form .condition2 :last-child{
 
 @media screen and (max-width: 425px){
 	
+	.board_view_top .info dl {
+	    padding: 7px 0;
+	}
+	.tit_2+.board_view {
+	    margin-top: 10px;
+	}
 	.f_txt2 {
 	    height: 31px;
 	    font-size: 14px;

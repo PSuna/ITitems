@@ -640,7 +640,7 @@ function ReqList(){
 													type="hidden" title="프로젝트" value="" 
 													/></td>
 													<td class="lb">
-													<!-- PM(관리자) --> <label for="">PM(관리자)</label> <span
+													<!-- PM(관리자) --> <label for="">PM<span class="skip_str">(관리자)</span></label> <span
 													class="req">필수</span>
 												</td>
 												<td>
