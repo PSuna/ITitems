@@ -2,7 +2,7 @@
  * 등록확인 팝업창
  ******************************************************** */
  function RegistConfirm(){
-	 var $dialog = $('<div id="modalPan"></div>')
+	 var $dialog = $('<div id="modalPan" class=""></div>')
 		.html('<iframe style="border: 0px; " src="' + "/com/RegistConfirm.do" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
