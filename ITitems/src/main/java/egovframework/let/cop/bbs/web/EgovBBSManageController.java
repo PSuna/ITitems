@@ -196,7 +196,6 @@ public class EgovBBSManageController {
 	@RequestMapping("/cop/bbs/selectBoardArticle.do")
 	public String selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		
 		// 조회수 증가 여부 지정
 		boardVO.setPlusCount(true);
 
@@ -204,7 +203,8 @@ public class EgovBBSManageController {
 			boardVO.setPlusCount(false);
 		}
 		////-------------------------------
-
+		System.out.println("===========여기=============");
+		System.out.println(boardVO);
 		boardVO.setLastUpdusrId(user.getUniqId());
 		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 

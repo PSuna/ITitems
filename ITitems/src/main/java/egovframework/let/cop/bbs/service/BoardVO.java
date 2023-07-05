@@ -25,6 +25,18 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @SuppressWarnings("serial")
 public class BoardVO extends Board implements Serializable {
 
+
+	//모바일 추가 ========================================
+	private String mobUniqId;
+	public String getMobUniqId() {
+		return mobUniqId;
+	}
+	
+	public void setMobUniqId(String mobUniqId) {
+		this.mobUniqId = mobUniqId;
+	}
+	//================================================
+	
     /** 검색시작일 */
     private String searchBgnDe = "";
     

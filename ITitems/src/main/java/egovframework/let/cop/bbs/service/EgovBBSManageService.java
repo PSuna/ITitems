@@ -98,4 +98,8 @@ public interface EgovBBSManageService {
 	public void updateBoardArticle(Board Board)
 	  throws Exception;
 
+	//모바일 공지사항
+	public Map<String, Object> mobSelectBoardArticles(BoardVO boardVO, String attrbFlag)
+			  throws Exception;
+	
 }
