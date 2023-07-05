@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -99,17 +100,14 @@ public class MobEgovBBSManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/cop/bbs/MobSelectBoardList.do")
-	public Map<String, Object> selectBoardArticles(BoardVO boardVO) throws Exception {
+	public Map<String, Object> selectBoardArticles(@RequestBody String uniqId, BoardVO boardVO) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-
-		boardVO.setBbsId("BBSMSTR_AAAAAAAAAAAA");//공지게시판만 가져옴
+		boardVO.setBbsId("BBSMSTR_AAAAAAAAAAAA");// 공지게시판만 가져옴
 
 		BoardMasterVO vo = new BoardMasterVO();
 
 		vo.setBbsId(boardVO.getBbsId());
-		vo.setUniqId(user.getUniqId());
-
+		vo.setUniqId(uniqId);
 
 		Map<String, Object> map = bbsMngService.mobSelectBoardArticles(boardVO, "BBSA01");
 
@@ -129,40 +127,27 @@ public class MobEgovBBSManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/cop/bbs/MobSelectBoardArticle.do")
-	public String selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+	public Map<String, Object> selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		
+
 		// 조회수 증가 여부 지정
 		boardVO.setPlusCount(true);
 
 		if (!boardVO.getSubPageIndex().equals("")) {
 			boardVO.setPlusCount(false);
 		}
-		////-------------------------------
+		//// -------------------------------
 
 		boardVO.setLastUpdusrId(user.getUniqId());
 		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
-		model.addAttribute("result", vo);
-		model.addAttribute("sessionUniqId", user.getUniqId());
+		resultMap.put("result", vo);
+		resultMap.put("sessionUniqId", user.getUniqId());
 
-		//----------------------------
-		// template 처리 (기본 BBS template 지정  포함)
-		//----------------------------
-		BoardMasterVO master = new BoardMasterVO();
+		resultMap.put("searchVO", boardVO);
 
-		master.setBbsId(boardVO.getBbsId());
-		master.setUniqId(user.getUniqId());
-		
-		BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
-
-		if (masterVo.getTmplatCours() == null || masterVo.getTmplatCours().equals("")) {
-			masterVo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
-		}
-
-		model.addAttribute("brdMstrVO", masterVo);
-		model.addAttribute("searchVO", boardVO);
-
-		return "cop/bbs/EgovNoticeInqire";
+		return resultMap;
 	}
 }

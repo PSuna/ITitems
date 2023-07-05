@@ -133,9 +133,7 @@ public class EgovBBSManageController {
 		
 		boardVO.setBbsId(boardVO.getBbsId());
 		boardVO.setBbsNm(boardVO.getBbsNm());
-		System.out.println("==========여기=================================");
-		System.out.println(boardVO);
-		System.out.println("==========여기=================================");
+
 		BoardMasterVO vo = new BoardMasterVO();
 
 		vo.setBbsId(boardVO.getBbsId());
@@ -198,7 +196,6 @@ public class EgovBBSManageController {
 	@RequestMapping("/cop/bbs/selectBoardArticle.do")
 	public String selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		
 		// 조회수 증가 여부 지정
 		boardVO.setPlusCount(true);
 
