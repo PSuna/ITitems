@@ -222,6 +222,19 @@ public class AssetController {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		model.addAttribute("loginId", user.getUniqId());
 		
+		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
+			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
+		}
+		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
+			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
+		}
+		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
+			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
+		}
+		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
+			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
+		}
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
 		vo.setTableNm("LETTNORGNZTINFO");

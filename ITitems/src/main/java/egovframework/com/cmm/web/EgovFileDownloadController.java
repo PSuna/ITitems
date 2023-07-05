@@ -127,10 +127,6 @@ public class EgovFileDownloadController {
 		String atchFileId = (String) commandMap.get("atchFileId");
 		String fileSn = (String) commandMap.get("fileSn");
 
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-
-		if (isAuthenticated) {
-
 			FileVO fileVO = new FileVO();
 			fileVO.setAtchFileId(atchFileId);
 			fileVO.setFileSn(fileSn);
@@ -181,6 +177,6 @@ public class EgovFileDownloadController {
 				request.getRequestDispatcher("/cmm/error/egovBizException.jsp").forward(request, response);
 							
 			}
-		}
+
 	}
 }
