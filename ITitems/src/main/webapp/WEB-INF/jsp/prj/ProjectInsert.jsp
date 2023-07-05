@@ -67,7 +67,7 @@ function fnPrjInsert(){
 function UserSearch(ch){
 	userCheck = ch;
     
-    var $dialog = $('<div id="modalPan"></div>')
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,

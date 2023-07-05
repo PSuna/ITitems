@@ -34,7 +34,7 @@
 <script type="text/javascript">
 function ProjectSearch(){
     
-    var $dialog = $('<div id="modalPan"></div>')
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,

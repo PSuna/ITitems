@@ -143,7 +143,7 @@ margin-left:60px;
 	background:url(../images/ico_allmenu_on.png) no-repeat;
 }
 .container {
-	min-height: calc(100% - 170px);
+	min-height: calc(100% - 160px);
 	/* height: 1000px; */
 }
 .content {
@@ -366,7 +366,7 @@ margin-left:60px;
 .footer .inner {
 	position:relative;
 	width: 100%;
-	height:45px;
+	height:100%;
 	margin:0 auto;
 	padding:0 50px;
 	display: flex;

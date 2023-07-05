@@ -76,6 +76,11 @@
 				<h4> 다운로드 → </h4>
 			</a>
 		</c:when>
+		<c:when test="${fileVO.fileType == 'APKG'}">
+			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
+				<h4> 가이드 → </h4>
+			</a>
+		</c:when>
 		<c:otherwise>
 			<a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">
 				<c:out value="${fileVO.orignlFileNm}"/>

@@ -269,7 +269,7 @@ function RegistConfirm(){
  ******************************************************** */
 function ProjectSearch(){
     
-    var $dialog = $('<div id="modalPan"></div>')
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
@@ -286,7 +286,7 @@ function ProjectSearch(){
  ******************************************************** */
 function AssetSearch(){
     
-    var $dialog = $('<div id="modalPan"></div>')
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
@@ -303,7 +303,7 @@ function AssetSearch(){
  ******************************************************** */
 function UserSearch(ch){
 	userCheck = ch;
-    var $dialog = $('<div id="modalPan"></div>')
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
@@ -745,11 +745,11 @@ function ReqList(){
 												</td>
 												<td colspan="3">
 													<div>
-														<span class="search_date">
+														<span class="search_date wp_date">
 															<input id="startDate" class="f_txt w_full readonly" name="startDate" type="text" maxlength="60" readonly="readonly" checkStartDate()">
 														</span>
 														&nbsp;&nbsp;―&nbsp;&nbsp;
-														<span class="search_date">
+														<span class="search_date wp_date">
 															<input id="endDate" class="f_txt w_full readonly" name="endDate" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
 														</span>
 													</div>

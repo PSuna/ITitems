@@ -48,7 +48,13 @@
 .j_table tr td:nth-child(8), .j_table tr th:nth-child(8){
 	width: 10%
 }
+.popup .j_box02 .search_box {
+    width: 99% !important;
+}
 
+.popup .j_box02 .btn_box {
+    width: 99% !important;
+}
 .gnb li div {
 	width: 100%;
 }
@@ -63,6 +69,8 @@
 .file_G img{
 	width: 68px;
 }
+
+
 
 .w_88{
 	width: 88px;
@@ -735,6 +743,18 @@ form .condition2 :last-child{
 
 @media screen and (max-width: 425px){
 	
+	.pop_header {
+	    height: 61px;
+	}
+	.pop_header .close {
+	    right: 4%;
+	    top: 14px;
+	}
+	
+	.popup .board_list_bot{
+		margin-bottom: 10px
+	}
+	
 	.board_view_top .info dl {
 	    padding: 7px 0;
 	}
@@ -781,6 +801,16 @@ form .condition2 :last-child{
 	.ui-widget.ui-widget-content {
 		width: 100% !important;
 	}
+	
+ 	.SearchListPan {
+		max-height: 98%;
+		height: 100% !important;
+	}
+	
+	.SearchListPan .SearchList{
+	    max-height: 100% !important;
+	    height: -webkit-fill-available !important;
+	}  
 	
 	.j_box07 .search_box{
 	    width: 99%;
@@ -1142,6 +1172,11 @@ form .condition2 :last-child{
     	position: absolute;
     	bottom: 7%;
     	width: 95%;
+    	flex-wrap: wrap;
+	}
+	
+	.file_G div{
+		width: 100%;
 	}
 	
 	.search_date input{

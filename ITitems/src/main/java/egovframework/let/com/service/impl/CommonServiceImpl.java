@@ -20,6 +20,8 @@ import egovframework.let.ass.service.impl.AssetDAO;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.com.service.ExcelUtil;
 import egovframework.let.com.service.StringUtil;
+import egovframework.let.sec.rgm.service.AuthorGroup;
+import egovframework.let.sec.rgm.service.impl.AuthorGroupDAO;
 import egovframework.let.uss.umt.service.UserManageVO;
 import egovframework.let.uss.umt.service.impl.UserManageDAO;
 import egovframework.let.utl.sim.service.EgovFileScrty;
@@ -29,6 +31,9 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 
 	@Resource(name = "CommonDAO")
 	private CommonDAO commonDAO;
+	
+	@Resource(name="authorGroup")
+    private AuthorGroup authorGroup;
 	
 	@Resource(name = "AssetDAO")
 	private AssetDAO assetDAO;
@@ -43,6 +48,10 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	/** userManageDAO */
 	@Resource(name="userManageDAO")
 	private UserManageDAO userManageDAO;
+	
+	/** authorGroupDAO */
+	@Resource(name="authorGroupDAO")
+    private AuthorGroupDAO authorGroupDAO;
 	
 	@Override
 	public int InsertXcptInfo(HashMap<String, String> xcpt) {
@@ -65,8 +74,9 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		ExcelUtil eu = new ExcelUtil();
 		int sheetNum = 0;		//1번째 시트 읽음 
 		int strartRowNum = 1;	//2번째 줄부터 읽음
-		int startCelNum = 2; 	//3번째 줄부터 읽음(지역ID)
+		int startCelNum = 0; 	//3번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+excelList);
 		//테이블 Key 정보
 		AssetVO assetVO = null;
 		//엑셀 Row 수 만큼 For문 조회 
@@ -79,31 +89,31 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				int key = iterator.next();
 				String value = StringUtil.nullConvert(mp.get(key));
 				switch(key) {
-				case 2 :
+				case 0 :
 					assetVO.setMiddleCategory(value);
 					break;
-				case 3 :
+				case 1 :
 					assetVO.setMaker(value);
 					break;
-				case 4 :
+				case 2 :
 					assetVO.setPrjId(value);
 					break;
-				case 5 :
+				case 3 :
 					assetVO.setRcptId(value);
 					break;
-				case 6 :
+				case 4 :
 					assetVO.setUseId(value);
 					break;
-				case 7 :
+				case 5 :
 					assetVO.setAssetName(value);
 					break;
-				case 8 :
+				case 6 :
 					assetVO.setAssetSn(value);
 					break;
-				case 9 :
+				case 7 :
 					assetVO.setRcptDate(value);
 					break;
-				case 10 :
+				case 8 :
 					assetVO.setNote(value);
 					break;
 				}
@@ -176,11 +186,11 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				String pass = EgovFileScrty.encryptPassword("iteyes00", userManageVO.getEmplyrId());
 				userManageVO.setPassword(pass);
 				
-				//authorGroup.setUniqId(uniqId);
-				//authorGroup.setAuthorCode(userManageVO.getAuthorCode());
+				authorGroup.setUniqId(uniqId);
+				authorGroup.setAuthorCode(userManageVO.getAuthorCode());
 				
-				int r =userManageDAO.insertUser(userManageVO);
-				//authorGroupDAO.insertAuthorGroup(authorGroup);
+				userManageDAO.insertUser(userManageVO);
+				authorGroupDAO.insertAuthorGroup(authorGroup);
 			}
 		}
 	}
