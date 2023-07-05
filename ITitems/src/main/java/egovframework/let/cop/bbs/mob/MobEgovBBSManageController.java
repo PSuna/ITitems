@@ -108,11 +108,14 @@ public class MobEgovBBSManageController {
 
 		vo.setBbsId(boardVO.getBbsId());
 		vo.setUniqId(uniqId);
-
+		
+		BoardMasterVO master = bbsAttrbService.selectBBSMasterInf(vo);
+		
 		Map<String, Object> map = bbsMngService.mobSelectBoardArticles(boardVO, "BBSA01");
 
 		resultMap.put("resultList", map.get("resultList"));
 		resultMap.put("resultCnt", map.get("resultCnt"));
+		resultMap.put("brdMstrVO", master);
 
 		return resultMap;
 	}
@@ -127,10 +130,8 @@ public class MobEgovBBSManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/cop/bbs/MobSelectBoardArticle.do")
-	public Map<String, Object> selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO) throws Exception {
+	public Map<String, Object> selectBoardArticle(@RequestBody BoardVO boardVO, String userId) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
 		// 조회수 증가 여부 지정
 		boardVO.setPlusCount(true);
@@ -140,11 +141,10 @@ public class MobEgovBBSManageController {
 		}
 		//// -------------------------------
 
-		boardVO.setLastUpdusrId(user.getUniqId());
+		boardVO.setLastUpdusrId(boardVO.getMobUniqId());
 		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
 		resultMap.put("result", vo);
-		resultMap.put("sessionUniqId", user.getUniqId());
 
 		resultMap.put("searchVO", boardVO);
 

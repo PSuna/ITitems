@@ -203,7 +203,8 @@ public class EgovBBSManageController {
 			boardVO.setPlusCount(false);
 		}
 		////-------------------------------
-
+		System.out.println("===========여기=============");
+		System.out.println(boardVO);
 		boardVO.setLastUpdusrId(user.getUniqId());
 		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
