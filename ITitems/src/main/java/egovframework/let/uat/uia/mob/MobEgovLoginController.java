@@ -87,7 +87,7 @@ public class MobEgovLoginController {
 	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")
 	public String actionSecurityLogin(@RequestBody LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
-
+		
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
 
@@ -148,8 +148,6 @@ public class MobEgovLoginController {
 
 		} else {
 			result = "fail";
-			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
 		}
 
 		return result;
