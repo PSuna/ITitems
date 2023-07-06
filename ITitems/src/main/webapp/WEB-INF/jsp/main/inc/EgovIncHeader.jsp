@@ -177,7 +177,7 @@ function fn_egov_modal_remove() {
 			                </ul> -->
 			                
 			                <!-- <ul>
-			                	<li><a class="gnb_a pg_a" href="/ass/MngNumManagement.do">자산관리번호 관리</a></li>
+			                	<li><a class="gnb_a pg_a" href="/ass/MngNumManagement.do">중복데이터 관리</a></li>
 			                </ul>
 			                <ul>
 			                	<li><a class="gnb_a pg_a" href="/ass/AssetSnManagement.do">시리얼넘버 관리</a></li>
