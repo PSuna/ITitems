@@ -61,7 +61,7 @@ public class MobProjectController {
 	@RequestMapping(value = "/prj/MobProjectSearchList.do")
 	public Map<String, Object> selectZipSearchList(@RequestBody ProjectManageVO searchVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
-		Map<String, Object> resultMap = projectService.SelectProjectVOList(searchVO);
+		Map<String, Object> resultMap = projectService.MobSelectProjectVOList(searchVO);
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "6000000");
 
@@ -70,7 +70,7 @@ public class MobProjectController {
 		// 프로젝트 진행여부를 코드정보로부터 조회
 		vo.setCodeId("COM007");
 		resultMap.put("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
-		Map<String, Object> map = projectService.SelectProjectVOList(searchVO);
+		Map<String, Object> map = projectService.MobSelectProjectVOList(searchVO);
 
 		resultMap.put("resultList", map.get("resultList"));
 		resultMap.put("searchVO", searchVO);
