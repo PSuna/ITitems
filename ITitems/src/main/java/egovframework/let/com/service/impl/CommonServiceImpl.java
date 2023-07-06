@@ -185,10 +185,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				//패스워드 암호화
 				String pass = EgovFileScrty.encryptPassword("iteyes00", userManageVO.getEmplyrId());
 				userManageVO.setPassword(pass);
-				
 				authorGroup.setUniqId(uniqId);
 				authorGroup.setAuthorCode(userManageVO.getAuthorCode());
-				
 				userManageDAO.insertUser(userManageVO);
 				authorGroupDAO.insertAuthorGroup(authorGroup);
 			}
