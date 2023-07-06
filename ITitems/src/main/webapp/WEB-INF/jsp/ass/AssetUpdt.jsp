@@ -564,7 +564,7 @@ window.onload = function(){
 													<!-- 품명 --> 
 													<label for="">제품명(모델명)</label>
 												</td>
-												<td>
+												<td> 
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 												</td>
 												<td class="lb">
@@ -616,7 +616,7 @@ window.onload = function(){
 														<td>
 															<span class="f_search2 w_full"> 
 															<input id="rcptNm" type="text" maxlength="100"
-																readonly="readonly"  value="${resultVO.rcptNm}"/>
+																readonly="readonly"  value="${resultVO.rcptNm}" onclick="UserSearch(0);"/>
 															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 															</span> 
 															<input name="rcptId" id="rcptId" type="hidden"
@@ -631,7 +631,7 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="readonly" value="${resultVO.useNm}"/>
+															readonly="readonly" value="${resultVO.useNm}" onclick="UserSearch(1);"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span> 
 													<input name="useId" id="useId" type="hidden"
@@ -663,7 +663,7 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="readonly" value="${resultVO.prjNm}"/>
+														readonly="readonly" value="${resultVO.prjNm}" onclick="ProjectSearch();"/>
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
