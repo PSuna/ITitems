@@ -46,10 +46,6 @@
 	
 </script>
 <style>
-.right_btn{
-	float:inherit;
-}
-
 </style>
 </head>
 
@@ -69,7 +65,7 @@
 						<h4><spring:message code="common.acknowledgementcancel.msg" /></h4>
 						<!-- 버튼  -->
 						<div class="board_view_bot">
-							<div class="right_btn btn1">
+							<div class="btn1">
 								<!-- 예  -->
 								<a href="#LINK" class="btn btn_blue_46 w_100"
 									onclick="return_val(true);return false;"><spring:message
