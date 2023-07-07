@@ -63,6 +63,9 @@ let loginId = '${loginId}';
  ******************************************************** */
 function insert_asset(){
 		inputFile();
+		if(!cnfirm){
+			document.getElementById("assetSn").value  = "";
+		}
 		 let formData = new FormData(document.getElementById('assetRegist'));
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
@@ -323,6 +326,18 @@ function AssetList(){
 }
  
 /* ********************************************************
+ * 시리얼넘버 입력
+ ******************************************************** */
+function ReturnAssetSn(val){
+	resetBtnCl = $(resetBtn).clone();
+	if (val) {
+		document.getElementById("assetSn").value  = val.assetSn;
+	}
+	
+	fn_egov_modal_remove();
+}
+ 
+/* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
@@ -475,7 +490,12 @@ window.onload = function(){
 													<label for=""><spring:message code="ass.assetSn" /></label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
+													<span class="f_search2 w_full"> 
+														<input id="assetSn" name="assetSn" type="text" maxlength="60"
+															readonly="readonly" onclick="AssetSnCnfirm();"/>
+														<button type="button" class="btn" onclick="AssetSnCnfirm();">조회</button>
+													</span> 
+													<!-- <input id="assetSn" class="f_txt w_full" name="assetSn" type="text" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">  -->
 												</td>
 											</tr>
 											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">

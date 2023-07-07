@@ -249,6 +249,12 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return map;
 	}
 
+	@Override
+	public int SelectAssetSn(AssetManageVO assetManageVO) {
+		
+		return assetDAO.SelectAssetSn(assetManageVO);
+	}
+
 
 
 

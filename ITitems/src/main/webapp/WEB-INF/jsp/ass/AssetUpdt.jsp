@@ -409,6 +409,18 @@ function addDelFile(fileId) {
 }
 
 /* ********************************************************
+ * 시리얼넘버 입력
+ ******************************************************** */
+function ReturnAssetSn(val){
+	resetBtnCl = $(resetBtn).clone();
+	if (val) {
+		document.getElementById("assetSn").value  = val.assetSn;
+	}
+	
+	fn_egov_modal_remove();
+}
+
+/* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
@@ -417,6 +429,7 @@ window.onload = function(){
 	make_date();
 	checkMakerEtc();
 	  }
+	  
 //-->
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -572,7 +585,12 @@ window.onload = function(){
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
+													<span class="f_search2 w_full"> 
+														<input id="assetSn" name="assetSn" value="${resultVO.assetSn}" type="text" maxlength="60"
+															readonly="readonly" onclick="AssetSnCnfirm();"/>
+														<button type="button" class="btn" onclick="AssetSnCnfirm();">조회</button>
+													</span> 
+													<%-- <input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">  --%>
 												</td>
 											</tr>
 											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">

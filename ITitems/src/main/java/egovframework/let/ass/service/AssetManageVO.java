@@ -39,6 +39,9 @@ public class AssetManageVO implements Serializable {
 	/** 자산 분류 ID */
 	private String assId;
 	
+	/** 시리얼넘버 */
+	private String assetSn;
+	
 	/** 검색본부 */
     private String searchOrgnzt = "";
     
@@ -421,6 +424,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setMngNum(String mngNum) {
 		this.mngNum = mngNum;
+	}
+	public String getAssetSn() {
+		return assetSn;
+	}
+	public void setAssetSn(String assetSn) {
+		this.assetSn = assetSn;
 	}
 	
 	
