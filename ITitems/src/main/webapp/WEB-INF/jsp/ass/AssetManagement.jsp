@@ -300,6 +300,7 @@ window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
 	getOrgList('${searchVO.lowerOrgnzt}')
 	make_date();
+	/* console.log(navigator.userAgentData.brands); */
 	  }
 //-->
 </script>
@@ -399,7 +400,7 @@ window.onload = function(){
 												<!-- <span class="lb">수령자/실사용자</span> -->
 												<span class="f_search2 w_full"> 
 													<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
-														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
+														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="UserSearch()"/>
 													<button type="button" class="btn" onclick="UserSearch()">조회</button>
 												</span>
 												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
@@ -407,9 +408,9 @@ window.onload = function(){
 											</div>
 											<div class="search_box">
 												<!-- <span class="lb">프로젝트</span>  -->
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" onclick="ProjectSearch();"/>
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly"/>
 											</div>
 											<div class="btn_box">
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>

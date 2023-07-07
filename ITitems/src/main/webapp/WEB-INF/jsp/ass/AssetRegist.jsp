@@ -503,7 +503,7 @@ window.onload = function(){
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_full"> 
 													<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
-														readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
+														readonly="readonly" value="<c:out value="${Nm}"></c:out>" onclick="UserSearch(0);"/>
 													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden" 
@@ -516,7 +516,7 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" name="useNm" type="text" maxlength="100"
-															readonly="readonly" value="<c:out value="${Nm}"></c:out>"/>
+															readonly="readonly" value="<c:out value="${Nm}"></c:out>"  onclick="UserSearch(1);"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span>
 													<input name="useId" id="useId" type="hidden" value="<c:out value="${Id}"></c:out>"
@@ -560,7 +560,7 @@ window.onload = function(){
 
 													<input id="prjNm" name="prjNm" type="text" maxlength="100"
 
-														readonly="readonly" />
+														readonly="readonly" onclick="ProjectSearch();"/>
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 
