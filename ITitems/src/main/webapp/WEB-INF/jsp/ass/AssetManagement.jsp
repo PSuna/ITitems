@@ -460,21 +460,21 @@ window.onload = function(){
 											<col style="width: 6%;">
 											<col style="width: 15%;">
 											<col style="width: 15%;">
-											<col style="width: 31%;">
 											<col style="width: 12%;">
 											<col style="width: 9%;">
 											<col style="width: 12%;">
+											<col style="width: 31%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">본부</th>
 												<th scope="col">부서</th>
-												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
 												<!-- <th scope="col">자산관리번호</th> -->
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
+												<th scope="col">프로젝트</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
@@ -487,11 +487,11 @@ window.onload = function(){
 													</td>
 													<td><c:out value="${result.orgnztNm}" /></td>
 													<td><c:out value="${result.lowerOrgnztNm}" /></td>
-													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<%-- <td><c:out value="${result.mngNum}" /></td> --%>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>

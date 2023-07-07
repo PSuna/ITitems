@@ -18,7 +18,10 @@
 .passHint{
 	margin-bottom: 5px;
 }
-
+.wp_80 {
+	width: 80%;
+	margin: auto;
+}
 .j_table tr td:nth-child(1), .j_table tr th:nth-child(1){
 	width: 3%
 }
@@ -776,11 +779,7 @@ form .condition2 :last-child{
 	    display: flex;
     	flex-wrap: wrap;
 	}
-	
-	.pop_container .box_1 :first-child {
-	    width: 99%;
-	    margin-bottom: 10px;
-	}
+
 	
 	.pop_container {
 	    padding: 5px 10px;
@@ -1018,6 +1017,15 @@ form .condition2 :last-child{
 }
 
 @media screen and (max-width: 900px){
+		
+	.pop_container .box_1 :first-child {
+	    width: 99%;
+	    margin-bottom: 10px;
+	}
+	.pop_container .box_1 {
+	    display: flex;
+	    flex-wrap: wrap;
+	}
 	
 	.paging .btn a {
 	    width: 23px;

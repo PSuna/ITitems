@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -655,5 +656,31 @@ public class AssetController {
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
 		return "/ass/AssetSnManagement";
+	}
+	
+	/**
+	 * 시리얼넘버중복확인 페이지 이동
+	 */
+	@RequestMapping(value = "/ass/AssetSnCnfirmView.do")
+	public String AssetSnCnfirmView(ModelMap model) throws Exception {
+		
+		model.addAttribute("usedCnt", -1);
+		
+		return "/ass/AssetSnCnfirm";
+	}
+	
+	/**
+	 * 시리얼넘버중복확인
+	 */
+	@RequestMapping(value = "/ass/AssetSnCnfirm.do")
+	public String AssetSnCnfirm(ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		
+		model.addAttribute("assetSn", assetManageVO.getAssetSn());
+		
+		int usedCnt = assetService.SelectAssetSn(assetManageVO);
+		
+		model.addAttribute("usedCnt", usedCnt);
+		
+		return "/ass/AssetSnCnfirm";
 	}
 }

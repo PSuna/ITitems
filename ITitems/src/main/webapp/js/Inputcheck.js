@@ -4,7 +4,7 @@
 function symbolCheck1(obj){
 	let val1 = $(obj).val();
 	let val2 = val1.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-	let val3 = val2.substr(0, 30);
+	let val3 = val2.substr(0, 20);
 	let val4 = val3.toUpperCase();
 	 $(obj).val(val4);
 }
@@ -15,7 +15,7 @@ function symbolCheck1(obj){
 function symbolCheck2(obj){
 	let val1 = $(obj).val();
 	let val2 = val1.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣-_.]/g, "");
-	let val3 = val2.substr(0, 30);
+	let val3 = val2.substr(0, 20);
 	let val4 = val3.toUpperCase();
 	 $(obj).val(val4);
 }
