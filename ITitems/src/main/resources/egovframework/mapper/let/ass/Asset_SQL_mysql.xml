@@ -984,4 +984,10 @@
 						 <include refid="assetSnsearch" />
 				    ) P 
 	</select>
+	
+	<select id="SelectAssetSn" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
+		SELECT COUNT(ASSET_SN)
+		  FROM ASSET
+		 WHERE ASSET_SN = #{assetSn}
+	</select>
 </mapper>

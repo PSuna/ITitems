@@ -170,7 +170,7 @@ function fn_egov_modal_remove() {
 							
 			                <ul>
 			                	<li><a class="gnb_a pg_a" href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
-			                </ul>
+			                </ul> 
 							
 			                <!-- <ul>
 			                	<li><a class="gnb_a pg_a" href="/ass/DistinctManage.do">중복데이터조회</a></li>

@@ -372,9 +372,9 @@ window.onload = function(){
 											<col style="width: 10%;">
 											<col style="width: 17%;">
 											<col style="width: 17%;">
-											<col style="width: 26%;">
 											<col style="width: 10%;">
 											<col style="width: 13%;">
+											<col style="width: 26%;">
 										</colgroup>
 										<thead>
 											<tr>
@@ -382,9 +382,9 @@ window.onload = function(){
 												<th scope="col">분류</th>
 												<th scope="col">제품명</th>
 												<th scope="col">시리얼넘버</th>
-												<th scope="col">프로젝트</th>
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
+												<th scope="col">프로젝트</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -397,9 +397,9 @@ window.onload = function(){
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
 													<td><c:out value="${result.assetSn}" /></td>
-													<td><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>

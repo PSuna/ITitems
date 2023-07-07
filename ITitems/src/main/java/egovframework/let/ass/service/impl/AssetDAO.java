@@ -133,4 +133,8 @@ public class AssetDAO extends EgovAbstractMapper {
 	public int CountAssetSnList(AssetManageVO AssetManageVO) {
 		return selectOne("AssetDAO.CountAssetSnList",AssetManageVO);
 	};
+	
+	public int SelectAssetSn(AssetManageVO AssetManageVO) {
+		return selectOne("AssetDAO.SelectAssetSn",AssetManageVO);
+	};
 }

@@ -300,6 +300,7 @@ window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
 	getOrgList('${searchVO.lowerOrgnzt}')
 	make_date();
+	/* console.log(navigator.userAgentData.brands); */
 	  }
 //-->
 </script>
@@ -399,7 +400,7 @@ window.onload = function(){
 												<!-- <span class="lb">수령자/실사용자</span> -->
 												<span class="f_search2 w_full"> 
 													<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
-														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
+														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="UserSearch()"/>
 													<button type="button" class="btn" onclick="UserSearch()">조회</button>
 												</span>
 												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
@@ -407,9 +408,9 @@ window.onload = function(){
 											</div>
 											<div class="search_box">
 												<!-- <span class="lb">프로젝트</span>  -->
-												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" />
+												<span class="f_search2 w_full"> <input id="prjNm" name="prjNm" type="text" placeholder="프로젝트"  maxlength="100" readonly="false" value="<c:out value="${searchVO.prjNm}"/>" onclick="ProjectSearch();"/>
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
-												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
+												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly"/>
 											</div>
 											<div class="btn_box">
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
@@ -459,21 +460,21 @@ window.onload = function(){
 											<col style="width: 6%;">
 											<col style="width: 15%;">
 											<col style="width: 15%;">
-											<col style="width: 31%;">
 											<col style="width: 12%;">
 											<col style="width: 9%;">
 											<col style="width: 12%;">
+											<col style="width: 31%;">
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col">번호</th>
 												<th scope="col">본부</th>
 												<th scope="col">부서</th>
-												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
 												<!-- <th scope="col">자산관리번호</th> -->
 												<th scope="col">수령자</th>
 												<th scope="col">실사용자</th>
+												<th scope="col">프로젝트</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>
@@ -486,11 +487,11 @@ window.onload = function(){
 													</td>
 													<td><c:out value="${result.orgnztNm}" /></td>
 													<td><c:out value="${result.lowerOrgnztNm}" /></td>
-													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<%-- <td><c:out value="${result.mngNum}" /></td> --%>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
+													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
 													<%-- <td><c:out value="${result.usageStatus}" /></td> --%>
 												</tr>
 											</c:forEach>
