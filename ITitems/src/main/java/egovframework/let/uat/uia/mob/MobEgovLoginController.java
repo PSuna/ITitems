@@ -54,7 +54,6 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
  */
 @RestController
 public class MobEgovLoginController {
-
 	/** EgovLoginService */
 	@Resource(name = "loginService")
 	private EgovLoginService loginService;
@@ -83,6 +82,14 @@ public class MobEgovLoginController {
 	 * @return result - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
+	
+	//모바일 푸시 정보 등록
+	@RequestMapping(value="/uat/uia/mob/setPushToken.do")
+	public String setPushToken(@RequestBody Map<String, Object> pushTokenInfo) {
+		String result = "false";
+		
+		return result;
+	}
 	// ❤️ 모바일 로그인
 	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")
 	public String actionSecurityLogin(@RequestBody LoginVO loginVO, HttpServletResponse response,
