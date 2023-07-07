@@ -47,7 +47,7 @@
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <script type="text/javascript"
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
-<script type="text/javaScript" language="javascript" defer="defer">
+<script type="text/javaScript" language="javascript">
 
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -131,10 +131,12 @@
 												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
 											</div>
 										</div>
-										<p>아래 지급확인서를 다운받아 작성하여 등록해주세요.</p>
+										<div class="pop_container pop_Manual_File">
+										<p>엑셀양식다운로드</p>
 										<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 				                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 				                        </c:import>
+				                        </div>
 									</div>	
 								</form>
 								<!--// 검색 조건 -->
