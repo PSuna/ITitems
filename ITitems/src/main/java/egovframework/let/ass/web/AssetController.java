@@ -656,4 +656,15 @@ public class AssetController {
 		
 		return "/ass/AssetSnManagement";
 	}
+	
+	/**
+	 * 자산 엑셀업로드 안내 화면 이동
+	 */
+	@RequestMapping(value = "/ass/AssetExcelUploadStart.do")
+	public String AssetExcelUploadStart(ModelMap model) throws Exception {
+		FileVO fvo = new FileVO();
+		fvo.setFileType("A_EXCEL");
+		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		return "/ass/AssetExcelUploadStart"; 
+	}
 }

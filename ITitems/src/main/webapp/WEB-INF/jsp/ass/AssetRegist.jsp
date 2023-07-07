@@ -624,6 +624,10 @@ window.onload = function(){
 									</div>
 									<!-- 등록버튼  -->
 									<div class="board_view_bot btn_bot">
+										<%-- <div class="left_btn btn1">
+											<!-- 엑셀 업로드 -->
+											<a href="<c:url value='/ass/AssetExcelUploadStart.do'/>" class= "btn btn_blue_46 w_150">엑셀업로드</a>
+										</div> --%>
 										<div class="right_btn btn1">
 
 											<!-- 등록 -->
