@@ -55,4 +55,5 @@ public interface AssetService {
 	public Map<String, Object> SelectMngNumList(AssetManageVO assetManageVO);
 	
 	public Map<String, Object> SelectAssetSnList(AssetManageVO assetManageVO);
+	public int SelectAssetSn(AssetManageVO assetManageVO);
 }

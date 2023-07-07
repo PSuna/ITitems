@@ -44,12 +44,7 @@
 	}
 	
 </script>
-<style>
-.right_btn{
-	float:inherit;
-}
 
-</style>
 </head>
 
 <body>
@@ -58,7 +53,7 @@
 		기능을 사용하실 수 없습니다.</noscript>
 
 		<!-- 프로젝트 찾기 팝업 -->
-		<div class="popup POP_POST_SEARCH">
+		<div class="popup POP_POST_SEARCH check_pop">
 			<div class="pop_inner">
 				<div class="pop_header">
 					<h1>승인확인</h1>
@@ -68,7 +63,7 @@
 						<h4><spring:message code="common.acknowledgement.msg" /></h4>
 						<!-- 버튼  -->
 						<div class="board_view_bot">
-							<div class="right_btn btn1">
+							<div class="btn1">
 								<!-- 예  -->
 								<a href="#LINK" class="btn btn_blue_46 w_100"
 									onclick="return_val(true);return false;"><spring:message

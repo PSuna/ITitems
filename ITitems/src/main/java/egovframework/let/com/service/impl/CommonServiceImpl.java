@@ -73,10 +73,9 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		//엑셀정보
 		ExcelUtil eu = new ExcelUtil();
 		int sheetNum = 0;		//1번째 시트 읽음 
-		int strartRowNum = 1;	//2번째 줄부터 읽음
-		int startCelNum = 0; 	//3번째 줄부터 읽음(지역ID)
+		int strartRowNum = 2;	//3번째 줄부터 읽음
+		int startCelNum = 1; 	//2번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+excelList);
 		//테이블 Key 정보
 		AssetVO assetVO = null;
 		//엑셀 Row 수 만큼 For문 조회 
@@ -90,31 +89,30 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				String value = StringUtil.nullConvert(mp.get(key));
 				switch(key) {
 				case 0 :
-					assetVO.setMiddleCategory(value);
+					assetVO.setRcptDate(value);
 					break;
 				case 1 :
-					assetVO.setMaker(value);
-					break;
-				case 2 :
-					assetVO.setPrjId(value);
-					break;
-				case 3 :
 					assetVO.setRcptId(value);
 					break;
-				case 4 :
+				case 2 :
+					assetVO.setMiddleCategory(value);
+					break;
+				case 3 :
 					assetVO.setUseId(value);
+					break;
+				case 4 :
+					assetVO.setAssetSn(value);
 					break;
 				case 5 :
 					assetVO.setAssetName(value);
 					break;
 				case 6 :
-					assetVO.setAssetSn(value);
+					assetVO.setMaker(value);
 					break;
 				case 7 :
-					assetVO.setRcptDate(value);
-					break;
-				case 8 :
 					assetVO.setNote(value);
+					break;	
+				default :
 					break;
 				}
 			}
@@ -185,10 +183,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				//패스워드 암호화
 				String pass = EgovFileScrty.encryptPassword("iteyes00", userManageVO.getEmplyrId());
 				userManageVO.setPassword(pass);
-				
 				authorGroup.setUniqId(uniqId);
 				authorGroup.setAuthorCode(userManageVO.getAuthorCode());
-				
 				userManageDAO.insertUser(userManageVO);
 				authorGroupDAO.insertAuthorGroup(authorGroup);
 			}

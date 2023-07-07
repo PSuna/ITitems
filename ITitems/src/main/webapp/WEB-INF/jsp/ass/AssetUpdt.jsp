@@ -409,6 +409,18 @@ function addDelFile(fileId) {
 }
 
 /* ********************************************************
+ * 시리얼넘버 입력
+ ******************************************************** */
+function ReturnAssetSn(val){
+	resetBtnCl = $(resetBtn).clone();
+	if (val) {
+		document.getElementById("assetSn").value  = val.assetSn;
+	}
+	
+	fn_egov_modal_remove();
+}
+
+/* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
@@ -417,6 +429,7 @@ window.onload = function(){
 	make_date();
 	checkMakerEtc();
 	  }
+	  
 //-->
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -564,7 +577,7 @@ window.onload = function(){
 													<!-- 품명 --> 
 													<label for="">제품명(모델명)</label>
 												</td>
-												<td>
+												<td> 
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 												</td>
 												<td class="lb">
@@ -572,7 +585,12 @@ window.onload = function(){
 													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
-													<input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);"> 
+													<span class="f_search2 w_full"> 
+														<input id="assetSn" name="assetSn" value="${resultVO.assetSn}" type="text" maxlength="60"
+															readonly="readonly" onclick="AssetSnCnfirm();"/>
+														<button type="button" class="btn" onclick="AssetSnCnfirm();">조회</button>
+													</span> 
+													<%-- <input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">  --%>
 												</td>
 											</tr>
 											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
@@ -616,7 +634,7 @@ window.onload = function(){
 														<td>
 															<span class="f_search2 w_full"> 
 															<input id="rcptNm" type="text" maxlength="100"
-																readonly="readonly"  value="${resultVO.rcptNm}"/>
+																readonly="readonly"  value="${resultVO.rcptNm}" onclick="UserSearch(0);"/>
 															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 															</span> 
 															<input name="rcptId" id="rcptId" type="hidden"
@@ -631,7 +649,7 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" type="text" title="회원" maxlength="100"
-															readonly="readonly" value="${resultVO.useNm}"/>
+															readonly="readonly" value="${resultVO.useNm}" onclick="UserSearch(1);"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span> 
 													<input name="useId" id="useId" type="hidden"
@@ -663,7 +681,7 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
-														readonly="readonly" value="${resultVO.prjNm}"/>
+														readonly="readonly" value="${resultVO.prjNm}" onclick="ProjectSearch();"/>
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
 													</span> 

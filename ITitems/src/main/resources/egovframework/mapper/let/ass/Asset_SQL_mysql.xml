@@ -84,7 +84,7 @@
 	
 	<sql id="search">
 		<where>
-			AND A.USAGE_STAUTS = 'U1'
+			AND A.USAGE_STAUTS != 'C4'
 			<if test="searchOrgnzt != null and searchOrgnzt != ''">
               	AND (	A.ORGNZT_ID = #{searchOrgnzt} 
               		OR  F.ORGNZT_UP = #{searchOrgnzt})
@@ -135,7 +135,7 @@
 	
 	<sql id="mySearch">
 		<where>
-			AND A.USAGE_STAUTS = 'U1'
+			AND A.USAGE_STAUTS != 'C4'
 			AND (	A.RCPT_ID = #{userId} 
 				OR  A.USE_ID = #{userId})
 			<if test="searchWord != null and searchWord != ''">
@@ -190,12 +190,13 @@
 	
 	<sql id="assetSnsearch">
 		<where>
-			AND A.USAGE_STAUTS = 'U1'
+			AND A.USAGE_STAUTS != 'C4'
 			AND A.ASSET_SN IN (
 								SELECT ASSET_SN
 							      FROM ASSET
 								 WHERE ASSET_SN IS NOT NULL
 								   AND ASSET_SN != ""
+								   AND USAGE_STAUTS != 'C4'
 							  GROUP BY ASSET_SN
 								HAVING COUNT(ASSET_SN) > 1)
 			<if test="searchOrgnzt != null and searchOrgnzt != ''">
@@ -982,5 +983,11 @@
 						ON A.ORGNZT_ID = F.ORGNZT_ID
 						 <include refid="assetSnsearch" />
 				    ) P 
+	</select>
+	
+	<select id="SelectAssetSn" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="int">
+		SELECT COUNT(ASSET_SN)
+		  FROM ASSET
+		 WHERE ASSET_SN = #{assetSn}
 	</select>
 </mapper>

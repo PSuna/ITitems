@@ -7,14 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -24,9 +25,6 @@ import egovframework.let.uat.uap.service.EgovLoginPolicyService;
 import egovframework.let.uat.uap.service.LoginPolicyVO;
 import egovframework.let.uat.uia.service.EgovLoginService;
 import egovframework.let.utl.sim.service.EgovClntInfo;
-import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 
 /**
  * 일반 로그인, 인증서 로그인을 처리하는 컨트롤러 클래스
@@ -93,6 +91,15 @@ public class EgovLoginController {
 	@RequestMapping(value = "/uat/uia/web/actionSecurityLogin.do")
 	public String actionSecurityLogin(@ModelAttribute LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
+	    /*
+		String userAgent = request.getHeader("User-Agent").toUpperCase();
+		
+	    if(userAgent.indexOf("IS_MOBILE") > -1) {
+	         return "IS_MOBILE";
+	    } else {
+	        return "IS_PC";
+	    }
+	    */
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
 		// 1. 일반 로그인 처리
