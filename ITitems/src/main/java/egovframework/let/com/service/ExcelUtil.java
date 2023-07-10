@@ -1018,7 +1018,7 @@ public class ExcelUtil {
 
 				//Header Row 빼고 시작(0에서 시작)
 
-				for(int r = strartRowNum ; r < rows; r++) {
+				for(int r = strartRowNum ; r <= rows; r++) {
 
 					//String device_id = "";
 

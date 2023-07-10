@@ -79,12 +79,12 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		//엑셀정보
 		ExcelUtil eu = new ExcelUtil();
 		int sheetNum = 0;		//1번째 시트 읽음 
-		int strartRowNum = 2;	//3번째 줄부터 읽음
+		int strartRowNum = 3;	//4번째 줄부터 읽음
 		int startCelNum = 0; 	//2번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
 		//테이블 Key 정보
 		AssetVO assetVO = null;
-		int rowNum = 4;
+		int i = 4;
 		//엑셀 Row 수 만큼 For문 조회 
 		for(Object obj : excelList) {
 			Map<Integer, String> mp = (Map<Integer, String>)obj;
@@ -134,21 +134,21 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 					assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
 					assetVO.setPrjId(assetManageVO.getSearchPrj());
 					assetVO.setCreatId(user.getUniqId());
-					int r = assetDAO.InsertExcelAsset(assetVO);
-					System.out.println("result>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+r);
-					if(r!=0) {
-						tmp.put("errorMessage", rowNum+"번째 행의 시리얼넘버는 중복된 값입니다.");
+					assetVO = assetDAO.InsertExcelAsset(assetVO);
+					System.out.println("result>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+assetVO.getResult());
+					if(assetVO.getResult()!=0) {
+						tmp.put("errorMessage", i+"번째 행의 시리얼넘버는 중복된 값입니다.");
 						
 					}else {
 						tmp.put("errorMessage", "입력완료");
 					}
 				}else {
-					tmp.put("errorMessage", rowNum+"번째 행의 분류가 입력되지 않았습니다.");
+					tmp.put("errorMessage", i+"번째 행의 분류가 입력되지 않았습니다.");
 				}
 			}else {
-				tmp.put("errorMessage", rowNum+"번째 행의 수령자가 입력되지 않았습니다.");
+				tmp.put("errorMessage", i+"번째 행의 수령자가 입력되지 않았습니다.");
 			}
-			rowNum++;
+			i++;
 		}
 		return tmp;
 	}
