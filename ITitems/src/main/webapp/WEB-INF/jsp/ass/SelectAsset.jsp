@@ -38,6 +38,7 @@
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
+<script src="<c:url value='/'/>js/Confirm.js"></script>
 <link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
@@ -238,7 +239,7 @@ function DelIng(){
 }
 
 /* ********************************************************
- * 수정실패 팝업창
+ * 삭제실패 팝업창
  ******************************************************** */
  function DelFail(){
 	
@@ -252,6 +253,51 @@ function DelIng(){
 		});
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제요청확인 결과 처리
+ ******************************************************** */
+ function returnDelReqConfirm(val){
+	fn_egov_modal_remove();
+	
+	 if(val.result){
+		  DelReqIng(val.val);
+		  AssetDelReq(val.val);
+	 }	  
+}
+
+/* ********************************************************
+ * 삭제요청
+ ******************************************************** */
+ function AssetDelReq(val){
+	 let formData = new FormData(document.getElementById('subFrm'));
+	 formData.append("val", val);
+	   $.ajax({
+		url: '${pageContext.request.contextPath}/ass/AssetDelReq.do',
+		method: 'POST',
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function (result) {
+			fn_egov_modal_remove();
+			DelReqSuccess(val);
+		},
+		error: function (error) {
+			fn_egov_modal_remove();
+			DelReqFail(val);
+		}
+	})  
+}
+
+/* ********************************************************
+ * 삭제요청완료 결과 처리
+ ******************************************************** */
+ function returnDelReqSuccess(){
+	 fn_egov_modal_remove();
+	 document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
+	 document.subFrm.submit();
 }
 
 /* ********************************************************
@@ -604,11 +650,22 @@ function AssetList(){
 												</a>
 										</c:if>
 										<c:if test="${resultVO.rcptId == login && auth == 'ROLE_USER_MEMBER'}">
-												<!-- 삭제요청 -->
-												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-													onclick="DeleteReq();return false;"> <spring:message
-														code="button.deleteReq" />
-												</a>
+											<c:choose>
+												<c:when test="${delReq == 'true'}">
+													<!-- 삭제요청 -->
+													<a href="#LINK" class="btn btn_skyblue_h46 w_100"
+														onclick="DelReqConfirm('${delReq}');return false;"> <spring:message
+															code="button.deleteReq" />
+													</a>
+												</c:when>
+												<c:otherwise>
+													<!-- 삭제요청취소 -->
+													<a href="#LINK" class="btn btn_skyblue_h46 w_100"
+														onclick="DelReqConfirm('${delReq}');return false;"> <spring:message
+															code="button.deleteCancel" />
+													</a>
+												</c:otherwise>
+											</c:choose>
 										</c:if>
 											<!-- 목록 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

@@ -172,6 +172,10 @@ function fn_egov_modal_remove() {
 			                	<li><a class="gnb_a pg_a" href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
 			                </ul> 
 							
+							<ul>
+			                	<li><a class="gnb_a pg_a" href="#LINK" onclick="goMenuPage('/ass/DelReqManagement.do')">자산렌탈삭제요청</a></li>
+			                </ul> 
+							
 			                <!-- <ul>
 			                	<li><a class="gnb_a pg_a" href="/ass/DistinctManage.do">중복데이터조회</a></li>
 			                </ul> -->
@@ -187,11 +191,7 @@ function fn_egov_modal_remove() {
 				
                	</li>
                	</c:if>
-                	
-              
-                
             </ul>
-            
         </div>
         
         
@@ -280,6 +280,7 @@ function fn_egov_modal_remove() {
 						</c:if>
 						<li><a href="/cat/CategoryManage.do">카테고리목록관리</a></li>
 						<li><a href="/prj/ProjectManage.do">프로젝트목록관리</a></li>
+						<li><a href="#LINK" onclick="goMenuPage('/ass/DelReqManagement.do')">자산렌탈삭제요청</a></li>
 						<!-- <li><a href="/ass/DistinctManage.do">중복데이터조회</a></li> -->
 					</ul>
 				</li>
