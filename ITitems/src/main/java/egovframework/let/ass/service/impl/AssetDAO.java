@@ -150,7 +150,7 @@ public class AssetDAO extends EgovAbstractMapper {
 		return selectOne("AssetDAO.SelectAssetSn",AssetManageVO);
 	}
 
-	public int InsertExcelAsset(AssetVO assetVO) {
+	public AssetVO InsertExcelAsset(AssetVO assetVO) {
 		return selectOne("AssetDAO.InsertExcelAsset",assetVO);
 	};
 	

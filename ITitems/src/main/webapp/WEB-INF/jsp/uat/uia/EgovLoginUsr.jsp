@@ -35,7 +35,6 @@
 <script type="text/javascript">
 <!--
 function actionLogin() {
-var osInfo = window.navigator.userAgentData.platform;
     if (document.loginForm.id.value =="") {
         alert("아이디를 입력하세요");
         return false;
@@ -92,7 +91,10 @@ function fnInit() {
         alert(message);
     }
     getid(document.loginForm);
+
 }
+
+
 //-->
 </script>
  <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>   

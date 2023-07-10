@@ -49,17 +49,55 @@
         document.frm.submit();  
     }
     
+
+    /* ********************************************************
+     * 삭제확인 팝업창
+     ******************************************************** */
+     function DelConfirm(){
+    	 var $dialog = $('<div id="modalPan"></div>')
+    		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+    		.dialog({
+    	    	autoOpen: false,
+    	        modal: true,
+    	        width: 400,
+    	        height: 300
+    	        
+    		});
+    	    $(".ui-dialog-titlebar").hide();
+    		$dialog.dialog('open');
+    }
+
+    /* ********************************************************
+     * 삭제확인 결과 처리
+     ******************************************************** */
+     function returnDelConfirm(val){
+    	fn_egov_modal_remove();
+    	 if(val){
+    		 DelIng();
+    		 fn_egov_delete_notice(); 
+    	 }	  
+    }
+
+    /* ********************************************************
+    * 삭제진행 팝업창
+    ******************************************************** */
+    function DelIng(){
+
+     var $dialog = $('<div id="modalPan"></div>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+    	.dialog({
+        	autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 300
+    	});
+        $(".ui-dialog-titlebar").hide();
+    	$dialog.dialog('open');
+    }
+    
     function fn_egov_delete_notice() {
-        if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
-            alert('등록시 사용한 패스워드를 입력해 주세요.');
-            document.frm.password.focus();
-            return;
-        }
-        
-        if (confirm('<spring:message code="common.delete.msg" />')) {
             document.frm.action = "<c:url value='/cop/bbs${prefix}/deleteBoardArticle.do'/>";
-            document.frm.submit();
-        }   
+            document.frm.submit();  
     }
     
     function fn_egov_moveUpdt_notice() {
@@ -225,7 +263,7 @@
                                         <div class="right_btn btn3">
                                         	<c:if test="${result.frstRegisterId == sessionUniqId}"> 
 	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a><!-- 수정 -->
-	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a><!-- 삭제 -->
+	                                            <a href="#LINK" class="btn btn_skyblue_h46 w_100" onclick="DelConfirm(); return false;">삭제</a><!-- 삭제 -->
                                             </c:if>
                                            <%-- <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 	                                            <c:if test="${result.replyPosblAt == 'Y' && result.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}">  

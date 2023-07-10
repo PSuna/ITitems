@@ -1,5 +1,6 @@
 package egovframework.let.com.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
-import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import egovframework.com.cmm.LoginVO;
-import egovframework.com.cmm.service.CmmnDetailCode;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.ass.service.impl.AssetDAO;
@@ -71,22 +70,23 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, String> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
+	public List<Map<String, Object>> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-		Map<String, String> tmp = new HashMap<>();
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
 		//파일 정보
 		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
 		//엑셀정보
 		ExcelUtil eu = new ExcelUtil();
 		int sheetNum = 0;		//1번째 시트 읽음 
-		int strartRowNum = 2;	//3번째 줄부터 읽음
+		int strartRowNum = 3;	//4번째 줄부터 읽음
 		int startCelNum = 0; 	//2번째 줄부터 읽음(지역ID)
 		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
 		//테이블 Key 정보
 		AssetVO assetVO = null;
-		int rowNum = 4;
+		int i = 4;
 		//엑셀 Row 수 만큼 For문 조회 
 		for(Object obj : excelList) {
+			Map<String, Object> result = new HashMap<String, Object>();
 			Map<Integer, String> mp = (Map<Integer, String>)obj;
 			Set<Integer> keySet = mp.keySet();
 			Iterator<Integer> iterator = keySet.iterator();
@@ -122,35 +122,39 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 				}
 			}
 			if(!"".equals(assetVO.getRcptNm()) && assetVO.getRcptNm() != null) {
-				if(!"".equals(assetVO.getMiddleCategory()) && assetVO.getMiddleCategory() != null) {
-					LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-					String id = assetIdGnrService.getNextStringId();
-					assetVO.setAssetId(id);
-					assetVO.setAssId("ASSMSTR_000000000001");
-					assetVO.setAssetStauts("C2");
-					assetVO.setUsageStauts("U1");
-					assetVO.setLargeCategory(assetManageVO.getSearchLCat());
-					assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
-					assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
-					assetVO.setPrjId(assetManageVO.getSearchPrj());
-					assetVO.setCreatId(user.getUniqId());
-					int r = assetDAO.InsertExcelAsset(assetVO);
-					System.out.println("result>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+r);
-					if(r!=0) {
-						tmp.put("errorMessage", rowNum+"번째 행의 시리얼넘버는 중복된 값입니다.");
-						
+				if(!"".equals(assetVO.getRcptNm()) && assetVO.getRcptNm() != null) {
+					if(!"".equals(assetVO.getMiddleCategory()) && assetVO.getMiddleCategory() != null) {
+						LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+						String id = assetIdGnrService.getNextStringId();
+						assetVO.setAssetId(id);
+						assetVO.setAssId("ASSMSTR_000000000001");
+						assetVO.setAssetStauts("C2");
+						assetVO.setUsageStauts("U1");
+						assetVO.setLargeCategory(assetManageVO.getSearchLCat());
+						assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
+						assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
+						assetVO.setPrjId(assetManageVO.getSearchPrj());
+						assetVO.setCreatId(user.getUniqId());
+						assetVO = assetDAO.InsertExcelAsset(assetVO);
+						if(assetVO.getResult()!=0) {
+							result.put("msg", i+"번째 행의 시리얼넘버가 중복됩니다.");
+							resultList.add(result);
+						}
 					}else {
-						tmp.put("errorMessage", "입력완료");
+						result.put("msg", i+"번째 행의 분류가 입력되지 않았습니다.");
+						resultList.add(result);
 					}
 				}else {
-					tmp.put("errorMessage", rowNum+"번째 행의 분류가 입력되지 않았습니다.");
+					result.put("msg", i+"번째 행의 수령자가 입력되지 않았습니다.");
+					resultList.add(result);
 				}
 			}else {
-				tmp.put("errorMessage", rowNum+"번째 행의 수령자가 입력되지 않았습니다.");
+				result.put("msg", i+"번째 행의 수령일이 입력되지 않았습니다.");
+				resultList.add(result);
 			}
-			rowNum++;
+			i++;
 		}
-		return tmp;
+		return resultList;
 	}
 	
 	/**

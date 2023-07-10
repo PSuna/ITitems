@@ -32,6 +32,8 @@
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
+	<script src="<c:url value='/'/>js/PhotoMng.js"></script>
+	<script src="<c:url value='/'/>js/Confirm.js"></script>
 	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
 	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
 
@@ -46,21 +48,65 @@
     function fn_egov_validateForm(obj) {
         return true;
     }
+    /* ********************************************************
+     * 필수 입력값 체크
+     ******************************************************** */
+     function RegistCheck(){
+    	   if(validateBoard(document.board)){
+    		   RegistConfirm();
+    	 	}
+    }
+    
+     /* ********************************************************
+      * 유효성 체크
+      ******************************************************** */
+     let typeList = ["input", "textarea"]
+
+     function removeP() {
+    	 console.log("확인");
+     	$(typeList).each(function(index, type){
+     		$("#board").find(type).each(function(index, item){
+     			let td = $(item).closest("td");
+     			if($(td).children().last().prop('tagName') == 'P'){
+     				$(td).children().last().remove();
+     			}
+     		})
+     	})
+     }
+
+     function alertValid(objList) {
+     	removeP();
+     	$(typeList).each(function(index, type){
+     		$("#board").find(type).each(function(index, item){
+     			let td = $(item).closest("td");
+     			for(key in objList){
+     				if($(item).attr("name") == key){
+     					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+     				}
+     			}
+     		})
+     	})
+     }
+
+    /* ********************************************************
+     * 등록확인 결과 처리
+     ******************************************************** */
+     function returnConfirm(val){
+     
+    	fn_egov_modal_remove();
+    	 if(val){
+    		 RegistIng();
+    		 fn_egov_regist_notice();
+    	 }	  
+    }
     
     function fn_egov_regist_notice() {
         //document.board.onsubmit();
 
-        <c:if test="${bdMstr.bbsAttrbCode == 'BBSA02'}">
-        if(document.getElementById("egovComFileUploader").value==""){
-            alert("갤러리 게시판의 경우 이미지 파일 첨부가 필수사항입니다.");
-            return false;
-        }
-        </c:if>
-        if (confirm('<spring:message code="common.regist.msg" />')) {
+        	inputFile();
             //document.board.onsubmit();
             document.board.action = "<c:url value='/cop/bbs${prefix}/insertBoardArticle.do'/>";
             document.board.submit();
-        }
     }
     
     function fn_egov_select_noticeList() {
@@ -146,7 +192,7 @@
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" >
+								<form:form modelAttribute="board" id="board" name="board" method="post" autocomplete="off" enctype="multipart/form-data" >
                 				
 				                <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
 			                    <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
@@ -191,7 +237,7 @@
                                             </td>
                                             <td>
                                                 <input id="nttSj" class="f_txt w_full" name="nttSj" type="text" value="" maxlength="60" >
-                                                <br/><form:errors path="nttSj" />
+                                                <br/><span class="alertV"><form:errors path="nttSj" /></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -201,7 +247,7 @@
                                             </td>
                                             <td>
                                                 <textarea id="nttCn" name="nttCn" class="f_txtar w_full h_200" cols="30" rows="10"></textarea>
-                                                <form:errors path="nttCn" />
+                                                <span class="alertV"><form:errors path="nttCn" /></span>
                                             </td>
                                         </tr>
                                         
@@ -230,31 +276,17 @@
 	                                            	<label for="egovComFileUploader" ><spring:message code="cop.atchFile" /><br>(최대 5개)</label>
 	                                            </td>
 	                                            <td>
-	                                                <div class="board_attach2" id="file_upload_posbl">
-	                                                    <input name="file_1" id="egovComFileUploader" type="file"/>
-	                                                    <div id="egovComFileList"></div>
-	                                                </div>
-	                                                <div class="board_attach2" id="file_upload_imposbl">
-	                                                </div>
-	                                                <c:if test="${empty result.atchFileId}">
-											            <input type="hidden" id="fileListCnt" name="fileListCnt" value="0" />
-											        </c:if>
+	                                               <div class="filebox">
+													    <label for="fileFrm">파일찾기</label> 
+													    <input name="fileFrm" multiple id="fileFrm" type="file" onchange="getFileName(this,5)">    
+													</div>
+													<input name="file" id="file" multiple type="file" style="display: none">
+													<div class="fileList"></div>
 	                                            </td>
 	                                        </tr>
                                         </c:if>
                                         <!-- /파일첨부 끝 -->
                                     </table>
-                                    
-                                    <c:if test="${bdMstr.fileAtchPosblAt == 'Y'}">
-			                        <script type="text/javascript">
-			                            var maxFileNum = document.board.posblAtchFileNumber.value;
-			                            if(maxFileNum==null || maxFileNum==""){
-			                                maxFileNum = 6;
-			                            } 
-			                            var multi_selector = new MultiSelector( document.getElementById( 'egovComFileList' ), maxFileNum );
-			                            multi_selector.addElement( document.getElementById( 'egovComFileUploader' ) );
-			                        </script>
-                        			</c:if>
                                     
                                 </div>
 
@@ -262,7 +294,7 @@
                                 <div class="board_view_bot btn_bot">
                                     <div class="btn1">
                                     	<c:if test="${bdMstr.authFlag == 'Y'}">
-                                        	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_regist_notice(); return fasle;"><spring:message code="button.create" /></a><!-- 등록 -->
+                                        	<a href="#LINK" class="btn btn_blue_46 w_100" onclick="RegistCheck(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
                                         </c:if>
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>

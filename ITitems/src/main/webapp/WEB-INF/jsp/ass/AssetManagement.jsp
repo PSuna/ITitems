@@ -300,7 +300,7 @@ window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
 	getOrgList('${searchVO.lowerOrgnzt}')
 	make_date();
-	/* console.log(navigator.userAgentData.brands); */
+	console.log(navigator.userAgentData.brands[2]);
 	  }
 //-->
 </script>

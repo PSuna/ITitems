@@ -62,6 +62,7 @@ var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_
  ******************************************************** */
 function UpdateAsset(){
 	inputFile();
+	inputPhoto();
 	getDelPhotoList();
     let formData = new FormData(document.getElementById('AssetUpdt'));
 	   $.ajax({
@@ -407,7 +408,7 @@ function alertValid(objList) {
 function addDelFile(fileId) {
 	$('#fileNm').val('');
 	$('input[name=file]').val('');
-	$('#fileNm').closest(".filebox").find('img')[0].remove();
+	$('#fileNm').closest(".namebox").remove();
 	$('#delFile').val(fileId);
 }
 
@@ -750,13 +751,15 @@ window.onload = function(){
 												<td colspan="3">
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
-													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
-													    <c:if test="${not empty FileVO}">
-													    	<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
-													    </c:if>
-													    <div class="namebox">
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">
+													</div>
+													<div class="fileList">
+													<c:if test="${not empty FileVO}">
+														<div class="namebox">
+															<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
 													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
 													    </div>
+													</c:if>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 													<input name="delFile" id="delFile" type="hidden">
