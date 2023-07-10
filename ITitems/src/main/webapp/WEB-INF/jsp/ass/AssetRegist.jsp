@@ -322,6 +322,10 @@ function AssetList(){
 	    document.subFrm.submit();
 	}
 }
+function ExcelUpload(){
+	document.subFrm.action = "<c:url value='/ass/AssetExcelUploadStart.do'/>";
+    document.subFrm.submit();
+}
  
 /* ********************************************************
  * 시리얼넘버 입력
@@ -658,7 +662,7 @@ window.onload = function(){
 									<div class="board_view_bot btn_bot">
 										<div class="left_btn btn1">
 											<!-- 엑셀 업로드 -->
-											<a href="<c:url value='/ass/AssetExcelUploadStart.do'/>" class= "btn btn_blue_46 w_150">엑셀업로드</a>
+											<a href="#LINK" onclick="ExcelUpload();return false;" class= "btn btn_blue_46 w_150">엑셀업로드</a>
 										</div>
 										<div class="right_btn btn1">
 

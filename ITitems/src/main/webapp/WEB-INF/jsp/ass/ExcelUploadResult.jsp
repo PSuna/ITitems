@@ -49,7 +49,13 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
 <script type="text/javaScript" language="javascript">
-
+/* ********************************************************
+ * 목록 이동
+ ******************************************************** */
+function AssetList(){
+		document.popForm.action = "<c:url value='/ass/AssetRegist.do'/>";
+	    document.popForm.submit();
+}
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
@@ -57,6 +63,9 @@
 body {
     width: 100%;
     height: auto !important;
+}
+.condition2{
+	padding:40px !important;
 }
 .board_list {
     border-top: 0;
@@ -75,6 +84,32 @@ body {
 }
 .important{
 	color:red;
+}
+.resultH3{
+	margin-bottom: 20px;
+}
+.resultBox{
+	margin-bottom: 20px;
+}
+#resultTable{
+	margin-top:10px;
+	width:20%;
+	text-align:center;
+}
+#resultTable td{
+	padding:5px;
+	border: 1px solid #aaa;
+}
+.firstTd{
+ background: #eee;
+}
+#errorTable{
+	width:auto;
+}
+#errorTable td{
+	padding:10px;
+	border: 1px solid #aaa;
+	color: red;
 }
 </style>
 </head>
@@ -100,21 +135,54 @@ body {
 										<li>${masterVO.assNm}엑셀업로드결과</li>
 									</ul>
 								</div>
+								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
+								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+								<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
+								<input type="hidden" id="isRental" name="isRental" value="<c:out value="${masterVO.assId}"/>" />
+								</form>
 								<!--// Location -->
 								<h2 class="tit_2">${masterVO.assNm}엑셀업로드결과</h2>
 								<div class="condition2">
-									<div class="board_list selete_table">
-										<table>
-											<thead>
-											</thead>
+									<div class="resultBox">
+										<h3 class="resultH3">업로드 결과</h3>
+										<p>업로드 하신 내용에 대한 결과입니다.</p>
+										<p>등록 실패한 리스트는 하단의 실패내역을 참조하여 개별등록 하시거나 재업로드해 주시기 바랍니다.</p>
+										<table id="resultTable">
 											<tbody>
-												<c:forEach var = "result" items="${resultList}" varStatus="status">
-                                					<tr>
-                                						<td><c:out value="${result.msg}"/></td>
-                                					</tr>
-                                				</c:forEach>
+												<tr>
+													<td class="firstTd">총 데이터 수</td>
+													<td>${result.resultCnt} 개</td>
+												</tr>
+												<tr>
+													<td class="firstTd">업로드 성공 수</td>
+													<td>${result.successCnt} 개</td>
+												</tr>
 											</tbody>
 										</table>
+									</div>
+									<div class="resultBox">
+										<h3 class="resultH3">업로드 실패 내역</h3>
+										<div>
+											<table id="errorTable">
+												<thead>
+												</thead>
+												<tbody>
+													<c:forEach var = "result" items="${result.msgList}" varStatus="status">
+	                                					<tr>
+	                                						<td><c:out value="${result.msg}"/></td>
+	                                					</tr>
+	                                				</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="board_view_bot btn_bot">
+										<div class="right_btn btn1">
+											<!-- 목록 -->
+											<a href="#LINK" class="btn btn_blue_46 w_150"
+												onclick="AssetList();return false;">업로드종료
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -128,4 +196,5 @@ body {
 	<c:import url="/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
 </body>
+
 </html>

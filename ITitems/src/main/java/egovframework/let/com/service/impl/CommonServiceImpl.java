@@ -70,9 +70,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
+	public Map<String, Object> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
 		//파일 정보
 		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
 		//엑셀정보
@@ -84,9 +83,13 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		//테이블 Key 정보
 		AssetVO assetVO = null;
 		int i = 4;
+		int successCnt = 0;
 		//엑셀 Row 수 만큼 For문 조회 
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, Object>> msgList = new ArrayList<>();
+		Map<String, Object> msg = new HashMap<>();
 		for(Object obj : excelList) {
-			Map<String, Object> result = new HashMap<String, Object>();
+			msg = new HashMap<>();
 			Map<Integer, String> mp = (Map<Integer, String>)obj;
 			Set<Integer> keySet = mp.keySet();
 			Iterator<Integer> iterator = keySet.iterator();
@@ -137,24 +140,136 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 						assetVO.setCreatId(user.getUniqId());
 						assetVO = assetDAO.InsertExcelAsset(assetVO);
 						if(assetVO.getResult()!=0) {
-							result.put("msg", i+"번째 행의 시리얼넘버가 중복됩니다.");
-							resultList.add(result);
+							msg.put("msg", i+"번째 행의 시리얼넘버가 중복됩니다.");
+							msgList.add(msg);
+						}else {
+							successCnt++;
 						}
 					}else {
-						result.put("msg", i+"번째 행의 분류가 입력되지 않았습니다.");
-						resultList.add(result);
+						msg.put("msg", i+"번째 행의 분류가 입력되지 않았습니다.");
+						msgList.add(msg);
 					}
 				}else {
-					result.put("msg", i+"번째 행의 수령자가 입력되지 않았습니다.");
-					resultList.add(result);
+					msg.put("msg", i+"번째 행의 수령자가 입력되지 않았습니다.");
+					msgList.add(msg);
 				}
 			}else {
-				result.put("msg", i+"번째 행의 수령일이 입력되지 않았습니다.");
-				resultList.add(result);
+				msg.put("msg", i+"번째 행의 수령일이 입력되지 않았습니다.");
+				msgList.add(msg);
 			}
 			i++;
+			result.put("msgList", msgList);
 		}
-		return resultList;
+		int resultCnt = i-4;
+		result.put("resultCnt", resultCnt);
+		result.put("successCnt", successCnt);
+		return result;
+	}
+	
+	/**
+	 * 엑셀 자산 업로드 처리
+	 * @param multiRequest
+	 * @return String
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> excelRentalUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+		//파일 정보
+		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
+		//엑셀정보
+		ExcelUtil eu = new ExcelUtil();
+		int sheetNum = 0;		//1번째 시트 읽음 
+		int strartRowNum = 3;	//4번째 줄부터 읽음
+		int startCelNum = 0; 	//2번째 줄부터 읽음(지역ID)
+		List<HashMap<Integer, String>> excelList = eu.excelReadSetValue(file, sheetNum, strartRowNum, startCelNum);
+		//테이블 Key 정보
+		AssetVO assetVO = null;
+		int i = 4;
+		int successCnt = 0;
+		//엑셀 Row 수 만큼 For문 조회 
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, Object>> msgList = new ArrayList<>();
+		Map<String, Object> msg = new HashMap<>();
+		for(Object obj : excelList) {
+			msg = new HashMap<>();
+			Map<Integer, String> mp = (Map<Integer, String>)obj;
+			Set<Integer> keySet = mp.keySet();
+			Iterator<Integer> iterator = keySet.iterator();
+			assetVO = new AssetVO();
+			while(iterator.hasNext()) {
+				int key = iterator.next();
+				String value = StringUtil.nullConvert(mp.get(key));
+				switch(key) {
+				case 1 :
+					assetVO.setRcptDate(value);
+					break;
+				case 2 :
+					assetVO.setRcptNm(value);
+					break;
+				case 3 :
+					assetVO.setMiddleCategory(value);
+					break;
+				case 4 :
+					assetVO.setUseNm(value);
+					break;
+				case 5 :
+					assetVO.setAssetSn(value);
+					break;
+				case 6 :
+					assetVO.setAssetCompany(value);
+					break;
+				case 7 :
+					assetVO.setAssetName(value);
+					break;
+				case 8 :
+					assetVO.setMaker(value);
+					break;
+				case 9 :
+					assetVO.setNote(value);
+					break;	
+				}
+			}
+			if(!"".equals(assetVO.getRcptNm()) && assetVO.getRcptNm() != null) {
+				if(!"".equals(assetVO.getRcptNm()) && assetVO.getRcptNm() != null) {
+					if(!"".equals(assetVO.getMiddleCategory()) && assetVO.getMiddleCategory() != null) {
+						LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+						String id = assetIdGnrService.getNextStringId();
+						assetVO.setAssetId(id);
+						assetVO.setAssId("ASSMSTR_000000000002");
+						assetVO.setAssetStauts("C2");
+						assetVO.setUsageStauts("U1");
+						assetVO.setLargeCategory(assetManageVO.getSearchLCat());
+						assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
+						assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
+						assetVO.setPrjId(assetManageVO.getSearchPrj());
+						assetVO.setCreatId(user.getUniqId());
+						assetVO = assetDAO.InsertExcelAsset(assetVO);
+						if(assetVO.getResult()!=0) {
+							msg.put("msg", i+"번째 행의 시리얼넘버가 중복됩니다.");
+							msgList.add(msg);
+						}else {
+							successCnt++;
+						}
+					}else {
+						msg.put("msg", i+"번째 행의 분류가 입력되지 않았습니다.");
+						msgList.add(msg);
+					}
+				}else {
+					msg.put("msg", i+"번째 행의 수령자가 입력되지 않았습니다.");
+					msgList.add(msg);
+				}
+			}else {
+				msg.put("msg", i+"번째 행의 수령일이 입력되지 않았습니다.");
+				msgList.add(msg);
+			}
+			i++;
+			result.put("msgList", msgList);
+		}
+		int resultCnt = i-4;
+		result.put("resultCnt", resultCnt);
+		result.put("successCnt", successCnt);
+		return result;
 	}
 	
 	/**

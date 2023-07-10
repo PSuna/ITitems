@@ -1093,7 +1093,8 @@
 							  #{maker}, 
 							  #{note}, 
 							  #{rcptDate},
-							  #{creatId})
+							  #{creatId},
+							  #{assetCompany})
   	</select>
 	
 	<select id="SelectDelReqList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">

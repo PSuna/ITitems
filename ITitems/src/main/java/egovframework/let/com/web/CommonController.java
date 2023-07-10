@@ -17,6 +17,7 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetMasterVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.prj.service.ProjectManageVO;
@@ -315,7 +316,25 @@ public class CommonController {
 	 */
 	@RequestMapping("/com/xlsxAssetUpload.do")
 	public String xlsxAssetUpload(ModelMap model, HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
-		model.addAttribute("resultList", commonService.excelAssetUpload(request, assetManageVO));
+		model.addAttribute("result", commonService.excelAssetUpload(request, assetManageVO));
+		model.addAttribute("searchVO", assetManageVO);
+		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
+		model.addAttribute("masterVO", masterVO);
+		return "/ass/ExcelUploadResult";
+	}
+	/**
+	 * 렌탈 엑셀 업로드 처리
+	 * @param multiRequest
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/com/xlsxRentalUpload.do")
+	public String xlsxRentalUpload(ModelMap model, HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
+		model.addAttribute("result", commonService.excelRentalUpload(request, assetManageVO));
+		model.addAttribute("searchVO", assetManageVO);
+		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
+		model.addAttribute("masterVO", masterVO);
 		return "/ass/ExcelUploadResult";
 	}
 	/**
