@@ -1,12 +1,8 @@
 package egovframework.let.uat.uia.mob;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +25,11 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.let.uat.uap.service.EgovLoginPolicyService;
 import egovframework.let.uat.uap.service.LoginPolicyVO;
 import egovframework.let.uat.uia.service.EgovLoginService;
-import egovframework.let.uat.uia.service.MobPushTokenVO;
+import egovframework.let.uat.uia.service.MobPlayLogVO;
 import egovframework.let.utl.sim.service.EgovClntInfo;
-import io.github.jav.exposerversdk.ExpoPushMessage;
-import io.github.jav.exposerversdk.ExpoPushMessageTicketPair;
-import io.github.jav.exposerversdk.ExpoPushReceipt;
-import io.github.jav.exposerversdk.ExpoPushTicket;
-import io.github.jav.exposerversdk.PushClient;
-import io.github.jav.exposerversdk.PushClientException;
 
-import org.apache.commons.vfs2.util.DelegatingFileSystemOptionsBuilder;
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 
 /**
  * 일반 로그인, 인증서 로그인을 처리하는 컨트롤러 클래스
@@ -95,32 +82,29 @@ public class MobEgovLoginController {
 	 * @exception Exception
 	 */
 
-	// 모바일 푸시 정보 등록/리스트 가져가기
-	@RequestMapping(value = "/uat/uia/mob/insertPushToken.do")
-	public Map<String,Object> setPushToken(@RequestBody MobPushTokenVO pushVO) throws Exception {
-		System.out.println("푸쉬 도착 ==========");
-		System.out.println(pushVO);
-		
-		Map<String,Object> resultMap = new HashMap<String, Object>();
-		
-		//등록
-		String result = "valid";
-		if (loginService.isValidPushToken(pushVO)) {
-			System.out.println("push 등록(중복x) ======");
-			int cnt = loginService.insertPushToken(pushVO);
-			result = cnt < 1 ? "fail" : "success";
-		}
-		
-		//리스트
-		if(result!="fail") {
-			List<MobPushTokenVO> resultList = loginService.selectListMobPushToken(pushVO);
-			resultMap.put("resultList",resultList);
-		}
-		resultMap.put("result",result);
+	// 모바일 실행 정보 로그 남기기
+	@RequestMapping(value = "/uat/uia/mob/insertPlayLogHdr.do")
+	public Map<String, Object> insertPlayLogHdr(@RequestBody MobPlayLogVO playVO) throws Exception {
+
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 등록
+		String result = "inValid";
+		int cnt = loginService.insertPlayLog(playVO);
+		result = cnt < 1 ? "fail" : "success";
+
+
+//		// 사용일자 업데이트
+//		if (result == "valid") {
+//			int udtCnt = loginService.updatePlayLog(playVO);
+//			updateResult = udtCnt < 1 ? "fail" : "success";
+//		}
+		resultMap.put("result", result);
 
 		return resultMap;
 	}
-	
+
 //	@RequestMapping(value = "/uat/uia/mob/testPush.do")
 //	public Map<String,Object> testPush(@RequestBody MobPushTokenVO pushVO) throws Exception {
 //		testPush
@@ -230,7 +214,6 @@ public class MobEgovLoginController {
 ////        System.exit(0);
 //        return resultMap;
 //    }
-	
 
 	// ❤️ 모바일 로그인
 	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")

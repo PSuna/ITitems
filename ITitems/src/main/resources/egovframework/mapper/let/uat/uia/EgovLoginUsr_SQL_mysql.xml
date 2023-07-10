@@ -20,12 +20,15 @@
 		<result property="authorNm" column="authorNm"/>
 	</resultMap>
 	
-	<resultMap id="mobPushToken" type="egovframework.let.uat.uia.service.MobPushTokenVO">
-		<result property="uniqId" column="UNIQID"/>
-		<result property="pushToken" column="PUSH_TOKEN"/>
-		<result property="tokenRegistDate" column="TOKEN_REGIST_DATE"/>
-		<result property="tokenDeleteDate" column="TOKEN_DELETE_DATE"/>
-		<result property="tokenState" column="TOKEN_STATE"/>
+	<resultMap id="mobPlayLog" type="egovframework.let.uat.uia.service.MobPlayLogVO">
+		<result property="playLogId" column="PLAY_LOG_ID"/>
+		<result property="playId" column="PLAY_ID"/>
+		<result property="os" column="OS"/>
+		<result property="model" column="MODEL"/>
+		<result property="brand" column="BRAND"/>
+		<result property="playDate" column="PLAY_DATE"/>
+		<result property="lastPlayDate" column="LAST_PLAY_DATE"/>
+		
 	</resultMap>
 	
 
@@ -87,28 +90,39 @@
 	WHERE A.ESNTL_ID=#{uniqId}
 	</select>
 	
-	<select id="isValidPushToken" resultType="int">
-	SELECT COUNT(*) AS count
-	FROM MOB_PUSH_TOKEN
-	WHERE UNIQID = #{uniqId} AND PUSH_TOKEN = #{pushToken};
-	</select>
-	
-	<insert id="insertPushToken" parameterType="egovframework.let.uat.uia.service.MobPushTokenVO">
-	INSERT INTO MOB_PUSH_TOKEN (UNIQID,
-								PUSH_TOKEN,
-								TOKEN_REGIST_DATE,
-								TOKEN_STATE)
-	VALUES (#{uniqId},
-			#{pushToken},
-			SYSDATE(),
-			'Y')
+	<insert id="insertPlayLog" parameterType="egovframework.let.uat.uia.service.MobPlayLogVO">
+	INSERT INTO MOB_PLAY_LOG (PLAY_LOG_ID,
+								PLAY_ID,
+								OS,
+								MODEL,
+								BRAND,
+								PLAY_DATE
+								)
+	VALUES (#{playLogId},
+			#{playId},
+			#{os},
+			#{model},
+			#{brand},
+			SYSDATE()
+			)
 	</insert>
 	
-	<select id="selectListMobPushToken" parameterType="egovframework.let.uat.uia.service.MobPushTokenVO" resultMap="mobPushToken">
-	SELECT * FROM mob_push_token
-	WHERE uniqId = #{uniqId}
-	AND token_state='Y'
+	<select id="isValidPlayLog" resultType="int">
+	SELECT COUNT(*) AS count
+	FROM MOB_PLAY_LOG
+	WHERE PLAY_ID = #{playId}
 	</select>
+	<update  id="updatePlayLog">
+	UPDATE MOB_PLAY_LOG
+	SET LAST_PLAY_DATE=SYSDATE()
+	WHERE PLAY_ID=#{playId}
+	</update>
+	
+<!-- 	<select id="selectListMobPushToken" parameterType="egovframework.let.uat.uia.service.MobPlayLogVO" resultMap="mobPlayLog"> -->
+<!-- 	SELECT * FROM mob_push_token -->
+<!-- 	WHERE uniqId = #{uniqId} -->
+<!-- 	AND token_state='Y' -->
+<!-- 	</select> -->
 	
 
 	<!-- 인증서 로그인
