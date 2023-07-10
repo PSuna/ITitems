@@ -1074,7 +1074,7 @@
 		 WHERE ASSET_SN = #{assetSn}
 	</select>
 
-	<select id="InsertExeclAsset" parameterType="egovframework.let.ass.service.AssetVO" statementType="CALLABLE" resultType="egovframework.let.ass.service.AssetVO">
+	<select id="InsertExcelAsset" parameterType="egovframework.let.ass.service.AssetVO" statementType="CALLABLE" resultType="egovframework.let.ass.service.AssetVO">
 		CALL ASSETEXCELINSERT(#{assetId}, 
 							  #{assId}, 
 							  #{assetStauts}, 
@@ -1092,8 +1092,9 @@
 							  #{assetEnd}, 
 							  #{maker}, 
 							  #{note}, 
-							  #{rcptDate})
-  </select>
+							  #{rcptDate},
+							  #{creatId})
+  	</select>
 	
 	<select id="SelectDelReqList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">
 		SELECT 
