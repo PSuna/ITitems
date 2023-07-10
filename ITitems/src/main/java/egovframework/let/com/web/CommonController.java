@@ -229,6 +229,42 @@ public class CommonController {
 
 		return "/com/DelIng";
 	}
+	
+	/**
+	 * 삭제요청확인 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelReqConfirm.do")
+	public String DelReqConfirm(ModelMap model, String val) throws Exception {
+		model.addAttribute("val", val);
+		return "/com/DelReqConfirm";
+	}
+	
+	/**
+	 * 삭제요청진행 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelReqIng.do")
+	public String DelReqIng(ModelMap model, String val) throws Exception {
+		model.addAttribute("val", val);
+		return "/com/DelReqIng";
+	}
+	
+	/**
+	 * 삭제요청완료 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelReqSuccess.do")
+	public String DelReqSuccess(ModelMap model, String val) throws Exception {
+		model.addAttribute("val", val);
+		return "/com/DelReqSuccess";
+	}
+	
+	/**
+	 * 삭제요청실패 팝업창로 이동
+	 */
+	@RequestMapping(value = "/com/DelReqFail.do")
+	public String DelReqFail(ModelMap model, String val) throws Exception {
+		model.addAttribute("val", val);
+		return "/com/DelReqFail";
+	}
 
 	//사용자목록 엑셀 출력
 	@RequestMapping("/com/xlsxTrsfUserList.do")

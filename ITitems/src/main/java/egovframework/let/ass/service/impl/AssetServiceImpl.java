@@ -184,7 +184,15 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		return 0;
 	}
 
-
+	/**
+     * 자산 삭제요청건 확인.
+     */
+	@Override
+	public int CountdeleteReq(AssetManageVO assetManageVO) {
+		
+		return assetDAO.CountdeleteReq(assetManageVO);
+	}
+	
 	/**
      * 자산 삭제상태로 변경.
      */
@@ -195,6 +203,24 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		assetDAO.UpdateAssetDel(assetVO);
 		
 		return assetDAO.InsertAssethist(assetVO);
+	}
+	
+	/**
+     * 자산 삭제요청 등록.
+     */
+	@Override
+	public int deleteReq(AssetVO assetVO) {
+		
+		return assetDAO.InsertdeleteReq(assetVO);
+	}
+	
+	/**
+     * 자산 삭제요청 취소.
+     */
+	@Override
+	public int deleteCancel(AssetVO assetVO) {
+		
+		return assetDAO.UpdatedeleteReq(assetVO);
 	}
 
 	@Override
@@ -248,12 +274,29 @@ public class AssetServiceImpl extends EgovAbstractServiceImpl implements AssetSe
 		map.put("resultCnt", Integer.toString(assetDAO.CountAssetSnList(assetManageVO)));
 		return map;
 	}
-
+	
+	
 	@Override
 	public int SelectAssetSn(AssetManageVO assetManageVO) {
 		
 		return assetDAO.SelectAssetSn(assetManageVO);
 	}
+	
+
+	/**
+     * 자산 삭제요청 전체조회.
+     */
+	@Override
+	public Map<String, Object> SelectDelReqList(AssetManageVO assetManageVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", assetDAO.SelectDelReqList(assetManageVO));
+		map.put("resultCnt", Integer.toString(assetDAO.CountDelReqList(assetManageVO)));
+		return map;
+	}
+
+
+
+
 
 
 

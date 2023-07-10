@@ -46,6 +46,12 @@ public interface AssetService {
 	
 	public int deleteAsset(AssetVO assetVO);
 	
+	public int CountdeleteReq(AssetManageVO assetManageVO);
+	
+	public int deleteReq(AssetVO assetVO);
+	
+	public int deleteCancel(AssetVO assetVO);
+	
 	public void xlsxTrsfAssetList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 	public void xlsxTrsfMyAssList(AssetManageVO assetManageVO, HttpServletRequest req, HttpServletResponse res) throws Exception;
@@ -56,4 +62,6 @@ public interface AssetService {
 	
 	public Map<String, Object> SelectAssetSnList(AssetManageVO assetManageVO);
 	public int SelectAssetSn(AssetManageVO assetManageVO);
+	
+	public Map<String, Object> SelectDelReqList(AssetManageVO assetManageVO);
 }
