@@ -354,8 +354,24 @@ window.onload = function(){
 
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
-
-
+<style>
+.btn_bot {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+}
+@media screen and (max-width: 900px){
+ .left_btn{
+ 	display:none !important;
+ }
+ .btn_bot {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center;
+}
+ 
+}
+</style>
 </head>
 
 <body>
@@ -644,10 +660,10 @@ window.onload = function(){
 									</div>
 									<!-- 등록버튼  -->
 									<div class="board_view_bot btn_bot">
-										<%-- <div class="left_btn btn1">
+										<div class="left_btn btn1">
 											<!-- 엑셀 업로드 -->
 											<a href="<c:url value='/ass/AssetExcelUploadStart.do'/>" class= "btn btn_blue_46 w_150">엑셀업로드</a>
-										</div> --%>
+										</div>
 										<div class="right_btn btn1">
 
 											<!-- 등록 -->
