@@ -136,6 +136,8 @@ public class AssetVO implements Serializable {
 	/** 요청날짜 */
 	private String reqDate;
 	
+	private int result;
+	
 	public String getAssetId() {
 		return assetId;
 	}
@@ -440,6 +442,14 @@ public class AssetVO implements Serializable {
 
 	public void setReqDate(String reqDate) {
 		this.reqDate = reqDate;
+	}
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
 	}
 
 

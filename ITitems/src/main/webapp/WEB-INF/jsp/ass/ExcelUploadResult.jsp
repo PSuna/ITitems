@@ -108,10 +108,11 @@ body {
 											<thead>
 											</thead>
 											<tbody>
-
-												<tr>
-													<td>모든 데이터가 정상적으로 입력되었습니다.</td>
-												</tr>
+												<c:forEach var = "result" items="${resultList}" varStatus="status">
+                                					<tr>
+                                						<td><c:out value="${result.msg}"/></td>
+                                					</tr>
+                                				</c:forEach>
 											</tbody>
 										</table>
 									</div>

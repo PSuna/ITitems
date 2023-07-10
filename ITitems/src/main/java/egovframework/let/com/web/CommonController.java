@@ -316,7 +316,6 @@ public class CommonController {
 	@RequestMapping("/com/xlsxAssetUpload.do")
 	public String xlsxAssetUpload(ModelMap model, HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
 		model.addAttribute("resultList", commonService.excelAssetUpload(request, assetManageVO));
-		System.out.println(commonService.excelAssetUpload(request, assetManageVO));
 		return "/ass/ExcelUploadResult";
 	}
 	/**
