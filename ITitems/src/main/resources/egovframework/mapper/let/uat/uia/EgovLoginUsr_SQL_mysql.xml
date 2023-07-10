@@ -20,6 +20,16 @@
 		<result property="authorNm" column="authorNm"/>
 	</resultMap>
 	
+	<resultMap id="mobPushToken" type="egovframework.let.uat.uia.service.MobPushTokenVO">
+		<result property="uniqId" column="UNIQID"/>
+		<result property="pushToken" column="PUSH_TOKEN"/>
+		<result property="tokenRegistDate" column="TOKEN_REGIST_DATE"/>
+		<result property="tokenDeleteDate" column="TOKEN_DELETE_DATE"/>
+		<result property="tokenState" column="TOKEN_STATE"/>
+	</resultMap>
+	
+
+	
 	<!-- 아이디 찾기를 위한 resultMap 
 	<resultMap id="id" class="egovframework.com.cmm.LoginVO">
 		<result property="id" column="id" columnIndex="1"/>
@@ -77,6 +87,30 @@
 	WHERE A.ESNTL_ID=#{uniqId}
 	</select>
 	
+	<select id="isValidPushToken" resultType="int">
+	SELECT COUNT(*) AS count
+	FROM MOB_PUSH_TOKEN
+	WHERE UNIQID = #{uniqId} AND PUSH_TOKEN = #{pushToken};
+	</select>
+	
+	<insert id="insertPushToken" parameterType="egovframework.let.uat.uia.service.MobPushTokenVO">
+	INSERT INTO MOB_PUSH_TOKEN (UNIQID,
+								PUSH_TOKEN,
+								TOKEN_REGIST_DATE,
+								TOKEN_STATE)
+	VALUES (#{uniqId},
+			#{pushToken},
+			SYSDATE(),
+			'Y')
+	</insert>
+	
+	<select id="selectListMobPushToken" parameterType="egovframework.let.uat.uia.service.MobPushTokenVO" resultMap="mobPushToken">
+	SELECT * FROM mob_push_token
+	WHERE uniqId = #{uniqId}
+	AND token_state='Y'
+	</select>
+	
+
 	<!-- 인증서 로그인
 	<select id="loginDAO.actionCrtfctLogin" resultMap="login">
 		<![CDATA[

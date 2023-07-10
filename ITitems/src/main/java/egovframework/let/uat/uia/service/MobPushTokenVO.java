@@ -3,7 +3,7 @@ package egovframework.let.uat.uia.service;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class mobPushTokenVO implements Serializable {
+public class MobPushTokenVO implements Serializable {
 	//
 	private String uniqId; // 사용자 고유 아이디
 	private String pushToken; // 사용자 기기 푸시 토큰 정보

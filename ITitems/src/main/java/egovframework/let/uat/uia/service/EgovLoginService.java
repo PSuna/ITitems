@@ -1,5 +1,7 @@
 package egovframework.let.uat.uia.service;
 
+import java.util.List;
+
 import egovframework.com.cmm.LoginVO;
 
 /**
@@ -45,5 +47,14 @@ public interface EgovLoginService {
 	 */
     boolean searchPassword(LoginVO vo) throws Exception;
     
-    String selectParsingGrade(String uniqId) throws Exception;
+    //모바일 =========================================================
+    String selectParsingGrade(String uniqId) throws Exception; //모바일 부서 구분자
+    
+    //푸쉬 토큰
+    boolean isValidPushToken(MobPushTokenVO pushVO) throws Exception;//푸쉬 토큰 중복 확인
+    int insertPushToken(MobPushTokenVO pushVO)throws Exception;// 푸쉬 토큰 등록
+    List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception;//푸쉬 리스트
+//    int updateMobPushTokenState(MobPushTokenVO pushVO) throws Exception;//푸쉬 토큰 state 변경
+    
+    
 }

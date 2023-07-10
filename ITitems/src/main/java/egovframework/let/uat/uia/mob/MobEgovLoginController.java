@@ -1,7 +1,12 @@
 package egovframework.let.uat.uia.mob;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +30,14 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.let.uat.uap.service.EgovLoginPolicyService;
 import egovframework.let.uat.uap.service.LoginPolicyVO;
 import egovframework.let.uat.uia.service.EgovLoginService;
+import egovframework.let.uat.uia.service.MobPushTokenVO;
 import egovframework.let.utl.sim.service.EgovClntInfo;
+import io.github.jav.exposerversdk.ExpoPushMessage;
+import io.github.jav.exposerversdk.ExpoPushMessageTicketPair;
+import io.github.jav.exposerversdk.ExpoPushReceipt;
+import io.github.jav.exposerversdk.ExpoPushTicket;
+import io.github.jav.exposerversdk.PushClient;
+import io.github.jav.exposerversdk.PushClientException;
 
 import org.apache.commons.vfs2.util.DelegatingFileSystemOptionsBuilder;
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
@@ -82,19 +94,149 @@ public class MobEgovLoginController {
 	 * @return result - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	
-	//모바일 푸시 정보 등록
-	@RequestMapping(value="/uat/uia/mob/setPushToken.do")
-	public String setPushToken(@RequestBody Map<String, Object> pushTokenInfo) {
-		String result = "false";
+
+	// 모바일 푸시 정보 등록/리스트 가져가기
+	@RequestMapping(value = "/uat/uia/mob/insertPushToken.do")
+	public Map<String,Object> setPushToken(@RequestBody MobPushTokenVO pushVO) throws Exception {
+		System.out.println("푸쉬 도착 ==========");
+		System.out.println(pushVO);
 		
-		return result;
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		
+		//등록
+		String result = "valid";
+		if (loginService.isValidPushToken(pushVO)) {
+			System.out.println("push 등록(중복x) ======");
+			int cnt = loginService.insertPushToken(pushVO);
+			result = cnt < 1 ? "fail" : "success";
+		}
+		
+		//리스트
+		if(result!="fail") {
+			List<MobPushTokenVO> resultList = loginService.selectListMobPushToken(pushVO);
+			resultMap.put("resultList",resultList);
+		}
+		resultMap.put("result",result);
+
+		return resultMap;
 	}
+	
+//	@RequestMapping(value = "/uat/uia/mob/testPush.do")
+//	public Map<String,Object> testPush(@RequestBody MobPushTokenVO pushVO) throws Exception {
+//		testPush
+//
+//		return resultMap;
+//	}
+//	@RequestMapping(value = "/uat/uia/mob/testPush.do")
+//	public Map<String,Object> testPush(@RequestBody MobPushTokenVO pushVO) throws Exception {
+//	System.out.println("도착했슈우우우우우우");
+//		Map<String,Object> resultMap = new HashMap<String, Object>();
+//		List<MobPushTokenVO> resultList = loginService.selectListMobPushToken(pushVO);
+//		System.out.println(resultList.get(0).getPushToken());
+//        String recipient = resultList.get(0).getPushToken(); // To test, you must replace the recipient with a valid token!
+//        String title = "push test";
+//        String message = "java test";
+//
+//        if (!PushClient.isExponentPushToken(recipient))
+//            throw new Error("Token:" + recipient + " is not a valid token.");
+//
+//        ExpoPushMessage expoPushMessage = new ExpoPushMessage();
+//        expoPushMessage.getTo().add(recipient);
+//        expoPushMessage.setTitle(title);
+//        expoPushMessage.setBody(message);
+//
+//        List<ExpoPushMessage> expoPushMessages = new ArrayList<>();
+//        expoPushMessages.add(expoPushMessage);
+//
+//        PushClient client = new PushClient();
+//        List<List<ExpoPushMessage>> chunks = client.chunkPushNotifications(expoPushMessages);
+//
+//        List<CompletableFuture<List<ExpoPushTicket>>> messageRepliesFutures = new ArrayList<>();
+//
+//        for (List<ExpoPushMessage> chunk : chunks) {
+//            messageRepliesFutures.add(client.sendPushNotificationsAsync(chunk));
+//        }
+//
+//        // Wait for each completable future to finish
+//        List<ExpoPushTicket> allTickets = new ArrayList<>();
+//        for (CompletableFuture<List<ExpoPushTicket>> messageReplyFuture : messageRepliesFutures) {
+//            try {
+//                for (ExpoPushTicket ticket : messageReplyFuture.get()) {
+//                    allTickets.add(ticket);
+//                }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        List<ExpoPushMessageTicketPair<ExpoPushMessage>> zippedMessagesTickets = client.zipMessagesTickets(expoPushMessages, allTickets);
+//
+//        List<ExpoPushMessageTicketPair<ExpoPushMessage>> okTicketMessages = client.filterAllSuccessfulMessages(zippedMessagesTickets);
+//        String okTicketMessagesString = okTicketMessages.stream().map(
+//                p -> "Title: " + p.message.getTitle() + ", Id:" + p.ticket.getId()
+//        ).collect(Collectors.joining(","));
+//        System.out.println(
+//                "Recieved OK ticket for " +
+//                        okTicketMessages.size() +
+//                        " messages: " + okTicketMessagesString
+//        );
+//
+//        List<ExpoPushMessageTicketPair<ExpoPushMessage>> errorTicketMessages = client.filterAllMessagesWithError(zippedMessagesTickets);
+//        String errorTicketMessagesString = errorTicketMessages.stream().map(
+//                p -> "Title: " + p.message.getTitle() + ", Error: " + p.ticket.getDetails().getError()
+//        ).collect(Collectors.joining(","));
+//        System.out.println(
+//                "Recieved ERROR ticket for " +
+//                        errorTicketMessages.size() +
+//                        " messages: " +
+//                        errorTicketMessagesString
+//        );
+//
+//
+//        // Countdown 30s
+//        int wait = 30;
+//        for (int i = wait; i >= 0; i--) {
+//            System.out.print("Waiting for " + wait + " seconds. " + i + "s\r");
+//            Thread.sleep(1000);
+//        }
+//        System.out.println("Fetching reciepts...");
+//
+//        List<String> ticketIds = (client.getTicketIdsFromPairs(okTicketMessages));
+//        CompletableFuture<List<ExpoPushReceipt>> receiptFutures = client.getPushNotificationReceiptsAsync(ticketIds);
+//
+//        List<ExpoPushReceipt> receipts = new ArrayList<>();
+//        try {
+//            receipts = receiptFutures.get();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+////
+////        System.out.println(
+////                "Recieved " + receipts.size() + " receipts:");
+////
+////        for (ExpoPushReceipt reciept : receipts) {
+////            System.out.println(
+////                    "Receipt for id: " +
+////                            reciept.getId() +
+////                            " had status: " +
+////                            reciept.getStatus());
+////
+////        }
+////
+////        System.exit(0);
+//        return resultMap;
+//    }
+	
+
 	// ❤️ 모바일 로그인
 	@RequestMapping(value = "/uat/uia/mob/actionSecurityLogin.do")
 	public String actionSecurityLogin(@RequestBody LoginVO loginVO, HttpServletResponse response,
 			HttpServletRequest request, ModelMap model) throws Exception {
-		
+
 		// 접속IP
 		String userIp = EgovClntInfo.getClntIP(request);
 
@@ -163,14 +305,14 @@ public class MobEgovLoginController {
 	@RequestMapping(value = "/uat/uia/mob/goMobile.do")
 	public Map<String, Object> actionMain(HttpServletRequest request) throws Exception {
 		LoginVO loginVO = (LoginVO) request.getSession().getAttribute("LoginVO");
-		String parsingGrade =loginService.selectParsingGrade(loginVO.getUniqId());
+		String parsingGrade = loginService.selectParsingGrade(loginVO.getUniqId());
 		loginVO.setParsingGrade(parsingGrade);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("result", loginVO);
 
 		return returnMap;
 	}
-	
+
 	/**
 	 * 로그아웃한다.
 	 * 
