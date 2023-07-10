@@ -82,6 +82,18 @@ public class AssetDAO extends EgovAbstractMapper {
 	public int UpdateAssetDel(AssetVO AssetVO) {
 		return update("AssetDAO.UpdateAssetDel",AssetVO);
 	};
+	
+	public int CountdeleteReq(AssetManageVO assetManageVO) {
+		return selectOne("AssetDAO.CountdeleteReq",assetManageVO);
+	};
+	
+	public int InsertdeleteReq(AssetVO AssetVO) {
+		return insert("AssetDAO.InsertdeleteReq",AssetVO);
+	};
+	
+	public int UpdatedeleteReq(AssetVO AssetVO) {
+		return update("AssetDAO.UpdatedeleteReq",AssetVO);
+	};
 
 	/**
 	 * 전체자산정보 엑셀 추출
@@ -140,5 +152,13 @@ public class AssetDAO extends EgovAbstractMapper {
 
 	public AssetVO InsertExeclAsset(AssetVO assetVO) {
 		return selectOne("AssetDAO.InsertExeclAsset",assetVO);
+	};
+	
+	public List<AssetVO> SelectDelReqList(AssetManageVO AssetManageVO) {
+		return selectList("AssetDAO.SelectDelReqList",AssetManageVO);
+	};
+	
+	public int CountDelReqList(AssetManageVO AssetManageVO) {
+		return selectOne("AssetDAO.CountDelReqList",AssetManageVO);
 	};
 }

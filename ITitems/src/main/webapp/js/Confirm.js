@@ -46,3 +46,70 @@
 	    $(".ui-dialog-titlebar").hide();
 		$dialog.dialog('open');
 }
+
+/* ********************************************************
+ * 삭제요청확인 팝업창
+ ******************************************************** */
+ function DelReqConfirm(val){
+	 var $dialog = $('<div id="modalPan" class=""></div>')
+		.html('<iframe style="border: 0px; " src="' + "/com/DelReqConfirm.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open'); 
+}
+
+/* ********************************************************
+ * 삭제요청진행 팝업창 
+ ******************************************************** */
+ function DelReqIng(val){
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "/com/DelReqIng.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+
+/* ********************************************************
+ * 삭제요청완료 팝업창
+ ******************************************************** */
+ function DelReqSuccess(val){
+
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "/com/DelReqSuccess.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}
+
+/* ********************************************************
+ * 삭제실패 팝업창
+ ******************************************************** */
+ function DelReqFail(val){
+	
+	 var $dialog = $('<div id="modalPan"></div>')
+		.html('<iframe style="border: 0px; " src="' + "/com/DelReqFail.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.dialog({
+	    	autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 300
+		});
+	    $(".ui-dialog-titlebar").hide();
+		$dialog.dialog('open');
+}

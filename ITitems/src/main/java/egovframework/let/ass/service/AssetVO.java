@@ -130,7 +130,12 @@ public class AssetVO implements Serializable {
 	/** 자산 분류 ID */
 	private String assId;
 	
-
+	/** 요청분류 */
+	private String reqGroup;
+	
+	/** 요청날짜 */
+	private String reqDate;
+	
 	public String getAssetId() {
 		return assetId;
 	}
@@ -420,5 +425,23 @@ public class AssetVO implements Serializable {
 	public void setNewMngNum(String newMngNum) {
 		this.newMngNum = newMngNum;
 	}
+
+	public String getReqGroup() {
+		return reqGroup;
+	}
+
+	public void setReqGroup(String reqGroup) {
+		this.reqGroup = reqGroup;
+	}
+
+	public String getReqDate() {
+		return reqDate;
+	}
+
+	public void setReqDate(String reqDate) {
+		this.reqDate = reqDate;
+	}
+
+
 	
 }

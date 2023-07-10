@@ -2,12 +2,14 @@ package egovframework.let.uat.uia.service.impl;
 
 import egovframework.com.cmm.LoginVO;
 import egovframework.let.uat.uia.service.EgovLoginService;
-import egovframework.let.uat.uia.service.MobPushTokenVO;
+import egovframework.let.uat.uia.service.MobPlayLogVO;
 import egovframework.let.utl.fcc.service.EgovNumberUtil;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import egovframework.let.utl.sim.service.EgovFileScrty;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements Ego
 	@Resource(name = "loginDAO")
 	private LoginDAO loginDAO;
 
+	@Resource(name = "PlayLogIdGnrService")
+	private EgovIdGnrService playLogIdGnrService;
 	/// ** EgovSndngMailRegistService */
 	// @Resource(name = "sndngMailRegistService")
 	// private EgovSndngMailRegistService sndngMailRegistService;
@@ -151,28 +155,34 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements Ego
 		return loginDAO.selectParsingGrade(uniqId);
 	}
 
-	// 푸쉬토큰 중복 확인
+	// 중복 확인
 	@Override
-	public boolean isValidPushToken(MobPushTokenVO pushVO) throws Exception {
-		int cnt = loginDAO.isValidPushToken(pushVO);
+	public boolean isValidPlayLog(MobPlayLogVO playVO) throws Exception {
+		int cnt = loginDAO.isValidPlayLog(playVO);
 		return cnt > 0 ? false : true;
 	}
 
-	// 푸쉬토큰 등록
+	// 등록
 	@Override
-	public int insertPushToken(MobPushTokenVO pushVO) throws Exception {
-		return loginDAO.insertPushToken(pushVO);
+	public int insertPlayLog(MobPlayLogVO playVO) throws Exception {
+		try {
+			playVO.setPlayLogId(playLogIdGnrService.getNextStringId());
+		} catch (FdlException e) {
+			e.printStackTrace();
+		}
+
+		return loginDAO.insertPlayLog(playVO);
 	}
 
-	// 푸쉬토큰 리스트 출력
+	// 변경
 	@Override
-	public List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception {
-		return loginDAO.selectListMobPushToken(pushVO);
+	public int updatePlayLog(MobPlayLogVO playVO) throws Exception {
+		return loginDAO.updatePlayLog(playVO);
 	}
-
-//	// 푸쉬토큰 상태 변경
+//	// 푸쉬토큰 리스트 출력
 //	@Override
-//	public int updateMobPushTokenState(MobPushTokenVO pushVO) throws Exception {
-//		return loginDAO.updateMobPushTokenState(pushVO);
+//	public List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception {
+//		return loginDAO.selectListMobPushToken(pushVO);
 //	}
+
 }

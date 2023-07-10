@@ -350,11 +350,6 @@ window.onload = function(){
 	margin-top: 8px;
 }
 
-.inputHint {
-	font-size: 10px;
-	color: #bbb;
-}
-
 .phoneNumBox {
 	display: flex;
 }

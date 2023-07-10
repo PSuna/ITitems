@@ -211,6 +211,12 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
+		boolean delReq = true;
+		if(assetService.CountdeleteReq(assetManageVO) > 0) {
+			delReq = false;
+		}
+		model.addAttribute("delReq", delReq);
+		
 		return "/ass/SelectAsset";
 	}
 	
@@ -378,6 +384,27 @@ public class AssetController {
 	}
 	
 	/**
+	 * 삭제,삭제취소 요청
+	 */
+	@RequestMapping(value = "/ass/AssetDelReq.do")
+	@ResponseBody
+	public int AssetDelReq(AssetVO assetVO, Boolean val) throws Exception {
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		assetVO.setCreatId(user.getUniqId());
+		assetVO.setReqGroup("C6");
+		assetVO.setUsageStauts("N");
+		int res = 0;
+		if(val) {
+			res = assetService.deleteReq(assetVO);
+		}else {
+			res = assetService.deleteCancel(assetVO);
+		}
+
+		
+		return res;
+	}
+	
+	/**
 	 * 자산삭제
 	 */
 	@RequestMapping(value = "/ass/AssetDel.do")
@@ -396,7 +423,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/PhotoManual.do")
 	public String PhotoManual() throws Exception {
 
-		return "/ass/PhotoManual"; 
+		return "/ass/manual/PhotoManual"; 
 	}
 	
 	/**
@@ -405,7 +432,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetSnManual.do")
 	public String AssetSnManual() throws Exception {
 
-		return "/ass/AssetSnManual";
+		return "/ass/manual/AssetSnManual";
 	}
 	
 	/**
@@ -418,7 +445,7 @@ public class AssetController {
 		fvo.setFileType("CONF");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		
-		return "/ass/FileManual";
+		return "/ass/manual/FileManual";
 	}
 	
 	/**
@@ -692,5 +719,50 @@ public class AssetController {
 		model.addAttribute("usedCnt", usedCnt);
 		
 		return "/ass/AssetSnCnfirm";
+	}
+	
+	/**
+	 * 자산렌탈삭제요청 조회 페이지로 이동
+	 */
+	@RequestMapping(value = "/ass/DelReqManagement.do")
+	public String DelReqManagement(HttpServletRequest request, ModelMap model,
+			 AssetManageVO assetManageVO) throws Exception {
+		
+		request.getSession().setAttribute("baseMenuNo", "6000000");
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
+		paginationInfo.setPageSize(assetManageVO.getPageSize());
+
+		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
+		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+		
+		Map<String, Object> map = assetService.SelectDelReqList(assetManageVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("resultCnt", map.get("resultCnt"));
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+	
+		vo.setCodeId("COM006");
+		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
+		model.addAttribute("searchVO", assetManageVO);
+		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		
+		return "/ass/DelReqManagement";
 	}
 }

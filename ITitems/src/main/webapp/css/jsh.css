@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.inputHint {
+    font-size: 14px;
+    color: #bbb;
+}
+
 :root {
     --point-color: #ff6600;
     --main-hover: #0C91E9;

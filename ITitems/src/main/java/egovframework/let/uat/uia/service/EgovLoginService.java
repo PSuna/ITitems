@@ -50,11 +50,11 @@ public interface EgovLoginService {
     //모바일 =========================================================
     String selectParsingGrade(String uniqId) throws Exception; //모바일 부서 구분자
     
-    //푸쉬 토큰
-    boolean isValidPushToken(MobPushTokenVO pushVO) throws Exception;//푸쉬 토큰 중복 확인
-    int insertPushToken(MobPushTokenVO pushVO)throws Exception;// 푸쉬 토큰 등록
-    List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception;//푸쉬 리스트
-//    int updateMobPushTokenState(MobPushTokenVO pushVO) throws Exception;//푸쉬 토큰 state 변경
+    //기기 확인
+    boolean isValidPlayLog(MobPlayLogVO playVO) throws Exception;//기기 정보 중복 확인
+    int insertPlayLog(MobPlayLogVO playVO)throws Exception;// 푸쉬 토큰 등록
+    int updatePlayLog(MobPlayLogVO playVO) throws Exception;//푸쉬 토큰 state 변경
+//    List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception;//푸쉬 리스트
     
     
 }

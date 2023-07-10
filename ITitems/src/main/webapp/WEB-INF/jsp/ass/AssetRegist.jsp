@@ -63,9 +63,6 @@ let loginId = '${loginId}';
  ******************************************************** */
 function insert_asset(){
 		inputFile();
-		if(!cnfirm){
-			document.getElementById("assetSn").value  = "";
-		}
 		 let formData = new FormData(document.getElementById('assetRegist'));
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
