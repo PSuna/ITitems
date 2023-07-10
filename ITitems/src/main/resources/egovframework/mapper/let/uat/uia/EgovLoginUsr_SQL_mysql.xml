@@ -6,6 +6,8 @@
 
 	<!-- 로그인 처리를 위한 resultMap -->
 	<resultMap id="login" type="egovframework.com.cmm.LoginVO">
+		<result property="osLogId" column="OS_LOG_ID"/>
+		<result property="osInfo" column="OS_INFO"/>
 		<result property="id" column="id"/>
 		<result property="name" column="name"/>
 		<result property="ihidNum" column="ihidNum"/>
@@ -19,7 +21,6 @@
 		<result property="authorCode" column="authorCode"/>
 		<result property="authorNm" column="authorNm"/>
 	</resultMap>
-	
 	<resultMap id="mobPlayLog" type="egovframework.let.uat.uia.service.MobPlayLogVO">
 		<result property="playLogId" column="PLAY_LOG_ID"/>
 		<result property="playId" column="PLAY_ID"/>
@@ -28,10 +29,13 @@
 		<result property="brand" column="BRAND"/>
 		<result property="playDate" column="PLAY_DATE"/>
 		<result property="lastPlayDate" column="LAST_PLAY_DATE"/>
-		
 	</resultMap>
 	
 
+	<select id="insertOsLoginLog">
+	INSERT INTO LOGIN_LOG (OS_LOG_ID, UNIQID, LOGIN_DATE, OS_INFO)
+	VALUES(#{osLogId},#{uniqId}, SYSDATE(),#{osInfo})
+	</select>
 	
 	<!-- 아이디 찾기를 위한 resultMap 
 	<resultMap id="id" class="egovframework.com.cmm.LoginVO">

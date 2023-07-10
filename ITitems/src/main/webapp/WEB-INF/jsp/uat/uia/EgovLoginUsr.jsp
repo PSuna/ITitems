@@ -34,8 +34,6 @@
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <script type="text/javascript">
 <!--
-
-
 function actionLogin() {
     if (document.loginForm.id.value =="") {
         alert("아이디를 입력하세요");
@@ -43,7 +41,9 @@ function actionLogin() {
     } else if (document.loginForm.password.value =="") {
         alert("비밀번호를 입력하세요");
         return false;
-    } else {
+    }
+    else {
+    	document.loginForm.osInfo.value=osInfo;
         document.loginForm.action="<c:url value='/uat/uia/web/actionSecurityLogin.do'/>";
         document.loginForm.submit();
     }
@@ -160,6 +160,8 @@ function fnInit() {
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
 		                            <input type="hidden" name="userSe" value="USR"/>
+		                            <input type="hidden" name="osInfo" id="osInfo" />
+		                            
 		                            <input name="j_username" type="hidden"/>
 		                    	</form:form>
                             </div>

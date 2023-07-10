@@ -49,7 +49,55 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
 <script type="text/javaScript" language="javascript">
-
+function getOrgList(Oval) {
+	let val = document.getElementById('searchOrgnzt').value;
+	if(val == ""){
+		document.getElementById('lowerOrgnzt').replaceChildren();
+		let op = document.createElement('option');
+		op.textContent = '부서';
+		op.value = "";
+		document.getElementById('lowerOrgnzt').appendChild(op);
+	}else{
+		$.ajax({
+			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded',
+			data: {'searchUpperOrg' : val},
+			success: function (result) {
+				document.getElementById('lowerOrgnzt').replaceChildren();
+				let op = document.createElement('option');
+				op.textContent = '부서';
+				op.value = "";
+				document.getElementById('lowerOrgnzt').appendChild(op);
+				for(res of result){
+					op = document.createElement('option');
+					op.setAttribute('value', res.orgnztId);
+					op.textContent = res.orgnztNm;
+					if(Oval == res.orgnztId){
+						op.setAttribute('selected', 'selected');
+					}
+					document.getElementById('lowerOrgnzt').appendChild(op);
+				}
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		})
+	}
+	
+}
+/* ********************************************************
+ * 검색 프로젝트 입력
+ ******************************************************** */
+function returnProject(val){
+	
+	if (val) {
+		document.getElementById("searchPrj").value  = val.prjId;
+		document.getElementById("prjNm").value  = val.prjNm;
+	}
+	
+	fn_egov_modal_remove();
+}
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
@@ -106,8 +154,6 @@ body {
 								<h2 class="tit_2">${masterVO.assNm}엑셀업로드</h2>
 								<!-- 검색조건 -->
 								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
-								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
-								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
 										<h3 class="marginBotH3">Step1. 아래 [자산업로드엑셀양식]을 클릭하여 샘플 양식을 다운로드 합니다.</h3>
 										<div class="ExcelConBox">
@@ -144,7 +190,7 @@ body {
 											</div>
 											<div>
 												<label class="item f_select w_full" for="sel1">
-													<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
+													<select id="largeCategory" name="searchLCat">
 															<option value='' label="대분류" />
 															<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
 																<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
@@ -166,12 +212,6 @@ body {
 											<p>자산은 1건 이상 입력하셔야 합니다.</p>
 										</div>
 										<!-- 버튼 영역 -->
-										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
-										<input type="hidden" name="assetId" />
-										<input type="hidden" name="mngNum" />
-										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
-										<input type="hidden" name="listCode" value="AM" />
 										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 자산정보를 저장합니다.</h3>
 										<div class="ExcelConBox">
 											<img src="<c:url value="/" />images/excelUp.png" alt="excel다운로드아이콘">

@@ -159,7 +159,6 @@ public class MobApprovalManageController {
 	@RequestMapping(value = "/aprv/MobApprovalDisUpdate.do")
 	@ResponseBody
 	public int ApprovalDisUpdate(@RequestBody ApprovalManageVO approvalManageVO, HttpServletRequest request) {
-
 		approvalManageVO.setTargetId(approvalManageVO.getUserId());
 		return approvalManageService.ApprovalDisUpdate(approvalManageVO);
 	}
