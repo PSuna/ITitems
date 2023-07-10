@@ -354,8 +354,24 @@ window.onload = function(){
 
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
-
-
+<style>
+.btn_bot {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+}
+@media screen and (max-width: 900px){
+ .left_btn{
+ 	display:none !important;
+ }
+ .btn_bot {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center;
+}
+ 
+}
+</style>
 </head>
 
 <body>
