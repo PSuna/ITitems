@@ -1,6 +1,9 @@
 package egovframework.let.uat.uia.service.impl;
 
 import egovframework.com.cmm.LoginVO;
+import egovframework.let.uat.uia.service.MobPushTokenVO;
+
+import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
@@ -67,7 +70,32 @@ public class LoginDAO extends EgovAbstractMapper {
     	update("loginDAO.updatePassword", vo);
     }
     
+	// 모바일 =========================================================
     String selectParsingGrade(String uniqId) throws Exception{
     	return (String)selectOne("loginDAO.selectParsingGrade", uniqId);
-    }
+    };
+    
+    //푸쉬 토큰 중복 확인
+    int isValidPushToken(MobPushTokenVO pushVO) throws Exception{
+    	return selectOne("loginDAO.isValidPushToken", pushVO);
+    };
+
+    // 푸쉬 토큰 등록
+    int insertPushToken(MobPushTokenVO pushVO)throws Exception{
+    	System.out.println("insertPushDAO");
+    	return insert("loginDAO.insertPushToken", pushVO);
+    };
+    
+ // 푸쉬토큰 리스트 출력
+
+ 	public List<MobPushTokenVO> selectListMobPushToken(MobPushTokenVO pushVO) throws Exception {
+ 		System.out.println("list 출력 dao ==========="+pushVO);
+ 		return selectList("loginDAO.selectListMobPushToken", pushVO);
+ 	}
+
+// 	// 푸쉬토큰 상태 변경
+//
+// 	public int updateMobPushTokenState(MobPushTokenVO pushVO) throws Exception {
+// 		return 0;
+// 	}
 }
