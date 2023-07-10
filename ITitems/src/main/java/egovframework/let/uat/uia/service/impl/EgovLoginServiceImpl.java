@@ -48,7 +48,11 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements Ego
 	/// ** EgovSndngMailRegistService */
 	// @Resource(name = "sndngMailRegistService")
 	// private EgovSndngMailRegistService sndngMailRegistService;
-
+	
+	
+	@Resource(name = "OSLoginLogIdGnrService")
+	private EgovIdGnrService OSLoginLogIdGnrService;
+	
 	/**
 	 * 일반 로그인을 처리한다
 	 * 
@@ -67,6 +71,19 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements Ego
 
 		// 3. 결과를 리턴한다.
 		if (loginVO != null && !loginVO.getId().equals("") && !loginVO.getPassword().equals("")) {
+			//=======================
+			try {
+				loginVO.setOsLogId(OSLoginLogIdGnrService.getNextStringId());
+			} catch (FdlException e) {
+				e.printStackTrace();
+			}
+			loginVO.setOsInfo(vo.getOsInfo());
+			System.out.println("osinfoooooo==============================");
+			System.out.println(vo);
+			System.out.println("==================================");
+			//로그 기록
+			loginDAO.insertOsLoginLog(loginVO);
+			//=======================
 			return loginVO;
 		} else {
 			loginVO = new LoginVO();

@@ -94,6 +94,9 @@ public class LoginDAO extends EgovAbstractMapper {
 	public int updatePlayLog(MobPlayLogVO playVO) throws Exception {
 		return update("loginDAO.updatePlayLog", playVO);
 	}
+	public int insertOsLoginLog(LoginVO vo) throws Exception {
+		return update("loginDAO.insertOsLoginLog", vo);
+	}
 
 // // 푸쉬토큰 리스트 출력
 //

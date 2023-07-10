@@ -22,7 +22,12 @@ public class LoginVO implements Serializable {
 	 */
 	private static final long serialVersionUID = -8274004534207618049L;
 
+	//웹/모바일 os 
+	private String osInfo;
+	private String osLogId;
 	
+
+
 	/** 아이디 */
 	private String id;
 	/** 이름 */
@@ -344,6 +349,13 @@ public class LoginVO implements Serializable {
 		private String isMob;// 모바일구분자
 		private String parsingGrade; // grade변환
 
+		public String getOsLogId() {
+			return osLogId;
+		}
+		
+		public void setOsLogId(String osLogId) {
+			this.osLogId = osLogId;
+		}
 
 
 		public String getIsMob() {
@@ -361,16 +373,28 @@ public class LoginVO implements Serializable {
 		public void setParsingGrade(String parsingGrade) {
 			this.parsingGrade = parsingGrade;
 		}
+		public String getOsInfo() {
+			return osInfo;
+		}
+
+		public void setOsInfo(String osInfo) {
+			this.osInfo = osInfo;
+		}
+
+		@Override
+		public String toString() {
+			return "LoginVO [osInfo=" + osInfo + ", osLogId=" + osLogId + ", id=" + id + ", name=" + name + ", ihidNum="
+					+ ihidNum + ", email=" + email + ", password=" + password + ", passwordHint=" + passwordHint
+					+ ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe + ", orgnztId=" + orgnztId + ", orgnztNm="
+					+ orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId=" + uniqId + ", url=" + url + ", ip="
+					+ ip + ", dn=" + dn + ", grade=" + grade + ", authorCode=" + authorCode + ", authorNm=" + authorNm
+					+ ", isMob=" + isMob + ", parsingGrade=" + parsingGrade + "]";
+		}
+
+
+
 	// ================================================================
 		
-	@Override
-	public String toString() {
-		return "LoginVO [isMob=" + isMob + ", parsingGrade=" + parsingGrade + ", id=" + id + ", name=" + name
-				+ ", ihidNum=" + ihidNum + ", email=" + email + ", password=" + password + ", passwordHint="
-				+ passwordHint + ", passwordCnsr=" + passwordCnsr + ", userSe=" + userSe + ", orgnztId=" + orgnztId
-				+ ", orgnztNm=" + orgnztNm + ", lowerOrgnztId=" + lowerOrgnztId + ", uniqId=" + uniqId + ", url=" + url
-				+ ", ip=" + ip + ", dn=" + dn + ", grade=" + grade + ", authorCode=" + authorCode + ", authorNm="
-				+ authorNm + "]";
-	}
+
 
 }
