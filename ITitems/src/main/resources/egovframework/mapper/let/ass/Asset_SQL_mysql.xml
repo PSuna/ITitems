@@ -550,18 +550,18 @@
 			#{assetName},
 			#{assetSn},
 			<if test="acquiredDate != null and acquiredDate != ''">
-			DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d')
+			DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'),
 			</if>
 			<if test="assetStart != null and assetStart != ''">
-			DATE_FORMAT(#{assetStart}, '%Y-%m-%d')
+			DATE_FORMAT(#{assetStart}, '%Y-%m-%d'),
 			</if>
 			<if test="assetEnd != null and assetEnd != ''">
-			DATE_FORMAT(#{assetEnd}, '%Y-%m-%d')
+			DATE_FORMAT(#{assetEnd}, '%Y-%m-%d'),
 			</if>
 			#{maker},
 			#{makerCode},
 			<if test="rcptDate != null and rcptDate != ''">
-			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d')
+			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
 			</if>
 			#{note},
 			#{assetCompany}
@@ -623,20 +623,20 @@
 			#{assetName},
 			#{assetSn},
 			<if test="acquiredDate != null and acquiredDate != ''">
-			DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d')
+			DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'),
 			</if>
 			<if test="assetStart != null and assetStart != ''">
-			DATE_FORMAT(#{assetStart}, '%Y-%m-%d')
+			DATE_FORMAT(#{assetStart}, '%Y-%m-%d'),
 			</if>
 			<if test="assetEnd != null and assetEnd != ''">
-			DATE_FORMAT(#{assetEnd}, '%Y-%m-%d')
+			DATE_FORMAT(#{assetEnd}, '%Y-%m-%d'),
 			</if>
 			#{acquiredPrice},
 			#{maker},
 			#{makerCode},
 			#{note},
 			<if test="rcptDate != null and rcptDate != ''">
-			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d')
+			DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
 			</if>
 			#{assetCompany},
 			#{creatId}
@@ -658,7 +658,7 @@
 				ASSET_SN = #{assetSn},
 				<choose>
 					<when test="acquiredDate != null and acquiredDate != ''">
-						ACQUIRED_DATE = DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d')
+						ACQUIRED_DATE = DATE_FORMAT(#{acquiredDate}, '%Y-%m-%d'),
 					</when>
 					<otherwise>
 						ACQUIRED_DATE = NULL,
@@ -666,7 +666,7 @@
 				</choose>
 				<choose>
 					<when test="assetStart != null and assetStart != ''">
-						ASSET_START = DATE_FORMAT(#{assetStart}, '%Y-%m-%d')
+						ASSET_START = DATE_FORMAT(#{assetStart}, '%Y-%m-%d'),
 					</when>
 					<otherwise>
 						ASSET_START = NULL,
@@ -674,7 +674,7 @@
 				</choose>
 				<choose>
 					<when test="assetEnd != null and assetEnd != ''">
-						ASSET_END = DATE_FORMAT(#{assetEnd}, '%Y-%m-%d')
+						ASSET_END = DATE_FORMAT(#{assetEnd}, '%Y-%m-%d'),
 					</when>
 					<otherwise>
 						ASSET_END = NULL,
@@ -685,7 +685,7 @@
 				MAKER_CODE = #{makerCode},
 				<choose>
 					<when test="rcptDate != null and rcptDate != ''">
-						RCPT_DATE = DATE_FORMAT(#{rcptDate}, '%Y-%m-%d')
+						RCPT_DATE = DATE_FORMAT(#{rcptDate}, '%Y-%m-%d'),
 					</when>
 					<otherwise>
 						RCPT_DATE = NULL,

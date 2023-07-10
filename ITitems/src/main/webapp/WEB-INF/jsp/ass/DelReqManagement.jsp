@@ -158,7 +158,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -170,7 +170,7 @@ function setPageUnit(obj) {
 	inputpush();
 	document.frm.pageIndex.value = '1';
 	document.frm.pageUnit.value = obj.value;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -181,7 +181,7 @@ function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	inputpush();
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/AssetManagement.do'/>";
+    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -191,48 +191,10 @@ function fn_egov_select_noticeList(pageNo) {
 function inputpush() {
 	document.frm.searchOrgnzt.value = '${searchVO.searchOrgnzt}';
 	document.frm.lowerOrgnzt.value = '${searchVO.lowerOrgnzt}';
-	document.frm.prjNm.value = '${searchVO.prjNm}';
-	document.frm.searchPrj.value = '${searchVO.searchPrj}';
 	document.frm.searchLCat.value = '${searchVO.searchLCat}';
 	document.frm.searchdMCat.value = '${searchVO.searchdMCat}';
-//	document.frm.searchStatus.value = '${searchVO.searchStatus}';
-	document.frm.startDate.value = '${searchVO.startDate}';
-	document.frm.endDate.value = '${searchVO.endDate}';
-//	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.userId.value = '${searchVO.userId}';
 	document.frm.userNm.value = '${searchVO.userNm}';
-}
-
-/* ********************************************************
- * 자산 등록 페이지 이동
- ******************************************************** */
-function AssetRegist() {
-	inputpush();
-	event.preventDefault();
-    document.frm.action = "<c:url value='/ass/AssetRegist.do'/>";
-    document.frm.submit(); 
-}
-
-/* ********************************************************
- * date input 생성
- ******************************************************** */
-function make_date(){
-	
-	$("#startDate,#endDate").datepicker(
-	        {dateFormat:'yy-mm-dd'
-	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
-	         , buttonImageOnly: true
-	         
-	         , showMonthAfterYear: true
-	         , showOtherMonths: true
-		     , selectOtherMonths: true
-		     , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-				
-	         , changeMonth: true // 월선택 select box 표시 (기본은 false)
-	         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
-	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
-	});
 }
 
 /* ********************************************************
@@ -260,38 +222,6 @@ function fntrsfExcel(){
 	}
 }
 
-/* ********************************************************
- * 검색 프로젝트 입력
- ******************************************************** */
-function returnProject(val){
-	
-	if (val) {
-		document.getElementById("searchPrj").value  = val.prjId;
-		document.getElementById("prjNm").value  = val.prjNm;
-	}
-	
-	fn_egov_modal_remove();
-}
-
-/* ********************************************************
- *  검색 날짜 체크
- ******************************************************** */
-function checkEndDate() {
-	let startDate = $('#frm #startDate').val();
-	let endDate = $('#frm #endDate').val();
-	if(startDate != null && startDate > endDate){
-		$('#frm #startDate').val(endDate);
-		$('#frm #endDate').val("");
-	}
-}
-
-function checkStartDate(){
-	let startDate = $('#frm #startDate').val();
-	let endDate = $('#frm #endDate').val();
-	if(startDate != null && startDate > endDate){
-		$('#frm #endDate').val("");
-	}
-}
 
 /* ********************************************************
  * onload
@@ -299,7 +229,6 @@ function checkStartDate(){
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
 	getOrgList('${searchVO.lowerOrgnzt}')
-	make_date();
 	/* console.log(navigator.userAgentData.brands); */
 	  }
 //-->
@@ -345,7 +274,7 @@ window.onload = function(){
 										<input type="hidden" name="assetId" />
 										<input type="hidden" name="mngNum" />
 										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
-										<input type="hidden" name="listCode" value="AM" />
+										<input type="hidden" name="listCode" value="DM" />
 										<div class="j_box02">
 											<div>
 												<!-- <span class="lb">본부/부서</span> -->
@@ -475,7 +404,7 @@ window.onload = function(){
 											</c:forEach>
 											<c:if test="${empty resultList}">
 												<tr>
-                               						<td colspan="8" id="noData">등록된 ${masterVO.assNm}이 없거나 조건에 맞는 ${masterVO.assNm}이 없습니다</td>
+                               						<td colspan="8" id="noData">등록된 요청이 없거나 조건에 맞는 요청이 없습니다</td>
                                					</tr>
 											</c:if>
 										</tbody>

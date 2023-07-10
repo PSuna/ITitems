@@ -311,6 +311,9 @@ function AssetList(){
 	}else if (code == "MYAM"){
 		document.subFrm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
 	    document.subFrm.submit();
+	}else if (code == "DM"){
+		document.subFrm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+	    document.subFrm.submit();
 	}
 }
 //-->
