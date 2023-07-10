@@ -187,7 +187,6 @@ function AssetDel() {
  * 삭제확인 결과 처리
  ******************************************************** */
  function returnDelConfirm(val){
- 
 	fn_egov_modal_remove();
 	 if(val){
 		 DelIng();
@@ -473,7 +472,7 @@ function AssetList(){
 														<label for="">렌탈기간</label> 
 													</td>
 													<td colspan="3">
-													<c:if test="${not empty resultVO.assetStart}">
+													<c:if test="${not empty resultVO.assetStart || not empty resultVO.assetEnd}">
 													${resultVO.assetStart}&nbsp;&nbsp;―&nbsp;&nbsp;${resultVO.assetEnd}
 													</c:if>
 													</td>
@@ -602,6 +601,13 @@ function AssetList(){
 												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
 													onclick="DelConfirm();return false;"> <spring:message
 														code="button.delete" />
+												</a>
+										</c:if>
+										<c:if test="${resultVO.rcptId == login && auth == 'ROLE_USER_MEMBER'}">
+												<!-- 삭제요청 -->
+												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
+													onclick="DeleteReq();return false;"> <spring:message
+														code="button.deleteReq" />
 												</a>
 										</c:if>
 											<!-- 목록 -->

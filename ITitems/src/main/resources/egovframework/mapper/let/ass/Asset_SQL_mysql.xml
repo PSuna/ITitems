@@ -653,6 +653,7 @@
 						RCPT_DATE = NULL,
 					</otherwise>
 				</choose>
+				ASSET_COMPANY = #{assetCompany},
 				NOTE = #{note}
 		<include refid="detailSearch" />	
 	</update>
