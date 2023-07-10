@@ -145,6 +145,12 @@ public class MobAssetController {
 		fvo.setFileType("FILE");
 		appMap.put("FileVO", fileMngService.selectFileVO(fvo));
 		appMap.put("searchVO", assetManageVO);
+		appMap.put("masterVO", assetService.SelectAssetMaster(assetManageVO));
+		boolean delReq = true;
+		if(assetService.CountdeleteReq(assetManageVO) > 0) {
+			delReq = false;
+		}
+		appMap.put("delReq", delReq);
 
 		return appMap;
 	}
@@ -281,6 +287,32 @@ public class MobAssetController {
 		appMap.put("usedCnt", usedCnt);
 		
 		return appMap;
+	}
+	
+	/**
+	 * 삭제,삭제취소 요청
+	 */
+	@RequestMapping(value = "/mob/mobAssetDelReq.do")
+	public int AssetDelReq(@RequestBody Map<String, Object> map) throws Exception {
+		System.out.println(map.get("val"));
+		System.out.println("ddddddddddddddddddddddddddddddddd");
+		
+		AssetVO assetVO = new AssetVO();
+		assetVO.setCreatId(String.valueOf(map.get("userId")));
+		assetVO.setMngNum(String.valueOf(map.get("mngNum")));
+		assetVO.setAssetId(String.valueOf(map.get("assetId")));
+		assetVO.setReqGroup("C6");
+		assetVO.setUsageStauts("N");
+		int res = 0;
+
+		if(String.valueOf(map.get("val")).equals("true")) {
+			res = assetService.deleteReq(assetVO);
+		}else {
+			res = assetService.deleteCancel(assetVO);
+		}
+
+		
+		return res;
 	}
 
 

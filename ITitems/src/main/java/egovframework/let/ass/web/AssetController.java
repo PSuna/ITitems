@@ -389,6 +389,8 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetDelReq.do")
 	@ResponseBody
 	public int AssetDelReq(AssetVO assetVO, Boolean val) throws Exception {
+		System.out.println(val);
+		System.out.println("===================================");
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		assetVO.setCreatId(user.getUniqId());
 		assetVO.setReqGroup("C6");
