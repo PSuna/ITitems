@@ -52,6 +52,11 @@
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
+<style>
+.board_list {
+    border-top: 0;
+}
+</style>
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
