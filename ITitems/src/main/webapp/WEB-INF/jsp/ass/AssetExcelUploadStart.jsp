@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/component.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/page.css">
 <link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
@@ -53,23 +54,39 @@
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 <style>
+body {
+    width: 100%;
+    height: auto !important;
+}
 .board_list {
     border-top: 0;
+}
+.j_box02 div {
+	margin:5px !important;
+}
+.condition2{
+	padding-left:84px;
+}
+.marginBotH3{
+	margin-bottom:15px;
+}
+.marginTopH3{
+	margin-top:40px;
+}
+.important{
+	color:red;
 }
 </style>
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부
 		기능을 사용하실 수 없습니다.</noscript>
-
 	<!-- Skip navigation -->
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
-
 	<div class="wrap">
 		<!-- Header -->
 		<c:import url="/sym/mms/EgovHeader.do" />
 		<!--// Header -->
-
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
@@ -88,18 +105,27 @@
 								<!--// Location -->
 								<h2 class="tit_2">${masterVO.assNm}엑셀업로드</h2>
 								<!-- 검색조건 -->
-								<form id="frm" name="frm" autocomplete="off" method="post">
+								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
 								<input name="startPage" type="hidden" value="<c:out value='${searchVO.startPage}'/>"/>
 								<input name="totalRecord" type="hidden" value="<c:out value='${searchVO.totalRecord}'/>"/>
 									<div class="condition2">
-										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
-										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
-										<input type="hidden" name="assetId" />
-										<input type="hidden" name="mngNum" />
-										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
-										<input type="hidden" name="listCode" value="AM" />
-										<div class="j_box02">
-											<div>
+										<h3 class="marginBotH3">Step1. 아래 [자산업로드엑셀양식]을 클릭하여 샘플 양식을 다운로드 합니다.</h3>
+										<div class="ExcelConBox">
+											<img src="<c:url value="/" />images/excelDown.png" alt="excel다운로드아이콘">
+											<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+					                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
+					                        </c:import>
+				                        </div>
+				                        <h3 class="marginBotH3 marginTopH3">Step2. [공통 입력값] 선택 후, [양식설명]을 참고하여 [Sheet1]에 자산정보를 입력합니다.</h3>
+				                        <h4>[공통입력값]</h4>
+				                        <div style="display:flex;">
+					                        <div class="important">
+					                        	<span>필수: 본부, 대분류 </span>
+					                        </div>
+					                        <span>/선택: 부서, 프로젝트</span>
+				                        </div>
+				                        <div class="j_box02">
+				                        	<div>
 												<label class="item f_select w_full" for="sel1"> 
 													<select id="searchOrgnzt" name="searchOrgnzt" onchange="getOrgList();">
 															<option value="" >본부</option>
@@ -118,13 +144,12 @@
 											</div>
 											<div>
 												<label class="item f_select w_full" for="sel1">
-												<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
-														<option value='' label="대분류" />
-														<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
-															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
-														</c:forEach>
-												</select> 
-												
+													<select id="largeCategory" name="searchLCat" onchange="getMCatList();">
+															<option value='' label="대분류" />
+															<c:forEach var="LCat" items="${LCat_result}" varStatus="status">
+																<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
+															</c:forEach>
+													</select> 
 												</label> 
 											</div>
 											<div class="search_box">
@@ -132,48 +157,36 @@
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
-											<div class="btn_box">
-												<button class="btn pty_btn" onclick="SearchAssetList();">검색</button>
-											</div>
 										</div>
-										<div class="pop_container pop_Manual_File">
-										<p>엑셀양식다운로드</p>
-										<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
-				                        </c:import>
-				                        </div>
+										<h4>[양식설명]</h4>
+										<div class="important">
+											<p>주황색으로 표시된 부분은 필수 입력값으로 반드시 입력하셔야 합니다.</p>
+											<p>실제 업로드할 DATA는 3행부터 입력하셔야 합니다.</p>
+											<p>임의로 행을 추가하거나 삭제하면 파일을 제대로 읽어오지 못하므로 주어진 양식안에 작성하시길 바랍니다.</p>
+											<p>자산은 1건 이상 입력하셔야 합니다.</p>
+										</div>
+										<!-- 버튼 영역 -->
+										<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
+										<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
+										<input type="hidden" name="assetId" />
+										<input type="hidden" name="mngNum" />
+										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
+										<input type="hidden" name="listCode" value="AM" />
+										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 자산정보를 저장합니다.</h3>
+										<div class="ExcelConBox">
+											<img src="<c:url value="/" />images/excelUp.png" alt="excel다운로드아이콘">
+											<input name="excelFile" id="excelFile" type="file" size="30">
+											<button onclick="document.getElementById('popForm').submit();" class="btn pty_btn">업로드</button>
+										</div>
 									</div>	
 								</form>
 								<!--// 검색 조건 -->
-								
 									<!-- 게시판 -->
 									<div class="board_list selete_table">
 										<table>
 										</table>
 	                                </div>
 								</div>
-								<div>
-									<div class="btn_area">
-											<div class="excel_btn pty_margin-left_8">
-												<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-												<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-											</div>
-	                                    	<a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="AssetRegist(); return false;">
-	                                    	<spring:message code="button.create" /></a><!-- 등록 -->
-	                                </div>
-                                </div>
-								<c:if test="${not empty resultList}">
-									<!-- 페이지 네비게이션 시작 -->
-									<div class="board_list_bot">
-										<div class="paging" id="paging_div">
-											<ul>
-												<ui:pagination paginationInfo="${paginationInfo}"
-													type="image" jsFunction="fn_egov_select_noticeList" />
-											</ul>
-										</div>
-									</div>
-									<!-- //페이지 네비게이션 끝 -->
-								</c:if>
 								<!--// 게시판 -->
 							</div>
 						</div>
@@ -181,10 +194,8 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Footer -->
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
-
 </body>
 </html>

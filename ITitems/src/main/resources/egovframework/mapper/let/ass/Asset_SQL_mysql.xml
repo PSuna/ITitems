@@ -990,4 +990,24 @@
 		  FROM ASSET
 		 WHERE ASSET_SN = #{assetSn}
 	</select>
+	<select id="InsertExeclAsset" parameterType="egovframework.let.ass.service.AssetVO" statementType="CALLABLE" resultType="egovframework.let.ass.service.AssetVO">
+		CALL ASSETEXCELINSERT(#{assetId}, 
+							  #{assId}, 
+							  #{assetStauts}, 
+							  #{usageStauts}, 
+							  #{largeCategory},
+							  #{middleCategory}, 
+							  #{prjId}, 
+							  #{rcptNm}, 
+							  #{useNm}, 
+							  #{orgnztId}, 
+							  #{lowerOrgnztId}, 
+							  #{assetName}, 
+							  #{assetSn}, 
+							  #{assetStart}, 
+							  #{assetEnd}, 
+							  #{maker}, 
+							  #{note}, 
+							  #{rcptDate})
+	</select>
 </mapper>

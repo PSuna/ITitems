@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.ass.service.impl.AssetDAO;
 import egovframework.let.com.service.CommonService;
@@ -66,7 +67,7 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public void excelAssetUpload(HttpServletRequest request) throws Exception{
+	public void excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception{
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 		//파일 정보
 		CommonsMultipartFile file = (CommonsMultipartFile)multiRequest.getFile("excelFile");
@@ -92,13 +93,13 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 					assetVO.setRcptDate(value);
 					break;
 				case 1 :
-					assetVO.setRcptId(value);
+					assetVO.setRcptNm(value);
 					break;
 				case 2 :
 					assetVO.setMiddleCategory(value);
 					break;
 				case 3 :
-					assetVO.setUseId(value);
+					assetVO.setUseNm(value);
 					break;
 				case 4 :
 					assetVO.setAssetSn(value);
@@ -119,9 +120,15 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 			if(!"".equals(assetVO.getMiddleCategory()) && assetVO.getMiddleCategory() != null) {
 				String id = assetIdGnrService.getNextStringId();
 				assetVO.setAssetId(id);
+				assetVO.setAssetId(assetManageVO.getAssId());
+				assetVO.setAssetId("ASSMSTR_000000000001");
 				assetVO.setAssetStauts("C2");
 				assetVO.setUsageStauts("U1");
-				assetDAO.InsertAsset(assetVO);
+				assetVO.setLargeCategory(assetManageVO.getSearchLCat());
+				assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
+				assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
+				assetVO.setPrjId(assetManageVO.getSearchPrj());
+				assetDAO.InsertExeclAsset(assetVO);
 				assetDAO.InsertAssethist(assetVO);
 			}
 		}

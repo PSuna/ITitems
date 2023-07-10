@@ -18,6 +18,7 @@ import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
+import egovframework.let.ass.service.AssetVO;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectService;
@@ -278,9 +279,9 @@ public class CommonController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/com/xlsxAssetUpload.do")
-	public String xlsxAssetUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+	public String xlsxAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
 		try {
-			commonService.excelAssetUpload(request);
+			commonService.excelAssetUpload(request, assetManageVO);
 			redirectAttributes.addFlashAttribute("Code", 0);
 			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
 		} catch (Exception ex) {
