@@ -63,6 +63,7 @@ let loginId = '${loginId}';
  ******************************************************** */
 function insert_asset(){
 		inputFile();
+		inputPhoto();
 		 let formData = new FormData(document.getElementById('assetRegist'));
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
@@ -621,12 +622,10 @@ window.onload = function(){
 												<td colspan="4">
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
-													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this)">
-													    <div class="namebox">
-													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly">
-													    </div>
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">						    
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
+													<div class="fileList"></div>
 												</td>
 											</tr>
 											<tr>

@@ -53,8 +53,9 @@
 				</div>
 				
 				<div class="pop_container pop_Manual">
-					<p>지급받은 제품의 전체 모습이 담긴 사진과</p>
-					<p>시리얼넘버(일련번호),제품명(모델명)을 찍어 등록해주세요.</p>
+					<p>다음에 해당하는 제품사진을 찍어 최소 3장 이상 등록해주세요.</p>
+					<p>1) 제품의 앞,뒷면 혹은 옆면이 나오는 사진(최소 2장)<br>
+						2) 시리얼넘버(일련번호),제품명(모델명)나오는 사진(최소 1장)</p>
 					<p>(예시)</p>
 					<div class="PhotoManual">
 					<img alt="" src="<c:url value='/'/>images/PhotoManual1.jpg">

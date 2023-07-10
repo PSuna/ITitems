@@ -11,6 +11,8 @@
  */
 let photoFileList = [];
 let delPhotoList = "";
+let attachfileList = [];
+let delfileList = "";
 
 // 알람 지우기 
 function delAlert(obj){
@@ -25,10 +27,10 @@ function alertPhoto(obj, val){
 		$(obj).closest(".filebox").append($("<p/>").text("등록할 수 없는 파일입니다").addClass("alertV"));
   	    $(obj).val("");
 	}else if(val == 1){
-		$(obj).closest(".filebox").append($("<p/>").text("등록하는 파일이 5장을 초과할 수 없습니다").addClass("alertV"));
+		$(obj).closest(".filebox").append($("<p/>").text("등록하는 파일이 5개를 초과할 수 없습니다").addClass("alertV"));
   	    $(obj).val("");
-	}else if(val == 1){
-		$(obj).closest(".filebox").append($("<p/>").text("같은 이름을 파일은 동시에 등록할 수 없습니다").addClass("alertV"));
+	}else if(val == -1){
+		$(obj).closest(".filebox").append($("<p/>").text("같은 이름의 파일은 동시에 등록할 수 없습니다").addClass("alertV"));
   	    $(obj).val("");
 	}
 }
@@ -62,33 +64,36 @@ function checkCount(obj) {
 
 // 이미지 미리보기 생성
 function MakePhotoList(obj){
-	 let fileList = obj.files;
+	let fileList = obj.files;
+	let cnt = 0;
 	for (var i = 0; i < fileList.length; i++) {
 		let file = fileList[i];
 		let fileUrl = URL.createObjectURL(file);
 		let val = true;
 		for (let i = 0; i < photoFileList.length; i++) {
 			if (photoFileList[i].name == file.name) {
+				cnt ++;
 				val = false;
 			}
 		}
 		if(val == true){
 			photoFileList.push(file);
-		}else{
-			return;
+			let delBtn = $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+				delPhoto(this,file);
+			});
+			let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
+			let boxImg = $("<div/>").addClass("boxImg").append($("<img/>").attr("src",fileUrl));
+			$(".photoList").append($("<div/>").addClass("photobox").append(boxBtn,boxImg));
 		}
-		let delBtn = $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-			delfileList(this,file);
-		});
-		let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
-		let boxImg = $("<div/>").addClass("boxImg").append($("<img/>").attr("src",fileUrl));
-		$(".photoList").append($("<div/>").addClass("photobox").append(boxBtn,boxImg));
 	}
 	$(obj).val('');
+	if(cnt > 0){
+		alertPhoto(obj, -1);
+	}
 }
 
 //이미지 삭제
-function delfileList(obj,file) {
+function delPhoto(obj,file) {
 	$(obj).closest(".photobox").remove();
 	for (let i = 0; i < photoFileList.length; i++) {
 		if (photoFileList[i].name == file.name) {
@@ -106,7 +111,7 @@ function addDelPhoto(obj,fileId) {
 }
 
 // 파일들을 원하는 input에 담기
-function inputFile() {
+function inputPhoto() {
 	const dataTransfer = new DataTransfer();
 	photoFileList.forEach(file => {
 		dataTransfer.items.add(file);
@@ -125,19 +130,88 @@ function getDelPhotoList() {
 /* ********************************************************
  * 지급확인서 파일명 가져오기
  ******************************************************** */
- function getFileName(obj) {
-	 if(obj.files.length>0){
-		 $('#fileNm').val(obj.files[0].name);
-		 const dataTransfer = new DataTransfer();
-		 dataTransfer.items.add(obj.files[0]);
-		 $('input[name=file]')[0].files = dataTransfer.files; 
-		 if($(obj).next().prop('tagName') != 'IMG'){
-			 $(obj).after($("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
-				 delFileName();
-				}));
-		 }
-		 $(obj).val('');
+ function getFileName(obj,fileCnt) {
+	delAlert(obj);
+	if(fileCnt != -1){
+		if(!checkFileCnt(obj,fileCnt)){
+		alertPhoto(obj, 1);
+		return;
+		}
+	}
+	
+	let fileList = obj.files;
+	let cnt = 0;
+	 if(fileList.length>0){
+		if(fileCnt == -1){
+			attachfileList = [];
+			$('.fileList').find('.namebox').each(function(index, item){
+				$(item).remove();
+			})
+		}
+		for (var i = 0; i < fileList.length; i++) {
+			let file = fileList[i];
+			let val = true;
+			for (let i = 0; i < attachfileList.length; i++) {
+				if (attachfileList[i].name == file.name) {
+					cnt ++;
+					val = false;
+				}
+			}
+			if(val == true){
+				attachfileList.push(file);
+				let delBtn =  $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+					 delfile(this,file);
+				});
+				let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val(file.name);
+				let filebox = $("<div/>").addClass("namebox").append(delBtn,NmInput);
+				$(".fileList").append(filebox);
+			}
+		}
+		$(obj).val('');
+		if(cnt > 0){
+			alertPhoto(obj, -1);
+		}
 	 }
+}
+
+// 파일 갯수 체크
+function checkFileCnt(obj,cnt) {
+	let fileCnt = obj.files.length;
+	let namebox = $('.fileList').find('.namebox').length
+	if (photoFileList.length + fileCnt > cnt || namebox + fileCnt > cnt) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
+//파일 삭제
+function delfile(obj,file) {
+	$(obj).closest(".namebox").remove();
+	for (let i = 0; i < attachfileList.length; i++) {
+		if (attachfileList[i].name == file.name) {
+			attachfileList.splice(i, 1);
+		}
+	}
+}
+
+// 기존파일 삭제
+function addDelPhoto(obj,fileId) {
+	$(obj).closest(".photobox").remove();
+	 if(fileId != null && fileId != ""){
+	 	delPhotoList += fileId + "/";
+	 }
+}
+
+// 파일들을 원하는 input에 담기
+function inputFile() {
+	const dataTransfer = new DataTransfer();
+	attachfileList.forEach(file => {
+		dataTransfer.items.add(file);
+	});
+	$('input[name=file]')[0].files = dataTransfer.files; 
+	attachfileList = [];
 }
 
 /* ********************************************************
