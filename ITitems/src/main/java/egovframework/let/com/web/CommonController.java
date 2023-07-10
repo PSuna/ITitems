@@ -18,7 +18,6 @@ import egovframework.let.aprv.service.ApprovalDefaultVO;
 import egovframework.let.aprv.service.ApprovalManageService;
 import egovframework.let.ass.service.AssetManageVO;
 import egovframework.let.ass.service.AssetService;
-import egovframework.let.ass.service.AssetVO;
 import egovframework.let.com.service.CommonService;
 import egovframework.let.prj.service.ProjectManageVO;
 import egovframework.let.prj.service.ProjectService;
@@ -315,16 +314,10 @@ public class CommonController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/com/xlsxAssetUpload.do")
-	public String xlsxAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
-		try {
-			commonService.excelAssetUpload(request, assetManageVO);
-			redirectAttributes.addFlashAttribute("Code", 0);
-			redirectAttributes.addFlashAttribute("Message", egovMessageSource.getMessage("proc.success"));
-		} catch (Exception ex) {
-			redirectAttributes.addFlashAttribute("Code", 1);
-			redirectAttributes.addFlashAttribute("Message", "오류가 발생하였습니다. 엑셀양식을 확인해 주세요.");
-		}
-		return "redirect:/cat/CategoryManage.do";
+	public String xlsxAssetUpload(ModelMap model, HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
+		model.addAttribute("resultList", commonService.excelAssetUpload(request, assetManageVO));
+		System.out.println(commonService.excelAssetUpload(request, assetManageVO));
+		return "/ass/ExcelUploadResult";
 	}
 	/**
 	 * 엑셀 업로드 처리

@@ -689,18 +689,32 @@ public class AssetController {
 	 * 자산 엑셀업로드 안내 화면 이동
 	 */
 	@RequestMapping(value = "/ass/AssetExcelUploadStart.do")
-	public String AssetExcelUploadStart(ModelMap model) throws Exception {
+	public String AssetExcelUploadStart(ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		vo.setTableNm("LETTNORGNZTINFO");
+		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+		
+		CategoryManageVO cvo = new CategoryManageVO();
+		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
+		
 		FileVO fvo = new FileVO();
 		fvo.setFileType("A_EXCEL");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
+		model.addAttribute("searchVO", assetManageVO);
 		return "/ass/AssetExcelUploadStart"; 
+  }
+	/**
+	 * 자산 엑셀업로드 안내 화면 이동
+	 */
+	@RequestMapping(value = "/ass/ExcelUploadResult.do")
+	public String ExcelUploadResult(ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		return "/ass/ExcelUploadResult"; 
   }
   /**
 	 * 시리얼넘버중복확인 페이지 이동
 	 */
 	@RequestMapping(value = "/ass/AssetSnCnfirmView.do")
 	public String AssetSnCnfirmView(ModelMap model) throws Exception {
-		
 		model.addAttribute("usedCnt", -1);
 		
 		return "/ass/AssetSnCnfirm";

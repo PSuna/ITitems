@@ -1034,7 +1034,7 @@ public class ExcelUtil {
 
 						//Cell 기본값 빼고 시작(0에서 시작)
 
-						for(int c = startCelNum ; c < cells ; c++) {
+						for(int c = startCelNum ; c <= cells ; c++) {
 
 							Cell cell = row.getCell(c);
 
