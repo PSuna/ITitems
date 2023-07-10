@@ -16,6 +16,7 @@ import egovframework.let.cop.bbs.service.BoardVO;
 import egovframework.let.cop.bbs.service.EgovBBSAttributeManageService;
 import egovframework.let.cop.bbs.service.EgovBBSManageService;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -202,9 +203,6 @@ public class EgovBBSManageController {
 		if (!boardVO.getSubPageIndex().equals("")) {
 			boardVO.setPlusCount(false);
 		}
-		////-------------------------------
-		System.out.println("===========여기=============");
-		System.out.println(boardVO);
 		boardVO.setLastUpdusrId(user.getUniqId());
 		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
@@ -361,10 +359,15 @@ public class EgovBBSManageController {
 		if (isAuthenticated) {
 			List<FileVO> result = null;
 			String atchFileId = "";
+			final Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
+			List<MultipartFile> fileList = multiRequest.getFiles("file");
+			for(int i=0; i<fileList.size();i++) {
+				files.put("file_" + i, fileList.get(i));
+			}
 
-			final Map<String, MultipartFile> files = multiRequest.getFileMap();
 			if (!files.isEmpty()) {
 				result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
+				
 				atchFileId = fileMngService.insertFileInfs(result);
 			}
 			board.setAtchFileId(atchFileId);
@@ -466,9 +469,10 @@ public class EgovBBSManageController {
 		if (isAuthenticated) {
 			final Map<String, MultipartFile> files = multiRequest.getFileMap();
 			String atchFileId = "";
-
+			
 			if (!files.isEmpty()) {
 				List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, "", "");
+				
 				atchFileId = fileMngService.insertFileInfs(result);
 			}
 
@@ -525,7 +529,12 @@ public class EgovBBSManageController {
 
 		model.addAttribute("result", bdvo);
 		model.addAttribute("bdMstr", bmvo);
-
+		
+		FileVO fvo = new FileVO();
+		fvo.setAtchFileId(bdvo.getAtchFileId());
+		List<FileVO> files = fileMngService.selectFileInfs(fvo);
+		int fCnt = files.size();
+		model.addAttribute("fileCnt", fCnt);
 		//----------------------------
 		// 기본 BBS template 지정
 		//----------------------------
@@ -580,7 +589,11 @@ public class EgovBBSManageController {
 		}
 
 		if (isAuthenticated) {
-			final Map<String, MultipartFile> files = multiRequest.getFileMap();
+			final Map<String, MultipartFile> files = new HashedMap<String, MultipartFile>();
+			List<MultipartFile> fileList = multiRequest.getFiles("file");
+			for(int i=0; i<fileList.size();i++) {
+				files.put("file_" + i, fileList.get(i));
+			}
 			if (!files.isEmpty()) {
 				if ("".equals(atchFileId)) {
 					List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, atchFileId, "");

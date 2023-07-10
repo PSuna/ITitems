@@ -229,7 +229,7 @@ function fntrsfExcel(){
 window.onload = function(){
 	getMCatList('${searchVO.searchdMCat}');
 	getOrgList('${searchVO.lowerOrgnzt}')
-	/* console.log(navigator.userAgentData.brands); */
+	
 	  }
 //-->
 </script>
@@ -275,7 +275,7 @@ window.onload = function(){
 										<input type="hidden" name="mngNum" />
 										<input type="hidden" name="assId" value="<c:out value='${searchVO.assId}'/>"/>
 										<input type="hidden" name="listCode" value="DM" />
-										<div class="j_box02">
+										<div class="j_box05">
 											<div>
 												<!-- <span class="lb">본부/부서</span> -->
 												<label class="item f_select w_full" for="sel1"> 
@@ -304,7 +304,6 @@ window.onload = function(){
 															<option value="${LCat.catId}" <c:if test="${searchVO.searchLCat == LCat.catId}">selected="selected"</c:if>><c:out value="${LCat.catName}" /></option>
 														</c:forEach>
 												</select> 
-												
 												</label> 
 											</div>
 																							
@@ -314,8 +313,6 @@ window.onload = function(){
 												</select>
 												</label> 
 											</div>
-										</div>
-										<div class="j_box02">
 											<div class="search_box">
 												<!-- <span class="lb">신청자</span> -->
 												<span class="f_search2 w_full"> 

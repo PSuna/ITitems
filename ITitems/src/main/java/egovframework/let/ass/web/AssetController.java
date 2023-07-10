@@ -139,7 +139,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetManagement.do")
 	public String AssetManagement(HttpServletRequest request, ModelMap model,
 			 AssetManageVO assetManageVO) throws Exception {
-
+		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		
 		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
