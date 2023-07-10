@@ -148,6 +148,10 @@ public class AssetDAO extends EgovAbstractMapper {
 	
 	public int SelectAssetSn(AssetManageVO AssetManageVO) {
 		return selectOne("AssetDAO.SelectAssetSn",AssetManageVO);
+	}
+
+	public AssetVO InsertExeclAsset(AssetVO assetVO) {
+		return selectOne("AssetDAO.InsertExeclAsset",assetVO);
 	};
 	
 	public List<AssetVO> SelectDelReqList(AssetManageVO AssetManageVO) {

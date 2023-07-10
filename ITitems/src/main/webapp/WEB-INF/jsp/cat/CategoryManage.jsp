@@ -365,31 +365,12 @@ function fnDeleteCat(e, updown){
 										</div>
 									</div>
 								</div>
-								<div>
-									<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
-										<table>
-											<caption>엑셀 업로드</caption>
-											<colgroup>
-												<col>
-												<col>
-											</colgroup>
-											<tbody>
-												<tr>
-													<th><label for="code2">파일찾기</label></th>
-													<td><input name="excelFile" id="excelFile" type="file" size="30"></td>
-												</tr>
-										</table>
-										<!-- 버튼 영역 -->
-										<div class="btn-area">
-											<a href="#" onclick="document.getElementById('popForm').submit();" class="btn btn-yellow btn-ok">업로드</a> <a href="javascript:self.close();" class="btn btn-yellow btn-cancel">창닫기</a>
-										</div>
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<!-- Footer -->
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->

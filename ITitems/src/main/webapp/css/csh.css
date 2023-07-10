@@ -35,6 +35,10 @@
 .aprv_td{
 	height:30px;
 }
+.ExcelConBox{
+	display:flex;
+	align-items: center;
+}
 @media screen and (max-width: 1400px){
 	.excel_btn .btn{
 		display:none !important;
