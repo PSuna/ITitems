@@ -52,6 +52,8 @@ public class EgovFileMngController {
 	 */
 	@RequestMapping("/cmm/fms/selectFileInfs.do")
 	public String selectFileInfs(@ModelAttribute("searchVO") FileVO fileVO, @RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
+		System.out.println(commandMap);
+		System.out.println("=========================================");
 		String atchFileId = (String) commandMap.get("param_atchFileId");
 
 		fileVO.setAtchFileId(atchFileId);

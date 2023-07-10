@@ -265,6 +265,23 @@ public class MobAssetController {
 		
 		return appMap;
 	}
+	
+	/**
+	 * 시리얼넘버중복확인
+	 */
+	@RequestMapping(value = "/mob/MobAssetSnCnfirm.do")
+	public Map<String, Object> AssetSnCnfirm(ModelMap model,  @RequestBody AssetManageVO assetManageVO) throws Exception {
+		
+		Map<String, Object> appMap = new HashMap<String, Object>();
+		
+		appMap.put("assetSn", assetManageVO.getAssetSn());
+		
+		int usedCnt = assetService.SelectAssetSn(assetManageVO);
+		
+		appMap.put("usedCnt", usedCnt);
+		
+		return appMap;
+	}
 
 
 

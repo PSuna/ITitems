@@ -38,6 +38,10 @@ import egovframework.let.cop.bbs.service.EgovBBSManageService;
 
 @RestController
 public class MobEgovBBSManageController {
+	
+	@Resource(name = "EgovFileMngService")
+	private EgovFileMngService fileService;
+	
 	@Resource(name = "EgovBBSManageService")
 	private EgovBBSManageService bbsMngService;
 
@@ -150,4 +154,33 @@ public class MobEgovBBSManageController {
 
 		return resultMap;
 	}
+	
+	/**
+	 * 첨부파일에 대한 목록을 조회한다.
+	 *
+	 * @param fileVO
+	 * @param atchFileId
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/cop/bbs/mobelectFileInfs.do")
+	public  Map<String, Object> selectFileInfs(FileVO fileVO, @RequestBody Map<String, Object> commandMap, ModelMap model) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String atchFileId = (String) commandMap.get("param_atchFileId");
+		System.out.println(commandMap);
+		System.out.println("dddddddddddddddddddddddddddddddddd");
+
+		fileVO.setAtchFileId(atchFileId);
+		List<FileVO> result = fileService.selectFileInfs(fileVO);
+
+		resultMap.put("fileList", result);
+		resultMap.put("updateFlag", "N");
+		resultMap.put("fileListCnt", result.size());
+		resultMap.put("atchFileId", atchFileId);
+
+		return resultMap;
+	}
+
 }
