@@ -410,10 +410,6 @@ window.onload = function(){
 								<div>
 								
 								<div class="btn_area">
-										<div class="excel_btn pty_margin-left_8">
-											<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-											<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
-										</div>
                                 </div>
                                 </div>
 								<c:if test="${not empty resultList}">
