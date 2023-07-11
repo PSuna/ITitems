@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
@@ -83,7 +84,17 @@ public class MobEgovLoginController {
 
 	// 모바일 실행 정보 로그 남기기
 	@RequestMapping(value = "/uat/uia/mob/insertPlayLogHdr.do")
-	public Map<String, Object> insertPlayLogHdr(@RequestBody MobPlayLogVO playVO) throws Exception {
+	public Map<String, Object> insertPlayLogHdr(@RequestBody MobPlayLogVO playVO, HttpServletRequest request, ModelAndView model) throws Exception {
+		System.out.println("리퀘스트==");
+		System.out.println(request);
+		request.setAttribute("mob", playVO);
+		System.out.println("리퀘스트 담았슈==");
+		System.out.println(request);
+		System.out.println("모델멥 ===");
+		model.addObject("mobile",playVO);
+		request.getSession().setAttribute("mobileSession", playVO);
+		
+		System.out.println(model.getModel().get("mobile"));
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 등록
 		String result = "inValid";

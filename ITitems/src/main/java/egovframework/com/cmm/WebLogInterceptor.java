@@ -10,48 +10,48 @@ import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.LogVO;
+import egovframework.let.uat.uia.service.MobPlayLogVO;
 
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class WebLogInterceptor implements HandlerInterceptor{
-	
+public class WebLogInterceptor implements HandlerInterceptor {
+
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
-	
-	 @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		/* System.out.println("preHandle >>>  Controller 실행 전 실행"); */
-		
-		 System.out.println("=========================================");
-		 System.out.println(">>>>>>>>>> preHandle >>>>>>>>>>>>>>>");
-		 System.out.println(request.getRequestURI());
-		 System.out.println(request.getHeader("User-Agent"));
-		 System.out.println("=========================================");
-		 
-		 LogVO logVO = cmmUseService.broswserInfo(request);
 
-		 LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		 logVO.setConectId(user.getUniqId());
-		 logVO.setConectUri(request.getRequestURI());
-		 
-		 cmmUseService.InsertActionLog(logVO);
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		return true;
+	}
 
-        return true;
-    }
- 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modeAndView) throws Exception {
-		/* System.out.println("postHandle >>>  Controller 실행 후 실행"); */
-    }
- 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modeAndView) throws Exception {
+		LogVO logVO = cmmUseService.broswserInfo(request);
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		logVO.setConectId(user.getUniqId());
+		logVO.setConectUri(request.getRequestURI());
+		MobPlayLogVO Mob = (MobPlayLogVO) request.getSession().getAttribute("mobileSession");
+		if (Mob == null) {
+			cmmUseService.InsertActionLog(logVO);
+		} else {
+			logVO.setBrand(Mob.getBrand());
+			logVO.setModel(Mob.getModel());
+			logVO.setOs(Mob.getOs());
+			logVO.setBroswser(null);
+			logVO.setHeader(null);
+			cmmUseService.InsertActionLog(logVO);
+		}
+	}
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Exception ex) {
 		/*
 		 * System.out.println("afterCompletion >>>  preHandle 메소드 return값이 true일 때 실행");
 		 */
-    }
-    
-    
-	 
+	}
+
 }
