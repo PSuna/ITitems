@@ -704,9 +704,9 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
 		model.addAttribute("masterVO", masterVO);
-		if(masterVO.getAssId().equals("ASSMSTR_000000000001")) {
+		if(assetManageVO.getAssId()=="ASSMSTR_000000000001") {
 			fvo.setFileType("A_EXCEL");
-		}else {
+		}else{
 			fvo.setFileType("R_EXCEL");
 		}
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
