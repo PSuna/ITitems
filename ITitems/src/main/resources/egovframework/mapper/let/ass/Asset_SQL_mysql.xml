@@ -1072,6 +1072,7 @@
 		SELECT COUNT(ASSET_SN)
 		  FROM ASSET
 		 WHERE ASSET_SN = #{assetSn}
+		   AND USAGE_STAUTS != 'C4'
 	</select>
 
 	<select id="InsertExcelAsset" parameterType="egovframework.let.ass.service.AssetVO" statementType="CALLABLE" resultType="egovframework.let.ass.service.AssetVO">
