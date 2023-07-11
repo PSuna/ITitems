@@ -29,21 +29,23 @@ public class WebLogInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modeAndView) throws Exception {
+		
 		LogVO logVO = cmmUseService.broswserInfo(request);
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		
 		logVO.setConectId(user.getUniqId());
 		logVO.setConectUri(request.getRequestURI());
+		
 		MobPlayLogVO Mob = (MobPlayLogVO) request.getSession().getAttribute("mobileSession");
-		if (Mob == null) {
-			cmmUseService.InsertActionLog(logVO);
-		} else {
+		
+		if (Mob != null) {
 			logVO.setBrand(Mob.getBrand());
 			logVO.setModel(Mob.getModel());
 			logVO.setOs(Mob.getOs());
 			logVO.setBroswser(null);
 			logVO.setHeader(null);
-			cmmUseService.InsertActionLog(logVO);
 		}
+		cmmUseService.InsertActionLog(logVO);
 	}
 
 	@Override

@@ -92,6 +92,14 @@ public class LogVO implements Serializable {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
+
+	@Override
+	public String toString() {
+		return "LogVO [conectId=" + conectId + ", conectUri=" + conectUri + ", broswser=" + broswser + ", os=" + os
+				+ ", model=" + model + ", brand=" + brand + ", header=" + header + ", creatDt=" + creatDt + "]";
+	}
+	
+	
 	
 	
 }
