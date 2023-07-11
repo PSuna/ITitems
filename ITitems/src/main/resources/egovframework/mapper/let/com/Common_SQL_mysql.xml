@@ -17,5 +17,6 @@
 			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
 		)
 	</insert>
+	
 
 </mapper>

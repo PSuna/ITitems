@@ -20,6 +20,6 @@ public interface CommonService {
 
 	public Map<String, Object> excelRentalUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception;
 	 
-	
+
 }
 

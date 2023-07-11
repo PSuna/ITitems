@@ -36,5 +36,13 @@
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     
     <mvc:annotation-driven/>
-
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*.do" />
+			<bean class="egovframework.com.cmm.WebLogInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 </beans>
