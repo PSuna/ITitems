@@ -134,11 +134,20 @@ function getDelPhotoList() {
 	delAlert(obj);
 	if(fileCnt != -1){
 		if(!checkFileCnt(obj,fileCnt)){
-		alertPhoto(obj, 1);
-		return;
+			alertPhoto(obj, 1);
+			return;
+		}else{
+			addNameBox(obj,fileCnt);
 		}
+	}else{
+		addNameBox(obj,fileCnt);
 	}
 	
+	
+}
+
+// 파일 이름출력
+function addNameBox(obj,fileCnt){
 	let fileList = obj.files;
 	let cnt = 0;
 	 if(fileList.length>0){
