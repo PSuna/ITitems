@@ -49,6 +49,10 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
 <script type="text/javaScript" language="javascript">
+function AssetList(){
+	document.popForm.action = "<c:url value='/ass/AssetRegist.do'/>";
+    document.popForm.submit();
+}
 function getOrgList(Oval) {
 	let val = document.getElementById('searchOrgnzt').value;
 	if(val == ""){
@@ -97,6 +101,27 @@ function returnProject(val){
 	}
 	
 	fn_egov_modal_remove();
+}
+function fnSubmit(){
+	if(!document.getElementById('searchOrgnzt').value && document.getElementById('searchOrgnzt').value ==''){
+		alert("본부를 선택해 주세요.");
+		return;
+	}
+	if(!document.getElementById('largeCategory').value && document.getElementById('largeCategory').value ==''){
+		alert("대분류를 선택해 주세요.");
+		return;
+	}
+	if(document.getElementById('excelFile').value && document.getElementById('excelFile').value !=''){
+		if(document.getElementById('isRental').value == 'ASSMSTR_000000000001'){
+			document.getElementById('popForm').submit();
+		}else{
+			document.getElementById('popForm').action = "<c:url value='/com/xlsxRentalUpload.do'/>";
+			document.getElementById('popForm').submit();
+		}
+	}else{
+		alert("파일을 등록해 주세요.");
+		return;
+	}
 }
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -154,15 +179,18 @@ body {
 								<h2 class="tit_2">${masterVO.assNm}엑셀업로드</h2>
 								<!-- 검색조건 -->
 								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
+								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
+								<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
+								<input type="hidden" id="isRental" name="isRental" value="<c:out value="${masterVO.assId}"/>" />
 									<div class="condition2">
-										<h3 class="marginBotH3">Step1. 아래 [자산업로드엑셀양식]을 클릭하여 샘플 양식을 다운로드 합니다.</h3>
+										<h3 class="marginBotH3">Step1. 아래 [${masterVO.assNm}업로드엑셀양식]을 클릭하여 샘플 양식을 다운로드 합니다.</h3>
 										<div class="ExcelConBox">
 											<img src="<c:url value="/" />images/excelDown.png" alt="excel다운로드아이콘">
 											<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 					                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 					                        </c:import>
 				                        </div>
-				                        <h3 class="marginBotH3 marginTopH3">Step2. [공통 입력값] 선택 후, [양식설명]을 참고하여 [Sheet1]에 자산정보를 입력합니다.</h3>
+				                        <h3 class="marginBotH3 marginTopH3">Step2. [공통 입력값] 선택 후, [양식설명]을 참고하여 [Sheet1]에 ${masterVO.assNm}정보를 입력합니다.</h3>
 				                        <h4>[공통입력값]</h4>
 				                        <div style="display:flex;">
 					                        <div class="important">
@@ -209,14 +237,22 @@ body {
 											<p>주황색으로 표시된 부분은 필수 입력값으로 반드시 입력하셔야 합니다.</p>
 											<p>실제 업로드할 DATA는 3행부터 입력하셔야 합니다.</p>
 											<p>임의로 행을 추가하거나 삭제하면 파일을 제대로 읽어오지 못하므로 주어진 양식안에 작성하시길 바랍니다.</p>
-											<p>자산은 1건 이상 입력하셔야 합니다.</p>
+											<p>${masterVO.assNm}은 1건 이상 입력하셔야 합니다.</p>
 										</div>
 										<!-- 버튼 영역 -->
-										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 자산정보를 저장합니다.</h3>
+										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 ${masterVO.assNm}정보를 저장합니다.</h3>
 										<div class="ExcelConBox">
 											<img src="<c:url value="/" />images/excelUp.png" alt="excel다운로드아이콘">
 											<input name="excelFile" id="excelFile" type="file" size="30">
-											<button onclick="document.getElementById('popForm').submit();" class="btn pty_btn">업로드</button>
+											<button onclick="fnSubmit(); return false;" class="btn pty_btn">업로드</button>
+										</div>
+										<div class="board_view_bot btn_bot">
+											<div class="right_btn btn1">
+												<!-- 목록 -->
+												<a href="#LINK" class="btn btn_blue_46 w_150"
+													onclick="AssetList();return false;">업로드종료
+												</a>
+											</div>
 										</div>
 									</div>	
 								</form>
@@ -238,4 +274,5 @@ body {
 		<c:import url="/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 </body>
+
 </html>

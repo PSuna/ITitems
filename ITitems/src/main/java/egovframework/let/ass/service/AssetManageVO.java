@@ -96,6 +96,8 @@ public class AssetManageVO implements Serializable {
     /** 목록 */
     private String listCode = "MYAM";
     
+    private String isRental = "";
+    
     /** 페이징 */
     
     /** 정렬순서(DESC,ASC) */
@@ -430,6 +432,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setAssetSn(String assetSn) {
 		this.assetSn = assetSn;
+	}
+	public String getIsRental() {
+		return isRental;
+	}
+	public void setIsRental(String isRental) {
+		this.isRental = isRental;
 	}
 	
 	

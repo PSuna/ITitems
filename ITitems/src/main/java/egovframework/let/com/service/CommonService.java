@@ -14,9 +14,11 @@ public interface CommonService {
 	
 	public int InsertXcptInfo(HashMap<String, String> xcpt);
 
-	public List<Map<String, Object>> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception;
+	public Map<String, Object> excelAssetUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception;
 	
 	public void excelUserUpload(HttpServletRequest request) throws Exception;
+
+	public Map<String, Object> excelRentalUpload(HttpServletRequest request, AssetManageVO assetManageVO) throws Exception;
 	 
 	
 }

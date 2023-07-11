@@ -28,6 +28,7 @@ import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.let.ass.service.AssetManageVO;
+import egovframework.let.ass.service.AssetMasterVO;
 import egovframework.let.ass.service.AssetService;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.cat.service.CategoryManageVO;
@@ -700,9 +701,15 @@ public class AssetController {
 		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
 		
 		FileVO fvo = new FileVO();
-		fvo.setFileType("A_EXCEL");
-		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		model.addAttribute("searchVO", assetManageVO);
+		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
+		model.addAttribute("masterVO", masterVO);
+		if(masterVO.getAssId().equals("ASSMSTR_000000000001")) {
+			fvo.setFileType("A_EXCEL");
+		}else {
+			fvo.setFileType("R_EXCEL");
+		}
+		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		return "/ass/AssetExcelUploadStart"; 
   }
 	/**
@@ -710,6 +717,9 @@ public class AssetController {
 	 */
 	@RequestMapping(value = "/ass/ExcelUploadResult.do")
 	public String ExcelUploadResult(ModelMap model, AssetManageVO assetManageVO) throws Exception {
+		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
+		model.addAttribute("masterVO", masterVO);
+		model.addAttribute("searchVO", assetManageVO);
 		return "/ass/ExcelUploadResult"; 
   }
   /**
