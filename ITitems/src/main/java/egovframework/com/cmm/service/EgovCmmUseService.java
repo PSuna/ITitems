@@ -3,6 +3,8 @@ package egovframework.com.cmm.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import egovframework.com.cmm.ComDefaultCodeVO;
 
 
@@ -84,4 +86,14 @@ public interface EgovCmmUseService {
      * @throws Exception
      */
 	public List<CmmnDetailCode> selectAuthorCodeDetail(ComDefaultCodeVO vo);
+	
+	 /**
+     * 클라우드 OS, 브라우저 정보 리턴
+     */
+	public LogVO  broswserInfo(HttpServletRequest request);
+	
+	 /**
+     * 로그 DB남기기
+     */
+	public int InsertActionLog(LogVO logVO);
 }

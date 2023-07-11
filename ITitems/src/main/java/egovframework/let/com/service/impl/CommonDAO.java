@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.springframework.stereotype.Repository;
 
+
 @Repository("CommonDAO")
 public class CommonDAO extends EgovAbstractMapper  {
 
@@ -13,4 +14,5 @@ public class CommonDAO extends EgovAbstractMapper  {
 		return insert("CommonDAO.InsertXcptInfo",xcpt);
 	};
 	
+
 }

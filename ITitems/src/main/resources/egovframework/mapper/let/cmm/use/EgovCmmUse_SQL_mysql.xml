@@ -78,4 +78,27 @@
                AND AUTHOR_CODE LIKE #{detailConditionValue}
             </if>
     </select>
+    
+   	<insert id="InsertActionLog" parameterType="egovframework.com.cmm.service.LogVO">
+		INSERT INTO ACTIONLOG (
+			CONECT_ID,
+			CONECT_URI,
+			OS,
+			BROSWSER,
+			MODEL,
+			BRAND,
+			HEADER,
+			CREAT_DT
+			)
+		VALUES (
+			#{conectId},
+			#{conectUri},
+			#{os},
+			#{broswser},
+			#{model},
+			#{brand},
+			#{header},
+			DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+		)
+	</insert>
 </mapper>

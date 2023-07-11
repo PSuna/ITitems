@@ -2,10 +2,11 @@ package egovframework.com.cmm.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.service.CmmnDetailCode;
-
-import org.springframework.stereotype.Repository;
+import egovframework.com.cmm.service.LogVO;
 
 /**
  * @Class Name : CmmUseDAO.java
@@ -78,4 +79,10 @@ public class CmmUseDAO extends EgovComAbstractDAO {
 	public List<CmmnDetailCode> selectAuthorCodeDetail(ComDefaultCodeVO vo) {
 		return (List<CmmnDetailCode>) list("CmmUseDAO.selectAuthorCodeDetail", vo);
 	}
+	
+	public int InsertActionLog(LogVO logVO) {
+		
+		return insert("CmmUseDAO.InsertActionLog",logVO);
+	};
+	
 }
