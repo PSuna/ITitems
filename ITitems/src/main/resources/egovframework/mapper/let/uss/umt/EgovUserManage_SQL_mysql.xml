@@ -39,6 +39,7 @@
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE E.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
            		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
@@ -94,6 +95,7 @@
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE A.EMPLYR_ID != 'admin'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
@@ -144,6 +146,7 @@
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE E.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
            		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
@@ -189,6 +192,7 @@
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE A.EMPLYR_ID != 'admin'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
@@ -235,10 +239,10 @@
     </insert>
     
     <delete id="deleteUser_S">
-        
-            DELETE FROM LETTNEMPLYRINFO 
-            WHERE ESNTL_ID=#{delId}
-        
+            UPDATE LETTNEMPLYRINFO
+        	   SET EMPLYR_STTUS_CODE = 'N',
+             	   DEL_DT = DATE_ADD(CURRENT_DATE(), INTERVAL 3 YEAR)
+      		 WHERE ESNTL_ID =  #{delId}
     </delete>
     
     <select id="selectUser_S" resultType="egovframework.let.uss.umt.service.UserManageVO">
@@ -279,6 +283,7 @@
           FROM LETTNEMPLYRINFO A, LETTNEMPLYRSCRTYESTBS B
          WHERE ESNTL_ID=#{uniqId}
            AND A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
+           AND A. EMPLYR_STTUS_CODE = 'P'
     </select>
     
     <update id="updateUser_S">
@@ -412,6 +417,7 @@
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE A.EMPLYR_ID != 'admin'
            		   AND A.EMPLYR_ID != 'empty@iteyes.co.kr'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
@@ -475,6 +481,7 @@
 	   LEFT OUTER JOIN LETTNAUTHORINFO D
 					ON D.AUTHOR_CODE = E.AUTHOR_CODE
            		 WHERE A.EMPLYR_ID != 'admin'
+           		   AND A.EMPLYR_STTUS_CODE = 'P'
         		<if test='searchAuthor !=null and searchAuthor !=""'>
         		   AND D.AUTHOR_CODE = #{searchAuthor}
         		</if>
