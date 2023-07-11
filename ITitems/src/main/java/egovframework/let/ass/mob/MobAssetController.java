@@ -299,7 +299,12 @@ public class MobAssetController {
 		
 		AssetVO assetVO = new AssetVO();
 		assetVO.setCreatId(String.valueOf(map.get("userId")));
-		assetVO.setMngNum(String.valueOf(map.get("mngNum")));
+		if(String.valueOf(map.get("mngNum")).equals("null")) {
+			
+			assetVO.setMngNum(null);
+		}else {
+			assetVO.setMngNum(String.valueOf(map.get("mngNum")));
+		}
 		assetVO.setAssetId(String.valueOf(map.get("assetId")));
 		assetVO.setReqGroup("C6");
 		assetVO.setUsageStauts("N");
