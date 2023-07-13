@@ -35,12 +35,17 @@
               FROM (SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID, ORGNZT_ID, GRADE
                       FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
+	   LEFT OUTER JOIN LETTNAUTHORINFO D
+					ON D.AUTHOR_CODE = B.AUTHOR_CODE
              WHERE A.USER_ID != 'empty@iteyes.co.kr'
                AND B.AUTHOR_CODE != 'ROLE_HIGH_ADMIN'
                AND USER_ID != 'admin'
             <if test="searchKeyword != null and searchKeyword != ''">
 	            	AND (A.USER_ID LIKE '%' #{searchKeyword} '%'
           	 		     OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+            </if>
+            <if test="searchAuthor != null and searchAuthor != ''">
+	            	AND D.AUTHOR_CODE = #{searchAuthor}
             </if>
             
             ORDER BY USER_NM ASC
@@ -87,21 +92,38 @@
                        AND CODE = A.MBER_TY_CODE
                        AND USE_AT = 'Y') AS MBER_TY_NM,
                    B.AUTHOR_CODE, 
-                   (CASE WHEN B.SCRTY_DTRMN_TRGET_ID IS NULL THEN 'N'
+                   (CASE WHEN B.SCRTY_DTRMN_TRGET_ID IS NULL 
+                   		 THEN 'N'
                          ELSE 'Y' 
                      	 END) AS REG_YN,
                     ESNTL_ID,
-                    (SELECT ORGNZT_NM FROM LETTNORGNZTINFO WHERE ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
-                    (SELECT CODE_NM FROM LETTCCMMNDETAILCODE WHERE CODE = A.GRADE) as grade
-              FROM (SELECT EMPLYR_ID USER_ID, USER_NM USER_NM, GROUP_ID, 'USR03' MBER_TY_CODE, ESNTL_ID, ORGNZT_ID, GRADE
-                      FROM LETTNEMPLYRINFO ) A LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
+                    (SELECT ORGNZT_NM 
+                       FROM LETTNORGNZTINFO 
+                      WHERE ORGNZT_ID = A.ORGNZT_ID) AS orgnztId,
+                    (SELECT CODE_NM 
+                       FROM LETTCCMMNDETAILCODE 
+                      WHERE CODE = A.GRADE) as grade
+              FROM (SELECT EMPLYR_ID USER_ID, 
+              			   USER_NM USER_NM, 
+              			   GROUP_ID, 
+              			   'USR03' MBER_TY_CODE, 
+              			   ESNTL_ID, 
+              			   ORGNZT_ID, 
+              			   GRADE
+                      FROM LETTNEMPLYRINFO ) A 
+   LEFT OUTER JOIN LETTNEMPLYRSCRTYESTBS B
                 ON A.ESNTL_ID = B.SCRTY_DTRMN_TRGET_ID
+   LEFT OUTER JOIN LETTNAUTHORINFO D
+				ON D.AUTHOR_CODE = B.AUTHOR_CODE
              WHERE A.USER_ID != 'empty@iteyes.co.kr'
                AND B.AUTHOR_CODE != 'ROLE_HIGH_ADMIN' 
 	           AND USER_ID != 'admin'
             <if test="searchKeyword != null and searchKeyword != ''">
 	            	AND (A.USER_ID LIKE '%' #{searchKeyword} '%'
           	 		     OR A.USER_NM LIKE '%' #{searchKeyword} '%')
+            </if>
+            <if test="searchAuthor != null and searchAuthor != ''">
+	            	AND D.AUTHOR_CODE = #{searchAuthor}
             </if>) A
 	</select>
 

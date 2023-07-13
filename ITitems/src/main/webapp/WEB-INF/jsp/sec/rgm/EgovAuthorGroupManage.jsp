@@ -218,6 +218,7 @@ function press() {
         fncSelectAuthorGroupList('1');
     }
 }
+
 //-->
 </script>
 <style>
@@ -267,7 +268,17 @@ function press() {
                                 <!-- 검색조건 -->
                                 <div class="condition2">
                                 	<div class="j_box07">
-	                                	<div class="search_box">
+											<div>
+												<label class="item f_select w_150" for="searchAuthor">
+													<select name="searchAuthor" id="searchAuthor" title="검색조건-권한" >
+															<option value="" label="권한" />
+															<c:forEach var="author" items="${auth_result}">
+																<option value="<c:out value="${author.code}"/>" <c:if test="${authorGroupVO.searchAuthor == author.code}">selected="selected"</c:if>>${author.codeNm}</option>
+															</c:forEach>
+													</select>
+												</label>
+											</div>
+											<div class="search_box">
 											<span class="item f_search w_full">
 												<input class="f_input w_full pty_f_input" type="text" name="searchKeyword" placeholder="사용자명/사용자ID 검색" title="검색어" onkeypress="press();" value="<c:out value='${authorGroupVO.searchKeyword}'/>">
 											</span>

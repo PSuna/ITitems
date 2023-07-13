@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
+import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
@@ -93,6 +94,13 @@ public class EgovAuthorGroupController {
 
     	authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+        
+        //사용자상태코드를 코드정보로부터 조회
+      	ComDefaultCodeVO vo = new ComDefaultCodeVO();
+        
+      	//권한코드를 조회 
+      	vo.setTableNm("LETTNAUTHORINFO");
+      	model.addAttribute("auth_result", cmmUseService.selectAuthorCodeDetail(vo));
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
         return "sec/rgm/EgovAuthorGroupManage";
@@ -132,6 +140,11 @@ public class EgovAuthorGroupController {
 
     	authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
+        //사용자상태코드를 코드정보로부터 조회
+      	ComDefaultCodeVO vo = new ComDefaultCodeVO();
+      	//권한코드를 조회 
+      	vo.setTableNm("LETTNAUTHORINFO");
+      	model.addAttribute("auth_result", cmmUseService.selectAuthorCodeDetail(vo));
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
         

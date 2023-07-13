@@ -70,6 +70,8 @@ public class AuthorGroup extends ComDefaultVO {
 	
 	private String orgnztId;
 	
+	private String searchAuthor ="";
+	
 	/**
 	 * authorGroup attribute 를 리턴한다.
 	 * @return AuthorGroup
@@ -207,6 +209,12 @@ public class AuthorGroup extends ComDefaultVO {
 	}
 	public void setOrgnztId(String orgnztId) {
 		this.orgnztId = orgnztId;
+	}
+	public String getSearchAuthor() {
+		return searchAuthor;
+	}
+	public void setSearchAuthor(String searchAuthor) {
+		this.searchAuthor = searchAuthor;
 	}
 	
 }
