@@ -176,7 +176,7 @@ public class MobAssetController {
 		if (assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
 			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
 		}
-		assetManageVO.setSearchKind("out");
+//		assetManageVO.setSearchKind("out");
 		Map<String, Object> map = assetService.MobSelectAssetInfoVOList(assetManageVO);
 
 		int totCnt = Integer.parseInt((String) map.get("resultCnt"));

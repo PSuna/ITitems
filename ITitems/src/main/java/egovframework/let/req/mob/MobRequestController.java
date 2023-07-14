@@ -82,13 +82,14 @@ public class MobRequestController {
 
 		// req등록
 		RequestVO requestVO = new RequestVO();
+		System.out.println(rVO);
 		requestVO.setId(String.valueOf(rVO.get("id")));
 		requestVO.setPrjId(String.valueOf(rVO.get("prjId")));
 		requestVO.setPm(String.valueOf(rVO.get("pm")));
 		requestVO.setStartDate(String.valueOf(rVO.get("startDate")));
 		requestVO.setEndDate(String.valueOf(rVO.get("endDate")));
 		requestVO.setPlace(String.valueOf(rVO.get("place")));
-		requestVO.setReqGroup("C1");
+		requestVO.setReqGroup(String.valueOf(rVO.get("reqGroup")));
 		
 		int rCnt = requestService.InsertRequestVO(requestVO);
 		String reqId = requestVO.getReqId();
@@ -137,11 +138,11 @@ public class MobRequestController {
 
 		// 반출 등록 성공 여부
 		if (rCnt <= 0) {
-			resultMap.put("result", "반출 등록 중 오류가 발생했습니다.");
+			resultMap.put("result", "등록 중 오류가 발생했습니다.");
 
 			// 반출 자산 등록 성공 여부
 		} else if (rdCnt <= 0) {
-			resultMap.put("result", "반출 자산 등록 중 오류가 발생했습니다.");
+			resultMap.put("result", "자산 등록 중 오류가 발생했습니다.");
 
 			// 반출 결재자 등록 성공 여부
 		} else if (aprvCnt <= 0) {
@@ -149,7 +150,7 @@ public class MobRequestController {
 
 			// 전체 성공 시 result + reqId 반환
 		} else {
-			resultMap.put("result", "반출 등록 성공");
+			resultMap.put("result", "등록 성공");
 			resultMap.replace("reqId", reqId);
 		}
 
