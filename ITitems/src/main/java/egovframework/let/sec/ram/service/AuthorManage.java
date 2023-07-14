@@ -52,6 +52,7 @@ public class AuthorManage extends ComDefaultVO {
 	/** 검색Keyword */
     private String searchKeyword = "";
     
+    private String searchAuthor = "";
     /** 현재페이지 */
     private int pageIndex = 1;
     
@@ -257,6 +258,12 @@ public class AuthorManage extends ComDefaultVO {
 	 */
 	public void setRecordCountPerPage(int recordCountPerPage) {
 		this.recordCountPerPage = recordCountPerPage;
+	}
+	public String getSearchAuthor() {
+		return searchAuthor;
+	}
+	public void setSearchAuthor(String searchAuthor) {
+		this.searchAuthor = searchAuthor;
 	}
 
 }
