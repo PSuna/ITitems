@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,10 +49,10 @@ public class MobApprovalManageController {
 	@Resource(name = "RequestService")
 	private RequestService requestService;
 
-	
 	/** userManageService */
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
+
 	@RequestMapping(value = "/user/MobSearchUserList.do")
 	public Map<String, Object> SearchUserList(@RequestBody UserDefaultVO userSearchVO) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
@@ -74,9 +75,7 @@ public class MobApprovalManageController {
 
 		return appMap;
 	}
-	
-	
-	
+
 	/**
 	 * 전체조회
 	 * 
@@ -89,7 +88,6 @@ public class MobApprovalManageController {
 	public Map<String, Object> selectApprovalList(@RequestBody ApprovalDefaultVO approvalSearchVO,
 			HttpServletRequest request) throws Exception {
 		Map<String, Object> appMap = new HashMap<String, Object>();
-
 
 		/** EgovPropertyService */
 		appMap.put("resultList", approvalManageService.mobSelectApprovalList(approvalSearchVO));
@@ -105,7 +103,14 @@ public class MobApprovalManageController {
 		vo.setCodeId("COM011");
 		appMap.put("aprvGroup_result", cmmUseService.selectCmmCodeDetail(vo));
 
+		return appMap;
+	}
 
+	@RequestMapping(value = "/aprv/MobSelectApprovalListB.do")
+	public Map<String, Object> SelectApprovalListB(@RequestBody ApprovalDefaultVO approvalSearchVO,
+			HttpServletRequest request) throws Exception {
+		Map<String, Object> appMap = new HashMap<String, Object>();
+		appMap.put("resultList", approvalManageService.selectApprovalListB(approvalSearchVO));
 		return appMap;
 	}
 
@@ -162,5 +167,7 @@ public class MobApprovalManageController {
 		approvalManageVO.setTargetId(approvalManageVO.getUserId());
 		return approvalManageService.ApprovalDisUpdate(approvalManageVO);
 	}
+
+	// 메인 전체조회
 
 }
