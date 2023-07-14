@@ -102,7 +102,7 @@ public class EgovFileMngUtil {
 	    Entry<String, MultipartFile> entry = itr.next();
 
 	    file = entry.getValue();
-	    String orginFileName = file.getOriginalFilename();
+	   String orginFileName = file.getOriginalFilename().replace(",", ".");
 
 	    //--------------------------------------
 	    // 원 파일명이 없는 경우 처리
@@ -175,7 +175,7 @@ public class EgovFileMngUtil {
 	
 	String filePath = "";
 	FileVO fvo= new FileVO();
-    String orginFileName = file.getOriginalFilename();
+   String orginFileName = file.getOriginalFilename().replace(",", ".");
 
     //--------------------------------------
     // 원 파일명이 없는 경우 처리
