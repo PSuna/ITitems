@@ -77,14 +77,6 @@ public interface UserManageService  {
 	public int updateUser(UserManageVO userManageVO) throws Exception;
 
 	/**
-	 * 사용자정보 수정시 히스토리 정보를 추가
-	 * @param userManageVO 업무사용자 수정정보
-	 * @return result 등록결과
-	 * @throws Exception
-	 */
-	public void insertUserHistory(UserManageVO userManageVO) throws Exception;
-
-	/**
 	 * 업무사용자 암호 수정
 	 * @param userManageVO 업무사용자 수정정보(비밀번호)
 	 * @throws Exception
@@ -92,7 +84,7 @@ public interface UserManageService  {
 	public void updatePassword(UserManageVO userManageVO) throws Exception;
 
 	/**
-	 * 사용자가 비밀번호를 기억하지 못할 때 비밀번호를 찾을 수 있도록 함
+	 * 사용자 암호 불러오기
 	 * @param passVO 업무사용자 암호 조회조건정보
 	 * @return userManageVO 업무사용자 암호정보
 	 * @throws Exception

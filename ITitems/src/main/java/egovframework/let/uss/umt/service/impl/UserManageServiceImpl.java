@@ -57,7 +57,6 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	 * 입력한 사용자아이디의 중복여부를 체크하여 사용가능여부를 확인
 	 * @param checkId 중복여부 확인대상 아이디
 	 * @return 사용가능여부(아이디 사용회수 int)
-	 * @throws Exception
 	 */
 	@Override
 	public int checkIdDplct(String checkId) {
@@ -65,30 +64,24 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	}
 
 	/**
-	 * 화면에 조회된 사용자의 정보를 데이터베이스에서 삭제
+	 * 사용자의 정보를 삭제 상태로 변환 후 히스토리 저장
 	 * @param checkedIdForDel 삭제대상 업무사용자아이디
-	 * @throws Exception
 	 */
 	@Override
 	public void deleteUser(String checkedIdForDel) {
 		String [] delId = checkedIdForDel.split(",");
 		for (int i=0; i<delId.length ; i++){
 			String [] id = delId[i].split(":");
-			if (id[0].equals("USR03")){
-		        //업무사용자(직원)삭제
-				userManageDAO.deleteUser(id[1]);
-			}else if(id[0].equals("USR01")){
-				//일반회원삭제
-				//EBT-CUSTOMIZING//mberManageDAO.deleteMber(id[1]);
-			}else if(id[0].equals("USR02")){
-				//기업회원삭제
-				//EBT-CUSTOMIZING//entrprsManageDAO.deleteEntrprsmber(id[1]);
-			}
+			UserManageVO userManageVO = new UserManageVO();
+		    //업무사용자(직원)삭제
+			userManageVO.setUniqId(id[1]);
+			userManageDAO.deleteUser(userManageVO);
+			userManageDAO.insertUserHistory(userManageVO);
 		}
 	}
 
 	/**
-	 * @param userManageVO 업무사용자 등록정보
+	 * @param userManageVO 사용자 등록정보
 	 * @return result 등록결과
 	 * @throws Exception
 	 */
@@ -106,25 +99,25 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		
 		int r =userManageDAO.insertUser(userManageVO);
 		authorGroupDAO.insertAuthorGroup(authorGroup);
+		userManageDAO.insertUserHistory(userManageVO);
 		return r ; 
 	}
 
 	/**
-	 * 기 등록된 사용자 중 검색조건에 맞는 사용자의 정보를 데이터베이스에서 읽어와 화면에 출력
-	 * @param uniqId 상세조회대상 업무사용자 아이디
-	 * @return userManageVO 업무사용자 상세정보
+	 * 등록된 사용자 중 검색조건에 맞는 사용자의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param uniqId 상세조회대상 아이디
+	 * @return userManageVO 상세정보
 	 * @throws Exception
 	 */
 	@Override
 	public UserManageVO selectUser(String uniqId) {
-		UserManageVO userManageVO = userManageDAO.selectUser(uniqId);
-		return userManageVO;
+		return userManageDAO.selectUser(uniqId);
 	}
 
 	/**
-	 * 기 등록된 특정 사용자의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * 특정 사용자 목록을 데이터베이스에서 읽어와 화면에 출력
 	 * @param userSearchVO 검색조건
-	 * @return List<UserManageVO> 업무사용자 목록정보
+	 * @return List<UserManageVO> 목록정보
 	 * @throws Exception
 	 */
 	@Override
@@ -133,7 +126,7 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	}
 
 	/**
-	 * 기 등록된 특정 사용자목록의 전체수를 확인
+	 * 특정 사용자목록의 전체수를 확인
 	 * @param userSearchVO 검색조건
 	 * @return 총사용자갯수(int)
 	 * @throws Exception
@@ -144,8 +137,8 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	}
 
 	/**
-	 * 화면에 조회된 사용자의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
-	 * @param userManageVO 업무사용자 수정정보
+	 * 화면에 조회된 사용자의 기본정보를 수정하여 항목의 적합성을 체크하고 수정된 데이터를 데이터베이스에 반영후 히스토리 저장
+	 * @param userManageVO 수정정보
 	 * @throws Exception
 	 */
 	@Override
@@ -153,25 +146,14 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		//패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(userManageVO.getPassword(), userManageVO.getEmplyrId());
 		userManageVO.setPassword(pass);
-
-		return userManageDAO.updateUser(userManageVO);
-	}
-
-	/**
-	 * 사용자정보 수정시 히스토리 정보를 추가
-	 * @param userManageVO 업무사용자 수정정보
-	 * @return result 등록결과
-	 * @throws Exception
-	 */
-	@Override
-	public void insertUserHistory(UserManageVO userManageVO) {
+		int result = userManageDAO.updateUser(userManageVO);
 		userManageDAO.insertUserHistory(userManageVO);
+		return result;
 	}
 
 	/**
-	 * 업무사용자 암호 수정
+	 * 사용자 암호 수정
 	 * @param userManageVO 업무사용자 수정정보(비밀번호)
-	 * @throws Exception
 	 */
 	@Override
 	public void updatePassword(UserManageVO userManageVO) {
@@ -179,17 +161,18 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 	}
 
 	/**
-	 * 사용자가 비밀번호를 기억하지 못할 때 비밀번호를 찾을 수 있도록 함
+	 * 사용자 암호 불러오기
 	 * @param passVO 업무사용자 암호 조회조건정보
 	 * @return userManageVO 업무사용자 암호정보
-	 * @throws Exception
 	 */
 	@Override
 	public UserManageVO selectPassword(UserManageVO passVO) {
-		UserManageVO userManageVO = userManageDAO.selectPassword(passVO);
-		return userManageVO;
+		return userManageDAO.selectPassword(passVO);
 	}
 
+	/**
+	 * 사용자 목록 엑셀 다운로드
+	 */
 	@Override
 	public void xlsxTrsfUserList(UserDefaultVO userSearchVO, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String title = "자산관리솔루션 - 사용자 목록";
@@ -207,19 +190,27 @@ public class UserManageServiceImpl extends EgovAbstractServiceImpl implements Us
 		return userManageDAO.checkUpper(uniqId);
 	}
 
+	/**
+	 * 사용자 검색 팝업창용 회원 목록 조회
+	 */
 	@Override
 	public List<?> selectUserListS(UserDefaultVO userSearchVO) {
 		return userManageDAO.selectUserListS(userSearchVO);
 	}
 
+	/**
+	 * 사용자 검색 팝업창용 회원 목록 수 조회
+	 */
 	@Override
 	public int selectUserListTotCntS(UserDefaultVO userSearchVO) {
 		return userManageDAO.selectUserListTotCntS(userSearchVO);
 	}
 
+	/**
+	 * 사용자 검색 팝업창용 회원 목록 조회(모바일)
+	 */
 	@Override
 	public List<?> mobSelectUserListS(UserDefaultVO userSearchVO) {
-		// TODO Auto-generated method stub
 		return userManageDAO.mobSelectUserListS(userSearchVO);
 	}
 
