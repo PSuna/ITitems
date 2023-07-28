@@ -2,13 +2,12 @@ package egovframework.let.uss.umt.service.impl;
 
 import java.util.List;
 
-import egovframework.let.uss.umt.service.UserDefaultVO;
-import egovframework.let.uss.umt.service.UserManageVO;
-
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Repository;
+
+import egovframework.let.uss.umt.service.UserDefaultVO;
+import egovframework.let.uss.umt.service.UserManageVO;
 
 /**
  * 사용자관리에 관한 데이터 접근 클래스를 정의한다.
@@ -42,8 +41,8 @@ public class UserManageDAO extends EgovAbstractMapper{
      * 화면에 조회된 사용자의 정보를 데이터베이스에서 삭제
      * @param delId 삭제대상 업무사용자 아이디
      */
-    public void deleteUser(String delId){
-        delete("userManageDAO.deleteUser_S", delId);
+    public void deleteUser(UserManageVO userManageVO){
+        delete("userManageDAO.deleteUser_S", userManageVO);
     }
 
 
@@ -110,7 +109,7 @@ public class UserManageDAO extends EgovAbstractMapper{
     }
 
     /**
-     * 업무사용자가 비밀번호를 기억하지 못할 때 비밀번호를 찾을 수 있도록 함
+     * 사용자 암호 불러오기
      * @param userManageVO 업무 사용자암호 조회조건정보
      * @return UserManageVO 업무사용자 암호정보
      */

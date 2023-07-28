@@ -242,7 +242,7 @@
             UPDATE LETTNEMPLYRINFO
         	   SET EMPLYR_STTUS_CODE = 'N',
              	   DEL_DT = DATE_ADD(CURRENT_DATE(), INTERVAL 3 YEAR)
-      		 WHERE ESNTL_ID =  #{delId}
+      		 WHERE ESNTL_ID =  #{uniqId}
     </delete>
     
     <select id="selectUser_S" resultType="egovframework.let.uss.umt.service.UserManageVO">
@@ -301,51 +301,28 @@
     
     <insert id="insertUserHistory_S">
         
-            INSERT INTO LETTHEMPLYRINFOCHANGEDTLS 
-                (   EMPLYR_ID           ,
-                    EMPL_NO             ,
-                    SEXDSTN_CODE        ,
-                    BRTHDY                ,
-                    AREA_NO             ,
-                    HOUSE_MIDDLE_TELNO    ,
-                    HOUSE_END_TELNO       ,
-                    FXNUM               ,
-                    HOUSE_ADRES           ,
-                    DETAIL_ADRES        ,
-                    ZIP                 ,
-                    OFFM_TELNO          ,
-                    MBTLNUM         ,
-                    EMAIL_ADRES         ,
-                    GROUP_ID            ,
-                    ORGNZT_ID           ,
-                    PSTINST_CODE          ,
-                    EMPLYR_STTUS_CODE   ,
-                    ESNTL_ID             ,
-                    CHANGE_DE           )
-            SELECT 
-                    EMPLYR_ID           ,
-                    EMPL_NO             ,
-                    SEXDSTN_CODE        ,
-                    BRTHDY                ,
-                    AREA_NO             ,
-                    HOUSE_MIDDLE_TELNO    ,
-                    HOUSE_END_TELNO       ,
-                    FXNUM               ,
-                    HOUSE_ADRES           ,
-                    DETAIL_ADRES        ,
-                    ZIP                 ,
-                    OFFM_TELNO          ,
-                    MBTLNUM         ,
-                    EMAIL_ADRES         ,
-                    GROUP_ID            ,
-                    ORGNZT_ID           ,
-                    PSTINST_CODE          ,
-                    EMPLYR_STTUS_CODE   ,
-                    ESNTL_ID             ,
-                    now()
-            FROM LETTNEMPLYRINFO
-            WHERE ESNTL_ID = #{uniqId}
-        
+		INSERT INTO LETTHEMPLYRINFOCHANGEDTLS (ESNTL_ID,
+							                   EMPLYR_ID,
+							                   PASSWORD,
+							                   USER_NM,
+							                   MBTLNUM,
+							                   ORGNZT_ID,
+							                   GRADE,
+							                   EMP_UNIQ_NUM,
+							                   EMPLYR_STTUS_CODE,
+							                   CHANGE_DE)
+        SELECT ESNTL_ID,
+               EMPLYR_ID,
+               PASSWORD,
+               USER_NM,
+               MBTLNUM,
+               ORGNZT_ID,
+               GRADE,
+               EMP_UNIQ_NUM,
+               EMPLYR_STTUS_CODE,
+               now()
+          FROM LETTNEMPLYRINFO
+         WHERE ESNTL_ID = #{uniqId}
     </insert>
     
     <select id="checkIdDplct_S" resultType="int">
