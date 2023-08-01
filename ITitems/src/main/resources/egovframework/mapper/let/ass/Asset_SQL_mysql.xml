@@ -824,7 +824,7 @@
 				ON F.ORGNZT_UP = G.ORGNZT_ID
 				 <include refid="search" />
 		    ) P 
-	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	    <!-- WHERE P.RUM BETWEEN #{first} AND #{last} -->
 	</select>
 	
 	<select id="xlsxTrsfMyAssList" parameterType="egovframework.let.ass.service.AssetManageVO" resultType="egovMap">
@@ -864,7 +864,7 @@
 	            ON A.USE_ID = E.ESNTL_ID
 				 <include refid="mySearch" />
 		    ) P 
-	    WHERE P.RUM BETWEEN #{first} AND #{last}
+	    <!-- WHERE P.RUM BETWEEN #{first} AND #{last} -->
 	</select>
 	
 	<!-- 모바일용 -->
