@@ -39,6 +39,7 @@
 		<result property="streFileNm" column="STRE_FILE_NM"/>
 		<result property="fileGroup" column="FILE_GROUP"/>
 		<result property="fileType" column="FILE_TYPE"/>
+		<result property="creatDt" column="CREAT_DT"/>
 	</resultMap>	
 
 
@@ -80,10 +81,10 @@
 		
 			INSERT INTO LETTNFILEDETAIL
 			( ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM, 
-			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN, FILE_GROUP, FILE_TYPE )
+			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN, FILE_GROUP, FILE_TYPE)
 			VALUES
 			( #{atchFileId}, #{fileSn}, #{fileStreCours}, #{streFileNm}, 
-			  #{orignlFileNm}, #{fileExtsn}, #{fileMg}, #{fileCn}, #{fileGroup}, #{fileType} )			
+			  #{orignlFileNm}, #{fileExtsn}, #{fileMg}, #{fileCn}, #{fileGroup}, #{fileType})			
 
 	</insert>	
 	
@@ -200,7 +201,8 @@
 				A.ORIGNL_FILE_NM, 
 				A.FILE_SIZE,
 				A.FILE_GROUP,
-				A.FILE_TYPE
+				A.FILE_TYPE,
+				DATE_FORMAT(B.CREAT_DT, '%Y-%m-%d') as CREAT_DT
 			FROM
 				LETTNFILEDETAIL A
 			LEFT OUTER JOIN 
