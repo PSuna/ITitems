@@ -1,5 +1,6 @@
 package egovframework.let.ass.mob;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -210,7 +211,6 @@ public class MobAssetController {
 	 */
 	@RequestMapping(value = "/mob/MobAssetInsert.do")
 	public int AssetInsert(MultipartHttpServletRequest multiRequest, AssetVO assetVO) throws Exception {
-		
 		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		//Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		assetVO.setCreatId(assetVO.getCreatId());
@@ -226,7 +226,14 @@ public class MobAssetController {
 					}
 				}
 			}
-
+			MultipartFile file = multiRequest.getFile("file");
+			if (file != null) {
+				for(String id : list) {
+					FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", id, "FILE");
+					result.setOrignlFileNm(URLDecoder.decode(file.getOriginalFilename(),"UTF-8"));
+					fileMngService.insertAssFileInf(result);
+				}
+			}
 		}
 			
 		return list.size();
