@@ -274,6 +274,12 @@ public class MobAssetController {
 			fvo.setAtchFileId(delFile);
 			fileMngService.updateFileListUse(fvo);
 		}
+		MultipartFile file = multiRequest.getFile("file");
+		if (file != null) {
+			fileMngService.updateFileUse(fvo);
+			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
+			fileMngService.insertAssFileInf(result);
+		}
 		
 		
 		return appMap;
