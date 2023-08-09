@@ -48,7 +48,7 @@
 		var val = new Object();
 		val.Id = Id;
 		val.Nm = Nm;
-		val.Group  = "USER";
+		val.Group  = "USER"; 
 		parent.parent.returnTotal(val);
 	}
 
