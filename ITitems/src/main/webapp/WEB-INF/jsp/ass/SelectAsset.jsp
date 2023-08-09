@@ -467,15 +467,15 @@ function AssetList(){
 											</c:if>
 											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<!-- 수령 --> 
+													<label for="">수령</label> 
 												</td>
 												<td>
 													${resultVO.rcptNm}
 												</td>
 												<td class="lb">
-													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
+													<!-- 실사용 --> 
+													<label for="">실사용</label> 
 												</td>
 												<td>
 													${resultVO.useNm}

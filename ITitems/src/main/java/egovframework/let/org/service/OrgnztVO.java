@@ -1,10 +1,11 @@
 package egovframework.let.org.service;
 
+import java.io.Serializable;
 
 /**
  * 부서에 대한 데이터 처리 모델 클래스
- * @author 영남사업부 천세훈
- * @since 2023.05.18
+ * @author 영남사업부 주소현
+ * @since 2023.08.09
  * @version 1.0
  * @see
  *  
@@ -13,31 +14,31 @@ package egovframework.let.org.service;
  * 
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2023.05.18  천세훈          최초 생성
+ *  2023.08.09  주소현          최초 생성
  *  
  *  </pre>
  */
-public class OrgnztManageVO extends OrgnztDefaultVO{
-	
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** 카테고리 코드 */
+
+@SuppressWarnings("serial")
+public class OrgnztVO implements Serializable {
+
+	/** 부서 ID */
 	private String orgnztId;
-	
-	/** 카테고리명 */
+
+	/** 부서 이름 */
 	private String orgnztNm;
-	
-	/** 상위 카테고리 코드 */
+
+	/** 부서 설명 */
 	private String orgnztDc;
 
-	/** 카테고리 sorting order */
-	private int orgnztUp;
+	/** 상위 부서 */
+	private String orgnztUp;
 	
-	/** 검색 부서 ID */
-	private String searchOrgnztId;
+	/** 하위 부서 개수 */
+	private String lowCnt;
+	
+	/** 부서 순서 */
+	private int orgnztOrder;
 
 	public String getOrgnztId() {
 		return orgnztId;
@@ -63,20 +64,29 @@ public class OrgnztManageVO extends OrgnztDefaultVO{
 		this.orgnztDc = orgnztDc;
 	}
 
-	public int getOrgnztUp() {
+	public String getOrgnztUp() {
 		return orgnztUp;
 	}
 
-	public void setOrgnztUp(int orgnztUp) {
+	public void setOrgnztUp(String orgnztUp) {
 		this.orgnztUp = orgnztUp;
 	}
 
-	public String getSearchOrgnztId() {
-		return searchOrgnztId;
+	public String getLowCnt() {
+		return lowCnt;
 	}
 
-	public void setSearchOrgnztId(String searchOrgnztId) {
-		this.searchOrgnztId = searchOrgnztId;
+	public void setLowCnt(String lowCnt) {
+		this.lowCnt = lowCnt;
 	}
 
+	public int getOrgnztOrder() {
+		return orgnztOrder;
+	}
+
+	public void setOrgnztOrder(int orgnztOrder) {
+		this.orgnztOrder = orgnztOrder;
+	}
+	
+	
 }

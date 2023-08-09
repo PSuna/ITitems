@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import egovframework.let.org.service.OrgnztDefaultVO;
 import egovframework.let.org.service.OrgnztManageService;
 import egovframework.let.org.service.OrgnztManageVO;
+import egovframework.let.org.service.OrgnztVO;
 
 @Service("orgnztManageService")
 public class OrgnztManageServiceImpl extends EgovAbstractServiceImpl implements OrgnztManageService{
@@ -21,6 +22,12 @@ public class OrgnztManageServiceImpl extends EgovAbstractServiceImpl implements 
 	public List<OrgnztManageVO> GetMOrgnztList(OrgnztDefaultVO orgnztDefaultVO) throws Exception {
 		List<OrgnztManageVO> result = orgnztManageDAO.GetMOrgnztList(orgnztDefaultVO);
 		return result;
+	}
+
+	@Override
+	public List<OrgnztVO> SelectOrgnztVOList(OrgnztManageVO manageVO) {
+		
+		return orgnztManageDAO.SelectOrgnztVOList(manageVO);
 	}
 
 }
