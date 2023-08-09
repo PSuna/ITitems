@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import egovframework.let.org.service.OrgnztDefaultVO;
 import egovframework.let.org.service.OrgnztManageService;
 import egovframework.let.org.service.OrgnztManageVO;
+import egovframework.let.org.service.OrgnztVO;
 
 /**
  * 카테고리를 위한 컨트롤러 클래스
@@ -53,5 +54,15 @@ public class OrgnztManageController {
 		model.addAttribute("resultList", orgnztManageService.SelectOrgnztVOList(manageVO));
 		
 		return "/org/TotalOrgnztSearch";
+	}
+	
+	/**
+	 * 전체검색(부서) 팝업창 이동
+	 */
+	@RequestMapping(value = "/org/SelectOrgnztVOList.do")
+	@ResponseBody
+	public List<OrgnztVO> SelectOrgnztVOList(OrgnztManageVO manageVO) throws Exception {
+		
+		return orgnztManageService.SelectOrgnztVOList(manageVO);
 	}
 }

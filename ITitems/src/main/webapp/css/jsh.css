@@ -13,11 +13,14 @@
     border: 1px solid #dde2e5;
     border-radius: 10px;
 }
-
+.tree_list{
+	width: 100%;
+}
 .tree_box{
 	display: flex;
     gap: 1%;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .tree_box img{
