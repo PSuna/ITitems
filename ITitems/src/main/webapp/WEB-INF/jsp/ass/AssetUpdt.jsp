@@ -50,10 +50,15 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
+<c:if test="${masterVO.assId == 'ASSMSTR_000000000001'}">
 <validator:javascript formName="assetUpdt" staticJavascript="false"
 	xhtml="true" cdata="false" />
+</c:if>
+<c:if test="${masterVO.assId == 'ASSMSTR_000000000002'}">
+<validator:javascript formName="rentalUpdt" staticJavascript="false"
+	xhtml="true" cdata="false" />
+</c:if>
 <script type="text/javaScript" language="javascript" defer="defer">
-<!--
 var userCheck = 0;
 var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 
@@ -88,7 +93,6 @@ function UpdateAsset(){
  ******************************************************** */
  function UpdtConfirm(){
 	
-	  if(validateAssetUpdt(document.AssetUpdt)){
 		 var $dialog = $('<div id="modalPan"></div>')
 			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
@@ -100,9 +104,48 @@ function UpdateAsset(){
 			});
 		    $(".ui-dialog-titlebar").hide();
 			$dialog.dialog('open');
-	 } 
 }
 
+/* ********************************************************
+ * 필수값 체크
+ ******************************************************** */
+function UpdtCheck(){
+	
+	<c:if test="${masterVO.assId == 'ASSMSTR_000000000001'}">
+		if(validateAssetUpdt(document.AssetUpdt) && fileCheck()){
+			UpdtConfirm();
+	 	}
+	</c:if>
+	<c:if test="${masterVO.assId == 'ASSMSTR_000000000002'}">
+		if(validateRentalUpdt(document.AssetUpdt) && fileCheck()){
+			UpdtConfirm();
+	 	}
+	</c:if>
+   
+}
+
+function fileCheck(){
+	
+	let ch = true;
+	
+ 	if($('.fileList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+		$('.fileList').closest('td').children('.filebox').children().last().remove();
+	}
+	if($('.photoList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+		$('.photoList').closest('td').children('.filebox').children().last().remove();
+	}
+ 	
+	if($('.fileList').children('.namebox').length == 0){
+		$('.fileList').closest('td').children('.filebox').append($('<p/>').addClass('alertV').text('지급확인서은(는) 필수 입력값입니다.'));
+		ch = false;
+	}
+	if($('.photoList').children('.photobox').length == 0){
+		$('.photoList').closest('td').children('.filebox').append($('<p/>').addClass('alertV').text('제품사진은(는) 필수 입력값입니다.'));
+		ch = false;
+	}
+	
+	return ch;
+}
 /* ********************************************************
  * 수정확인 결과 처리
  ******************************************************** */
@@ -205,7 +248,6 @@ function AssetList(){
  ******************************************************** */
 function getMCatList(Mval) {
 	let val = '${resultVO.largeCategoryCode}';
-	console.log(val);
 	if(val == ""){
 		document.getElementById('middleCategory').replaceChildren();
 		let op = document.createElement('option');
@@ -313,17 +355,16 @@ function returnProject(val){
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
-function returnUser(val){
+function returnTotal(val){
 	resetBtnCl = $(resetBtn).clone();
 	if (val) {
 		if(userCheck == 0){
-			document.getElementById("rcptId").value  = val.userId;
-			document.getElementById("rcptNm").value  = val.userNm;
+			document.getElementById("rcptId").value  = val.Id;
+			document.getElementById("rcptNm").value  = val.Nm;
 		}else if(userCheck == 1){
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
+			document.getElementById("useId").value  = val.Id;
+			document.getElementById("useNm").value  = val.Nm;
 		}
-	
 }
 
 fn_egov_modal_remove();
@@ -400,6 +441,7 @@ function alertValid(objList) {
 			}
 		})
 	})
+	fileCheck()
 }
 
 /* ********************************************************
@@ -417,6 +459,7 @@ function addDelFile(fileId) {
  ******************************************************** */
 function ReturnAssetSn(val){
 	resetBtnCl = $(resetBtn).clone();
+	
 	if (val) {
 		document.getElementById("assetSn").value  = val.assetSn;
 	}
@@ -433,8 +476,7 @@ window.onload = function(){
 	make_date();
 	checkMakerEtc();
 	  }
-	  
-//-->
+	
 </script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
 
@@ -549,7 +591,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> 
-													<label for="">제조사</label>
+													<label for="">제조사</label><span class="req">필수</span>
 												</td>
 												<td>
 													<label class="f_select w_full" for="largeCategory">
@@ -579,14 +621,14 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for="">제품명(모델명)</label>
+													<label for="">제품명(모델명)</label><span class="req">필수</span>
 												</td>
 												<td> 
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text" value="${resultVO.assetName}"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+													<label for="">시리얼넘버</label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -601,7 +643,7 @@ window.onload = function(){
 												<tr>
 													<td class="lb">
 														<!-- 렌탈업체 --> 
-														<label for="">렌탈업체</label>
+														<label for="">렌탈업체</label><span class="req">필수</span>
 													</td>
 													<td colspan="3">
 														<input id="assetCompany" class="f_txt w_full" name="assetCompany" value="${resultVO.assetCompany}" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
@@ -611,7 +653,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 
-													<label for="">수령일자</label> 
+													<label for="">수령일자</label><span class="req">필수</span>
 												</td>
 												<td colspan="3">
 													<span class="search_date w_full">
@@ -637,7 +679,7 @@ window.onload = function(){
 													<c:otherwise>
 														<td>
 															<span class="f_search2 w_full"> 
-															<input id="rcptNm" type="text" maxlength="100"
+															<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
 																readonly="readonly"  value="${resultVO.rcptNm}" onclick="UserSearch(0);"/>
 															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
 															</span> 
@@ -648,11 +690,11 @@ window.onload = function(){
 												</c:choose>
 												<td class="lb">
 													<!-- 실사용자 --> 
-													<label for="">실사용자</label> 
+													<label for="">실사용자</label><span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input id="useNm" type="text" title="회원" maxlength="100"
+														<input id="useNm" name="useNm" type="text" title="회원" maxlength="100"
 															readonly="readonly" value="${resultVO.useNm}" onclick="UserSearch(1);"/>
 														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
 													</span> 
@@ -663,7 +705,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
-													<label for="orgnztId">본부/부서</label>
+													<label for="orgnztId">본부/부서</label><span class="req">필수</span>
 												</td>
 												<td>
 													<label class="f_select  w_full" for="orgnztId">
@@ -680,11 +722,11 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
-													<label for="">프로젝트</label>
+													<label for="">프로젝트</label><span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-													<input id="prjNm" type="text" title="프로젝트" maxlength="100"
+													<input id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly" value="${resultVO.prjNm}" onclick="ProjectSearch();"/>
 													<button type="button" class="btn"
 														onclick="ProjectSearch();">조회</button>
@@ -745,7 +787,7 @@ window.onload = function(){
 											</c:choose>
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">지급확인서</label>
+													<label for="egovComFileUploader">지급확인서</label><span class="req">필수</span>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="3">
@@ -767,7 +809,7 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader">제품사진</label>
+													<label for="egovComFileUploader">제품사진</label><span class="req">필수</span>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												<td colspan="3">
 													<div class="filebox">
@@ -806,7 +848,7 @@ window.onload = function(){
 										<div class="right_btn btn1">
 											<!-- 수정 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"
-												onclick="UpdtConfirm(); return false;"><spring:message
+												onclick="UpdtCheck(); return false;"><spring:message
 													code="button.update" /></a>
 											<!-- 취소 -->
 											<a href="#LINK" class="btn btn_blue_46 w_100"

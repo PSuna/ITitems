@@ -51,10 +51,15 @@
 <script type="text/javascript"
 	src="<c:url value='/js/EgovCalPopup.js'/>"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
+<c:if test="${masterVO.assId == 'ASSMSTR_000000000001'}">
 <validator:javascript formName="assetRegist" staticJavascript="false"
 	xhtml="true" cdata="false" />
+</c:if>
+<c:if test="${masterVO.assId == 'ASSMSTR_000000000002'}">
+<validator:javascript formName="rentalRegist" staticJavascript="false"
+	xhtml="true" cdata="false" />
+</c:if>
 <script type="text/javaScript" language="javascript" defer="defer">
-<!--
 var userCheck = 0;
 var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
 let loginId = '${loginId}';
@@ -87,10 +92,41 @@ function insert_asset(){
  * 필수 입력값 체크
  ******************************************************** */
  function RegistCheck(){
-	   if(validateAssetRegist(document.assetRegist)){
+	<c:if test="${masterVO.assId == 'ASSMSTR_000000000001'}">
+		if(validateAssetRegist(document.assetRegist) && fileCheck()){
 		   RegistConfirm();
 	 	}
+	</c:if>
+	<c:if test="${masterVO.assId == 'ASSMSTR_000000000002'}">
+		if(validateRentalRegist(document.assetRegist) && fileCheck()){
+		   RegistConfirm();
+	 	}
+	</c:if>
+	   
 }
+
+ function fileCheck(){
+	 
+	 	let ch = true;
+	 
+	 	if($('.fileList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+			$('.fileList').closest('td').children('.filebox').children().last().remove();
+		}
+		if($('.photoList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+			$('.photoList').closest('td').children('.filebox').children().last().remove();
+		}
+	 	
+		if($('.fileList').children('.namebox').length == 0){
+			$('.fileList').closest('td').children('.filebox').append($('<p/>').addClass('alertV').text('지급확인서은(는) 필수 입력값입니다.'));
+			ch = false;
+		}
+		if($('.photoList').children('.photobox').length == 0){
+			$('.photoList').closest('td').children('.filebox').append($('<p/>').addClass('alertV').text('제품사진은(는) 필수 입력값입니다.'));
+			ch = false;
+		}
+		
+		return ch;
+	}
 
 /* ********************************************************
  * 등록확인 결과 처리
@@ -237,19 +273,15 @@ function returnProject(val){
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
-function returnUser(val){
+function returnTotal(val){
 	resetBtnCl = $(resetBtn).clone();
 	if (val) {
 		if(userCheck == 0){
-			document.getElementById("rcptId").value  = val.userId;
-			document.getElementById("rcptNm").value  = val.userNm;
-			if(val.userNm == "공용소유"){
-				document.getElementById("useId").value  = val.userId;
-				document.getElementById("useNm").value  = val.userNm;
-			}
+			document.getElementById("rcptId").value  = val.Id;
+			document.getElementById("rcptNm").value  = val.Nm;
 		}else if(userCheck == 1){
-			document.getElementById("useId").value  = val.userId;
-			document.getElementById("useNm").value  = val.userNm;
+			document.getElementById("useId").value  = val.Id;
+			document.getElementById("useNm").value  = val.Nm;
 	}
 	
 }
@@ -293,6 +325,13 @@ function removeP() {
 			}
 		})
 	})
+	
+	if($('.fileList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+		$('.fileList').closest('td').children('.filebox').children().last().remove();
+	}
+	if($('.photoList').closest('td').children('.filebox').children().last().prop('tagName') == 'P'){
+		$('.photoList').closest('td').children('.filebox').children().last().remove();
+	}
 }
 
 function alertValid(objList) {
@@ -307,6 +346,8 @@ function alertValid(objList) {
 			}
 		})
 	})
+	
+	fileCheck();
 }
 
 /* ********************************************************
@@ -351,7 +392,6 @@ window.onload = function(){
 	}, 1000); */
  }
 
-//-->
 </script>
 
 <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
@@ -468,7 +508,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 제조사 --> 
-													<label for=""><spring:message code="ass.maker" /></label>
+													<label for=""><spring:message code="ass.maker" /></label><span class="req">필수</span>
 												</td>
 												<td>
 													<label class="f_select w_full" for="largeCategory">
@@ -498,14 +538,14 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 품명 --> 
-													<label for=""><spring:message code="ass.assetName2" /></label>
+													<label for=""><spring:message code="ass.assetName2" /></label><span class="req">필수</span>
 												</td>
 												<td>
 													<input id="assetName" class="f_txt w_full" name="assetName" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for=""><spring:message code="ass.assetSn" /></label> <img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+													<label for=""><spring:message code="ass.assetSn" /></label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -520,7 +560,7 @@ window.onload = function(){
 												<tr>
 													<td class="lb">
 														<!-- 렌탈업체 --> 
-														<label for="">렌탈업체</label>
+														<label for="">렌탈업체</label><span class="req">필수</span>
 													</td>
 													<td colspan="3">
 														<input id="assetCompany" class="f_txt w_full" name="assetCompany" type="text"  maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">
@@ -541,21 +581,21 @@ window.onload = function(){
 													<c:set var="Id" value="<%= loginVO.getUniqId()%>"/>
 													<span class="f_search2 w_full"> 
 													<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
-														readonly="readonly" value="<c:out value="${Nm}"></c:out>" onclick="UserSearch(0);"/>
-													<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+														readonly="readonly" value="<c:out value="${Nm}"></c:out>" onclick="TotalUserSearch(0);"/>
+													<button type="button" class="btn" onclick="TotalUserSearch(0);">조회</button>
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden" 
 														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
 												</td>
 												<td class="lb">
 													<!-- 실사용자 --> 
-													<label for=""><spring:message code="ass.useId" /></label> 
+													<label for=""><spring:message code="ass.useId" /></label><span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" name="useNm" type="text" maxlength="100"
-															readonly="readonly" value="<c:out value="${Nm}"></c:out>"  onclick="UserSearch(1);"/>
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+															readonly="readonly" value="<c:out value="${Nm}"></c:out>"  onclick="TotalUserSearch(1);"/>
+														<button type="button" class="btn" onclick="TotalUserSearch(1);">조회</button>
 													</span>
 													<input name="useId" id="useId" type="hidden" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
@@ -564,7 +604,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 부서 --> 
-													<label for="orgnztId"><spring:message code="ass.orgnzt" /></label>
+													<label for="orgnztId"><spring:message code="ass.orgnzt" /></label><span class="req">필수</span>
 												</td>
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
@@ -591,7 +631,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
-													<label for=""><spring:message code="ass.prj" /></label>
+													<label for=""><spring:message code="ass.prj" /></label><span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -610,7 +650,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<!-- 수령일자 --> 
-													<label for=""><spring:message code="ass.rcptDate" /></label> 
+													<label for=""><spring:message code="ass.rcptDate" /></label><span class="req">필수</span>
 												</td>
 												<td colspan="3">
 												<span class="search_date w_full">
@@ -620,7 +660,7 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader"><spring:message code="ass.file" /></label>
+													<label for="egovComFileUploader"><spring:message code="ass.file" /></label><span class="req">필수</span>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="4">
@@ -634,7 +674,7 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<label for="egovComFileUploader"><spring:message code="ass.photo" /></label>
+													<label for="egovComFileUploader"><spring:message code="ass.photo" /></label><span class="req">필수</span>
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												</td>
 												<td colspan="3">

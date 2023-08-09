@@ -57,8 +57,9 @@ public class ProjectController {
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
 	
+	// 프로젝트 검색
 	@RequestMapping(value = "/prj/ProjectSearchList.do")
-	public String selectZipSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model, HttpServletRequest request) throws Exception {
+	public String ProjectSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model, HttpServletRequest request) throws Exception {
 		
 		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
 		request.getSession().setAttribute("baseMenuNo", "6000000");
@@ -95,6 +96,47 @@ public class ProjectController {
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("searchVO", searchVO);
 		return "/prj/ProjectSearchList";
+	}
+	
+	// 전체검색(프로젝트)
+	@RequestMapping(value = "/prj/TotalProjectSearchList.do")
+	public String TotalProjectSearchList(@ModelAttribute("searchVO") ProjectManageVO searchVO , ModelMap model, HttpServletRequest request) throws Exception {
+		
+		// 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
+		request.getSession().setAttribute("baseMenuNo", "6000000");
+		
+		// 미인증 사용자에 대한 보안처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+    	if(!isAuthenticated) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
+        	return "uat/uia/EgovLoginUsr";
+    	}
+    	
+    	ComDefaultCodeVO vo = new ComDefaultCodeVO();
+    	
+    	//프로젝트 진행여부를 코드정보로부터 조회
+    	vo.setCodeId("COM007");
+    	model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
+    	
+		/** pageing */
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
+		paginationInfo.setPageSize(searchVO.getPageSize());
+
+		searchVO.setStartPage(paginationInfo.getFirstRecordIndex());
+		searchVO.setLastPage(paginationInfo.getLastRecordIndex());
+		searchVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
+
+		Map<String, Object> map = projectService.SelectProjectVOList(searchVO);
+
+		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("resultList", map.get("resultList"));
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("searchVO", searchVO);
+		return "/prj/TotalProjectSearchList";
 	}
 	
 	/**

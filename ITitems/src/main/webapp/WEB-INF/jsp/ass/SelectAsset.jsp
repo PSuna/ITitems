@@ -556,7 +556,7 @@ function AssetList(){
 													<c:if test="${not empty PhotoList}">
 														<div class="photoList">
 															<c:forEach var="photo" items="${PhotoList}" varStatus="status">
-																<div>
+																<div class="photoView">
 						                                       		<img alt="" src="/uploadFile/${photo.streFileNm}">
 						                                       		<P>${photo.creatDt}</P>
 						                                       	</div>
