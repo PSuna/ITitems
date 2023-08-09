@@ -278,9 +278,9 @@ public class MobAssetController {
 		if (file != null) {
 			fileMngService.updateFileUse(fvo);
 			FileVO result = fileUtil.parseAssFileInf(file, "BBS_", 0, "", "", assetVO.getAssetId(), "FILE");
+			result.setOrignlFileNm(URLDecoder.decode(file.getOriginalFilename(),"UTF-8"));
 			fileMngService.insertAssFileInf(result);
 		}
-		
 		
 		return appMap;
 	}
