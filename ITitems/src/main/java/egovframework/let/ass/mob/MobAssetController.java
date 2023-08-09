@@ -37,6 +37,8 @@ import egovframework.let.ass.service.AssetService;
 import egovframework.let.ass.service.AssetVO;
 import egovframework.let.cat.service.CategoryManageVO;
 import egovframework.let.cat.service.CategoryService;
+import egovframework.let.org.service.OrgnztManageService;
+import egovframework.let.org.service.OrgnztManageVO;
 import egovframework.let.prj.service.ProjectService;
 import egovframework.let.uss.umt.service.UserManageService;
 
@@ -83,6 +85,9 @@ public class MobAssetController {
 
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
+	
+	@Resource(name = "orgnztManageService")
+	private OrgnztManageService orgnztManageService;
 
 	/*
 	 * select => assetManageVo, /insert,upload => assetVo
@@ -155,6 +160,18 @@ public class MobAssetController {
 
 		return appMap;
 	}
+	
+	/**
+	 * 부서검색
+	 */
+	@RequestMapping(value = "/ass/MobSearchOrgn.do")
+	public Map<String, Object> MobSearchOrgn(@RequestBody OrgnztManageVO ovo){
+		Map<String, Object> appMap = new HashMap<String, Object>();
+		
+		appMap.put("res", orgnztManageService.SelectOrgnztVOList(ovo));
+		
+		return appMap;
+	}
 
 	/**
 	 * 반출신청에서 자산조회 팝업창으로 이동
@@ -187,9 +204,14 @@ public class MobAssetController {
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
-		vo.setTableNm("LETTNORGNZTINFO");
-		appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-
+		/*
+		 * vo.setTableNm("LETTNORGNZTINFO"); 
+		 * appMap.put("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
+		 */
+		
+		OrgnztManageVO orgVo = new OrgnztManageVO();
+		appMap.put("orgnztId_result", orgnztManageService.SelectOrgnztVOList(orgVo));
+		
 		vo.setCodeId("COM006");
 		appMap.put("status_result", cmmUseService.selectCmmCodeDetail(vo));
 
