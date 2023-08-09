@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.clickH1 {
+	cursor: pointer;
+	color: #bbb;
+}
+
 .inputHint {
     font-size: 14px;
     color: #bbb;
@@ -21,7 +26,23 @@
     
 }
 
+.photoView{
+	width: 19.5%;
+    margin: 0.2%;
+    background: linear-gradient(45deg, #fafafa 25%, #f3f3f3 0, #f3f3f3 50%, #fafafa 0, #fafafa 75%, #f3f3f3 0);
+    background-size: 30px 30px;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.photoView p{
+	font-weight: bold;
+}
 
+.photoView img{
+	width: 100%
+}
 
 .passHint{
 	margin-bottom: 5px;
@@ -255,15 +276,10 @@
 }
 
 .photoList {
-	height: 180px;
+	/* height: 180px; */
 	display: flex;
 	width: 100%;
 	margin-top: 8px;
-}
-
-.photoList img{
-	width: 19%;
-	margin: 0.2%;
 }
 
 .photobox{
@@ -276,34 +292,34 @@
 	-webkit-background-size:30px 30px;
 	background-size:30px 30px;
     border-radius: 5%;
+    position: relative;
 }
 
 .boxBtn{
 	width: 100%;
-	height: 12%;
-    min-height: 21px;
+	position: absolute;
+    top: 1px;
+    right: 1px;
+    z-index: 1;
 }
 
 .boxBtn img{
 	width: 20px;
     margin: 2px 1%;
     opacity: 0.8;
-    cursor: pointer;
     float: right;
+    cursor: pointer;
 }
 
 .boxImg {
 	width: 100%;
 	position: relative;
 	height: 89%;
+	z-index: 0;
 }
 .boxImg img{
 	width: 95%;
 	max-height: 95%;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 }
 
 .right_btn {
@@ -757,6 +773,19 @@ form .condition2 :last-child{
 }
 
 @media screen and (max-width: 425px){
+	.photoView, .photobox{
+		width: 80%;
+		margin: 3px 0px;
+	}
+	
+	.photoList {
+	    /* height: 180px; */
+	    display: flex;
+	    width: 100%;
+	    margin-top: 8px;
+	    flex-wrap: wrap;
+	    justify-content: center;
+	}
 	
 	.pop_header {
 	    height: 61px;
@@ -1145,11 +1174,6 @@ form .condition2 :last-child{
 	.fileList {
     	 width: 100%;
     	 padding: 5px 0;
-	}
-	
-
-	.photoList {
-    	height: 102px;
 	}
 	
 	.board_view2 .lb {
