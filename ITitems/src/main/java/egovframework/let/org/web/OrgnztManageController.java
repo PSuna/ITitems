@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,5 +42,16 @@ public class OrgnztManageController {
 		List<OrgnztManageVO> result = orgnztManageService.GetMOrgnztList(orgnztDefaultVO);
 		
 		return result;
+	}
+	
+	/**
+	 * 전체검색(부서) 팝업창 이동
+	 */
+	@RequestMapping(value = "/org/TotalOrgnztSearch.do")
+	public String TotalOrgnztSearch(ModelMap model, OrgnztManageVO manageVO) throws Exception {
+		
+		model.addAttribute("resultList", orgnztManageService.SelectOrgnztVOList(manageVO));
+		
+		return "/org/TotalOrgnztSearch";
 	}
 }

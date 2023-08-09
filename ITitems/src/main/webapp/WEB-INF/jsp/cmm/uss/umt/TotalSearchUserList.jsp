@@ -32,7 +32,6 @@
 
 
 <script type="text/javaScript" language="JavaScript">
-<!--
 	function fn_egov_cancel_popup() {
 		parent.fn_egov_modal_remove();
 	}
@@ -41,6 +40,7 @@
 		var val = new Object();
 		val.Id = "";
 		val.Nm = "";
+		val.Group  = "";
 		parent.parent.returnTotal(val);
 	}
 	
@@ -48,6 +48,7 @@
 		var val = new Object();
 		val.Id = Id;
 		val.Nm = Nm;
+		val.Group  = "USER";
 		parent.parent.returnTotal(val);
 	}
 
@@ -87,12 +88,11 @@
 	    document.listForm.submit();
 	}
 	function TotalOrgSearch(){
-	    /* document.listForm.pageIndex.value = 1;
+	    document.listForm.pageIndex.value = 1;
 	    document.listForm.searchKeyword.value = "";
-	    document.listForm.action = "<c:url value=''/>";
-	    document.listForm.submit(); */
+	    document.listForm.action = "<c:url value='/org/TotalOrgnztSearch.do'/>";
+	    document.listForm.submit();
 	}
-//-->
 	
 </script>
 </head>

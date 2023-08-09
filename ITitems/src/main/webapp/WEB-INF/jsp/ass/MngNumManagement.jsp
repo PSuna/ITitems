@@ -391,9 +391,9 @@ window.onload = function(){
 													 </div>
 												</div>	
 												<div class="search_box">
-													<!-- <span class="lb">수령자/실사용자</span> -->
+													<!-- <span class="lb">수령/실사용</span> -->
 													<span class="f_search2 w_full"> 
-														<input id="userNm" name="userNm" type="text" placeholder="수령자/실사용자" maxlength="100"
+														<input id="userNm" name="userNm" type="text" placeholder="수령/실사용" maxlength="100"
 															readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>"/>
 														<button type="button" class="btn" onclick="UserSearch()">조회</button>
 													</span>
@@ -470,8 +470,8 @@ window.onload = function(){
 												<th scope="col">프로젝트</th>
 												<th scope="col">분류</th>
 												<!-- <th scope="col">자산관리번호</th> -->
-												<th scope="col">수령자</th>
-												<th scope="col">실사용자</th>
+												<th scope="col">수령</th>
+												<th scope="col">실사용</th>
 												<!-- <th scope="col">상태</th> -->
 											</tr>
 										</thead>

@@ -663,8 +663,8 @@ window.onload = function(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
-													<label for="">수령자</label> 
+													<!-- 수령 --> 
+													<label for="">수령</label> 
 													<span class="req">필수</span>
 												</td>
 												<c:choose>
@@ -689,8 +689,8 @@ window.onload = function(){
 													</c:otherwise>
 												</c:choose>
 												<td class="lb">
-													<!-- 실사용자 --> 
-													<label for="">실사용자</label><span class="req">필수</span>
+													<!-- 실사용 --> 
+													<label for="">실사용</label><span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 

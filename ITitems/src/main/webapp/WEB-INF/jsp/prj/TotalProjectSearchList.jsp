@@ -39,7 +39,7 @@ function fn_egov_return_Prj(Id, Nm){
 	var val   = new Object();
 	val.Id  = Id;
 	val.Nm  = Nm;
-	
+	val.Group  = "PRJ";
 	parent.parent.returnTotal(val);
 }
 
@@ -47,6 +47,7 @@ function reset_Prj(){
 	var val   = new Object();
 	val.Id  = "";
 	val.Nm  = "";
+	val.Group  = "";
 	parent.parent.returnTotal(val);
 }
 
@@ -72,10 +73,10 @@ function TotalUserSearch(){
     document.listForm.submit();
 }
 function TotalOrgSearch(){
-    /* document.listForm.pageIndex.value = 1;
+    document.listForm.pageIndex.value = 1;
     document.listForm.searchWord.value = "";
-    document.listForm.action = "<c:url value=''/>";
-    document.listForm.submit(); */
+    document.listForm.action = "<c:url value='/org/TotalOrgnztSearch.do'/>";
+    document.listForm.submit();
 }
 
 </script>
@@ -162,7 +163,6 @@ function TotalOrgSearch(){
             </div>
         </div>
     </div>
-    <!--// 우편번호 찾기 팝업 -->
    
 	</form>
     

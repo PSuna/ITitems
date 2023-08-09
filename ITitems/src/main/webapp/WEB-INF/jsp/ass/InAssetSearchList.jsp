@@ -209,7 +209,7 @@ function fn_egov_search_Prj() {
 							</div>
 							<div class="search_box" >
 								<span class="item f_search w_full" >
-									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="실사용자 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
+									<input class="f_input w_full pty_f_input" type="text" name="searchName" onchange="SearchAssetList(); return false;" placeholder="실사용 검색" title="검색어" value="<c:out value="${searchVO.searchName}"/>">
 								</span>
 							</div>
 							<div class="btn_box" >
@@ -233,7 +233,7 @@ function fn_egov_search_Prj() {
 									<th scope="col">프로젝트</th>
 									<th scope="col">중분류</th>
 									<th scope="col">S/N</th>
-									<th scope="col">실사용자</th>
+									<th scope="col">실사용</th>
 								</tr>
 							</thead>
 							<tbody>

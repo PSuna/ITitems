@@ -462,8 +462,8 @@ function fnDisUpdate(){
 												<td class="lb"><label for="">분류</label></td>
 												<td class="lb"><label for="">시리얼넘버</label></td>
 												<td class="lb"><label for="">제조사</label></td>
-												<td class="lb"><label for="">수령자</label></td>
-												<td class="lb"><label for="">실사용자</label></td>
+												<td class="lb"><label for="">수령</label></td>
+												<td class="lb"><label for="">실사용</label></td>
 											</tr>
 										</thead>
 										<tbody id="assetDList">

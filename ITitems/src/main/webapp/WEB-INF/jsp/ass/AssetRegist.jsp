@@ -279,9 +279,11 @@ function returnTotal(val){
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.Id;
 			document.getElementById("rcptNm").value  = val.Nm;
+			document.getElementById("rcptGroup").value  = val.Group;
 		}else if(userCheck == 1){
 			document.getElementById("useId").value  = val.Id;
 			document.getElementById("useNm").value  = val.Nm;
+			document.getElementById("rcptGroup").value  = val.Group;
 	}
 	
 }
@@ -572,7 +574,7 @@ window.onload = function(){
 											%>
 											<tr>
 												<td class="lb">
-													<!-- 수령자 --> 
+													<!-- 수령 --> 
 													<label for=""><spring:message code="ass.rcptId" /></label> 
 													<span class="req">필수</span>
 												</td>
@@ -586,9 +588,11 @@ window.onload = function(){
 													</span> 
 													<input name="rcptId" id="rcptId" type="hidden" 
 														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
+													<input name="rcptGroup" id="rcptGroup" type="hidden" 
+														value="<c:if test="${not empty Id}">USER</c:if>" maxlength="8" readonly="readonly" />
 												</td>
 												<td class="lb">
-													<!-- 실사용자 --> 
+													<!-- 실사용 --> 
 													<label for=""><spring:message code="ass.useId" /></label><span class="req">필수</span>
 												</td>
 												<td>
@@ -599,6 +603,8 @@ window.onload = function(){
 													</span>
 													<input name="useId" id="useId" type="hidden" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
+													<input name="useGroup" id="useGroup " type="hidden" 
+														value="<c:if test="${not empty Id}">USER</c:if>" maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
 											<tr>

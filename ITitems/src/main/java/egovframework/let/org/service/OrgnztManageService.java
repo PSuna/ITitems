@@ -2,6 +2,7 @@ package egovframework.let.org.service;
 
 import java.util.List;
 
+
 /**
  * 본부/부서를 위한 서비스 인터페이스  클래스
  * @author 영남사업부 천세훈 
@@ -21,5 +22,7 @@ import java.util.List;
 public interface OrgnztManageService {
 
 	public List<OrgnztManageVO> GetMOrgnztList(OrgnztDefaultVO orgnztDefaultVO) throws Exception;
+	
+	public List<OrgnztVO> SelectOrgnztVOList (OrgnztManageVO manageVO);
 
 }

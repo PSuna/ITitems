@@ -5,6 +5,54 @@
     justify-content: center;
 }
 
+.POP_POST_SEARCH .tree_ui {
+    overflow-y: auto;
+    height: 530px;
+    margin-top: 15px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #dde2e5;
+    border-radius: 10px;
+}
+
+.tree_box{
+	display: flex;
+    gap: 1%;
+    width: 100%;
+}
+
+.tree_box img{
+	width: 25px;
+}
+
+.tree_box .tree_line{
+	filter: opacity(0.2);
+}
+
+.tree_box .action_folder{
+	cursor: pointer;
+}
+
+.tree_box .action_folder:hover{
+	filter: opacity(0.5);
+}
+
+.tree_box p {	
+	cursor: pointer;
+	padding: 0px 5px;
+}
+
+.tree_box p:hover{
+	border-radius: 6px;
+    border: 1px solid #dde2e5;
+	background: #c9cacb52;
+    font-weight: bold;
+}
+
+.tree_box button:hover{
+	background: #c9cacb;
+    color: #fff;
+}
+
 .clickH1 {
 	cursor: pointer;
 	color: #bbb;
