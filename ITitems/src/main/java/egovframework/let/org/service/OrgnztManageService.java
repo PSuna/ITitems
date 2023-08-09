@@ -25,4 +25,5 @@ public interface OrgnztManageService {
 	
 	public List<OrgnztVO> SelectOrgnztVOList (OrgnztManageVO manageVO);
 
+
 }

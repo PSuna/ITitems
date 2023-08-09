@@ -20,5 +20,6 @@ public class OrgnztManageDAO extends EgovAbstractMapper{
 		
 		return selectList("orgnztManageDAO.SelectOrgnztVOList", manageVO);
 	}
+
 	
 }
