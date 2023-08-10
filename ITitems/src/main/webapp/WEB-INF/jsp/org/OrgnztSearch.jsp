@@ -126,8 +126,7 @@ function return_val(Id, Nm){
 	var val   = new Object();
 	val.Id  = Id;
 	val.Nm  = Nm;
-	val.Group  = "ORG";
-	parent.parent.returnTotal(val);
+	parent.parent.returnOrg(val);
 }
 
 // 초기화
@@ -135,8 +134,7 @@ function reset_val(){
 	var val   = new Object();
 	val.Id  = "";
 	val.Nm  = "";
-	val.Group  = "";
-	parent.parent.returnTotal(val);
+	parent.parent.returnOrg(val);
 }
 // 팝업창 닫기
 function fn_egov_cancel_popup() {
@@ -163,8 +161,12 @@ function fn_egov_cancel_popup() {
                 <h1>부서</h1>
                 <button type="button" class="close" onclick="fn_egov_cancel_popup(); return false;">닫기</button>
             </div>
-
+			
             <div class="pop_container">
+            	<div class="btn_box">
+            		<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_val(); return false;">
+		                   	<spring:message code="button.reset" /></a>
+		        </div>
             	<!-- Tree -->
                 <div class="tree_ui tree-ui">
 	                <div class="tree_list">
@@ -207,44 +209,6 @@ function fn_egov_cancel_popup() {
         </div>
     </div>
    
-	
-	
-	
-    <!-- 그룹 조회 팝업 -->
-    <%-- <div class="popup POP_MENU_CREATE">
-        <div class="pop_inner">
-            <div class="pop_header">
-                <h1>메뉴 생성</h1>
-                <button type="button" class="close" onclick="fn_egov_cancel_popup(); return false;">닫기</button>
-            </div>
-
-            <div class="pop_container">
-                <!-- 검색조건 -->
-                <div class="condition2">
-                    <label for="authorCode" class="lb mr10">권한코드 : </label>
-                    <input id="authorCode" class="f_txt item" name="authorCode" type="text" maxlength="30" title="권한코드" value="${resultVO.authorCode}" readonly="readonly">
-                    <a href="#LINK" class="item btn btn_blue_46 w_100" onclick="fInsertMenuCreat(); return false;">메뉴생성</a>
-                </div>
-                <!--// 검색조건 -->
-
-                <!-- Tree -->
-                <div class="tree_ui tree-ui">
-                
-                	<c:forEach var="result1" items="${list_menulist}" varStatus="status" >
-                		<input type="hidden" name="tmp_menuNmVal" value="${result1.menuNo}|${result1.upperMenuId}|${result1.menuNm}|${result1.progrmFileNm}|${result1.chkYeoBu}|">
-                	</c:forEach>
-                	
-                 
-                    
-                </div>
-                <!--// Tree -->
-            </div>
-        </div>
-    </div> --%>
-    <!--// 그룹 조회 팝업 -->
-    
-    <input type="hidden" name="req_menuNo">
-    
     </form>
     
 </body>

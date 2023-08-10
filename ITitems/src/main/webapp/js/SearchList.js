@@ -69,7 +69,7 @@ function TotalUserSearch(ch){
 /* ********************************************************
  * 부서 검색
  ******************************************************** */
-function OrgnztSearch(ch){
+function OrgnztSearch(){
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
 	.html('<iframe style="border: 0px; " src="' + "/org/OrgnztSearch.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
