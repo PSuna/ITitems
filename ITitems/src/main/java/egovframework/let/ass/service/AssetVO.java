@@ -82,6 +82,9 @@ public class AssetVO implements Serializable {
 	/** 수령자 이름 */
 	private String rcptNm;
 	
+	/** 수령자 분류 */
+	private String rcptGroup;
+	
 	/** 수령일자 */
 	private String rcptDate;
 	
@@ -108,6 +111,9 @@ public class AssetVO implements Serializable {
 
 	/** 사용자 이름*/
 	private String useNm;
+	
+	/** 사용자 분류 */
+	private String useGroup;
 	
 	/** 자산 상태 */
 	private String assetStauts;
@@ -450,6 +456,22 @@ public class AssetVO implements Serializable {
 
 	public void setResult(int result) {
 		this.result = result;
+	}
+
+	public String getRcptGroup() {
+		return rcptGroup;
+	}
+
+	public void setRcptGroup(String rcptGroup) {
+		this.rcptGroup = rcptGroup;
+	}
+
+	public String getUseGroup() {
+		return useGroup;
+	}
+
+	public void setUseGroup(String useGroup) {
+		this.useGroup = useGroup;
 	}
 
 
