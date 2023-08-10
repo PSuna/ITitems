@@ -57,12 +57,23 @@ public class OrgnztManageController {
 	}
 	
 	/**
-	 * 전체검색(부서) 팝업창 이동
+	 * 하위부서 검색
 	 */
 	@RequestMapping(value = "/org/SelectOrgnztVOList.do")
 	@ResponseBody
 	public List<OrgnztVO> SelectOrgnztVOList(OrgnztManageVO manageVO) throws Exception {
 		
 		return orgnztManageService.SelectOrgnztVOList(manageVO);
+	}
+	
+	/**
+	 * 부서검색 팝업창 이동
+	 */
+	@RequestMapping(value = "/org/OrgnztSearch.do")
+	public String OrgnztSearch(ModelMap model, OrgnztManageVO manageVO) throws Exception {
+		
+		model.addAttribute("resultList", orgnztManageService.SelectOrgnztVOList(manageVO));
+		
+		return "/org/OrgnztSearch";
 	}
 }

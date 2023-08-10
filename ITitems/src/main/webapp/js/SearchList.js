@@ -65,3 +65,19 @@ function TotalUserSearch(ch){
     $(".ui-dialog-titlebar").hide();
 	$dialog.dialog('open');
 }
+
+/* ********************************************************
+ * 부서 검색
+ ******************************************************** */
+function OrgnztSearch(ch){
+    var $dialog = $('<div id="modalPan" class="SearchList"></div>')
+	.html('<iframe style="border: 0px; " src="' + "/org/OrgnztSearch.do" +'" width="100%" height="100%"></iframe>')
+	.dialog({
+    	autoOpen: false,
+        modal: true,
+        width: 660,
+        height: 700
+	});
+    $(".ui-dialog-titlebar").hide();
+	$dialog.dialog('open');
+}

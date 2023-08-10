@@ -142,16 +142,6 @@ function reset_val(){
 function fn_egov_cancel_popup() {
 	parent.fn_egov_modal_remove();
 }
-// 프로젝트 검색창 이동
-function TotalPrjSearch(){
-    document.listForm.action = "<c:url value='/prj/TotalProjectSearchList.do'/>";
-    document.listForm.submit();
-}
-// 회원검색창 이동
-function TotalUserSearch(){
-    document.listForm.action = "<c:url value='/uss/umt/user/TotalSearchUserList.do'/>";
-    document.listForm.submit();
-}
 
 </script>
 
@@ -170,7 +160,7 @@ function TotalUserSearch(){
     <div class="popup POP_POST_SEARCH">
         <div class="pop_inner">
             <div class="pop_header">
-                <h1><span class="clickH1" onclick="TotalUserSearch()">회원</span> 부서 <span class="clickH1" onclick="TotalPrjSearch()">프로젝트</span></h1>
+                <h1>부서</h1>
                 <button type="button" class="close" onclick="fn_egov_cancel_popup(); return false;">닫기</button>
             </div>
 

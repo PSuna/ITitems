@@ -615,12 +615,19 @@ window.onload = function(){
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
 													<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+													<span class="f_search2 w_full"> 
+													<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
+														readonly="readonly" value="<c:out value="${Nm}"></c:out>" onclick="TotalUserSearch(0);"/>
+													<button type="button" class="btn" onclick="TotalUserSearch(0);">조회</button>
+													</span> 
+													<input name="orgnztId" id="orgnztId" type="hidden" 
+														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
 													<label class="f_select w_full" for="orgnztId">
 														<select id="orgnztId" name="orgnztId" >
 															<option value="" label="선택하세요" />
 															<c:forEach var="orgnztId" items="${orgnztId_result}"
 																varStatus="status">
-																<option value="${orgnztId.code}" 
+																<option value="${ de}" 
 																<c:choose>
 																	<c:when test="${not empty lowerOrgnztId}">
 																		<c:if test="${orgnztId.code == lowerOrgnztId}">selected="selected"</c:if>
