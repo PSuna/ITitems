@@ -497,6 +497,17 @@ function AssetList(){
 													${resultVO.prjNm}
 												</td>
 											</tr>
+											<tr>
+												<td class="lb">
+													<!-- 사용기간 --> 
+													<label for="">사용기간</label> 
+												</td>
+												<td colspan="3">
+												<c:if test="${not empty resultVO.useStart || not empty resultVO.useEnd}">
+												${resultVO.useStart}&nbsp;&nbsp;―&nbsp;&nbsp;${resultVO.useEnd}
+												</c:if>
+												</td>
+											</tr>
 											<c:choose>
 											<c:when test="${masterVO.assId eq 'ASSMSTR_000000000001'}">
 												<tr>

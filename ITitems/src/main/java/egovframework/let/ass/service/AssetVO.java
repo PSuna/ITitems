@@ -142,6 +142,12 @@ public class AssetVO implements Serializable {
 	/** 요청날짜 */
 	private String reqDate;
 	
+	/** 사용기간(시작) */
+	private String useStart;
+	
+	/** 사용기간(종료) */
+	private String useEnd;
+	
 	private int result;
 	
 	public String getAssetId() {
@@ -472,6 +478,22 @@ public class AssetVO implements Serializable {
 
 	public void setUseGroup(String useGroup) {
 		this.useGroup = useGroup;
+	}
+
+	public String getUseStart() {
+		return useStart;
+	}
+
+	public void setUseStart(String useStart) {
+		this.useStart = useStart;
+	}
+
+	public String getUseEnd() {
+		return useEnd;
+	}
+
+	public void setUseEnd(String useEnd) {
+		this.useEnd = useEnd;
 	}
 
 
