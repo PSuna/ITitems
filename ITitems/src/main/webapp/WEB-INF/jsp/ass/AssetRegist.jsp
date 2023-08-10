@@ -466,7 +466,7 @@ window.onload = function(){
 									<h1 class="tit_1">${masterVO.assNm}관리</h1>
 
 									<h2 class="tit_2">신규${masterVO.assNm}등록</h2>
-
+									<p><span class="req">필수</span><spring:message code="ass.regist.notice" /></p>
 									<div class="board_view2">
 										<table>
 										
