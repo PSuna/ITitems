@@ -356,20 +356,33 @@ function returnProject(val){
  * 검색 회원 입력
  ******************************************************** */
 function returnTotal(val){
-	resetBtnCl = $(resetBtn).clone();
 	if (val) {
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.Id;
 			document.getElementById("rcptNm").value  = val.Nm;
+			document.getElementById("rcptGroup").value  = val.Group;
 		}else if(userCheck == 1){
 			document.getElementById("useId").value  = val.Id;
 			document.getElementById("useNm").value  = val.Nm;
-		}
-}
+			document.getElementById("useGroup").value  = val.Group;
+	}
+	
+} 
 
 fn_egov_modal_remove();
 }
 
+/* ********************************************************
+ * 검색 부서 입력
+ ******************************************************** */
+function returnOrg(val){
+	resetBtnCl = $(resetBtn).clone();
+	if(val) {
+		document.getElementById("orgnztId").value  = val.Id;
+		document.getElementById("orgnztNm").value  = val.Nm;
+	}
+	fn_egov_modal_remove();
+}
 /* ********************************************************
  * date input 생성
  ******************************************************** */
@@ -674,17 +687,21 @@ window.onload = function(){
 																readonly="readonly"  value="${resultVO.rcptNm}"/>
 															<input name="rcptId" id="rcptId" type="hidden"
 																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+																<input name="rcptGroup" id="rcptGroup" type="hidden" 
+														value="${resultVO.rcptGroup}" maxlength="8" readonly="readonly" />
 														</td>
 													</c:when>
 													<c:otherwise>
 														<td>
 															<span class="f_search2 w_full"> 
 															<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
-																readonly="readonly"  value="${resultVO.rcptNm}" onclick="UserSearch(0);"/>
-															<button type="button" class="btn" onclick="UserSearch(0);">조회</button>
+																readonly="readonly"  value="${resultVO.rcptNm}" onclick="TotalUserSearch(0);"/>
+															<button type="button" class="btn" onclick="TotalUserSearch(0);">조회</button>
 															</span> 
 															<input name="rcptId" id="rcptId" type="hidden"
 																maxlength="8" readonly="readonly" value="${resultVO.rcptId}"/>
+															<input name="rcptGroup" id="rcptGroup" type="hidden" 
+														value="${resultVO.rcptGroup}" maxlength="8" readonly="readonly" />
 														</td>
 													</c:otherwise>
 												</c:choose>
@@ -695,11 +712,13 @@ window.onload = function(){
 												<td>
 													<span class="f_search2 w_full"> 
 														<input id="useNm" name="useNm" type="text" title="회원" maxlength="100"
-															readonly="readonly" value="${resultVO.useNm}" onclick="UserSearch(1);"/>
-														<button type="button" class="btn" onclick="UserSearch(1);">조회</button>
+															readonly="readonly" value="${resultVO.useNm}" onclick="TotalUserSearch(1);"/>
+														<button type="button" class="btn" onclick="TotalUserSearch(1);">조회</button>
 													</span> 
 													<input name="useId" id="useId" type="hidden"
 														maxlength="8" readonly="readonly" value="${resultVO.useId}"/>
+														<input name="useGroup" id="useGroup" type="hidden" 
+														value="${resultVO.useGroup}" maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
 											<tr>
@@ -708,17 +727,13 @@ window.onload = function(){
 													<label for="orgnztId">본부/부서</label><span class="req">필수</span>
 												</td>
 												<td>
-													<label class="f_select  w_full" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" title="부서">
-															<option value="" label="선택하세요" />
-															<c:forEach var="orgnztId" items="${orgnztId_result}"
-																varStatus="status">
-																<option value="${orgnztId.code}" <c:if test="${orgnztId.code == resultVO.orgnztId}">selected="selected"</c:if>>
-																	<c:out value="${orgnztId.codeNm}" />
-																</option>
-															</c:forEach>
-													</select>
-													</label>
+													<span class="f_search2 w_full"> 
+													<input id="orgnztNm" name="orgnztNm" type="text" maxlength="100"
+														readonly="readonly" value="<c:out value="${resultVO.orgnztNm}"></c:out>" onclick="OrgnztSearch();"/>
+													<button type="button" class="btn" onclick="OrgnztSearch();">조회</button>
+													</span> 
+													<input name="orgnztId" id="orgnztId" type="hidden" 
+														value="<c:out value="${resultVO.orgnztId}"></c:out>" maxlength="8" readonly="readonly" />
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 

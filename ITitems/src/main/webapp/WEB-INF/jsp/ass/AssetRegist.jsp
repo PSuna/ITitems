@@ -276,7 +276,6 @@ function returnProject(val){
  * 검색 회원 입력
  ******************************************************** */
 function returnTotal(val){
-	resetBtnCl = $(resetBtn).clone();
 	if (val) {
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.Id;
