@@ -349,16 +349,17 @@
 				ROW_NUMBER() OVER(ORDER BY A.CREAT_DT DESC)AS RUM,
 				A.MNG_NUM,
 				A.ASSET_ID,
-				CASE
+				F.ORGNZT_NM AS ORGNZT_NM,
+				<!-- CASE
 					WHEN F.ORGNZT_UP IS NULL
 					THEN F.ORGNZT_NM
 					ELSE G.ORGNZT_NM
-			  END AS ORGNZT_NM,
+			  	END AS ORGNZT_NM,
 				CASE 
 					WHEN F.ORGNZT_UP IS NULL
 					THEN NULL
 					ELSE F.ORGNZT_NM
-			  END AS LOWER_ORGNZT_NM,
+			  	END AS LOWER_ORGNZT_NM, -->
 				C.PRJ_NAME AS PRJ_NM,
 				CASE 
 					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL AND A.MCAT_ETC != ""
@@ -370,10 +371,26 @@
 					WHEN H.CODE_NM = '기타'
 					THEN A.MAKER
 					ELSE H.CODE_NM  
-			  END AS MAKER, 
-				A.MAKER_CODE, 
-				D.USER_NM AS RCPT_NM,
-				E.USER_NM AS USE_NM
+			 	END AS MAKER, 
+				A.MAKER_CODE,
+				CASE 
+					WHEN A.RCPT_GROUP = 'USER'
+					THEN D.USER_NM
+					WHEN A.RCPT_GROUP = 'ORG'
+					THEN I.ORGNZT_NM
+					WHEN A.RCPT_GROUP = 'PRJ'
+					THEN J.PRJ_NAME
+					ELSE NULL
+				END AS RCPT_NM,
+				CASE 
+					WHEN A.USE_GROUP = 'USER'
+					THEN E.USER_NM
+					WHEN A.USE_GROUP = 'ORG'
+					THEN K.ORGNZT_NM
+					WHEN A.USE_GROUP = 'PRJ'
+					THEN L.PRJ_NAME
+					ELSE NULL
+				END AS USE_NM
 			  FROM ASSET A
    LEFT OUTER JOIN CATEGORY B
 				ON A.MIDDLE_CATEGORY = B.CAT_ID
@@ -385,10 +402,18 @@
 	            ON A.USE_ID = E.ESNTL_ID
    LEFT OUTER JOIN LETTNORGNZTINFO F
 				ON A.ORGNZT_ID = F.ORGNZT_ID
-   LEFT OUTER JOIN LETTNORGNZTINFO G
-				ON F.ORGNZT_UP = G.ORGNZT_ID
+   <!-- LEFT OUTER JOIN LETTNORGNZTINFO G
+				ON F.ORGNZT_UP = G.ORGNZT_ID -->
    LEFT OUTER JOIN LETTCCMMNDETAILCODE H
 			    ON A.MAKER_CODE = H.CODE
+   LEFT OUTER JOIN LETTNORGNZTINFO I
+			    ON A.RCPT_ID = I.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS J
+			    ON A.RCPT_ID = J.PRJ_ID
+   LEFT OUTER JOIN LETTNORGNZTINFO K
+			    ON A.USE_ID = K.ORGNZT_ID
+   LEFT OUTER JOIN PROJECTS L
+			    ON A.USE_ID = L.PRJ_ID
 				 <include refid="search" />
 		    ) P 
 	    WHERE P.RUM BETWEEN #{first} AND #{last}
@@ -510,7 +535,9 @@
 			MCAT_ETC,
 			PRJ_ID,
 			RCPT_ID,
+			RCPT_GROUP,
 			USE_ID,
+			USE_GROUP,
 			ORGNZT_ID,
 			ASSET_NAME,
 			ASSET_SN,
@@ -545,7 +572,9 @@
 			#{mcatEtc},
 			#{prjId},
 			#{rcptId},
+			#{rcptGroup},
 			#{useId},
+			#{useGroup},
 			#{orgnztId},
 			#{assetName},
 			#{assetSn},
@@ -582,7 +611,9 @@
 			MCAT_ETC,
 			PRJ_ID,
 			RCPT_ID,
+			RCPT_GROUP,
 			USE_ID,
+			USE_GROUP,
 			ORGNZT_ID,
 			ASSET_NAME,
 			ASSET_SN,
@@ -618,7 +649,9 @@
 			#{mcatEtc},
 			#{prjId},
 			#{rcptId},
+			#{rcptGroup},
 			#{useId},
+			#{useGroup},
 			#{orgnztId},
 			#{assetName},
 			#{assetSn},
@@ -652,7 +685,9 @@
 				MCAT_ETC = #{mcatEtc},
 				PRJ_ID = #{prjId},
 				RCPT_ID = #{rcptId},
+				RCPT_GROUP = #{rcptGroup},
 				USE_ID = #{useId},
+				USE_GROUP = #{useGroup},
 				ORGNZT_ID = #{orgnztId},
 				ASSET_NAME = #{assetName},
 				ASSET_SN = #{assetSn},

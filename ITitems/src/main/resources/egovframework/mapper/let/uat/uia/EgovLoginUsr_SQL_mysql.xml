@@ -67,6 +67,7 @@
 						THEN NULL
 						ELSE D.ORGNZT_ID
 				   END AS lowerOrgnztId
+				 , D.ORGNZT_NM as orgnztNm
                  , A.GRADE as grade
                  , A.ESNTL_ID AS uniqId
                  , B.AUTHOR_CODE AS authorCode

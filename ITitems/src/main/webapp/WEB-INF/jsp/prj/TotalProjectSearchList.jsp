@@ -111,7 +111,7 @@ function TotalOrgSearch(){
 	                    <div class="btn_box">
 		                    <button class="btn pty_btn" style="margin-left:8px;" onclick="javascript:fn_egov_search_Prj(); return false;">검색</button>
 		                   	<a href="#LINK" style="margin-left:8px;" class="item btn btn_blue_46" onclick="reset_Prj(); return false;">
-		                   	<spring:message code="button.reset" /></a><!-- 등록 -->
+		                   	<spring:message code="button.reset" /></a>
 	               	 	</div>
                	 	</div>
                 </div>

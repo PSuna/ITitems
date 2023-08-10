@@ -286,9 +286,21 @@ function returnTotal(val){
 			document.getElementById("rcptGroup").value  = val.Group;
 	}
 	
-}
+} 
 
 fn_egov_modal_remove();
+}
+
+/* ********************************************************
+ * 검색 부서 입력
+ ******************************************************** */
+function returnOrg(val){
+	resetBtnCl = $(resetBtn).clone();
+	if(val) {
+		document.getElementById("orgnztId").value  = val.Id;
+		document.getElementById("orgnztNm").value  = val.Nm;
+	}
+	fn_egov_modal_remove();
 }
  
 /* ********************************************************
@@ -381,7 +393,8 @@ function ReturnAssetSn(val){
 	
 	fn_egov_modal_remove();
 }
- 
+
+
 /* ********************************************************
  * onload
  ******************************************************** */
@@ -614,33 +627,15 @@ window.onload = function(){
 												</td>
 												<td>
 													<c:set var="orgnzt" value="<%= loginVO.getOrgnztId()%>"/>
-													<c:set var="lowerOrgnztId" value="<%= loginVO.getLowerOrgnztId()%>"/>
+													<c:set var="orgNm" value="<%= loginVO.getOrgnztNm()%>"/>
 													<span class="f_search2 w_full"> 
-													<input id="rcptNm" name="rcptNm" type="text" maxlength="100"
-														readonly="readonly" value="<c:out value="${Nm}"></c:out>" onclick="TotalUserSearch(0);"/>
-													<button type="button" class="btn" onclick="TotalUserSearch(0);">조회</button>
+													<input id="orgnztNm" name="orgnztNm" type="text" maxlength="100"
+														readonly="readonly" value="<c:out value="${orgNm }"></c:out>" onclick="OrgnztSearch();"/>
+													<button type="button" class="btn" onclick="OrgnztSearch();">조회</button>
 													</span> 
 													<input name="orgnztId" id="orgnztId" type="hidden" 
-														value="<c:out value="${Id}"></c:out>" maxlength="8" readonly="readonly" />
-													<label class="f_select w_full" for="orgnztId">
-														<select id="orgnztId" name="orgnztId" >
-															<option value="" label="선택하세요" />
-															<c:forEach var="orgnztId" items="${orgnztId_result}"
-																varStatus="status">
-																<option value="${ de}" 
-																<c:choose>
-																	<c:when test="${not empty lowerOrgnztId}">
-																		<c:if test="${orgnztId.code == lowerOrgnztId}">selected="selected"</c:if>
-																	</c:when>
-																	<c:otherwise>
-																		<c:if test="${orgnztId.code == orgnzt}">selected="selected"</c:if>
-																	</c:otherwise>
-																</c:choose>>
-																	<c:out value="${orgnztId.codeNm}" />
-																</option>
-															</c:forEach>
-													</select>
-													</label>
+														value="<c:out value="${orgnzt}"></c:out>" maxlength="8" readonly="readonly" />
+													
 												</td>
 												<td class="lb">
 													<!-- 프로젝트 --> 
