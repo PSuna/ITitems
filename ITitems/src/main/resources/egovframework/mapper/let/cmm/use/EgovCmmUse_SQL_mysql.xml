@@ -51,6 +51,7 @@
               FROM LETTNORGNZTINFO
              WHERE 1=1
                AND ORGNZT_UP IS NULL
+               OR ORGNZT_UP = 'ITEYES'
             <if test="haveDetailCondition == &quot;Y&quot;">
                AND ORGNZT_ID LIKE #{detailConditionValue}
             </if>

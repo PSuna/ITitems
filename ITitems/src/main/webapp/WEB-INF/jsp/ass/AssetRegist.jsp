@@ -153,6 +153,8 @@ function insert_asset(){
 		document.getElementById("rcptId").value  = loginId;
 		document.getElementById("useId").value  = loginId;
 		document.getElementById("prjId").value  = "";
+		document.getElementById("rcptGroup").value  = "USER";
+		document.getElementById("useGroup").value  = "USER";
 	    document.assetRegist.largeCategory.focus(); 
 	    $(".photoList").children().remove();
 	    removeP();
@@ -283,7 +285,7 @@ function returnTotal(val){
 		}else if(userCheck == 1){
 			document.getElementById("useId").value  = val.Id;
 			document.getElementById("useNm").value  = val.Nm;
-			document.getElementById("rcptGroup").value  = val.Group;
+			document.getElementById("useGroup").value  = val.Group;
 	}
 	
 } 
