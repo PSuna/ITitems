@@ -637,12 +637,13 @@ function AssetList(){
 														<td><c:out value="${resultCnt - status.index}" /></td>
 														<td><c:out value="${result.assetStauts}" /></td>
 														<td><c:out value="${result.creatId}" /></td>
-														<td><c:out value="${result.creatDt}" /></td>
+														<td><c:out value="${result.creatDt}" />${resultVO.creatId}</td>
 													</tr>
 												</c:forEach>
 												<c:if test="${empty resultList}">
 													<tr>
 	                               						<td colspan="8" id="noData"><spring:message code="ass.null" /></td>
+	                               						
 	                               					</tr>
 												</c:if>
 											</tbody>
@@ -652,10 +653,10 @@ function AssetList(){
 									<!-- 버튼  -->
 									<div class="board_view_bot btn_bot">
 										<div class="right_btn btn1">
-										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.rcptId == login}">
+										<c:if test="${auth == 'ROLE_ADMIN' || auth == 'ROLE_HIGH_ADMIN' || resultVO.creatId == login}">
 												<!-- 수정 -->
 												<a href="#LINK" class="btn btn_skyblue_h46 w_100"
-													onclick="AssetUpdt();return false;"> <spring:message
+													onclick="AssetUpdt();return false;">${resultVO.creatId} <spring:message
 														code="button.update" />
 												</a>
 										</c:if>

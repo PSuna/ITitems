@@ -66,6 +66,8 @@
 		<result property="assetCompany" column="ASSET_COMPANY" />
 		<result property="useStart" column="USE_START" />
 		<result property="useEnd" column="USE_END" />
+		<result property="rcptGroup" column="RCPT_GROUP" />
+		<result property="useGroup" column="USE_GROUP" />
 	</resultMap>
 	
 	<resultMap type="egovframework.let.ass.service.AssetVO"
@@ -499,6 +501,7 @@
 					THEN J.PRJ_NAME
 					ELSE NULL
 				END AS RCPT_NM,
+				A.RCPT_GROUP,
 				A.PRJ_ID,
 				F.PRJ_NAME AS PRJ_NM,
 				CASE 
@@ -522,6 +525,7 @@
 					THEN L.PRJ_NAME
 					ELSE NULL
 				END AS USE_NM,
+				A.USE_GROUP,
 				A.USE_ID,
 				DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
 				A.ASSET_COMPANY
