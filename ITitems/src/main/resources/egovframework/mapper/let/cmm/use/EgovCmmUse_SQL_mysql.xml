@@ -55,7 +55,9 @@
             <if test="haveDetailCondition == &quot;Y&quot;">
                AND ORGNZT_ID LIKE #{detailConditionValue}
             </if>
-             ORDER BY ORGNZT_NM
+              ORDER BY
+		  		ORGNZT_UP,
+		  		ORGNZT_ORDER
     </select>
     
     <select id="selectGroupIdDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">

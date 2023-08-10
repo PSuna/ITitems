@@ -29,7 +29,7 @@
 			   ORGNZT_NM
 		  FROM LETTNORGNZTINFO
 		 WHERE ORGNZT_UP = #{searchUpperOrg}
-		 ORDER BY ORGNZT_ID ASC
+		 ORDER BY ORGNZT_ORDER ASC
 	</select>
 	
 	<select id="SelectOrgnztVOList" parameterType="egovframework.let.org.service.OrgnztManageVO" resultMap="OrgnztList">
