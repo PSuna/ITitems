@@ -55,6 +55,7 @@
 				</div>
 				<div class="pop_containerv pop_Manual">
 						<p>제품에 붙어있는 시리얼넘버 또는 일련번호를 등록해주세요</p>
+						<p><span class="req">필수</span>시리얼넘버가 없다면 [시리얼넘버 중복확인] 화면에서 [시리얼넘버 없음]을 클릭해주세요</p>
 						<img alt="" src="<c:url value='/'/>images/AssetSnManual.png">
 				</div>
 			</div>

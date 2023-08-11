@@ -82,10 +82,8 @@ function makeTreeList(obj,Id,lList,list){
 			if(lList != null && lList != ""){
 				lineList = lList.split("");
 			}
-			console.log(lineList);
 			let treeBox = $("<div/>").addClass("tree_box");
 			$(lineList).each(function(i, line){
-				console.log(line);
 				if(line == 1){
 					$(treeBox).append($("<img/>").attr("src","/images/line0.png").addClass("tree_line"));
 				}else if(line == 0){
@@ -103,7 +101,6 @@ function makeTreeList(obj,Id,lList,list){
 				lineList.push(1);
 			}
 			let newLlist = lineList.join('');
-			console.log(newLlist);
 			if(item.lowCnt == 0){
 				$(treeBox).append(emptyImg,treeP);
 			}else{

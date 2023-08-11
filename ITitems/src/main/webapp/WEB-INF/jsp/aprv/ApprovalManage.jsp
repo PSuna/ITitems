@@ -107,9 +107,11 @@ function resizeDate(width) {
 
 }
 $(window).resize(function(){
-const width = window.innerWidth;
-resizeDate(width);
+resizeDate(window.innerWidth);
 });
+window.onload = function(){
+	resizeDate(window.innerWidth);
+	};
 //-->
 </script>
 <style>

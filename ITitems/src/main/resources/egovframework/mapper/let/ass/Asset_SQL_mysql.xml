@@ -100,7 +100,10 @@
 		 	</if>
             <if test="userId != null and userId != ''">
 				AND (	A.RCPT_ID = #{userId} 
-					OR  A.USE_ID = #{userId})
+				   AND A.RCPT_GROUP = #{userGroup} 
+					OR  A.USE_ID = #{userId}
+				   AND A.USE_GROUP = #{userGroup} 
+					)
             </if>
         	<if test="lowerOrgnzt != null and lowerOrgnzt != ''">
 				AND A.ORGNZT_ID = #{lowerOrgnzt}

@@ -722,6 +722,7 @@ function AssetList(){
 	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
 	<input name="userNm" id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+	<input name="userGroup" id="userGroup" type="hidden"  value="<c:out value="${searchVO.userGroup}"/>" />
 	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 </form>

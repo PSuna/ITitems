@@ -125,6 +125,19 @@ function inputPhoto() {
 // 삭제할 파일 목록 input에 담기
 function getDelPhotoList() {
 	$('#delPhoto').val(delPhotoList);
+	
+}
+
+// 지급확인서 없음
+function emptyFile(obj){
+	delAlert(obj);
+	$('.fileList').find('.namebox').each(function(index, item){
+		$(item).remove();
+	})
+	let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val("파일 없음");
+	let filebox = $("<div/>").addClass("namebox").append(NmInput);
+	$(".fileList").append(filebox);
+	
 }
 
 /* ********************************************************

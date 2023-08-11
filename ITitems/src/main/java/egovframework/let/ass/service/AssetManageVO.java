@@ -30,6 +30,9 @@ public class AssetManageVO implements Serializable {
 	/** 검색 사용자 이름 */
 	private String userNm;
 	
+	/** 검색 사용자 분류 */
+	private String userGroup;
+	
 	/** 자산코드 */
 	private String assetId;
 	
@@ -438,6 +441,12 @@ public class AssetManageVO implements Serializable {
 	}
 	public void setIsRental(String isRental) {
 		this.isRental = isRental;
+	}
+	public String getUserGroup() {
+		return userGroup;
+	}
+	public void setUserGroup(String userGroup) {
+		this.userGroup = userGroup;
 	}
 	
 	

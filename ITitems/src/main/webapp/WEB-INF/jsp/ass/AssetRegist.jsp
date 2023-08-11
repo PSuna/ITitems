@@ -10,6 +10,8 @@
     author   : 영남사업부 주소현
     since    : 2023.04.13
 --%>
+<%@page import="java.awt.Window"%>
+<%@page import="com.ibm.icu.text.ListFormatter.Width"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -70,6 +72,9 @@ function insert_asset(){
 		inputFile();
 		inputPhoto();
 		 let formData = new FormData(document.getElementById('assetRegist'));
+		 if(document.getElementById("assetSn").value == '없음'){
+			 formData.delete("assetSn");
+		 }
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
@@ -325,7 +330,14 @@ function make_date(){
 	         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
 	});
 }
-	  
+
+/* ********************************************************
+ * date input 생성
+ ******************************************************** */
+ function emptyDate(obj){
+	$(obj).closest('tr').find('input').val("모름");
+}
+ 
 /* ********************************************************
  * 유효성 체크
  ******************************************************** */
@@ -387,20 +399,31 @@ function ExcelUpload(){
  * 시리얼넘버 입력
  ******************************************************** */
 function ReturnAssetSn(val){
-	resetBtnCl = $(resetBtn).clone();
-	if (val) {
+	if (val.assetSn != null) {
 		document.getElementById("assetSn").value  = val.assetSn;
+	}else if(val.empty != null){
+		document.getElementById("assetSn").value  = val.empty;
 	}
 	
 	fn_egov_modal_remove();
 }
 
-
+/* ********************************************************
+ * 등록폼 화면사이즈별 수정
+ ******************************************************** */
+ function editForm(){
+	 if(width>425){
+		
+	}else{
+		
+	}
+}
 /* ********************************************************
  * onload
  ******************************************************** */
 window.onload = function(){
 	make_date();
+	//editForm();
 	/* pullVal('assetRegist',loginId);
 	checkMakerEtc();
 	setInterval(function() {
@@ -561,6 +584,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
+													${windowWidth}
 													<label for=""><spring:message code="ass.assetSn" /></label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
@@ -665,6 +689,7 @@ window.onload = function(){
 												<span class="search_date w_full">
 													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
 												</span>
+												  <a href="#LINK" class="empty_btn" onclick="emptyDate(this);">수령일자 모름</a>
 												</td>
 											</tr>
 											<tr>
@@ -673,9 +698,11 @@ window.onload = function(){
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="4">
+													
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
-													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">						    
+													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">
+													    <a href="#LINK" class="empty_btn" onclick="emptyFile(this);">파일없음</a>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 													<div class="fileList"></div>
@@ -757,6 +784,7 @@ window.onload = function(){
 <input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
 <input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 <input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+<input name="userGroup" id="userGroup" type="hidden"  value="<c:out value="${searchVO.userGroup}"/>" />
 <input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 <input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 </form>
