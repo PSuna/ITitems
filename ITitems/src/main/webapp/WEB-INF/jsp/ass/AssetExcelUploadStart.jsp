@@ -231,13 +231,17 @@ body {
 													<button type="button" class="btn" onclick="ProjectSearch();">조회</button>
 												</span><input name="searchPrj" id="searchPrj" type="hidden" value="<c:out value="${searchVO.searchPrj}"/>" maxlength="8" readonly="readonly" />
 											</div>
+											<input name="rcptGroup" id="rcptGroup" type="hidden" value="USER" maxlength="8" readonly="readonly" >
+											<input name="useGroup" id="useGroup" type="hidden" value="USER" maxlength="8" readonly="readonly" >
 										</div>
 										<h4>[양식설명]</h4>
 										<div class="important">
 											<p>주황색으로 표시된 부분은 필수 입력값으로 반드시 입력하셔야 합니다.</p>
-											<p>실제 업로드할 DATA는 3행부터 입력하셔야 합니다.</p>
+											<p>실제 업로드할 DATA는 4행부터 입력하셔야 합니다.</p>
 											<p>임의로 행을 추가하거나 삭제하면 파일을 제대로 읽어오지 못하므로 주어진 양식안에 작성하시길 바랍니다.</p>
 											<p>${masterVO.assNm}은 1건 이상 입력하셔야 합니다.</p>
+											<p>수령/실사용은 회원 이름만 입력하셔야 합니다.</p>
+											<p>수령/실사용이 부서나 프로젝트일 경우 신규등록화면을 이용하시길 바랍니다.</p>
 										</div>
 										<!-- 버튼 영역 -->
 										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 ${masterVO.assNm}정보를 저장합니다.</h3>

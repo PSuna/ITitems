@@ -405,7 +405,7 @@ window.onload = function(){
 												<!-- <span class="lb">수령/실사용</span> -->
 												<span class="f_search2 w_full"> 
 													<input id="userNm" name="userNm" type="text" placeholder="수령/실사용" maxlength="100"
-														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="UserSearch()"/>
+														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="TotalUserSearch()"/>
 													<button type="button" class="btn" onclick="TotalUserSearch()">조회</button>
 												</span>
 												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"

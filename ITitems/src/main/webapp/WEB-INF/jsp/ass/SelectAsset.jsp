@@ -441,7 +441,7 @@ function AssetList(){
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label>
 												</td>
-												<td>${resultVO.assetSn}</td>
+												<td>${resultVO.assetSnNm}</td>
 												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
@@ -555,9 +555,16 @@ function AssetList(){
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
 												<td colspan="3">
-													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
-				                                    </c:import>
+													<c:choose>
+														<c:when test="${not empty FileVO }">
+															<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+						                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
+						                                    </c:import>
+														</c:when>
+														<c:otherwise>
+															파일 없음
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</tr>
 											<tr>

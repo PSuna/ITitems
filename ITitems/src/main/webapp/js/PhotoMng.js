@@ -134,10 +134,11 @@ function emptyFile(obj){
 	$('.fileList').find('.namebox').each(function(index, item){
 		$(item).remove();
 	})
-	let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val("파일 없음");
+	if($(obj).is(':checked')){
+		let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val("파일 없음");
 	let filebox = $("<div/>").addClass("namebox").append(NmInput);
 	$(".fileList").append(filebox);
-	
+	}
 }
 
 /* ********************************************************
@@ -145,6 +146,7 @@ function emptyFile(obj){
  ******************************************************** */
  function getFileName(obj,fileCnt) {
 	delAlert(obj);
+	$('#fileCh').prop('checked',false);
 	if(fileCnt != -1){
 		if(!checkFileCnt(obj,fileCnt)){
 			alertPhoto(obj, 1);

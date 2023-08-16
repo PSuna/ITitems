@@ -72,9 +72,6 @@ function insert_asset(){
 		inputFile();
 		inputPhoto();
 		 let formData = new FormData(document.getElementById('assetRegist'));
-		 if(document.getElementById("assetSn").value == '없음'){
-			 formData.delete("assetSn");
-		 }
 	 	    $.ajax({
 			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
 			method: 'POST',
@@ -314,7 +311,7 @@ function returnOrg(val){
  ******************************************************** */
 function make_date(){
 	
-	$("#rcptDate").datepicker(
+	$("#rcptDt").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -332,12 +329,36 @@ function make_date(){
 }
 
 /* ********************************************************
- * date input 생성
+ * 수령일자 모름
  ******************************************************** */
  function emptyDate(obj){
-	$(obj).closest('tr').find('input').val("모름");
+	if($(obj).is(':checked')){
+		$(obj).closest('tr').find('#rcptDt').val("모름");
+	}else{
+		$(obj).closest('tr').find('#rcptDt').val("");
+	}
+	
+	changeDt();
 }
- 
+
+ /* ********************************************************
+  * 수령일자 변경
+  ******************************************************** */
+ function changeDt(){
+	 let rcptDt = $('#rcptDt').val();
+	 let dt = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+	 if(rcptDt != null && rcptDt != "" && rcptDt.match(dt)){
+		$('#rcptDate').val(rcptDt);
+		$('#rcptDtCh').prop('checked',false);
+	 }else if(rcptDt != null && rcptDt != ""){
+		 $('#rcptDate').val("");
+		 $('#rcptDtCh').prop('checked',true);
+	 }else{
+		 $('#rcptDate').val("");
+		 $('#rcptDtCh').prop('checked',false);
+	 }
+ }
+
 /* ********************************************************
  * 유효성 체크
  ******************************************************** */
@@ -400,9 +421,11 @@ function ExcelUpload(){
  ******************************************************** */
 function ReturnAssetSn(val){
 	if (val.assetSn != null) {
+		document.getElementById("assetSnNm").value  = val.assetSn;
 		document.getElementById("assetSn").value  = val.assetSn;
 	}else if(val.empty != null){
-		document.getElementById("assetSn").value  = val.empty;
+		document.getElementById("assetSnNm").value  = val.empty;
+		document.getElementById("assetSn").value = "";
 	}
 	
 	fn_egov_modal_remove();
@@ -589,10 +612,11 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input id="assetSn" name="assetSn" type="text" maxlength="60"
+														<input id="assetSnNm" name="assetSnNm" type="text" maxlength="60"
 															readonly="readonly" onclick="AssetSnCnfirm();"/>
 														<button type="button" class="btn" onclick="AssetSnCnfirm();">조회</button>
 													</span> 
+													<input id="assetSn" name="assetSn" type="hidden" maxlength="60" readonly="readonly"/>
 													<!-- <input id="assetSn" class="f_txt w_full" name="assetSn" type="text" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">  -->
 												</td>
 											</tr>
@@ -687,9 +711,12 @@ window.onload = function(){
 												</td>
 												<td colspan="3">
 												<span class="search_date w_full">
-													<input id="rcptDate" class="f_txt w_full readonly" name="rcptDate" type="text"  maxlength="60" readonly="readonly">
+													<input id="rcptDt" class="f_txt w_full readonly" name="rcptDt" type="text" onchange="changeDt()"  maxlength="60" readonly="readonly">
 												</span>
-												  <a href="#LINK" class="empty_btn" onclick="emptyDate(this);">수령일자 모름</a>
+												  <div class="empty_box">
+													    <label for="rcptDtCh"><input name="rcptDtCh" id="rcptDtCh" type="checkbox" onclick="emptyDate(this);">수령일자 모름</label > 
+												  </div>
+												  <input name="rcptDate" id="rcptDate" type="hidden"  maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
 											<tr>
@@ -698,11 +725,12 @@ window.onload = function(){
 													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="4">
-													
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
 													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">
-													    <a href="#LINK" class="empty_btn" onclick="emptyFile(this);">파일없음</a>
+													    <div class="empty_box">
+														    <label for="fileCh"><input name="fileCh" id="fileCh" type="checkbox" onclick="emptyFile(this);">파일없음</label > 
+													    </div>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 													<div class="fileList"></div>

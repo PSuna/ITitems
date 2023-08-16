@@ -12,6 +12,7 @@
 		<result property="lowerOrgnztNm" column="LOWER_ORGNZT_NM" />
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="assetSn" column="ASSET_SN" />
+		<result property="assetSn" column="ASSET_SN" />
 		<result property="maker" column="MAKER" />
 		<result property="makerCode" column="MAKER_CODE" /> 
 		<result property="rcptNm" column="RCPT_NM" />
@@ -27,6 +28,7 @@
 		<result property="assetId" column="ASSET_ID" />
 		<result property="middleCategory" column="MIDDLE_CATEGORY" />
 		<result property="assetName" column="ASSET_NAME" />
+		<result property="assetSnNm" column="ASSET_SN_NM" />
 		<result property="assetSn" column="ASSET_SN" />
 		<result property="prjNm" column="PRJ_NM" />
 		<result property="rcptNm" column="RCPT_NM" />
@@ -51,6 +53,7 @@
 		<result property="makerCode" column="MAKER_CODE" />
 		<result property="note" column="NOTE" />
 		<result property="assetSn" column="ASSET_SN" />
+		<result property="assetSnNm" column="ASSET_SN_NM" />
 		<result property="rcptId" column="RCPT_ID" />
 		<result property="rcptNm" column="RCPT_NM" />
 		<result property="rcptDate" column="RCPT_DATE" />
@@ -61,6 +64,7 @@
 		<result property="useId" column="USE_ID" />
 		<result property="useNm" column="USE_NM" />
 		<result property="rcptDate" column="RCPT_DATE" />
+		<result property="rcptDt" column="RCPT_DT" />
 		<result property="assetStart" column="ASSET_START" />
 		<result property="assetEnd" column="ASSET_END" />
 		<result property="assetCompany" column="ASSET_COMPANY" />
@@ -288,6 +292,7 @@
 			ASSET_ID,
 			MIDDLE_CATEGORY, 
 			ASSET_NAME, 
+			ASSET_SN_NM,
 			ASSET_SN,
 			PRJ_NM,
 			RCPT_NM,
@@ -298,11 +303,19 @@
 				A.MNG_NUM,
 				A.ASSET_ID, 
 				CASE 
-					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL AND A.MCAT_ETC != ""
+					WHEN B.CAT_NAME = '기타' 
+					 AND A.MCAT_ETC IS NOT NULL 
+					 AND A.MCAT_ETC != ""
 					THEN A.MCAT_ETC
 					ELSE B.CAT_NAME
 			  END AS MIDDLE_CATEGORY, 
-				A.ASSET_NAME, 
+				A.ASSET_NAME,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN_NM,
 				A.ASSET_SN,
 				C.PRJ_NAME AS PRJ_NM,
 				CASE 
@@ -370,6 +383,7 @@
 	    	LOWER_ORGNZT_NM,
 			PRJ_NM,
 			MIDDLE_CATEGORY,
+			ASSET_SN_NM,
 			ASSET_SN,
 			MAKER,
 			MAKER_CODE,
@@ -395,7 +409,13 @@
 					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL AND A.MCAT_ETC != ""
 					THEN A.MCAT_ETC
 					ELSE B.CAT_NAME
-				END AS MIDDLE_CATEGORY, 
+				END AS MIDDLE_CATEGORY,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN_NM, 
 				A.ASSET_SN,
 				CASE 
 					WHEN H.CODE_NM = '기타'
@@ -490,7 +510,13 @@
 					ELSE D.CODE_NM  
 			  END AS MAKER, 
 				A.MAKER_CODE, 
-				A.NOTE, 
+				A.NOTE,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN_NM,
 				A.ASSET_SN,
 				DATE_FORMAT(A.ASSET_START,'%Y-%m-%d') AS ASSET_START, 
 				DATE_FORMAT(A.ASSET_END,'%Y-%m-%d') AS ASSET_END, 
@@ -530,6 +556,11 @@
 				END AS USE_NM,
 				A.USE_GROUP,
 				A.USE_ID,
+				CASE 
+					WHEN A.RCPT_DATE IS NULL
+					THEN "모름"
+					ELSE DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d')
+				END AS RCPT_DT,
 				DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d') AS RCPT_DATE,
 				A.ASSET_COMPANY
 			  FROM ASSET A
@@ -880,7 +911,7 @@
 				IFNULL(ORGNZT_NM, '') ORGNZT_NM,
 				IFNULL(PRJ_NM, '') PRJ_NM,
 				IFNULL(ASSET_NAME, '') ASSET_NM,
-				IFNULL(ASSET_SN, '') ASSET_SN,
+				IFNULL(ASSET_SN_NM, '') ASSET_SN,
 				IFNULL(MIDDLE_CATEGORY, '') CATEGORY,
 				IFNULL(RCPT_NM, '') RCPT_NM,
 				IFNULL(USE_NM, '') USE_NM,
@@ -909,7 +940,12 @@
 					ELSE B.CAT_NAME
 				END AS MIDDLE_CATEGORY, 
 				A.ASSET_NAME,
-				A.ASSET_SN,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN_NM,
 				CASE 
 					WHEN A.RCPT_GROUP = 'USER'
 					THEN D.USER_NM
@@ -947,7 +983,11 @@
 					ELSE I.CODE_NM  
 			    END AS MAKER, 
 			    A.NOTE AS NOTE,
-			    A.RCPT_DATE AS RCPT_DATE,
+			    CASE 
+					WHEN A.RCPT_DATE IS NULL
+					THEN "모름"
+					ELSE DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d')
+				END AS RCPT_DATE,
 			    A.ASSET_COMPANY AS ASSET_COMPANY
 			  FROM ASSET A
    LEFT OUTER JOIN CATEGORY B
@@ -985,7 +1025,7 @@
 				IFNULL(ORGNZT_NM, '') ORGNZT_NM,
 				IFNULL(PRJ_NM, '') PRJ_NM,
 				IFNULL(ASSET_NAME, '') ASSET_NM,
-				IFNULL(ASSET_SN, '') ASSET_SN,
+				IFNULL(ASSET_SN_NM, '') ASSET_SN,
 				IFNULL(MIDDLE_CATEGORY, '') CATEGORY,
 				IFNULL(RCPT_NM, '') RCPT_NM,
 				IFNULL(USE_NM, '') USE_NM,
@@ -1014,7 +1054,12 @@
 					ELSE B.CAT_NAME
 				END AS MIDDLE_CATEGORY, 
 				A.ASSET_NAME,
-				A.ASSET_SN,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN_NM,
 				CASE 
 					WHEN A.RCPT_GROUP = 'USER'
 					THEN D.USER_NM
@@ -1052,7 +1097,11 @@
 					ELSE I.CODE_NM  
 			    END AS MAKER, 
 			    A.NOTE AS NOTE,
-			    A.RCPT_DATE AS RCPT_DATE,
+			    CASE 
+					WHEN A.RCPT_DATE IS NULL
+					THEN "모름"
+					ELSE DATE_FORMAT(A.RCPT_DATE,'%Y-%m-%d')
+				END AS RCPT_DATE,
 			    A.ASSET_COMPANY AS ASSET_COMPANY
 			  FROM ASSET A
    LEFT OUTER JOIN CATEGORY B
@@ -1093,7 +1142,7 @@
 			ASSET_ID,
 			ORGNZT_NM,
 	    	LOWER_ORGNZT_NM,
-			MIDDLE_CATEGORY, 
+			MIDDLE_CATEGORY, S
 			ASSET_NAME, 
 			ASSET_SN,
 			PRJ_NM,
@@ -1110,7 +1159,12 @@
 					ELSE B.CAT_NAME
 			  END AS MIDDLE_CATEGORY, 
 				A.ASSET_NAME, 
-				A.ASSET_SN,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN,
 				C.PRJ_NAME AS PRJ_NM,
 				CASE 
 					WHEN A.RCPT_GROUP = 'USER'
@@ -1199,8 +1253,13 @@
 					WHEN B.CAT_NAME = '기타' AND A.MCAT_ETC IS NOT NULL
 					THEN A.MCAT_ETC
 					ELSE B.CAT_NAME
-				END AS MIDDLE_CATEGORY, 
-				A.ASSET_SN,
+				END AS MIDDLE_CATEGORY,
+				CASE 
+					WHEN A.ASSET_SN IS NULL
+					  OR A.ASSET_SN = ""
+					THEN "없음"
+					ELSE A.ASSET_SN
+				END AS ASSET_SN,
 				A.MAKER,
 				CASE 
 					WHEN A.RCPT_GROUP = 'USER'
@@ -1384,7 +1443,10 @@
 							  #{note}, 
 							  #{rcptDate},
 							  #{creatId},
-							  #{assetCompany})
+							  #{assetCompany},
+							  #{rcptGroup},
+							  #{useGroup}
+							  )
   	</select>
 	
 	<select id="SelectDelReqList" parameterType="egovframework.let.ass.service.AssetManageVO" resultMap="assetList">

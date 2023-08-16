@@ -22,7 +22,7 @@
 			<field property="assetName" depends="required">
         		<arg0 key="제품명(모델명)" resource="false"/>
 			</field>
-			<field property="assetSn" depends="required">
+			<field property="assetSnNm" depends="required">
         		<arg0 key="시리얼넘버" resource="false"/>
 			</field>
 			<field property="rcptNm" depends="required">
@@ -37,7 +37,7 @@
 			<field property="prjNm" depends="required">
         		<arg0 key="프로젝트" resource="false"/>
 			</field>
-			<field property="rcptDate" depends="required">
+			<field property="rcptDt" depends="required">
         		<arg0 key="수령일자" resource="false"/>
 			</field>
 		</form>
@@ -60,7 +60,7 @@
 			<field property="assetName" depends="required">
         		<arg0 key="제품명(모델명)" resource="false"/>
 			</field>
-			<field property="assetSn" depends="required">
+			<field property="assetSnNm" depends="required">
         		<arg0 key="시리얼넘버" resource="false"/>
 			</field>
 			<field property="assetCompany" depends="required">
@@ -78,7 +78,7 @@
 			<field property="prjNm" depends="required">
         		<arg0 key="프로젝트" resource="false"/>
 			</field>
-			<field property="rcptDate" depends="required">
+			<field property="rcptDt" depends="required">
         		<arg0 key="수령일자" resource="false"/>
 			</field>
 		</form>
@@ -95,7 +95,7 @@
 			<field property="assetName" depends="required">
         		<arg0 key="제품명(모델명)" resource="false"/>
 			</field>
-			<field property="assetSn" depends="required">
+			<field property="assetSnNm" depends="required">
         		<arg0 key="시리얼넘버" resource="false"/>
 			</field>
 			<field property="rcptNm" depends="required">
@@ -110,7 +110,7 @@
 			<field property="prjNm" depends="required">
         		<arg0 key="프로젝트" resource="false"/>
 			</field>
-			<field property="rcptDate" depends="required">
+			<field property="rcptDt" depends="required">
         		<arg0 key="수령일자" resource="false"/>
 			</field>
 		</form>
@@ -127,7 +127,7 @@
 			<field property="assetName" depends="required">
         		<arg0 key="제품명(모델명)" resource="false"/>
 			</field>
-			<field property="assetSn" depends="required">
+			<field property="assetSnNm" depends="required">
         		<arg0 key="시리얼넘버" resource="false"/>
 			</field>
 			<field property="assetCompany" depends="required">
@@ -145,7 +145,7 @@
 			<field property="prjNm" depends="required">
         		<arg0 key="프로젝트" resource="false"/>
 			</field>
-			<field property="rcptDate" depends="required">
+			<field property="rcptDt" depends="required">
         		<arg0 key="수령일자" resource="false"/>
 			</field>
 		</form>

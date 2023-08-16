@@ -396,7 +396,7 @@ window.onload = function(){
 													</td>
 													<td><c:out value="${result.middleCategory}" /></td>
 													<td><c:out value="${result.assetName}" /></td>
-													<td><c:out value="${result.assetSn}" /></td>
+													<td><c:out value="${result.assetSnNm}" /></td>
 													<td><c:out value="${result.rcptNm}" /></td>
 													<td><c:out value="${result.useNm}" /></td>
 													<td class="pty_text-align_left pty_padding-left_24"><c:out value="${result.prjNm}" /></td>
