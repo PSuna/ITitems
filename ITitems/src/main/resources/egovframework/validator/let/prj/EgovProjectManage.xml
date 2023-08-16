@@ -18,15 +18,6 @@
                 </var>
             </field>
             
-            <field property="name" depends="maxlength">
-                <arg0 key="PM" resource="false"/>
-                <arg1 key="20" resource="false"/>
-                <var>
-                <var-name>maxlength</var-name>
-                <var-value>20</var-value>
-                </var>
-            </field>
-            
             <field property="prjState" depends="required">
                 <arg0 key="진행여부" resource="false"/>
             </field>

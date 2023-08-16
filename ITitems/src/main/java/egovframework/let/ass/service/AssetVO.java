@@ -73,6 +73,9 @@ public class AssetVO implements Serializable {
 	/** 시리얼넘버 */
 	private String assetSn;
 	
+	/** 시리얼넘버 표시 */
+	private String assetSnNm;
+	
 	/** 업체 */
 	private String assetCompany;
 	
@@ -87,6 +90,9 @@ public class AssetVO implements Serializable {
 	
 	/** 수령일자 */
 	private String rcptDate;
+	
+	/** 수령일자 표시용 */
+	private String rcptDt;
 	
 	/** 본부 */
 	private String orgnztId;
@@ -494,6 +500,22 @@ public class AssetVO implements Serializable {
 
 	public void setUseEnd(String useEnd) {
 		this.useEnd = useEnd;
+	}
+
+	public String getAssetSnNm() {
+		return assetSnNm;
+	}
+
+	public void setAssetSnNm(String assetSnNm) {
+		this.assetSnNm = assetSnNm;
+	}
+
+	public String getRcptDt() {
+		return rcptDt;
+	}
+
+	public void setRcptDt(String rcptDt) {
+		this.rcptDt = rcptDt;
 	}
 
 

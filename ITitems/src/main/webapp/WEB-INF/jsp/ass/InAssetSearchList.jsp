@@ -241,7 +241,7 @@ function fn_egov_search_Prj() {
 									<tr onclick="fn_egov_return_Ass( '${result.assetId}', '${result.middleCategory}', '${result.assetQty}', '${result.assetSn}', '${result.maker}', '${result.rcptNm}', '${result.useNm}');">
 										<td><c:out value="${result.prjNm}" /></td>
 										<td><c:out value="${result.middleCategory}" /></td>
-										<td><c:out value="${result.assetSn}" /></td>
+										<td><c:out value="${result.assetSnNm}" /></td>
 										<td><c:out value="${result.useNm}" /></td>
 										<%-- <td><a href="#LINK" class="btn btn_blue_30 w_80"
 											onclick="fn_egov_return_Prj( '${result.middleCategory}', '${result.assetSn}', '${result.rcptNm}', '${result.useNm}');">

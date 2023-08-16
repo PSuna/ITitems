@@ -39,7 +39,7 @@
 	display:flex;
 	align-items: center;
 }
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 425px){
 	.excel_btn .btn{
 		display:none !important;
 	}

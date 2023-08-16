@@ -330,6 +330,33 @@ function checkStartDate(){
 		$('#prjEnd').val("");
 	}
 }
+/* ********************************************************
+ * 유효성검사
+ ******************************************************** */
+let typeList = ["input", "select"]
+function alertValid(objList) {
+	removeP();
+	$(typeList).each(function(index, type){
+		$("#projectVO").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			for(key in objList){
+				if($(item).attr("name") == key){
+					$(td).append($('<p/>').addClass('alertV').text(objList[key]));
+				}
+			}
+		})
+	})
+}
+function removeP() {
+	$(typeList).each(function(index, type){
+		$("#projectVO").find(type).each(function(index, item){
+			let td = $(item).closest("td");
+			if($(td).children().last().prop('tagName') == 'P'){
+				$(td).children().last().remove();
+			}
+		})
+	})
+}
 
 /* ********************************************************
  * onload
@@ -413,7 +440,6 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="name">PM</label> 
-													<span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -465,11 +491,12 @@ window.onload = function(){
 													<form:errors path="client" />
 	                                            </td>
 												<td class="lb">
-	                                                <label for="prjState">진행여부</label>
+	                                                <label for="prjState">진행구분</label>
+	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="prjState">
-														<form:select path="prjState" id="prjState" name="prjState" title="진행여부">
+														<form:select path="prjState" id="prjState" name="prjState" title="진행구분">
 															<form:option value="" label="선택하세요" />
 															<form:options items="${prjState_result}" itemValue="code"
 																itemLabel="codeNm" />

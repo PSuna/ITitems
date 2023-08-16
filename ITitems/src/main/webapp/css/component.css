@@ -580,11 +580,12 @@
 }
 .board_view2 .lb .req {
 	display:inline-block;
-	width:7px;
-	height:7px;
+	width:6px;
+	height:6px;
 	font-size:0;
 	background:url(../images/ico_req.png) no-repeat;
 	vertical-align:15px;
+	background-size: 100%;
 }
 .board_view2 .lb .min {
 	display:inline-block;

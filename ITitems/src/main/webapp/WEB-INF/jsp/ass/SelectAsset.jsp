@@ -441,7 +441,7 @@ function AssetList(){
 													<!-- 시리얼넘버 --> 
 													<label for="">시리얼넘버</label>
 												</td>
-												<td>${resultVO.assetSn}</td>
+												<td>${resultVO.assetSnNm}</td>
 												<td class="lb">
 													<!-- 수령일자 --> 
 													<label for="">수령일자</label> 
@@ -555,9 +555,16 @@ function AssetList(){
 													<label for="egovComFileUploader">지급확인서</label>
 												</td>
 												<td colspan="3">
-													<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-				                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
-				                                    </c:import>
+													<c:choose>
+														<c:when test="${not empty FileVO }">
+															<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+						                                        <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
+						                                    </c:import>
+														</c:when>
+														<c:otherwise>
+															파일 없음
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</tr>
 											<tr>
@@ -722,6 +729,7 @@ function AssetList(){
 	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
 	<input name="userNm" id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+	<input name="userGroup" id="userGroup" type="hidden"  value="<c:out value="${searchVO.userGroup}"/>" />
 	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 </form>

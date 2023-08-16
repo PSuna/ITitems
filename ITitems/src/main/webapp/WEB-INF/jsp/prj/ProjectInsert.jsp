@@ -344,7 +344,6 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="name">PM</label> 
-													<span class="req">필수</span>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -396,11 +395,12 @@ window.onload = function(){
 													<form:errors path="client" />
 	                                            </td>
 												<td class="lb">
-	                                                <label for="prjState">진행여부</label>
+	                                                <label for="prjState">진행구분</label>
+	                                                <span class="req">필수</span>
 	                                            </td>
 	                                            <td>
 	                                                <label class="f_select w_full" for="prjState">
-														<form:select path="prjState" id="prjState" name="prjState" title="진행여부">
+														<form:select path="prjState" id="prjState" name="prjState" title="진행구분">
 															<form:option value="" label="선택하세요" />
 															<form:options items="${prjState_result}" itemValue="code"
 																itemLabel="codeNm" />

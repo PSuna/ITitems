@@ -5,14 +5,61 @@
     justify-content: center;
 }
 
+	
+.SearchListPan {
+	max-height: 98%;
+	height: 100% !important;
+}
+
+.SearchListPan .SearchList{
+    max-height: 100% !important;
+    height: -webkit-fill-available !important;
+}  
+
+.empty_box label:has(input) {
+	display: inline-block;
+    background: #fff;
+    border: 1px solid #dde2e5;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 6px 15px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    color: #666;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 130px;
+}
+
+.empty_box label:has(input:checked){
+    background: #fff;
+    border: 1px solid #dde2e5;
+    padding: 6px 15px;
+    color: #666;
+}
+
+.empty_box input + label:hover {
+    background: #c9cacb;
+    color: #fff;
+}
+
+span + .empty_box {
+	margin-top: 3px;
+}
+
 .POP_POST_SEARCH .tree_ui {
     overflow-y: auto;
-    height: 530px;
+    min-height: 530px;
+    height: auto;
    	margin-top: 5px;
     padding: 5px 10px 5px 10px;
     border: 1px solid #dde2e5;
     border-radius: 10px;
 }
+
 .tree_list{
 	width: 100%;
 }
@@ -279,6 +326,8 @@
 	padding: 6px 15px;
 	letter-spacing: 1px;
 	font-size:12px;
+	width: 90px !important;
+	text-align: center;
 }
 
 .filebox label:hover{
@@ -344,6 +393,7 @@
 	background-size:30px 30px;
     border-radius: 5%;
     position: relative;
+    min-height: 27px;
 }
 
 .boxBtn{
@@ -892,16 +942,7 @@ form .condition2 :last-child{
 	.ui-widget.ui-widget-content {
 		width: 100% !important;
 	}
-	
- 	.SearchListPan {
-		max-height: 98%;
-		height: 100% !important;
-	}
-	
-	.SearchListPan .SearchList{
-	    max-height: 100% !important;
-	    height: -webkit-fill-available !important;
-	}  
+
 	
 	.j_box07 .search_box{
 	    width: 99%;
@@ -935,7 +976,11 @@ form .condition2 :last-child{
 	.btn_box .btn_blue_46{
 		 margin-bottom: 0px !important;
 	}
-		
+	
+	.sn_btn .btn_blue_46,.sn_btn .btn_skyblue_h46{
+		width: 90px !important;
+	}
+	
 	.btn_blue_46, .btn_skyblue_h46 {
 	    height: 31px !important;
 	    font-size: 11px !important;

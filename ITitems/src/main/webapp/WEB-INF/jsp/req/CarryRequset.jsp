@@ -229,6 +229,9 @@ $(window).resize(function(){
 	const width = window.innerWidth;
 	resizeDate(width);
 });
+window.onload = function(){
+	resizeDate(window.innerWidth);
+	};
 
 </script>
 <style type="text/css">

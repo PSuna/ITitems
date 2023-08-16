@@ -239,6 +239,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 						assetVO.setAssId("ASSMSTR_000000000002");
 						assetVO.setAssetStauts("C2");
 						assetVO.setUsageStauts("U1");
+						assetVO.setUseGroup(assetManageVO.getUserGroup());
+						assetVO.setRcptGroup(assetManageVO.getUserGroup());
 						assetVO.setLargeCategory(assetManageVO.getSearchLCat());
 						assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
 						assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());

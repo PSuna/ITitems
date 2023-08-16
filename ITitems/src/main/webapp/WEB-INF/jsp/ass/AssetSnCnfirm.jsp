@@ -48,6 +48,11 @@ function AssetSnCnfirm(){
 		$(".result").text("결과: 등록할 시리얼넘버를 입력해주세요").css("color","red");
 	}
 }
+function emptyAssetSn() {
+	var val   = new Object();
+	val.empty  = '없음';
+	parent.parent.ReturnAssetSn(val);
+}
 
 function ReturnAssetSn(){
 	var val   = new Object();
@@ -93,11 +98,16 @@ function ReturnAssetSn(){
                     </c:choose>
                 </p>
 
-                <div class="btn_area al_c pt20">
+                <div class="btn_area al_c pt20 sn_btn">
                     <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:AssetSnCnfirm(); return false;"><spring:message code="button.inquire" /></a><!-- 조회하기 -->
-                    <c:if test="${usedCnt eq 0}">
-                    <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:ReturnAssetSn(); return false;"><spring:message code="button.use" /></a><!-- 사용하기 -->
-                    </c:if>
+                    <c:choose>
+                    	<c:when test="${usedCnt eq 0}">
+                    		<a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:ReturnAssetSn(); return false;"><spring:message code="button.use" /></a><!-- 사용하기 -->
+                    	</c:when>
+                    	<c:otherwise>
+                    		<a href="#LINK" class="btn btn_blue_46 w_150" onclick="javascript:emptyAssetSn(); return false;">시리얼넘버 없음</a><!-- 조회하기 -->
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

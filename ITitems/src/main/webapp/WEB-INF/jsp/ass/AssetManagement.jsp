@@ -62,10 +62,14 @@ function UserSearch(){
 /* ********************************************************
  * 검색 회원 입력
  ******************************************************** */
-function returnUser(val){
-	document.getElementById("userId").value  = val.userId;
-	document.getElementById("userNm").value  = val.userNm;
-	fn_egov_modal_remove();
+function returnTotal(val){
+	if (val) {
+		document.getElementById("userId").value  = val.Id;
+		document.getElementById("userNm").value  = val.Nm;
+		document.getElementById("userGroup").value  = val.Group;
+	}
+
+fn_egov_modal_remove();
 }
 
 /* ********************************************************
@@ -201,6 +205,7 @@ function inputpush() {
 //	document.frm.searchWord.value = '${searchVO.searchWord}';
 	document.frm.userId.value = '${searchVO.userId}';
 	document.frm.userNm.value = '${searchVO.userNm}';
+	document.frm.userNm.value = '${searchVO.userGroup}';
 }
 
 /* ********************************************************
@@ -400,10 +405,12 @@ window.onload = function(){
 												<!-- <span class="lb">수령/실사용</span> -->
 												<span class="f_search2 w_full"> 
 													<input id="userNm" name="userNm" type="text" placeholder="수령/실사용" maxlength="100"
-														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="UserSearch()"/>
-													<button type="button" class="btn" onclick="UserSearch()">조회</button>
+														readonly="readonly" value="<c:out value="${searchVO.userNm}"></c:out>" onclick="TotalUserSearch()"/>
+													<button type="button" class="btn" onclick="TotalUserSearch()">조회</button>
 												</span>
 												<input name="userId" id="userId" type="hidden" value="<c:out value="${searchVO.userId}"></c:out>"
+													maxlength="8" readonly="readonly" />
+												<input name="userGroup" id="userGroup" type="hidden" value="<c:out value="${searchVO.userGroup}"></c:out>"
 													maxlength="8" readonly="readonly" />
 											</div>
 											<div class="search_box">

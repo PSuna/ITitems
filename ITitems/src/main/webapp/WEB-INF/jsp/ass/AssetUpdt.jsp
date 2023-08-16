@@ -388,7 +388,7 @@ function returnOrg(val){
  ******************************************************** */
 function make_date(){
 	
-	$("#acquiredDate,#rcptDate,#assetStart,#assetEnd").datepicker(
+	$("#acquiredDate,#rcptDt,#assetStart,#assetEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
@@ -405,6 +405,37 @@ function make_date(){
 	});
 	
 }
+
+/* ********************************************************
+ * 수령일자 모름
+ ******************************************************** */
+ function emptyDate(obj){
+	 if($(obj).is(':checked')){
+		$(obj).closest('tr').find('#rcptDt').val("모름");
+	}else{
+		$(obj).closest('tr').find('#rcptDt').val("");
+	}
+	
+	changeDt();
+}
+
+ /* ********************************************************
+  * 수령일자 변경
+  ******************************************************** */
+ function changeDt(){
+	 let rcptDt = $('#rcptDt').val();
+	 let dt = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+	 if(rcptDt != null && rcptDt != "" && rcptDt.match(dt)){
+		$('#rcptDate').val(rcptDt);
+		$('#rcptDtCh').prop('checked',false);
+	 }else if(rcptDt != null && rcptDt != ""){
+		 $('#rcptDate').val("");
+		 $('#rcptDtCh').prop('checked',true);
+	 }else{
+		 $('#rcptDate').val("");
+		 $('#rcptDtCh').prop('checked',false);
+	 }
+ }
 
 /* ********************************************************
  *  날짜 체크
@@ -471,10 +502,12 @@ function addDelFile(fileId) {
  * 시리얼넘버 입력
  ******************************************************** */
 function ReturnAssetSn(val){
-	resetBtnCl = $(resetBtn).clone();
-	
-	if (val) {
+	if (val.assetSn != null) {
+		document.getElementById("assetSnNm").value  = val.assetSn;
 		document.getElementById("assetSn").value  = val.assetSn;
+	}else if(val.empty != null){
+		document.getElementById("assetSnNm").value  = val.empty;
+		document.getElementById("assetSn").value = "";
 	}
 	
 	fn_egov_modal_remove();
@@ -645,10 +678,11 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
-														<input id="assetSn" name="assetSn" value="${resultVO.assetSn}" type="text" maxlength="60"
+														<input id="assetSnNm" name="assetSnNm" value="${resultVO.assetSnNm}" type="text" maxlength="60"
 															readonly="readonly" onclick="AssetSnCnfirm();"/>
 														<button type="button" class="btn" onclick="AssetSnCnfirm();">조회</button>
 													</span> 
+													<input id="assetSn" name="assetSn" type="hidden" value="${resultVO.assetSn}" maxlength="60" readonly="readonly"/>
 													<%-- <input id="assetSn" class="f_txt w_full" name="assetSn" type="text" value="${resultVO.assetSn}" maxlength="60" onchange="symbolCheck2(this);" onkeyup="symbolCheck2(this);">  --%>
 												</td>
 											</tr>
@@ -670,8 +704,14 @@ window.onload = function(){
 												</td>
 												<td colspan="3">
 													<span class="search_date w_full">
-														<input id="rcptDate" class="f_txt w_full readonly" value="${resultVO.rcptDate}" name="rcptDate" type="text" readonly="readonly">
+														<input id="rcptDt" class="f_txt w_full readonly" value="${resultVO.rcptDt}" name="rcptDt" type="text"  onchange="changeDt()" readonly="readonly">
 													</span>
+													<div class="empty_box">
+														    <label for="rcptDtCh">
+														    	<input name="rcptDtCh" id="rcptDtCh" type="checkbox" onclick="emptyDate(this);" <c:if test="${empty resultVO.rcptDate}">checked="checked"</c:if> S>수령일자 모름
+														    </label > 
+													</div>
+													<input name="rcptDate" id="rcptDate" value="${resultVO.rcptDate}" type="hidden"  maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
 											<tr>
@@ -809,14 +849,26 @@ window.onload = function(){
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
 													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">
+													    <div class="empty_box">
+														    <label for="fileCh"><input name="fileCh" id="fileCh" type="checkbox" onclick="emptyFile(this);" <c:if test="${empty FileVO}">checked="checked"</c:if>>파일없음</label > 
+													    </div>
 													</div>
 													<div class="fileList">
-													<c:if test="${not empty FileVO}">
 														<div class="namebox">
-															<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
-													    	<input name="fileNm" id="fileNm" type="text" readonly="readonly" <c:if test="${not empty FileVO}">value="${FileVO.orignlFileNm}"</c:if> >
+															<c:if test="${not empty FileVO }">
+																<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
+															</c:if>
+															<input name="fileNm" id="fileNm" type="text" readonly="readonly"
+															<c:choose>
+																<c:when test="${not empty FileVO }">
+																	value="${FileVO.orignlFileNm}"
+																</c:when>
+																<c:otherwise>
+																	value="파일 없음"
+																</c:otherwise>
+															</c:choose>
+															 >
 													    </div>
-													</c:if>
 													</div>
 													<input name="file" id="file" type="file" style="display: none">
 													<input name="delFile" id="delFile" type="hidden">
@@ -905,6 +957,7 @@ window.onload = function(){
 	<input name="lowerOrgnzt" id="lowerOrgnzt" type="hidden"  value="<c:out value="${searchVO.lowerOrgnzt}"/>" />
 	<input name=userNm id="userNm" type="hidden"  value="<c:out value="${searchVO.userNm}"/>" />
 	<input name="userId" id="userId" type="hidden"  value="<c:out value="${searchVO.userId}"/>" />
+	<input name="userGroup" id="userGroup" type="hidden"  value="<c:out value="${searchVO.userGroup}"/>" />
 	<input name="pageIndex" id="pageIndex" type="hidden"  value="<c:out value="${searchVO.pageIndex}"/>" />
 	<input type="hidden" name="pageUnit" value="<c:out value='${searchVO.pageUnit}'/>"/>
 </form>
