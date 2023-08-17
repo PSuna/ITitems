@@ -10,11 +10,11 @@
 			<field property="id" depends="required">
         		<arg0 key="성명" resource="true"/>
 			</field>	
+			<field property="prjNm" depends="required">
+        		<arg0 key="프로젝트" resource="true"/>
+			</field>
 			<field property="place" depends="required">
         		<arg0 key="사용장소" resource="true"/>
-			</field>
-			<field property="pmNm" depends="required">
-        		<arg0 key="PM" resource="true"/>
 			</field>
 			<field property="startDate" depends="required">
         		<arg0 key="반출기간(시작일)" resource="true"/>
@@ -27,8 +27,8 @@
 			<field property="id" depends="required">
         		<arg0 key="성명" resource="true"/>
 			</field>	
-			<field property="pmNm" depends="required">
-        		<arg0 key="PM" resource="true"/>
+			<field property="prjNm" depends="required">
+        		<arg0 key="프로젝트" resource="true"/>
 			</field>
 		</form>
     </formset>
