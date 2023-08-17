@@ -29,7 +29,7 @@
         							FROM LETTNEMPLYRSCRTYESTBS A, COMVNUSERMASTER B
         							WHERE A.SCRTY_DTRMN_TRGET_ID = B.ESNTL_ID AND B.USER_ID = ?"
 
-        jdbcMapClass="egovframework.let.uat.uia.service.impl.EgovSessionMapping"
+        jdbcMapClass="egovframework.let.res.uat.uia.service.impl.EgovSessionMapping"
 
         requestMatcherType="regex"
 

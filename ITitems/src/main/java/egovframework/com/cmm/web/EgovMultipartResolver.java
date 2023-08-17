@@ -34,7 +34,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import egovframework.com.cmm.service.EgovProperties;
-import egovframework.let.utl.fcc.service.EgovFileUploadUtil;
+import egovframework.let.res.utl.fcc.service.EgovFileUploadUtil;
 
 /**
  * 실행환경의 파일업로드 처리를 위한 기능 클래스

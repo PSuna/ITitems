@@ -9,7 +9,7 @@ import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import egovframework.let.com.service.CommonService;
+import egovframework.let.res.com.service.CommonService;
 
 /**
  * @Class Name : EgovComExcepHndlr.java

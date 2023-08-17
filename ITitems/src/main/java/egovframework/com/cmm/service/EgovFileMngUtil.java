@@ -29,7 +29,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.com.cmm.EgovWebUtil;
-import egovframework.let.utl.fcc.service.EgovStringUtil;
+import egovframework.let.res.utl.fcc.service.EgovStringUtil;
 //import java.util.HashMap;
 
 /**
