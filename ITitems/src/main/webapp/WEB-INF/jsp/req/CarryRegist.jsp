@@ -709,10 +709,10 @@ function ReqList(){
 											</tr>
 											<tr>
 												<td class="lb">
-													<!-- 프로젝트 --> <label for="">프로젝트</label>
+													<!-- 프로젝트 --> <label for="">프로젝트</label> <span class="req">필수</span>
 												</td>
 												<td><span class="f_search2 w_full"> <input
-														id="prjNm" type="text" title="프로젝트" maxlength="100"
+														id="prjNm" name="prjNm" type="text" title="프로젝트" maxlength="100"
 														readonly="readonly"/>
 														<button type="button" class="btn"
 															onclick="ProjectSearch();">조회</button>
@@ -720,8 +720,7 @@ function ReqList(){
 													type="hidden" title="프로젝트" value="" 
 													/></td>
 													<td class="lb">
-													<!-- PM(관리자) --> <label for="">PM<span class="skip_str">(관리자)</span></label> <span
-													class="req">필수</span>
+													<!-- PM(관리자) --> <label for="">PM<span class="skip_str">(관리자)</span></label>
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
