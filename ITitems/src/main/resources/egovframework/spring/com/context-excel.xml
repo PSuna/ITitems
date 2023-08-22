@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="excelZipService" class="org.egovframe.rte.fdl.excel.impl.EgovExcelServiceImpl">
-		<property name="mapClass" value="egovframework.let.sym.ccm.zip.service.impl.EgovCcmExcelZipMapping" />
+		<property name="mapClass" value="egovframework.let.res.sym.ccm.zip.service.impl.EgovCcmExcelZipMapping" />
 		<property name="sqlSessionTemplate" ref="egov.sqlSessionTemplate" />
 	</bean>
 	

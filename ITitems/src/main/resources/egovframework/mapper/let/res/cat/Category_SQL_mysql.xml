@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CategoryDAO">
+
+	<resultMap type="egovframework.let.res.cat.service.CategoryVO"
+		id="CategoryList">
+		<result property="catId" column="CAT_ID" />
+		<result property="catName" column="CAT_NAME" />
+		<result property="upperCat" column="UPPER_CAT" />
+	</resultMap>
+
+	<sql id="search">
+		<where>
+			<if test="searchUpper == null or searchUpper == ''">
+				UPPER_CAT IS NULL
+			</if>
+			<if test="searchUpper != null and searchUpper != ''">
+				UPPER_CAT = #{searchUpper}
+			</if>
+			<if test="searchWord != null and searchWord != ''">
+				CAT_NAME LIKE CONCAT ('%', #{searchWord},'%')
+			</if>
+		</where>
+	</sql>
+
+	<select id="SelectCategoryVOList" parameterType="egovframework.let.res.cat.service.CategoryManageVO" resultMap="CategoryList">
+		SELECT CAT_ID, 
+			   CAT_NAME, 
+			   UPPER_CAT
+		FROM CATEGORY
+		<include refid="search"></include>
+		ORDER BY CAT_ORDER ASC, CAT_NAME, CAST(TRIM(LEADING 'cat' FROM (CAT_ID)) AS UNSIGNED)
+	</select>
+	
+	<delete id="DeleteCategory" parameterType="egovframework.let.res.cat.service.CategoryManageVO">
+		DELETE FROM CATEGORY
+		WHERE CAT_ID = #{catId}
+	</delete>
+	
+	
+	
+	<insert id="InsertCategory" parameterType="egovframework.let.res.cat.service.CategoryVO">
+	<selectKey resultType="String" keyProperty="catId" order="BEFORE">
+		SELECT  CONCAT('cat', IFNULL(MAX(CAST(SUBSTR(CAT_ID,4) AS UNSIGNED))+1,0))
+		  FROM  CATEGORY
+	</selectKey>
+		INSERT INTO CATEGORY
+							(
+							 CAT_ID, 
+							 CAT_NAME, 
+							 UPPER_CAT
+							)
+		VALUES 
+			  (
+			  #{catId}, 
+			  #{catName}, 
+			  #{upperCat}
+			  )
+	</insert>
+	<select id="findDownNum" parameterType="egovframework.let.res.cat.service.CategoryVO" resultType="int">
+		SELECT COUNT(ASSET_ID)
+		  FROM ASSETDETAIL
+		 WHERE MIDDLE_CATEGORY = #{catId}
+	</select>
+</mapper>

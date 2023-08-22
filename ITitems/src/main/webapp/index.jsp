@@ -13,5 +13,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
-<script type="text/javaScript">document.location.href="<c:url value='/uat/uia/egovLoginUsr.do'/>"</script>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
+<script type="text/javaScript">document.location.href="<c:url value='/res/uat/uia/egovLoginUsr.do'/>"</script>

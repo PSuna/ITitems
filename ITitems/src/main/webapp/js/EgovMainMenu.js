@@ -39,7 +39,7 @@ function createTree(arrName, vYeobu, checkValue) {
 		preloadIcons();
 		
 		//vHtmlCode +="<table width='181' height='94' border='2' align='center' cellpadding='0' cellspacing='0'><tr>";
-		//vHtmlCode +="<td valign='bottom' background='/images/egovframework/com/left_menu_top.gif' style='background-repeat:no-repeat'>";
+		//vHtmlCode +="<td valign='bottom' background='/images/res/egovframework/com/left_menu_top.gif' style='background-repeat:no-repeat'>";
 	
 		if (startNode == null) startNode = 0;
 		if (openNode != 0 || openNode != null) setOpenTreeNodes(openNode);
@@ -52,7 +52,7 @@ function createTree(arrName, vYeobu, checkValue) {
 		}
 		var recursedNodes = new Array();
 		addTreeNode(startNode, recursedNodes);
-		//vHtmlCode +="<tr><td height='30' valign='bottom' background='/images/egovframework/com/left_menu_btm.gif' style='background-repeat:no-repeat'>&nbsp;</td></tr></table>";
+		//vHtmlCode +="<tr><td height='30' valign='bottom' background='/images/res/egovframework/com/left_menu_btm.gif' style='background-repeat:no-repeat'>&nbsp;</td></tr></table>";
 		document.write("<ul>"+vHtmlCode+"</ul>");
 	}
 }

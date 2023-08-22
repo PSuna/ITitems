@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.service.LogVO;
-import egovframework.let.uat.uia.service.MobPlayLogVO;
+import egovframework.let.res.uat.uia.service.MobPlayLogVO;
 
 import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.springframework.web.servlet.HandlerInterceptor;
