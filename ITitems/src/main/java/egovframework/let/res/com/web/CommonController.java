@@ -46,7 +46,11 @@ import egovframework.let.res.uss.umt.service.UserManageService;
  */
 
 @Controller
+@RequestMapping("/res")
 public class CommonController {
+	
+	String path = "/res";
+	
 	/** userManageService */
 	@Resource(name = "userManageService")
 	private UserManageService userManageService;
@@ -81,7 +85,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/RegistConfirm.do")
 	public String RegistConfirm() throws Exception {
 
-		return "/com/RegistConfirm";
+		return path + "/com/RegistConfirm";
 	}
 	
 	/**
@@ -90,7 +94,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/RegistIng.do")
 	public String RegistIng() throws Exception {
 
-		return "/com/RegistIng";
+		return path + "/com/RegistIng";
 	}
 	
 	/**
@@ -99,7 +103,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/RegistSuccess.do")
 	public String RegistSuccess() throws Exception {
 
-		return "/com/RegistSuccess";
+		return path + "/com/RegistSuccess";
 	}
 	
 	/**
@@ -108,25 +112,15 @@ public class CommonController {
 	@RequestMapping(value = "/com/RegistFail.do")
 	public String RegistFail() throws Exception {
 
-		return "/com/RegistFail";
+		return path + "/com/RegistFail";
 	}
-	
-	/**
-	 * 알람 팝업창로 이동
-	 */
-	@RequestMapping(value = "/com/AlertModal.do")
-	public String AlertModal(ModelMap model,@ModelAttribute("fields") StringBuffer buffer) throws Exception {
-		
-		model.addAttribute("fields", buffer);
-		
-		return "/com/AlertModal";
-	}
+
 	/**
 	 * 결재승인확인 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/ApprovalConfirm.do")
 	public String ApprovalConfirm() throws Exception {
-		return "/com/ApprovalConfirm";
+		return path + "/com/ApprovalConfirm";
 	}
 	/**
 	 * 결재승인완료 팝업창로 이동
@@ -134,7 +128,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/AprvSuccess.do")
 	public String AprvSuccess() throws Exception {
 
-		return "/com/ApprovalSuccess";
+		return path + "/com/ApprovalSuccess";
 	}
 	/**
 	 * 결재승인실패 팝업창으로 이동
@@ -142,7 +136,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/AprvFail.do")
 	public String AprvFail() throws Exception {
 
-		return "/com/ApprovalFail";
+		return path + "/com/ApprovalFail";
 	}
 	/**
 	 * 결재승인진행 팝업창로 이동
@@ -150,14 +144,14 @@ public class CommonController {
 	@RequestMapping(value = "/com/AprvIng.do")
 	public String AprvIng() throws Exception {
 
-		return "/com/ApprovalIng";
+		return path + "/com/ApprovalIng";
 	}
 	/**
 	 * 반려확인 팝업창로 이동
 	 */
 	@RequestMapping(value = "/com/ApprovalDisConfirm.do")
 	public String ApprovalDisConfirm() throws Exception {
-		return "/com/ApprovalDisConfirm";
+		return path + "/com/ApprovalDisConfirm";
 	}
 	/**
 	 * 수정확인 팝업창로 이동
@@ -165,7 +159,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/UpdtConfirm.do")
 	public String UpdtConfirm() throws Exception {
 
-		return "/com/UpdtConfirm";
+		return path + "/com/UpdtConfirm";
 	}
 	
 	/**
@@ -174,7 +168,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/UpdtIng.do")
 	public String UpdtIng() throws Exception {
 
-		return "/com/UpdtIng";
+		return path + "/com/UpdtIng";
 	}
 	
 	/**
@@ -183,7 +177,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/UpdtSuccess.do")
 	public String UpdtSuccess() throws Exception {
 
-		return "/com/UpdtSuccess";
+		return path + "/com/UpdtSuccess";
 	}
 	
 	/**
@@ -192,7 +186,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/UpdtFail.do")
 	public String UpdtFail() throws Exception {
 
-		return "/com/UpdtFail";
+		return path + "/com/UpdtFail";
 	}
 	
 	/**
@@ -201,7 +195,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelConfirm.do")
 	public String DelConfirm() throws Exception {
 
-		return "/com/DelConfirm";
+		return path + "/com/DelConfirm";
 	}
 	
 	/**
@@ -210,7 +204,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelSuccess.do")
 	public String DelSuccess() throws Exception {
 
-		return "/com/DelSuccess";
+		return path + "/com/DelSuccess";
 	}
 	
 	/**
@@ -219,7 +213,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelFail.do")
 	public String DelFail() throws Exception {
 
-		return "/com/DelFail";
+		return path + "/com/DelFail";
 	}
 	
 	/**
@@ -228,7 +222,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelIng.do")
 	public String DelIng() throws Exception {
 
-		return "/com/DelIng";
+		return path + "/com/DelIng";
 	}
 	
 	/**
@@ -237,7 +231,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelReqConfirm.do")
 	public String DelReqConfirm(ModelMap model, String val) throws Exception {
 		model.addAttribute("val", val);
-		return "/com/DelReqConfirm";
+		return path + "/com/DelReqConfirm";
 	}
 	
 	/**
@@ -246,7 +240,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelReqIng.do")
 	public String DelReqIng(ModelMap model, String val) throws Exception {
 		model.addAttribute("val", val);
-		return "/com/DelReqIng";
+		return path + "/com/DelReqIng";
 	}
 	
 	/**
@@ -255,7 +249,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelReqSuccess.do")
 	public String DelReqSuccess(ModelMap model, String val) throws Exception {
 		model.addAttribute("val", val);
-		return "/com/DelReqSuccess";
+		return path + "/com/DelReqSuccess";
 	}
 	
 	/**
@@ -264,7 +258,7 @@ public class CommonController {
 	@RequestMapping(value = "/com/DelReqFail.do")
 	public String DelReqFail(ModelMap model, String val) throws Exception {
 		model.addAttribute("val", val);
-		return "/com/DelReqFail";
+		return path + "/com/DelReqFail";
 	}
 
 	//사용자목록 엑셀 출력
@@ -320,7 +314,7 @@ public class CommonController {
 		model.addAttribute("searchVO", assetManageVO);
 		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
 		model.addAttribute("masterVO", masterVO);
-		return "/ass/ExcelUploadResult";
+		return path + "/ass/ExcelUploadResult";
 	}
 	/**
 	 * 렌탈 엑셀 업로드 처리
@@ -331,11 +325,14 @@ public class CommonController {
 	 */
 	@RequestMapping("/com/xlsxRentalUpload.do")
 	public String xlsxRentalUpload(ModelMap model, HttpServletRequest request, AssetManageVO assetManageVO, RedirectAttributes redirectAttributes) throws Exception {
+
 		model.addAttribute("result", commonService.excelRentalUpload(request, assetManageVO));
 		model.addAttribute("searchVO", assetManageVO);
+		
+		
 		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
 		model.addAttribute("masterVO", masterVO);
-		return "/ass/ExcelUploadResult";
+		return path + "/ass/ExcelUploadResult";
 	}
 	/**
 	 * 엑셀 업로드 처리
@@ -344,7 +341,7 @@ public class CommonController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/com/xlsxUserUpload.do")
+	/*@RequestMapping("/com/xlsxUserUpload.do")
 	public String xlsxUserUpload(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		try {
 			commonService.excelUserUpload(request);
@@ -355,5 +352,5 @@ public class CommonController {
 			redirectAttributes.addFlashAttribute("Message", "오류가 발생하였습니다. 엑셀양식을 확인해 주세요.");
 		}
 		return "redirect:/mng/fac/cfg/cfgUploadPop.do";
-	}
+	}*/
 }

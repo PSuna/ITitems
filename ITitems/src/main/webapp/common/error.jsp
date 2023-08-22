@@ -7,12 +7,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
@@ -23,7 +23,7 @@
 		history.back(-2);
 	}
 	function fncGoLoginPage() {
-		location.href="/uat/uia/egovLoginUsr.do";
+		location.href="/res/uat/uia/egovLoginUsr.do";
 	}
 </script>
 

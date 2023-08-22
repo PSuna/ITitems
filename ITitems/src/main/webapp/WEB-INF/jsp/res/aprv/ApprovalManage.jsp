@@ -23,19 +23,19 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 	
-	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
-		   <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+		   <link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 		
 <title>ITeyes 자산관리솔루션</title>
 
@@ -45,13 +45,13 @@
 function setPageUnit(){
 	inputPush();
 	document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+    document.listForm.action = "<c:url value='/res/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
 
 function fnSearch(){
     document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+    document.listForm.action = "<c:url value='/res/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
 function fntrsfExcel(){
@@ -59,13 +59,13 @@ function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
-	    document.listForm.action = "<c:url value='/com/xlsxTrsfAprvList.do'/>";
+	    document.listForm.action = "<c:url value='/res/com/xlsxTrsfAprvList.do'/>";
 	    document.listForm.submit();
 	}
 }
 function fnSelectAprv(reqId){
 	document.listForm.reqId.value = reqId;
-	document.listForm.action = "<c:url value='/aprv/selectApproval.do'/>";
+	document.listForm.action = "<c:url value='/res/aprv/selectApproval.do'/>";
 	document.listForm.submit();
 }
 function inputPush(){
@@ -76,7 +76,7 @@ function inputPush(){
 function fnLinkPage(pageNo){
 	inputPush();
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+    document.listForm.action = "<c:url value='/res/aprv/ApprovalManage.do'/>";
     document.listForm.submit();
 }
 
@@ -129,7 +129,7 @@ window.onload = function(){
     
     <div class="wrap">
     	<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		
 		<div class="container">
@@ -148,7 +148,7 @@ window.onload = function(){
                                 </div>
                                 <!--// Location -->
                                 
-                                <form name="listForm" action="<c:url value='/aprv/ApprovalManage.do'/>" method="post">
+                                <form name="listForm" action="<c:url value='/res/aprv/ApprovalManage.do'/>" method="post">
                                 	
                                 	<input name="targetId" type="hidden" value="<c:out value='${approvalSearchVO.uniqId}'/>"/>
                                 	<input name="pageIndex" type="hidden" value="<c:out value='${approvalSearchVO.pageIndex}'/>"/>
@@ -288,7 +288,7 @@ window.onload = function(){
 	        </div>
         </div>
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 		
     </div>

@@ -45,7 +45,10 @@ import egovframework.let.res.uss.umt.service.UserManageVO;
  */
 
 @Controller
+@RequestMapping("/res")
 public class RequestController {
+	
+	String path = "/res";
 
 	@Resource(name = "RequestService")
 	private RequestService requestService;
@@ -114,7 +117,7 @@ public class RequestController {
 		
 		model.addAttribute("searchVO", manageVO);
 		
-		return "/req/CarryRequset";
+		return path + "/req/CarryRequset";
 	}
 	
 	/**
@@ -143,7 +146,7 @@ public class RequestController {
 		model.addAttribute("searchVO", manageVO);
 
 		
-		return "/req/CarryRegist";
+		return path + "/req/CarryRegist";
 	}
 	
 	/**
@@ -169,7 +172,7 @@ public class RequestController {
 		model.addAttribute("userManageVO", userManageVO);
 		model.addAttribute("searchVO", manageVO);
 		
-		return "/req/CarryInRegist";
+		return path + "/req/CarryInRegist";
 	}
 	
 	/**
@@ -202,7 +205,7 @@ public class RequestController {
 		model.addAttribute("resultList",requestService.SelectRequestDetailVOList(manageVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
 		model.addAttribute("searchVO", manageVO);
-		return "/req/SelectCarry";
+		return path + "/req/SelectCarry";
 	}
 	
 	/**

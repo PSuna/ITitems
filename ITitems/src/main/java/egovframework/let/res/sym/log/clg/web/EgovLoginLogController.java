@@ -35,8 +35,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovLoginLogController {
 
+	String path = "/res";
+	
 	@Resource(name = "EgovLoginLogService")
 	private EgovLoginLogService loginLogService;
 
@@ -52,7 +55,7 @@ public class EgovLoginLogController {
 	 */
 	@RequestMapping(value = "/sym/log/clg/SelectLoginLogList.do")
 	public String selectLoginLogInf(@ModelAttribute("searchVO") LoginLog loginLog, ModelMap model) throws Exception {
-		System.out.println("eeee:::" + loginLog);
+
 		loginLog.setPageUnit(propertyService.getInt("pageUnit"));
 		loginLog.setPageSize(propertyService.getInt("pageSize"));
 
@@ -76,7 +79,7 @@ public class EgovLoginLogController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "sym/log/clg/EgovLoginLogList";
+		return path + "/sym/log/clg/EgovLoginLogList";
 	}
 
 	/**
@@ -94,7 +97,7 @@ public class EgovLoginLogController {
 
 		LoginLog vo = loginLogService.selectLoginLog(loginLog);
 		model.addAttribute("result", vo);
-		return "sym/log/clg/EgovLoginLogInqire";
+		return path + "/sym/log/clg/EgovLoginLogInqire";
 	}
 
 }

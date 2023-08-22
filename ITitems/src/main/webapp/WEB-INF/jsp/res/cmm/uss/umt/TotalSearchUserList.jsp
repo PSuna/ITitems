@@ -22,11 +22,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -69,12 +69,12 @@
 		inputPush();
 		document.listForm.searchKeyword.blur();
 	    document.listForm.pageIndex.value = pageNo;
-	    document.listForm.action = "<c:url value='/uss/umt/user/TotalSearchUserList.do'/>";
+	    document.listForm.action = "<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>";
 	    document.listForm.submit();
 	}
 	function fnSearch(){
 	    document.listForm.pageIndex.value = 1;
-	    document.listForm.action = "<c:url value='/uss/umt/user/TotalSearchUserList.do'/>";
+	    document.listForm.action = "<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>";
 	    document.listForm.submit();
 	}
 	function inputPush(){
@@ -84,13 +84,13 @@
 	function TotalPrjSearch(){
 	    document.listForm.pageIndex.value = 1;
 	    document.listForm.searchKeyword.value = "";
-	    document.listForm.action = "<c:url value='/prj/TotalProjectSearchList.do'/>";
+	    document.listForm.action = "<c:url value='/res/prj/TotalProjectSearchList.do'/>";
 	    document.listForm.submit();
 	}
 	function TotalOrgSearch(){
 	    document.listForm.pageIndex.value = 1;
 	    document.listForm.searchKeyword.value = "";
-	    document.listForm.action = "<c:url value='/org/TotalOrgnztSearch.do'/>";
+	    document.listForm.action = "<c:url value='/res/org/TotalOrgnztSearch.do'/>";
 	    document.listForm.submit();
 	}
 	
@@ -103,7 +103,7 @@
 		기능을 사용하실 수 없습니다.</noscript>
 
 	<form name="listForm"
-		action="<c:url value='/uss/umt/user/TotalSearchUserList.do'/>"
+		action="<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>"
 		method="post">
 		<input name="selectedId" type="hidden" />
 		<input name="checkedIdForDel" type="hidden" />

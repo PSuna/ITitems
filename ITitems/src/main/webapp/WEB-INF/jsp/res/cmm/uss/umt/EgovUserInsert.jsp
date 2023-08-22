@@ -23,17 +23,17 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
@@ -43,7 +43,7 @@
 var userCheck = 0;
 function fnIdCheck(){
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>?" + '" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/uss/umt/cmm/EgovIdDplctCnfirmView.do'/>?" + '" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -62,7 +62,7 @@ function showModalDialogCallback(retVal) {
     }
 }
 function fnListPage(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>"; 
+    document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>"; 
     document.userManageVO.submit();
 }
 
@@ -74,7 +74,7 @@ function fnInsert(){
 	}else{
 		let formData = new FormData(document.getElementById('userManageVO'));
 		$.ajax({
-			url:'${pageContext.request.contextPath}/uss/umt/user/EgovUserInsert.do',
+			url:'${pageContext.request.contextPath}/res/uss/umt/user/EgovUserInsert.do',
 			method:'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -114,7 +114,7 @@ function getMOrgList(MOval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -199,7 +199,7 @@ function checkNum(e){
 function RegistConfirm(){
 	if(validateUserManageVO(document.userManageVO)){
 		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -329,7 +329,7 @@ function fncheckNums(){
 ******************************************************** */
 function RegistIng(){
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -345,7 +345,7 @@ function RegistIng(){
  function RegistSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -364,7 +364,7 @@ function RegistIng(){
  		fn_egov_modal_remove();
  		document.getElementById('userManageVO').reset();
  	}else{
- 		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+ 		document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
  		document.userManageVO.submit();
  	}
 
@@ -375,7 +375,7 @@ function RegistIng(){
    function RegistFail(){
   	
   	 var $dialog = $('<div id="modalPan"></div>')
-  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
   		.dialog({
   	    	autoOpen: false,
   	        modal: true,
@@ -419,7 +419,7 @@ function RegistIng(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -427,7 +427,7 @@ function RegistIng(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -570,7 +570,7 @@ function RegistIng(){
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46" onclick="JavaScript:RegistConfirm(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="<c:url value='/res/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46" onclick="fnListPage(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
@@ -595,7 +595,7 @@ function RegistIng(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
 </body>

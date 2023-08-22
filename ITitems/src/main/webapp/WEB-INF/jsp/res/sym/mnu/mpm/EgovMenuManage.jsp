@@ -27,10 +27,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -90,7 +90,7 @@ function fDeleteMenuList() {
     }   
 
     document.menuManageForm.checkedMenuNoForDel.value=checkMenuNos;
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuManageListDelete.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuManageListDelete.do'/>";
     document.menuManageForm.submit(); 
 }
 
@@ -100,7 +100,7 @@ function fDeleteMenuList() {
 function linkPage(pageNo){
 //  document.menuManageForm.searchKeyword.value = 
     document.menuManageForm.pageIndex.value = pageNo;
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
     document.menuManageForm.submit();
 }
 
@@ -109,7 +109,7 @@ function linkPage(pageNo){
  ******************************************************** */
 function selectMenuManageList() { 
     document.menuManageForm.pageIndex.value = 1;
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
     document.menuManageForm.submit();
 }
 
@@ -117,7 +117,7 @@ function selectMenuManageList() {
  * 입력 화면 호출 함수
  ******************************************************** */
 function insertMenuManage() {
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuRegistInsert.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuRegistInsert.do'/>";
     document.menuManageForm.submit();   
 }
 
@@ -130,7 +130,7 @@ function insertMenuManage() {
     }
  */
 function bndeInsertMenuManage() {
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuBndeRegist.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuBndeRegist.do'/>";
     document.menuManageForm.submit();
 } 
 /* ********************************************************
@@ -138,7 +138,7 @@ function bndeInsertMenuManage() {
  ******************************************************** */
 function selectUpdtMenuManageDetail(menuNo) {
     document.menuManageForm.req_menuNo.value = menuNo;
-    document.menuManageForm.action = "<c:url value='/sym/mnu/mpm/EgovMenuManageListDetailSelect.do'/>";
+    document.menuManageForm.action = "<c:url value='/res/sym/mnu/mpm/EgovMenuManageListDetailSelect.do'/>";
     document.menuManageForm.submit();   
 }
 /* ********************************************************
@@ -162,7 +162,7 @@ function fMenuManageSelect(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -170,7 +170,7 @@ function fMenuManageSelect(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -186,7 +186,7 @@ function fMenuManageSelect(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="menuManageForm" action ="<c:url value='/sym/mnu/mpm/EgovMenuManageSelect.do'/>" method="post">
+								<form name="menuManageForm" action ="<c:url value='/res/sym/mnu/mpm/EgovMenuManageSelect.do'/>" method="post">
 								
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<input name="checkedMenuNoForDel" type="hidden" />
@@ -290,7 +290,7 @@ function fMenuManageSelect(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

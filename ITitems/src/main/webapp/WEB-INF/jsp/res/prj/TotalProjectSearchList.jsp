@@ -21,11 +21,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -55,7 +55,7 @@ function fn_egov_pageview(page){
 	inputPush();
 	document.listForm.searchWord.blur();
 	document.listForm.pageIndex.value = page;
-	document.listForm.action = "<c:url value='/prj/TotalProjectSearchList.do'/>";
+	document.listForm.action = "<c:url value='/res/prj/TotalProjectSearchList.do'/>";
    	document.listForm.submit();
 }
 
@@ -69,13 +69,13 @@ function inputPush(){
 function TotalUserSearch(){
     document.listForm.pageIndex.value = 1;
     document.listForm.searchWord.value = "";
-    document.listForm.action = "<c:url value='/uss/umt/user/TotalSearchUserList.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>";
     document.listForm.submit();
 }
 function TotalOrgSearch(){
     document.listForm.pageIndex.value = 1;
     document.listForm.searchWord.value = "";
-    document.listForm.action = "<c:url value='/org/TotalOrgnztSearch.do'/>";
+    document.listForm.action = "<c:url value='/res/org/TotalOrgnztSearch.do'/>";
     document.listForm.submit();
 }
 
@@ -86,7 +86,7 @@ function TotalOrgSearch(){
 <!-- 자바스크립트 경고 태그  -->
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
-	<form name="listForm" action="<c:url value='/prj/TotalProjectSearchList.do'/>" method="post">
+	<form name="listForm" action="<c:url value='/res/prj/TotalProjectSearchList.do'/>" method="post">
     
     <input name="searchCondition" type="hidden" size="35" value="4" />
     <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>

@@ -4,7 +4,7 @@
 function PhotoManual(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/ass/PhotoManual.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/ass/PhotoManual.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -21,7 +21,7 @@ function PhotoManual(){
 function AssetSnManual(){
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/ass/AssetSnManual.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/ass/AssetSnManual.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -37,7 +37,7 @@ function AssetSnManual(){
  ******************************************************** */
 function FileManual(){
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/ass/FileManual.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/ass/FileManual.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,

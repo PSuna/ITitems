@@ -46,7 +46,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovTemplateManageController {
+	
+	String path = "/res";
 
 	@Resource(name = "EgovTemplateManageService")
 	private EgovTemplateManageService tmplatService;
@@ -96,7 +99,7 @@ public class EgovTemplateManageController {
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/com/EgovTemplateList";
+		return path + "/cop/com/EgovTemplateList";
 	}
 
 	/**
@@ -120,7 +123,7 @@ public class EgovTemplateManageController {
 		model.addAttribute("TemplateInfVO", vo);
 		model.addAttribute("resultList", result);
 
-		return "cop/com/EgovTemplateUpdt";
+		return path + "/cop/com/EgovTemplateUpdt";
 	}
 
 	/**
@@ -150,7 +153,7 @@ public class EgovTemplateManageController {
 
 			model.addAttribute("resultList", result);
 
-			return "cop/com/EgovTemplateRegist";
+			return path + "/cop/com/EgovTemplateRegist";
 		}
 
 		templateInf.setFrstRegisterId(user.getUniqId());
@@ -159,7 +162,7 @@ public class EgovTemplateManageController {
 			tmplatService.insertTemplateInf(templateInf);
 		}
 
-		return "forward:/cop/com/selectTemplateInfs.do";
+		return "forward:" + path + "/cop/com/selectTemplateInfs.do";
 	}
 
 	/**
@@ -180,7 +183,7 @@ public class EgovTemplateManageController {
 
 		model.addAttribute("resultList", result);
 
-		return "cop/com/EgovTemplateRegist";
+		return path + "/cop/com/EgovTemplateRegist";
 	}
 
 	/**
@@ -213,7 +216,7 @@ public class EgovTemplateManageController {
 			model.addAttribute("TemplateInfVO", vo);
 			model.addAttribute("resultList", result);
 
-			return "cop/com/EgovTemplateUpdt";
+			return path + "/cop/com/EgovTemplateUpdt";
 		}
 
 		templateInf.setLastUpdusrId(user.getUniqId());
@@ -222,7 +225,7 @@ public class EgovTemplateManageController {
 			tmplatService.updateTemplateInf(templateInf);
 		}
 
-		return "forward:/cop/com/selectTemplateInfs.do";
+		return "forward:" + path + "/cop/com/selectTemplateInfs.do";
 	}
 
 	/**
@@ -234,6 +237,7 @@ public class EgovTemplateManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/deleteTemplateInf.do")
 	public String deleteTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, @ModelAttribute("tmplatInf") TemplateInf tmplatInf, SessionStatus status, ModelMap model)
 			throws Exception {
@@ -247,8 +251,9 @@ public class EgovTemplateManageController {
 			tmplatService.deleteTemplateInf(tmplatInf);
 		}
 
-		return "forward:/cop/com/selectTemplateInfs.do";
+		return "forward:" + path + "/cop/com/selectTemplateInfs.do";
 	}
+	*/
 
 	/**
 	 * 팝업을 위한 템플릿 목록을 조회한다.
@@ -297,7 +302,7 @@ public class EgovTemplateManageController {
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/com/EgovTemplateInqirePopup";
+		return path + "/cop/com/EgovTemplateInqirePopup";
 	}
 
 	/**
@@ -336,6 +341,6 @@ public class EgovTemplateManageController {
 		model.addAttribute("width", width);
 		model.addAttribute("height", height);
 
-		return "/cop/com/EgovModalPopupFrame";
+		return path + "/cop/com/EgovModalPopupFrame";
 	}
 }

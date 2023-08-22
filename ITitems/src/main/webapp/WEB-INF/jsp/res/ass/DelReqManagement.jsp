@@ -24,20 +24,20 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
-<script src="<c:url value='/'/>js/SearchList.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
+<script src="<c:url value='/'/>js/res/SearchList.js"></script>
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript" language="javascript" defer="defer">
@@ -48,7 +48,7 @@
 function UserSearch(){
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/uss/umt/user/SearchUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -81,7 +81,7 @@ function getMCatList(Mval) {
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			url: '${pageContext.request.contextPath}/res/cat/GetMCategoryList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpper' : val},
@@ -123,7 +123,7 @@ function getOrgList(Oval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -158,7 +158,7 @@ function SearchAssetList() {
 	event.preventDefault();
 	
 	document.frm.pageIndex.value = '1';
-    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+    document.frm.action = "<c:url value='/res/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -170,7 +170,7 @@ function setPageUnit(obj) {
 	inputpush();
 	document.frm.pageIndex.value = '1';
 	document.frm.pageUnit.value = obj.value;
-    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+    document.frm.action = "<c:url value='/res/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -181,7 +181,7 @@ function fn_egov_select_noticeList(pageNo) {
 	event.preventDefault()
 	inputpush();
 	document.frm.pageIndex.value = pageNo;
-    document.frm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+    document.frm.action = "<c:url value='/res/ass/DelReqManagement.do'/>";
     document.frm.submit(); 
 }
 
@@ -205,7 +205,7 @@ function SelectAsset(assetId,mngNum) {
 	event.preventDefault();
 	document.frm.assetId.value = assetId;
 	document.frm.mngNum.value = mngNum;
-    document.frm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.frm.action = "<c:url value='/res/ass/SelectAsset.do'/>";
     document.frm.submit(); 
 }
 
@@ -217,7 +217,7 @@ function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 목록이 없습니다.")
 	}else{
-	    document.frm.action = "<c:url value='/com/xlsxTrsfAssetList.do'/>";
+	    document.frm.action = "<c:url value='/res/com/xlsxTrsfAssetList.do'/>";
 	    document.frm.submit();
 	}
 }
@@ -242,7 +242,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
 		<div class="container">
@@ -250,7 +250,7 @@ window.onload = function(){
 				<div class="sub_in">
 					<div class="layout">
 						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -433,7 +433,7 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 

@@ -40,7 +40,10 @@ import egovframework.let.res.sec.rgm.service.EgovAuthorGroupService;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovAuthorGroupController {
+	
+	String path = "/res";
 
     @Resource(name="egovMessageSource")
     EgovMessageSource egovMessageSource;
@@ -103,7 +106,7 @@ public class EgovAuthorGroupController {
       	model.addAttribute("auth_result", cmmUseService.selectAuthorCodeDetail(vo));
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
-        return "sec/rgm/EgovAuthorGroupManage";
+        return path + "/sec/rgm/EgovAuthorGroupManage";
     }    
 
 	/**
@@ -148,7 +151,7 @@ public class EgovAuthorGroupController {
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
         
-        return "/sec/rgm/EgovAuthorGroupManage";
+        return path + "/sec/rgm/EgovAuthorGroupManage";
 	}
 
 	/**
@@ -177,7 +180,7 @@ public class EgovAuthorGroupController {
 
         status.setComplete();
         model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));		
-		return "forward:/sec/rgm/EgovAuthorGroupList.do";
+		return "forward:" + path + "/sec/rgm/EgovAuthorGroupList.do";
 	}
 
 	/**

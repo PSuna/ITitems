@@ -26,15 +26,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 
 
@@ -50,7 +50,7 @@ function insertMenuManage(form) {
         return;
     }else{
     	if(confirm("<spring:message code="common.save.msg" />")){
-         form.action="<c:url value='/sym/mnu/mpm/EgovMenuRegistInsert.do'/>";
+         form.action="<c:url value='/res/sym/mnu/mpm/EgovMenuRegistInsert.do'/>";
          form.submit();
     	}
     }
@@ -64,7 +64,7 @@ function searchFileNm() {
     document.all.tmp_SearchElementName.value = "progrmFileNm";
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sym/prm/EgovProgramListSearch.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/sym/prm/EgovProgramListSearch.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -95,7 +95,7 @@ function fn_egov_modal_remove() {
  * 목록조회  함수
  ******************************************************** */
 function selectList(){
-    location.href = "<c:url value='/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
+    location.href = "<c:url value='/res/sym/mnu/mpm/EgovMenuManageSelect.do'/>";
 }
 /* ********************************************************
  * 파일명 엔터key 목록조회  함수
@@ -118,7 +118,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -126,7 +126,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -142,7 +142,7 @@ function press() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="menuManageVO" name="menuManageVO" method="post" action="${pageContext.request.contextPath}/sym/mnu/mpm/EgovMenuRegistInsert.do">
+								<form:form modelAttribute="menuManageVO" name="menuManageVO" method="post" action="${pageContext.request.contextPath}/res/sym/mnu/mpm/EgovMenuRegistInsert.do">
 
                                 <h2 class="tit_2">메뉴목록관리</h2>
 
@@ -240,7 +240,7 @@ function press() {
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:insertMenuManage(document.getElementById('menuManageVO')); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/sym/mnu/mpm/EgovMenuManageSelect.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:selectList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="<c:url value='/res/sym/mnu/mpm/EgovMenuManageSelect.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:selectList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
@@ -260,7 +260,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

@@ -47,7 +47,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovCcmCmmnDetailCodeManageController {
+	
+	String path = "/res";
 
 	@Resource(name = "CmmnDetailCodeManageService")
     private EgovCcmCmmnDetailCodeManageService cmmnDetailCodeManageService;
@@ -79,7 +82,7 @@ public class EgovCcmCmmnDetailCodeManageController {
 			, ModelMap model
 			) throws Exception {
     	cmmnDetailCodeManageService.deleteCmmnDetailCode(cmmnDetailCode);
-        return "forward:/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
+        return "forward:" + path + "/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
 	}
 
 	/**
@@ -130,7 +133,7 @@ public class EgovCcmCmmnDetailCodeManageController {
                 //List CmmnCodeList = cmmnCodeManageService.selectCmmnCodeList(searchCodeVO);
                 model.addAttribute("cmmnCodeList", cmmnCodeManageService.selectCmmnCodeList(searchCodeVO));
 
-                return "/cmm/sym/ccm/EgovCcmCmmnDetailCodeRegist";
+                return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeRegist";
     	} else if (sCmd.equals("Regist")) {
 
 	        beanValidator.validate(cmmnDetailCode, bindingResult);
@@ -156,14 +159,14 @@ public class EgovCcmCmmnDetailCodeManageController {
 	            //List CmmnCodeList = cmmnCodeManageService.selectCmmnCodeList(searchCodeVO);
 	            model.addAttribute("cmmnCodeList", cmmnCodeManageService.selectCmmnCodeList(searchCodeVO));
 
-	            return "/cmm/sym/ccm/EgovCcmCmmnDetailCodeRegist";
+	            return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeRegist";
 			}
 
 	    	cmmnDetailCode.setFrstRegisterId(loginVO.getUniqId());
 	    	cmmnDetailCodeManageService.insertCmmnDetailCode(cmmnDetailCode);
-	        return "forward:/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
+	        return "forward:" + path + "/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
     	}  else {
-    		return "forward:/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
+    		return "forward:" + path + "/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
     	}
     }
 
@@ -183,7 +186,7 @@ public class EgovCcmCmmnDetailCodeManageController {
     	CmmnDetailCode vo = cmmnDetailCodeManageService.selectCmmnDetailCodeDetail(cmmnDetailCode);
 		model.addAttribute("result", vo);
 
-		return "cmm/sym/ccm/EgovCcmCmmnDetailCodeDetail";
+		return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeDetail";
 	}
 
     /**
@@ -219,7 +222,7 @@ public class EgovCcmCmmnDetailCodeManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
         model.addAttribute("paginationInfo", paginationInfo);
 
-        return "/cmm/sym/ccm/EgovCcmCmmnDetailCodeList";
+        return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeList";
 	}
 
 	/**
@@ -244,21 +247,21 @@ public class EgovCcmCmmnDetailCodeManageController {
     		CmmnDetailCode vo = cmmnDetailCodeManageService.selectCmmnDetailCodeDetail(cmmnDetailCode);
     		model.addAttribute("cmmnDetailCode", vo);
 
-    		return "/cmm/sym/ccm/EgovCcmCmmnDetailCodeModify";
+    		return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeModify";
     	} else if (sCmd.equals("Modify")) {
             beanValidator.validate(cmmnDetailCode, bindingResult);
     		if (bindingResult.hasErrors()){
         		CmmnDetailCode vo = cmmnDetailCodeManageService.selectCmmnDetailCodeDetail(cmmnDetailCode);
         		model.addAttribute("cmmnDetailCode", vo);
 
-        		return "/cmm/sym/ccm/EgovCcmCmmnDetailCodeModify";
+        		return path + "/cmm/sym/ccm/EgovCcmCmmnDetailCodeModify";
     		}
 
     		cmmnDetailCode.setLastUpdusrId(loginVO.getUniqId());
 	    	cmmnDetailCodeManageService.updateCmmnDetailCode(cmmnDetailCode);
-	        return "forward:/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
+	        return "forward:" + path + "/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
     	} else {
-    		return "forward:/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
+    		return "forward:" + path + "/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do";
     	}
     }
 

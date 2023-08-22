@@ -22,18 +22,18 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 
@@ -138,13 +138,13 @@ function fncManageChecked() {
 function fncSelectAuthorGroupList(pageNo){
     //document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
 }
 function setPageUnit(){
 	inputPush();
 	document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
 }
 function fncAddAuthorGroupInsert() {
@@ -152,7 +152,7 @@ function fncAddAuthorGroupInsert() {
     if(!fncManageChecked()) return;
     
     if(confirm('<spring:message code="common.regist.msg" />')) {
-        document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupInsert.do'/>";
+        document.listForm.action = "<c:url value='/res/sec/rgm/EgovAuthorGroupInsert.do'/>";
         document.listForm.submit();
     }
 }
@@ -170,7 +170,7 @@ function fncAuthorGroupDeleteList() {
 function linkPage(pageNo){
 	inputPush();
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rgm/EgovAuthorGroupList.do'/>";
     document.listForm.submit();
 }
 
@@ -179,7 +179,7 @@ function fncSelectAuthorGroupPop() {
     if(document.listForm.searchCondition.value == '3') {
         
         var $dialog = $('<div id="modalPan"></div>')
-    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sec/gmt/EgovGroupSearchView.do'/>" + '" width="100%" height="100%"></iframe>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/sec/gmt/EgovGroupSearchView.do'/>" + '" width="100%" height="100%"></iframe>')
     	.dialog({
         	autoOpen: false,
             modal: true,
@@ -237,7 +237,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -245,7 +245,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -261,7 +261,7 @@ function press() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form id="listForm" name="listForm" action="<c:url value='/sec/rgm/EgovAuthorGroupList.do'/>" method="post">
+								<form:form id="listForm" name="listForm" action="<c:url value='/res/sec/rgm/EgovAuthorGroupList.do'/>" method="post">
 
                                 <h2 class="tit_2">사용자별권한관리</h2>
                                 
@@ -418,7 +418,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
 

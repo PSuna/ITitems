@@ -22,19 +22,19 @@
 <head>
 	
 	
-	<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+	<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	
-		<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+		<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 
@@ -53,14 +53,14 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
 		<div class="pty_bottom_fix">
 	        <div class="container main">
 	           
 	           <div class="pty_main_img">
-	           		<img src="<c:url value="/" />images/pty_main_00.png">
+	           		<img src="<c:url value="/" />images/res/pty_main_00.png">
 	           </div>
 	           
 	           
@@ -69,9 +69,9 @@
 		           	<div class="pty_main_right02">
 		           	
 			           		<div class="pmr_d">
-			           			<a href="#LINK" onclick="goMenuPage('/ass/MyAssetManagement.do','assId','ASSMSTR_000000000001')">
+			           			<a href="#LINK" onclick="goMenuPage('/res/ass/MyAssetManagement.do','assId','ASSMSTR_000000000001')">
 				           			<div class=pmr_dd>
-					           			<img src="<c:url value="/" />images/pty_icon_01.png">
+					           			<img src="<c:url value="/" />images/res/pty_icon_01.png">
 					           			<p> 내 자산조회 </p>
 					           			<h4> 바로가기 → </h4>
 					           		</div>
@@ -79,9 +79,9 @@
 			           		</div>
 			           				
 			           		<div class="pmr_d">
-			           			<a href="#LINK" onclick="goMenuPage('/req/CarryRequset.do')">
+			           			<a href="#LINK" onclick="goMenuPage('/res/req/CarryRequset.do')">
 				           			<div class=pmr_dd>
-					           			<img src="<c:url value="/" />images/pty_icon_02.png">
+					           			<img src="<c:url value="/" />images/res/pty_icon_02.png">
 					           			<p> 반출입 </p>
 					           			<h4> 바로가기 → </h4>
 					           		</div>	
@@ -104,7 +104,7 @@
 	                        <c:param name="param_atchFileId" value="${mobG.atchFileId}" />
 	                    </c:import>
 	                    </div>
-		           		<img src="<c:url value="/" />images/pdf.png">
+		           		<img src="<c:url value="/" />images/res/pdf.png">
 		           		</div>
 		           	</div>
 		           	
@@ -122,7 +122,7 @@
 		                        <c:param name="param_atchFileId" value="${APK.atchFileId}" />
 		                    </c:import>
 	                    </div>
-		           		<img src="<c:url value="/" />images/apk.png">
+		           		<img src="<c:url value="/" />images/res/apk.png">
 		           		</div>
 		           	</div>
 		           	</div>
@@ -148,8 +148,8 @@
 	                            <div class="box pty_colbox">
 	                                <div class="head">
 	                                    <h2>신규 <span>결재요청</span> <span style="font-size:19px; color: #ff6600; padding: 0px 5px 0px 5px;border-radius: 30px;"><c:out value="${paginationInfo.totalRecordCount}"/></span>건</h2>
-	                                    <%-- <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a> --%>
-	                                    <a href="<c:url value='/aprv/ApprovalManage.do'/>" class="more">더보기</a>
+	                                    <%-- <a href="<c:url value='/res/aprv/ApprovalManage.do'/>" class="more">더보기</a> --%>
+	                                    <a href="<c:url value='/res/aprv/ApprovalManage.do'/>" class="more">더보기</a>
 	                                </div>
 	                                
 	                                <div class="list">
@@ -163,7 +163,7 @@
 	                                        <div class="pty_list_d">
 	                                        
 	                                            <div class="pld">
-	                                            	<a href="<c:url value='/aprv/selectApproval.do?reqId=${Appresult.reqId}'/>">
+	                                            	<a href="<c:url value='/res/aprv/selectApproval.do?reqId=${Appresult.reqId}'/>">
 	                                            		<c:out value="${Appresult.reqGroup}" />
 	                                            	</a>
 	                                            	<span>NEW</span>
@@ -181,7 +181,7 @@
 	                            <div class="box pty_colbox">
 	                                <div class="head">
 	                                    <h2 style="margin-bottom: 30px">최신 <span>공지사항</span></h2>
-	                                    <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
+	                                    <a href="<c:url value='/res/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA'/>" class="more">더보기</a>
 	                                </div>
 	                                <div class="list">
 	                                        <colgroup>
@@ -199,9 +199,9 @@
 	                                        			<c:forEach begin="0" end="${result.replyLc}" step="1">
 	                                        				&nbsp;
 	                                        			</c:forEach>
-	                                        			<img src="<c:url value='/'/>images/ico_reply.png" alt="reply arrow">
+	                                        			<img src="<c:url value='/'/>images/res/ico_reply.png" alt="reply arrow">
 	                                        		</c:if>
-	                                            	<a href="<c:url value='/cop/bbs/selectBoardArticle.do?nttId=${result.nttId}'/>">
+	                                            	<a href="<c:url value='/res/cop/bbs/selectBoardArticle.do?nttId=${result.nttId}'/>">
 	                                            		<c:out value="${result.nttSj}" />
 	                                            	</a>
 	                                            	
@@ -230,7 +230,7 @@
 		
 		
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
 </body>

@@ -22,10 +22,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -40,17 +40,17 @@
 
     function fn_egov_select_bbsUseInfs(pageNo){
         document.frm.pageIndex.value = pageNo; 
-        document.frm.action = "<c:url value='/cop/com/selectBBSUseInfs.do'/>";
+        document.frm.action = "<c:url value='/res/cop/com/selectBBSUseInfs.do'/>";
         document.frm.submit();
     }
     function fn_egov_insert_addbbsUseInf(){
-        document.frm.action = "<c:url value='/cop/com/addBBSUseInf.do'/>";
+        document.frm.action = "<c:url value='/res/cop/com/addBBSUseInf.do'/>";
         document.frm.submit();      
     }
     function fn_egov_select_bbsUseInf(bbsId, trgetId){
         document.frm.bbsId.value = bbsId;
         document.frm.trgetId.value = trgetId;
-        document.frm.action = "<c:url value='/cop/com/selectBBSUseInf.do'/>";
+        document.frm.action = "<c:url value='/res/cop/com/selectBBSUseInf.do'/>";
         document.frm.submit();
     }
 
@@ -66,7 +66,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -74,7 +74,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
+                        <c:import url="/res/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
         
                         <div class="content_wrap">
@@ -97,7 +97,7 @@
                                 <!-- 검색조건 -->
                                 <div class="condition">
                                 	
-                                	<form name="frm" method="post" action = "<c:url value='/cop/com/selectBBSUseInf.do'/>">
+                                	<form name="frm" method="post" action = "<c:url value='/res/cop/com/selectBBSUseInf.do'/>">
                                 	
 									<input type="hidden" name="bbsId" >
 									<input type="hidden" name="trgetId" >
@@ -114,7 +114,7 @@
                                         <button class="btn" type="submit" onclick="fn_egov_select_bbsUseInfs('1'); return false;"><spring:message code='button.inquire' /></button><!-- 조회 -->
                                     </span>
 
-                                    <a href="<c:url value='/cop/com/addBBSUseInf.do'/>" class="item btn btn_blue_46 w_100" onclick="fn_egov_insert_addbbsUseInf(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+                                    <a href="<c:url value='/res/cop/com/addBBSUseInf.do'/>" class="item btn btn_blue_46 w_100" onclick="fn_egov_insert_addbbsUseInf(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
                                 	
                                 	</form>
                                 	
@@ -157,7 +157,7 @@
 	                                                <td>
 	                                                	<input type=hidden name="bbsId" value="<c:out value="${result.bbsId}"/>">
 	                                                	<input type=hidden name="trgetId" value="<c:out value="${result.trgetId}"/>">
-	                                                	<a href="<c:url value='/cop/com/selectBBSUseInf.do'/>?bbsId=<c:out value='${result.bbsId}'/>&amp;trgetId=<c:out value='${result.trgetId}'/>" class="lnk">
+	                                                	<a href="<c:url value='/res/cop/com/selectBBSUseInf.do'/>?bbsId=<c:out value='${result.bbsId}'/>&amp;trgetId=<c:out value='${result.trgetId}'/>" class="lnk">
 	                                                		<c:out value="${result.bbsNm}"/>
 	                                                	</a>
 	                                                </td>
@@ -193,7 +193,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

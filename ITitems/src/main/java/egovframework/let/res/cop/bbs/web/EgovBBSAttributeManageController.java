@@ -48,8 +48,11 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovBBSAttributeManageController {
 
+	String path = "/res";
+	
 	@Resource(name = "EgovBBSAttributeManageService")
 	private EgovBBSAttributeManageService bbsAttrbService;
 
@@ -110,7 +113,7 @@ public class EgovBBSAttributeManageController {
 			model.addAttribute("addedOptions", "true");
 		}
 
-		return "cop/bbs/EgovBoardMstrRegist";
+		return path + "/cop/bbs/EgovBoardMstrRegist";
 	}
 
 	/**
@@ -145,7 +148,7 @@ public class EgovBBSAttributeManageController {
 
 			model.addAttribute("attrbList", codeResult);
 
-			return "cop/bbs/EgovBoardMstrRegist";
+			return path + "/cop/bbs/EgovBoardMstrRegist";
 		}
 
 		if (isAuthenticated) {
@@ -157,7 +160,7 @@ public class EgovBBSAttributeManageController {
 			bbsAttrbService.insertBBSMastetInf(boardMaster);
 		}
 
-		return "forward:/cop/bbs/SelectBBSMasterInfs.do";
+		return "forward:" + path + "/cop/bbs/SelectBBSMasterInfs.do";
 	}
 
 	/**
@@ -196,7 +199,7 @@ public class EgovBBSAttributeManageController {
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/bbs/EgovBoardMstrList";
+		return path + "/cop/bbs/EgovBoardMstrList";
 	}
 
 	/**
@@ -218,7 +221,7 @@ public class EgovBBSAttributeManageController {
 			model.addAttribute("addedOptions", "true");
 		}
 
-		return "cop/bbs/EgovBoardMstrUpdt";
+		return path + "/cop/bbs/EgovBoardMstrUpdt";
 	}
 
 	/**
@@ -243,7 +246,7 @@ public class EgovBBSAttributeManageController {
 
 			model.addAttribute("result", vo);
 
-			return "cop/bbs/EgovBoardMstrUpdt";
+			return path + "/cop/bbs/EgovBoardMstrUpdt";
 		}
 
 		if (isAuthenticated) {
@@ -252,7 +255,7 @@ public class EgovBBSAttributeManageController {
 			bbsAttrbService.updateBBSMasterInf(boardMaster);
 		}
 
-		return "forward:/cop/bbs/SelectBBSMasterInfs.do";
+		return "forward:" + path + "/cop/bbs/SelectBBSMasterInfs.do";
 	}
 
 	/**
@@ -275,7 +278,7 @@ public class EgovBBSAttributeManageController {
 			boardMaster.setLastUpdusrId(user.getUniqId());
 			bbsAttrbService.deleteBBSMasterInf(boardMaster);
 		}
-		return "forward:/cop/bbs/SelectBBSMasterInfs.do";
+		return "forward:" + path + "/cop/bbs/SelectBBSMasterInfs.do";
 	}
 
 	/**
@@ -312,7 +315,7 @@ public class EgovBBSAttributeManageController {
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/bbs/EgovBoardMstrListPop";
+		return path + "/cop/bbs/EgovBoardMstrListPop";
 	}
 
 	/**
@@ -326,6 +329,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/insertBdMstrByTrget.do")
 	public String insertBdMstrByTrget(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster, BindingResult bindingResult,
 			SessionStatus status, ModelMap model) throws Exception {
@@ -352,7 +356,7 @@ public class EgovBBSAttributeManageController {
 
 			model.addAttribute("attrbList", codeResult);
 
-			return "cop/bbs/EgovBdMstrRegistByTrget";
+			return "/cop/bbs/EgovBdMstrRegistByTrget";
 		}
 
 		boardMaster.setFrstRegisterId(user.getUniqId());
@@ -371,8 +375,9 @@ public class EgovBBSAttributeManageController {
 			model.addAttribute("S_FLAG", "S");
 		}
 
-		return "forward:/cop/bbs/selectBdMstrListByTrget.do";
+		return "forward:" + path + "/cop/bbs/selectBdMstrListByTrget.do";
 	}
+	 */
 
 	/**
 	 * 사용중인 게시판 속성 정보의 목록을 조회 한다.
@@ -408,7 +413,7 @@ public class EgovBBSAttributeManageController {
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("trgetId", boardMasterVO.getTrgetId());
 
-		return "cop/bbs/EgovBBSListByTrget";
+		return path + "/cop/bbs/EgovBBSListByTrget";
 	}
 
 	/**
@@ -419,6 +424,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/SelectBBSMasterInfByTrget.do")
 	public String selectBBSMasterInfByTrget(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
 
@@ -435,8 +441,9 @@ public class EgovBBSAttributeManageController {
 			model.addAttribute("addedOptions", "true");
 		}
 
-		return "cop/bbs/EgovBdMstrUpdtByTrget";
+		return "/cop/bbs/EgovBdMstrUpdtByTrget";
 	}
+	*/
 
 	/**
 	 * 게시판 사용을 위한 게시판 속성정보를 수정한다.
@@ -447,6 +454,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/UpdateBBSMasterInfByTrget.do")
 	public String updateBBSMasterInfByTrget(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
 			BindingResult bindingResult, ModelMap model) throws Exception {
@@ -464,7 +472,7 @@ public class EgovBBSAttributeManageController {
 
 			model.addAttribute("result", vo);
 
-			return "cop/bbs/EgovBoardMstrUpdt";
+			return "/cop/bbs/EgovBoardMstrUpdt";
 		}
 
 		boardMaster.setLastUpdusrId(user.getUniqId());
@@ -474,8 +482,9 @@ public class EgovBBSAttributeManageController {
 			bbsAttrbService.updateBBSMasterInf(boardMaster);
 		}
 
-		return "forward:/cop/bbs/selectBdMstrListByTrget.do";
+		return "forward:" + path + "/cop/bbs/selectBdMstrListByTrget.do";
 	}
+	*/
 
 	/**
 	 * 커뮤니티, 동호회에서 사용을 위한 게시판 마스터 등록 화면으로 이동한다.
@@ -486,6 +495,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/addBBSMasterByTrget.do")
 	public String addBBSMasterByTrget(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
 		checkAuthority(boardMasterVO); // server-side 권한 확인
@@ -513,8 +523,9 @@ public class EgovBBSAttributeManageController {
 			model.addAttribute("addedOptions", "true");
 		}
 
-		return "cop/bbs/EgovBdMstrRegistByTrget";
+		return "/cop/bbs/EgovBdMstrRegistByTrget";
 	}
+	*/
 
 	/**
 	 * 등록된 게시판 속성정보를 삭제한다.
@@ -526,6 +537,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/DeleteBBSMasterInfByTrget.do")
 	public String deleteBBSMasterInfByTrget(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster, SessionStatus status)
 			throws Exception {
@@ -541,8 +553,9 @@ public class EgovBBSAttributeManageController {
 			bbsAttrbService.deleteBBSMasterInf(boardMaster);
 		}
 
-		return "forward:/cop/bbs/selectBdMstrListByTrget.do";
+		return "forward:" + path + "/cop/bbs/selectBdMstrListByTrget.do";
 	}
+	*/
 
 	/**
 	 * 커뮤니티, 동호회에서 사용중인 게시판 속성 정보의 목록 조회한다.
@@ -553,6 +566,7 @@ public class EgovBBSAttributeManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/selectAllBdMstrByTrget.do")
 	public String selectAllBdMstrByTrget(@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
 		String trgetId = (String) commandMap.get("param_trgetId");
@@ -564,6 +578,7 @@ public class EgovBBSAttributeManageController {
 
 		model.addAttribute("resultList", result);
 
-		return "cop/bbs/EgovBdListPortlet";
+		return "/cop/bbs/EgovBdListPortlet";
 	}
+	*/
 }

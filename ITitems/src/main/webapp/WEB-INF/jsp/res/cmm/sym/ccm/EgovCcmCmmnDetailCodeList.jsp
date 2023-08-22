@@ -22,10 +22,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -37,7 +37,7 @@
  ******************************************************** */
 function linkPage(pageNo){
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do'/>";
+    document.listForm.action = "<c:url value='/res/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do'/>";
     document.listForm.submit();
 }
 /* ********************************************************
@@ -51,7 +51,7 @@ function fnSearch(){
  * 등록 처리 함수 
  ******************************************************** */
 function fnRegist(){
-    location.href = "<c:url value='/sym/ccm/cde/EgovCcmCmmnDetailCodeRegist.do'/>";
+    location.href = "<c:url value='/res/sym/ccm/cde/EgovCcmCmmnDetailCodeRegist.do'/>";
 }
 /* ********************************************************
  * 수정 처리 함수
@@ -64,7 +64,7 @@ function fnModify(){
  ******************************************************** */
 function fnDetail(codeId, code){
     var varForm              = document.all["Form"];
-    varForm.action           = "<c:url value='/sym/ccm/cde/EgovCcmCmmnDetailCodeDetail.do'/>";
+    varForm.action           = "<c:url value='/res/sym/ccm/cde/EgovCcmCmmnDetailCodeDetail.do'/>";
     varForm.codeId.value     = codeId;
     varForm.code.value       = code;
     varForm.submit();
@@ -87,7 +87,7 @@ function fnDelete(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -95,7 +95,7 @@ function fnDelete(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -111,7 +111,7 @@ function fnDelete(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="listForm" action="<c:url value='/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do'/>" method="post">
+								<form name="listForm" action="<c:url value='/res/sym/ccm/cde/EgovCcmCmmnDetailCodeList.do'/>" method="post">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -209,7 +209,7 @@ function fnDelete(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

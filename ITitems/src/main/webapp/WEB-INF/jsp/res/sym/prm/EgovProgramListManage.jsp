@@ -27,10 +27,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -90,7 +90,7 @@ function fDeleteProgrmManageList() {
     }   
 
     document.progrmManageForm.checkedProgrmFileNmForDel.value=checkProgrmFileNms;
-    document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgrmManageListDelete.do'/>";
+    document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgrmManageListDelete.do'/>";
     document.progrmManageForm.submit(); 
 }
 
@@ -100,7 +100,7 @@ function fDeleteProgrmManageList() {
 function linkPage(pageNo){
 //  document.menuManageForm.searchKeyword.value = 
     document.progrmManageForm.pageIndex.value = pageNo;
-    document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListManageSelect.do'/>";
+    document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListManageSelect.do'/>";
     document.progrmManageForm.submit();
 }
 
@@ -109,14 +109,14 @@ function linkPage(pageNo){
  ******************************************************** */
 function selectProgramListManage() { 
     document.progrmManageForm.pageIndex.value = 1;
-    document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListManageSelect.do'/>";
+    document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListManageSelect.do'/>";
     document.progrmManageForm.submit(); 
 }
 /* ********************************************************
  * 입력 화면 호출 함수
  ******************************************************** */
 function insertProgramListManage() {
-    document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListRegist.do'/>";
+    document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListRegist.do'/>";
     document.progrmManageForm.submit(); 
 }
 /* ********************************************************
@@ -124,7 +124,7 @@ function insertProgramListManage() {
  ******************************************************** */
 function selectUpdtProgramListDetail(progrmFileNm) {
     document.progrmManageForm.tmp_progrmNm.value = progrmFileNm;
-    document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListDetailSelectUpdt.do'/>";
+    document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListDetailSelectUpdt.do'/>";
     document.progrmManageForm.submit(); 
 }
 /* ********************************************************
@@ -148,7 +148,7 @@ function selectUpdtProgramListDetail(progrmFileNm) {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -156,7 +156,7 @@ function selectUpdtProgramListDetail(progrmFileNm) {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -172,7 +172,7 @@ function selectUpdtProgramListDetail(progrmFileNm) {
                                 </div>
                                 <!--// Location -->
 
-								<form name="progrmManageForm" action ="<c:url value='/sym/prm/EgovProgramListManageSelect.do'/>" method="post">
+								<form name="progrmManageForm" action ="<c:url value='/res/sym/prm/EgovProgramListManageSelect.do'/>" method="post">
 								
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<input name="checkedProgrmFileNmForDel" type="hidden" />
@@ -240,7 +240,7 @@ function selectUpdtProgramListDetail(progrmFileNm) {
                                                     </span>
                                                 </td>
                                                 <td>
-	                                                <a href="<c:url value='/sym/prm/EgovProgramListDetailSelectUpdt.do'/>?tmp_progrmNm=<c:out value="${result.progrmFileNm}"/>" class="lnk" onclick="selectUpdtProgramListDetail('<c:out value="${result.progrmFileNm}"/>'); return false;">
+	                                                <a href="<c:url value='/res/sym/prm/EgovProgramListDetailSelectUpdt.do'/>?tmp_progrmNm=<c:out value="${result.progrmFileNm}"/>" class="lnk" onclick="selectUpdtProgramListDetail('<c:out value="${result.progrmFileNm}"/>'); return false;">
 	                                                	<c:out value="${result.progrmFileNm}"/>
 	                                                </a>
                                                 </td>
@@ -278,7 +278,7 @@ function selectUpdtProgramListDetail(progrmFileNm) {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

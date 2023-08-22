@@ -41,7 +41,10 @@ import egovframework.let.res.utl.sim.service.EgovFileScrty;
  * </pre> 
  */
 @Controller
+@RequestMapping("/res")
 public class MyManageController {
+	
+	String path = "/res";
 	
 	/** cmmUseService */
 	@Resource(name = "EgovCmmUseService")
@@ -73,7 +76,7 @@ public class MyManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -100,7 +103,7 @@ public class MyManageController {
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("userManageVO", userManageVO);
 		
-		return "cmm/uss/myp/MyManage";
+		return path + "/cmm/uss/myp/MyManage";
 	}
 	
 	/**
@@ -118,10 +121,10 @@ public class MyManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	
-    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt() != "") {
+    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt().length() != 0) {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
     	
@@ -148,7 +151,7 @@ public class MyManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		String userTyForPassword = (String) commandMap.get("userTyForPassword");
@@ -156,7 +159,7 @@ public class MyManageController {
 
 		model.addAttribute("userManageVO", userManageVO);
 		model.addAttribute("userSearchVO", userSearchVO);
-		return "cmm/uss/myp/MyPassUpdt";
+		return path + "/cmm/uss/myp/MyPassUpdt";
 	}
 	
 	/**
@@ -178,7 +181,7 @@ public class MyManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		String oldPassword = (String) commandMap.get("oldPassword");

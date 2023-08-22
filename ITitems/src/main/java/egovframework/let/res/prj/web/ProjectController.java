@@ -41,7 +41,10 @@ import egovframework.let.res.prj.service.ProjectVO;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class ProjectController {
+	
+	String path = "/res";
 
 	@Resource(name = "ProjectService")
 	private ProjectService projectService;
@@ -68,7 +71,7 @@ public class ProjectController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	
     	ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -95,7 +98,7 @@ public class ProjectController {
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("searchVO", searchVO);
-		return "/prj/ProjectSearchList";
+		return path + "/prj/ProjectSearchList";
 	}
 	
 	// 전체검색(프로젝트)
@@ -109,7 +112,7 @@ public class ProjectController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	
     	ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -136,7 +139,7 @@ public class ProjectController {
 		model.addAttribute("resultList", map.get("resultList"));
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("searchVO", searchVO);
-		return "/prj/TotalProjectSearchList";
+		return path + "/prj/TotalProjectSearchList";
 	}
 	
 	/**
@@ -173,7 +176,7 @@ public class ProjectController {
 		  model.addAttribute("paginationInfo", paginationInfo);
 		  model.addAttribute("searchVO", searchVO);
 		 
-        return "/prj/ProjectManage";
+        return path + "/prj/ProjectManage";
     }  
 	
 	/**
@@ -195,7 +198,7 @@ public class ProjectController {
 		vo.setCodeId("COM007");
 		model.addAttribute("prjState_result", cmmUseService.selectCmmCodeDetail(vo));
 
-		return "prj/ProjectInsert";
+		return path + "/prj/ProjectInsert";
 	}
 	
 	/**
@@ -211,7 +214,7 @@ public class ProjectController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		int r = projectService.insertPrj(projectVO);
@@ -233,7 +236,7 @@ public class ProjectController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	ComDefaultCodeVO vo = new ComDefaultCodeVO();
     	
@@ -246,14 +249,14 @@ public class ProjectController {
 		model.addAttribute("searchVO", searchVO);
 		model.addAttribute("projectVO", projectVO);
 
-		return "prj/ProjectSelectUpdt";
+		return path + "/prj/ProjectSelectUpdt";
 	}
 	
 	/**
 	 * 프로젝트 정보 수정후 목록조회 화면으로 이동한다.
 	 * @param projectVO 사용자수정정보
 	 * @param model 화면모델
-	 * @return forward:/prj/ProjectManage.do
+	 * @return forward:/res/prj/ProjectManage.do
 	 * @throws Exception
 	 */
 	@RequestMapping("/prj/ProjectSelectUpdt.do")
@@ -264,7 +267,7 @@ public class ProjectController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		int r = projectService.updatePrj(projectVO);
@@ -278,14 +281,14 @@ public class ProjectController {
 	 * 프로젝트 정보 삭제 후 목록조회 화면으로 이동한다.
 	 * @param projectVO 프로젝트 정보
 	 * @param model 화면모델
-	 * @return forward:/prj/ProjectManage.do
+	 * @return forward:/res/prj/ProjectManage.do
 	 * @throws Exception
 	 */
 	@RequestMapping("/prj/ProjectSelectDelete.do")
 	public String deleteProject(@ModelAttribute("projectVO") ProjectVO projectVO, Model model) throws Exception {
 		projectService.deletePrj(projectVO);
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/prj/ProjectManage.do";
+		return "forward:/res/prj/ProjectManage.do";
 		
 	}
 

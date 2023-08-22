@@ -25,23 +25,23 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<script src="<c:url value='/'/>js/PhotoMng.js"></script>
-<script src="<c:url value='/'/>js/FormSave.js"></script>
-<script src="<c:url value='/'/>js/Confirm.js"></script>
-<script src="<c:url value='/'/>js/Inputcheck.js"></script>
-<script src="<c:url value='/'/>js/Manual.js"></script>
-<script src="<c:url value='/'/>js/SearchList.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<script src="<c:url value='/'/>js/res/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/res/FormSave.js"></script>
+<script src="<c:url value='/'/>js/res/Confirm.js"></script>
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/res/Manual.js"></script>
+<script src="<c:url value='/'/>js/res/SearchList.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -50,7 +50,7 @@
 	src="<c:url value='/js/EgovMultiFile.js'/>"></script>
 <script type="text/javaScript" language="javascript">
 function AssetList(){
-	document.popForm.action = "<c:url value='/ass/AssetRegist.do'/>";
+	document.popForm.action = "<c:url value='/res/ass/AssetRegist.do'/>";
     document.popForm.submit();
 }
 function getOrgList(Oval) {
@@ -63,7 +63,7 @@ function getOrgList(Oval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -115,7 +115,7 @@ function fnSubmit(){
 		if(document.getElementById('isRental').value == 'ASSMSTR_000000000001'){
 			document.getElementById('popForm').submit();
 		}else{
-			document.getElementById('popForm').action = "<c:url value='/com/xlsxRentalUpload.do'/>";
+			document.getElementById('popForm').action = "<c:url value='/res/com/xlsxRentalUpload.do'/>";
 			document.getElementById('popForm').submit();
 		}
 	}else{
@@ -123,8 +123,12 @@ function fnSubmit(){
 		return;
 	}
 }
+
+window.onload = function(){
+	getOrgList();
+ }
 </script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 <style>
 body {
@@ -158,7 +162,7 @@ body {
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -178,14 +182,14 @@ body {
 								<!--// Location -->
 								<h2 class="tit_2">${masterVO.assNm}엑셀업로드</h2>
 								<!-- 검색조건 -->
-								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
+								<form name="popForm" method="post" id="popForm" action="/res/com/xlsxAssetUpload.do" enctype="multipart/form-data">
 								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 								<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
 								<input type="hidden" id="isRental" name="isRental" value="<c:out value="${masterVO.assId}"/>" />
 									<div class="condition2">
 										<h3 class="marginBotH3">Step1. 아래 [${masterVO.assNm}업로드엑셀양식]을 클릭하여 샘플 양식을 다운로드 합니다.</h3>
 										<div class="ExcelConBox">
-											<img src="<c:url value="/" />images/excelDown.png" alt="excel다운로드아이콘">
+											<img src="<c:url value="/" />images/res/excelDown.png" alt="excel다운로드아이콘">
 											<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 					                            <c:param name="param_atchFileId" value="${FileVO.atchFileId}" />
 					                        </c:import>
@@ -246,7 +250,7 @@ body {
 										<!-- 버튼 영역 -->
 										<h3 class="marginBotH3 marginTopH3">Step3. 업로드할 파일 선택 후 업로드 버튼을 눌러 ${masterVO.assNm}정보를 저장합니다.</h3>
 										<div class="ExcelConBox">
-											<img src="<c:url value="/" />images/excelUp.png" alt="excel다운로드아이콘">
+											<img src="<c:url value="/" />images/res/excelUp.png" alt="excel다운로드아이콘">
 											<input name="excelFile" id="excelFile" type="file" size="30">
 											<button onclick="fnSubmit(); return false;" class="btn pty_btn">업로드</button>
 										</div>
@@ -275,7 +279,7 @@ body {
 			</div>
 		</div>
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 </body>
 

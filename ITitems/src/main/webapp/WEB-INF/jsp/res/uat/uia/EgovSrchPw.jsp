@@ -12,10 +12,10 @@
 <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <script type="text/javascript">
@@ -65,7 +65,7 @@ function actionSearchPassword() {
 
                                         <a href="#LINK" class="btn_login" onclick="javascript:actionSearchPassword()">발송</a>
 										<div class="bot">
-                                        	<a href="/uat/uia/egovLoginUsr.do" style="color:#aaa; cursor:pointer">이전페이지</a>
+                                        	<a href="/res/uat/uia/egovLoginUsr.do" style="color:#aaa; cursor:pointer">이전페이지</a>
                                         </div>
                                     </fieldset>
                                     <input type="hidden" name="message" value="${message}" />
@@ -80,7 +80,7 @@ function actionSearchPassword() {
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
 </body>

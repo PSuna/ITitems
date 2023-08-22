@@ -32,7 +32,10 @@ import egovframework.let.res.org.service.OrgnztVO;
  */
 
 @Controller
+@RequestMapping("/res")
 public class OrgnztManageController {
+	
+	String path = "/res";
 	
 	@Resource(name = "orgnztManageService")
 	private OrgnztManageService orgnztManageService;
@@ -53,7 +56,7 @@ public class OrgnztManageController {
 		
 		model.addAttribute("resultList", orgnztManageService.SelectOrgnztVOList(manageVO));
 		
-		return "/org/TotalOrgnztSearch";
+		return path + "/org/TotalOrgnztSearch";
 	}
 	
 	/**
@@ -74,6 +77,6 @@ public class OrgnztManageController {
 		
 		model.addAttribute("resultList", orgnztManageService.SelectOrgnztVOList(manageVO));
 		
-		return "/org/OrgnztSearch";
+		return path + "/org/OrgnztSearch";
 	}
 }

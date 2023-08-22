@@ -24,10 +24,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -44,7 +44,7 @@ var userCheck = 0;
 function fnPrjInsert(){
 	let formData = new FormData(document.getElementById('projectVO'));
 	$.ajax({
-		url:'${pageContext.request.contextPath}/prj/ProjectInsert.do',
+		url:'${pageContext.request.contextPath}/res/prj/ProjectInsert.do',
 		method:'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -68,7 +68,7 @@ function UserSearch(ch){
 	userCheck = ch;
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -102,7 +102,7 @@ function RegistConfirm(){
 	if(validateProjectVO(document.getElementById('projectVO'))){
 		if(fncheckValid()){
 			var $dialog = $('<div id="modalPan"></div>')
-				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+				.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 				.dialog({
 			    	autoOpen: false,
 			        modal: true,
@@ -144,7 +144,7 @@ function fncheckValid(){
 ******************************************************** */
 function RegistIng(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -160,7 +160,7 @@ function RegistIng(){
  function RegistSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -179,7 +179,7 @@ function RegistIng(){
 		fn_egov_modal_remove();
 		document.getElementById('projectVO').reset();
 	}else{
-		document.projectVO.action = "<c:url value='/prj/ProjectManage.do'/>";
+		document.projectVO.action = "<c:url value='/res/prj/ProjectManage.do'/>";
 		document.projectVO.submit();
 	}
 
@@ -189,7 +189,7 @@ function RegistIng(){
  ******************************************************** */
 function RegistFail(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
     		autoOpen: false,
         	modal: true,
@@ -235,7 +235,7 @@ function make_date(){
 	$("#prjStart,#prjEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
 	         , buttonImageOnly: true
 	         
 	         , showMonthAfterYear: true
@@ -295,7 +295,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
 		<div class="container">
@@ -303,7 +303,7 @@ window.onload = function(){
 				<div class="sub_in">
 					<div class="layout">
 						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 
 						<div class="content_wrap">
@@ -318,7 +318,7 @@ window.onload = function(){
 									</ul>
 								</div>
 								<!--// Location -->
-								<form:form modelAttribute="projectVO" action="${pageContext.request.contextPath}/prj/ProjectInsert.do" name="projectVO" method="post">
+								<form:form modelAttribute="projectVO" action="${pageContext.request.contextPath}/res/prj/ProjectInsert.do" name="projectVO" method="post">
 
 									<h2 class="tit_2">프로젝트 등록</h2>
 
@@ -424,7 +424,7 @@ window.onload = function(){
 												onclick="JavaScript:RegistConfirm(); return false;"><spring:message
 													code="button.save" /></a>
 											<!-- 등록 -->
-											<a href="<c:url value='/prj/ProjectManage.do'/>"
+											<a href="<c:url value='/res/prj/ProjectManage.do'/>"
 												class="btn btn_blue_46 w_100"
 												onclick="fnListPage(); return false;"><spring:message
 													code="button.list" /></a>
@@ -444,7 +444,7 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 

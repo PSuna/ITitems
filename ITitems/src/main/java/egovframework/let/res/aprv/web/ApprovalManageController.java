@@ -42,8 +42,11 @@ import egovframework.let.res.req.service.RequestService;
  */
 
 @Controller
+@RequestMapping("/res")
 public class ApprovalManageController {
-
+	
+	String path = "/res";
+	
 	/** approvalManageService */
 	@Resource(name = "approvalManageService")
 	private ApprovalManageService approvalManageService;
@@ -82,7 +85,7 @@ public class ApprovalManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if(!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		
 		/** EgovPropertyService*/
@@ -114,7 +117,7 @@ public class ApprovalManageController {
 		vo.setCodeId("COM011");
 		model.addAttribute("aprvGroup_result", cmmUseService.selectCmmCodeDetail(vo));
 		
-		return "aprv/ApprovalManage";
+		return path + "/aprv/ApprovalManage";
 	}
 	
 	/**
@@ -144,7 +147,7 @@ public class ApprovalManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	
 		ApprovalManageVO approvalManageVO = new ApprovalManageVO();
@@ -154,7 +157,7 @@ public class ApprovalManageController {
 		model.addAttribute("loginId", approvalSearchVO.getUniqId());
 		model.addAttribute("approvalDetailList", requestService.SelectRequestDetailVOList(manageVO));
 		model.addAttribute("aprvList_result",requestService.SelectAprvList(manageVO));
-		return "/aprv/SelectApproval";
+		return path + "/aprv/SelectApproval";
 	}
 	
 	/**

@@ -23,10 +23,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -41,14 +41,14 @@
  * 목록 으로 가기
  ******************************************************** */
 function fn_egov_list_Zip(){
-    location.href = "<c:url value='/sym/ccm/zip/EgovCcmZipList.do'/>";
+    location.href = "<c:url value='/res/sym/ccm/zip/EgovCcmZipList.do'/>";
 }
 /* ********************************************************
  * 수정화면으로  바로가기
  ******************************************************** */
 function fn_egov_modify_Zip(){
     var varForm              = document.all["Form"];
-    varForm.action           = "<c:url value='/sym/ccm/zip/EgovCcmZipModify.do'/>";
+    varForm.action           = "<c:url value='/res/sym/ccm/zip/EgovCcmZipModify.do'/>";
     varForm.zip.value        = "${result.zip}";
     varForm.sn.value         = "${result.sn}";
     varForm.submit();
@@ -59,7 +59,7 @@ function fn_egov_modify_Zip(){
 function fn_egov_delete_Zip(){
     if (confirm("<spring:message code='common.delete.msg'/>")) {
         var varForm              = document.all["Form"];
-        varForm.action           = "<c:url value='/sym/ccm/zip/EgovCcmZipRemove.do'/>";
+        varForm.action           = "<c:url value='/res/sym/ccm/zip/EgovCcmZipRemove.do'/>";
         varForm.zip.value        = "${result.zip}";
         varForm.sn.value         = "${result.sn}";
         varForm.submit();
@@ -77,7 +77,7 @@ function fn_egov_delete_Zip(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -85,7 +85,7 @@ function fn_egov_delete_Zip(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -101,7 +101,7 @@ function fn_egov_delete_Zip(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="Form" method="post" action="<c:url value='/sym/ccm/zip/EgovCcmZipModify.do'/>">
+								<form name="Form" method="post" action="<c:url value='/res/sym/ccm/zip/EgovCcmZipModify.do'/>">
 								
 								<input type="hidden" name="zip">
 								<input type="hidden" name="sn">
@@ -197,7 +197,7 @@ function fn_egov_delete_Zip(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

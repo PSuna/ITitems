@@ -22,10 +22,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -37,7 +37,7 @@
  ******************************************************** */
 function fn_egov_pageview(pageNo){
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sym/ccm/zip/EgovCcmZipList.do'/>";
+    document.listForm.action = "<c:url value='/res/sym/ccm/zip/EgovCcmZipList.do'/>";
     document.listForm.submit();
 }
 /* ********************************************************
@@ -56,13 +56,13 @@ function fn_egov_search_Zip(){
  * 등록 처리 함수 
  ******************************************************** */
 function fn_egov_regist_Zip(){
-    location.href = "<c:url value='/sym/ccm/zip/EgovCcmZipRegist.do'/>";
+    location.href = "<c:url value='/res/sym/ccm/zip/EgovCcmZipRegist.do'/>";
 }
 /* ********************************************************
  * 엑셀등록 처리 함수 
  ******************************************************** */
 function fn_egov_regist_ExcelZip(){
-    location.href = "<c:url value='/sym/ccm/zip/EgovCcmExcelZipRegist.do'/>";
+    location.href = "<c:url value='/res/sym/ccm/zip/EgovCcmExcelZipRegist.do'/>";
 }
 /* ********************************************************
  * 수정 처리 함수
@@ -75,7 +75,7 @@ function fn_egov_modify_Zip(){
  ******************************************************** */
 function fn_egov_detail_Zip(zip,sn){
     var varForm              = document.all["Form"];
-    varForm.action           = "<c:url value='/sym/ccm/zip/EgovCcmZipDetail.do'/>";
+    varForm.action           = "<c:url value='/res/sym/ccm/zip/EgovCcmZipDetail.do'/>";
     varForm.zip.value        = zip;
     varForm.sn.value         = sn;
     varForm.submit();
@@ -92,7 +92,7 @@ function fn_egov_detail_Zip(zip,sn){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -100,7 +100,7 @@ function fn_egov_detail_Zip(zip,sn){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -116,7 +116,7 @@ function fn_egov_detail_Zip(zip,sn){
                                 </div>
                                 <!--// Location -->
 
-								<form name="listForm" action="<c:url value='/sym/ccm/zip/EgovCcmZipList.do'/>" method="post">
+								<form name="listForm" action="<c:url value='/res/sym/ccm/zip/EgovCcmZipList.do'/>" method="post">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -202,7 +202,7 @@ function fn_egov_detail_Zip(zip,sn){
                                 
                                 </form>
 
-								<form name="Form" method="post" action="<c:url value='/sym/ccm/zip/EgovCcmZipDetail.do'/>">
+								<form name="Form" method="post" action="<c:url value='/res/sym/ccm/zip/EgovCcmZipDetail.do'/>">
 								    <input type="hidden" name="zip">
 								    <input type="hidden" name="sn">
 								</form>
@@ -215,7 +215,7 @@ function fn_egov_detail_Zip(zip,sn){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

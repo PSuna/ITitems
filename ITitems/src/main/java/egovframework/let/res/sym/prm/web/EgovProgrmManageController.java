@@ -46,7 +46,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovProgrmManageController {
+	
+	String path = "/res";
 
 	/** Validator */
 	@Autowired
@@ -80,12 +83,12 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		searchVO.setSearchKeyword(tmp_progrmNm);
 		ProgrmManageVO progrmManageVO = progrmManageService.selectProgrm(searchVO);
 		model.addAttribute("progrmManageVO", progrmManageVO);
-		return "sym/prm/EgovProgramListDetailSelectUpdt";
+		return path + "/sym/prm/EgovProgramListDetailSelectUpdt";
 	}
 
 	/**
@@ -100,7 +103,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
 		/** EgovPropertyService.sample */
@@ -124,7 +127,7 @@ public class EgovProgrmManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "sym/prm/EgovProgramListManage";
+		return path + "/sym/prm/EgovProgramListManage";
 
 	}
 
@@ -143,22 +146,22 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		String[] delProgrmFileNm = checkedProgrmFileNmForDel.split(",");
 		if (delProgrmFileNm == null || (delProgrmFileNm.length == 0)) {
 			resultMsg = egovMessageSource.getMessage("fail.common.delete");
-			sLocationUrl = "forward:/sym/prm/EgovProgramListManageSelect.do";
+			sLocationUrl = "forward:" + path + "/sym/prm/EgovProgramListManageSelect.do";
 		} else {
 			progrmManageService.deleteProgrmManageList(checkedProgrmFileNmForDel);
 			resultMsg = egovMessageSource.getMessage("success.common.delete");
-			sLocationUrl = "forward:/sym/prm/EgovProgramListManageSelect.do";
+			sLocationUrl = "forward:" + path + "/sym/prm/EgovProgramListManageSelect.do";
 		}
 		model.addAttribute("resultMsg", resultMsg);
 		//status.setComplete();
 		return sLocationUrl;
 	}
-
+	
 	/**
 	 * 프로그램목록을 등록화면으로 이동 및 등록 한다.
 	 * @param progrmManageVO ProgrmManageVO
@@ -176,14 +179,14 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 
 		String sCmd = commandMap.get("cmd") == null ? "" : (String) commandMap.get("cmd");
 		if (sCmd.equals("insert")) {
 			beanValidator.validate(progrmManageVO, bindingResult);
 			if (bindingResult.hasErrors()) {
-				sLocationUrl = "sym/prm/EgovProgramListRegist";
+				sLocationUrl = path + "/sym/prm/EgovProgramListRegist";
 				return sLocationUrl;
 			}
 			if (progrmManageVO.getProgrmDc() == null || progrmManageVO.getProgrmDc().equals("")) {
@@ -191,9 +194,9 @@ public class EgovProgrmManageController {
 			}
 			progrmManageService.insertProgrm(progrmManageVO);
 			resultMsg = egovMessageSource.getMessage("success.common.insert");
-			sLocationUrl = "forward:/sym/prm/EgovProgramListManageSelect.do";
+			sLocationUrl = "forward:" + path + "/sym/prm/EgovProgramListManageSelect.do";
 		} else {
-			sLocationUrl = "sym/prm/EgovProgramListRegist";
+			sLocationUrl = path + "/sym/prm/EgovProgramListRegist";
 		}
 		model.addAttribute("resultMsg", resultMsg);
 		return sLocationUrl;
@@ -214,12 +217,12 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 
 		beanValidator.validate(progrmManageVO, bindingResult);
 		if (bindingResult.hasErrors()) {
-			sLocationUrl = "forward:/sym/prm/EgovProgramListDetailSelect.do";
+			sLocationUrl = "forward:" + path + "/sym/prm/EgovProgramListDetailSelect.do";
 			return sLocationUrl;
 		}
 		if (progrmManageVO.getProgrmDc() == null || progrmManageVO.getProgrmDc().equals("")) {
@@ -227,7 +230,7 @@ public class EgovProgrmManageController {
 		}
 		progrmManageService.updateProgrm(progrmManageVO);
 		resultMsg = egovMessageSource.getMessage("success.common.update");
-		sLocationUrl = "forward:/sym/prm/EgovProgramListManageSelect.do";
+		sLocationUrl = "forward:" + path + "/sym/prm/EgovProgramListManageSelect.do";
 		model.addAttribute("resultMsg", resultMsg);
 		return sLocationUrl;
 	}
@@ -245,12 +248,12 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		progrmManageService.deleteProgrm(progrmManageVO);
 		resultMsg = egovMessageSource.getMessage("success.common.delete");
 		model.addAttribute("resultMsg", resultMsg);
-		return "forward:/sym/prm/EgovProgramListManageSelect.do";
+		return "forward:" + path + "/sym/prm/EgovProgramListManageSelect.do";
 	}
 
 	/**
@@ -265,7 +268,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
 		/** EgovPropertyService.sample */
@@ -288,7 +291,7 @@ public class EgovProgrmManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "sym/prm/EgovProgramChangeRequst";
+		return path + "/sym/prm/EgovProgramChangeRequst";
 	}
 
 	/**
@@ -303,7 +306,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		if (progrmManageDtlVO.getProgrmFileNm() == null || progrmManageDtlVO.getProgrmFileNm().equals("")) {
 			String _FileNm = progrmManageDtlVO.getTmp_progrmNm();
@@ -313,7 +316,7 @@ public class EgovProgrmManageController {
 		}
 		ProgrmManageDtlVO resultVO = progrmManageService.selectProgrmChangeRequst(progrmManageDtlVO);
 		model.addAttribute("progrmManageDtlVO", resultVO);
-		return "sym/prm/EgovProgramChangRequstDetailSelectUpdt";
+		return path + "/sym/prm/EgovProgramChangRequstDetailSelectUpdt";
 	}
 
 	/**
@@ -325,6 +328,7 @@ public class EgovProgrmManageController {
 	 * @exception Exception
 	 */
 	/*프로그램변경요청등록*/
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChangRequstStre.do")
 	public String insertProgrmChangeRequst(@RequestParam Map<String, Object> commandMap, @ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO,
 			BindingResult bindingResult, ModelMap model) throws Exception {
@@ -356,7 +360,7 @@ public class EgovProgrmManageController {
 			resultMsg = egovMessageSource.getMessage("success.common.insert");
 			sLocationUrl = "forward:/sym/prm/EgovProgramChangeRequstSelect.do";
 		} else {
-			/* MAX요청번호 조회 */
+			// MAX요청번호 조회
 			ProgrmManageDtlVO tmp_vo = progrmManageService.selectProgrmChangeRequstNo(progrmManageDtlVO);
 			int _tmp_no = tmp_vo.getRqesterNo();
 			progrmManageDtlVO.setRqesterNo(_tmp_no);
@@ -366,6 +370,7 @@ public class EgovProgrmManageController {
 		model.addAttribute("resultMsg", resultMsg);
 		return sLocationUrl;
 	}
+	*/
 
 	/**
 	 * 프로그램변경 요청을 수정 한다.
@@ -373,6 +378,7 @@ public class EgovProgrmManageController {
 	 * @return 출력페이지정보 "forward:/sym/prm/EgovProgramChangeRequstSelect.do"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChangRequstDetailSelectUpdt.do")
 	public String updateProgrmChangeRequst(@ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO, BindingResult bindingResult, ModelMap model) throws Exception {
 		String sLocationUrl = null;
@@ -411,6 +417,7 @@ public class EgovProgrmManageController {
 		model.addAttribute("resultMsg", resultMsg);
 		return sLocationUrl;
 	}
+	*/
 
 	/**
 	 * 프로그램변경 요청을 삭제 한다.
@@ -418,6 +425,7 @@ public class EgovProgrmManageController {
 	 * @return 출력페이지정보 "forward:/sym/prm/EgovProgramChangeRequstSelect.do"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChangRequstDelete.do")
 	public String deleteProgrmChangeRequst(@ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO, ModelMap model) throws Exception {
 		String sLocationUrl = null;
@@ -440,6 +448,7 @@ public class EgovProgrmManageController {
 		}
 		return sLocationUrl;
 	}
+	*/
 
 	/**
 	 * 프로그램변경 요청에 대한 처리 사항을 조회한다.
@@ -453,7 +462,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
 		/** EgovPropertyService.sample */
@@ -477,7 +486,7 @@ public class EgovProgrmManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "sym/prm/EgovProgramChangeRequstProcess";
+		return path + "/sym/prm/EgovProgramChangeRequstProcess";
 	}
 
 	/**
@@ -492,7 +501,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		if (progrmManageDtlVO.getProgrmFileNm() == null) {
 			String _FileNm = progrmManageDtlVO.getTmp_progrmNm();
@@ -506,7 +515,7 @@ public class EgovProgrmManageController {
 			resultVO.setOpetrId(user.getId());
 		}
 		model.addAttribute("progrmManageDtlVO", resultVO);
-		return "sym/prm/EgovProgramChangRequstProcessDetailSelectUpdt";
+		return path + "/sym/prm/EgovProgramChangRequstProcessDetailSelectUpdt";
 	}
 
 	/**
@@ -515,6 +524,7 @@ public class EgovProgrmManageController {
 	 * @return 출력페이지정보 "forward:/sym/prm/EgovProgramChangeRequstProcessListSelect.do"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChangRequstProcessDetailSelectUpdt.do")
 	public String updateProgrmChangRequstProcess(@ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO, BindingResult bindingResult, ModelMap model)
 			throws Exception {
@@ -574,6 +584,7 @@ public class EgovProgrmManageController {
 		}
 		return sLocationUrl;
 	}
+	*/
 
 	/**
 	 * 프로그램변경요청처리를 삭제 한다.
@@ -582,6 +593,7 @@ public class EgovProgrmManageController {
 	 * @exception Exception
 	 */
 	/*프로그램변경요청처리 삭제*/
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChangRequstProcessDelete.do")
 	public String deleteProgrmChangRequstProcess(@ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO, ModelMap model) throws Exception {
 		// 0. Spring Security 사용자권한 처리
@@ -594,6 +606,7 @@ public class EgovProgrmManageController {
 
 		return "forward:/sym/prm/EgovProgramChangeRequstProcessListSelect.do";
 	}
+	*/
 
 	/**
 	 * 프로그램변경이력리스트를 조회한다.
@@ -601,6 +614,7 @@ public class EgovProgrmManageController {
 	 * @return 출력페이지정보 "sym/prm/EgovProgramChgHst"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChgHstListSelect.do")
 	public String selectProgrmChgHstList(@ModelAttribute("searchVO") ComDefaultVO searchVO, ModelMap model) throws Exception {
 		// 0. Spring Security 사용자권한 처리
@@ -610,11 +624,11 @@ public class EgovProgrmManageController {
 			return "uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
-		/** EgovPropertyService.sample */
+		// EgovPropertyService.sample 
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		searchVO.setPageSize(propertiesService.getInt("pageSize"));
 
-		/** pageing */
+		// pageing 
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
@@ -632,6 +646,7 @@ public class EgovProgrmManageController {
 
 		return "sym/prm/EgovProgramChgHst";
 	}
+	*/
 
 	/*프로그램변경이력상세조회*/
 	/**
@@ -640,6 +655,7 @@ public class EgovProgrmManageController {
 	 * @return 출력페이지정보 "sym/prm/EgovProgramChgHstDetail"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/prm/EgovProgramChgHstListDetailSelect.do")
 	public String selectProgramChgHstListDetail(@ModelAttribute("progrmManageDtlVO") ProgrmManageDtlVO progrmManageDtlVO, ModelMap model) throws Exception {
 		// 0. Spring Security 사용자권한 처리
@@ -657,6 +673,7 @@ public class EgovProgrmManageController {
 		model.addAttribute("resultVO", resultVO);
 		return "sym/prm/EgovProgramChgHstDetail";
 	}
+	*/
 
 	/**
 	 * 프로그램파일명을 조회한다.
@@ -670,7 +687,7 @@ public class EgovProgrmManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -693,7 +710,7 @@ public class EgovProgrmManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "sym/prm/EgovFileNmSearch";
+		return path + "/sym/prm/EgovFileNmSearch";
 
 	}
 

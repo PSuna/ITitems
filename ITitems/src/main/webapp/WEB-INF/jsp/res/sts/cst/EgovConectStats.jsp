@@ -23,15 +23,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 
 <script type="text/javascript" src="<c:url value='/js/EgovCalPopup.js' />"></script>
@@ -81,7 +81,7 @@ function fnSearch(){
         return;
     } 
 
-    document.listForm.action = "<c:url value='/sts/cst/selectConectStats.do'/>";
+    document.listForm.action = "<c:url value='/res/sts/cst/selectConectStats.do'/>";
     document.listForm.submit();
 }
 /* ********************************************************
@@ -146,7 +146,7 @@ function fn_egov_init_date(){
 	$("#searchBgnDe").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
 	         , buttonImageOnly: true
 	         
 	         , showMonthAfterYear: true
@@ -163,7 +163,7 @@ function fn_egov_init_date(){
 	$("#searchEndDe").datepicker( 
         {dateFormat:'yy-mm-dd'
          , showOn: 'button'
-         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
          , buttonImageOnly: true
          
          , showMonthAfterYear: true
@@ -195,7 +195,7 @@ function fn_egov_init_date(){
 
     <div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -203,7 +203,7 @@ function fn_egov_init_date(){
                 <div class="sub_in">
                     <div class="layout">
 						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -232,7 +232,7 @@ function fn_egov_init_date(){
                                 <!-- 검색조건 -->
                                 <div class="condition2">
                                 	
-                                	<input type="hidden" name="cal_url" value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" />
+                                	<input type="hidden" name="cal_url" value="<c:url value='/res/sym/cmm/EgovNormalCalPopup.do'/>" />
 				                    <input type="hidden" name="fromDate" value="${statsInfo.fromDate}" size="10"/>
 				                    <input type="hidden" name="toDate" value="${statsInfo.toDate}" size="10"/>
                                 	
@@ -357,7 +357,7 @@ function fn_egov_init_date(){
         </div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
 </body>

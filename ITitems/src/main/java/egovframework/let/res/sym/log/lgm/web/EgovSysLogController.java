@@ -35,8 +35,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovSysLogController {
 
+	String path = "/res";
+	
 	@Resource(name="EgovSysLogService")
 	private EgovSysLogService sysLogService;
 
@@ -50,6 +53,7 @@ public class EgovSysLogController {
 	 * @return sym/log/lgm/EgovSysLogList
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value="/sym/log/lgm/SelectSysLogList.do")
 	public String selectSysLogInf(@ModelAttribute("searchVO") SysLog sysLog,
 			ModelMap model) throws Exception{
@@ -77,6 +81,7 @@ public class EgovSysLogController {
 
 		return "sym/log/lgm/EgovSysLogList";
 	}
+	*/
 
 	/**
 	 * 시스템 로그 상세 조회
@@ -86,6 +91,7 @@ public class EgovSysLogController {
 	 * @return sym/log/lgm/EgovSysLogInqire
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value="/sym/log/lgm/InqireSysLog.do")
 	public String selectSysLog(@ModelAttribute("searchVO") SysLog sysLog,
 			@RequestParam("requstId") String requstId,
@@ -97,5 +103,6 @@ public class EgovSysLogController {
 		model.addAttribute("result", vo);
 		return "sym/log/lgm/EgovSysLogInqire";
 	}
+	*/
 
 }

@@ -40,8 +40,11 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovAuthorManageController {
 
+	String path = "/res";
+	
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
 
@@ -60,10 +63,12 @@ public class EgovAuthorManageController {
 	 * @return String
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping("/sec/ram/EgovAuthorListView.do")
 	public String selectAuthorListView() throws Exception {
 		return "/sec/ram/EgovAuthorManage";
 	}
+	*/
 
 	/**
 	 * 권한 목록을 조회한다
@@ -92,7 +97,7 @@ public class EgovAuthorManageController {
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-		return "/sec/ram/EgovAuthorManage";
+		return path + "/sec/ram/EgovAuthorManage";
 	}
 
 	/**
@@ -109,7 +114,7 @@ public class EgovAuthorManageController {
 
 		model.addAttribute("authorManage", egovAuthorManageService.selectAuthor(authorManageVO));
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
-		return "/sec/ram/EgovAuthorUpdate";
+		return path + "/sec/ram/EgovAuthorUpdate";
 	}
 
 	/**
@@ -119,7 +124,7 @@ public class EgovAuthorManageController {
 	 */
 	@RequestMapping("/sec/ram/EgovAuthorInsertView.do")
 	public String insertAuthorView() throws Exception {
-		return "/sec/ram/EgovAuthorInsert";
+		return path + "/sec/ram/EgovAuthorInsert";
 	}
 
 	/**
@@ -135,12 +140,12 @@ public class EgovAuthorManageController {
 		beanValidator.validate(authorManage, bindingResult); //validation 수행
 
 		if (bindingResult.hasErrors()) {
-			return "/sec/ram/EgovAuthorInsert";
+			return path + "/sec/ram/EgovAuthorInsert";
 		} else {
 			egovAuthorManageService.insertAuthor(authorManage);
 			status.setComplete();
 			model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));
-			return "forward:/sec/ram/EgovAuthor.do";
+			return "forward:" + path + "/sec/ram/EgovAuthor.do";
 		}
 	}
 
@@ -157,12 +162,12 @@ public class EgovAuthorManageController {
 		beanValidator.validate(authorManage, bindingResult); //validation 수행
 
 		if (bindingResult.hasErrors()) {
-			return "/sec/ram/EgovAuthorUpdate";
+			return path + "/sec/ram/EgovAuthorUpdate";
 		} else {
 			egovAuthorManageService.updateAuthor(authorManage);
 			status.setComplete();
 			model.addAttribute("message", egovMessageSource.getMessage("success.common.update"));
-			return "forward:/sec/ram/EgovAuthor.do";
+			return "forward:" + path + "/sec/ram/EgovAuthor.do";
 		}
 	}
 
@@ -178,7 +183,7 @@ public class EgovAuthorManageController {
 		egovAuthorManageService.deleteAuthor(authorManage);
 		status.setComplete();
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/sec/ram/EgovAuthorList.do";
+		return "forward:" + path + "/sec/ram/EgovAuthorList.do";
 	}
 
 	/**
@@ -199,7 +204,7 @@ public class EgovAuthorManageController {
 		}
 		status.setComplete();
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/sec/ram/EgovAuthorList.do";
+		return "forward:" + path + "/sec/ram/EgovAuthorList.do";
 	}
 
 	/**
@@ -207,8 +212,10 @@ public class EgovAuthorManageController {
 	 * @return String
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping("/sec/ram/accessDenied.do")
 	public String accessDenied() throws Exception {
 		return "sec/accessDenied";
 	}
+	*/
 }

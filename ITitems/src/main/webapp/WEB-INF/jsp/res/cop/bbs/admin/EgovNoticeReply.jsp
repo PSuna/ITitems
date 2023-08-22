@@ -24,15 +24,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <!-- script type="text/javascript" src="<c:url value='/html/egovframework/cmm/utl/htmlarea/EgovWebEditor.js'/>" ></script-->
@@ -55,13 +55,13 @@
         }
         
         if (confirm('<spring:message code="common.regist.msg" />')) {
-            document.board.action = "<c:url value='/cop/bbs${prefix}/admin/replyBoardArticle.do'/>";
+            document.board.action = "<c:url value='/res/cop/bbs${prefix}/admin/replyBoardArticle.do'/>";
             document.board.submit();                    
         }
     }
     
     function fn_egov_select_noticeList() {
-        document.board.action = "<c:url value='/cop/bbs${prefix}/admin/selectBoardList.do'/>";
+        document.board.action = "<c:url value='/res/cop/bbs${prefix}/admin/selectBoardList.do'/>";
         document.board.submit();    
     }
     
@@ -73,7 +73,7 @@
     	$("#searchBgnDe").datepicker(
     	        {dateFormat:'yy-mm-dd'
     	         , showOn: 'button'
-    	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+    	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
     	         , buttonImageOnly: true
     	         
     	         , showMonthAfterYear: true
@@ -89,7 +89,7 @@
     	$("#searchEndDe").datepicker( 
     	        {dateFormat:'yy-mm-dd'
     	         , showOn: 'button'
-    	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+    	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
     	         , buttonImageOnly: true
     	         
     	         , showMonthAfterYear: true
@@ -123,7 +123,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -131,7 +131,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
+                        <c:import url="/res/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
         
                         <div class="content_wrap">
@@ -165,7 +165,7 @@
 			                    <input type="hidden" name="posblAtchFileSize" value="<c:out value='${bdMstr.posblAtchFileSize}'/>" />
 			                    <input type="hidden" name="tmplatId" value="<c:out value='${bdMstr.tmplatId}'/>" />
 			                    
-			                    <input type="hidden" name="cal_url" value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" />
+			                    <input type="hidden" name="cal_url" value="<c:url value='/res/sym/cmm/EgovNormalCalPopup.do'/>" />
 			                    
 			                    <c:if test="${anonymous != 'true'}">
 			                        <input type="hidden" name="ntcrNm" value="dummy">   <!-- validator 처리를 위해 지정 -->
@@ -284,7 +284,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

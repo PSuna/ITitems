@@ -31,7 +31,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovConectStatsController {
+	
+	String path = "/res";
 
 	/** EgovConectStatsService */
 	@Resource(name = "conectStatsService")
@@ -81,6 +84,6 @@ public class EgovConectStatsController {
 				model.addAttribute("statsInfo", statsVO);
 			}
 		}
-        return "sts/cst/EgovConectStats";
+        return path + "/sts/cst/EgovConectStats";
 	}
 }

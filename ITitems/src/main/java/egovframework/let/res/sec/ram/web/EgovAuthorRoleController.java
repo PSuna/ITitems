@@ -36,7 +36,10 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovAuthorRoleController {
+	
+	String path = "/res";
 
     @Resource(name="egovMessageSource")
     EgovMessageSource egovMessageSource;
@@ -53,11 +56,13 @@ public class EgovAuthorRoleController {
 	 * @return "/sec/ram/EgovDeptAuthorList"
 	 * @exception Exception
 	 */
+    /*
     @RequestMapping("/sec/ram/EgovAuthorRoleListView.do")
     public String selectAuthorRoleListView() throws Exception {
 
         return "/sec/ram/EgovAuthorRoleManage";
     } 
+    */
 
 	/**
 	 * 권한별 할당된 롤 목록 조회
@@ -89,7 +94,7 @@ public class EgovAuthorRoleController {
 
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
         
-        return "/sec/ram/EgovAuthorRoleManage";
+        return path + "/sec/ram/EgovAuthorRoleManage";
 	}
     
 	/**
@@ -125,6 +130,6 @@ public class EgovAuthorRoleController {
 
         status.setComplete();
         model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));		
-		return "forward:/sec/ram/EgovAuthorRoleList.do";
+		return "forward:" + path + "/sec/ram/EgovAuthorRoleList.do";
 	}    
 }

@@ -3,7 +3,7 @@
  ******************************************************** */
  function RegistConfirm(){
 	 var $dialog = $('<div id="modalPan" class=""></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/RegistConfirm.do" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/RegistConfirm.do" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -19,7 +19,7 @@
  ******************************************************** */
  function RegistIng(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/RegistIng.do" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/RegistIng.do" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -36,7 +36,7 @@
  ******************************************************** */
  function RegistSuccess(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/RegistSuccess.do" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/RegistSuccess.do" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -52,7 +52,7 @@
  ******************************************************** */
  function DelReqConfirm(val){
 	 var $dialog = $('<div id="modalPan" class=""></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/DelReqConfirm.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/DelReqConfirm.do?val="+ val +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -68,7 +68,7 @@
  ******************************************************** */
  function DelReqIng(val){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/DelReqIng.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/DelReqIng.do?val="+ val +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -86,7 +86,7 @@
  function DelReqSuccess(val){
 
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/DelReqSuccess.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/DelReqSuccess.do?val="+ val +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -103,7 +103,7 @@
  function DelReqFail(val){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "/com/DelReqFail.do?val="+ val +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "/res/com/DelReqFail.do?val="+ val +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,

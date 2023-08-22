@@ -25,23 +25,23 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<script src="<c:url value='/'/>js/PhotoMng.js"></script>
-<script src="<c:url value='/'/>js/FormSave.js"></script>
-<script src="<c:url value='/'/>js/Confirm.js"></script>
-<script src="<c:url value='/'/>js/Inputcheck.js"></script>
-<script src="<c:url value='/'/>js/Manual.js"></script>
-<script src="<c:url value='/'/>js/SearchList.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<script src="<c:url value='/'/>js/res/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/res/FormSave.js"></script>
+<script src="<c:url value='/'/>js/res/Confirm.js"></script>
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/res/Manual.js"></script>
+<script src="<c:url value='/'/>js/res/SearchList.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -53,11 +53,11 @@
  * 목록 이동
  ******************************************************** */
 function AssetList(){
-		document.popForm.action = "<c:url value='/ass/AssetRegist.do'/>";
+		document.popForm.action = "<c:url value='/res/ass/AssetRegist.do'/>";
 	    document.popForm.submit();
 }
 </script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 <style>
 body {
@@ -119,7 +119,7 @@ body {
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -135,7 +135,7 @@ body {
 										<li>${masterVO.assNm}엑셀업로드결과</li>
 									</ul>
 								</div>
-								<form name="popForm" method="post" id="popForm" action="/com/xlsxAssetUpload.do" enctype="multipart/form-data">
+								<form name="popForm" method="post" id="popForm" action="/res/com/xlsxAssetUpload.do" enctype="multipart/form-data">
 								<input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 								<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
 								<input type="hidden" id="isRental" name="isRental" value="<c:out value="${masterVO.assId}"/>" />
@@ -193,7 +193,7 @@ body {
 		</div>
 	</div>
 	<!-- Footer -->
-	<c:import url="/sym/mms/EgovFooter.do" />
+	<c:import url="/res/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
 </body>
 

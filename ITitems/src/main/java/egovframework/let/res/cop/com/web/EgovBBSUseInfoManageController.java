@@ -42,7 +42,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovBBSUseInfoManageController {
+	
+	String path = "/res";
 
 	@Resource(name = "EgovBBSUseInfoManageService")
 	private EgovBBSUseInfoManageService bbsUseService;
@@ -65,6 +68,7 @@ public class EgovBBSUseInfoManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/com/deleteBBSUseInf.do")
 	public String deleteBBSUseInf(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("bdUseInf") BoardUseInf bdUseInf, SessionStatus status, ModelMap model)
 			throws Exception {
@@ -75,8 +79,9 @@ public class EgovBBSUseInfoManageController {
 			bbsUseService.deleteBBSUseInf(bdUseInf);
 		}
 
-		return "forward:/cop/com/selectBBSUseInfs.do";
+		return "forward:" + path + "/cop/com/selectBBSUseInfs.do";
 	}
+	*/
 
 	/**
 	 * 게사판 사용정보 등록을 위한 등록페이지로 이동한다.
@@ -89,7 +94,7 @@ public class EgovBBSUseInfoManageController {
 	 */
 	@RequestMapping("/cop/com/addBBSUseInf.do")
 	public String addBBSUseInf(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, ModelMap model) throws Exception {
-		return "cop/com/EgovBoardUseInfRegist";
+		return path + "/cop/com/EgovBoardUseInfRegist";
 	}
 
 	/**
@@ -113,7 +118,7 @@ public class EgovBBSUseInfoManageController {
 		beanValidator.validate(boardUseInf, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return "cop/com/EgovBoardUseInfRegist";
+			return path + "/cop/com/EgovBoardUseInfRegist";
 		}
 
 		String trgetType = (String) commandMap.get("param_trgetType");
@@ -136,7 +141,7 @@ public class EgovBBSUseInfoManageController {
 			bbsUseService.insertBBSUseInf(boardUseInf);
 		}
 
-		return "forward:/cop/com/selectBBSUseInfs.do";
+		return "forward:" + path + "/cop/com/selectBBSUseInfs.do";
 	}
 
 	/**
@@ -173,7 +178,7 @@ public class EgovBBSUseInfoManageController {
 		model.addAttribute("resultCnt", map.get("resultCnt"));
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/com/EgovBoardUseInfList";
+		return path + "/cop/com/EgovBoardUseInfList";
 	}
 
 	/**
@@ -194,7 +199,7 @@ public class EgovBBSUseInfoManageController {
 			bbsUseService.updateBBSUseInf(boardUseInf);
 		}
 
-		return "forward:/cop/com/selectBBSUseInfs.do";
+		return "forward:" + path + "/cop/com/selectBBSUseInfs.do";
 	}
 
 	/**
@@ -213,14 +218,14 @@ public class EgovBBSUseInfoManageController {
 		// 시스템 사용 게시판의 경우 URL 표시
 		if ("SYSTEM_DEFAULT_BOARD".equals(vo.getTrgetId())) {
 			if (vo.getBbsTyCode().equals("BBST02")) { // 익명게시판
-				vo.setProvdUrl("/cop/bbs/anonymous/selectBoardList.do?bbsId=" + vo.getBbsId());
+				vo.setProvdUrl(path + "/cop/bbs/anonymous/selectBoardList.do?bbsId=" + vo.getBbsId());
 			} else {
-				vo.setProvdUrl("/cop/bbs/selectBoardList.do?bbsId=" + vo.getBbsId());
+				vo.setProvdUrl(path + "/cop/bbs/selectBoardList.do?bbsId=" + vo.getBbsId());
 			}
 		}
 
 		model.addAttribute("bdUseVO", vo);
-		return "cop/com/EgovBoardUseInfInqire";
+		return path + "/cop/com/EgovBoardUseInfInqire";
 	}
 
 	/**
@@ -259,7 +264,7 @@ public class EgovBBSUseInfoManageController {
 		model.addAttribute("trgetType", bdUseVO.getTrgetType());
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/com/EgovBdUseInfListByTrget";
+		return path + "/cop/com/EgovBdUseInfListByTrget";
 	}
 
 	/**
@@ -272,6 +277,7 @@ public class EgovBBSUseInfoManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/com/updateBBSUseInfByTrget.do")
 	public String updateBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
 			@RequestParam Map<String, Object> commandMap, SessionStatus status, ModelMap model) throws Exception {
@@ -288,8 +294,9 @@ public class EgovBBSUseInfoManageController {
 			bbsUseService.updateBBSUseInfByTrget(boardUseInf);
 		}
 
-		return "forward:/cop/com/selectBBSUseInfsByTrget.do";
+		return "forward:" + path + "/cop/com/selectBBSUseInfsByTrget.do";
 	}
+	*/
 
 	/**
 	 * 커뮤니티, 동호회에 사용되는 게시판 사용정보를 등록한다.
@@ -301,6 +308,7 @@ public class EgovBBSUseInfoManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/com/insertBBSUseInfByTrget.do")
 	public String insertBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
 			@RequestParam Map<String, Object> commandMap, SessionStatus status, ModelMap model) throws Exception {
@@ -323,6 +331,7 @@ public class EgovBBSUseInfoManageController {
 			bbsUseService.insertBBSUseInf(boardUseInf);
 		}
 
-		return "forward:/cop/com/selectBBSUseInfsByTrget.do";
+		return "forward:" + path + "/cop/com/selectBBSUseInfsByTrget.do";
 	}
+	*/
 }

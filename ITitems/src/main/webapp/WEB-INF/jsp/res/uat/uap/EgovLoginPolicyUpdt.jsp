@@ -26,10 +26,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -42,13 +42,13 @@
 
 function fncSelectLoginPolicyList() {
     var varFrom = document.getElementById("loginPolicy");
-    varFrom.action = "<c:url value='/uat/uap/selectLoginPolicyList.do'/>";
+    varFrom.action = "<c:url value='/res/uat/uap/selectLoginPolicyList.do'/>";
     varFrom.submit();       
 }
 
 function fncLoginPolicyUpdate() {
     var varFrom = document.getElementById("loginPolicy");
-    varFrom.action = "<c:url value='/uat/uap/updtLoginPolicy.do'/>";
+    varFrom.action = "<c:url value='/res/uat/uap/updtLoginPolicy.do'/>";
 
     if(confirm('<spring:message code="common.update.msg" />')){
         if(!validateLoginPolicy(varFrom)){           
@@ -64,7 +64,7 @@ function fncLoginPolicyUpdate() {
 
 function fncLoginPolicyDelete() {
     var varFrom = document.getElementById("loginPolicy");
-    varFrom.action = "<c:url value='/uat/uap/removeLoginPolicy.do'/>";
+    varFrom.action = "<c:url value='/res/uat/uap/removeLoginPolicy.do'/>";
     if(confirm('<spring:message code="common.delete.msg" />')){
         varFrom.submit();
     }
@@ -126,7 +126,7 @@ function ipValidate() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -134,7 +134,7 @@ function ipValidate() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -150,7 +150,7 @@ function ipValidate() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="loginPolicy" method="post" action="${pageContext.request.contextPath}/uat/uap/updtLoginPolicy.do">
+								<form:form modelAttribute="loginPolicy" method="post" action="${pageContext.request.contextPath}/res/uat/uap/updtLoginPolicy.do">
 
                                 <h1 class="tit_1">내부서비스관리</h1>
 
@@ -221,14 +221,14 @@ function ipValidate() {
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                    	<a href=<c:url value='/uat/uap/removeLoginPolicy.do'/>?emplyrId=<c:out value='${loginPolicyVO.emplyrId}'/>"" class="btn btn_skyblue_h46 w_100" onclick="fncLoginPolicyDelete(); return false;">
+                                    	<a href=<c:url value='/res/uat/uap/removeLoginPolicy.do'/>?emplyrId=<c:out value='${loginPolicyVO.emplyrId}'/>"" class="btn btn_skyblue_h46 w_100" onclick="fncLoginPolicyDelete(); return false;">
                                     		<spring:message code='button.delete' />
                                     	</a><!-- 삭제 -->
                                     </div>
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fncLoginPolicyUpdate(); return false;"><spring:message code='button.save' /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uat/uap/selectLoginPolicyList.do'/>?pageIndex=<c:out value='${loginPolicyVO.pageIndex}'/>&amp;searchKeyword=<c:out value="${loginPolicyVO.searchKeyword}"/>&amp;searchCondition=1" class="btn btn_blue_46 w_100" onclick="fncSelectLoginPolicyList(); return false;">
+                                        <a href="<c:url value='/res/uat/uap/selectLoginPolicyList.do'/>?pageIndex=<c:out value='${loginPolicyVO.pageIndex}'/>&amp;searchKeyword=<c:out value="${loginPolicyVO.searchKeyword}"/>&amp;searchCondition=1" class="btn btn_blue_46 w_100" onclick="fncSelectLoginPolicyList(); return false;">
                                         	<spring:message code='button.list' />
                                         </a><!-- 목록 -->
                                     </div>
@@ -252,7 +252,7 @@ function ipValidate() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
 </body>

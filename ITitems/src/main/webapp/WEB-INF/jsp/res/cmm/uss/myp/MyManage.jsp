@@ -23,15 +23,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png" />
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png" />
 <title>마이페이지</title>
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
@@ -42,7 +42,7 @@
  * 이전화면 이동
  ******************************************************** */
 function fnListPage(){
-    document.userManageVO.action = "<c:url value='/cmm/main/mainPage.do'/>";
+    document.userManageVO.action = "<c:url value='/res/cmm/main/mainPage.do'/>";
     document.userManageVO.submit();
 }
 
@@ -50,7 +50,7 @@ function fnListPage(){
  * 암호변경화면 이동
  ******************************************************** */
 function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/myp/EgovUserMyPasswordUpdtView.do'/>";
+    document.userManageVO.action = "<c:url value='/res/uss/myp/EgovUserMyPasswordUpdtView.do'/>";
     document.userManageVO.submit();
 }
 /* ********************************************************
@@ -63,7 +63,7 @@ function UpdateMyPage(){
 	}else{
 		let formData = new FormData(document.getElementById('userManageVO'));
 		$.ajax({
-			url: '${pageContext.request.contextPath}/uss/myp/MyPageUpdt.do',
+			url: '${pageContext.request.contextPath}/res/uss/myp/MyPageUpdt.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -200,7 +200,7 @@ function fncheckNums(){
  function UpdtConfirm(){
     if(validateUserManageVO(document.userManageVO)){
 		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -233,7 +233,7 @@ function fncheckNums(){
 ******************************************************** */
 function UpdtIng(){
  var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -251,7 +251,7 @@ function UpdtIng(){
  ******************************************************** */
  function UpdtSuccess(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -267,7 +267,7 @@ function UpdtIng(){
  ******************************************************** */
  function returnSuccess(){
 	 fn_egov_modal_remove();
-	 document.userManageVO.action = "<c:url value='/uss/myp/MyManage.do'/>";
+	 document.userManageVO.action = "<c:url value='/res/uss/myp/MyManage.do'/>";
 	 document.userManageVO.submit();
 }
 
@@ -277,7 +277,7 @@ function UpdtIng(){
  function UpdtFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -308,7 +308,7 @@ function getMOrgList(MOval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -372,7 +372,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
 		<div class="container">
@@ -390,7 +390,7 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="userManageVO" id="userManageVO" action="${pageContext.request.contextPath}/uss/myp/MyManage.do" name="userManageVO" method="post">
+								<form:form modelAttribute="userManageVO" id="userManageVO" action="${pageContext.request.contextPath}/res/uss/myp/MyManage.do" name="userManageVO" method="post">
 									<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
 									<!-- 검색조건 유지 -->
@@ -443,7 +443,7 @@ window.onload = function(){
 												</label> <form:errors path="grade" /> <span id="gradeErr" class="errSpan"></span></td>
 												<td class="lb"><label for="orgnztId">부서</label></td>
 												<td><label class="f_select w_full" for="lowerOrgnzt"> <form:select path="lowerOrgnzt" id="lowerOrgnzt" name="lowerOrgnzt" title="부서">
-															<form:option value='' label="부서" />
+															<form:option value="" label="부서" />
 														</form:select>
 												</label></td>
 											</tr>
@@ -470,7 +470,7 @@ window.onload = function(){
 									<div class="board_view_bot">
 										<div class="left_col btn3">
 
-											<a href="<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>" class="btn btn_skyblue_h46 w_120" onclick="JavaScript:fnPasswordMove(); return false;"> <spring:message
+											<a href="<c:url value='/res/uss/umt/user/EgovUserPasswordUpdtView.do'/>" class="btn btn_skyblue_h46 w_120" onclick="JavaScript:fnPasswordMove(); return false;"> <spring:message
 													code="button.passwordUpdate" />
 											</a>
 											<!-- 비밀번호변경 -->
@@ -481,7 +481,7 @@ window.onload = function(){
 										<div class="right_col btn1">
 											<a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:UpdtConfirm(); return false;">수정</a>
 											<!-- 저장 -->
-											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="JavaScript:fnListPage(); return false;">메인</a>
+											<a href="<c:url value='/res/uss/umt/user/EgovUserManage.do'/>" class="btn btn_blue_46 w_100" onclick="JavaScript:fnListPage(); return false;">메인</a>
 											<!-- 목록 -->
 										</div>
 									</div>
@@ -499,7 +499,7 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 </body>

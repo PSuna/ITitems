@@ -1,13 +1,10 @@
 /*
  * 노드 , 트리 구성 정보 선언
  */
-var treeNodes			= new Array();;
+var treeNodes			= new Array();
 var openTreeNodes	    = new Array();
 var treeIcons			= new Array(6);
-var imgpath         = "/images/egovframework/com/cmm/utl/";
-var treeYeobu       = false;
-var chkValue        = "";
-var vHtmlCode       = "";
+//var imgpath         = "/images/res/";
 
 /*
  * 노드 , 트리 구성 이미지 정보
@@ -25,35 +22,22 @@ function preloadIcons() {
 	treeIcons[4].src = imgpath+"menu_folder.gif";
 	treeIcons[5] = new Image();
 	treeIcons[5].src = imgpath+"menu_folderopen.gif";
-} 
+}
 /*
 * 트리생성함수
 */
-function createTree(arrName, vYeobu, checkValue) {
+function createTree(arrName ) {
    var startNode, openNode;
 	treeNodes = arrName;
-	treeYeobu = vYeobu;
-	chkValue = checkValue;//"2000000"
-	startNode = chkValue;
 	if (treeNodes.length > 0) {
 		preloadIcons();
-		
-		//vHtmlCode +="<table width='181' height='94' border='2' align='center' cellpadding='0' cellspacing='0'><tr>";
-		//vHtmlCode +="<td valign='bottom' background='/images/egovframework/com/left_menu_top.gif' style='background-repeat:no-repeat'>";
-	
 		if (startNode == null) startNode = 0;
 		if (openNode != 0 || openNode != null) setOpenTreeNodes(openNode);
 		if (startNode !=0) {
-			var _getTreeArrayId = getTreeArrayId(startNode)
 			var nodeValues = treeNodes[getTreeArrayId(startNode)].split("|");
-			//vHtmlCode +="<div class='LeftMenuTitle'><font color='#ffffff'>" + nodeValues[2] + "</font></div></td></tr>"
-		} else {
-			//vHtmlCode +="<img src='"+imgpath+"menu_base.gif' border='0' align='absbottom' alt='' >메뉴목록<br></td></tr>";
-		}
+		} else document.write("<input type='checkbox' name='checkAll' class='check2' onclick='javascript:fCheckAll();'>메뉴목록<br>");
 		var recursedNodes = new Array();
 		addTreeNode(startNode, recursedNodes);
-		//vHtmlCode +="<tr><td height='30' valign='bottom' background='/images/egovframework/com/left_menu_btm.gif' style='background-repeat:no-repeat'>&nbsp;</td></tr></table>";
-		document.write("<ul>"+vHtmlCode+"</ul>");
 	}
 }
 /*
@@ -82,11 +66,7 @@ function setOpenTreeNodes(openNode) {
 * 트리노드 오픈 여부 확인
 */
 function isTreeNodeOpen(node) {
-   if (treeYeobu){ return true; }
-   for (i=0; i<openTreeNodes.length; i++){
-	   if (openTreeNodes[i]==node){ return true; }
-   }
-   return false;
+	return true;
 }
 /*
 * 하위 트리노드 존재여부 확인
@@ -105,59 +85,71 @@ function lastTreeSibling (node, parentNode) {
 	var lastChild = 0;
 	for (i=0; i< treeNodes.length; i++) {
 		var nodeValues = treeNodes[i].split("|");
-		if (nodeValues[1] == parentNode)
-			lastChild = nodeValues[0];
+		if (nodeValues[1] == parentNode) lastChild = nodeValues[0];
 	}
 	if (lastChild==node) return true;
 	return false;
 }
+
 /*
 * 신규 트리노드 추가
 */
 function addTreeNode(parentNode, recursedNodes) {
 	for (var i = 0; i < treeNodes.length; i++) {
-
 		var nodeValues = treeNodes[i].split("|");
 		if (nodeValues[1] == parentNode) {
-		
+			
 			var lastSibling	= lastTreeSibling(nodeValues[0], nodeValues[1]);
 			var hasChildNode	= hasChildTreeNode(nodeValues[0]);
 			var isNodeOpen = isTreeNodeOpen(nodeValues[0]);
-			vHtmlCodeBg      ="<li class='leftmenu_dept01'>";
-			vHtmlCodeBgList  ="<li class='dept02'>";
-			
-			vHtmlCodeEmpty = "";
-			// Write out line | empty treeIcons
 			for (g=0; g<recursedNodes.length; g++) {
-				vHtmlCodeEmpty +="<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
+				document.write("&nbsp;&nbsp;&nbsp;");
 			}
-
 			if (lastSibling) recursedNodes.push(0);
 			else recursedNodes.push(1);
-
+			document.write("&nbsp;&nbsp;&nbsp;");
+			document.write("<input type='checkbox' id='"+i+"' name='checkField' class='check2' ");
+			if(nodeValues[4] == 1){ document.write(" checked "); }
+			document.write("onclick='javascript:fCheckDir(this.name, this.value,"+i+");' value=" + nodeValues[0] + ">");
 			if (hasChildNode) {
-				vHtmlCode +=vHtmlCodeBg+"<a href='#'>"+nodeValues[2]+"</a></li>";
-			} else{
-				// Start link
-				if(recursedNodes.length==1){
-				   vHtmlCode +=vHtmlCodeBg+"<a href=javascript:fn_MovePage('" + i + "');>"+nodeValues[2]+"</a></li>";
-				}else{
-				   vHtmlCode +=vHtmlCodeBgList+"<a href=javascript:fn_MovePage('" + i + "');>"+nodeValues[2]+"</a></li>";
-				}
-			}
-		
+				document.write("<img id='icon" + nodeValues[0] + "' src='"+imgpath+"menu_folder")
+					if (isNodeOpen) document.write("open");
+				document.write(".gif' border='0' alt='Folder' >");
+			} else document.write("<img id='icon" + nodeValues[0] + "' src='"+imgpath+"menu_page.gif' border='0' align='absbottom' alt='Page'>");
+			document.write("<a href=javascript:parent.temp_aa('" + treeNodes[i] + "');>");
+			document.write(nodeValues[2]);
+			document.write("</a><br>");
 			if (hasChildNode) {
-				vHtmlCode +="<div id='div" + nodeValues[0] + "'";
-					if (!isNodeOpen) vHtmlCode +=" style='display: none;'";
-				vHtmlCode +=">";
+				document.write("<div id='div" + nodeValues[0] + "'");
+					if (!isNodeOpen) document.write(" style='display: none;'");
+				document.write(">");
 				addTreeNode(nodeValues[0], recursedNodes);
-				vHtmlCode +="</div>";
+				document.write("</div>");
 			}
 			recursedNodes.pop();
 		}
 	}
 }
-
+/*
+* 트리노드 액션(열기,닫기)
+*/
+function openCloseEx(node, bottom) {
+	var treeDiv = document.getElementById("div" + node);
+	var treeJoin	= document.getElementById("join" + node);
+	var treeIcon = document.getElementById("icon" + node);
+	
+	if (treeDiv.style.display == 'none') {
+		if (bottom==1) treeJoin.src = treeIcons[3].src;
+		else treeJoin.src = treeIcons[2].src;
+		treeIcon.src = treeIcons[5].src;
+		treeDiv.style.display = '';
+	} else {
+		if (bottom==1) treeJoin.src = treeIcons[1].src;
+		else treeJoin.src = treeIcons[0].src;
+		treeIcon.src = treeIcons[4].src;
+		treeDiv.style.display = 'none';
+	}
+}
 if(!Array.prototype.push) {
 	function fnArrayPush() {
 		for(var i=0;i<arguments.length;i++)
@@ -174,4 +166,38 @@ if(!Array.prototype.pop) {
 	}
 	Array.prototype.pop = fnArrayPop;
 }
+ 
+/* ********************************************************
+ * 모두선택 처리 함수
+ ******************************************************** */
+function fCheckAll() {
+    var checkField = document.menuCreatManageForm.checkField;
+    if(document.menuCreatManageForm.checkAll.checked) {
+        if(checkField) {
+            if(checkField.length > 1) {
+                for(var i=0; i < checkField.length; i++) {
+                    checkField[i].checked = true;
+                }
+            } else {
+                checkField.checked = true;
+            }
+        }
+    } else {
+        if(checkField) {
+            if(checkField.length > 1) {
+                for(var j=0; j < checkField.length; j++) {
+                    checkField[j].checked = false;
+                }
+            } else {
+                checkField.checked = false;
+            }
+        }
+    }
+}
 
+/* ********************************************************
+ * 모두선택 처리 함수
+ ******************************************************** */
+function fCheckDir(fCheckYB, fValue, fPath){
+	var checkField = document.getElementsByName(fCheckYB);
+}

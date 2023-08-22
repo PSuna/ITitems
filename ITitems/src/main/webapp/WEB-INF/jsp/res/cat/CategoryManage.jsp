@@ -25,22 +25,22 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png" />
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png" />
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javaScript">
 <!-- 
-var imgpath = "<c:url value='/'/>images/";
+var imgpath = "<c:url value='/'/>images/res/";
 //-->
 </script>
 <script language="javascript1.2" type="text/javaScript" src="<c:url value='/js/EgovMenuCreat.js'/>"></script>
@@ -55,7 +55,7 @@ function fnSetUpperCat(){
 	var setUpper = document.getElementById('settedUpper');
 	setUpper.setAttribute('value','');
 	$.ajax({
-		url:"${pageContext.request.contextPath}/cat/GetMCategoryList.do",
+		url:"${pageContext.request.contextPath}/res/cat/GetMCategoryList.do",
 		method : "post",
 		success:function(result){
 			if(result.length==0){
@@ -105,7 +105,7 @@ function fnSetLowerCat(e){
 	var setUpper = document.getElementById('settedUpper');
 	setUpper.setAttribute('value',e.id);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/cat/GetMCategoryList.do",
+		url : "${pageContext.request.contextPath}/res/cat/GetMCategoryList.do",
 		method : "post",
 		data : {
 			searchUpper
@@ -166,7 +166,7 @@ function fnUpperInsertCat(){
 	var catName = document.getElementById('upperCatName').value;
 	
 	$.ajax({
-		url: "${pageContext.request.contextPath}/cat/InsertCategory.do",
+		url: "${pageContext.request.contextPath}/res/cat/InsertCategory.do",
 		method : "post",
 		data : {
 			catName
@@ -204,7 +204,7 @@ function fnLowerInsertCat(){
 	var setLow = document.createElement('input');
 	setLow.setAttribute('id', upperCat);
 	$.ajax({
-		url: "${pageContext.request.contextPath}/cat/InsertCategory.do",
+		url: "${pageContext.request.contextPath}/res/cat/InsertCategory.do",
 		method : "post",
 		data : {
 			catName,
@@ -227,7 +227,7 @@ function fnDeleteCat(e, updown){
 		var catId = e.id;
 		var checkUpDown = updown;
 		$.ajax({
-			url : "${pageContext.request.contextPath}/cat/DeleteCategory.do",
+			url : "${pageContext.request.contextPath}/res/cat/DeleteCategory.do",
 			method : "post",
 			data: {
 				catId,
@@ -316,14 +316,14 @@ function fnDeleteCat(e, updown){
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
 				<div class="sub_in">
 					<div class="layout">
 						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 						<div class="content_wrap">
 							<div id="contents" class="content">
@@ -372,7 +372,7 @@ function fnDeleteCat(e, updown){
 			</div>
 		</div>
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 <script>

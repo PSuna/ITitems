@@ -23,16 +23,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
 	
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
@@ -40,12 +40,12 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnListPage(id){
-	location.href="${pageContext.request.contextPath}/uss/myp/MyManage.do?uniqId="+id;
+	location.href="${pageContext.request.contextPath}/res/uss/myp/MyManage.do?uniqId="+id;
 }
 function fnUpdate(){
 	let formData = new FormData(document.getElementById('passwordChgVO'));
 	$.ajax({
-		url:'${pageContext.request.contextPath}/uss/myp/EgovMyPasswordUpdt.do',
+		url:'${pageContext.request.contextPath}/res/uss/myp/EgovMyPasswordUpdt.do',
 		method:'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -143,7 +143,7 @@ function fnCheckPw3(e){
  ******************************************************** */
 function UpdateConfirm(){
 		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -170,7 +170,7 @@ function UpdateConfirm(){
  ******************************************************** */
  function UpdateIng(){
   	 var $dialog = $('<div id="modalPan"></div>')
-  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
   		.dialog({
   	    	autoOpen: false,
   	        modal: true,
@@ -185,7 +185,7 @@ function UpdateConfirm(){
   ******************************************************** */
   function UpdateSuccess(){
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -200,7 +200,7 @@ function UpdateConfirm(){
  * 수정완료 결과 처리
  ******************************************************** */
 function returnSuccess(){
- 	document.passwordChgVO.action= "<c:url value='/uss/myp/MyManage.do'/>";
+ 	document.passwordChgVO.action= "<c:url value='/res/uss/myp/MyManage.do'/>";
 	document.passwordChgVO.submit();
 }
 /* ********************************************************
@@ -208,7 +208,7 @@ function returnSuccess(){
 ******************************************************** */
 function UpdateFail(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
    		.dialog({
    	    	autoOpen: false,
    	        modal: true,
@@ -276,7 +276,7 @@ function fncheckValid(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -296,7 +296,7 @@ function fncheckValid(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="passwordChgVO" id="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/myp/EgovMyPasswordUpdt.do" >
+								<form name="passwordChgVO" id="passwordChgVO" method="post" action="${pageContext.request.contextPath}/res/uss/myp/EgovMyPasswordUpdt.do" >
 								<!-- onsubmit="javascript:return FormValidation(document.passwordChgVO);" >  -->
 								<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 								<input name="checkedIdForDel" type="hidden" />
@@ -391,7 +391,7 @@ function fncheckValid(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/myp/EgovMyPasswordUpdt.do" >
+								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/res/uss/myp/EgovMyPasswordUpdt.do" >
 								<!-- onsubmit="javascript:return FormValidation(document.passwordChgVO);" >  -->
 								<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 								<input name="checkedIdForDel" type="hidden" />
@@ -471,7 +471,7 @@ function fncheckValid(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

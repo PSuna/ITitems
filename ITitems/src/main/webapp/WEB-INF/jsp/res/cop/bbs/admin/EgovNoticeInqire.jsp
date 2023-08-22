@@ -24,10 +24,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
@@ -42,7 +42,7 @@
     
     function fn_egov_select_noticeList(pageNo) {
         document.frm.pageIndex.value = pageNo; 
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/admin/selectBoardList.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/admin/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
@@ -54,7 +54,7 @@
         }
         
         if (confirm('<spring:message code="common.delete.msg" />')) {
-            document.frm.action = "<c:url value='/cop/bbs${prefix}/admin/deleteBoardArticle.do'/>";
+            document.frm.action = "<c:url value='/res/cop/bbs${prefix}/admin/deleteBoardArticle.do'/>";
             document.frm.submit();
         }   
     }
@@ -66,30 +66,30 @@
             return;
         }
 
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/admin/forUpdateBoardArticle.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/admin/forUpdateBoardArticle.do'/>";
         document.frm.submit();
     }
     
     function fn_egov_addReply() {
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/admin/addReplyBoardArticle.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/admin/addReplyBoardArticle.do'/>";
         document.frm.submit();
     }
 </script>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
 <c:if test="${useComment == 'true'}">
-<c:import url="/cop/bbs/selectCommentList.do" charEncoding="utf-8">
+<c:import url="/res/cop/bbs/selectCommentList.do" charEncoding="utf-8">
     <c:param name="type" value="head" />
 </c:import>
 </c:if>
 <c:if test="${useSatisfaction == 'true'}">
-<c:import url="/cop/bbs/selectSatisfactionList.do" charEncoding="utf-8">
+<c:import url="/res/cop/bbs/selectSatisfactionList.do" charEncoding="utf-8">
     <c:param name="type" value="head" />
 </c:import>
 </c:if>
 <c:if test="${useScrap == 'true'}">
 <script type="text/javascript">
     function fn_egov_addScrap() {
-        document.frm.action = "<c:url value='/cop/bbs/addScrap.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs/addScrap.do'/>";
         document.frm.submit();          
     }
 </script>
@@ -106,7 +106,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -114,7 +114,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
+                        <c:import url="/res/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
         
                         <div class="content_wrap">
@@ -130,7 +130,7 @@
                                 </div>
                                 <!--// Location -->
 
-								<form name="frm" method="post" action="<c:url value='/cop/bbs${prefix}/admin/selectBoardList.do'/>">
+								<form name="frm" method="post" action="<c:url value='/res/cop/bbs${prefix}/admin/selectBoardList.do'/>">
 								
 			                    <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
 			                    <input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
@@ -245,7 +245,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

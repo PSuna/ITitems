@@ -16,17 +16,17 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<c:set var="ImgUrl" value="/images_old/egovframework/cop/com/"/>
+<c:set var="ImgUrl" value="/images_old/egovframework/res/cop/com/"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -38,7 +38,7 @@
     }
     function fn_egov_select_tmplatInfo(pageNo){
         document.frm.pageIndex.value = pageNo;
-        document.frm.action = "<c:url value='/cop/com/selectTemplateInfsPop.do'/>";
+        document.frm.action = "<c:url value='/res/cop/com/selectTemplateInfsPop.do'/>";
         document.frm.submit();  
     }
     
@@ -64,7 +64,7 @@
     <!-- default : display: none 상태 -->
     <div class="popup POP_TEMPLATE_INFO" style="display: block;">
     
-    	<form name="frm" action ="<c:url value='/cop/com/selectTemplateInfsPop.do'/>" method="post">
+    	<form name="frm" action ="<c:url value='/res/cop/com/selectTemplateInfsPop.do'/>" method="post">
     	
     	<input type="hidden" name="tmplatId" value="" />
     	

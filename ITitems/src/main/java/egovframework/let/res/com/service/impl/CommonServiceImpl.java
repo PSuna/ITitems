@@ -133,6 +133,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 						assetVO.setAssId("ASSMSTR_000000000001");
 						assetVO.setAssetStauts("C2");
 						assetVO.setUsageStauts("U1");
+						assetVO.setUseGroup("USER");
+						assetVO.setRcptGroup("USER");
 						assetVO.setLargeCategory(assetManageVO.getSearchLCat());
 						assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
 						assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());
@@ -227,7 +229,7 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 					break;
 				case 9 :
 					assetVO.setNote(value);
-					break;	
+					break;
 				}
 			}
 			if(!"".equals(assetVO.getRcptNm()) && assetVO.getRcptNm() != null) {
@@ -239,8 +241,8 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 						assetVO.setAssId("ASSMSTR_000000000002");
 						assetVO.setAssetStauts("C2");
 						assetVO.setUsageStauts("U1");
-						assetVO.setUseGroup(assetManageVO.getUserGroup());
-						assetVO.setRcptGroup(assetManageVO.getUserGroup());
+						assetVO.setUseGroup("USER");
+						assetVO.setRcptGroup("USER");
 						assetVO.setLargeCategory(assetManageVO.getSearchLCat());
 						assetVO.setOrgnztId(assetManageVO.getSearchOrgnzt());
 						assetVO.setLowerOrgnztId(assetManageVO.getLowerOrgnzt());

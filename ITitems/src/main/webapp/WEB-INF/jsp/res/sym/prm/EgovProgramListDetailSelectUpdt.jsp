@@ -26,10 +26,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -82,7 +82,7 @@ function selectList(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -90,7 +90,7 @@ function selectList(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -106,7 +106,7 @@ function selectList(){
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="progrmManageVO" action="/sym/prm/EgovProgramListDetailSelectUpdt.do">
+								<form:form modelAttribute="progrmManageVO" action="/res/sym/prm/EgovProgramListDetailSelectUpdt.do">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -174,7 +174,7 @@ function selectList(){
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                        <a href="<c:url value='/sym/prm/EgovProgramListManageDelete.do'/>?progrmFileNm=<c:out value="${progrmManageVO.progrmFileNm  }"/>" class="btn btn_skyblue_h46 w_100" onclick="deleteProgramListManage(document.getElementById('progrmManageVO')); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
+                                        <a href="<c:url value='/res/sym/prm/EgovProgramListManageDelete.do'/>?progrmFileNm=<c:out value="${progrmManageVO.progrmFileNm  }"/>" class="btn btn_skyblue_h46 w_100" onclick="deleteProgramListManage(document.getElementById('progrmManageVO')); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
                                     </div>
 
                                     <div class="right_col btn1">
@@ -197,7 +197,7 @@ function selectList(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

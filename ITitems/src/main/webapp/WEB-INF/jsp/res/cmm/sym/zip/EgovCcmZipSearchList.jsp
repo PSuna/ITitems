@@ -22,10 +22,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -37,7 +37,7 @@
  ******************************************************** */
 function fn_egov_pageview(pageNo){
 	document.listForm.pageIndex.value = pageNo;
-	document.listForm.action = "<c:url value='/sym/cmm/EgovCcmZipSearchList.do'/>";
+	document.listForm.action = "<c:url value='/res/sym/cmm/EgovCcmZipSearchList.do'/>";
    	document.listForm.submit();
 }
 /* ********************************************************
@@ -76,7 +76,7 @@ function fn_egov_cancel_popup() {
 <!-- 자바스크립트 경고 태그  -->
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
-	<form name="listForm" action="<c:url value='/sym/cmm/EgovCcmZipSearchList.do'/>" method="post">
+	<form name="listForm" action="<c:url value='/res/sym/cmm/EgovCcmZipSearchList.do'/>" method="post">
     
     <input name="searchCondition" type="hidden" size="35" value="4" />
 

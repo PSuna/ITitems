@@ -88,7 +88,7 @@ public class EgovLoginPolicyFilter implements Filter {
 		String userIp = "";
 
 		if (id == null || userSe == null) {//if (id == null || password == null || userSe == null) {
-			((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/uat/uia/egovLoginUsr.do");
+			((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/res/uat/uia/egovLoginUsr.do");
 		}
 
 		// 1. LoginVO를 DB로 부터 가져오는 과정
@@ -119,13 +119,13 @@ public class EgovLoginPolicyFilter implements Filter {
 
 			} else {
 				((HttpServletRequest) request).setAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-				((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/uat/uia/egovLoginUsr.do");
+				((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/res/uat/uia/egovLoginUsr.do");
 			}
 
 		} catch (Exception e) {
 			LOGGER.error("Exception:  {}", e.getClass().getName());
 			LOGGER.error("Exception  Message:  {}", e.getMessage());
-			((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/uat/uia/egovLoginUsr.do?login_error=1");
+			((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/res/uat/uia/egovLoginUsr.do?login_error=1");
 		}
 
 

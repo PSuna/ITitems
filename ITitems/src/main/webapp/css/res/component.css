@@ -79,7 +79,7 @@
 	height:46px;
 	border-radius:5px;
 	font-size:0;
-	background:#169bd5 url(../images/ico_search_w.png) no-repeat center;
+	background:#169bd5 url(/images/res/ico_search_w.png) no-repeat center;
 }
 .btn_calendar {
 	width:46px;
@@ -87,7 +87,7 @@
 	border:1px solid #dde2e5;
 	border-radius:5px;
 	font-size:0;
-	background: #fff url(../images/ico_calendar.png) no-repeat center;
+	background: #fff url(/images/res/ico_calendar.png) no-repeat center;
 }
 /* Label */
 .label {
@@ -225,20 +225,20 @@
 	font-size:0;
 }
 .paging .first {
-	background:url(../images/ico_paging_button_db.png) no-repeat center;
+	background:url(/images/res/ico_paging_button_db.png) no-repeat center;
 	background-size:12px 13px;
 }
 .paging .prev {
 	margin-right:20px;
-	background:url(../images/ico_paging_button.png) no-repeat center;
+	background:url(/images/res/ico_paging_button.png) no-repeat center;
 }
 .paging .next {
 	margin-left:20px;
-	background:url(../images/ico_paging_button.png) no-repeat center;
+	background:url(/images/res/ico_paging_button.png) no-repeat center;
 	transform:rotate(180deg);
 }
 .paging .last {
-	background:url(../images/ico_paging_button_db.png) no-repeat center;
+	background:url(/images/res/ico_paging_button_db.png) no-repeat center;
 	transform:rotate(180deg);
 	background-size:12px 13px;
 }
@@ -390,7 +390,7 @@
 	width:32px;
 	height:32px;
 	font-size:0;
-	background:url(../images/ico_a.png) no-repeat;
+	background:url(/images/res/ico_a.png) no-repeat;
 }
 .board_article_faq .q {
 	display:block;
@@ -400,7 +400,7 @@
 	width:32px;
 	height:32px;
 	font-size:0;
-	background:url(../images/ico_q.png) no-repeat;
+	background:url(/images/res/ico_q.png) no-repeat;
 }
 .board_article_faq textarea {
 	width:100%;
@@ -444,7 +444,7 @@
 	width:7px;
 	height:7px;
 	font-size:0;
-	background:url(../images/ico_req.png) no-repeat;
+	background:url(/images/res/ico_req.png) no-repeat;
 	vertical-align:15px;
 }
 .board_faq_top dd {
@@ -483,7 +483,7 @@
 	padding-left:29px;
 	color:#169bd5;
 	vertical-align:top;
-	background:url(../images/ico_file.png) no-repeat;
+	background:url(/images/res/ico_file.png) no-repeat;
 }
 .board_attach dl dd a:hover {
 	text-decoration:underline;
@@ -505,7 +505,7 @@
 	margin-left:10px;
 	border:0;
 	font-size:0;
-	background:url(../images/ico_delete.png) no-repeat;
+	background:url(/images/res/ico_delete.png) no-repeat;
 	background-size:contain;
 	vertical-align:-2px;
 	cursor:pointer;
@@ -532,7 +532,7 @@
 	padding-left:29px;
 	color:#169bd5;
 	vertical-align:top;
-	background:url(../images/ico_file.png) no-repeat;
+	background:url(/images/res/ico_file.png) no-repeat;
 }
 .board_attach2 input[type=button] {
 	display:inline-block;
@@ -541,7 +541,7 @@
 	margin-left:10px;
 	border:0;
 	font-size:0;
-	background:url(../images/ico_delete.png) no-repeat;
+	background:url(/images/res/ico_delete.png) no-repeat;
 	background-size:contain;
 	vertical-align:6px;
 	cursor:pointer;
@@ -583,7 +583,7 @@
 	width:6px;
 	height:6px;
 	font-size:0;
-	background:url(../images/ico_req.png) no-repeat;
+	background:url(/images/res/ico_req.png) no-repeat;
 	vertical-align:15px;
 	background-size: 100%;
 }
@@ -624,7 +624,7 @@
 	width:7px;
 	height:7px;
 	font-size:0;
-	background:url(../images/ico_req.png) no-repeat;
+	background:url(/images/res/ico_req.png) no-repeat;
 	vertical-align:15px;
 }
 .board_view3 .writer {
@@ -727,7 +727,7 @@ input:-mos-input-placeholder {
 	height:22px;
 	border:0;
 	font-size:0;
-	background:url(../images/ico_search_b.png) no-repeat;
+	background:url(/images/res/ico_search_b.png) no-repeat;
 	background-size: contain;
 }
 .f_search2 {
@@ -755,7 +755,7 @@ input:-mos-input-placeholder {
 	height:22px;
 	border:0;
 	font-size:0;
-	background:url(../images/ico_search_b.png) no-repeat;
+	background:url(/images/res/ico_search_b.png) no-repeat;
 	background-size: contain;
 }
 .f_search3 {
@@ -779,7 +779,7 @@ input:-mos-input-placeholder {
 	height:27px;
 	border:0;
 	font-size:0;
-	background: url(../images/ico_search_b.png) no-repeat;
+	background: url(/images/res/ico_search_b.png) no-repeat;
 }
 select {
 	font-family:'NotoSans',sans-serif;
@@ -817,7 +817,7 @@ label:focus{
 	transform:translateY(-50%);
 	width:15px;
 	height:9px;
-	background:url(../images/ico_arrow_gray_15x9.png) no-repeat;
+	background:url(/images/res/ico_arrow_gray_15x9.png) no-repeat;
 	pointer-events: none;
 }
 .f_select select {
@@ -848,7 +848,7 @@ label:focus{
 	vertical-align:top;
 }
 .f_chk.on:before {
-	background:var(--point-color) url(../images/bg_chkbox_on.png) no-repeat center;
+	background:var(--point-color) url(/images/res/bg_chkbox_on.png) no-repeat center;
 }
 .f_chk input[type=checkbox] {
 	width:0;
@@ -872,7 +872,7 @@ label:focus{
 }
 .f_chk_only.on:before {
 	border:0;
-	background:#0075ff url(../images/bg_chkbox2_on.png) no-repeat center;
+	background:#0075ff url(/images/res/bg_chkbox2_on.png) no-repeat center;
 	background-size: 100%;
 }
 .f_chk_only input[type=checkbox] {
@@ -893,11 +893,11 @@ label:focus{
 	width:22px;
 	height:22px;
 	border-radius:5px;
-	background:url(../images/bg_rdobox.png) no-repeat;
+	background:url(/images/res/bg_rdobox.png) no-repeat;
 	vertical-align:top;
 }
 .f_rdo.on:before {
-	background:url(../images/bg_rdobox_on.png) no-repeat center;
+	background:url(/images/res/bg_rdobox_on.png) no-repeat center;
 }
 .f_rdo input[type=radio] {
 	width:0;

@@ -45,7 +45,10 @@ import egovframework.let.res.utl.sim.service.EgovClntInfo;
  *      </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovLoginController {
+	
+	String path = "/res";
 
 	/** EgovLoginService */
 	@Resource(name = "loginService")
@@ -77,7 +80,8 @@ public class EgovLoginController {
 	@RequestMapping(value = "/uat/uia/egovLoginUsr.do")
 	public String loginUsrView(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws Exception {
-		return "uat/uia/EgovLoginUsr";
+		System.out.println("왔니..");
+		return path + "/uat/uia/EgovLoginUsr";
 	}
 
 	/**
@@ -149,12 +153,12 @@ public class EgovLoginController {
 			springSecurity.doFilter(new RequestWrapperForSecurity(request, resultVO.getUserSe() + resultVO.getId(),
 					resultVO.getUniqId()), response, null);
 
-			return "forward:/cmm/main/mainPage.do"; // 성공 시 페이지.. (redirect 불가)
+			return "forward:" + path + "/cmm/main/mainPage.do"; // 성공 시 페이지.. (redirect 불가)
 
 		} else {
 
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 	}
 
@@ -174,12 +178,12 @@ public class EgovLoginController {
 		// 실패 시
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 
 		// 성공 시
 		// 2. 메인 페이지 이동
-		return "forward:/cmm/main/mainPage.do";
+		return "forward:" + path + "/cmm/main/mainPage.do";
 	}
 
 	/**

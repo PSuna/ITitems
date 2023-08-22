@@ -1,4 +1,4 @@
-package egovframework.let.res.sym.cal.web;
+ package egovframework.let.res.sym.cal.web;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,7 +46,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovCalRestdeManageController {
+	
+	String path = "/res";
 
 	/** RestdeManageService */
 	@Resource(name = "RestdeManageService")
@@ -70,10 +73,12 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalCalPopup"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cmm/callCalPopup.do")
 	public String callCalendar(ModelMap model) throws Exception {
 		return "/cmm/sym/cal/EgovCalPopup";
 	}
+	*/
 
 	/**
 	 * 달력을 호출한다.
@@ -81,6 +86,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalCalPopup"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cmm/callCal.do")
 	public String callCal(Restde restde, ModelMap model) throws Exception {
 
@@ -130,9 +136,8 @@ public class EgovCalRestdeManageController {
 		List<ListOrderedMap> CalInfoList = new ArrayList<ListOrderedMap>();
 		String tmpDay = "";
 
-		/**
-		 * 계산... START
-		 */
+		//계산... START
+		 
 		for (int i = 0; i < 42; i++) {
 			ListOrderedMap map = new ListOrderedMap();
 			int cc = i + 1;
@@ -158,14 +163,14 @@ public class EgovCalRestdeManageController {
 			CalInfoList.add(map);
 
 		}
-		/**
-		 * 계산... END
-		 */
+		
+		//계산... END
 
 		model.addAttribute("resultList", CalInfoList);
 
 		return "/cmm/sym/cal/EgovCalendar";
 	}
+	*/
 
 	/**
 	 * 일반달력 팝업 메인창을 호출한다.
@@ -175,7 +180,7 @@ public class EgovCalRestdeManageController {
 	 */
 	@RequestMapping(value = "/sym/cmm/EgovNormalCalPopup.do")
 	public String callNormalCalPopup(ModelMap model) throws Exception {
-		return "/sym/cal/EgovNormalCalPopup";
+		return path + "/sym/cal/EgovNormalCalPopup";
 	}
 
 	/**
@@ -185,6 +190,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cmm/EgovselectNormalCalendar.do")
 	public String selectNormalRestdePopup(Restde restde, ModelMap model) throws Exception {
 
@@ -216,17 +222,17 @@ public class EgovCalRestdeManageController {
 			iMonth = 12;
 		}
 
-		/* DB를 사용할 경우 처리
-		restde.setYear(Integer.toString(iYear));
-		restde.setMonth(Integer.toString(iMonth));
+		// DB를 사용할 경우 처리
+		//restde.setYear(Integer.toString(iYear));
+		//restde.setMonth(Integer.toString(iMonth));
 
-		cal.set(iYear,iMonth-1,1);
+		//cal.set(iYear,iMonth-1,1);
 
-		restde.setStartWeekMonth(cal.get(Calendar.DAY_OF_WEEK));
-		restde.setLastDayMonth(cal.getActualMaximum(Calendar.DATE));
+		//restde.setStartWeekMonth(cal.get(Calendar.DAY_OF_WEEK));
+		//restde.setLastDayMonth(cal.getActualMaximum(Calendar.DATE));
 
-		List CalInfoList = restdeManageService.selectNormalRestdePopup(restde);
-		*/
+		//List CalInfoList = restdeManageService.selectNormalRestdePopup(restde);
+		// DB를 사용할 경우 처리... END 
 
 		cal.set(iYear, iMonth - 1, 1);
 
@@ -246,9 +252,9 @@ public class EgovCalRestdeManageController {
 		List<ListOrderedMap> CalInfoList = new ArrayList<ListOrderedMap>();
 		String tmpDay = "";
 
-		/**
-		 * 계산... START
-		 */
+		
+		//계산... START
+		
 		for (int i = 0; i < 42; i++) {
 			ListOrderedMap map = new ListOrderedMap();
 			int cc = i + 1;
@@ -274,13 +280,14 @@ public class EgovCalRestdeManageController {
 			CalInfoList.add(map);
 
 		}
-		/**
-		 * 계산... END
-		 */
+		
+		//계산... END
+		
 
 		model.addAttribute("resultList", CalInfoList);
 		return "/sym/cal/EgovNormalCalendar";
 	}
+	*/
 
 	/**
 	 * 행정달력 팝업 메인창을 호출한다.
@@ -288,10 +295,12 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministCalPopup"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cmm/EgovAdministCalPopup.do")
 	public String callAdministCalPopup(ModelMap model) throws Exception {
 		return "/cmm/sym/cal/EgovAdministCalPopup";
 	}
+	*/
 
 	/**
 	 * 행정달력 팝업 정보를 조회한다.
@@ -300,6 +309,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cmm/EgovselectAdministCalendar.do")
 	public String selectAdministRestdePopup(Restde restde, ModelMap model) throws Exception {
 
@@ -342,6 +352,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovAdministCalendar";
 	}
+	*/
 
 	/**
 	 * 일반달력 일간
@@ -350,6 +361,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalDayCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovNormalDayCalendar.do")
 	public String selectNormalDayCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -408,6 +420,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovNormalDayCalendar";
 	}
+	*/
 
 	/**
 	 * 일반달력 주간
@@ -416,6 +429,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalWeekCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovNormalWeekCalendar.do")
 	public String selectNormalWeekCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -555,6 +569,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovNormalWeekCalendar";
 	}
+	*/
 
 	/**
 	 * 일반달력 월간
@@ -563,6 +578,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalMonthCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovNormalMonthCalendar.do")
 	public String selectNormalMonthCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -606,6 +622,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovNormalMonthCalendar";
 	}
+	*/
 
 	/**
 	 * 일반달력 연간
@@ -614,6 +631,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovNormalYearCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovNormalYearCalendar.do")
 	public String selectNormalYearCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -646,9 +664,9 @@ public class EgovCalRestdeManageController {
 		}
 		restde.setYear(Integer.toString(iYear));
 
-		/* 월별확인 */
+		//  월별확인 
 
-		/* 1월 */
+		// 1월 
 		iMonth = 1;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -657,7 +675,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_1", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_1", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 2월 */
+		// 2월 
 		iMonth = 2;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -666,7 +684,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_2", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_2", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 3월 */
+		// 3월 
 		iMonth = 3;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -675,7 +693,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_3", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_3", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 4월 */
+		// 4월 
 		iMonth = 4;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -684,7 +702,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_4", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_4", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 5월 */
+		// 5월 
 		iMonth = 5;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -693,7 +711,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_5", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_5", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 6월 */
+		// 6월 
 		iMonth = 6;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -702,7 +720,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_6", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_6", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 7월 */
+		// 7월 
 		iMonth = 7;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -711,7 +729,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_7", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_7", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 8월 */
+		// 8월 
 		iMonth = 8;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -720,7 +738,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_8", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_8", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 9월 */
+		// 9월 
 		iMonth = 9;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -729,7 +747,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_9", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_9", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 10월 */
+		// 10월 
 		iMonth = 10;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -738,7 +756,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_10", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_10", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 11월 */
+		// 11월
 		iMonth = 11;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -747,7 +765,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_11", restdeManageService.selectNormalRestdePopup(restde));
 		model.addAttribute("RestdeList_11", restdeManageService.selectNormalMonthRestde(restde));
 
-		/* 12월 */
+		// 12월 
 		iMonth = 12;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -758,6 +776,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovNormalYearCalendar";
 	}
+	*/
 
 	/**
 	 * 행정달력 일간
@@ -766,6 +785,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministDayCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovAdministDayCalendar.do")
 	public String selectAdministDayCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -821,6 +841,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovAdministDayCalendar";
 	}
+	*/
 
 	/**
 	 * 행정달력 주간
@@ -829,6 +850,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministWeekCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovAdministWeekCalendar.do")
 	public String selectAdministWeekCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -969,6 +991,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovAdministWeekCalendar";
 	}
+	*/
 
 	/**
 	 * 행정달력 월간
@@ -977,6 +1000,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministMonthCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovAdministMonthCalendar.do")
 	public String selectAdministMonthCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -1020,6 +1044,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovAdministMonthCalendar";
 	}
+	*/
 
 	/**
 	 * 행정달력 연간
@@ -1028,6 +1053,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovAdministYearCalendar"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovAdministYearCalendar.do")
 	public String selectAdministYearCalendar(Restde restde, ModelMap model) throws Exception {
 
@@ -1060,9 +1086,9 @@ public class EgovCalRestdeManageController {
 		}
 		restde.setYear(Integer.toString(iYear));
 
-		/* 월별확인 */
+		// 월별확인 
 
-		/* 1월 */
+		// 1월 
 		iMonth = 1;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1071,7 +1097,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_1", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_1", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 2월 */
+		// 2월 
 		iMonth = 2;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1080,7 +1106,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_2", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_2", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 3월 */
+		// 3월 
 		iMonth = 3;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1089,7 +1115,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_3", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_3", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 4월 */
+		// 4월 
 		iMonth = 4;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1098,7 +1124,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_4", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_4", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 5월 */
+		// 5월 
 		iMonth = 5;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1107,7 +1133,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_5", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_5", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 6월 */
+		// 6월 
 		iMonth = 6;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1116,7 +1142,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_6", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_6", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 7월 */
+		// 7월 
 		iMonth = 7;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1125,7 +1151,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_7", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_7", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 8월 */
+		// 8월
 		iMonth = 8;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1134,7 +1160,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_8", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_8", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 9월 */
+		// 9월 
 		iMonth = 9;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1143,7 +1169,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_9", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_9", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 10월 */
+		// 10월 
 		iMonth = 10;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1152,7 +1178,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_10", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_10", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 11월 */
+		// 11월 
 		iMonth = 11;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1161,7 +1187,7 @@ public class EgovCalRestdeManageController {
 		model.addAttribute("resultList_11", restdeManageService.selectAdministRestdePopup(restde));
 		model.addAttribute("RestdeList_11", restdeManageService.selectAdministMonthRestde(restde));
 
-		/* 12월 */
+		// 12월 
 		iMonth = 12;
 		restde.setMonth(Integer.toString(iMonth));
 		cal.set(iYear, iMonth - 1, 1);
@@ -1173,6 +1199,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovAdministYearCalendar";
 	}
+	*/
 
 	/**
 	 * 휴일을 삭제한다.
@@ -1182,11 +1209,13 @@ public class EgovCalRestdeManageController {
 	 * @return "forward:/sym/cal/EgovRestdeList.do"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovRestdeRemove.do")
 	public String deleteRestde(@ModelAttribute("loginVO") LoginVO loginVO, Restde restde, ModelMap model) throws Exception {
 		restdeManageService.deleteRestde(restde);
 		return "forward:/sym/cal/EgovRestdeList.do";
 	}
+	*/
 
 	/**
 	 * 휴일 세부내역을 조회한다.
@@ -1196,6 +1225,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovRestdeDetail"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovRestdeDetail.do")
 	public String selectRestdeDetail(@ModelAttribute("loginVO") LoginVO loginVO, Restde restde, ModelMap model) throws Exception {
 		Restde vo = restdeManageService.selectRestdeDetail(restde);
@@ -1203,6 +1233,7 @@ public class EgovCalRestdeManageController {
 
 		return "/cmm/sym/cal/EgovRestdeDetail";
 	}
+	*/
 
 	/**
 	 * 휴일 리스트를 조회한다.
@@ -1234,7 +1265,7 @@ public class EgovCalRestdeManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "/cmm/sym/cal/EgovRestdeList";
+		return path + "/cmm/sym/cal/EgovRestdeList";
 	}
 
 	/**
@@ -1247,6 +1278,7 @@ public class EgovCalRestdeManageController {
 	 * @return "/cmm/sym/cal/EgovRestdeModify"
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/cal/EgovRestdeModify.do")
 	public String updateRestde(@ModelAttribute("loginVO") LoginVO loginVO, @ModelAttribute("restde") Restde restde, BindingResult bindingResult,
 			@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
@@ -1277,5 +1309,6 @@ public class EgovCalRestdeManageController {
 			return "forward:/sym/cal/EgovRestdeList.do";
 		}
 	}
+	*/
 
 }

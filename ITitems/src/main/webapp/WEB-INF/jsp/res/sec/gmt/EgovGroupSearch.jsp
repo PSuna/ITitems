@@ -23,10 +23,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -84,7 +84,7 @@ function fncManageChecked() {
 function fncSelectGroupList(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
- // document.listForm.action = "<c:url value='/sec/gmt/EgovGroupSearchList.do'/>";
+ // document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroupSearchList.do'/>";
     document.listForm.submit();
 }
 
@@ -105,7 +105,7 @@ function fncSelectGroupConfirm() {
 function linkPage(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
- // document.listForm.action = "<c:url value='/sec/gmt/EgovGroupSearchList.do'/>";
+ // document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroupSearchList.do'/>";
     document.listForm.submit();
 }
 
@@ -129,7 +129,7 @@ function fn_egov_cancel_popup() {
 
 <body>
 
-	<form name="listForm" action="<c:url value='/sec/gmt/EgovGroupSearchList.do'/>" method="post">
+	<form name="listForm" action="<c:url value='/res/sec/gmt/EgovGroupSearchList.do'/>" method="post">
 	
 	<!-- 그룹 조회 팝업 -->
     <div class="popup POP_GROUP_SEARCH">

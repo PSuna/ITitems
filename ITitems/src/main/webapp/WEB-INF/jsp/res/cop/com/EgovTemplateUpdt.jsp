@@ -24,10 +24,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -40,13 +40,13 @@
         }
         
         if (confirm('<spring:message code="common.update.msg" />')) {
-            document.templateInf.action = "<c:url value='/cop/com/updateTemplateInf.do'/>";
+            document.templateInf.action = "<c:url value='/res/cop/com/updateTemplateInf.do'/>";
             document.templateInf.submit();
         }
     }
     
     function fn_egov_select_tmplatInfo() {
-        document.templateInf.action = "<c:url value='/cop/com/selectTemplateInfs.do'/>";
+        document.templateInf.action = "<c:url value='/res/cop/com/selectTemplateInfs.do'/>";
         document.templateInf.submit();  
     }
     
@@ -69,7 +69,7 @@
         var width = "";
 
         if (frm.tmplatSeCode.value == 'TMPT01') {
-            target = "<c:url value='/cop/bbs/previewBoardList.do'/>";
+            target = "<c:url value='/res/cop/bbs/previewBoardList.do'/>";
             width = "1024";
         } else {
             alert('<spring:message code="cop.tmplatCours" /> 지정 후 선택해 주세요.');
@@ -93,7 +93,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -101,7 +101,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
+                        <c:import url="/res/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
         
                         <div class="content_wrap">
@@ -195,7 +195,7 @@
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_update_tmplatInfo(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/cop/com/selectTemplateInfs.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_tmplatInfo(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="<c:url value='/res/cop/com/selectTemplateInfs.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_tmplatInfo(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- 버튼 끝 -->
@@ -210,7 +210,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

@@ -22,16 +22,16 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <script type="text/javascript"
@@ -48,7 +48,7 @@
 <!--
 var loginAuthor= "";
 function fnListPage(){
-	document.frm.action = "<c:url value='/aprv/ApprovalManage.do'/>";
+	document.frm.action = "<c:url value='/res/aprv/ApprovalManage.do'/>";
 	document.frm.submit();
 }
 
@@ -67,7 +67,7 @@ function fnCheck(){
  ******************************************************** */
 function ApprovalConfirm(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/ApprovalConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
@@ -94,7 +94,7 @@ function ApprovalConfirm(){
   function AprvIng(){
  	
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/AprvIng.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -110,7 +110,7 @@ function ApprovalConfirm(){
 function fnUpdate(){
 	let formData = new FormData(document.getElementById('frm'));
 	$.ajax({
-	 	url: '${pageContext.request.contextPath}/aprv/ApprovalUpdate.do',
+	 	url: '${pageContext.request.contextPath}/res/aprv/ApprovalUpdate.do',
 		method: 'POST',
 		processData: false,
 		contentType: false,
@@ -150,7 +150,7 @@ function fnInsertHist(){
 			formdata.append('creatId', creatId);
 			
 			$.ajax({
-				url:'${pageContext.request.contextPath}/aprv/ApprovalInsertHist.do',
+				url:'${pageContext.request.contextPath}/res/aprv/ApprovalInsertHist.do',
 				method: 'POST',
 				enctype: "multipart/form-data",
 				processData: false,
@@ -176,7 +176,7 @@ function fnInsertHist(){
  ******************************************************** */
  function AprvSuccess(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/AprvSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -192,7 +192,7 @@ function fnInsertHist(){
 function returnSuccess(){
 	fn_egov_modal_remove();
 	var reqId = document.getElementById("reqId").value;
- 	location.href="${pageContext.request.contextPath}/aprv/selectApproval.do?reqId="+reqId;
+ 	location.href="${pageContext.request.contextPath}/res/aprv/selectApproval.do?reqId="+reqId;
  }
  
 /* ********************************************************
@@ -201,7 +201,7 @@ function returnSuccess(){
  function AprvFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/AprvFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/AprvFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -216,7 +216,7 @@ function returnSuccess(){
  ******************************************************** */
 function ApprovalDisConfirm(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/ApprovalDisConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/ApprovalDisConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
@@ -241,7 +241,7 @@ function ApprovalDisConfirm(){
 function fnDisUpdate(){
 	 var reqId = document.getElementById("reqId").value;
 	 $.ajax({
-		 	url: '${pageContext.request.contextPath}/aprv/ApprovalDisUpdate.do?reqId='+reqId,
+		 	url: '${pageContext.request.contextPath}/res/aprv/ApprovalDisUpdate.do?reqId='+reqId,
 			method: 'POST',
 			success: function (result) {
 				fn_egov_modal_remove();
@@ -278,7 +278,7 @@ function fnDisUpdate(){
  }
 //-->
 </script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 </head>
 <style type="text/css">
@@ -307,7 +307,7 @@ function fnDisUpdate(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -509,7 +509,7 @@ function fnDisUpdate(){
 				</div>
 			</div>
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 </body>

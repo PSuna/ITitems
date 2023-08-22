@@ -48,7 +48,10 @@ import egovframework.let.res.utl.sim.service.EgovFileScrty;
  * </pre> 
  */
 @Controller
+@RequestMapping("/res")
 public class UserManageController {
+	
+	String path = "/res";
 
 	/** userManageService */
 	@Resource(name = "userManageService")
@@ -91,7 +94,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
     	
 		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
@@ -129,7 +132,7 @@ public class UserManageController {
 		vo.setTableNm("LETTNORGNZTINFO");
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 
-		return "cmm/uss/umt/EgovUserManage";
+		return path + "/cmm/uss/umt/EgovUserManage";
 	}
 	
 	/**
@@ -172,7 +175,7 @@ public class UserManageController {
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 		model.addAttribute("SearchVO", userSearchVO);
 
-		return "cmm/uss/umt/SearchUserList";
+		return path + "/cmm/uss/umt/SearchUserList";
 	}
 	
 	/**
@@ -215,7 +218,7 @@ public class UserManageController {
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 		model.addAttribute("SearchVO", userSearchVO);
 
-		return "cmm/uss/umt/TotalSearchUserList";
+		return path + "/cmm/uss/umt/TotalSearchUserList";
 	}
 
 
@@ -238,7 +241,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -255,7 +258,7 @@ public class UserManageController {
 		authorManageVO.setAuthorManageList(egovAuthorManageService.selectAuthorAllList(authorManageVO));
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
 		
-		return "cmm/uss/umt/EgovUserInsert";
+		return path + "/cmm/uss/umt/EgovUserInsert";
 	}
 
 	/**
@@ -281,7 +284,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -323,7 +326,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -350,7 +353,7 @@ public class UserManageController {
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("userManageVO", userManageVO);
 
-		return "cmm/uss/umt/EgovUserSelectUpdt";
+		return path + "/cmm/uss/umt/EgovUserSelectUpdt";
 	}
 
 	/**
@@ -368,10 +371,10 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
-    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt() != "") {
+    	if(userManageVO.getLowerOrgnzt() != null && userManageVO.getLowerOrgnzt().length() != 0) {
 			userManageVO.setOrgnztId(userManageVO.getLowerOrgnzt());
 		}
     	
@@ -399,13 +402,13 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		userManageService.deleteUser(checkedIdForDel);
 		//Exception 없이 진행시 등록성공메시지
 		model.addAttribute("resultMsg", "success.common.delete");
-		return "forward:/uss/umt/user/EgovUserManage.do";
+		return "forward:" + path + "/uss/umt/user/EgovUserManage.do";
 	}
 
 	/**
@@ -421,12 +424,12 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		model.addAttribute("checkId", "");
 		model.addAttribute("usedCnt", "-1");
-		return "cmm/uss/umt/EgovIdDplctCnfirm";
+		return path + "/cmm/uss/umt/EgovIdDplctCnfirm";
 	}
 
 	/**
@@ -443,21 +446,21 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		String checkId = (String) commandMap.get("checkId");
 		checkId = new String(checkId.getBytes("ISO-8859-1"), "UTF-8");
 
 		if (checkId == null || checkId.equals(""))
-			return "forward:/uss/umt/EgovIdDplctCnfirmView.do";
+			return "forward:" + path + "/uss/umt/EgovIdDplctCnfirmView.do";
 		checkId = checkId + "@iteyes.co.kr";
 		int usedCnt = userManageService.checkIdDplct(checkId);
 		checkId = (String) commandMap.get("checkId");
 		model.addAttribute("usedCnt", usedCnt);
 		model.addAttribute("checkId", checkId);
 
-		return "cmm/uss/umt/EgovIdDplctCnfirm";
+		return path + "/cmm/uss/umt/EgovIdDplctCnfirm";
 	}
 
 	/**
@@ -478,7 +481,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		String oldPassword = (String) commandMap.get("oldPassword");
@@ -504,7 +507,7 @@ public class UserManageController {
 		model.addAttribute("userSearchVO", userSearchVO);
 		model.addAttribute("resultMsg", resultMsg);
 
-		return "forward:/uss/umt/user/EgovUserSelectUpdtView.do?selectedId="+id;
+		return "forward:" + path + "/uss/umt/user/EgovUserSelectUpdtView.do?selectedId="+id;
 	}
 
 	/**
@@ -524,7 +527,7 @@ public class UserManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return "uat/uia/EgovLoginUsr";
+        	return path + "/uat/uia/EgovLoginUsr";
     	}
 
 		String userTyForPassword = (String) commandMap.get("userTyForPassword");
@@ -532,7 +535,7 @@ public class UserManageController {
 
 		model.addAttribute("userManageVO", userManageVO);
 		model.addAttribute("userSearchVO", userSearchVO);
-		return "cmm/uss/umt/EgovUserPasswordUpdt";
+		return path + "/cmm/uss/umt/EgovUserPasswordUpdt";
 	}
 	
 	/**
@@ -575,7 +578,7 @@ public class UserManageController {
 		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
 		model.addAttribute("SearchVO", userSearchVO);
 
-		return "cmm/uss/umt/SearchUserList";
+		return path + "/cmm/uss/umt/SearchUserList";
 	}
 
 }

@@ -25,10 +25,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -40,7 +40,7 @@
 
 function fncSelectUserAbsnceList() {
     var varFrom = document.getElementById("userAbsnce");
-    varFrom.action = "<c:url value='/uss/ion/uas/selectUserAbsnceList.do'/>";
+    varFrom.action = "<c:url value='/res/uss/ion/uas/selectUserAbsnceList.do'/>";
     varFrom.submit();       
 }
 
@@ -48,7 +48,7 @@ function fncUserAbsnceUpdate() {
 
 
     var varFrom = document.getElementById("userAbsnce");
-    varFrom.action = "<c:url value='/uss/ion/uas/updtUserAbsnce.do'/>";
+    varFrom.action = "<c:url value='/res/uss/ion/uas/updtUserAbsnce.do'/>";
 
     if(confirm('<spring:message code="common.update.msg" />')){
         varFrom.submit();
@@ -57,7 +57,7 @@ function fncUserAbsnceUpdate() {
 
 function fncUserAbsnceDelete() {
     var varFrom = document.getElementById("userAbsnce");
-    varFrom.action = "<c:url value='/uss/ion/uas/removeUserAbsnce.do'/>";
+    varFrom.action = "<c:url value='/res/uss/ion/uas/removeUserAbsnce.do'/>";
     if(confirm('<spring:message code="common.delete.msg" />')){
         varFrom.submit();
     }
@@ -75,7 +75,7 @@ function fncUserAbsnceDelete() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -83,7 +83,7 @@ function fncUserAbsnceDelete() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -99,7 +99,7 @@ function fncUserAbsnceDelete() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="userAbsnce" action="${pageContext.request.contextPath}/uss/ion/uas/addUserAbsnce.do" method="post">
+								<form:form modelAttribute="userAbsnce" action="${pageContext.request.contextPath}/res/uss/ion/uas/addUserAbsnce.do" method="post">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -155,14 +155,14 @@ function fncUserAbsnceDelete() {
 								<!-- 목록/저장버튼  -->
                                 <div class="board_view_bot">
                                     <div class="left_col btn3">
-                                    	<a href="<c:url value='/uss/ion/uas/removeUserAbsnce.do'/>?userId=<c:out value='${userAbsnceVO.userId}'/>&amp;selAbsnceAt=<c:out value='${userAbsnceVO.selAbsnceAt}'/>" class="btn btn_skyblue_h46 w_100" onclick="fncUserAbsnceDelete(); return false;">
+                                    	<a href="<c:url value='/res/uss/ion/uas/removeUserAbsnce.do'/>?userId=<c:out value='${userAbsnceVO.userId}'/>&amp;selAbsnceAt=<c:out value='${userAbsnceVO.selAbsnceAt}'/>" class="btn btn_skyblue_h46 w_100" onclick="fncUserAbsnceDelete(); return false;">
                                     		<spring:message code="button.delete" />
                                     	</a><!-- 삭제 -->
                                     </div>
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:fncUserAbsnceInsert(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/uss/ion/uas/selectUserAbsnceList.do'/>?pageIndex=<c:out value='${userAbsnceVO.pageIndex}'/>&amp;searchKeyword=<c:out value="${userAbsnceVO.searchKeyword}"/>&amp;searchCondition=1&amp;selAbsnceAt=<c:out value="${userAbsnceVO.selAbsnceAt}"/>" class="btn btn_blue_46 w_100" onclick="fncSelectUserAbsnceList(); return false;">
+                                        <a href="<c:url value='/res/uss/ion/uas/selectUserAbsnceList.do'/>?pageIndex=<c:out value='${userAbsnceVO.pageIndex}'/>&amp;searchKeyword=<c:out value="${userAbsnceVO.searchKeyword}"/>&amp;searchCondition=1&amp;selAbsnceAt=<c:out value="${userAbsnceVO.selAbsnceAt}"/>" class="btn btn_blue_46 w_100" onclick="fncSelectUserAbsnceList(); return false;">
                                         	<spring:message code="button.list" />
                                         </a><!-- 목록 -->
                                     </div>
@@ -184,7 +184,7 @@ function fncUserAbsnceDelete() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
 </div>

@@ -22,15 +22,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <script type="text/javascript" src="<c:url value='/js/EgovCalPopup.js'/>" ></script>
 <script type="text/javascript">
@@ -62,13 +62,13 @@
 	        //return false;
 	    } else {
 	        document.frm.pageIndex.value = pageNo;
-	        document.frm.action = "<c:url value='/sym/log/clg/SelectLoginLogList.do'/>";
+	        document.frm.action = "<c:url value='/res/sym/log/clg/SelectLoginLogList.do'/>";
 	        document.frm.submit();
 	    }
 	}
    
     function fn_egov_inqire_loginLog(logId){
-        var url = "<c:url value ='/sym/log/clg/InqireLoginLog.do?logId='/>" + logId;
+        var url = "<c:url value ='/res/sym/log/clg/InqireLoginLog.do?logId='/>" + logId;
         
         var openParam = "scrollbars=yes,toolbar=0,location=no,resizable=0,status=0,menubar=0,width=640,height=320,left=0,top=0"; 
         window.open(url,"p_loginLogInqire", openParam);
@@ -77,7 +77,7 @@
     function fn_egov_inqire_loginLog(logId) {
         
         var $dialog = $('<div id="modalPan"></div>')
-    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sym/log/clg/InqireLoginLog.do?logId='/>" + logId +'" width="100%" height="100%"></iframe>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/sym/log/clg/InqireLoginLog.do?logId='/>" + logId +'" width="100%" height="100%"></iframe>')
     	.dialog({
         	autoOpen: false,
             modal: true,
@@ -113,7 +113,7 @@
     	$("#searchBgnDe").datepicker(
     	        {dateFormat:'yy-mm-dd'
     	         , showOn: 'button'
-    	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+    	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
     	         , buttonImageOnly: true
     	         
     	         , showMonthAfterYear: true
@@ -129,7 +129,7 @@
     	$("#searchEndDe").datepicker( 
     	        {dateFormat:'yy-mm-dd'
     	         , showOn: 'button'
-    	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+    	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
     	         , buttonImageOnly: true
     	         
     	         , showMonthAfterYear: true
@@ -161,7 +161,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -169,7 +169,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-                        <c:import url="/sym/mms/EgovMenuLeft.do" />
+                        <c:import url="/res/sym/mms/EgovMenuLeft.do" />
                         <!--// Left menu -->
         
                         <div class="content_wrap">
@@ -187,7 +187,7 @@
 
 								<form name="frm" id="frm" action ="<c:url value='/sym/log/SelectLoginLogList.do'/>" method="post">
 								
-								<input type="hidden" name="cal_url" value="<c:url value='/sym/cmm/EgovNormalCalPopup.do'/>" />
+								<input type="hidden" name="cal_url" value="<c:url value='/res/sym/cmm/EgovNormalCalPopup.do'/>" />
 
                                 <h1 class="tit_1">내부서비스관리</h1>
 
@@ -267,7 +267,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
 </body>

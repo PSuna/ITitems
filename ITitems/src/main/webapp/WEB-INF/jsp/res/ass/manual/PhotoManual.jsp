@@ -21,11 +21,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -58,9 +58,9 @@
 						2) 시리얼넘버(일련번호),제품명(모델명)나오는 사진(최소 1장)</p>
 					<p>(예시)</p>
 					<div class="PhotoManual">
-					<img alt="" src="<c:url value='/'/>images/PhotoManual1.jpg">
-					<img alt="" src="<c:url value='/'/>images/PhotoManual2.jpg">
-					<img alt="" src="<c:url value='/'/>images/PhotoManual3.jpg">
+					<img alt="" src="<c:url value='/'/>images/res/PhotoManual1.jpg">
+					<img alt="" src="<c:url value='/'/>images/res/PhotoManual2.jpg">
+					<img alt="" src="<c:url value='/'/>images/res/PhotoManual3.jpg">
 					</div>
 				</div>
 			</div>

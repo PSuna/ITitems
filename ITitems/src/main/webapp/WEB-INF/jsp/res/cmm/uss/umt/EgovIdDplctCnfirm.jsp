@@ -22,12 +22,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -82,7 +82,7 @@ function fnCheckNotKorean(koreanStr){
 </head>
 <body>
 
-	<form name="checkForm" action ="<c:url value='/uss/umt/cmm/EgovIdDplctCnfirm.do'/>">
+	<form name="checkForm" action ="<c:url value='/res/uss/umt/cmm/EgovIdDplctCnfirm.do'/>">
 
     <!-- 아이디중복확인 팝업 -->
     <div class="popup POP_DUPID_CONF">

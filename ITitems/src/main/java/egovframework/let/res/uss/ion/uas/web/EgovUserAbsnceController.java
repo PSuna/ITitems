@@ -40,7 +40,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovUserAbsnceController {
+	
+	String path = "/res";
 
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
@@ -56,11 +59,13 @@ public class EgovUserAbsnceController {
 	 * @return String
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping("/uss/ion/uas/selectUserAbsnceListView.do")
 	public String selectUserAbsnceListView() throws Exception {
 
 		return "/uss/ion/uas/EgovUserAbsnceList";
 	}
+	*/
 
 	/**
 	 * 사용자부재정보를 관리하기 위해 등록된 사용자부재 목록을 조회한다.
@@ -91,7 +96,7 @@ public class EgovUserAbsnceController {
 
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-		return "/uss/ion/uas/EgovUserAbsnceList";
+		return path + "/uss/ion/uas/EgovUserAbsnceList";
 	}
 
 	/**
@@ -109,9 +114,9 @@ public class EgovUserAbsnceController {
 		UserAbsnceVO vo = (UserAbsnceVO) model.get("userAbsnce");
 
 		if (vo.getRegYn().equals("N"))
-			return "/uss/ion/uas/EgovUserAbsnceRegist";
+			return path + "/uss/ion/uas/EgovUserAbsnceRegist";
 		else
-			return "/uss/ion/uas/EgovUserAbsnceUpdt";
+			return path + "/uss/ion/uas/EgovUserAbsnceUpdt";
 	}
 
 	/**
@@ -125,7 +130,7 @@ public class EgovUserAbsnceController {
 		model.addAttribute("userAbsnce", egovUserAbsnceService.selectUserAbsnce(userAbsnceVO));
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-		return "/uss/ion/uas/EgovUserAbsnceRegist";
+		return path + "/uss/ion/uas/EgovUserAbsnceRegist";
 	}
 
 	/**
@@ -141,7 +146,7 @@ public class EgovUserAbsnceController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userAbsnceVO", userAbsnceVO);
-			return "/uss/ion/msi/EgovMainImageRegist";
+			return path + "/uss/ion/msi/EgovMainImageRegist";
 		} else {
 			LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 			userAbsnce.setLastUpdusrId(user.getId());
@@ -150,7 +155,7 @@ public class EgovUserAbsnceController {
 			model.addAttribute("userAbsnce", egovUserAbsnceService.insertUserAbsnce(userAbsnce, userAbsnceVO));
 			model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));
 
-			return "/uss/ion/uas/EgovUserAbsnceUpdt";
+			return path + "/uss/ion/uas/EgovUserAbsnceUpdt";
 		}
 	}
 
@@ -164,7 +169,7 @@ public class EgovUserAbsnceController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userAbsnceVO", userAbsnce);
-			return "/uss/ion/uas/EgovUserAbsnceUpdt";
+			return path + "/uss/ion/uas/EgovUserAbsnceUpdt";
 		} else {
 
 			LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
@@ -172,7 +177,7 @@ public class EgovUserAbsnceController {
 			//userAbsnce.setLastUpdusrId("jung");
 
 			egovUserAbsnceService.updateUserAbsnce(userAbsnce);
-			return "forward:/uss/ion/uas/getUserAbsnce.do";
+			return "forward:" + path + "/uss/ion/uas/getUserAbsnce.do";
 		}
 	}
 
@@ -186,7 +191,7 @@ public class EgovUserAbsnceController {
 
 		egovUserAbsnceService.deleteUserAbsnce(userAbsnce);
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/uss/ion/uas/selectUserAbsnceList.do";
+		return "forward:" + path + "/uss/ion/uas/selectUserAbsnceList.do";
 	}
 
 	/**
@@ -205,7 +210,7 @@ public class EgovUserAbsnceController {
 		}
 
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/uss/ion/uas/selectUserAbsnceList.do";
+		return "forward:" + path + "/uss/ion/uas/selectUserAbsnceList.do";
 	}
 
 	/**
@@ -213,10 +218,11 @@ public class EgovUserAbsnceController {
 	 * @param userAbsnceVO - 사용자부재 VO
 	 * @return String - 리턴 Url
 	 */
+	/*
 	@RequestMapping("/uss/ion/uas/selectUserAbsnceMainList.do")
 	public String selectUserAbsnceMainList(@ModelAttribute("userAbsnceVO") UserAbsnceVO userAbsnceVO, ModelMap model) throws Exception {
 
-		/** paging */
+		// paging 
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(userAbsnceVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(5);
@@ -233,4 +239,5 @@ public class EgovUserAbsnceController {
 
 		return "/uss/ion/uas/EgovUserAbsnceMainList";
 	}
+	*/
 }

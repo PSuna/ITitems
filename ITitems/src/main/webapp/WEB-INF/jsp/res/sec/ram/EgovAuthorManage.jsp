@@ -23,10 +23,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -109,45 +109,45 @@ function fncManageChecked() {
 function fncSelectAuthorList(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/ram/EgovAuthorList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthorList.do'/>";
     document.listForm.submit();
 }
 
 function fncSelectAuthor(author) {
     document.listForm.authorCode.value = author;
-    document.listForm.action = "<c:url value='/sec/ram/EgovAuthor.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthor.do'/>";
     document.listForm.submit();     
 }
 
 function fncAddAuthorInsert() {
-    location.replace("<c:url value='/sec/ram/EgovAuthorInsertView.do'/>"); 
+    location.replace("<c:url value='/res/sec/ram/EgovAuthorInsertView.do'/>"); 
 }
 
 function fncAuthorDeleteList() {
 
     if(fncManageChecked()) {    
         if(confirm('<spring:message code="common.delete.msg" />')) {
-            document.listForm.action = "<c:url value='/sec/ram/EgovAuthorListDelete.do'/>";
+            document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthorListDelete.do'/>";
             document.listForm.submit();
         } 
     }
 }
 
 function fncAddAuthorView() {
-    document.listForm.action = "<c:url value='/sec/ram/EgovAuthorUpdate.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthorUpdate.do'/>";
     document.listForm.submit();     
 }
 
 function fncSelectAuthorRole(author) {
     document.listForm.searchKeyword.value = author;
-    document.listForm.action = "<c:url value='/sec/ram/EgovAuthorRoleList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthorRoleList.do'/>";
     document.listForm.submit();     
 }
 
 function linkPage(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/ram/EgovAuthorList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/ram/EgovAuthorList.do'/>";
     document.listForm.submit();
 }
 
@@ -171,7 +171,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -179,7 +179,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -195,7 +195,7 @@ function press() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form id="listForm" name="listForm" action="<c:url value='/sec/ram/EgovAuthorList.do'/>" method="post">
+								<form:form id="listForm" name="listForm" action="<c:url value='/res/sec/ram/EgovAuthorList.do'/>" method="post">
 
                                 <h2 class="tit_2">사이트이용권한관리</h2>
                                 
@@ -309,7 +309,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

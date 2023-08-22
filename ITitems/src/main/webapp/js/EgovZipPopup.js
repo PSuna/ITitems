@@ -74,7 +74,7 @@ function fn_egov_ZipSearch(frm, sZip, vZip, sAddr) {
 	var retVal;
 
 	var url = frm.zip_url.value;
-	//var url = "/ebt/sym/cmm/EgovCcmZipSearchPopup.do"; 
+	//var url = "/res/sym/cmm/EgovCcmZipSearchPopup.do"; 
 	var varParam = new Object();
 	varParam.sZip = sZip.value;		
 

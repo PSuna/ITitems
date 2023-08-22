@@ -24,12 +24,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 <script type="text/javascript">
@@ -44,7 +44,7 @@ function actionLogin() {
     }
     else {
     	document.loginForm.osInfo.value=osInfo;
-        document.loginForm.action="<c:url value='/uat/uia/web/actionSecurityLogin.do'/>";
+        document.loginForm.action="<c:url value='/res/uat/uia/web/actionSecurityLogin.do'/>";
         document.loginForm.submit();
     }
 }
@@ -97,7 +97,7 @@ function fnInit() {
 
 //-->
 </script>
- <link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>   
+ <link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>   
 <style>
 .pty_flex dd {
     font-size: 24px;
@@ -119,7 +119,7 @@ function fnInit() {
                         <div class="P_LOGIN">
                         	
                         	<div class="pty_P_LOGIN_bottom">	
-	                        	<img src="<c:url value='/'/>images/iteyes_logo.png" height="70px">
+	                        	<img src="<c:url value='/'/>images/res/iteyes_logo.png" height="70px">
 	                            <h1>자산관리 솔루션</h1>
 	                           <!--  <p class="txt">로그인</p> -->
 	                         </div>   

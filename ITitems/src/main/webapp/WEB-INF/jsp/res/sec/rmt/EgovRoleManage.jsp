@@ -23,10 +23,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -107,38 +107,38 @@ function fncManageChecked() {
 function fncSelectRoleList(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/rmt/EgovRoleList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rmt/EgovRoleList.do'/>";
     document.listForm.submit();
 }
 
 function fncSelectRole(roleCode) {
     document.listForm.roleCode.value = roleCode;
-    document.listForm.action = "<c:url value='/sec/rmt/EgovRole.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rmt/EgovRole.do'/>";
     document.listForm.submit();     
 }
 
 function fncAddRoleInsert() {
-    location.replace("<c:url value='/sec/rmt/EgovRoleInsertView.do'/>"); 
+    location.replace("<c:url value='/res/sec/rmt/EgovRoleInsertView.do'/>"); 
 }
 
 function fncRoleListDelete() {
     if(fncManageChecked()) {
         if(confirm('<spring:message code="common.delete.msg" />')) {
-            document.listForm.action = "<c:url value='/sec/rmt/EgovRoleListDelete.do'/>";
+            document.listForm.action = "<c:url value='/res/sec/rmt/EgovRoleListDelete.do'/>";
             document.listForm.submit();
         }
     }
 }
 
 function fncAddRoleView() {
-    document.listForm.action = "<c:url value='/sec/rmt/EgovRoleUpdate.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rmt/EgovRoleUpdate.do'/>";
     document.listForm.submit();     
 }
 
 function linkPage(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/rmt/EgovRoleList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/rmt/EgovRoleList.do'/>";
     document.listForm.submit();
 }
 
@@ -161,7 +161,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -169,7 +169,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -185,7 +185,7 @@ function press() {
                                 </div>
                                 <!--// Location -->
 
-								<form:form id="listForm" name="listForm" action="<c:url value='/sec/rmt/EgovRoleList.do'/>" method="post">
+								<form:form id="listForm" name="listForm" action="<c:url value='/res/sec/rmt/EgovRoleList.do'/>" method="post">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -296,7 +296,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

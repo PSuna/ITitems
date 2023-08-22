@@ -21,15 +21,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>프로젝트 찾기</title>
 
 <script type="text/javaScript" language="JavaScript">
@@ -56,7 +56,7 @@
 				<div class="pop_containerv pop_Manual">
 						<p>제품에 붙어있는 시리얼넘버 또는 일련번호를 등록해주세요</p>
 						<p><span class="req">필수</span>시리얼넘버가 없다면 [시리얼넘버 중복확인] 화면에서 [시리얼넘버 없음]을 클릭해주세요</p>
-						<img alt="" src="<c:url value='/'/>images/AssetSnManual.png">
+						<img alt="" src="<c:url value='/'/>images/res/AssetSnManual.png">
 				</div>
 			</div>
 		</div>

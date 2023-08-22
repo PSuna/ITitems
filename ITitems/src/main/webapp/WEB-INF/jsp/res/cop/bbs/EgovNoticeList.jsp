@@ -18,18 +18,18 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<c:set var="ImgUrl" value="/images_old/egovframework/cop/bbs/"/>
+<c:set var="ImgUrl" value="/images_old/egovframework/res/cop/bbs/"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
@@ -64,27 +64,27 @@
     }
 
     function fn_egov_addNotice() {
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/addBoardArticle.do'/>";
         document.frm.submit();
     }
     
     function fn_egov_select_noticeList(pageNo) {
         document.frm.pageIndex.value = pageNo;
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
     function setPageUnit(obj) {
     	document.frm.pageIndex.value = '1';
     	document.frm.pageUnit.value = obj.value;
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();
     }
     
     function fn_egov_inqire_notice(nttId, bbsId) {
         document.subForm.nttId.value = nttId;
         document.subForm.bbsId.value = bbsId;
-        document.subForm.action = "<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>";
+        document.subForm.action = "<c:url value='/res/cop/bbs${prefix}/selectBoardArticle.do'/>";
         document.subForm.submit();          
     }
     
@@ -124,7 +124,7 @@ $(window).resize(function(){
 </c:choose>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 </head>
@@ -137,7 +137,7 @@ $(window).resize(function(){
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 		<%
 			LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
@@ -164,7 +164,7 @@ $(window).resize(function(){
 
                                 <!-- 검색조건 -->
 									<form name="frm"
-										action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>"
+										action="<c:url value='/res/cop/bbs${prefix}/selectBoardList.do'/>"
 										method="post">
 
 										<input type="hidden" name="bbsId"
@@ -294,12 +294,12 @@ $(window).resize(function(){
                                             <tr onclick="childNodes[3].childNodes[1].submit();">
                                                 <td><c:out value="${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}"/></td>
                                                 <td class="al">
-                                                	<form name="subForm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>">
+                                                	<form name="subForm" method="post" action="<c:url value='/res/cop/bbs${prefix}/selectBoardArticle.do'/>">
                                                		<c:if test="${result.replyLc!=0}">
                                                			<c:forEach begin="0" end="${result.replyLc}" step="1">
                                                				&nbsp;
                                                			</c:forEach>
-                                               			<img src="<c:url value='/'/>images/ico_reply.png" alt="reply arrow">
+                                               			<img src="<c:url value='/'/>images/res/ico_reply.png" alt="reply arrow">
                                                		</c:if>
                                                		<c:choose>
 										                <c:when test="${result.isExpired=='Y' || result.useAt == 'N'}">
@@ -342,7 +342,7 @@ $(window).resize(function(){
 	                                 <c:if test="<%= loginVO.getAuthorCode().equals(\"ROLE_ADMIN\") || loginVO.getAuthorCode().equals(\"ROLE_HIGH_ADMIN\")%>">
 	                                   <div class="board_view_bot">
 											<div class="right_btn btn1">
-	                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
+	                                    		<a href="<c:url value='/res/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
 											</div>
 										</div>
 	                                 </c:if>
@@ -350,7 +350,7 @@ $(window).resize(function(){
 									<c:when test="${brdMstrVO.bbsId == 'BBSMSTR_CCCCCCCCCCCC'}"> <!-- 문의게시판일떄 등록버튼 여부 -->
            	                         <div class="board_view_bot">
 										<div class="right_btn btn1">
-                                    		<a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
+                                    		<a href="<c:url value='/res/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>" class="item btn btn_blue_46 pty_margin-top_8"><spring:message code="button.create" /></a><!-- 등록 -->
 										</div>
 									 </div>
 									</c:when> 
@@ -375,7 +375,7 @@ $(window).resize(function(){
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

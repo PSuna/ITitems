@@ -27,15 +27,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 
 
@@ -45,7 +45,7 @@
  * 최초조회 함수
  ******************************************************** */
 function fMenuCreatManageSelect(){ 
-    document.menuCreatManageForm.action = "<c:url value='/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
+    document.menuCreatManageForm.action = "<c:url value='/res/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
     document.menuCreatManageForm.submit();
 }
 
@@ -54,7 +54,7 @@ function fMenuCreatManageSelect(){
  ******************************************************** */
 function linkPage(pageNo){
     document.menuCreatManageForm.pageIndex.value = pageNo;
-    document.menuCreatManageForm.action = "<c:url value='/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
+    document.menuCreatManageForm.action = "<c:url value='/res/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
     document.menuCreatManageForm.submit();
 }
 
@@ -63,7 +63,7 @@ function linkPage(pageNo){
  ******************************************************** */
 function selectMenuCreatManageList() { 
     document.menuCreatManageForm.pageIndex.value = 1;
-    document.menuCreatManageForm.action = "<c:url value='/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
+    document.menuCreatManageForm.action = "<c:url value='/res/sym/mnu/mcm/EgovMenuCreatManageSelect.do'/>";
     document.menuCreatManageForm.submit();
 }
 
@@ -74,7 +74,7 @@ function selectMenuCreat(vAuthorCode) {
     document.menuCreatManageForm.authorCode.value = vAuthorCode;
     
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/sym/mnu/mcm/EgovMenuCreatSelect.do'/>?authorCode=" + vAuthorCode + '" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/sym/mnu/mcm/EgovMenuCreatSelect.do'/>?authorCode=" + vAuthorCode + '" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -106,7 +106,7 @@ function fn_egov_modal_remove() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -114,7 +114,7 @@ function fn_egov_modal_remove() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -218,7 +218,7 @@ function fn_egov_modal_remove() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

@@ -26,21 +26,21 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<script src="<c:url value='/'/>js/PhotoMng.js"></script>
-<script src="<c:url value='/'/>js/Inputcheck.js"></script>
-<script src="<c:url value='/'/>js/Confirm.js"></script>
-<script src="<c:url value='/'/>js/Manual.js"></script>
-<script src="<c:url value='/'/>js/SearchList.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<script src="<c:url value='/'/>js/res/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/res/Confirm.js"></script>
+<script src="<c:url value='/'/>js/res/Manual.js"></script>
+<script src="<c:url value='/'/>js/res/SearchList.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -60,7 +60,7 @@
 </c:if>
 <script type="text/javaScript" language="javascript" defer="defer">
 var userCheck = 0;
-var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/res/jsh_icon_reset.png">');
 
 /* ********************************************************
  * 자산 수정 처리
@@ -71,7 +71,7 @@ function UpdateAsset(){
 	getDelPhotoList();
     let formData = new FormData(document.getElementById('AssetUpdt'));
 	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetUpdate.do',
+		url: '${pageContext.request.contextPath}/res/ass/AssetUpdate.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -94,7 +94,7 @@ function UpdateAsset(){
  function UpdtConfirm(){
 	
 		 var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -164,7 +164,7 @@ function fileCheck(){
 function UpdtIng(){
 
  var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -182,7 +182,7 @@ function UpdtIng(){
  function UpdtSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -205,7 +205,7 @@ function UpdtIng(){
  * 자산 상세 페이지 이동
  ******************************************************** */
 function SelectAsset() {
-    document.subForm.action = "<c:url value='/ass/SelectAsset.do'/>";
+    document.subForm.action = "<c:url value='/res/ass/SelectAsset.do'/>";
     document.subForm.submit(); 
 }
 
@@ -215,13 +215,13 @@ function SelectAsset() {
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.subForm.action = "<c:url value='/ass/AssetManagement.do'/>";
+		document.subForm.action = "<c:url value='/res/ass/AssetManagement.do'/>";
 	    document.subForm.submit();
 	}else if (code == "MYAM"){
-		document.subForm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+		document.subForm.action = "<c:url value='/res/ass/MyAssetManagement.do'/>";
 	    document.subForm.submit();
 	}else if (code == "DM"){
-		document.subForm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+		document.subForm.action = "<c:url value='/res/ass/DelReqManagement.do'/>";
 	    document.subForm.submit();
 	}
 }
@@ -232,7 +232,7 @@ function AssetList(){
  function UpdtFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -256,7 +256,7 @@ function getMCatList(Mval) {
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			url: '${pageContext.request.contextPath}/res/cat/GetMCategoryList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpper' : val},
@@ -391,7 +391,7 @@ function make_date(){
 	$("#acquiredDate,#rcptDt,#assetStart,#assetEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
 	         , buttonImageOnly: true
 	         
 	         , showMonthAfterYear: true
@@ -492,9 +492,6 @@ function alertValid(objList) {
  * 기존 지급확인서 파일 지우기
  ******************************************************** */
 function addDelFile(fileId) {
-	$('#fileNm').val('');
-	$('input[name=file]').val('');
-	$('#fileNm').closest(".namebox").remove();
 	$('#delFile').val(fileId);
 }
 
@@ -524,7 +521,7 @@ window.onload = function(){
 	  }
 	
 </script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 
 
 <title>ITeyes 자산관리솔루션</title>
@@ -550,7 +547,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -674,7 +671,7 @@ window.onload = function(){
 												</td>
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
-													<label for="">시리얼넘버</label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+													<label for="">시리얼넘버</label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -843,20 +840,20 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">지급확인서</label><span class="req">필수</span>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+													<img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="3">
 													<div class="filebox">
 													    <label for="fileFrm">파일찾기</label > 
 													    <input name="fileFrm" id="fileFrm" type="file" onchange="getFileName(this,-1)">
 													    <div class="empty_box">
-														    <label for="fileCh"><input name="fileCh" id="fileCh" type="checkbox" onclick="emptyFile(this);" <c:if test="${empty FileVO}">checked="checked"</c:if>>파일없음</label > 
+														    <label for="fileCh"><input name="fileCh" id="fileCh" type="checkbox" onclick="emptyFile(this,'${FileVO.atchFileId}')" <c:if test="${empty FileVO}">checked="checked"</c:if>>파일없음</label > 
 													    </div>
 													</div>
 													<div class="fileList">
 														<div class="namebox">
 															<c:if test="${not empty FileVO }">
-																<img alt="" src="/images/ico_delete.png" onclick="addDelFile('${FileVO.atchFileId}')">
+																<img alt="" src="/images/res/ico_delete.png" onclick="delFileName('${FileVO.atchFileId}')">
 															</c:if>
 															<input name="fileNm" id="fileNm" type="text" readonly="readonly"
 															<c:choose>
@@ -877,7 +874,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader">제품사진</label><span class="req">필수</span>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
+													<img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												<td colspan="3">
 													<div class="filebox">
 													    <label for="photoFrm">파일찾기</label> 
@@ -889,7 +886,7 @@ window.onload = function(){
 														<c:forEach var="photo" items="${PhotoList}" varStatus="status">
 															<div class="photobox">
 																<div class="boxBtn">
-																	<img alt="" src="/images/ico_delete.png" onclick="addDelPhoto(this,'${photo.atchFileId}')">
+																	<img alt="" src="/images/res/ico_delete.png" onclick="addDelPhoto(this,'${photo.atchFileId}')">
 																</div>
 																<div class="boxImg">
 																	<img alt="" src="/uploadFile/${photo.streFileNm}">
@@ -937,11 +934,11 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 </body>
-<form id="subForm" name="subForm" method="post" action="<c:url value='/ass/SelectAsset.do'/>">
+<form id="subForm" name="subForm" method="post" action="<c:url value='/res/ass/SelectAsset.do'/>">
 	<input type="hidden" id="assetId" name="assetId" value="${resultVO.assetId}">
 	<input type="hidden" id="mngNum" name="mngNum" value="${resultVO.mngNum}">
 	<input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />

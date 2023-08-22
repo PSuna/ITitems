@@ -25,15 +25,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 
 
@@ -51,19 +51,19 @@
         }
         
         if(confirm('<spring:message code="common.update.msg" />')){
-            document.boardMaster.action = "<c:url value='/cop/bbs/UpdateBBSMasterInf.do'/>";
+            document.boardMaster.action = "<c:url value='/res/cop/bbs/UpdateBBSMasterInf.do'/>";
             document.boardMaster.submit();                  
         }
     }   
     
     function fn_egov_select_brdMstrList(){
-        document.boardMaster.action = "<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>";
+        document.boardMaster.action = "<c:url value='/res/cop/bbs/SelectBBSMasterInfs.do'/>";
         document.boardMaster.submit();  
     }   
     
     function fn_egov_delete_brdMstr(){
         if(confirm('<spring:message code="common.delete.msg" />')){
-            document.boardMaster.action = "<c:url value='/cop/bbs/DeleteBBSMasterInf.do'/>";
+            document.boardMaster.action = "<c:url value='/res/cop/bbs/DeleteBBSMasterInf.do'/>";
             document.boardMaster.submit();  
         }       
     }
@@ -71,7 +71,7 @@
     function fn_egov_inqire_tmplatInqire(){
         
         var $dialog = $('<div id="modalPan"></div>')
-    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/cop/com/selectTemplateInfsPop.do'/>" +'" width="100%" height="100%"></iframe>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/cop/com/selectTemplateInfsPop.do'/>" +'" width="100%" height="100%"></iframe>')
     	.dialog({
         	autoOpen: false,
             modal: true,
@@ -111,7 +111,7 @@
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -119,7 +119,7 @@
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -135,7 +135,7 @@
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="boardMaster" name="boardMaster" action="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>" method="post" >
+								<form:form modelAttribute="boardMaster" name="boardMaster" action="<c:url value='/res/cop/bbs/SelectBBSMasterInfs.do'/>" method="post" >
 								
 								<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 								<input name="bbsId" type="hidden" value="<c:out value='${result.bbsId}'/>" />
@@ -274,7 +274,7 @@
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_update_brdMstr(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_brdMstrList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
+                                        <a href="<c:url value='/res/cop/bbs/SelectBBSMasterInfs.do'/>" class="btn btn_blue_46 w_100" onclick="javascript:fn_egov_select_brdMstrList(); return false;"><spring:message code="button.list" /></a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
@@ -289,7 +289,7 @@
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

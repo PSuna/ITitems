@@ -42,7 +42,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovBBSLoneMasterController {
+	
+	String path = "/res";
 
     @Resource(name = "EgovBBSLoneMasterService")
     private EgovBBSLoneMasterService bbsLoneService;
@@ -64,6 +67,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/addBoardMaster.do")
     public String addBoardMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
 	BoardMaster boardMaster = new BoardMaster();
@@ -84,8 +88,9 @@ public class EgovBBSLoneMasterController {
 	model.addAttribute("boardMaster", boardMaster);
 
 
-	return "cop/bbs/EgovBBSLoneMstrRegist";
+	return "/cop/bbs/EgovBBSLoneMstrRegist";
     }
+    */
 
     /**
      * 신규 게시판 마스터 정보를 등록한다.
@@ -96,6 +101,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/insertBoardMaster.do")
     public String insertBoardMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, SessionStatus status, ModelMap model) throws Exception {
@@ -120,7 +126,7 @@ public class EgovBBSLoneMasterController {
 
 	    model.addAttribute("attrbList", codeResult);
 
-	    return "cop/bbs/EgovBBSLoneMstrRegist";
+	    return "/cop/bbs/EgovBBSLoneMstrRegist";
 	}
 
 	if (isAuthenticated) {
@@ -131,8 +137,9 @@ public class EgovBBSLoneMasterController {
 	    bbsLoneService.insertMaster(boardMaster);
 	}
 
-	return "forward:/cop/bbs/selectBoardMasterList.do";
+	return "forward:" + path + "/cop/bbs/selectBoardMasterList.do";
     }
+    */
 
     /**
      * 게시판 마스터 목록을 조회한다.
@@ -142,6 +149,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/selectBoardMasterList.do")
     public String selectBoardMasterList(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
 	boardMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
@@ -166,8 +174,9 @@ public class EgovBBSLoneMasterController {
 	model.addAttribute("resultCnt", map.get("resultCnt"));
 	model.addAttribute("paginationInfo", paginationInfo);
 
-	return "cop/bbs/EgovBBSLoneMstrList";
+	return "/cop/bbs/EgovBBSLoneMstrList";
     }
+    */
 
     /**
      * 게시판 마스터 상세내용을 조회한다.
@@ -177,6 +186,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/selectBoardMaster.do")
     public String selectBoardMaster(@ModelAttribute("searchVO") BoardMasterVO searchVO, ModelMap model) throws Exception {
 	BoardMasterVO vo = bbsLoneService.selectMaster(searchVO);
@@ -185,8 +195,9 @@ public class EgovBBSLoneMasterController {
 
 	model.addAttribute("provdUrl", "/cop/bbs/selectBoardList.do?bbsId=" + vo.getBbsId());
 
-	return "cop/bbs/EgovBBSLoneMstrUpdt";
+	return "/cop/bbs/EgovBBSLoneMstrUpdt";
     }
+    */
 
     /**
      * 게시판 마스터 정보를 수정한다.
@@ -197,6 +208,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/updateBoardMaster.do")
     public String updateBoardMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, ModelMap model) throws Exception {
@@ -210,7 +222,7 @@ public class EgovBBSLoneMasterController {
 
 	    model.addAttribute("result", vo);
 
-	    return "cop/bbs/EgovBBSLoneMstrUpdt";
+	    return "/cop/bbs/EgovBBSLoneMstrUpdt";
 	}
 
 	if (isAuthenticated) {
@@ -218,8 +230,9 @@ public class EgovBBSLoneMasterController {
 	    bbsLoneService.updateMaster(boardMaster);
 	}
 
-	return "forward:/cop/bbs/selectBoardMasterList.do";
+	return "forward:" + path + "/cop/bbs/selectBoardMasterList.do";
     }
+    */
 
     /**
      * 게시판 마스터 정보를 삭제한다.
@@ -230,6 +243,7 @@ public class EgovBBSLoneMasterController {
      * @return
      * @throws Exception
      */
+    /*
     @RequestMapping("/cop/bbs/deleteBoardMaster.do")
     public String deleteBoardMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    SessionStatus status) throws Exception {
@@ -242,6 +256,7 @@ public class EgovBBSLoneMasterController {
 	    bbsLoneService.deleteMaster(boardMaster);
 	}
 	// status.setComplete();
-	return "forward:/cop/bbs/selectBoardMasterList.do";
+	return "forward:" + path + "/cop/bbs/selectBoardMasterList.do";
     }
+    */
 }

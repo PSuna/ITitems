@@ -22,12 +22,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -83,7 +83,7 @@ function fnDeleteUser() {
     if(checkedIds.length > 0) {
         if(confirm("<spring:message code="common.delete.msg" />")){
             document.listForm.checkedIdForDel.value=checkedIds;
-            document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+            document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserDelete.do'/>";
             document.listForm.submit();
         }
     }
@@ -93,27 +93,27 @@ function fnDeleteUser() {
  ******************************************************** */
 /* function fnLinkPage(pageNo){
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserDelete.do'/>";
     document.listForm.submit();
 } */
 function fnSelectUser(id) {
     document.listForm.selectedId.value = id;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserSelectUpdtView.do'/>";
     document.listForm.submit();
 }
 function fnAddUserView() {
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserInsertView.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserInsertView.do'/>";
     document.listForm.submit();
 }
 function fnLinkPage(pageNo){
 	inputpush();
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
 function fnSearch(){
     document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
 function inputpush() {
@@ -134,7 +134,7 @@ function inputpush() {
 function setPageUnit(){
 	inputpush();
 	document.listForm.pageIndex.value = 1;
-    document.listForm.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
     document.listForm.submit();
 }
 /* ********************************************************
@@ -144,7 +144,7 @@ function fntrsfExcel(){
 	if(document.getElementById('noData')){
 		alert("엑셀로 다운로드할 항목이 없습니다.")
 	}else{
-	    document.listForm.action = "<c:url value='/com/xlsxTrsfUserList.do'/>";
+	    document.listForm.action = "<c:url value='/res/com/xlsxTrsfUserList.do'/>";
 	    document.listForm.submit();
 	}
 }
@@ -159,7 +159,7 @@ function getMOrgList(MOval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -199,7 +199,7 @@ function getMOrgList(MOval) {
 
 </style>
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 
 </head>
 
@@ -213,7 +213,7 @@ function getMOrgList(MOval) {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -221,7 +221,7 @@ function getMOrgList(MOval) {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -236,7 +236,7 @@ function getMOrgList(MOval) {
                                 </div>
                                 <!--// Location -->
 
-								<form name="listForm" action="<c:url value='/uss/umt/user/EgovUserManage.do'/>" method="post">
+								<form name="listForm" action="<c:url value='/res/uss/umt/user/EgovUserManage.do'/>" method="post">
 									
 									<input name="selectedId" type="hidden" />
 									<input name="checkedIdForDel" type="hidden" />
@@ -407,12 +407,12 @@ function getMOrgList(MOval) {
 	                                    <div class="btn_area">
 		                                    <div class="excel_btn pty_margin-left_8">
 												<button class="btn pty_btn" onclick="javascript:fntrsfExcel(); return false;">Excel</button>
-												<%-- <img src="<c:url value="/" />images/pty_icon_03.png"> --%>								
+												<%-- <img src="<c:url value="/" />images/res/pty_icon_03.png"> --%>								
 											</div>
 											
 											<div>
 			                                    <a href="#LINK" style="margin-left:4px;" class="item btn btn_blue_46" onclick="javascript:fnDeleteUser(); return false;"><spring:message code="button.delete" /></a><!-- 삭제 -->
-			                                    <a href="<c:url value='/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
+			                                    <a href="<c:url value='/res/uss/umt/user/EgovUserInsertView.do'/>" style="margin-left:4px;" class="item btn btn_blue_46" onclick="fnAddUserView(); return false;"><spring:message code="button.create" /></a><!-- 등록 -->
 		                                   	</div>
 	                                    </div>
 	                                    
@@ -442,7 +442,7 @@ function getMOrgList(MOval) {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

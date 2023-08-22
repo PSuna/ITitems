@@ -41,7 +41,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovGroupManageController {
+	
+	String path = "/res";
 	
     @Resource(name="egovMessageSource")
     EgovMessageSource egovMessageSource;
@@ -65,11 +68,13 @@ public class EgovGroupManageController {
 	 * @return String
 	 * @exception Exception
 	 */
+    /*
     @RequestMapping("/sec/gmt/EgovGroupListView.do")
     public String selectGroupListView()
             throws Exception {
         return "/sec/gmt/EgovGroupManage";
-    }   
+    } 
+    */  
 
 	/**
 	 * 시스템사용 목적별 그룹 목록 조회
@@ -98,7 +103,7 @@ public class EgovGroupManageController {
         model.addAttribute("paginationInfo", paginationInfo);
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-        return "/sec/gmt/EgovGroupManage";
+        return path + "/sec/gmt/EgovGroupManage";
 	}
 
 	/**
@@ -112,7 +117,7 @@ public class EgovGroupManageController {
 	    		               ModelMap model) throws Exception {
 
 	    model.addAttribute("groupManage", egovGroupManageService.selectGroup(groupManageVO));
-	    return "/sec/gmt/EgovGroupUpdate";
+	    return path + "/sec/gmt/EgovGroupUpdate";
 	}
 
     /**
@@ -123,7 +128,7 @@ public class EgovGroupManageController {
     @RequestMapping(value="/sec/gmt/EgovGroupInsertView.do")
     public String insertGroupView()
             throws Exception {
-        return "/sec/gmt/EgovGroupInsert";
+        return path + "/sec/gmt/EgovGroupInsert";
     }
 
 	/**
@@ -143,7 +148,7 @@ public class EgovGroupManageController {
     	beanValidator.validate(groupManage, bindingResult); //validation 수행
     	
     	if (bindingResult.hasErrors()) { 
-			return "/sec/gmt/EgovGroupInsert";
+			return path + "/sec/gmt/EgovGroupInsert";
 		} else {
 	    	groupManage.setGroupId(egovGroupIdGnrService.getNextStringId());
 	        groupManageVO.setGroupId(groupManage.getGroupId());
@@ -151,7 +156,7 @@ public class EgovGroupManageController {
 	        status.setComplete();
 	        model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));
 	        model.addAttribute("groupManage", egovGroupManageService.insertGroup(groupManage, groupManageVO));
-	        return "/sec/gmt/EgovGroupUpdate";
+	        return path + "/sec/gmt/EgovGroupUpdate";
 		}
 	}
     
@@ -170,12 +175,12 @@ public class EgovGroupManageController {
     	beanValidator.validate(groupManage, bindingResult); //validation 수행
     	
     	if (bindingResult.hasErrors()) { 
-			return "/sec/gmt/EgovGroupUpdate";
+			return path + "/sec/gmt/EgovGroupUpdate";
 		} else {
     	    egovGroupManageService.updateGroup(groupManage);
             status.setComplete();
             model.addAttribute("message", egovMessageSource.getMessage("success.common.update"));
-    	    return "forward:/sec/gmt/EgovGroup.do";
+    	    return "forward:\" + path + \"/sec/gmt/EgovGroup.do";
 		}
 	}	
 	
@@ -192,7 +197,7 @@ public class EgovGroupManageController {
 		egovGroupManageService.deleteGroup(groupManage);
 		status.setComplete();
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/sec/gmt/EgovGroupList.do";
+		return "forward:" + path + "/sec/gmt/EgovGroupList.do";
 	}
 
 	/**
@@ -214,7 +219,7 @@ public class EgovGroupManageController {
     	}
 		status.setComplete();
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/sec/gmt/EgovGroupList.do";
+		return "forward:" + path + "/sec/gmt/EgovGroupList.do";
 	}
 	
     /**
@@ -225,7 +230,7 @@ public class EgovGroupManageController {
     @RequestMapping("/sec/gmt/EgovGroupSearchView.do")
     public String selectGroupSearchView()
             throws Exception {
-        return "/sec/gmt/EgovGroupSearch";
+        return path + "/sec/gmt/EgovGroupSearch";
     }   
 	    
 	/**
@@ -255,6 +260,6 @@ public class EgovGroupManageController {
         model.addAttribute("paginationInfo", paginationInfo);
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-        return "/sec/gmt/EgovGroupSearch";
+        return path + "/sec/gmt/EgovGroupSearch";
 	}
 }

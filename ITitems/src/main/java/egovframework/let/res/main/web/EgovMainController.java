@@ -45,7 +45,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 @SessionAttributes(types = ComDefaultVO.class)
+@RequestMapping("/res")
 public class EgovMainController {
+	
+	String path = "/res";
 
 	/**
 	 * EgovBBSManageService
@@ -71,11 +74,13 @@ public class EgovMainController {
 	 * @param commandMap
 	 * @exception Exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/cmm/forwardPage.do")
 	public String forwardPageWithMenuNo(HttpServletRequest request, @RequestParam Map<String, Object> commandMap)
 			throws Exception {
 		return "";
 	}
+	*/
 
 	/**
 	 * 템플릿 메인 페이지 조회
@@ -142,7 +147,7 @@ public class EgovMainController {
 		} else {
 			// web인경우
 			System.out.println("메인 컨트롤러 웹 실행");
-			return "main/EgovMainView";
+			return path + "/main/EgovMainView";
 		}
 	}
 
@@ -178,7 +183,7 @@ public class EgovMainController {
 //    		
 		}
 
-		return "main/inc/EgovIncHeader"; // 업무화면의 상단메뉴 화면
+		return path + "/main/inc/EgovIncHeader"; // 업무화면의 상단메뉴 화면
 
 	}
 
@@ -191,7 +196,7 @@ public class EgovMainController {
 	 */
 	@RequestMapping(value = "/sym/mms/EgovFooter.do")
 	public String selectFooter(ModelMap model) throws Exception {
-		return "main/inc/EgovIncFooter";
+		return path + "/main/inc/EgovIncFooter";
 	}
 
 	/**
@@ -203,7 +208,7 @@ public class EgovMainController {
 	 */
 	@RequestMapping(value = "/sym/mms/EgovMenuLeft.do")
 	public String selectMenuLeft(ModelMap model) throws Exception {
-		return "main/inc/EgovIncLeftmenu";
+		return path + "/main/inc/EgovIncLeftmenu";
 	}
 
 	/**
@@ -213,6 +218,7 @@ public class EgovMainController {
 	 * @return 출력페이지정보 "main_headG", "main_head"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/mms/EgovMainMenuHead.do")
 	public String selectMainMenuHead(@ModelAttribute("menuManageVO") MenuManageVO menuManageVO, ModelMap model)
 			throws Exception {
@@ -238,6 +244,7 @@ public class EgovMainController {
 		}
 		return "main/inc/EgovIncTopnav"; // 내부업무의 상단메뉴 화면
 	}
+	*/
 
 	/**
 	 * 좌측메뉴를 조회한다.
@@ -247,6 +254,7 @@ public class EgovMainController {
 	 * @return 출력페이지정보 "main_left"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping(value = "/sym/mms/EgovMainMenuLeft.do")
 	public String selectMainMenuLeft(ModelMap model) throws Exception {
 
@@ -261,5 +269,6 @@ public class EgovMainController {
 
 		return "main/inc/EgovIncLeftmenu";
 	}
+	*/
 
 }

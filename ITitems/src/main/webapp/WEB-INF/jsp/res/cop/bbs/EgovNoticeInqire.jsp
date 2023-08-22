@@ -25,13 +25,13 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	
@@ -45,7 +45,7 @@
     }
     
     function fn_egov_select_noticeList() {
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
@@ -55,7 +55,7 @@
      ******************************************************** */
      function DelConfirm(){
     	 var $dialog = $('<div id="modalPan"></div>')
-    		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+    		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
     		.dialog({
     	    	autoOpen: false,
     	        modal: true,
@@ -84,7 +84,7 @@
     function DelIng(){
 
      var $dialog = $('<div id="modalPan"></div>')
-    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
     	.dialog({
         	autoOpen: false,
             modal: true,
@@ -96,7 +96,7 @@
     }
     
     function fn_egov_delete_notice() {
-            document.frm.action = "<c:url value='/cop/bbs${prefix}/deleteBoardArticle.do'/>";
+            document.frm.action = "<c:url value='/res/cop/bbs${prefix}/deleteBoardArticle.do'/>";
             document.frm.submit();  
     }
     
@@ -107,36 +107,36 @@
             return;
         }
 
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/forUpdateBoardArticle.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/forUpdateBoardArticle.do'/>";
         document.frm.submit();
     }
     
     function fn_egov_addReply() {
-        document.frm.action = "<c:url value='/cop/bbs${prefix}/addReplyBoardArticle.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs${prefix}/addReplyBoardArticle.do'/>";
         document.frm.submit();
     }
 </script>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
 <c:if test="${useComment == 'true'}">
-<c:import url="/cop/bbs/selectCommentList.do" charEncoding="utf-8">
+<c:import url="/res/cop/bbs/selectCommentList.do" charEncoding="utf-8">
     <c:param name="type" value="head" />
 </c:import>
 </c:if>
 <c:if test="${useSatisfaction == 'true'}">
-<c:import url="/cop/bbs/selectSatisfactionList.do" charEncoding="utf-8">
+<c:import url="/res/cop/bbs/selectSatisfactionList.do" charEncoding="utf-8">
     <c:param name="type" value="head" />
 </c:import>
 </c:if>
 <c:if test="${useScrap == 'true'}">
 <script type="text/javascript">
     function fn_egov_addScrap() {
-        document.frm.action = "<c:url value='/cop/bbs/addScrap.do'/>";
+        document.frm.action = "<c:url value='/res/cop/bbs/addScrap.do'/>";
         document.frm.submit();          
     }
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 
 <title>내부업무 사이트 > 알림정보 > <c:out value='${result.bbsNm}'/></title>
 
@@ -150,7 +150,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -169,7 +169,7 @@
                                 </div>
                                 <!--// Location -->
 
-								<form name="frm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+								<form name="frm" method="post" action="<c:url value='/res/cop/bbs${prefix}/selectBoardList.do'/>">
 								<%
 									LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO");
 								%>
@@ -289,7 +289,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
     

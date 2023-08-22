@@ -24,10 +24,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -110,24 +110,24 @@ function fncManageChecked() {
 function fncSelectGroupList(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/gmt/EgovGroupList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroupList.do'/>";
     document.listForm.submit();
 }
 
 function fncSelectGroup(groupId) {
     document.listForm.groupId.value = groupId;
-    document.listForm.action = "<c:url value='/sec/gmt/EgovGroup.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroup.do'/>";
     document.listForm.submit();
 }
 
 function fncAddGroupInsert() {
-    location.replace("<c:url value='/sec/gmt/EgovGroupInsertView.do'/>");
+    location.replace("<c:url value='/res/sec/gmt/EgovGroupInsertView.do'/>");
 }
 
 function fncGroupListDelete() {
     if(fncManageChecked()) {
         if(confirm('<spring:message code="common.delete.msg" />')) {
-            document.listForm.action = "<c:url value='/sec/gmt/EgovGroupListDelete.do'/>";
+            document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroupListDelete.do'/>";
             document.listForm.submit();
         }
     }
@@ -136,7 +136,7 @@ function fncGroupListDelete() {
 function linkPage(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/sec/gmt/EgovGroupList.do'/>";
+    document.listForm.action = "<c:url value='/res/sec/gmt/EgovGroupList.do'/>";
     document.listForm.submit();
 }
 
@@ -160,7 +160,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -168,7 +168,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -291,7 +291,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

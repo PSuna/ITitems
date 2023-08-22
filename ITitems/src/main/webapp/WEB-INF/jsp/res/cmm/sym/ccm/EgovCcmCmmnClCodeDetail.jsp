@@ -23,17 +23,17 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 
 <title>ITeyes 자산관리솔루션</title>
 
@@ -48,14 +48,14 @@ function fnInit(){
  * 목록 으로 가기
  ******************************************************** */
 function fnList(){
-    location.href = "<c:url value='/sym/ccm/ccc/EgovCcmCmmnClCodeList.do'/>";
+    location.href = "<c:url value='/res/sym/ccm/ccc/EgovCcmCmmnClCodeList.do'/>";
 }
 /* ********************************************************
  * 수정화면으로  바로가기
  ******************************************************** */
 function fnModify(){
     var varForm              = document.all["Form"];
-    varForm.action           = "<c:url value='/sym/ccm/ccc/EgovCcmCmmnClCodeModify.do'/>";
+    varForm.action           = "<c:url value='/res/sym/ccm/ccc/EgovCcmCmmnClCodeModify.do'/>";
     varForm.clCode.value     = "${result.clCode}";
     varForm.submit();
 }
@@ -65,7 +65,7 @@ function fnModify(){
 function fnDelete(){
     if (confirm("<spring:message code="common.delete.msg" />")) {
         var varForm              = document.all["Form"];
-        varForm.action           = "<c:url value='/sym/ccm/ccc/EgovCcmCmmnClCodeRemove.do'/>";
+        varForm.action           = "<c:url value='/res/sym/ccm/ccc/EgovCcmCmmnClCodeRemove.do'/>";
         varForm.clCode.value     = "${result.clCode}";
         varForm.submit();
     }
@@ -83,7 +83,7 @@ function fnDelete(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -91,7 +91,7 @@ function fnDelete(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -107,7 +107,7 @@ function fnDelete(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="Form" method="post" action="<c:url value='/sym/ccm/ccc/EgovCcmCmmnClCodeModify.do'/>">
+								<form name="Form" method="post" action="<c:url value='/res/sym/ccm/ccc/EgovCcmCmmnClCodeModify.do'/>">
 
                                 <h1 class="tit_1">내부시스템관리</h1>
 
@@ -191,7 +191,7 @@ function fnDelete(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

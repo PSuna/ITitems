@@ -24,14 +24,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>사용자 상세 및 수정</title>
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
@@ -44,7 +44,7 @@ var moblphoneNo = '';
  * 이전화면 이동
  ******************************************************** */
 function fnListPage(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+    document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
     document.userManageVO.submit();
 }
 
@@ -52,7 +52,7 @@ function fnListPage(){
  * 암호변경화면 이동
  ******************************************************** */
 function fnPasswordMove(){
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
+    document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserPasswordUpdtView.do'/>";
     document.userManageVO.submit();
 }
 /**********************************************************
@@ -60,7 +60,7 @@ function fnPasswordMove(){
  ******************************************************** */
 function fnDeleteUser(checkedIds) {
 	document.userManageVO.checkedIdForDel.value="<c:out value='${userManageVO.userTy}'/>:<c:out value='${userManageVO.uniqId}'/>";
-    document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserDelete.do'/>";
+    document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserDelete.do'/>";
     document.userManageVO.submit(); 
 }
 
@@ -74,7 +74,7 @@ function fnUpdate(){
 	}else{
 		let formData = new FormData(document.getElementById('userManageVO'));
 		$.ajax({
-			url:'${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do',
+			url:'${pageContext.request.contextPath}/res/uss/umt/user/EgovUserSelectUpdt.do',
 			method:'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -105,7 +105,7 @@ function getMOrgList(MOval) {
 		document.getElementById('lowerOrgnzt').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/org/GetMOrgnztList.do',
+			url: '${pageContext.request.contextPath}/res/org/GetMOrgnztList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpperOrg' : val},
@@ -254,7 +254,7 @@ function fncheckNums(){
 function UpdateConfirm(){
 	if(validateUserManageVO(document.userManageVO)){
 		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -284,7 +284,7 @@ function UpdateConfirm(){
 ******************************************************** */
 function UpdateIng(){
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -299,7 +299,7 @@ function UpdateIng(){
  ******************************************************** */
  function UpdateSuccess(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -314,7 +314,7 @@ function UpdateIng(){
  ******************************************************** */
  function returnSuccess(){
 		fn_egov_modal_remove();
-		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserSelectUpdtView.do'/>";
+		document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserSelectUpdtView.do'/>";
 		document.userManageVO.submit();
 }
 /* ********************************************************
@@ -322,7 +322,7 @@ function UpdateIng(){
 ******************************************************** */
 function UpdateFail(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
    		.dialog({
    	    	autoOpen: false,
    	        modal: true,
@@ -337,7 +337,7 @@ function UpdateFail(){
  ******************************************************** */
  function DelConfirm(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -367,7 +367,7 @@ function UpdateFail(){
 function DelIng(){
 
  var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -385,7 +385,7 @@ function DelIng(){
  function DelSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -401,7 +401,7 @@ function DelIng(){
  ******************************************************** */
  function returnDelSuccess(){
 	 fn_egov_modal_remove();
-	 document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+	 document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
      document.userManageVO.submit(); 
 }
 /**********************************************************
@@ -447,7 +447,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
 		<div class="container">
@@ -455,7 +455,7 @@ window.onload = function(){
 				<div class="sub_in">
 					<div class="layout">
 						<!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
 
 						<div class="content_wrap">
@@ -471,7 +471,7 @@ window.onload = function(){
 								</div>
 								<!--// Location -->
 
-								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
+								<form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/res/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
 									<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
 									<!-- 검색조건 유지 -->
@@ -604,13 +604,13 @@ window.onload = function(){
 									<!-- 목록/저장버튼  -->
 									<div class="board_view_bot">
 										<div class="left_col btn3">
-											<a href="<c:url value='/uss/umt/user/EgovUserDelete.do'/>"
+											<a href="<c:url value='/res/uss/umt/user/EgovUserDelete.do'/>"
 												class="btn btn_skyblue_h46 w_100"
 												onclick="JavaScript:DelConfirm(); return false;"><spring:message
 													code="button.delete" /></a>
 											<!-- 삭제 -->
 											<a
-												href="<c:url value='/uss/umt/user/EgovUserPasswordUpdtView.do'/>"
+												href="<c:url value='/res/uss/umt/user/EgovUserPasswordUpdtView.do'/>"
 												class="btn btn_skyblue_h46 w_120"
 												onclick="JavaScript:fnPasswordMove(); return false;">
 												<spring:message code="button.passwordUpdate" /></a>
@@ -623,7 +623,7 @@ window.onload = function(){
 											<a href="#LINK" class="btn btn_blue_46 w_100"
 												onclick="JavaScript:UpdateConfirm(); return false;">수정</a>
 											<!-- 저장 -->
-											<a href="<c:url value='/uss/umt/user/EgovUserManage.do'/>"
+											<a href="<c:url value='/res/uss/umt/user/EgovUserManage.do'/>"
 												class="btn btn_blue_46 w_100"
 												onclick="JavaScript:fnListPage(); return false;"><spring:message
 													code="button.list" /></a>
@@ -644,7 +644,7 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 </body>

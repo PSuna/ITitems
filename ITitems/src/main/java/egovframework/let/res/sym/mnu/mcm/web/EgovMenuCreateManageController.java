@@ -37,7 +37,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovMenuCreateManageController {
+	
+	String path = "/res";
 
 	/** EgovPropertyService */
 	@Resource(name = "propertiesService")
@@ -71,7 +74,7 @@ public class EgovMenuCreateManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		// 내역 조회
 		/** EgovPropertyService.sample */
@@ -104,7 +107,7 @@ public class EgovMenuCreateManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("resultMsg", resultMsg);
-		return "sym/mnu/mcm/EgovMenuCreatManage";
+		return path + "/sym/mnu/mcm/EgovMenuCreatManage";
 	}
 
 	/* 메뉴생성 세부조회 */
@@ -122,13 +125,13 @@ public class EgovMenuCreateManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		
 		model.addAttribute("list_menulist", menuCreateManageService.selectMenuCreatList(menuCreatVO));
 		model.addAttribute("resultVO", menuCreatVO);
 
-		return "sym/mnu/mcm/EgovMenuCreat";
+		return path + "/sym/mnu/mcm/EgovMenuCreat";
 	}
 
 	/**
@@ -149,7 +152,7 @@ public class EgovMenuCreateManageController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-			return "uat/uia/EgovLoginUsr";
+			return path + "/uat/uia/EgovLoginUsr";
 		}
 		String[] insertMenuNo = checkedMenuNoForInsert.split(",");
 		if (insertMenuNo == null || (insertMenuNo.length == 0)) {
@@ -159,7 +162,7 @@ public class EgovMenuCreateManageController {
 			resultMsg = egovMessageSource.getMessage("success.common.insert");
 		}
 		model.addAttribute("resultMsg", resultMsg);
-		return "forward:/sym/mnu/mcm/EgovMenuCreatSelect.do";
+		return "forward:" + path + "/sym/mnu/mcm/EgovMenuCreatSelect.do";
 	}
 
 }

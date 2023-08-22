@@ -22,13 +22,13 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/csh.css">
-	<script src="<c:url value='/'/>js/Inputcheck.js"></script>
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/csh.css">
+	<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -42,7 +42,7 @@ function fn_egov_cancel_popup() {
 
 function AssetSnCnfirm(){
 	if($("#assetSn").val() != null && $("#assetSn").val() != ""){
-		document.checkForm.action = "<c:url value='/ass/AssetSnCnfirm.do'/>";
+		document.checkForm.action = "<c:url value='/res/ass/AssetSnCnfirm.do'/>";
 	    document.checkForm.submit();
 	}else{
 		$(".result").text("결과: 등록할 시리얼넘버를 입력해주세요").css("color","red");
@@ -66,7 +66,7 @@ function ReturnAssetSn(){
 </head>
 <body>
 
-	<form id="checkForm" name="checkForm" action ="<c:url value='/uss/umt/cmm/EgovIdDplctCnfirm.do'/>" autocomplete="off">
+	<form id="checkForm" name="checkForm" action ="<c:url value='/res/uss/umt/cmm/EgovIdDplctCnfirm.do'/>" autocomplete="off">
 
     <!-- 아이디중복확인 팝업 -->
     <div class="popup POP_DUPID_CONF">

@@ -22,10 +22,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -142,26 +142,26 @@ function fncInsertCheckId() {
 function fncSelectUserAbsnceList(pageNo) {
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/uss/ion/uas/selectUserAbsnceList.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/ion/uas/selectUserAbsnceList.do'/>";
     document.listForm.submit();
 }
 
 function fncSelectUserAbsnce(userId, regYn) {
     if(regYn == 'N') {
         if(confirm("등록된 사용자부재 정보가 없습니다. 등록페이지로 이동하시겠습니까?")) {
-            location.replace("<c:url value='/uss/ion/uas/addViewUserAbsnce.do'/>?userId="+userId);
+            location.replace("<c:url value='/res/uss/ion/uas/addViewUserAbsnce.do'/>?userId="+userId);
         } else {
             return;
         }
     }
     document.listForm.userId.value = userId;
-    document.listForm.action = "<c:url value='/uss/ion/uas/getUserAbsnce.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/ion/uas/getUserAbsnce.do'/>";
     document.listForm.submit();     
 }
 
 function fncAddUserAbsnceInsert() {
     if(fncInsertCheckId()) {
-        document.listForm.action = "<c:url value='/uss/ion/uas/addViewUserAbsnce.do'/>";
+        document.listForm.action = "<c:url value='/res/uss/ion/uas/addViewUserAbsnce.do'/>";
         document.listForm.submit();    
     }
 }
@@ -169,7 +169,7 @@ function fncAddUserAbsnceInsert() {
 function fncLoginUserAbsnceListDelete() {
     if(fncManageChecked()) {
         if(confirm('<spring:message code="common.delete.msg" />')) {
-            document.listForm.action = "<c:url value='/uss/ion/uas/removeUserAbsnceList.do'/>";
+            document.listForm.action = "<c:url value='/res/uss/ion/uas/removeUserAbsnceList.do'/>";
             document.listForm.submit();
         }
     }
@@ -178,7 +178,7 @@ function fncLoginUserAbsnceListDelete() {
 function linkPage(pageNo){
     document.listForm.searchCondition.value = "1";
     document.listForm.pageIndex.value = pageNo;
-    document.listForm.action = "<c:url value='/uss/ion/uas/selectUserAbsnceList.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/ion/uas/selectUserAbsnceList.do'/>";
     document.listForm.submit();
 }
 
@@ -200,7 +200,7 @@ function press() {
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -208,7 +208,7 @@ function press() {
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -231,7 +231,7 @@ function press() {
                                 <!-- 검색조건 -->
                                 <div class="condition2">
                                 	
-                                	<form name="listForm" action="<c:url value='/uss/umt/user/EgovUserManage.do'/>" method="post">
+                                	<form name="listForm" action="<c:url value='/res/uss/umt/user/EgovUserManage.do'/>" method="post">
                                 	
 									<input type="hidden" name="userId">
 									<input type="hidden" name="pageIndex" value="<c:if test="${empty userAbsnceVO.pageIndex }">1</c:if><c:if test="${!empty userAbsnceVO.pageIndex }"><c:out value='${userAbsnceVO.pageIndex}'/></c:if>">
@@ -249,7 +249,7 @@ function press() {
     	                                </select>
                                     </label>
 
-                                    <a href="<c:url value='/uss/ion/uas/selectUserAbsnceList.do'/>" class="item btn btn_blue_46 w_100" onclick="javascript:fncSelectUserAbsnceList('1'); return false;">조회</a><!-- 조회 -->
+                                    <a href="<c:url value='/res/uss/ion/uas/selectUserAbsnceList.do'/>" class="item btn btn_blue_46 w_100" onclick="javascript:fncSelectUserAbsnceList('1'); return false;">조회</a><!-- 조회 -->
                                 	
                                 	</form>
                                 	
@@ -287,7 +287,7 @@ function press() {
                                         	<c:forEach var="userAbsnce" items="${userAbsnceList}" varStatus="status">
                                             <tr>
                                                 <td>
-                                                	<form name="item" method="post" action="<c:url value='/uss/ion/uas/getUserAbsnce.do'/>">
+                                                	<form name="item" method="post" action="<c:url value='/res/uss/ion/uas/getUserAbsnce.do'/>">
                                                 		<input type="hidden" name="userId" value="<c:out value="${userAbsnce.userId}"/>">
                                                 		<input type="hidden" name="selAbsnceAt" value="<c:out value="${userAbsnceVO.selAbsnceAt}"/>">
                                                 		<input type="hidden" name="pageIndex" value="<c:out value='${userAbsnceVO.pageIndex}'/>">
@@ -334,7 +334,7 @@ function press() {
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

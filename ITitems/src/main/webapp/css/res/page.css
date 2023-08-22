@@ -84,7 +84,7 @@
 	border-radius:40px;
 	color:#fff;
 	font-weight:700;
-	background:url(../images/main_visual.png) no-repeat;
+	background:url(/images/res//main_visual.png) no-repeat;
 	box-shadow:3px 8px 13px #ccc;
 }
 .p_main .visual p span {
@@ -149,7 +149,7 @@
 	width:60px;
 	height:60px;
 	font-size:0;
-	background:url(../images/ico_more.png) no-repeat;
+	background:url(/images/res/ico_more.png) no-repeat;
 }
 .p_main .dash_board .tab_item {
 	display:none;
@@ -267,10 +267,10 @@
 	font-size:0;
 }
 .p_main .g_area .faq dl .q {
-	background:url(../images/ico_q.png) no-repeat;
+	background:url(/images/res/ico_q.png) no-repeat;
 }
 .p_main .g_area .faq dl .a {
-	background:url(../images/ico_a.png) no-repeat;
+	background:url(/images/res/ico_a.png) no-repeat;
 }
 .p_main .g_area .faq dl dt+dd {
 	margin-top:10px;
@@ -286,7 +286,7 @@
 	width:60px;
 	height:60px;
 	font-size:0;
-	background:url(../images/ico_more.png) no-repeat;
+	background:url(/images/res/ico_more.png) no-repeat;
 }
 .p_main .g_area .promotion {
 	position:relative;
@@ -328,7 +328,7 @@
 	width:60px;
 	height:60px;
 	font-size:0;
-	background:url(../images/ico_more.png) no-repeat;
+	background:url(/images/res/ico_more.png) no-repeat;
 }
 .p_main .g_area .inner .right_col {
 	width:440px;
@@ -371,10 +371,10 @@
 	background-position:center top;
 }
 .p_main .g_area .complaint ul li a.tech {
-	background:url(../images/ico_complain01.png) no-repeat;
+	background:url(/images/res/ico_complain01.png) no-repeat;
 }
 .p_main .g_area .complaint ul li a.buy {
-	background:url(../images/ico_complain02.png) no-repeat;
+	background:url(/images/res/ico_complain02.png) no-repeat;
 }
 .p_main .g_area .complaint .more {
 	display:block;
@@ -384,7 +384,7 @@
 	width:60px;
 	height:60px;
 	font-size:0;
-	background:url(../images/ico_more.png) no-repeat;
+	background:url(/images/res/ico_more.png) no-repeat;
 }
 .p_main .g_area .survey {
 	position:relative;
@@ -473,7 +473,7 @@
 	width:12px;
 	height:19px;
 	margin-right:9px;
-	background:url(../images/ico_position.png) no-repeat;
+	background:url(/images/res/ico_position.png) no-repeat;
 	vertical-align:top;
 }
 .p_contactus .addr .top dd {
@@ -544,7 +544,7 @@
 	width:15px;
 	height:20px;
 	margin-right:6px;
-	background:url(../images/ico_subway.png) no-repeat;
+	background:url(/images/res/ico_subway.png) no-repeat;
 	vertical-align:top;
 }
 .p_contactus .addr .bot .left_col dd {
@@ -575,7 +575,7 @@
 	width:15px;
 	height:20px;
 	margin-right:6px;
-	background:url(../images/ico_call.png) no-repeat;
+	background:url(/images/res/ico_call.png) no-repeat;
 	vertical-align:top;
 }
 .p_contactus .addr .bot .right_col dt.email::before {
@@ -584,7 +584,7 @@
 	width:15px;
 	height:20px;
 	margin-right:6px;
-	background:url(../images/ico_email.png) no-repeat;
+	background:url(/images/res/ico_email.png) no-repeat;
 	vertical-align:top;
 }
 .p_contactus .addr .bot .right_col dd {
@@ -653,7 +653,7 @@
 	width:1300px;
 	height:320px;
 	padding:85px 0 0 70px;
-	background:url(../images/main_visual.png);
+	background:url(/images/res//main_visual.png);
 }
 .P_MAIN .visual>span {
 	display:block;
@@ -738,7 +738,7 @@
 	width:28px;
 	height:28px;
 	font-size:0;
-	background:url(../images/ico_plus2.png) no-repeat;
+	background:url(/images/res/ico_plus2.png) no-repeat;
 	
 
 	
@@ -1081,7 +1081,7 @@
 	display:inline-block;
 	width:18px;
 	height:18px;
-	background:url(../images/ico_folder.gif);
+	background:url(/images/res/ico_folder.gif);
 	vertical-align:top;
 }
 .tree_ui .list li.page::before {
@@ -1089,7 +1089,7 @@
 	display:inline-block;
 	width:18px;
 	height:18px;
-	background:url(../images/ico_page.gif) no-repeat 3px top;
+	background:url(/images/res/ico_page.gif) no-repeat 3px top;
 	vertical-align:top;
 }
 .tree_ui .list .f_chk_only {

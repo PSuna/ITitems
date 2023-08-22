@@ -23,11 +23,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -35,7 +35,7 @@
 
 <script type="text/javaScript">
 <!--
-var imgpath = "<c:url value='/'/>images/";
+var imgpath = "<c:url value='/'/>images/res/";
 //-->
 </script>
 <script language="javascript1.2" type="text/javaScript" src="<c:url value='/js/EgovMenuCreat.js'/>"></script>
@@ -46,7 +46,7 @@ function DelTreeBox(obj,Id,lList) {
 	if($(obj).closest(".tree_box").children(".tree_list").length != 0){
 		$(obj).closest(".tree_box").children(".tree_list").remove();
 	}
-	$(obj).attr("src","/images/add-folder.png").attr("onclick","AddTreeBox(this,'" + Id + "','" + lList + "')")
+	$(obj).attr("src","/images/res/add-folder.png").attr("onclick","AddTreeBox(this,'" + Id + "','" + lList + "')")
 
 }
 
@@ -56,7 +56,7 @@ function AddTreeBox(obj,Id,lList) {
 	let formData = new FormData(document.getElementById('listForm'));
 	formData.append("searchOrgnztId",Id);
     $.ajax({
-		url: '${pageContext.request.contextPath}/org/SelectOrgnztVOList.do',
+		url: '${pageContext.request.contextPath}/res/org/SelectOrgnztVOList.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -85,19 +85,19 @@ function makeTreeList(obj,Id,lList,list){
 			let treeBox = $("<div/>").addClass("tree_box");
 			$(lineList).each(function(i, line){
 				if(line == 1){
-					$(treeBox).append($("<img/>").attr("src","/images/line0.png").addClass("tree_line"));
+					$(treeBox).append($("<img/>").attr("src","/images/res/line0.png").addClass("tree_line"));
 				}else if(line == 0){
-					$(treeBox).append($("<img/>").attr("src","/images/line3.png").addClass("tree_line"));
+					$(treeBox).append($("<img/>").attr("src","/images/res/line3.png").addClass("tree_line"));
 				}
 			})
 			let treeP = $("<p/>").text(item.orgnztNm).attr("onclick","return_val('" + item.orgnztId + "','" + item.orgnztNm + "')");
-			let emptyImg = $("<img/>").attr("src","/images/empty-folder.png");
-			let addImg = $("<img/>").attr("src","/images/add-folder.png").addClass("action_folder");
+			let emptyImg = $("<img/>").attr("src","/images/res/empty-folder.png");
+			let addImg = $("<img/>").attr("src","/images/res/add-folder.png").addClass("action_folder");
 			if(index == $(list).length - 1){
-				$(treeBox).append($("<img/>").attr("src","/images/line2.png").addClass("tree_line"));
+				$(treeBox).append($("<img/>").attr("src","/images/res/line2.png").addClass("tree_line"));
 				lineList.push(0);
 			}else{
-				$(treeBox).append($("<img/>").attr("src","/images/line1.png").addClass("tree_line"));
+				$(treeBox).append($("<img/>").attr("src","/images/res/line1.png").addClass("tree_line"));
 				lineList.push(1);
 			}
 			let newLlist = lineList.join('');
@@ -110,9 +110,9 @@ function makeTreeList(obj,Id,lList,list){
 			$(treeList).append(treeBox);
 		})
 		$(obj).closest(".tree_box").append(treeList);
-		$(obj).attr("src","/images/delete-folder.png").attr("onclick","DelTreeBox(this,'" + Id + "','" + lList +  "')");
+		$(obj).attr("src","/images/res/delete-folder.png").attr("onclick","DelTreeBox(this,'" + Id + "','" + lList +  "')");
 	}else{
-		$(obj).attr("src","/images/empty-folder.png").attr("onclick","");
+		$(obj).attr("src","/images/res/empty-folder.png").attr("onclick","");
 	}
 
 }
@@ -141,12 +141,12 @@ function fn_egov_cancel_popup() {
 }
 // 프로젝트 검색창 이동
 function TotalPrjSearch(){
-    document.listForm.action = "<c:url value='/prj/TotalProjectSearchList.do'/>";
+    document.listForm.action = "<c:url value='/res/prj/TotalProjectSearchList.do'/>";
     document.listForm.submit();
 }
 // 회원검색창 이동
 function TotalUserSearch(){
-    document.listForm.action = "<c:url value='/uss/umt/user/TotalSearchUserList.do'/>";
+    document.listForm.action = "<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>";
     document.listForm.submit();
 }
 
@@ -160,7 +160,7 @@ function TotalUserSearch(){
 		기능을 사용하실 수 없습니다.</noscript>
 
 	<form name="listForm" id="listForm"
-		action="<c:url value='/uss/umt/user/TotalSearchUserList.do'/>"
+		action="<c:url value='/res/uss/umt/user/TotalSearchUserList.do'/>"
 		method="post">
 	
 	<!-- 프로젝트 찾기 팝업 -->
@@ -180,28 +180,28 @@ function TotalUserSearch(){
                 <div class="tree_ui tree-ui">
 	                <div class="tree_list">
 	                	<div class="tree_box">
-                			<img class="action_folder" src="/images/delete-folder.png" onclick="DelTreeBox(this,'${resultList[0].orgnztId}','')" >
+                			<img class="action_folder" src="/images/res/delete-folder.png" onclick="DelTreeBox(this,'${resultList[0].orgnztId}','')" >
                 			<p onclick="return_val('${resultList[0].orgnztId}', '${resultList[0].orgnztNm}')"><c:out value="${resultList[0].orgnztNm}" /></p>
                 			<div class="tree_list">
 		                		<c:forEach var="org" items="${resultList}" varStatus="status" >
 			                	<div class="tree_box">
 			                		<c:choose>
 			                			<c:when test="${status.last}">
-			                				<img class="tree_line" src="/images/line2.png">
+			                				<img class="tree_line" src="/images/res/line2.png">
 			                			</c:when>
 			                			<c:when test="${!status.first}">
-			                				<img class="tree_line" src="/images/line1.png">
+			                				<img class="tree_line" src="/images/res/line1.png">
 			                			</c:when>
 			                		</c:choose>
 			                		<c:choose>
 			                			<c:when test="${!status.first && org.lowCnt == 0}">
-			                				<img src="/images/empty-folder.png">
+			                				<img src="/images/res/empty-folder.png">
 			                			</c:when>
 			                			<c:when test="${status.last}">
-			                				<img class="action_folder" src="/images/add-folder.png" onclick="AddTreeBox(this,'${org.orgnztId}','0')" >
+			                				<img class="action_folder" src="/images/res/add-folder.png" onclick="AddTreeBox(this,'${org.orgnztId}','0')" >
 			                			</c:when>
 			                			<c:when test="${!status.first}">
-			                				<img class="action_folder" src="/images/add-folder.png" onclick="AddTreeBox(this,'${org.orgnztId}','1')" >
+			                				<img class="action_folder" src="/images/res/add-folder.png" onclick="AddTreeBox(this,'${org.orgnztId}','1')" >
 			                			</c:when>
 			                		</c:choose>
 		                			<c:if test="${!status.first }">

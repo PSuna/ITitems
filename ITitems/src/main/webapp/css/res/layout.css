@@ -57,7 +57,7 @@ body {
 	width:21px;
 	height:24px;
 	margin-right:8px;
-	background:url(../images/ico_person.png) no-repeat center;
+	background:url(/images/res/ico_person.png) no-repeat center;
 	vertical-align:-5px;
 }
 .header .top_menu .d {
@@ -137,10 +137,10 @@ margin-left:60px;
 	background:#eb6877;
 }
 .util_menu .allmenu {
-	background:url(../images/ico_allmenu.png) no-repeat;
+	background:url(/images/res/ico_allmenu.png) no-repeat;
 }
 .util_menu .allmenu.on {
-	background:url(../images/ico_allmenu_on.png) no-repeat;
+	background:url(/images/res/ico_allmenu_on.png) no-repeat;
 }
 .container {
 	min-height: calc(100% - 160px);
@@ -300,7 +300,7 @@ margin-left:60px;
 	width:30px;
 	height:30px;
 	font-size:0;
-	background: url(../images/ico_pop_close.png) no-repeat;
+	background: url(/images/res/ico_pop_close.png) no-repeat;
 }
 /* location */
 .location {
@@ -327,7 +327,7 @@ margin-left:60px;
 	height:7px;
 	margin:0 9px 0 3px;
 	line-height:18px;
-	background:url(../images/ico_arrow_r_gray_4x7.png) no-repeat;
+	background:url(/images/res/ico_arrow_r_gray_4x7.png) no-repeat;
 	vertical-align:2px;
 }
 .location ul li:last-child {
@@ -357,7 +357,7 @@ margin-left:60px;
 	top:3px;
 	width:14px;
 	height:13px;
-	background:url(../images/ico_home.png) no-repeat;
+	background:url(/images/res/ico_home.png) no-repeat;
 }
 .footer {
 	border-top:1px solid #d7d7d7;

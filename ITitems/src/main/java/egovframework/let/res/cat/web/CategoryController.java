@@ -32,7 +32,10 @@ import egovframework.let.res.cat.service.CategoryVO;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class CategoryController {
+	
+	String path = "/res";
 	
 	@Resource(name = "CategoryService")
 	private CategoryService categoryService;
@@ -52,7 +55,7 @@ public class CategoryController {
 	@RequestMapping("/cat/CategoryManage.do")
     public String CategoryManageView(HttpServletRequest request, CategoryManageVO categoryManageVO, ModelMap model) throws Exception {
 		request.getSession().setAttribute("baseMenuNo", "6000000");
-        return "/cat/CategoryManage";
+        return path + "/cat/CategoryManage";
     }    
 	
 	/**

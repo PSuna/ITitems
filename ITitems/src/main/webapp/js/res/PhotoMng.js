@@ -78,7 +78,7 @@ function MakePhotoList(obj){
 		}
 		if(val == true){
 			photoFileList.push(file);
-			let delBtn = $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+			let delBtn = $("<img/>").attr("src","/images/res/ico_delete.png").on("click",function(){
 				delPhoto(this,file);
 			});
 			let boxBtn =$("<div/>").addClass("boxBtn").append(delBtn);
@@ -129,7 +129,7 @@ function getDelPhotoList() {
 }
 
 // 지급확인서 없음
-function emptyFile(obj){
+function emptyFile(obj,fileId){
 	delAlert(obj);
 	$('.fileList').find('.namebox').each(function(index, item){
 		$(item).remove();
@@ -138,6 +138,9 @@ function emptyFile(obj){
 		let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val("파일 없음");
 	let filebox = $("<div/>").addClass("namebox").append(NmInput);
 	$(".fileList").append(filebox);
+	}
+	if(fileId != null && fileId != ""){
+		addDelFile(fileId);
 	}
 }
 
@@ -183,7 +186,7 @@ function addNameBox(obj,fileCnt){
 			}
 			if(val == true){
 				attachfileList.push(file);
-				let delBtn =  $("<img/>").attr("src","/images/ico_delete.png").on("click",function(){
+				let delBtn =  $("<img/>").attr("src","/images/res/ico_delete.png").on("click",function(){
 					 delfile(this,file);
 				});
 				let NmInput = $("<input/>").attr("type","text").attr("id","fileNm").attr("readonly","readonly").val(file.name);
@@ -220,13 +223,6 @@ function delfile(obj,file) {
 	}
 }
 
-// 기존파일 삭제
-function addDelPhoto(obj,fileId) {
-	$(obj).closest(".photobox").remove();
-	 if(fileId != null && fileId != ""){
-	 	delPhotoList += fileId + "/";
-	 }
-}
 
 // 파일들을 원하는 input에 담기
 function inputFile() {
@@ -241,10 +237,13 @@ function inputFile() {
 /* ********************************************************
  * 지급확인서 파일 지우기
  ******************************************************** */
- function delFileName() {
+ function delFileName(fileId) {
 	 $('#fileNm').val('');
 	 $('input[name=file]').val('');
-	 $('#fileNm').closest(".filebox").find('img')[0].remove();
+	 $('#fileNm').closest(".namebox").remove();
+	if(fileId != null && fileId != ""){
+		addDelFile(fileId);
+	}
 }
 
 

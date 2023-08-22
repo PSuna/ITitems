@@ -4,7 +4,7 @@
 function ProjectSearch(){
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/prj/ProjectSearchList.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/prj/ProjectSearchList.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -22,7 +22,7 @@ function UserSearch(ch){
 	userCheck = ch;
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/uss/umt/user/SearchUserList.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/uss/umt/user/SearchUserList.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -38,7 +38,7 @@ function UserSearch(ch){
  ******************************************************** */
 function AssetSnCnfirm(){
     var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/ass/AssetSnCnfirmView.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/ass/AssetSnCnfirmView.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -55,7 +55,7 @@ function AssetSnCnfirm(){
 function TotalUserSearch(ch){
 	userCheck = ch;
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/uss/umt/user/TotalSearchUserList.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/uss/umt/user/TotalSearchUserList.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -71,7 +71,7 @@ function TotalUserSearch(ch){
  ******************************************************** */
 function OrgnztSearch(){
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "/org/OrgnztSearch.do" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "/res/org/OrgnztSearch.do" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,

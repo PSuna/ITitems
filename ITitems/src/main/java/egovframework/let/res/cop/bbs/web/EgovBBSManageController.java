@@ -55,7 +55,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  *  </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovBBSManageController {
+	
+	String path = "/res";
 
 	@Resource(name = "EgovBBSManageService")
 	private EgovBBSManageService bbsMngService;
@@ -145,9 +148,11 @@ public class EgovBBSManageController {
 		//-------------------------------
 		// 방명록이면 방명록 URL로 forward
 		//-------------------------------
+		/*
 		if (master.getBbsTyCode().equals("BBST04")) {
 			return "forward:/cop/bbs/selectGuestList.do";
 		}
+		*/
 		////-----------------------------
 
 		boardVO.setPageUnit(propertyService.getInt("pageUnit"));
@@ -171,9 +176,11 @@ public class EgovBBSManageController {
 		//-------------------------------
 		// 기본 BBS template 지정
 		//-------------------------------
+		/*
 		if (master.getTmplatCours() == null || master.getTmplatCours().equals("")) {
 			master.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
+		*/
 		////-----------------------------
 
 		model.addAttribute("resultList", map.get("resultList"));
@@ -182,7 +189,7 @@ public class EgovBBSManageController {
 		model.addAttribute("brdMstrVO", master);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "cop/bbs/EgovNoticeList";
+		return path + "/cop/bbs/EgovNoticeList";
 	}
 
 	/**
@@ -218,15 +225,17 @@ public class EgovBBSManageController {
 		master.setUniqId(user.getUniqId());
 		
 		BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
-
+		
+		/*
 		if (masterVo.getTmplatCours() == null || masterVo.getTmplatCours().equals("")) {
 			masterVo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
+		*/
 
 		model.addAttribute("brdMstrVO", masterVo);
 		model.addAttribute("searchVO", boardVO);
 
-		return "cop/bbs/EgovNoticeInqire";
+		return path + "/cop/bbs/EgovNoticeInqire";
 	}
 	/**
 	 * 게시물에 대한 상세 정보를 조회한다.
@@ -237,6 +246,7 @@ public class EgovBBSManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/selectBoardArticleMain.do")
 	public String selectBoardArticleMain(@RequestParam("nttId") int nttId, @ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
@@ -272,8 +282,10 @@ public class EgovBBSManageController {
 		model.addAttribute("brdMstrVO", masterVo);
 		model.addAttribute("searchVO", boardVO);
 
-		return "cop/bbs/EgovNoticeInqire";
+		return "/cop/bbs/EgovNoticeInqire";
 	}
+	*/
+	
 	/**
 	 * 게시물 등록을 위한 등록페이지로 이동한다.
 	 *
@@ -303,14 +315,16 @@ public class EgovBBSManageController {
 		//----------------------------
 		// 기본 BBS template 지정
 		//----------------------------
+		/*
 		if (bdMstr.getTmplatCours() == null || bdMstr.getTmplatCours().equals("")) {
 			bdMstr.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
+		*/
 
 		model.addAttribute("brdMstrVO", bdMstr);
 		////-----------------------------
 
-		return "cop/bbs/EgovNoticeRegist";
+		return path + "/cop/bbs/EgovNoticeRegist";
 	}
 
 	/**
@@ -346,14 +360,16 @@ public class EgovBBSManageController {
 			//----------------------------
 			// 기본 BBS template 지정
 			//----------------------------
+			/*
 			if (master.getTmplatCours() == null || master.getTmplatCours().equals("")) {
 				master.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 			}
+			*/
 
 			model.addAttribute("brdMstrVO", master);
 			////-----------------------------
 
-			return "cop/bbs/EgovNoticeRegist";
+			return path + "/cop/bbs/EgovNoticeRegist";
 		}
 
 		if (isAuthenticated) {
@@ -383,7 +399,7 @@ public class EgovBBSManageController {
 		}
 
 		//status.setComplete();
-		return "forward:/cop/bbs/selectBoardList.do";
+		return "forward:" + path + "/cop/bbs/selectBoardList.do";
 	}
 
 	/**
@@ -413,14 +429,16 @@ public class EgovBBSManageController {
 		//----------------------------
 		// 기본 BBS template 지정
 		//----------------------------
+		/*
 		if (master.getTmplatCours() == null || master.getTmplatCours().equals("")) {
 			master.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
+		*/
 
 		model.addAttribute("brdMstrVO", master);
 		////-----------------------------
 
-		return "cop/bbs/EgovNoticeReply";
+		return path + "/cop/bbs/EgovNoticeReply";
 	}
 
 	/**
@@ -456,14 +474,16 @@ public class EgovBBSManageController {
 			//----------------------------
 			// 기본 BBS template 지정
 			//----------------------------
+			/*
 			if (master.getTmplatCours() == null || master.getTmplatCours().equals("")) {
 				master.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 			}
+			*/
 
 			model.addAttribute("brdMstrVO", master);
 			////-----------------------------
 
-			return "cop/bbs/EgovNoticeReply";
+			return path + "/cop/bbs/EgovNoticeReply";
 		}
 
 		if (isAuthenticated) {
@@ -492,7 +512,7 @@ public class EgovBBSManageController {
 			bbsMngService.insertBoardArticle(board);
 		}
 
-		return "forward:/cop/bbs/selectBoardList.do";
+		return "forward:" + path + "/cop/bbs/selectBoardList.do";
 	}
 
 	/**
@@ -538,14 +558,16 @@ public class EgovBBSManageController {
 		//----------------------------
 		// 기본 BBS template 지정
 		//----------------------------
+		/*
 		if (bmvo.getTmplatCours() == null || bmvo.getTmplatCours().equals("")) {
 			bmvo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
 		}
+		*/
 
 		model.addAttribute("brdMstrVO", bmvo);
 		////-----------------------------
 
-		return "cop/bbs/EgovNoticeUpdt";
+		return path + "/cop/bbs/EgovNoticeUpdt";
 	}
 
 	/**
@@ -585,7 +607,7 @@ public class EgovBBSManageController {
 			model.addAttribute("result", bdvo);
 			model.addAttribute("bdMstr", bmvo);
 
-			return "cop/bbs/EgovNoticeUpdt";
+			return path +"/cop/bbs/EgovNoticeUpdt";
 		}
 
 		if (isAuthenticated) {
@@ -618,7 +640,7 @@ public class EgovBBSManageController {
 
 		}
 
-		return "forward:/cop/bbs/selectBoardList.do";
+		return "forward:" + path + "/cop/bbs/selectBoardList.do";
 	}
 
 	/**
@@ -644,7 +666,7 @@ public class EgovBBSManageController {
 			bbsMngService.deleteBoardArticle(board);
 		}
 
-		return "forward:/cop/bbs/selectBoardList.do";
+		return "forward:" + path + "/cop/bbs/selectBoardList.do";
 	}
 
 	/**
@@ -656,6 +678,7 @@ public class EgovBBSManageController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@RequestMapping("/cop/bbs/previewBoardList.do")
 	public String previewBoardArticles(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 
@@ -723,6 +746,7 @@ public class EgovBBSManageController {
 
 		model.addAttribute("preview", "true");
 
-		return "cop/bbs/EgovNoticeList";
+		return "/cop/bbs/EgovNoticeList";
 	}
+	 */
 }

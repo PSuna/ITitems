@@ -13,7 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+		<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <div class="nav">
 	<div class="inner">
 	
@@ -37,7 +37,7 @@
 				var itemList = item.split('|');
 				
 				if ( mainMenuNo == itemList[1] ) {
-					subMenuTag += '<li><a href="<c:url value='/'/>'+itemList[5].substr(1)+'">'+itemList[2]+'</a></li>';
+					subMenuTag += '<li><a href="<c:url value='/res/'/>'+itemList[5].substr(1)+'">'+itemList[2]+'</a></li>';
 				}
 			});
 			if (subMenuTag != "") subMenuTag = "<ul>"+subMenuTag+"</ul>";
@@ -54,7 +54,7 @@
 				topMenuTag = "<h2>"+itemList[2]+"</h2>";
 			    break;
 			case itemList[1]:
-				mainMenuTag += '<li><a href="<c:url value='/'/>'+itemList[5].substr(1)+'">'+itemList[2]+'</a>'
+				mainMenuTag += '<li><a href="<c:url value='/res/'/>'+itemList[5].substr(1)+'">'+itemList[2]+'</a>'
 								+ subMenuTag(menuList, itemList[0])
 								+ '</li>';
 			    break;

@@ -55,7 +55,10 @@ import egovframework.let.res.uss.umt.service.UserManageService;
  */
 
 @Controller
+@RequestMapping("/res")
 public class AssetController {
+	
+	String path = "/res";
 
 	@Resource(name = "AssetService")
 	private AssetService assetService;
@@ -131,7 +134,7 @@ public class AssetController {
 		
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
-		return "/ass/MyAssetManagement";
+		return path + "/ass/MyAssetManagement";
 	}
 	
 	/**
@@ -186,7 +189,7 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
-		return "/ass/AssetManagement";
+		return path + "/ass/AssetManagement";
 	}
 	
 	/**
@@ -218,7 +221,7 @@ public class AssetController {
 		}
 		model.addAttribute("delReq", delReq);
 		
-		return "/ass/SelectAsset";
+		return path + "/ass/SelectAsset";
 	}
 	
 
@@ -257,7 +260,7 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
-		return "/ass/AssetRegist";
+		return path + "/ass/AssetRegist";
 	}
 	
 	/**
@@ -323,7 +326,7 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
-		return "/ass/AssetUpdt";
+		return path + "/ass/AssetUpdt";
 	}
 	
 	/**
@@ -426,7 +429,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/PhotoManual.do")
 	public String PhotoManual() throws Exception {
 
-		return "/ass/manual/PhotoManual"; 
+		return path + "/ass/manual/PhotoManual"; 
 	}
 	
 	/**
@@ -435,7 +438,7 @@ public class AssetController {
 	@RequestMapping(value = "/ass/AssetSnManual.do")
 	public String AssetSnManual() throws Exception {
 
-		return "/ass/manual/AssetSnManual";
+		return path + "/ass/manual/AssetSnManual";
 	}
 	
 	/**
@@ -448,7 +451,7 @@ public class AssetController {
 		fvo.setFileType("CONF");
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
 		
-		return "/ass/manual/FileManual";
+		return path + "/ass/manual/FileManual";
 	}
 	
 	/**
@@ -494,7 +497,7 @@ public class AssetController {
 		
 		model.addAttribute("searchVO", assetManageVO);
 		
-		return "/ass/AssetSearchList";
+		return path + "/ass/AssetSearchList";
 	}
 	
 	/**
@@ -534,158 +537,7 @@ public class AssetController {
 		
 		model.addAttribute("searchVO", assetManageVO);
 		
-		return "/ass/InAssetSearchList";
-	}
-	/**
-	 * 중복데이터조회페이지 이동
-	 */
-	@RequestMapping(value = "/ass/DistinctManage.do")
-	public String DistinctManage(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
-
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		
-		Map<String, Object> map = assetService.SelectAssetVOList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		
-		return "/ass/DistinctManage";
-	}
-	
-	/**
-	 * 자산관리번호관리 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/MngNumManagement.do")
-	public String MngNumManagement(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
-
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		
-		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
-		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
-			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
-		}
-		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
-			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
-		}
-		Map<String, Object> map = assetService.SelectMngNumList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
-		
-		return "/ass/MngNumManagement";
-	}
-	
-	/**
-	 * 시리얼넘버 관리 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/AssetSnManagement.do")
-	public String AssetSnManagement(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
-
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
-
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		
-		if(assetManageVO.getMenuStartDate() != null && assetManageVO.getMenuStartDate() != "") {
-			assetManageVO.setStartDate(assetManageVO.getMenuStartDate());
-		}
-		if(assetManageVO.getMenuEndDate() != null && assetManageVO.getMenuEndDate() != "") {
-			assetManageVO.setEndDate(assetManageVO.getMenuEndDate());
-		}
-		if(assetManageVO.getMenuOrgnzt() != null && assetManageVO.getMenuOrgnzt() != "") {
-			assetManageVO.setSearchOrgnzt(assetManageVO.getMenuOrgnzt());
-		}
-		if(assetManageVO.getMenuLowerOrgnzt() != null && assetManageVO.getMenuLowerOrgnzt() != "") {
-			assetManageVO.setLowerOrgnzt(assetManageVO.getMenuLowerOrgnzt());
-		}
-		Map<String, Object> map = assetService.SelectAssetSnList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
-		
-		return "/ass/AssetSnManagement";
+		return path + "/ass/InAssetSearchList";
 	}
 	
 	/**
@@ -710,18 +562,9 @@ public class AssetController {
 			fvo.setFileType("R_EXCEL");
 		}
 		model.addAttribute("FileVO", fileMngService.selectFileVO(fvo));
-		return "/ass/AssetExcelUploadStart"; 
+		return path + "/ass/AssetExcelUploadStart"; 
   }
-	/**
-	 * 자산 엑셀업로드 안내 화면 이동
-	 */
-	@RequestMapping(value = "/ass/ExcelUploadResult.do")
-	public String ExcelUploadResult(ModelMap model, AssetManageVO assetManageVO) throws Exception {
-		AssetMasterVO masterVO = assetService.SelectAssetMaster(assetManageVO);
-		model.addAttribute("masterVO", masterVO);
-		model.addAttribute("searchVO", assetManageVO);
-		return "/ass/ExcelUploadResult"; 
-  }
+	
   /**
 	 * 시리얼넘버중복확인 페이지 이동
 	 */
@@ -729,7 +572,7 @@ public class AssetController {
 	public String AssetSnCnfirmView(ModelMap model) throws Exception {
 		model.addAttribute("usedCnt", -1);
 		
-		return "/ass/AssetSnCnfirm";
+		return path + "/ass/AssetSnCnfirm";
 	}
 	
 	/**
@@ -744,7 +587,7 @@ public class AssetController {
 		
 		model.addAttribute("usedCnt", usedCnt);
 		
-		return "/ass/AssetSnCnfirm";
+		return path + "/ass/AssetSnCnfirm";
 	}
 	
 	/**
@@ -789,51 +632,7 @@ public class AssetController {
 		model.addAttribute("searchVO", assetManageVO);
 		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
 		
-		return "/ass/DelReqManagement";
+		return path + "/ass/DelReqManagement";
 	}
-	
-	/**
-	 * 자산소유구분관리 조회 페이지로 이동
-	 */
-	@RequestMapping(value = "/ass/AssetClassifyManagement.do")
-	public String AssetClassifyManagement(HttpServletRequest request, ModelMap model,
-			 AssetManageVO assetManageVO) throws Exception {
-		
-		request.getSession().setAttribute("baseMenuNo", "6000000");
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
-		paginationInfo.setCurrentPageNo(assetManageVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(assetManageVO.getPageUnit());
-		paginationInfo.setPageSize(assetManageVO.getPageSize());
 
-		assetManageVO.setStartPage(paginationInfo.getFirstRecordIndex());
-		assetManageVO.setLastPage(paginationInfo.getLastRecordIndex());
-		assetManageVO.setTotalRecord(paginationInfo.getRecordCountPerPage());
-		
-		Map<String, Object> map = assetService.SelectDelReqList(assetManageVO);
-
-		int totCnt = Integer.parseInt((String) map.get("resultCnt"));
-		
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		vo.setTableNm("LETTNORGNZTINFO");
-		model.addAttribute("orgnztId_result", cmmUseService.selectOgrnztIdUpDetail(vo));
-	
-		vo.setCodeId("COM006");
-		model.addAttribute("status_result", cmmUseService.selectCmmCodeDetail(vo));
-		
-		CategoryManageVO cvo = new CategoryManageVO();
-		model.addAttribute("LCat_result", categoryService.SelectCategoryVOList(cvo));
-		
-		model.addAttribute("searchVO", assetManageVO);
-		model.addAttribute("masterVO", assetService.SelectAssetMaster(assetManageVO));
-		
-		return "/ass/DelReqManagement";
-	}
 }

@@ -27,10 +27,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -43,7 +43,7 @@
  ******************************************************** */
 function linkPage(pageNo){
 	document.progrmManageForm.pageIndex.value = pageNo;
-	document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListSearch.do'/>";
+	document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListSearch.do'/>";
    	document.progrmManageForm.submit();
 }
 
@@ -52,7 +52,7 @@ function linkPage(pageNo){
  ******************************************************** */ 
 function selectProgramListSearch() { 
 	document.progrmManageForm.pageIndex.value = 1;
-	document.progrmManageForm.action = "<c:url value='/sym/prm/EgovProgramListSearch.do'/>";
+	document.progrmManageForm.action = "<c:url value='/res/sym/prm/EgovProgramListSearch.do'/>";
 	document.progrmManageForm.submit();
 }
 
@@ -74,7 +74,7 @@ function fn_egov_cancel_popup() {
 </head>
 <body> 
 
-	<form name="progrmManageForm" action ="<c:url value='/sym/prm/EgovProgramListSearch.do'/>" method="post">
+	<form name="progrmManageForm" action ="<c:url value='/res/sym/prm/EgovProgramListSearch.do'/>" method="post">
 	
 	<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 	

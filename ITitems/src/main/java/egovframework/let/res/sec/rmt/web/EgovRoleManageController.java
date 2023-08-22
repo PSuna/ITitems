@@ -47,7 +47,10 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 
 @Controller
+@RequestMapping("/res")
 public class EgovRoleManageController {
+	
+	String path = "/res";
 
     @Resource(name="egovMessageSource")
     EgovMessageSource egovMessageSource;
@@ -77,11 +80,13 @@ public class EgovRoleManageController {
 	 * @return String
 	 * @exception Exception
 	 */
+    /*
     @RequestMapping("/sec/rmt/EgovRoleListView.do")
     public String selectRoleListView()
             throws Exception {
         return "/sec/rmt/EgovRoleManage";
     }
+    */
 
 	/**
 	 * 등록된 롤 정보 목록 조회
@@ -111,7 +116,7 @@ public class EgovRoleManageController {
         model.addAttribute("paginationInfo", paginationInfo);
         model.addAttribute("message", egovMessageSource.getMessage("success.common.select"));
 
-        return "/sec/rmt/EgovRoleManage";
+        return path + "/sec/rmt/EgovRoleManage";
 	}
 
 	/**
@@ -136,7 +141,7 @@ public class EgovRoleManageController {
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
         model.addAttribute("cmmCodeDetailList", getCmmCodeDetailList(new ComDefaultCodeVO(),"COM029"));
 
-        return "/sec/rmt/EgovRoleUpdate";
+        return path + "/sec/rmt/EgovRoleUpdate";
 	}
 
     /**
@@ -153,7 +158,7 @@ public class EgovRoleManageController {
         model.addAttribute("authorManageList", authorManageVO.getAuthorManageList());
         model.addAttribute("cmmCodeDetailList", getCmmCodeDetailList(new ComDefaultCodeVO(),"COM029"));
 
-        return "/sec/rmt/EgovRoleInsert";
+        return path + "/sec/rmt/EgovRoleInsert";
     }
 
     /**
@@ -185,7 +190,7 @@ public class EgovRoleManageController {
     	beanValidator.validate(roleManage, bindingResult); //validation 수행
 
     	if (bindingResult.hasErrors()) {
-			return "/sec/rmt/EgovRoleInsert";
+			return path + "/sec/rmt/EgovRoleInsert";
 		} else {
     	    String roleTyp = roleManage.getRoleTyp();
 	    	if(roleTyp.equals("method"))
@@ -202,7 +207,7 @@ public class EgovRoleManageController {
 	    	model.addAttribute("message", egovMessageSource.getMessage("success.common.insert"));
 	        model.addAttribute("roleManage", egovRoleManageService.insertRole(roleManage, roleManageVO));
 
-	        return "/sec/rmt/EgovRoleUpdate";
+	        return path + "/sec/rmt/EgovRoleUpdate";
 		}
 	}
 
@@ -221,12 +226,12 @@ public class EgovRoleManageController {
 
     	beanValidator.validate(roleManage, bindingResult); //validation 수행
     	if (bindingResult.hasErrors()) {
-			return "/sec/rmt/EgovRoleUpdate";
+			return path + "/sec/rmt/EgovRoleUpdate";
 		} else {
     	egovRoleManageService.updateRole(roleManage);
     	status.setComplete();
     	model.addAttribute("message", egovMessageSource.getMessage("success.common.update"));
-    	return "forward:/sec/rmt/EgovRole.do";
+    	return "forward:" + path + "/sec/rmt/EgovRole.do";
 		}
 	}
 
@@ -244,7 +249,7 @@ public class EgovRoleManageController {
     	egovRoleManageService.deleteRole(roleManage);
     	status.setComplete();
     	model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-    	return "forward:/sec/rmt/EgovRoleList.do";
+    	return "forward:" + path + "/sec/rmt/EgovRoleList.do";
 
 	}
 
@@ -267,7 +272,7 @@ public class EgovRoleManageController {
     	}
 		status.setComplete();
 		model.addAttribute("message", egovMessageSource.getMessage("success.common.delete"));
-		return "forward:/sec/rmt/EgovRoleList.do";
+		return "forward:" + path + "/sec/rmt/EgovRoleList.do";
 	}
 
 }

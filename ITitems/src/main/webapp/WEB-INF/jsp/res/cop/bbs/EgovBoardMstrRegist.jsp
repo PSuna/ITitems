@@ -25,15 +25,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 	<script src="<c:url value='/'/>js/jquery.js"></script>
 	<script src="<c:url value='/'/>js/jqueryui.js"></script>
-	<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
@@ -46,21 +46,21 @@
 
         if (confirm('<spring:message code="common.regist.msg" />')) {
             form = document.boardMaster;
-            form.action = "<c:url value='/cop/bbs/insertBBSMasterInf.do'/>";
+            form.action = "<c:url value='/res/cop/bbs/insertBBSMasterInf.do'/>";
             form.submit();
         }
     }
     
     function fn_egov_select_brdMstrList(){
         form = document.boardMaster;
-        form.action = "<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>";
+        form.action = "<c:url value='/res/cop/bbs/SelectBBSMasterInfs.do'/>";
         form.submit();  
     }
     
     function fn_egov_inqire_tmplatInqire(){
     	
         var $dialog = $('<div id="modalPan"></div>')
-    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/cop/com/selectTemplateInfsPop.do'/>" +'" width="100%" height="100%"></iframe>')
+    	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/cop/com/selectTemplateInfsPop.do'/>" +'" width="100%" height="100%"></iframe>')
     	.dialog({
         	autoOpen: false,
             modal: true,
@@ -103,7 +103,7 @@
 
     <div class="wrap">
         <!-- Header -->
-        <c:import url="/sym/mms/EgovHeader.do" />
+        <c:import url="/res/sym/mms/EgovHeader.do" />
         <!--// Header -->
 
         <div class="container">
@@ -124,7 +124,7 @@
                                 </div>
                                 <!--// Location -->
 
-								<form:form modelAttribute="boardMaster" name="boardMaster" method="post" action="cop/bbs/SelectBBSMasterInfs.do">
+								<form:form modelAttribute="boardMaster" name="boardMaster" method="post" action="res/cop/bbs/SelectBBSMasterInfs.do">
 								
 								<input type="hidden" name="pageIndex"  value="<c:out value='${searchVO.pageIndex}'/>"/>
 
@@ -281,7 +281,7 @@
         </div>
 
         <!-- Footer -->
-        <c:import url="/sym/mms/EgovFooter.do" />
+        <c:import url="/res/sym/mms/EgovFooter.do" />
         <!--// Footer -->
     </div>
 </body>

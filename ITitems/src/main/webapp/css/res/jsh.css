@@ -715,7 +715,7 @@ form .condition2{
     width: 7px;
     height: 7px;
     font-size: 0;
-    background: url(../images/ico_req.png) no-repeat;
+    background: url(/images/res/ico_req.png) no-repeat;
     vertical-align: 15px;
 }
 
@@ -758,7 +758,7 @@ p .req {
     width: 7px;
     height: 7px;
     font-size: 0;
-    background: url(../images/ico_req.png) no-repeat;
+    background: url(/images/res/ico_req.png) no-repeat;
     vertical-align: 15px;
 }
 .j_condition{

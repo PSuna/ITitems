@@ -50,7 +50,11 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  * </pre>
  */
 @Controller
+@RequestMapping("/res")
 public class EgovCcmZipManageController {
+	
+	String path = "/res";
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovCcmZipManageController.class);
 
 	@Resource(name = "ZipManageService")
@@ -71,7 +75,7 @@ public class EgovCcmZipManageController {
 	 */
 	@RequestMapping(value = "/sym/cmm/EgovCcmZipSearchPopup.do")
 	public String callNormalCalPopup(ModelMap model) throws Exception {
-		return "/cmm/sym/zip/EgovCcmZipSearchPopup";
+		return path + "/cmm/sym/zip/EgovCcmZipSearchPopup";
 	}
 
 	/**
@@ -103,7 +107,7 @@ public class EgovCcmZipManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "/cmm/sym/zip/EgovCcmZipSearchList";
+		return path + "/cmm/sym/zip/EgovCcmZipSearchList";
 	}
 
 	/**
@@ -117,7 +121,7 @@ public class EgovCcmZipManageController {
 	@RequestMapping(value = "/sym/ccm/zip/EgovCcmZipRemove.do")
 	public String deleteZip(@ModelAttribute("loginVO") LoginVO loginVO, Zip zip, ModelMap model) throws Exception {
 		zipManageService.deleteZip(zip);
-		return "forward:/sym/ccm/zip/EgovCcmZipList.do";
+		return "forward:" + path + "/sym/ccm/zip/EgovCcmZipList.do";
 	}
 
 	/**
@@ -133,17 +137,17 @@ public class EgovCcmZipManageController {
 	public String insertZip(@ModelAttribute("loginVO") LoginVO loginVO, @ModelAttribute("zip") Zip zip, BindingResult bindingResult, ModelMap model) throws Exception {
 		if (zip.getZip() == null || zip.getZip().equals("")) {
 
-			return "/cmm/sym/zip/EgovCcmZipRegist";
+			return path + "/cmm/sym/zip/EgovCcmZipRegist";
 		}
 
 		beanValidator.validate(zip, bindingResult);
 		if (bindingResult.hasErrors()) {
-			return "/cmm/sym/zip/EgovCcmZipRegist";
+			return path + "/cmm/sym/zip/EgovCcmZipRegist";
 		}
 
 		zip.setFrstRegisterId(loginVO.getUniqId());
 		zipManageService.insertZip(zip);
-		return "forward:/sym/ccm/zip/EgovCcmZipList.do";
+		return "forward:" + path + "/sym/ccm/zip/EgovCcmZipList.do";
 	}
 
 	/**
@@ -161,7 +165,7 @@ public class EgovCcmZipManageController {
 
 		String sCmd = commandMap.get("cmd") == null ? "" : (String) commandMap.get("cmd");
 		if (sCmd.equals("")) {
-			return "/cmm/sym/zip/EgovCcmExcelZipRegist";
+			return path + "/cmm/sym/zip/EgovCcmExcelZipRegist";
 		}
 
 		final MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
@@ -186,7 +190,7 @@ public class EgovCcmZipManageController {
 
 					} else {
 						//log.info("xls, xlsx 파일 타입만 등록이 가능합니다.");
-						return "egovframework/com/sym/ccm/zip/EgovCcmExcelZipRegist";
+						return path + "/egovframework/com/sym/ccm/zip/EgovCcmExcelZipRegist";
 					}
 					// *********** 끝 ***********
 				}
@@ -203,7 +207,7 @@ public class EgovCcmZipManageController {
 
 		}
 
-		return "forward:/sym/ccm/zip/EgovCcmZipList.do";
+		return "forward:" + path + "/sym/ccm/zip/EgovCcmZipList.do";
 	}
 
 	/**
@@ -219,7 +223,7 @@ public class EgovCcmZipManageController {
 		Zip vo = zipManageService.selectZipDetail(zip);
 		model.addAttribute("result", vo);
 
-		return "/cmm/sym/zip/EgovCcmZipDetail";
+		return path + "/cmm/sym/zip/EgovCcmZipDetail";
 	}
 
 	/**
@@ -252,7 +256,7 @@ public class EgovCcmZipManageController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		return "/cmm/sym/zip/EgovCcmZipList";
+		return path + "/cmm/sym/zip/EgovCcmZipList";
 	}
 
 	/**
@@ -273,19 +277,19 @@ public class EgovCcmZipManageController {
 			Zip vo = zipManageService.selectZipDetail(zip);
 			model.addAttribute("zip", vo);
 
-			return "/cmm/sym/zip/EgovCcmZipModify";
+			return path + "/cmm/sym/zip/EgovCcmZipModify";
 		} else if (sCmd.equals("Modify")) {
 			beanValidator.validate(zip, bindingResult);
 			if (bindingResult.hasErrors()) {
-				return "/cmm/sym/zip/EgovCcmZipModify";
+				return path + "/cmm/sym/zip/EgovCcmZipModify";
 			}
 
 			zip.setLastUpdusrId(loginVO.getUniqId());
 			zipManageService.updateZip(zip);
 
-			return "forward:/sym/ccm/zip/EgovCcmZipList.do";
+			return "forward:" + path + "/sym/ccm/zip/EgovCcmZipList.do";
 		} else {
-			return "forward:/sym/ccm/zip/EgovCcmZipList.do";
+			return "forward:" + path + "/sym/ccm/zip/EgovCcmZipList.do";
 		}
 	}
 }

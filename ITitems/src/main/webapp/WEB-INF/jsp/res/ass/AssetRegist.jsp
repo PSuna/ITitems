@@ -28,22 +28,22 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<script src="<c:url value='/'/>js/PhotoMng.js"></script>
-<script src="<c:url value='/'/>js/FormSave.js"></script>
-<script src="<c:url value='/'/>js/Confirm.js"></script>
-<script src="<c:url value='/'/>js/Inputcheck.js"></script>
-<script src="<c:url value='/'/>js/Manual.js"></script>
-<script src="<c:url value='/'/>js/SearchList.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<script src="<c:url value='/'/>js/res/PhotoMng.js"></script>
+<script src="<c:url value='/'/>js/res/FormSave.js"></script>
+<script src="<c:url value='/'/>js/res/Confirm.js"></script>
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
+<script src="<c:url value='/'/>js/res/Manual.js"></script>
+<script src="<c:url value='/'/>js/res/SearchList.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -63,7 +63,7 @@
 </c:if>
 <script type="text/javaScript" language="javascript" defer="defer">
 var userCheck = 0;
-var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/res/jsh_icon_reset.png">');
 let loginId = '${loginId}';
 /* ********************************************************
  * 자산 등록 처리
@@ -73,7 +73,7 @@ function insert_asset(){
 		inputPhoto();
 		 let formData = new FormData(document.getElementById('assetRegist'));
 	 	    $.ajax({
-			url: '${pageContext.request.contextPath}/ass/AssetInsert.do',
+			url: '${pageContext.request.contextPath}/res/ass/AssetInsert.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -173,7 +173,7 @@ function insert_asset(){
  function RegistFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -204,7 +204,7 @@ function getMCatList(Mval) {
 		document.getElementById('middleCategory').appendChild(op);
 	}else{
 		$.ajax({
-			url: '${pageContext.request.contextPath}/cat/GetMCategoryList.do',
+			url: '${pageContext.request.contextPath}/res/cat/GetMCategoryList.do',
 			method: 'POST',
 			contentType: 'application/x-www-form-urlencoded',
 			data: {'searchUpper' : val},
@@ -278,6 +278,9 @@ function returnProject(val){
  * 검색 회원 입력
  ******************************************************** */
 function returnTotal(val){
+	console.log(val.Id);
+	console.log(val.Nm);
+	console.log(val.Group);
 	if (val) {
 		if(userCheck == 0){
 			document.getElementById("rcptId").value  = val.Id;
@@ -287,11 +290,10 @@ function returnTotal(val){
 			document.getElementById("useId").value  = val.Id;
 			document.getElementById("useNm").value  = val.Nm;
 			document.getElementById("useGroup").value  = val.Group;
-	}
-	
-} 
+		}
+	} 
 
-fn_egov_modal_remove();
+	fn_egov_modal_remove();
 }
 
 /* ********************************************************
@@ -314,7 +316,7 @@ function make_date(){
 	$("#rcptDt").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
 	         , buttonImageOnly: true
 	         
 	         , showMonthAfterYear: true
@@ -404,15 +406,15 @@ function alertValid(objList) {
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.subFrm.action = "<c:url value='/ass/AssetManagement.do'/>";
+		document.subFrm.action = "<c:url value='/res/ass/AssetManagement.do'/>";
 	    document.subFrm.submit();
 	}else if (code == "MYAM"){
-		document.subFrm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+		document.subFrm.action = "<c:url value='/res/ass/MyAssetManagement.do'/>";
 	    document.subFrm.submit();
 	}
 }
 function ExcelUpload(){
-	document.subFrm.action = "<c:url value='/ass/AssetExcelUploadStart.do'/>";
+	document.subFrm.action = "<c:url value='/res/ass/AssetExcelUploadStart.do'/>";
     document.subFrm.submit();
 }
  
@@ -456,7 +458,7 @@ window.onload = function(){
 
 </script>
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 <style>
 .btn_bot {
@@ -487,7 +489,7 @@ window.onload = function(){
 
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
 		<div class="container">
@@ -608,7 +610,7 @@ window.onload = function(){
 												<td class="lb">
 													<!-- 시리얼넘버 --> 
 													${windowWidth}
-													<label for=""><spring:message code="ass.assetSn" /></label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="AssetSnManual();">
+													<label for=""><spring:message code="ass.assetSn" /></label><span class="req">필수</span><img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="AssetSnManual();">
 												</td>
 												<td>
 													<span class="f_search2 w_full"> 
@@ -665,7 +667,7 @@ window.onload = function(){
 													</span>
 													<input name="useId" id="useId" type="hidden" value="<c:out value="${Id}"></c:out>"
 														maxlength="8" readonly="readonly" />
-													<input name="useGroup" id="useGroup " type="hidden" 
+													<input name="useGroup" id="useGroup" type="hidden" 
 														value="<c:if test="${not empty Id}">USER</c:if>" maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
@@ -722,7 +724,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader"><spring:message code="ass.file" /></label><span class="req">필수</span>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="FileManual();">
+													<img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="FileManual();">
 												</td>
 												<td colspan="4">
 													<div class="filebox">
@@ -739,7 +741,7 @@ window.onload = function(){
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader"><spring:message code="ass.photo" /></label><span class="req">필수</span>
-													<img class="manual_img" src="<c:url value='/'/>images/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
+													<img class="manual_img" src="<c:url value='/'/>images/res/ico_question.png" onclick="PhotoManual();"> <br><span class="f_14">(최대 5장)</span>
 												</td>
 												<td colspan="3">
 													<div class="filebox">
@@ -793,12 +795,12 @@ window.onload = function(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 </body>
 
-<form name="subFrm" method="post" action="<c:url value='/ass/MyAssetManagement.do'/>">
+<form name="subFrm" method="post" action="<c:url value='/res/ass/MyAssetManagement.do'/>">
 <input type="hidden" id="assId" name="assId" value="<c:out value='${masterVO.assId}'/>" />
 <input type="hidden" id="listCode" name="listCode" value="<c:out value="${searchVO.listCode}"/>" />
 <input name="prjNm" id="prjNm" type="hidden"  value="<c:out value="${searchVO.prjNm}"/>" />

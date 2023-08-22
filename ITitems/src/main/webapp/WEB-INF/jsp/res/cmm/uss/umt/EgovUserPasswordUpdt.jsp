@@ -23,10 +23,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-	<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+	<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 	<script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 	<script src="<c:url value='/'/>js/ui.js"></script>
 
@@ -36,7 +36,7 @@
 <script type="text/javaScript" language="javascript" defer="defer">
 <!--
 function fnListPage(id){
-	location.href="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?uniqId="+id;
+	location.href="${pageContext.request.contextPath}/res/uss/umt/user/EgovUserSelectUpdtView.do?uniqId="+id;
 }
 function fnUpdate(){
 	fn_egov_modal_remove();
@@ -123,7 +123,7 @@ function fnCheckPw3(e){
  ******************************************************** */
 function UpdateConfirm(){
 		var $dialog = $('<div id="modalPan"></div>')
-			.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+			.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 			.dialog({
 		    	autoOpen: false,
 		        modal: true,
@@ -150,7 +150,7 @@ function UpdateConfirm(){
  ******************************************************** */
  function UpdateIng(){
   	 var $dialog = $('<div id="modalPan"></div>')
-  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
+  		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtIng.do'/>" +'" width="100%" height="100%"></iframe>')
   		.dialog({
   	    	autoOpen: false,
   	        modal: true,
@@ -165,7 +165,7 @@ function UpdateConfirm(){
   ******************************************************** */
   function UpdateSuccess(){
  	 var $dialog = $('<div id="modalPan"></div>')
- 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+ 		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
  		.dialog({
  	    	autoOpen: false,
  	        modal: true,
@@ -182,7 +182,7 @@ function UpdateConfirm(){
 function returnSuccess(val){
 	if(val){
   		fn_egov_modal_remove();
-  		document.userManageVO.action = "<c:url value='/uss/umt/user/EgovUserManage.do'/>";
+  		document.userManageVO.action = "<c:url value='/res/uss/umt/user/EgovUserManage.do'/>";
   		document.userManageVO.submit();
   	}
 }
@@ -191,7 +191,7 @@ function returnSuccess(val){
 ******************************************************** */
 function UpdateFail(){
 	var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/UpdtFail.do'/>" +'" width="100%" height="100%"></iframe>')
    		.dialog({
    	    	autoOpen: false,
    	        modal: true,
@@ -250,7 +250,7 @@ function fncheckValid(){
 
     <div class="wrap">
         <!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 
         <div class="container">
@@ -258,7 +258,7 @@ function fncheckValid(){
                 <div class="sub_in">
                     <div class="layout">
                         <!-- Left menu -->
-						<c:import url="/sym/mms/EgovMenuLeft.do" />
+						<c:import url="/res/sym/mms/EgovMenuLeft.do" />
 						<!--// Left menu -->
         
                         <div class="content_wrap">
@@ -274,7 +274,7 @@ function fncheckValid(){
                                 </div>
                                 <!--// Location -->
 
-								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserPasswordUpdt.do" >
+								<form name="passwordChgVO" method="post" action="${pageContext.request.contextPath}/res/uss/umt/user/EgovUserPasswordUpdt.do" >
 								<!-- onsubmit="javascript:return FormValidation(document.passwordChgVO);" >  -->
 								<!-- 상세정보 사용자 삭제시 prameter 전달용 input -->
 									<input name="checkedIdForDel" type="hidden" />
@@ -367,13 +367,13 @@ function fncheckValid(){
 
                                     <div class="right_col btn1">
                                         <a href="#LINK" class="btn btn_blue_46 w_100" onclick="JavaScript:UpdateConfirm(); return false;"><spring:message code="button.save" /></a><!-- 저장 -->
-                                        <a href="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=${userManageVO.uniqId}" class="btn btn_blue_46 w_100">이전</a><!-- 목록 -->
+                                        <a href="${pageContext.request.contextPath}/res/uss/umt/user/EgovUserSelectUpdtView.do?selectedId=${userManageVO.uniqId}" class="btn btn_blue_46 w_100">이전</a><!-- 목록 -->
                                     </div>
                                 </div>
                                 <!-- // 목록/저장버튼 끝  -->
                                 
                                 </form>
-                                <form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
+                                <form:form modelAttribute="userManageVO" action="${pageContext.request.contextPath}/res/uss/umt/user/EgovUserSelectUpdt.do"	name="userManageVO" method="post">
                                 	<input type="hidden" name="selectedId" value="<c:out value='${userManageVO.uniqId}'/>" />
                                 </form:form>
                             </div>
@@ -384,7 +384,7 @@ function fncheckValid(){
         </div>
 
         <!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
     </div>
     

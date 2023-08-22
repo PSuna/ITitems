@@ -27,19 +27,19 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width"> 
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<script src="<c:url value='/'/>js/Confirm.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<script src="<c:url value='/'/>js/res/Confirm.js"></script>
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -56,7 +56,7 @@
 </c:if>
 
 
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 
 
@@ -89,7 +89,7 @@
 		let formData = new FormData(document.getElementById('subFrm'));
 		  formData.append('newMngNum', val);
 		   $.ajax({
-			url: '${pageContext.request.contextPath}/ass/MngNumUpdt.do',
+			url: '${pageContext.request.contextPath}/res/ass/MngNumUpdt.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -100,7 +100,7 @@
 					alertResult(result.res);
 				}else if(result.res == 1){
 					document.subFrm.mngNum.value = result.mngNum;
-					document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
+					document.subFrm.action = "<c:url value='/res/ass/SelectAsset.do'/>";
 				    document.subFrm.submit();
 				}else{
 					alertResult(result.res);
@@ -139,7 +139,7 @@ function alertResult(result) {
  * 수정페이지로 이동
  ******************************************************** */
 function AssetUpdt() {
-	document.subFrm.action = "<c:url value='/ass/AssetUpdt.do'/>";
+	document.subFrm.action = "<c:url value='/res/ass/AssetUpdt.do'/>";
     document.subFrm.submit();
 }
 
@@ -149,7 +149,7 @@ function AssetUpdt() {
 function AssetDel() {
 	let formData = new FormData(document.getElementById('subFrm'));
 	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetDel.do',
+		url: '${pageContext.request.contextPath}/res/ass/AssetDel.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -172,7 +172,7 @@ function AssetDel() {
  ******************************************************** */
  function DelConfirm(){
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -201,7 +201,7 @@ function AssetDel() {
 function DelIng(){
 
  var $dialog = $('<div id="modalPan"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelIng.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -219,7 +219,7 @@ function DelIng(){
  function DelSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -244,7 +244,7 @@ function DelIng(){
  function DelFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/DelFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/DelFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -274,7 +274,7 @@ function DelIng(){
 	 let formData = new FormData(document.getElementById('subFrm'));
 	 formData.append("val", val);
 	   $.ajax({
-		url: '${pageContext.request.contextPath}/ass/AssetDelReq.do',
+		url: '${pageContext.request.contextPath}/res/ass/AssetDelReq.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -296,7 +296,7 @@ function DelIng(){
  ******************************************************** */
  function returnDelReqSuccess(){
 	 fn_egov_modal_remove();
-	 document.subFrm.action = "<c:url value='/ass/SelectAsset.do'/>";
+	 document.subFrm.action = "<c:url value='/res/ass/SelectAsset.do'/>";
 	 document.subFrm.submit();
 }
 
@@ -306,13 +306,13 @@ function DelIng(){
 function AssetList(){
 	let code = $('#listCode').val();
 	if(code == "AM"){
-		document.subFrm.action = "<c:url value='/ass/AssetManagement.do'/>";
+		document.subFrm.action = "<c:url value='/res/ass/AssetManagement.do'/>";
 	    document.subFrm.submit();
 	}else if (code == "MYAM"){
-		document.subFrm.action = "<c:url value='/ass/MyAssetManagement.do'/>";
+		document.subFrm.action = "<c:url value='/res/ass/MyAssetManagement.do'/>";
 	    document.subFrm.submit();
 	}else if (code == "DM"){
-		document.subFrm.action = "<c:url value='/ass/DelReqManagement.do'/>";
+		document.subFrm.action = "<c:url value='/res/ass/DelReqManagement.do'/>";
 	    document.subFrm.submit();
 	}
 }
@@ -337,7 +337,7 @@ function AssetList(){
 	<c:set var="auth" value="<%= loginVO.getAuthorCode()%>"/>
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -447,7 +447,7 @@ function AssetList(){
 													<label for="">수령일자</label> 
 												</td>
 												<td>
-													${resultVO.rcptDate}
+													${resultVO.rcptDt}
 												</td>
 												<%-- <td class="lb">
 													<!-- 수량 --> <label for="">총 수량</label>
@@ -710,7 +710,7 @@ function AssetList(){
 		</div>
 
 		<!-- Footer -->
-		<c:import url="/sym/mms/EgovFooter.do" />
+		<c:import url="/res/sym/mms/EgovFooter.do" />
 		<!--// Footer -->
 	</div>
 <form id="subFrm" name="subFrm" method="post" >

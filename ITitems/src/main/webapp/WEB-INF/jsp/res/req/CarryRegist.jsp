@@ -25,18 +25,18 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<c:url value='/'/>css/base.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/layout.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/component.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/page.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/pty_m2.css">
-<link rel="stylesheet" href="<c:url value='/'/>css/jsh.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/base.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/layout.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/component.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/pty_m2.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jsh.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
 <script src="<c:url value='/'/>js/jquery.js"></script>
 <script src="<c:url value='/'/>js/jqueryui.js"></script>
-<link rel="stylesheet" href="<c:url value='/'/>css/jqueryui.css">
+<link rel="stylesheet" href="<c:url value='/'/>css/res/jqueryui.css">
 
 <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet"
 	type="text/css">
@@ -53,7 +53,7 @@
 let trClone;
 let addtrClone;
 var userCheck = 0;
-var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/jsh_icon_reset.png">');
+var resetBtn = $('<img class="reset_btn" src="<c:url value='/'/>images/res/jsh_icon_reset.png">');
 /* ********************************************************
  * 반출신청상세 등록 처리
  ******************************************************** */
@@ -67,7 +67,7 @@ function insertCarryDetail(reqId) {
 		formdata.append('assetId', assetId);
 		formdata.append('reqOrder', trList.length - index);
 		$.ajax({
-			url: '${pageContext.request.contextPath}/req/insertRequestDetail.do',
+			url: '${pageContext.request.contextPath}/res/req/insertRequestDetail.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -90,7 +90,7 @@ function insertCarryDetail(reqId) {
 function insertCarry() {
 	let formData = new FormData(document.getElementById('frm'));
  	$.ajax({
-		url: '${pageContext.request.contextPath}/req/insertRequest.do',
+		url: '${pageContext.request.contextPath}/res/req/insertRequest.do',
 		method: 'POST',
 		enctype: "multipart/form-data",
 		processData: false,
@@ -131,7 +131,7 @@ function insertApproval(reqId){
 		targetUp = targetId;
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath}/aprv/ApprovalInsert.do',
+			url: '${pageContext.request.contextPath}/res/aprv/ApprovalInsert.do',
 			method: 'POST',
 			enctype: "multipart/form-data",
 			processData: false,
@@ -157,7 +157,7 @@ function RegistConfirm(){
 	removeP();
 		if(validateCarryRegist(document.frm) && checkValid()){
 			var $dialog = $('<div id="modalPan"></div>')
-				.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
+				.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistConfirm.do'/>" +'" width="100%" height="100%"></iframe>')
 				.dialog({
 			    	autoOpen: false,
 			        modal: true,
@@ -187,7 +187,7 @@ function RegistConfirm(){
  function RegistIng(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistIng.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -204,7 +204,7 @@ function RegistConfirm(){
  function RegistSuccess(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistSuccess.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -253,7 +253,7 @@ function RegistConfirm(){
  function RegistFail(){
 	
 	 var $dialog = $('<div id="modalPan"></div>')
-		.html('<iframe style="border: 0px; " src="' + "<c:url value='/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
+		.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/com/RegistFail.do'/>" +'" width="100%" height="100%"></iframe>')
 		.dialog({
 	    	autoOpen: false,
 	        modal: true,
@@ -270,7 +270,7 @@ function RegistConfirm(){
 function ProjectSearch(){
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/prj/ProjectSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -287,7 +287,7 @@ function ProjectSearch(){
 function AssetSearch(){
     
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/ass/AssetSearchList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -304,7 +304,7 @@ function AssetSearch(){
 function UserSearch(ch){
 	userCheck = ch;
     var $dialog = $('<div id="modalPan" class="SearchList"></div>')
-	.html('<iframe style="border: 0px; " src="' + "<c:url value='/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
+	.html('<iframe style="border: 0px; " src="' + "<c:url value='/res/uss/umt/user/SearchNeUserList.do'/>" +'" width="100%" height="100%"></iframe>')
 	.dialog({
     	autoOpen: false,
         modal: true,
@@ -430,7 +430,7 @@ function make_date(){
 	$("#startDate,#endDate").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
-	         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
 	         , buttonImageOnly: true
 	         
 	         , showMonthAfterYear: true
@@ -612,12 +612,12 @@ window.onload = function(){
  * 목록 버튼
  ******************************************************** */
 function ReqList(){
-	document.CarryRequset.action="<c:url value='/req/CarryRequset.do'/>";
+	document.CarryRequset.action="<c:url value='/res/req/CarryRequset.do'/>";
 	document.CarryRequset.submit();
 }
 //-->
 </script>
-<link rel="icon" type="image/png" href="<c:url value="/" />images/pty_tap_icon.png"/>
+<link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>ITeyes 자산관리솔루션</title>
 <style type="text/css">
 .ui-datepicker-trigger {
@@ -658,7 +658,7 @@ function ReqList(){
 	<a href="#contents" class="skip_navi">본문 바로가기</a>
 	<div class="wrap">
 		<!-- Header -->
-		<c:import url="/sym/mms/EgovHeader.do" />
+		<c:import url="/res/sym/mms/EgovHeader.do" />
 		<!--// Header -->
 		<div class="container">
 			<div class="sub_layout">
@@ -850,7 +850,7 @@ function ReqList(){
 									</div>
 								</div>
 								<!-- // 등록버튼 끝  -->
-								<form name="CarryRequset" method="post" action="<c:url value='/req/CarryRequset.do'/>">
+								<form name="CarryRequset" method="post" action="<c:url value='/res/req/CarryRequset.do'/>">
 									<c:set var="start" value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*90L)%>" />
 									<input type="hidden" id="menuStartDate" name="menuStartDate" value="<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" />" />
 									<c:set var="end" value="<%=new java.util.Date()%>" />
@@ -869,7 +869,7 @@ function ReqList(){
 			</div>
 		</div> 
 	<!-- Footer -->
-	<c:import url="/sym/mms/EgovFooter.do" />
+	<c:import url="/res/sym/mms/EgovFooter.do" />
 	<!--// Footer -->
 	</div>
 </body>
