@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
