@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
 <link rel="icon" type="image/png" href="<c:url value="/" />images/res/pty_tap_icon.png"/>
 <title>프로젝트 상세정보 및 수정</title>
 
