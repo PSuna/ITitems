@@ -60,7 +60,7 @@
 	</insert>
 	<select id="findDownNum" parameterType="egovframework.let.res.cat.service.CategoryVO" resultType="int">
 		SELECT COUNT(ASSET_ID)
-		  FROM ASSETDETAIL
+		  FROM ASSET
 		 WHERE MIDDLE_CATEGORY = #{catId}
 	</select>
 </mapper>

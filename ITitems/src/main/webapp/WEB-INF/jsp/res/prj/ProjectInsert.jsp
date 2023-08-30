@@ -369,7 +369,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<form:input path="prjStart" id="prjStart" class="f_txt w_full readonly" name="prjStart" type="text" readonly="readonly" onchange="checkStartDate()"/>
+														<form:input path="prjStart" id="prjStart" class="f_txt w_full readonly" name="prjStart" type="text"  onchange="checkStartDate()" readonly="true"/>
 													</span>
 													<%-- <form:input path="prjStart" id="prjStart" class="f_txt w_full" type="date" />--%>
 													<form:errors path="prjStart" /> 
@@ -380,7 +380,7 @@ window.onload = function(){
 												</td>
 												<td>
 													<span class="search_date w_full">
-														<form:input path="prjEnd" id="prjEnd" class="f_txt w_full readonly" name="prjEnd" type="text" readonly="readonly" onchange="checkEndDate()" />
+														<form:input path="prjEnd" id="prjEnd" class="f_txt w_full readonly" name="prjEnd" type="text" onchange="checkEndDate()" readonly="true"/>
 													</span>
 													<%-- <form:input path="prjEnd" id="prjEnd" class="f_txt w_full" type="date"/> --%>
 													<form:errors path="prjEnd" />
