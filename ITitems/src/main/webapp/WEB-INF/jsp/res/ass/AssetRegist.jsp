@@ -100,7 +100,9 @@ function insert_asset(){
 	 	}
 	</c:if>
 	<c:if test="${masterVO.assId == 'ASSMSTR_000000000002'}">
+	console.log("실행 ==========")
 		if(validateRentalRegist(document.assetRegist) && fileCheck()){
+			console.log("실행")
 		   RegistConfirm();
 	 	}
 	</c:if>

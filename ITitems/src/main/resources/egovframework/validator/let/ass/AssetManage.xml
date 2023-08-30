@@ -5,150 +5,162 @@
 
 <form-validation>
 
-    <formset>
+	<formset>
 		<form name="assetRegist">
 			<field property="largeCategory" depends="required">
-        		<arg0 key="대분류" resource="false"/>
-			</field>			
+				<arg0 key="대분류" resource="false" />
+			</field>
 			<field property="assetQty" depends="required">
-        		<arg0 key="수량" resource="false"/>
+				<arg0 key="수량" resource="false" />
 			</field>
 			<field property="middleCategory" depends="required">
-        		<arg0 key="중분류" resource="false"/>
-			</field> 
+				<arg0 key="중분류" resource="false" />
+			</field>
 			<field property="makerCode" depends="required">
-        		<arg0 key="제조사" resource="false"/>
+				<arg0 key="제조사" resource="false" />
 			</field>
 			<field property="assetName" depends="required">
-        		<arg0 key="제품명(모델명)" resource="false"/>
+				<arg0 key="제품명(모델명)" resource="false" />
 			</field>
 			<field property="assetSnNm" depends="required">
-        		<arg0 key="시리얼넘버" resource="false"/>
+				<arg0 key="시리얼넘버" resource="false" />
 			</field>
 			<field property="rcptNm" depends="required">
-        		<arg0 key="수령자" resource="false"/>
+				<arg0 key="수령자" resource="false" />
 			</field>
 			<field property="useNm" depends="required">
-        		<arg0 key="실사용자" resource="false"/>
+				<arg0 key="실사용자" resource="false" />
 			</field>
 			<field property="orgnztNm" depends="required">
-        		<arg0 key="부서" resource="false"/>
+				<arg0 key="부서" resource="false" />
 			</field>
 			<field property="prjNm" depends="required">
-        		<arg0 key="프로젝트" resource="false"/>
+				<arg0 key="프로젝트" resource="false" />
 			</field>
 			<field property="rcptDt" depends="required">
-        		<arg0 key="수령일자" resource="false"/>
+				<arg0 key="수령일자" resource="false" />
 			</field>
 		</form>
-    </formset>
-    
-    <formset>
+	</formset>
+
+	<formset>
 		<form name="rentalRegist">
 			<field property="largeCategory" depends="required">
-        		<arg0 key="대분류" resource="false"/>
-			</field>			
+				<arg0 key="대분류" resource="false" />
+			</field>
 			<field property="assetQty" depends="required">
-        		<arg0 key="수량" resource="false"/>
+				<arg0 key="수량" resource="false" />
 			</field>
 			<field property="middleCategory" depends="required">
-        		<arg0 key="중분류" resource="false"/>
-			</field> 
+				<arg0 key="중분류" resource="false" />
+			</field>
 			<field property="makerCode" depends="required">
-        		<arg0 key="제조사" resource="false"/>
+				<arg0 key="제조사" resource="false" />
 			</field>
 			<field property="assetName" depends="required">
-        		<arg0 key="제품명(모델명)" resource="false"/>
+				<arg0 key="제품명(모델명)" resource="false" />
 			</field>
 			<field property="assetSnNm" depends="required">
-        		<arg0 key="시리얼넘버" resource="false"/>
+				<arg0 key="시리얼넘버" resource="false" />
 			</field>
 			<field property="assetCompany" depends="required">
-        		<arg0 key="렌탈업체" resource="false"/>
+				<arg0 key="렌탈업체" resource="false" />
+			</field>
+			<field property="assetStart" depends="required">
+				<arg0 key="렌탈시작일" resource="false" />
+			</field>
+			<field property="assetEnd" depends="required">
+				<arg0 key="렌탈종료일" resource="false" />
 			</field>
 			<field property="rcptNm" depends="required">
-        		<arg0 key="수령자" resource="false"/>
+				<arg0 key="수령자" resource="false" />
 			</field>
 			<field property="useNm" depends="required">
-        		<arg0 key="실사용자" resource="false"/>
+				<arg0 key="실사용자" resource="false" />
 			</field>
 			<field property="orgnztId" depends="required">
-        		<arg0 key="본부/부서" resource="false"/>
+				<arg0 key="본부/부서" resource="false" />
 			</field>
 			<field property="prjNm" depends="required">
-        		<arg0 key="프로젝트" resource="false"/>
+				<arg0 key="프로젝트" resource="false" />
 			</field>
 			<field property="rcptDt" depends="required">
-        		<arg0 key="수령일자" resource="false"/>
+				<arg0 key="수령일자" resource="false" />
 			</field>
 		</form>
-    </formset>
-    
-   <formset>
+	</formset>
+
+	<formset>
 		<form name="assetUpdt">
 			<field property="middleCategory" depends="required">
-        		<arg0 key="중분류" resource="false"/>
-			</field> 
+				<arg0 key="중분류" resource="false" />
+			</field>
 			<field property="makerCode" depends="required">
-        		<arg0 key="제조사" resource="false"/>
+				<arg0 key="제조사" resource="false" />
 			</field>
 			<field property="assetName" depends="required">
-        		<arg0 key="제품명(모델명)" resource="false"/>
+				<arg0 key="제품명(모델명)" resource="false" />
 			</field>
 			<field property="assetSnNm" depends="required">
-        		<arg0 key="시리얼넘버" resource="false"/>
+				<arg0 key="시리얼넘버" resource="false" />
 			</field>
 			<field property="rcptNm" depends="required">
-        		<arg0 key="수령자" resource="false"/>
+				<arg0 key="수령자" resource="false" />
 			</field>
 			<field property="useNm" depends="required">
-        		<arg0 key="실사용자" resource="false"/>
+				<arg0 key="실사용자" resource="false" />
 			</field>
 			<field property="orgnztId" depends="required">
-        		<arg0 key="본부/부서" resource="false"/>
+				<arg0 key="본부/부서" resource="false" />
 			</field>
 			<field property="prjNm" depends="required">
-        		<arg0 key="프로젝트" resource="false"/>
+				<arg0 key="프로젝트" resource="false" />
 			</field>
 			<field property="rcptDt" depends="required">
-        		<arg0 key="수령일자" resource="false"/>
+				<arg0 key="수령일자" resource="false" />
 			</field>
 		</form>
-    </formset>
-    
-    <formset>
+	</formset>
+
+	<formset>
 		<form name="rentalUpdt">
 			<field property="middleCategory" depends="required">
-        		<arg0 key="중분류" resource="false"/>
-			</field> 
+				<arg0 key="중분류" resource="false" />
+			</field>
 			<field property="makerCode" depends="required">
-        		<arg0 key="제조사" resource="false"/>
+				<arg0 key="제조사" resource="false" />
 			</field>
 			<field property="assetName" depends="required">
-        		<arg0 key="제품명(모델명)" resource="false"/>
+				<arg0 key="제품명(모델명)" resource="false" />
 			</field>
 			<field property="assetSnNm" depends="required">
-        		<arg0 key="시리얼넘버" resource="false"/>
+				<arg0 key="시리얼넘버" resource="false" />
 			</field>
 			<field property="assetCompany" depends="required">
-        		<arg0 key="렌탈업체" resource="false"/>
+				<arg0 key="렌탈업체" resource="false" />
 			</field>
 			<field property="rcptNm" depends="required">
-        		<arg0 key="수령자" resource="false"/>
+				<arg0 key="수령자" resource="false" />
 			</field>
 			<field property="useNm" depends="required">
-        		<arg0 key="실사용자" resource="false"/>
+				<arg0 key="실사용자" resource="false" />
 			</field>
 			<field property="orgnztId" depends="required">
-        		<arg0 key="본부/부서" resource="false"/>
+				<arg0 key="본부/부서" resource="false" />
 			</field>
 			<field property="prjNm" depends="required">
-        		<arg0 key="프로젝트" resource="false"/>
+				<arg0 key="프로젝트" resource="false" />
 			</field>
 			<field property="rcptDt" depends="required">
-        		<arg0 key="수령일자" resource="false"/>
+				<arg0 key="수령일자" resource="false" />
+			</field>
+			<field property="assetStart" depends="required">
+				<arg0 key="렌탈시작일" resource="false" />
+			</field>
+			<field property="assetEnd" depends="required">
+				<arg0 key="렌탈종료일" resource="false" />
 			</field>
 		</form>
-    </formset>
+	</formset>
 
 </form-validation>
