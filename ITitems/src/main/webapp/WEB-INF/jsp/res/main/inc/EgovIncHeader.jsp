@@ -133,9 +133,9 @@ function fn_egov_modal_remove() {
             		</div>
 
           		</li>
-          		<li><a href="#LINK" onclick="goMenuPage('/res/req/CarryRequset.do')">반출입</a></li>
+          		<!--  <li><a href="#LINK" onclick="goMenuPage('/res/req/CarryRequset.do')">반출입</a></li> -->
 
-          		<li><a href="#LINK" onclick="goMenuPage('/res/aprv/ApprovalManage.do')">결재</a></li>
+          		<!--<li><a href="#LINK" onclick="goMenuPage('/res/aprv/ApprovalManage.do')">결재</a></li> -->
           		<li><a href="#LINK" onclick="goMenuPage('/res/cop/bbs/selectBoardList.do','bbsId','BBSMSTR_AAAAAAAAAAAA')">공지사항</a></li>
           		<!-- <li><a href="#LINK" onclick="goMenuPage('/res/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_CCCCCCCCCCCC')">문의게시판</a></li> -->
           		

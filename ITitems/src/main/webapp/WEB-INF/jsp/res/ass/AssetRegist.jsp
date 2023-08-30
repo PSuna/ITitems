@@ -313,7 +313,7 @@ function returnOrg(val){
  ******************************************************** */
 function make_date(){
 	
-	$("#rcptDt").datepicker(
+	$("#acquiredDate,#rcptDt,#assetStart,#assetEnd").datepicker(
 	        {dateFormat:'yy-mm-dd'
 	         , showOn: 'button'
 	         , buttonImage: '<c:url value='/images/res/ico_calendar.png'/>'
@@ -455,6 +455,26 @@ window.onload = function(){
 		pushVal('assetRegist',loginId)
 	}, 1000); */
  }
+ 
+/* ********************************************************
+ *  날짜 체크
+ ******************************************************** */
+function checkEndDate() {
+	let startDate = $('#AssetUpdt #assetStart').val();
+	let endDate = $('#AssetUpdt #assetEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#AssetUpdt #assetStart').val(endDate);
+		$('#AssetUpdt #assetEnd').val("");
+	}
+}
+
+function checkStartDate(){
+	let startDate = $('#AssetUpdt #assetStart').val();
+	let endDate = $('#AssetUpdt #assetEnd').val();
+	if(startDate != null && startDate > endDate){
+		$('#AssetUpdt #assetEnd').val("");
+	}
+}
 
 </script>
 
@@ -721,6 +741,24 @@ window.onload = function(){
 												  <input name="rcptDate" id="rcptDate" type="hidden"  maxlength="8" readonly="readonly" />
 												</td>
 											</tr>
+											<!-- 렌탈기간 --> 
+											<c:if test="${masterVO.assId eq 'ASSMSTR_000000000002'}">
+												<tr>
+													<td class="lb">
+														<label for=""><spring:message code="ass.rentDate" /></label> <span class="req">필수</span>
+													</td>
+													<td colspan="3">
+													<div>
+														<span class="search_date wp_date">
+															<input id="assetStart" class="f_txt w_full readonly" name="assetStart" type="text"  maxlength="60" readonly="readonly" onchange="checkStartDate()">
+														</span>
+														&nbsp;&nbsp;―&nbsp;&nbsp;
+														<span class="search_date wp_date">
+															<input id="assetEnd" class="f_txt w_full readonly" name="assetEnd" type="text" maxlength="60" readonly="readonly" onchange="checkEndDate()">
+														</span>
+													</div>
+												</tr>
+											</c:if>
 											<tr>
 												<td class="lb">
 													<label for="egovComFileUploader"><spring:message code="ass.file" /></label><span class="req">필수</span>

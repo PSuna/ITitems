@@ -705,7 +705,7 @@ window.onload = function(){
 													</span>
 													<div class="empty_box">
 														    <label for="rcptDtCh">
-														    	<input name="rcptDtCh" id="rcptDtCh" type="checkbox" onclick="emptyDate(this);" <c:if test="${empty resultVO.rcptDate}">checked="checked"</c:if> S>수령일자 모름
+														    	<input name="rcptDtCh" id="rcptDtCh" type="checkbox" onclick="emptyDate(this);" <c:if test="${empty resultVO.rcptDate}">checked="checked"</c:if> >수령일자 모름
 														    </label > 
 													</div>
 													<input name="rcptDate" id="rcptDate" value="${resultVO.rcptDate}" type="hidden"  maxlength="8" readonly="readonly" />
