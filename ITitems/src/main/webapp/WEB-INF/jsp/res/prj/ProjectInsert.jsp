@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="<c:url value='/'/>css/res/page.css">
 <script src="<c:url value='/'/>js/jquery-1.11.2.min.js"></script>
 <script src="<c:url value='/'/>js/ui.js"></script>
-
+<script src="<c:url value='/'/>js/res/Inputcheck.js"></script>
 
 <script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
 <validator:javascript formName="projectVO" staticJavascript="false"
@@ -358,7 +358,7 @@ window.onload = function(){
 													<label for="prjCode">프로젝트코드</label> 
 												</td>
 												<td>
-	                                                <form:input path="prjCode" id="prjCode" class="f_txt w_full" maxlength="30" />
+	                                                <form:input path="prjCode" id="prjCode" class="f_txt w_full" maxlength="30" onchange="symbolCheck1(this);" onkeyup="symbolCheck1(this);"/>
 													<form:errors path="prjCode" />
 													
 	                                            </td>
