@@ -55,7 +55,7 @@ public class CategoryServiceImpl extends EgovAbstractServiceImpl implements Cate
 			result = categoryDAO.DeleteCategory(categoryManageVO);
 		}else{
 			int downNum = categoryDAO.findDownNum(categoryManageVO);
-			if(downNum < 1) {
+			if(downNum > 1) {
 				result = categoryDAO.DeleteCategory(categoryManageVO);
 			}
 		}
