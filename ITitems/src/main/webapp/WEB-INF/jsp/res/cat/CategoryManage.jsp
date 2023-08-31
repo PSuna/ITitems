@@ -235,7 +235,7 @@ function fnDeleteCat(e, updown){
 			},
 			success:function(result){
 				console.log(result);
-				if(result != 0){
+				if(result == 0){
 					alert("하위 자산항목이 존재합니다.");
 				}else{
 					alert("삭제 성공");

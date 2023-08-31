@@ -55,7 +55,15 @@
 			  (
 			  #{catId}, 
 			  #{catName}, 
+			  <choose>
+			  <when test="upperCat != null and upperCat != ''">
 			  #{upperCat}
+			  </when>
+			  <otherwise>
+			  NULL
+			  </otherwise>
+			  </choose>
+			  
 			  )
 	</insert>
 	<select id="findDownNum" parameterType="egovframework.let.res.cat.service.CategoryVO" resultType="int">
