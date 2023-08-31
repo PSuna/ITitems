@@ -243,7 +243,7 @@ function fnDeleteCat(e, updown){
 					document.getElementById('lowerUl').replaceChildren();
 				}
 			},error:function(error){
-				alert("하위 중분류가 존재합니다.")
+				alert("삭제 처리를 실패했습니다.")
 			}
 			
 		})
