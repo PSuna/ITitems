@@ -62,5 +62,6 @@
 		SELECT COUNT(ASSET_ID)
 		  FROM ASSET
 		 WHERE MIDDLE_CATEGORY = #{catId}
+		   AND USAGE_STAUTS != 'C4'
 	</select>
 </mapper>
